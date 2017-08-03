@@ -1,4 +1,4 @@
-package com.harambase.Pojo;
+package com.harambase.pojo;
 
 public class Transcript {
 

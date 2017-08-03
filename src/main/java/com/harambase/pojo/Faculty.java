@@ -1,7 +1,4 @@
-package com.harambase.Pojo;
-
-import java.util.LinkedList;
-import java.util.List;
+package com.harambase.pojo;
 
 public class Faculty extends Person{
 

@@ -1,15 +1,12 @@
-package com.harambase.Web;
+package com.harambase.web;
 
-import com.harambase.Pojo.Course;
-import com.harambase.Pojo.Student;
-import com.harambase.Service.CourseService;
-import com.harambase.Service.FacultyService;
-import com.harambase.Service.StudentService;
+import com.harambase.pojo.Student;
+import com.harambase.service.CourseService;
+import com.harambase.service.FacultyService;
+import com.harambase.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by linsh on 7/12/2017.

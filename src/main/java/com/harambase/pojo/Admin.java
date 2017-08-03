@@ -1,4 +1,4 @@
-package com.harambase.Pojo;
+package com.harambase.pojo;
 
 /**
  * Created by linsh on 7/12/2017.

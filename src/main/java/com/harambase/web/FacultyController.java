@@ -1,4 +1,4 @@
-package com.harambase.Web;
+package com.harambase.web;
 
 import org.springframework.stereotype.Controller;
 

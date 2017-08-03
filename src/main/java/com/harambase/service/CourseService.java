@@ -1,6 +1,6 @@
-package com.harambase.Service;
+package com.harambase.service;
 
-import com.harambase.Pojo.Course;
+import com.harambase.pojo.Course;
 
 /**
  * Created by linsh on 7/12/2017.

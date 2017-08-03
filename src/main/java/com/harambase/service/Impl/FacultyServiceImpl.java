@@ -1,6 +1,6 @@
-package com.harambase.Service.Impl;
+package com.harambase.service.Impl;
 
-import com.harambase.Service.FacultyService;
+import com.harambase.service.FacultyService;
 import org.springframework.stereotype.Service;
 
 /**

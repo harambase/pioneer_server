@@ -1,9 +1,9 @@
-package com.harambase.Web;
+package com.harambase.web;
 
-import com.harambase.Pojo.Course;
-import com.harambase.Service.CourseService;
-import com.harambase.Service.FacultyService;
-import com.harambase.Service.StudentService;
+import com.harambase.pojo.Course;
+import com.harambase.service.CourseService;
+import com.harambase.service.FacultyService;
+import com.harambase.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

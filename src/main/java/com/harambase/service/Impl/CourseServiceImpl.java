@@ -1,7 +1,7 @@
-package com.harambase.Service.Impl;
+package com.harambase.service.Impl;
 
-import com.harambase.Pojo.Course;
-import com.harambase.Service.CourseService;
+import com.harambase.pojo.Course;
+import com.harambase.service.CourseService;
 import org.springframework.stereotype.Service;
 
 /**
