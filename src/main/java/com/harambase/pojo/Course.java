@@ -1,19 +1,19 @@
 package com.harambase.pojo;
 
-public class Course {
+public class Course extends Base{
 
 	private String crn;
 	private String name;
 	private String credits;
-	private String requireid;
-	private String couLeve;
+	private String precrn;
+	private String couLev;
 	private String startDate;
 	private String endDate;
 	private String day;
 	private String startTime;
 	private String endTime;
 	private String capa; //capacity
-	private String active;
+	private String status;
 	private String facultyid;
 
 	public String getCrn() {
@@ -40,20 +40,20 @@ public class Course {
 		this.credits = credits;
 	}
 
-	public String getRequireid() {
-		return requireid;
+	public String getPrecrn() {
+		return precrn;
 	}
 
-	public void setRequireid(String requireid) {
-		this.requireid = requireid;
+	public void setPrecrn(String precrn) {
+		this.precrn = precrn;
 	}
 
-	public String getCouLeve() {
-		return couLeve;
+	public String getCouLev() {
+		return couLev;
 	}
 
-	public void setCouLeve(String couLeve) {
-		this.couLeve = couLeve;
+	public void setCouLev(String couLev) {
+		this.couLev = couLev;
 	}
 
 	public String getStartDate() {
@@ -104,12 +104,12 @@ public class Course {
 		this.capa = capa;
 	}
 
-	public String getActive() {
-		return active;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setActive(String active) {
-		this.active = active;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getFacultyid() {

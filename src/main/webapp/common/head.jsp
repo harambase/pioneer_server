@@ -3,7 +3,7 @@
     <div class="container">
         <ul>
             <a href="${basePath}/index.do">
-                <li class="active">
+                <li class="status">
                     <img src="${basePath}/static/images/navIndex.png" alt="">
                     <span>首页</span>
                 </li>

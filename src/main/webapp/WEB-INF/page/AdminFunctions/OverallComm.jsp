@@ -14,7 +14,7 @@
 			</div>			
 	    </div>
 	<ul>
-	<li class="active">
+	<li class="status">
 		<a href="${basePath}/WelcomeAdmin.do">Welcome</a>
 		
 	  <li class="dropdown">

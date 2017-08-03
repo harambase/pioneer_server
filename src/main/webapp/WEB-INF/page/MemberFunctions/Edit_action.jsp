@@ -14,7 +14,7 @@
 	</div>
 </div>
 <ul>
-	<li class="active">
+	<li class="status">
 	<a href="${basePath}/WelcomeMember.do">Welcome</a>
 	<c:if test="${member.isbuyer == 1}">
 

@@ -3,7 +3,7 @@ package com.harambase.pojo;
 /**
  * Created by linsh on 7/21/2017.
  */
-public class Advise {
+public class Advise extends Base{
 
     private String studentid;
     private String facultyid;

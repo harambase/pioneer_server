@@ -1,9 +1,8 @@
 package com.harambase.pojo;
 
-public abstract class Person{
+public abstract class Person extends Base{
 
 	private String name;
-	private String id;
 	private String password;
 	private String info;
 	private String birth;
@@ -13,8 +12,25 @@ public abstract class Person{
 	private String weChat;
 	private String dorm;
 	private String gender;
+	private String createTime;
+	private String updateTime;
+	private String status;
 
-	private boolean active;
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+
+	public String getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
 
 	public String getName() {
 		return name;
@@ -22,14 +38,6 @@ public abstract class Person{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getPassword() {
@@ -104,11 +112,11 @@ public abstract class Person{
 		this.gender = gender;
 	}
 
-	public boolean isActive() {
-		return active;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

@@ -1,6 +1,6 @@
 package com.harambase.pojo;
 
-public class Transcript {
+public class Transcript extends Base{
 
 	private String studentid;
 	private String courseid;
