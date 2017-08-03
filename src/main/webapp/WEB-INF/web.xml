@@ -72,7 +72,7 @@
 
     <filter>
         <filter-name>Login-filter</filter-name>
-        <filter-class>com.harambase.filter.Filter</filter-class>
+        <filter-class>com.harambase.pioneer.filter.Filter</filter-class>
     </filter>
 
     <filter-mapping>
