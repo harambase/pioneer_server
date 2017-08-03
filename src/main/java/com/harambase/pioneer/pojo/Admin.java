@@ -1,17 +1,23 @@
 package com.harambase.pioneer.pojo;
 
-/**
- * Created by linsh on 7/12/2017.
- */
-public class Admin extends Person{
+public class Admin {
+    private Integer id;
 
     private String type;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type == null ? null : type.trim();
     }
 }

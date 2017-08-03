@@ -1,14 +1,23 @@
 package com.harambase.pioneer.pojo;
 
-public class Faculty extends Person{
+public class Faculty {
+    private Integer id;
 
-	private String type;
+    private String type;
 
-	public String getType() {
-		return type;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
 }

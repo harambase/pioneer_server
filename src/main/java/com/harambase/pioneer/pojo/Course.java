@@ -1,131 +1,153 @@
 package com.harambase.pioneer.pojo;
 
-public class Course extends Base{
+public class Course {
+    private Integer id;
 
-	private String crn;
-	private String name;
-	private String credits;
-	private String precrn;
-	private String couLev;
-	private String couSec;
-	private String startDate;
-	private String endDate;
-	private String day;
-	private String startTime;
-	private String endTime;
-	private String capa; //capacity
-	private String status;
-	private String facultyid;
+    private Integer crn;
 
-	public String getCouSec() {
-		return couSec;
-	}
+    private String name;
 
-	public void setCouSec(String couSec) {
-		this.couSec = couSec;
-	}
+    private Integer credits;
 
-	public String getCrn() {
-		return crn;
-	}
+    private Integer precrn;
 
-	public void setCrn(String crn) {
-		this.crn = crn;
-	}
+    private String coulev;
 
-	public String getName() {
-		return name;
-	}
+    private String cousec;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String startdate;
 
-	public String getCredits() {
-		return credits;
-	}
+    private String enddate;
 
-	public void setCredits(String credits) {
-		this.credits = credits;
-	}
+    private String day;
 
-	public String getPrecrn() {
-		return precrn;
-	}
+    private String starttime;
 
-	public void setPrecrn(String precrn) {
-		this.precrn = precrn;
-	}
+    private String endtime;
 
-	public String getCouLev() {
-		return couLev;
-	}
+    private Integer capa;
 
-	public void setCouLev(String couLev) {
-		this.couLev = couLev;
-	}
+    private String status;
 
-	public String getStartDate() {
-		return startDate;
-	}
+    private Integer facultyid;
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getEndDate() {
-		return endDate;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
+    public Integer getCrn() {
+        return crn;
+    }
 
-	public String getDay() {
-		return day;
-	}
+    public void setCrn(Integer crn) {
+        this.crn = crn;
+    }
 
-	public void setDay(String day) {
-		this.day = day;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getStartTime() {
-		return startTime;
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
+    public Integer getCredits() {
+        return credits;
+    }
 
-	public String getEndTime() {
-		return endTime;
-	}
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
 
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
+    public Integer getPrecrn() {
+        return precrn;
+    }
 
-	public String getCapa() {
-		return capa;
-	}
+    public void setPrecrn(Integer precrn) {
+        this.precrn = precrn;
+    }
 
-	public void setCapa(String capa) {
-		this.capa = capa;
-	}
+    public String getCoulev() {
+        return coulev;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setCoulev(String coulev) {
+        this.coulev = coulev == null ? null : coulev.trim();
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getCousec() {
+        return cousec;
+    }
 
-	public String getFacultyid() {
-		return facultyid;
-	}
+    public void setCousec(String cousec) {
+        this.cousec = cousec == null ? null : cousec.trim();
+    }
 
-	public void setFacultyid(String facultyid) {
-		this.facultyid = facultyid;
-	}
+    public String getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(String startdate) {
+        this.startdate = startdate == null ? null : startdate.trim();
+    }
+
+    public String getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(String enddate) {
+        this.enddate = enddate == null ? null : enddate.trim();
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day == null ? null : day.trim();
+    }
+
+    public String getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(String starttime) {
+        this.starttime = starttime == null ? null : starttime.trim();
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
+    }
+
+    public Integer getCapa() {
+        return capa;
+    }
+
+    public void setCapa(Integer capa) {
+        this.capa = capa;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public Integer getFacultyid() {
+        return facultyid;
+    }
+
+    public void setFacultyid(Integer facultyid) {
+        this.facultyid = facultyid;
+    }
 }

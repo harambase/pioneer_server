@@ -1,122 +1,133 @@
 package com.harambase.pioneer.pojo;
 
-public abstract class Person extends Base{
+public class Person {
+    private Integer id;
 
-	private String name;
-	private String password;
-	private String info;
-	private String birth;
-	private String tel;
-	private String qq;
-	private String email;
-	private String weChat;
-	private String dorm;
-	private String gender;
-	private String createTime;
-	private String updateTime;
-	private String status;
+    private Integer userid;
 
-	public String getCreateTime() {
-		return createTime;
-	}
+    private String name;
 
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
+    private String password;
 
-	public String getUpdateTime() {
-		return updateTime;
-	}
+    private String info;
 
-	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
-	}
+    private String tel;
 
-	public String getName() {
-		return name;
-	}
+    private String qq;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String wechat;
 
-	public String getPassword() {
-		return password;
-	}
+    private String dorm;
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    private String gender;
 
-	public String getInfo() {
-		return info;
-	}
+    private String createtime;
 
-	public void setInfo(String info) {
-		this.info = info;
-	}
+    private String updatetime;
 
-	public String getBirth() {
-		return birth;
-	}
+    private Long status;
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getTel() {
-		return tel;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
+    public Integer getUserid() {
+        return userid;
+    }
 
-	public String getQq() {
-		return qq;
-	}
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
 
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getWeChat() {
-		return weChat;
-	}
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-	public void setWeChat(String weChat) {
-		this.weChat = weChat;
-	}
+    public String getInfo() {
+        return info;
+    }
 
-	public String getDorm() {
-		return dorm;
-	}
+    public void setInfo(String info) {
+        this.info = info == null ? null : info.trim();
+    }
 
-	public void setDorm(String dorm) {
-		this.dorm = dorm;
-	}
+    public String getTel() {
+        return tel;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setTel(String tel) {
+        this.tel = tel == null ? null : tel.trim();
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public String getQq() {
+        return qq;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat == null ? null : wechat.trim();
+    }
+
+    public String getDorm() {
+        return dorm;
+    }
+
+    public void setDorm(String dorm) {
+        this.dorm = dorm == null ? null : dorm.trim();
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime == null ? null : updatetime.trim();
+    }
+
+    public Long getStatus() {
+        return status;
+    }
+
+    public void setStatus(Long status) {
+        this.status = status;
+    }
 }

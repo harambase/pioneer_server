@@ -1,26 +1,33 @@
 package com.harambase.pioneer.pojo;
 
-/**
- * Created by linsh on 7/21/2017.
- */
-public class Advise extends Base{
+public class Advise {
+    private Integer id;
 
-    private String studentid;
-    private String facultyid;
+    private Integer studentid;
 
-    public String getStudentid() {
+    private Integer facultyid;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getStudentid() {
         return studentid;
     }
 
-    public void setStudentid(String studentid) {
+    public void setStudentid(Integer studentid) {
         this.studentid = studentid;
     }
 
-    public String getFacultyid() {
+    public Integer getFacultyid() {
         return facultyid;
     }
 
-    public void setFacultyid(String facultyid) {
+    public void setFacultyid(Integer facultyid) {
         this.facultyid = facultyid;
     }
 }

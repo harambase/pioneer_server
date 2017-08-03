@@ -1,52 +1,63 @@
 package com.harambase.pioneer.pojo;
 
-public class Transcript extends Base{
+public class Transcript {
+    private Integer id;
 
-	private String studentid;
-	private String crn;
-	private String facultyid;
-	private String grade;
-	private String complete;
+    private Integer studentid;
 
+    private Integer crn;
 
-	public String getStudentid() {
-		return studentid;
-	}
+    private Integer facultyid;
 
-	public void setStudentid(String studentid) {
-		this.studentid = studentid;
-	}
+    private String grade;
 
-	public String getCrn() {
-		return crn;
-	}
+    private String complete;
 
-	public void setCrn(String crn) {
-		this.crn = crn;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public String getFacultyid() {
-		return facultyid;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setFacultyid(String facultyid) {
-		this.facultyid = facultyid;
-	}
+    public Integer getStudentid() {
+        return studentid;
+    }
 
-	public String getGrade() {
-		return grade;
-	}
+    public void setStudentid(Integer studentid) {
+        this.studentid = studentid;
+    }
 
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
+    public Integer getCrn() {
+        return crn;
+    }
 
-	public String getComplete() {
-		return complete;
-	}
+    public void setCrn(Integer crn) {
+        this.crn = crn;
+    }
 
-	public void setComplete(String complete) {
-		this.complete = complete;
-	}
+    public Integer getFacultyid() {
+        return facultyid;
+    }
+
+    public void setFacultyid(Integer facultyid) {
+        this.facultyid = facultyid;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade == null ? null : grade.trim();
+    }
+
+    public String getComplete() {
+        return complete;
+    }
+
+    public void setComplete(String complete) {
+        this.complete = complete == null ? null : complete.trim();
+    }
 }
-	

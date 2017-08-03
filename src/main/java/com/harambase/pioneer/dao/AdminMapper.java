@@ -3,7 +3,6 @@ package com.harambase.pioneer.dao;
 import com.harambase.pioneer.pojo.Admin;
 
 public interface AdminMapper {
-
     int deleteByPrimaryKey(Integer id);
 
     int insert(Admin record);

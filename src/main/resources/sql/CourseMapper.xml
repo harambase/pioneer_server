@@ -1,117 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harambase.pioneer.dao.CourseMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Course" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="crn" property="crn" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="credits" property="credits" jdbcType="INTEGER" />
-    <result column="precrn" property="precrn" jdbcType="INTEGER" />
-    <result column="couLev" property="coulev" jdbcType="VARCHAR" />
-    <result column="couSec" property="cousec" jdbcType="VARCHAR" />
-    <result column="startDate" property="startdate" jdbcType="VARCHAR" />
-    <result column="endDate" property="enddate" jdbcType="VARCHAR" />
-    <result column="day" property="day" jdbcType="VARCHAR" />
-    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
-    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
-    <result column="capa" property="capa" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="facultyid" property="facultyid" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harambase.pioneer.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="crn" jdbcType="INTEGER" property="crn" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="credits" jdbcType="INTEGER" property="credits" />
+    <result column="precrn" jdbcType="INTEGER" property="precrn" />
+    <result column="couLev" jdbcType="VARCHAR" property="coulev" />
+    <result column="couSec" jdbcType="VARCHAR" property="cousec" />
+    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
+    <result column="endDate" jdbcType="VARCHAR" property="enddate" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="capa" jdbcType="INTEGER" property="capa" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
     endTime, capa, status, facultyid
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.CourseExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from Course
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from Course
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Course
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.harambase.pioneer.pojo.CourseExample" >
-    delete from Course
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course">
     insert into Course (id, crn, name, 
       credits, precrn, couLev, 
       couSec, startDate, endDate, 
@@ -125,163 +46,658 @@
       #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course">
     insert into Course
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="crn != null" >
+      <if test="crn != null">
         crn,
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name,
       </if>
-      <if test="credits != null" >
+      <if test="credits != null">
         credits,
       </if>
-      <if test="precrn != null" >
+      <if test="precrn != null">
         precrn,
       </if>
-      <if test="coulev != null" >
+      <if test="coulev != null">
         couLev,
       </if>
-      <if test="cousec != null" >
+      <if test="cousec != null">
         couSec,
       </if>
-      <if test="startdate != null" >
+      <if test="startdate != null">
         startDate,
       </if>
-      <if test="enddate != null" >
+      <if test="enddate != null">
         endDate,
       </if>
-      <if test="day != null" >
+      <if test="day != null">
         day,
       </if>
-      <if test="starttime != null" >
+      <if test="starttime != null">
         startTime,
       </if>
-      <if test="endtime != null" >
+      <if test="endtime != null">
         endTime,
       </if>
-      <if test="capa != null" >
+      <if test="capa != null">
         capa,
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status,
       </if>
-      <if test="facultyid != null" >
+      <if test="facultyid != null">
         facultyid,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="crn != null" >
+      <if test="crn != null">
         #{crn,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="credits != null" >
+      <if test="credits != null">
         #{credits,jdbcType=INTEGER},
       </if>
-      <if test="precrn != null" >
+      <if test="precrn != null">
         #{precrn,jdbcType=INTEGER},
       </if>
-      <if test="coulev != null" >
+      <if test="coulev != null">
         #{coulev,jdbcType=VARCHAR},
       </if>
-      <if test="cousec != null" >
+      <if test="cousec != null">
         #{cousec,jdbcType=VARCHAR},
       </if>
-      <if test="startdate != null" >
+      <if test="startdate != null">
         #{startdate,jdbcType=VARCHAR},
       </if>
-      <if test="enddate != null" >
+      <if test="enddate != null">
         #{enddate,jdbcType=VARCHAR},
       </if>
-      <if test="day != null" >
+      <if test="day != null">
         #{day,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null" >
+      <if test="starttime != null">
         #{starttime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null" >
+      <if test="endtime != null">
         #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="capa != null" >
+      <if test="capa != null">
         #{capa,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         #{status,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
+      <if test="facultyid != null">
         #{facultyid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.harambase.pioneer.pojo.CourseExample" resultType="java.lang.Integer" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course">
+    update Course
+    <set>
+      <if test="crn != null">
+        crn = #{crn,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        credits = #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="precrn != null">
+        precrn = #{precrn,jdbcType=INTEGER},
+      </if>
+      <if test="coulev != null">
+        couLev = #{coulev,jdbcType=VARCHAR},
+      </if>
+      <if test="cousec != null">
+        couSec = #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="capa != null">
+        capa = #{capa,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="facultyid != null">
+        facultyid = #{facultyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course">
+    update Course
+    set crn = #{crn,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      credits = #{credits,jdbcType=INTEGER},
+      precrn = #{precrn,jdbcType=INTEGER},
+      couLev = #{coulev,jdbcType=VARCHAR},
+      couSec = #{cousec,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      day = #{day,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      capa = #{capa,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      facultyid = #{facultyid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="pojo.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="crn" jdbcType="INTEGER" property="crn" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="credits" jdbcType="INTEGER" property="credits" />
+    <result column="precrn" jdbcType="INTEGER" property="precrn" />
+    <result column="couLev" jdbcType="VARCHAR" property="coulev" />
+    <result column="couSec" jdbcType="VARCHAR" property="cousec" />
+    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
+    <result column="endDate" jdbcType="VARCHAR" property="enddate" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="capa" jdbcType="INTEGER" property="capa" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
+    endTime, capa, status, facultyid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="pojo.Course">
+    insert into Course (id, crn, name, 
+      credits, precrn, couLev, 
+      couSec, startDate, endDate, 
+      day, startTime, endTime, 
+      capa, status, facultyid
+      )
+    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=INTEGER}, #{coulev,jdbcType=VARCHAR}, 
+      #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
+      #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="pojo.Course">
+    insert into Course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="crn != null">
+        crn,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="credits != null">
+        credits,
+      </if>
+      <if test="precrn != null">
+        precrn,
+      </if>
+      <if test="coulev != null">
+        couLev,
+      </if>
+      <if test="cousec != null">
+        couSec,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="day != null">
+        day,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="capa != null">
+        capa,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="facultyid != null">
+        facultyid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="crn != null">
+        #{crn,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="precrn != null">
+        #{precrn,jdbcType=INTEGER},
+      </if>
+      <if test="coulev != null">
+        #{coulev,jdbcType=VARCHAR},
+      </if>
+      <if test="cousec != null">
+        #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="capa != null">
+        #{capa,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="facultyid != null">
+        #{facultyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="pojo.Course">
+    update Course
+    <set>
+      <if test="crn != null">
+        crn = #{crn,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        credits = #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="precrn != null">
+        precrn = #{precrn,jdbcType=INTEGER},
+      </if>
+      <if test="coulev != null">
+        couLev = #{coulev,jdbcType=VARCHAR},
+      </if>
+      <if test="cousec != null">
+        couSec = #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        day = #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="capa != null">
+        capa = #{capa,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="facultyid != null">
+        facultyid = #{facultyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="pojo.Course">
+    update Course
+    set crn = #{crn,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      credits = #{credits,jdbcType=INTEGER},
+      precrn = #{precrn,jdbcType=INTEGER},
+      couLev = #{coulev,jdbcType=VARCHAR},
+      couSec = #{cousec,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      day = #{day,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      capa = #{capa,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      facultyid = #{facultyid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Course">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="crn" jdbcType="INTEGER" property="crn" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="credits" jdbcType="INTEGER" property="credits" />
+    <result column="precrn" jdbcType="INTEGER" property="precrn" />
+    <result column="couLev" jdbcType="VARCHAR" property="coulev" />
+    <result column="couSec" jdbcType="VARCHAR" property="cousec" />
+    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
+    <result column="endDate" jdbcType="VARCHAR" property="enddate" />
+    <result column="day" jdbcType="VARCHAR" property="day" />
+    <result column="startTime" jdbcType="VARCHAR" property="starttime" />
+    <result column="endTime" jdbcType="VARCHAR" property="endtime" />
+    <result column="capa" jdbcType="INTEGER" property="capa" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
+    endTime, capa, status, facultyid
+  </sql>
+  <select id="selectByExample" parameterType="com.harambase.pioneer.pojo.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from Course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.harambase.pioneer.pojo.CourseExample">
+    delete from Course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course">
+    insert into Course (id, crn, name, 
+      credits, precrn, couLev, 
+      couSec, startDate, endDate, 
+      day, startTime, endTime, 
+      capa, status, facultyid
+      )
+    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=INTEGER}, #{coulev,jdbcType=VARCHAR}, 
+      #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
+      #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
+      #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course">
+    insert into Course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="crn != null">
+        crn,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="credits != null">
+        credits,
+      </if>
+      <if test="precrn != null">
+        precrn,
+      </if>
+      <if test="coulev != null">
+        couLev,
+      </if>
+      <if test="cousec != null">
+        couSec,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="day != null">
+        day,
+      </if>
+      <if test="starttime != null">
+        startTime,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="capa != null">
+        capa,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="facultyid != null">
+        facultyid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="crn != null">
+        #{crn,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="credits != null">
+        #{credits,jdbcType=INTEGER},
+      </if>
+      <if test="precrn != null">
+        #{precrn,jdbcType=INTEGER},
+      </if>
+      <if test="coulev != null">
+        #{coulev,jdbcType=VARCHAR},
+      </if>
+      <if test="cousec != null">
+        #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="day != null">
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="capa != null">
+        #{capa,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="facultyid != null">
+        #{facultyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.harambase.pioneer.pojo.CourseExample" resultType="java.lang.Integer">
     select count(*) from Course
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update Course
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.crn != null" >
+      <if test="record.crn != null">
         crn = #{record.crn,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null" >
+      <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.credits != null" >
+      <if test="record.credits != null">
         credits = #{record.credits,jdbcType=INTEGER},
       </if>
-      <if test="record.precrn != null" >
+      <if test="record.precrn != null">
         precrn = #{record.precrn,jdbcType=INTEGER},
       </if>
-      <if test="record.coulev != null" >
+      <if test="record.coulev != null">
         couLev = #{record.coulev,jdbcType=VARCHAR},
       </if>
-      <if test="record.cousec != null" >
+      <if test="record.cousec != null">
         couSec = #{record.cousec,jdbcType=VARCHAR},
       </if>
-      <if test="record.startdate != null" >
+      <if test="record.startdate != null">
         startDate = #{record.startdate,jdbcType=VARCHAR},
       </if>
-      <if test="record.enddate != null" >
+      <if test="record.enddate != null">
         endDate = #{record.enddate,jdbcType=VARCHAR},
       </if>
-      <if test="record.day != null" >
+      <if test="record.day != null">
         day = #{record.day,jdbcType=VARCHAR},
       </if>
-      <if test="record.starttime != null" >
+      <if test="record.starttime != null">
         startTime = #{record.starttime,jdbcType=VARCHAR},
       </if>
-      <if test="record.endtime != null" >
+      <if test="record.endtime != null">
         endTime = #{record.endtime,jdbcType=VARCHAR},
       </if>
-      <if test="record.capa != null" >
+      <if test="record.capa != null">
         capa = #{record.capa,jdbcType=INTEGER},
       </if>
-      <if test="record.status != null" >
+      <if test="record.status != null">
         status = #{record.status,jdbcType=VARCHAR},
       </if>
-      <if test="record.facultyid != null" >
+      <if test="record.facultyid != null">
         facultyid = #{record.facultyid,jdbcType=INTEGER},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update Course
     set id = #{record.id,jdbcType=INTEGER},
       crn = #{record.crn,jdbcType=INTEGER},
@@ -298,59 +714,59 @@
       capa = #{record.capa,jdbcType=INTEGER},
       status = #{record.status,jdbcType=VARCHAR},
       facultyid = #{record.facultyid,jdbcType=INTEGER}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course">
     update Course
-    <set >
-      <if test="crn != null" >
+    <set>
+      <if test="crn != null">
         crn = #{crn,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="credits != null" >
+      <if test="credits != null">
         credits = #{credits,jdbcType=INTEGER},
       </if>
-      <if test="precrn != null" >
+      <if test="precrn != null">
         precrn = #{precrn,jdbcType=INTEGER},
       </if>
-      <if test="coulev != null" >
+      <if test="coulev != null">
         couLev = #{coulev,jdbcType=VARCHAR},
       </if>
-      <if test="cousec != null" >
+      <if test="cousec != null">
         couSec = #{cousec,jdbcType=VARCHAR},
       </if>
-      <if test="startdate != null" >
+      <if test="startdate != null">
         startDate = #{startdate,jdbcType=VARCHAR},
       </if>
-      <if test="enddate != null" >
+      <if test="enddate != null">
         endDate = #{enddate,jdbcType=VARCHAR},
       </if>
-      <if test="day != null" >
+      <if test="day != null">
         day = #{day,jdbcType=VARCHAR},
       </if>
-      <if test="starttime != null" >
+      <if test="starttime != null">
         startTime = #{starttime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null" >
+      <if test="endtime != null">
         endTime = #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="capa != null" >
+      <if test="capa != null">
         capa = #{capa,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
+      <if test="status != null">
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
+      <if test="facultyid != null">
         facultyid = #{facultyid,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course">
     update Course
     set crn = #{crn,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},

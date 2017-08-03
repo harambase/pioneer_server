@@ -1,8 +1,8 @@
 package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Transcript;
-public interface TranscriptMapper {
 
+public interface TranscriptMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Transcript record);

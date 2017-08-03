@@ -3,7 +3,6 @@ package com.harambase.pioneer.dao;
 import com.harambase.pioneer.pojo.Student;
 
 public interface StudentMapper {
-
     int deleteByPrimaryKey(Integer id);
 
     int insert(Student record);
