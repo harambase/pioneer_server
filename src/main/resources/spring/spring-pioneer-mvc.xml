@@ -21,7 +21,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
     <!-- 设置使用注解的类所在的jar包 -->
-    <context:component-scan base-package="com.harambase.pioneer"></context:component-scan>
+    <context:component-scan base-package="com.harambase.pioneer"/>
 
     <!-- 放行 登陆的界面 因为springmvc要带*.do -->
 	 	 <!-- <mvc:interceptors>

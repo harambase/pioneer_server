@@ -8,7 +8,7 @@ body{
 	font-family: Consolas, monaco, monospace;
 	line-height: 1.4em;
 	color: #333;
-	background-color: #204a87;
+	background-image: url("../webapp/Images/Texture-1024x724.jpg");
 	overflow-x:hidden;
 	}
 a{
