@@ -1,28 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.harambase.pioneer.dao.TranscriptMapper">
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="studentid" jdbcType="INTEGER" property="studentid" />
-    <result column="crn" jdbcType="INTEGER" property="crn" />
-    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
-    <result column="grade" jdbcType="VARCHAR" property="grade" />
-    <result column="complete" jdbcType="VARCHAR" property="complete" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.harambase.pioneer.dao.TranscriptMapper" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="studentid" property="studentid" jdbcType="INTEGER" />
+    <result column="crn" property="crn" jdbcType="INTEGER" />
+    <result column="facultyid" property="facultyid" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="complete" property="complete" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, studentid, crn, facultyid, grade, complete
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from Transcript
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Transcript
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Transcript">
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Transcript" >
     insert into Transcript (id, studentid, crn, 
       facultyid, grade, complete
       )
@@ -30,398 +30,71 @@
       #{facultyid,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript">
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
     insert into Transcript
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="studentid != null">
+      <if test="studentid != null" >
         studentid,
       </if>
-      <if test="crn != null">
+      <if test="crn != null" >
         crn,
       </if>
-      <if test="facultyid != null">
+      <if test="facultyid != null" >
         facultyid,
       </if>
-      <if test="grade != null">
+      <if test="grade != null" >
         grade,
       </if>
-      <if test="complete != null">
+      <if test="complete != null" >
         complete,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="studentid != null">
+      <if test="studentid != null" >
         #{studentid,jdbcType=INTEGER},
       </if>
-      <if test="crn != null">
+      <if test="crn != null" >
         #{crn,jdbcType=INTEGER},
       </if>
-      <if test="facultyid != null">
+      <if test="facultyid != null" >
         #{facultyid,jdbcType=INTEGER},
       </if>
-      <if test="grade != null">
+      <if test="grade != null" >
         #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="complete != null">
+      <if test="complete != null" >
         #{complete,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Transcript">
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
     update Transcript
-    <set>
-      <if test="studentid != null">
+    <set >
+      <if test="studentid != null" >
         studentid = #{studentid,jdbcType=INTEGER},
       </if>
-      <if test="crn != null">
+      <if test="crn != null" >
         crn = #{crn,jdbcType=INTEGER},
       </if>
-      <if test="facultyid != null">
+      <if test="facultyid != null" >
         facultyid = #{facultyid,jdbcType=INTEGER},
       </if>
-      <if test="grade != null">
+      <if test="grade != null" >
         grade = #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="complete != null">
+      <if test="complete != null" >
         complete = #{complete,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript">
-    update Transcript
-    set studentid = #{studentid,jdbcType=INTEGER},
-      crn = #{crn,jdbcType=INTEGER},
-      facultyid = #{facultyid,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=VARCHAR},
-      complete = #{complete,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="pojo.Transcript">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="studentid" jdbcType="INTEGER" property="studentid" />
-    <result column="crn" jdbcType="INTEGER" property="crn" />
-    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
-    <result column="grade" jdbcType="VARCHAR" property="grade" />
-    <result column="complete" jdbcType="VARCHAR" property="complete" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, studentid, crn, facultyid, grade, complete
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Transcript
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Transcript
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="pojo.Transcript">
-    insert into Transcript (id, studentid, crn, 
-      facultyid, grade, complete
-      )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, 
-      #{facultyid,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="pojo.Transcript">
-    insert into Transcript
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="studentid != null">
-        studentid,
-      </if>
-      <if test="crn != null">
-        crn,
-      </if>
-      <if test="facultyid != null">
-        facultyid,
-      </if>
-      <if test="grade != null">
-        grade,
-      </if>
-      <if test="complete != null">
-        complete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="studentid != null">
-        #{studentid,jdbcType=INTEGER},
-      </if>
-      <if test="crn != null">
-        #{crn,jdbcType=INTEGER},
-      </if>
-      <if test="facultyid != null">
-        #{facultyid,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="complete != null">
-        #{complete,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="pojo.Transcript">
-    update Transcript
-    <set>
-      <if test="studentid != null">
-        studentid = #{studentid,jdbcType=INTEGER},
-      </if>
-      <if test="crn != null">
-        crn = #{crn,jdbcType=INTEGER},
-      </if>
-      <if test="facultyid != null">
-        facultyid = #{facultyid,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        grade = #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="complete != null">
-        complete = #{complete,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="pojo.Transcript">
-    update Transcript
-    set studentid = #{studentid,jdbcType=INTEGER},
-      crn = #{crn,jdbcType=INTEGER},
-      facultyid = #{facultyid,jdbcType=INTEGER},
-      grade = #{grade,jdbcType=VARCHAR},
-      complete = #{complete,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="studentid" jdbcType="INTEGER" property="studentid" />
-    <result column="crn" jdbcType="INTEGER" property="crn" />
-    <result column="facultyid" jdbcType="INTEGER" property="facultyid" />
-    <result column="grade" jdbcType="VARCHAR" property="grade" />
-    <result column="complete" jdbcType="VARCHAR" property="complete" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    id, studentid, crn, facultyid, grade, complete
-  </sql>
-  <select id="selectByExample" parameterType="com.harambase.pioneer.pojo.TranscriptExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from Transcript
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from Transcript
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Transcript
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.harambase.pioneer.pojo.TranscriptExample">
-    delete from Transcript
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Transcript">
-    insert into Transcript (id, studentid, crn, 
-      facultyid, grade, complete
-      )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, 
-      #{facultyid,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript">
-    insert into Transcript
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="studentid != null">
-        studentid,
-      </if>
-      <if test="crn != null">
-        crn,
-      </if>
-      <if test="facultyid != null">
-        facultyid,
-      </if>
-      <if test="grade != null">
-        grade,
-      </if>
-      <if test="complete != null">
-        complete,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="studentid != null">
-        #{studentid,jdbcType=INTEGER},
-      </if>
-      <if test="crn != null">
-        #{crn,jdbcType=INTEGER},
-      </if>
-      <if test="facultyid != null">
-        #{facultyid,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="complete != null">
-        #{complete,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.harambase.pioneer.pojo.TranscriptExample" resultType="java.lang.Integer">
-    select count(*) from Transcript
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update Transcript
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.studentid != null">
-        studentid = #{record.studentid,jdbcType=INTEGER},
-      </if>
-      <if test="record.crn != null">
-        crn = #{record.crn,jdbcType=INTEGER},
-      </if>
-      <if test="record.facultyid != null">
-        facultyid = #{record.facultyid,jdbcType=INTEGER},
-      </if>
-      <if test="record.grade != null">
-        grade = #{record.grade,jdbcType=VARCHAR},
-      </if>
-      <if test="record.complete != null">
-        complete = #{record.complete,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update Transcript
-    set id = #{record.id,jdbcType=INTEGER},
-      studentid = #{record.studentid,jdbcType=INTEGER},
-      crn = #{record.crn,jdbcType=INTEGER},
-      facultyid = #{record.facultyid,jdbcType=INTEGER},
-      grade = #{record.grade,jdbcType=VARCHAR},
-      complete = #{record.complete,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Transcript">
-    update Transcript
-    <set>
-      <if test="studentid != null">
-        studentid = #{studentid,jdbcType=INTEGER},
-      </if>
-      <if test="crn != null">
-        crn = #{crn,jdbcType=INTEGER},
-      </if>
-      <if test="facultyid != null">
-        facultyid = #{facultyid,jdbcType=INTEGER},
-      </if>
-      <if test="grade != null">
-        grade = #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="complete != null">
-        complete = #{complete,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript">
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript" >
     update Transcript
     set studentid = #{studentid,jdbcType=INTEGER},
       crn = #{crn,jdbcType=INTEGER},

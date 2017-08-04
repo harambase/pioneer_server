@@ -17,5 +17,5 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<import resource="spring-pioneer-mybatis.xml"></import>
+	<import resource="spring-pioneer-mybatis.xml"/>
 </beans>
