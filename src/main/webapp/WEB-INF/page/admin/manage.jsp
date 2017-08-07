@@ -25,7 +25,7 @@
 
 </head>
 <body>
-<div class="sidebar">
+<div class="sidebar" style="top: 0px;">
     <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Manage</span></h1>
     <ul>
         <li><a href="${basePath}/welcomeAdmin"><i class="fa fa-dashboard push"></i>Dashboard<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>

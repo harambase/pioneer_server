@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable {
     private Integer id;
 
     private Integer crn;

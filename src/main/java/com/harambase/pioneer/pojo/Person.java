@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable{
     private Integer id;
 
     private Integer userid;

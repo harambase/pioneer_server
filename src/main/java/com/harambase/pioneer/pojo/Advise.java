@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Advise {
+import java.io.Serializable;
+
+public class Advise implements Serializable {
     private Integer id;
 
     private Integer studentid;

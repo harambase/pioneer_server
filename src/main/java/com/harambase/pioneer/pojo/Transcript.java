@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Transcript {
+import java.io.Serializable;
+
+public class Transcript implements Serializable {
     private Integer id;
 
     private Integer studentid;
