@@ -14,6 +14,8 @@
     <title>欢迎，Welcome</title>
 </head>
 <body>
+<%@include file="../common/commonHeader.jsp"%>
+
 
 </body>
 <%@include file="../common/commonFooter.jsp"%>
