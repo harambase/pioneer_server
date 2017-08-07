@@ -5,12 +5,12 @@
     <h1><i class="fa fa-bars push"></i>Student <span class="color">Menu</span></h1>
     <ul>
         <li>
-            <a href="${basePath}\welcomeStudent">
+            <a href="${basePath}/welcomeStudent">
                 <i class="fa fa-dashboard push"></i>Dashboard<i class="fa fa-angle-right"></i>
             </a>
             <span class="hover"></span>
         </li>
-        <li><a href="#"><i class="fa fa-user push"></i>Student Service<i class="fa fa-angle-right"></i></a>
+        <li><a href="#"><i class="fa fa-user push"></i>Service<i class="fa fa-angle-right"></i></a>
             <span class="hover"></span>
             <ul class="sub-menu">
                 <li><a href="#">Course Schedule<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
@@ -28,11 +28,11 @@
         </li>
         <li>
             <a href="#">
-            <i class="fa fa-cog push"></i>Profile Settings<i class="fa fa-angle-right"></i>
+            <i class="fa fa-cog push"></i>Settings<i class="fa fa-angle-right"></i>
             </a>
             <span class="hover"></span>
         </li>
         <li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="../../../static/js/headerJs/index.js"></script>
+<script src="../../../static/js/otherJs/index.js"></script>

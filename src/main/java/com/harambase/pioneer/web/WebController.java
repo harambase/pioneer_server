@@ -30,6 +30,10 @@ public class WebController {
     public String header(){
         return "student/studentHeader";
     }
+    @RequestMapping("/manage")
+    public String adminManage(){
+        return "admin/manage";
+    }
 
 
 }

@@ -12,9 +12,9 @@ html {
 .sidebar {
     width: 250px;
     height: 100%;
-    position: fixed;
+    position: inherit;
     background: url("http://themes.mediacreed.com/html/synergy/assets/patterns/menu/menu_pattern_1.png");
-    border-right: 10px solid #d00355;
+    border-right: 10px solid #03ced0;
 }
 .sidebar ul {
     margin-top: 30px;
@@ -39,7 +39,7 @@ html {
     height: 40px;
     top: 0px;
     left: 0px;
-    background: #d00355;
+    background:  #adb4b5;
     z-index: 0;
     opacity: 0;
 }
@@ -77,10 +77,10 @@ html {
 h1 {
     color: #FFF;
     font: 16px Open Sans;
-    padding-left: 50px;
+    padding-left: 10px;
     padding-top: 30px;
 }
 
 .color {
-    color: #d00355;
+    color: #03ced0;
 }
