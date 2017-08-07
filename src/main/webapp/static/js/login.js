@@ -9,7 +9,7 @@ $(function (){
                 password: password
             };
             $.ajax({
-                url: basePath + "/admin/login",
+                url: "/admin/login",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(person),

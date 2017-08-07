@@ -23,6 +23,11 @@ public class Filter implements javax.servlet.Filter {
             chain.doFilter(req,resp);
             return;
         }
+        if (uri.indexOf("welcomeStudent")!=-1){
+            chain.doFilter(req,resp);
+            return;
+        }
+
         if(session.getAttribute("admin") !=null)
             chain.doFilter(request,resp);
         else if(session.getAttribute("member") !=null)

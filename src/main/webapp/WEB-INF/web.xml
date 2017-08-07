@@ -56,10 +56,6 @@
     </listener>
 
     <distributable/>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>/WEB-INF/page/index.jsp</welcome-file>
@@ -70,14 +66,28 @@
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
-    <filter>
-        <filter-name>Login-filter</filter-name>
-        <filter-class>com.harambase.pioneer.filter.Filter</filter-class>
-    </filter>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-pioneer-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-    <filter-mapping>
-        <filter-name>Login-filter</filter-name>
-        <url-pattern>*.do</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>Login-filter</filter-name>-->
+        <!--<filter-class>com.harambase.pioneer.filter.Filter</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>Login-filter</filter-name>-->
+        <!--<url-pattern>*.do</url-pattern>-->
+    <!--</filter-mapping>-->
 
 </web-app>
