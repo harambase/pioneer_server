@@ -22,7 +22,10 @@ public class WebController {
     public String welcomeFaculty(){
         return "faculty/welcomeFaculty";
     }
-
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
 
 
 }

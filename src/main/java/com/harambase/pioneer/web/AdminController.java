@@ -48,7 +48,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public ResponseEntity login(HttpSession session){
+    public ResponseEntity logout(HttpSession session){
         session.invalidate();
         HaramMessage message = new HaramMessage();
         message.setCode(FlagDict.SUCCESS.getV());

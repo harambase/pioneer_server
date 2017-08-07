@@ -8,7 +8,7 @@ body{
 	font-family: Consolas, monaco, monospace;
 	line-height: 1.4em;
 	color: #333;
-	background-image: url("Images/Texture-1024x724.jpg");
+	background-image: url("../../Images/Texture-1024x724.jpg");
 	background-size: cover;
 	overflow-x:hidden;
 	}
@@ -30,7 +30,6 @@ img{
 	height: 140px;
 	margin: 0 auto;
 	background-color: #eeeeec;
-	/*background-color:transparent;*/
 }
 .logo img{
 	display: block;
@@ -48,7 +47,7 @@ img{
 	}
 #outerWrapper #innerWrapper{
 	margin: 0 auto;
-	padding: 0;
+	padding: 55px;
 	background-color: #d3d7cf;
 	text-align: center;
 	}
@@ -57,7 +56,7 @@ img{
 	text-align: center;
 	color: #373737;
 	font-weight: normal;
-	font-size:1.6em;
+	font-size:2.1em;
 	font-family: Georgia,"Tahoma;", Times, serif;
 	font-style:italic;
 	}
@@ -74,7 +73,7 @@ img{
 	margin: 0 auto;
 	margin-top: 12px;
 	margin-bottom: 6px;
-	}
+}
 #outerWrapper #innerWrapper #content #input #usernamefield,
 #outerWrapper #innerWrapper #content #input #passwordfield{
 	width: 100%;
@@ -102,7 +101,7 @@ img{
 	margin: 10px auto;
 }
 	
-.btn {
+.button {
 	padding: 6px 50px 6px 50px;
 	font-size:.8em;
 	-webkit-appearance:button;
@@ -115,21 +114,21 @@ img{
 	font-weight: normal;
 	text-transform:uppercase;
   	background: -webkit-linear-gradient(top, #3465a4, #333333);
-	}
+}
 
-.btn:focus{
+.button:focus{
     background: -webkit-linear-gradient(top, #3465a4, #333333);
 	outline: none;
 }
-.btn:hover{
+.button:hover{
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333333), to(#729fcf));
   background: -webkit-linear-gradient(top, #333333, #729fcf);
  }
 
-.btn:active{
+.button:active{
 	background: #92020c;
 	outline: none;
-	}
+}
 
 /* --------------------------- FOOTER --------------------------- */
 #footer {
@@ -182,7 +181,8 @@ img{
 	-webkit-box-shadow: 7px 7px 23px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow:    7px 7px 23px 0px rgba(50, 50, 50, 0.75);
 	box-shadow:         7px 7px 23px 0px rgba(50, 50, 50, 0.75);
-	}
+}
+
 #outerWrapper #innerWrapper{
 	margin: 0 auto;
 	padding: 35px;
@@ -211,14 +211,12 @@ img{
 
 	border: solid 4px #e9b96e;
 	font-size: 1.025em;
-	width:50%;
+    width: 65%;
 	-moz-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-	-webkit-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	-o-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-	-ms-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	/*-ms-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
 	transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	-webkit-transition: width 0.4s ease-in-out;
-	transition: width 0.4s ease-in-out;
 }
 #outerWrapper #innerWrapper #content #input #username:active,
 #outerWrapper #innerWrapper #content #input #password:active,
@@ -234,7 +232,7 @@ img{
 	-moz-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	-webkit-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	-o-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-	-ms-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	/*-ms-transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;*/
 	transition: border-color  0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	outline: none;
 	
@@ -246,8 +244,7 @@ img{
 #outerWrapper #innerWrapper #content #input #password:focus,
 #outerWrapper #innerWrapper #content #input .otp:focus {
 	width:70%;
-	
-	}
+}
 #outerWrapper #innerWrapper #content #text{
 	margin-top: 30px;
 	max-width: 450px;

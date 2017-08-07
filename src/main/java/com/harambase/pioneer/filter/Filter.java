@@ -19,18 +19,11 @@ public class Filter implements javax.servlet.Filter {
         HttpSession session = request.getSession();
 
         String uri = request.getRequestURI();
-        if (uri.indexOf("Login_action")!=-1){
+        if (uri.indexOf("/login")!=-1){
             chain.doFilter(req,resp);
             return;
         }
-        if (uri.indexOf("welcomeStudent")!=-1){
-            chain.doFilter(req,resp);
-            return;
-        }
-
-        if(session.getAttribute("admin") !=null)
-            chain.doFilter(request,resp);
-        else if(session.getAttribute("member") !=null)
+        if(session.getAttribute("user") !=null)
             chain.doFilter(request,resp);
         else {
             request.getRequestDispatcher("/WEB-INF/page/index.jsp").forward(req,resp);

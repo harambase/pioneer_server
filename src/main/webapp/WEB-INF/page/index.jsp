@@ -3,15 +3,14 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../index.css">
+    <link rel="stylesheet" href="${basePath}static/css/index.css">
     <title>登录</title>
 </head>
-<%@include file="common/commonInner.jsp" %>
 <%--<%@include file="common/commonHeader.jsp"%>--%>
 <body id="cas">
 <div id="header">
     <div class="logo">
-        <img src="Images/HaramBaseICON.png">
+        <img src="${basePath}Images/HaramBaseICON.png">
     </div>
 </div>
 <div id="outerWrapper">
@@ -29,10 +28,9 @@
                         <input id="password" name="password" class="userpass" type="password" value="" size="25"
                                autocomplete="off" required minlength="6" maxlength="15">
                     </div>
-                    <input name="submit" id="btnLogin" type="submit" class="btn" value="Login">
-                    <input type="reset" id="btnReset" class="btn" value="Reset">
+                    <input name="submit" id="btnLogin" type="submit" class="button" value="Login">
+                    <input type="reset" id="btnReset" class="button" value="Reset">
                 </form>
-                <a href="${basePath}/welcomeStudent">消息中心</a>
             </div>
         </div>
     </div>
@@ -41,9 +39,10 @@
 
 <%@include file="common/commonFooter.jsp"%>
 <%@include file="common/commonJs.jsp" %>
-
+<%@include file="common/commonCSS.jsp" %>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="${basePath}/static/js/login.js"></script>
+
 </body>
 </html>
