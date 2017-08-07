@@ -13,3 +13,4 @@
 <link rel="stylesheet" href="${basePath}/static/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css">
 <link rel="stylesheet" href="${basePath}/static/plugins/jedate/skin/jedate.css">
 <link rel="stylesheet" href="${basePath}/static/plugins/confirm/confirm.css">
+<link rel="stylesheet" href="${basePath}/static/css/header.css">

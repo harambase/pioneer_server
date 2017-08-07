@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="${basePath}static/css/index.css">
     <title>登录</title>
 </head>
-<%--<%@include file="common/commonHeader.jsp"%>--%>
+
 <body id="cas">
 <div id="header">
     <div class="logo">

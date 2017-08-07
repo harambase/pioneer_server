@@ -26,6 +26,10 @@ public class WebController {
     public String index(){
         return "index";
     }
+    @RequestMapping("/studentHeader")
+    public String header(){
+        return "student/studentHeader";
+    }
 
 
 }
