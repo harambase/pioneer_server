@@ -20,9 +20,6 @@ public class StudentController {
     @Autowired
     private FacultyService facultyService;
 
-    public String createStudent(@RequestBody Student student){
-        return null;
-    }
 
 
 }

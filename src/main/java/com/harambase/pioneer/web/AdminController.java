@@ -1,6 +1,7 @@
 package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
@@ -41,6 +42,17 @@ public class AdminController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
+        if(message.getCode() == 2001)
+            session.setAttribute("user", message.getData());
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public ResponseEntity login(HttpSession session){
+        session.invalidate();
+        HaramMessage message = new HaramMessage();
+        message.setCode(FlagDict.SUCCESS.getV());
+        message.setMsg(FlagDict.SUCCESS.getM());
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
