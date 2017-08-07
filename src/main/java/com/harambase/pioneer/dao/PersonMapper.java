@@ -3,6 +3,7 @@ package com.harambase.pioneer.dao;
 import com.harambase.pioneer.pojo.Person;
 
 public interface PersonMapper {
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Person record);
@@ -14,4 +15,6 @@ public interface PersonMapper {
     int updateByPrimaryKeySelective(Person record);
 
     int updateByPrimaryKey(Person record);
+
+    Person selectByPerson(Person person);
 }

@@ -25,7 +25,17 @@ public class Person {
 
     private String updatetime;
 
-    private Long status;
+    private Integer status;
+
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;
@@ -123,11 +133,11 @@ public class Person {
         this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

@@ -1,7 +1,6 @@
 package com.harambase.pioneer.web;
 
 import com.harambase.pioneer.service.StudentService;
-import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
