@@ -56,6 +56,12 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
+        HaramMessage message = personService.addUser(person);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     public String updateGrade(@RequestParam(value = "courseid") String courseid,
                               @RequestParam(value = "studentid") String studentid,
                               @RequestParam(value = "grade") String grade) {

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+manageCourse.jsp<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../common/commonJs.jsp" %>
 <%@include file="../common/commonCSS.jsp" %>
 <!DOCTYPE html>
@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Signup - Bootstrap Admin Template</title>
+    <title>User Management</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,19 +25,7 @@
 
 </head>
 <body>
-<div class="sidebar" style="top: 0px;">
-    <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Manage</span></h1>
-    <ul>
-        <li><a href="${basePath}/welcomeAdmin"><i class="fa fa-dashboard push"></i>Dashboard<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-user push"></i>Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-file push"></i>Course Lookup<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-cog push"></i>User Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-plane push"></i>Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-plane push"></i>Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-    </ul>
-</div>
-<script src="../../../static/js/otherJs/index.js"></script>
-
+<%@include file="manageHeader.jsp" %>
 
 <div class="account-container register">
     <div class="content clearfix">

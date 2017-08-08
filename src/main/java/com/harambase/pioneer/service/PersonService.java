@@ -5,4 +5,6 @@ import com.harambase.pioneer.pojo.Person;
 
 public interface PersonService {
     HaramMessage login(Person person);
+
+    HaramMessage addUser(Person person);
 }

@@ -30,9 +30,21 @@ public class WebController {
     public String header(){
         return "student/studentHeader";
     }
-    @RequestMapping("/manage")
-    public String adminManage(){
-        return "admin/manage";
+    @RequestMapping("/manageCourse")
+    public String adminManageCourse(){
+        return "admin/manageCourse";
+    }
+    @RequestMapping("/manageTranscript")
+    public String adminManageTranscript(){
+        return "admin/manageTranscript";
+    }
+    @RequestMapping("/manageUser")
+    public String adminManageUser(){
+        return "admin/manageUser";
+    }
+    @RequestMapping("/manageAdvising")
+    public String adminManageAdvising(){
+        return "admin/manageAdvising";
     }
 
 

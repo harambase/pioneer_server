@@ -13,11 +13,11 @@
         <li><a href="#"><i class="fa fa-user push"></i>Manage<i class="fa fa-angle-right"></i></a>
             <span class="hover"></span>
             <ul class="sub-menu">
-                <li><a href="${basePath}/manage">Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manage">Course Lookup<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manage">User Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manage">Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manage">Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <li><a href="${basePath}/manageCourse">Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <li><a href="${basePath}/manageCourse">Course Lookup<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <li><a href="${basePath}/manageUser">User Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <li><a href="${basePath}/manageAdvising">Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <li><a href="${basePath}/manageTranscript">Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
             </ul>
         </li>
         <li><a href="#"><i class="fa fa-file push"></i>Information<i class="fa fa-angle-right"></i></a><span class="hover"></span>

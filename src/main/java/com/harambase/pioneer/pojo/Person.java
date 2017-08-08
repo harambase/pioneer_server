@@ -2,16 +2,23 @@ package com.harambase.pioneer.pojo;
 
 import java.io.Serializable;
 
-public class Person implements Serializable{
+public class Person implements Serializable {
+
     private Integer id;
 
     private Integer userid;
 
-    private String name;
+    private String username;
+
+    private String firstname;
+
+    private String lastname;
 
     private String password;
 
     private String info;
+
+    private String email;
 
     private String tel;
 
@@ -27,17 +34,9 @@ public class Person implements Serializable{
 
     private String updatetime;
 
-    private Integer status;
+    private String status;
 
     private String type;
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public Integer getId() {
         return id;
@@ -55,12 +54,28 @@ public class Person implements Serializable{
         this.userid = userid;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname == null ? null : firstname.trim();
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname == null ? null : lastname.trim();
     }
 
     public String getPassword() {
@@ -77,6 +92,14 @@ public class Person implements Serializable{
 
     public void setInfo(String info) {
         this.info = info == null ? null : info.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getTel() {
@@ -135,11 +158,19 @@ public class Person implements Serializable{
         this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }
