@@ -23,6 +23,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="../../../static/css/pages/title.css" rel="stylesheet" type="text/css">
+    <link href="../../../static/css/manageUser.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -32,7 +33,8 @@
     <p class="site-description">User Management</p>
     <hr/>
 </div>
-<div class="account-container register">
+<div class="spilt register-table">
+    <div style="float: left; height: 586px" class="account-container register">
     <div class="content clearfix">
         <form id="createUserForm" method="post" onsubmit="return false">
             <h1>Create a new account</h1>
@@ -41,19 +43,25 @@
                 <div class="field">
                     <label for="year-semester">First Name:</label>
                     <input type="text" id="year-semester" name="year-semester" value="-" placeholder="year-semester" class="login"
-                           minlength="7" maxlength="7"/>
+                           minlength="7" maxlength="7" required/>
                 </div> <!-- /field -->
 
                 <div class="field">
                     <label for="firstname">First Name:</label>
                     <input type="text" id="firstname" name="firstname" value="" placeholder="First Name" class="login"
-                           minlength="1" maxlength="20"/>
+                           minlength="1" maxlength="20" required/>
                 </div> <!-- /field -->
 
                 <div class="field">
                     <label for="lastname">Last Name:</label>
                     <input type="text" id="lastname" name="lastname" value="" placeholder="Last Name" class="login"
-                           minlength="1" maxlength="20"/>
+                           minlength="1" maxlength="20" required/>
+                </div> <!-- /field -->
+
+                <div class="field">
+                    <label for="birthday">Email Address:</label>
+                    <input type="text" id="birthday" name="birthday" value="YYYY-MM-DD" placeholder="Email" class="login"
+                           maxlength="10"/>
                 </div> <!-- /field -->
 
                 <div class="field">
@@ -110,16 +118,20 @@
         </form>
     </div> <!-- /content -->
 </div> <!-- /account-container -->
-
-<%--<div class="account-container register">--%>
-    <%--<div class="content clearfix">--%>
-        <%--<div class='user-table'>--%>
-            <%--<table id="userTable" class="table table-striped table-hover table-checkable order-column tableDiy">--%>
-            <%--</table>--%>
-        <%--</div>--%>
-    <%--</div> <!-- /content -->--%>
-<%--</div> <!-- /account-container -->--%>
-
+    <div style="float: right;margin: 0px 120px 0 0;width: 1065px;height: 586px;"
+         class="account-container register">
+    <div class="content clearfix">
+        <div class='system-user-detail user-control'>
+        <div class='user-list'>
+        <div class='user-table' style="width: 962px">
+            <table width="100%" style="font-size: 14px;" id="userTable" class="display dataTable">
+            </table>
+        </div>
+        </div>
+        </div>
+    </div> <!-- /content -->
+</div> <!-- /account-container -->
+</div>
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>

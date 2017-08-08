@@ -2,6 +2,9 @@ package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Person;
 
+import java.util.List;
+import java.util.Map;
+
 public interface PersonMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +19,8 @@ public interface PersonMapper {
     int updateByPrimaryKey(Person record);
 
     Person selectByPerson(Person person);
+
+    long getCountByMapPageSearchOrdered(Map param);
+
+    List<Person> getByMapPageSearchOrdered(Map param);
 }

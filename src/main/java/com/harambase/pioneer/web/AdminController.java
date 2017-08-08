@@ -1,6 +1,7 @@
 package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -60,6 +64,31 @@ public class AdminController {
     public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.addUser(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity list(@RequestParam(value = "start") Integer start,
+                               @RequestParam(value = "length") Integer length,
+                               @RequestParam(value = "draw") Integer draw,
+                               @RequestParam(value = "search[value]") String search,
+                               @RequestParam(value = "order[0][dir]") String order,
+                               @RequestParam(value = "order[0][column]") String orderCol,
+                               HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            map.put("draw", draw);
+            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
+            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
+            map.put("data", message.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("draw", 1);
+            map.put("data", new ArrayList<>());
+            map.put("recordsTotal", 0);
+            map.put("recordsFiltered", 0);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     public String updateGrade(@RequestParam(value = "courseid") String courseid,

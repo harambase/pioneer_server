@@ -7,4 +7,6 @@ public interface PersonService {
     HaramMessage login(Person person);
 
     HaramMessage addUser(Person person);
+
+    HaramMessage userList(String s, String s1, String search, String order, String orderCol);
 }
