@@ -1,4 +1,4 @@
-manageCourse.jsp<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../common/commonJs.jsp" %>
 <%@include file="../common/commonCSS.jsp" %>
 <!DOCTYPE html>
@@ -34,23 +34,26 @@ manageCourse.jsp<%@ page contentType="text/html;charset=UTF-8" language="java" %
 </div>
 <div class="account-container register">
     <div class="content clearfix">
-        <form id="createUserForm" method="post">
+        <form id="createUserForm" method="post" onsubmit="return false">
             <h1>Create a new account</h1>
             <div class="login-fields">
 
                 <div class="field">
                     <label for="year-semester">First Name:</label>
-                    <input type="text" id="year-semester" name="year-semester" value="" placeholder="year-semester" class="login" />
+                    <input type="text" id="year-semester" name="year-semester" value="-" placeholder="year-semester" class="login"
+                           minlength="7" maxlength="7"/>
                 </div> <!-- /field -->
 
                 <div class="field">
                     <label for="firstname">First Name:</label>
-                    <input type="text" id="firstname" name="firstname" value="" placeholder="First Name" class="login" />
+                    <input type="text" id="firstname" name="firstname" value="" placeholder="First Name" class="login"
+                           minlength="1" maxlength="20"/>
                 </div> <!-- /field -->
 
                 <div class="field">
                     <label for="lastname">Last Name:</label>
-                    <input type="text" id="lastname" name="lastname" value="" placeholder="Last Name" class="login" />
+                    <input type="text" id="lastname" name="lastname" value="" placeholder="Last Name" class="login"
+                           minlength="1" maxlength="20"/>
                 </div> <!-- /field -->
 
                 <div class="field">

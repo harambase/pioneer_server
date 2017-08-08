@@ -1,7 +1,7 @@
 body:not(.title-tagline-hidden) .site-branding-text {
     display: inline-block;
     vertical-align: middle;
-    margin-left: 200px;
+    margin-left: 300px;
     margin-top:2%;
 }
 .site-title {

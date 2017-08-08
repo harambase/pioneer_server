@@ -2,8 +2,7 @@ package com.harambase.pioneer.pojo;
 
 import java.io.Serializable;
 
-public class Person implements Serializable {
-
+public class Person implements Serializable{
     private Integer id;
 
     private Integer userid;
@@ -17,6 +16,8 @@ public class Person implements Serializable {
     private String password;
 
     private String info;
+
+    private String birthday;
 
     private String email;
 
@@ -92,6 +93,14 @@ public class Person implements Serializable {
 
     public void setInfo(String info) {
         this.info = info == null ? null : info.trim();
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday == null ? null : birthday.trim();
     }
 
     public String getEmail() {

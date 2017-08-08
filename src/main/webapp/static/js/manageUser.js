@@ -1,7 +1,7 @@
 $(function () {
-    //var registerForm = $("#createUserForm").validate({});
+    var registerForm = $("#createUserForm").validate({});
     $("#registerBtn").click(function () {
-        //if(registerForm.form()){
+        if(registerForm.form()){
             var firstname = $("#firstname").val();
             var lastname = $("#lastname").val();
             var email = $("#email").val();
@@ -42,6 +42,6 @@ $(function () {
                         Showbo.Msg.alert(data.msg, function () {});
                 }
             })
-        //}
+        }
     })
 });

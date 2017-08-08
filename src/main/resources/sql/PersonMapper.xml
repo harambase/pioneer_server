@@ -1,237 +1,248 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.PersonMapper" >
-<resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Person" >
-  <id column="id" property="id" jdbcType="INTEGER" />
-  <result column="userid" property="userid" jdbcType="INTEGER" />
-  <result column="username" property="username" jdbcType="VARCHAR" />
-  <result column="firstname" property="firstname" jdbcType="VARCHAR" />
-  <result column="lastname" property="lastname" jdbcType="VARCHAR" />
-  <result column="password" property="password" jdbcType="VARCHAR" />
-  <result column="info" property="info" jdbcType="VARCHAR" />
-  <result column="email" property="email" jdbcType="VARCHAR" />
-  <result column="tel" property="tel" jdbcType="VARCHAR" />
-  <result column="qq" property="qq" jdbcType="VARCHAR" />
-  <result column="weChat" property="wechat" jdbcType="VARCHAR" />
-  <result column="dorm" property="dorm" jdbcType="VARCHAR" />
-  <result column="gender" property="gender" jdbcType="VARCHAR" />
-  <result column="createTime" property="createtime" jdbcType="VARCHAR" />
-  <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
-  <result column="status" property="status" jdbcType="VARCHAR" />
-  <result column="type" property="type" jdbcType="VARCHAR" />
-</resultMap>
-<sql id="Base_Column_List" >
-  id, userid, username, firstname, lastname, password, info, email, tel, qq, weChat,
-  dorm, gender, createTime, updateTime, status, type
-</sql>
-<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-  select
-  <include refid="Base_Column_List" />
-  from Person
-  where id = #{id,jdbcType=INTEGER}
-</select>
-<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-  delete from Person
-  where id = #{id,jdbcType=INTEGER}
-</delete>
-<insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
-  insert into Person (id, userid, username,
-  firstname, lastname, password,
-  info, email, tel, qq,
-  weChat, dorm, gender,
-  createTime, updateTime, status,
-  type)
-  values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
-  #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-  #{info,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR},
-  #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
-  #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
-  #{type,jdbcType=VARCHAR})
-</insert>
-<insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Person" >
-  insert into Person
-  <trim prefix="(" suffix=")" suffixOverrides="," >
-    <if test="id != null" >
-      id,
-    </if>
-    <if test="userid != null" >
-      userid,
-    </if>
-    <if test="username != null" >
-      username,
-    </if>
-    <if test="firstname != null" >
-      firstname,
-    </if>
-    <if test="lastname != null" >
-      lastname,
-    </if>
-    <if test="password != null" >
-      password,
-    </if>
-    <if test="info != null" >
-      info,
-    </if>
-    <if test="email != null" >
-      email,
-    </if>
-    <if test="tel != null" >
-      tel,
-    </if>
-    <if test="qq != null" >
-      qq,
-    </if>
-    <if test="wechat != null" >
-      weChat,
-    </if>
-    <if test="dorm != null" >
-      dorm,
-    </if>
-    <if test="gender != null" >
-      gender,
-    </if>
-    <if test="createtime != null" >
-      createTime,
-    </if>
-    <if test="updatetime != null" >
-      updateTime,
-    </if>
-    <if test="status != null" >
-      status,
-    </if>
-    <if test="type != null" >
-      type,
-    </if>
-  </trim>
-  <trim prefix="values (" suffix=")" suffixOverrides="," >
-    <if test="id != null" >
-      #{id,jdbcType=INTEGER},
-    </if>
-    <if test="userid != null" >
-      #{userid,jdbcType=INTEGER},
-    </if>
-    <if test="username != null" >
-      #{username,jdbcType=VARCHAR},
-    </if>
-    <if test="firstname != null" >
-      #{firstname,jdbcType=VARCHAR},
-    </if>
-    <if test="lastname != null" >
-      #{lastname,jdbcType=VARCHAR},
-    </if>
-    <if test="password != null" >
-      #{password,jdbcType=VARCHAR},
-    </if>
-    <if test="info != null" >
-      #{info,jdbcType=VARCHAR},
-    </if>
-    <if test="email != null" >
-      #{email,jdbcType=VARCHAR},
-    </if>
-    <if test="tel != null" >
-      #{tel,jdbcType=VARCHAR},
-    </if>
-    <if test="qq != null" >
-      #{qq,jdbcType=VARCHAR},
-    </if>
-    <if test="wechat != null" >
-      #{wechat,jdbcType=VARCHAR},
-    </if>
-    <if test="dorm != null" >
-      #{dorm,jdbcType=VARCHAR},
-    </if>
-    <if test="gender != null" >
-      #{gender,jdbcType=VARCHAR},
-    </if>
-    <if test="createtime != null" >
-      #{createtime,jdbcType=VARCHAR},
-    </if>
-    <if test="updatetime != null" >
-      #{updatetime,jdbcType=VARCHAR},
-    </if>
-    <if test="status != null" >
-      #{status,jdbcType=VARCHAR},
-    </if>
-    <if test="type != null" >
-      #{type,jdbcType=VARCHAR},
-    </if>
-  </trim>
-</insert>
-<update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Person" >
-  update Person
-  <set >
-    <if test="userid != null" >
-      userid = #{userid,jdbcType=INTEGER},
-    </if>
-    <if test="username != null" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Person" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
+    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="weChat" property="wechat" jdbcType="VARCHAR" />
+    <result column="dorm" property="dorm" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
+    qq, weChat, dorm, gender, createTime, updateTime, status, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Person
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Person
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
+    insert into Person (id, userid, username, 
+      firstname, lastname, password, 
+      info, birthday, email, 
+      tel, qq, weChat, dorm, 
+      gender, createTime, updateTime, 
+      status, type)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Person" >
+    insert into Person
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="firstname != null" >
+        firstname,
+      </if>
+      <if test="lastname != null" >
+        lastname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="wechat != null" >
+        weChat,
+      </if>
+      <if test="dorm != null" >
+        dorm,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="createtime != null" >
+        createTime,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="firstname != null" >
+        #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="dorm != null" >
+        #{dorm,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Person" >
+    update Person
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="firstname != null" >
+        firstname = #{firstname,jdbcType=VARCHAR},
+      </if>
+      <if test="lastname != null" >
+        lastname = #{lastname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        weChat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="dorm != null" >
+        dorm = #{dorm,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
+    update Person
+    set userid = #{userid,jdbcType=INTEGER},
       username = #{username,jdbcType=VARCHAR},
-    </if>
-    <if test="firstname != null" >
       firstname = #{firstname,jdbcType=VARCHAR},
-    </if>
-    <if test="lastname != null" >
       lastname = #{lastname,jdbcType=VARCHAR},
-    </if>
-    <if test="password != null" >
       password = #{password,jdbcType=VARCHAR},
-    </if>
-    <if test="info != null" >
       info = #{info,jdbcType=VARCHAR},
-    </if>
-    <if test="email != null" >
+      birthday = #{birthday,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-    </if>
-    <if test="tel != null" >
       tel = #{tel,jdbcType=VARCHAR},
-    </if>
-    <if test="qq != null" >
       qq = #{qq,jdbcType=VARCHAR},
-    </if>
-    <if test="wechat != null" >
       weChat = #{wechat,jdbcType=VARCHAR},
-    </if>
-    <if test="dorm != null" >
       dorm = #{dorm,jdbcType=VARCHAR},
-    </if>
-    <if test="gender != null" >
       gender = #{gender,jdbcType=VARCHAR},
-    </if>
-    <if test="createtime != null" >
       createTime = #{createtime,jdbcType=VARCHAR},
-    </if>
-    <if test="updatetime != null" >
       updateTime = #{updatetime,jdbcType=VARCHAR},
-    </if>
-    <if test="status != null" >
       status = #{status,jdbcType=VARCHAR},
-    </if>
-    <if test="type != null" >
-      type = #{type,jdbcType=VARCHAR},
-    </if>
-  </set>
-  where id = #{id,jdbcType=INTEGER}
-</update>
-<update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
-  update Person
-  set userid = #{userid,jdbcType=INTEGER},
-  username = #{username,jdbcType=VARCHAR},
-  firstname = #{firstname,jdbcType=VARCHAR},
-  lastname = #{lastname,jdbcType=VARCHAR},
-  password = #{password,jdbcType=VARCHAR},
-  info = #{info,jdbcType=VARCHAR},
-  email = #{email,jdbcType=VARCHAR},
-  tel = #{tel,jdbcType=VARCHAR},
-  qq = #{qq,jdbcType=VARCHAR},
-  weChat = #{wechat,jdbcType=VARCHAR},
-  dorm = #{dorm,jdbcType=VARCHAR},
-  gender = #{gender,jdbcType=VARCHAR},
-  createTime = #{createtime,jdbcType=VARCHAR},
-  updateTime = #{updatetime,jdbcType=VARCHAR},
-  status = #{status,jdbcType=VARCHAR},
-  type = #{type,jdbcType=VARCHAR}
-  where id = #{id,jdbcType=INTEGER}
-</update>
-<select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="BaseResultMap">
-  select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
-</select>
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="BaseResultMap">
+    select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
 </mapper>

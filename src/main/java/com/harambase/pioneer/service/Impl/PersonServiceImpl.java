@@ -54,21 +54,26 @@ public class PersonServiceImpl implements PersonService {
             person.setStatus("1");
 
             String info = person.getInfo();
-            Integer lastFour = (int)(Math.random() * (9999 - 1000 + 1) + 1000);
-            Integer userid = 100000000;
+            Integer lastFour = (int)(Math.random() * (999 - 100 + 1) + 100);
+            Integer userid = 1000000000;
             String username = "default";
-            if(person.getType().equals(Type.STUDENT)) {
-                userid = Integer.parseInt("900" + info.split("-")[0] + info.split("-")[1] + lastFour);
+            String password = "000000";
+            if(person.getType().equals("s")) {
+                userid = Integer.parseInt("9" + info.split("-")[0] + info.split("-")[1] + lastFour);
                 username = "stu" + person.getLastname().substring(0,1)+ person.getFirstname();
-            }else if(person.getType().equals(Type.FACULTY)) {
-                userid = Integer.parseInt("800" + info.split("-")[0] + info.split("-")[1] + lastFour);
+                password = "stu" + userid;
+            }else if(person.getType().equals("f")) {
+                userid = Integer.parseInt("8" + info.split("-")[0] + info.split("-")[1] + lastFour);
                 username = "fau" + person.getLastname().substring(0,1)+ person.getFirstname();
-            }else if(person.getType().equals(Type.ADMINISTRATOR)) {
-                userid = Integer.parseInt("100" + info.split("-")[0] + info.split("-")[1] + lastFour);
+                password = "fau" + userid;
+            }else if(person.getType().equals("a")) {
+                userid = Integer.parseInt("1" + info.split("-")[0] + info.split("-")[1] + lastFour);
                 username = "adm" + person.getLastname().substring(0,1)+ person.getFirstname();
+                password = "adm" + userid;
             }
             person.setUserid(userid);
             person.setUsername(username);
+            person.setPassword(password);
             int ret = personMapper.insert(person);
             if(ret == 1){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
