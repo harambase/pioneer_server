@@ -42,6 +42,11 @@ public class AdminController {
     }
 
 
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public ResponseEntity getUser(@RequestParam(value = "userid") String userid){
+        HaramMessage haramMessage = personService.getUser(userid);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
@@ -89,6 +94,12 @@ public class AdminController {
             map.put("recordsFiltered", 0);
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
+    public ResponseEntity update(@RequestBody Person person){
+        HaramMessage message = personService.update(person);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     public String updateGrade(@RequestParam(value = "courseid") String courseid,

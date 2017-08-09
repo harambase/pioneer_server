@@ -32,14 +32,12 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: url("../images/user-nav-bg.png");
     z-index: -1;
 }
 .system-control .container .system-user-detail {
     margin-left: 20px;
     padding-right: 20px;
     width: 960px;
-    /*height: 800px;*/
     float: right;
 }
 .system-control .container .system-user-detail h3 {
@@ -344,7 +342,7 @@
 }
 .w_wrap{
     position:absolute;
-    top: 240px;
+    top: 110px;
     left:50%;
     margin-left:-265px;
     width:530px;
@@ -356,15 +354,15 @@
     position:relative;
     height:50px;
     padding:0 15px;
-    background:#4a8cd6;
+    background: #02a5a6;
     font:16px/50px 'Microsoft Yahei';
     color:#fff;
 }
-.w_close{
-    position:absolute;
-    top:0;
-    right:18px;
-    font:26px/50px serif;
+.w_close {
+    position: absolute;
+    top: -5px;
+    right: 18px;
+    font: 26px/50px serif;
     cursor: pointer;
 }
 .w_wrap .w_body{
@@ -373,7 +371,7 @@
 .w_wrap .w_tab{
     padding:15px 0 13px;
     font:14px/2 "Microsoft Yahei";
-    color:#4a8cd6;
+    color: #02a5a6;
 }
 .w_wrap .w_tab li{
     float:left;
@@ -383,16 +381,14 @@
 }
 .w_wrap .w_tab li.active{
     /*padding:0 12px;*/
-    border-bottom: 2px solid #4a8cd6;
+    border-bottom: 2px solid #b5adad;
 }
 .w_wrap .w_tab li:nth-child(2){
     margin:0 20px 0;
 }
 
 .w_wrap .w_tabC .w_content{
-    padding:7px 35px 38px;
-    margin-bottom:20px;
-    background:#f7f8fa;
+    padding: 0px 28px 8px;
 }
 .w_wrap .w_tabC .w_basicInfo{
     line-height:35px;
@@ -403,7 +399,7 @@
 }
 .w_tabC .system-control-btn button,.w_tabE .system-control-btn button{
     border: 1px solid #a0a5ad;
-    color:#4a8cd6 ;
+    color:#02a5a6;
 }
 #nickname{
     height: 30px;
@@ -567,7 +563,7 @@
 .w_buttons_w .w_button{
     display:inline-block;
     margin:0 40px;
-    width:72px;
+    width: 92px;
 }
 .w_buttons_w .w_button:hover,.w_buttons_w .w_button.active{
     background:#4a8cd6;
@@ -577,7 +573,6 @@
 .w_button{
     transition: all .5s;
 }
-
 
 /*账号管理*/
 .w_tabD{
@@ -591,7 +586,7 @@
 .w_tabD .w_manage h4,.w_tabE .status h4{
     font-size: 14px;
     color: #292C2D;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-top: 20px;
 }
 .w_tabD .w_manage .w_allow,.w_disable,.w_tabE .status .w_allow,.w_disable{
@@ -635,7 +630,7 @@
     position: relative;
     top: 0;
     left: 0;
-    background: #498BD5;
+    color: #02a5a6;
     border-radius: 4px;
 }
 .w_tabD .w_manage p{
@@ -651,7 +646,7 @@
     height: 30px;
     border: none;
     border-radius: 15px;
-    color: #498BD5;
+    color: #02a5a6;
     text-align: center;
     line-height: 30px;
     background: #fff;
@@ -663,12 +658,12 @@
     margin-top: 30px;
 }
 .w_tabD .w_manage_btn button,.status_btn button{
-    width: 72px;
+    width: 91px;
     height: 30px;
     border: none;
     border-radius: 15px;
     background: #fff;
-    color: #498BD5;
+    color: #02a5a6;
     margin-left: 40px;
     margin-right: 40px;
     font-size: 14px;
@@ -947,5 +942,5 @@ div.dataTables_wrapper div.dataTables_filter input {
     display: inline-block;
     width: auto;
     /* font-size: 9px; */
-    height: 20px;
+    height: 12px;
 }

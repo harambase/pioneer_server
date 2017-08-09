@@ -2841,11 +2841,9 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endCo
 	border: 1px solid #ddd;
 	border-left-width: 0;
 }
-.pagination a:hover, .pagination .active a {
-	background-color: #f5f5f5;
-}
+
 .pagination .active a {
-	color: #999999;
+	color: #000000;
 	cursor: default;
 }
 .pagination .disabled span, .pagination .disabled a, .pagination .disabled a:hover {

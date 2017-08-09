@@ -9,4 +9,8 @@ public interface PersonService {
     HaramMessage addUser(Person person);
 
     HaramMessage userList(String s, String s1, String search, String order, String orderCol);
+
+    HaramMessage getUser(String userid);
+
+    HaramMessage update(Person person);
 }

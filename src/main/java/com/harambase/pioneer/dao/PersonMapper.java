@@ -12,7 +12,7 @@ public interface PersonMapper {
 
     int insertSelective(Person record);
 
-    Person selectByPrimaryKey(Integer id);
+    Person selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Person record);
 

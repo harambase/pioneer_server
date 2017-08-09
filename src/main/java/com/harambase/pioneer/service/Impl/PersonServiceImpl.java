@@ -57,23 +57,11 @@ public class PersonServiceImpl implements PersonService {
             person.setStatus("1");
 
             String info = person.getInfo();
-            Integer lastFour = (int)(Math.random() * (999 - 100 + 1) + 100);
-            Integer userid = 1000000000;
-            String username = "default";
-            String password = "000000";
-            if(person.getType().equals("s")) {
-                userid = Integer.parseInt("9" + info.split("-")[0] + info.split("-")[1] + lastFour);
-                username = "stu" + person.getLastname().substring(0,1)+ person.getFirstname();
-                password = "stu" + userid;
-            }else if(person.getType().equals("f")) {
-                userid = Integer.parseInt("8" + info.split("-")[0] + info.split("-")[1] + lastFour);
-                username = "fau" + person.getLastname().substring(0,1)+ person.getFirstname();
-                password = "fau" + userid;
-            }else if(person.getType().equals("a")) {
-                userid = Integer.parseInt("1" + info.split("-")[0] + info.split("-")[1] + lastFour);
-                username = "adm" + person.getLastname().substring(0,1)+ person.getFirstname();
-                password = "adm" + userid;
-            }
+            Integer last = (int)(Math.random() * (999 - 100 + 1) + 100);
+            String userid = "9" + info.split("-")[0] + info.split("-")[1] + last;
+            String username = person.getLastname().substring(0,1)+ person.getFirstname();
+            String password = "pioneer" + userid;
+
             person.setUserid(userid);
             person.setUsername(username);
             person.setPassword(password);
@@ -152,6 +140,50 @@ public class PersonServiceImpl implements PersonService {
             message.setMsg(FlagDict.SYSTEM_ERROR.getM());
             message.setCode(FlagDict.SYSTEM_ERROR.getV());
             return message;
+        }
+    }
+
+    @Override
+    public HaramMessage getUser(String userid) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            Person user = personMapper.selectByPrimaryKey(userid);
+            if(user != null) {
+                haramMessage.setData(user);
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage update(Person person) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            int ret = personMapper.updateByPrimaryKey(person);
+            if(ret == 1) {
+                haramMessage.setData(person);
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
         }
     }
 }

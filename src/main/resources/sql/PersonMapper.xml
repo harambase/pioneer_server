@@ -3,7 +3,7 @@
 <mapper namespace="com.harambase.pioneer.dao.PersonMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Person" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="firstname" property="firstname" jdbcType="VARCHAR" />
     <result column="lastname" property="lastname" jdbcType="VARCHAR" />
@@ -25,15 +25,12 @@
     id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
     qq, weChat, dorm, gender, createTime, updateTime, status, type
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from Person
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from Person where userid = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Person
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
     insert into Person (id, userid, username, 
@@ -42,7 +39,7 @@
       tel, qq, weChat, dorm, 
       gender, createTime, updateTime, 
       status, type)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
       #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{info,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, 
@@ -112,7 +109,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
+        #{userid,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
@@ -168,7 +165,7 @@
     update Person
     <set >
       <if test="userid != null" >
-        userid = #{userid,jdbcType=INTEGER},
+        userid = #{userid,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
@@ -223,8 +220,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
     update Person
-    set userid = #{userid,jdbcType=INTEGER},
-      username = #{username,jdbcType=VARCHAR},
+    set username = #{username,jdbcType=VARCHAR},
       firstname = #{firstname,jdbcType=VARCHAR},
       lastname = #{lastname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -240,7 +236,7 @@
       updateTime = #{updatetime,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=VARCHAR}
   </update>
   <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="BaseResultMap">
     select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}

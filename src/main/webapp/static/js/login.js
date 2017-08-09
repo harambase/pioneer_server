@@ -1,3 +1,4 @@
+
 $(function (){
     var loginForm = $("#fm1").validate({});
     $("#btnLogin").click(function(){
@@ -14,9 +15,8 @@ $(function (){
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(person),
                 success: function (data) {
-                    console.log(data);
                     if (data.code === 2001) {
-                        console.log(data.data.type);
+                        user = data.data;
                         if(data.data.type === "a")
                             window.location.href = basePath + "/welcomeAdmin";
                         else if(data.data.type === "s")
@@ -31,5 +31,7 @@ $(function (){
                     }
             })
         }
-    })
+    });
+
+
 });
