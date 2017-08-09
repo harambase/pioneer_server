@@ -1,6 +1,7 @@
 $(function () {
 
     var registerForm = $("#createUserForm").validate({});
+    //添加用户
     $("#registerBtn").click(function () {
         if(registerForm.form()){
             var firstname = $("#firstname").val();
@@ -47,14 +48,9 @@ $(function () {
             })
         }
     })
-
-    var that, userid, user;
-
-    $("#userTable").on("click", ".btn.btn-edit", function () {
-
-        that = $(this);
-        userid = $(this).parents("tr").find("td").eq(0).html();
-
+    //获取用户
+    function getUser(userid){
+        var user = new Object();
         $.ajax({
             url: basePath + "/admin/get?userid="+userid,
             type: "GET",
@@ -69,18 +65,56 @@ $(function () {
                     Showbo.Msg.alert("获取失败!", function () {});
             }
         });
+        return user;
+    }
+    //更新用户
+    $("#confirm").click(function (){
+        var formdata = {
+            userid :  $("#userid2").val(),
+            username  : $("#username2").val(),
+            firstname : $("#firstname2").val(),
+            lastname : $("#lastname2").val(),
+            birthday : $("#birthday2").val(),
+            email : $("#email2").val(),
+            weChat : $("#weChat2").val(),
+            tel : $("#tel2").val(),
+            dorm : $("#dorm2").val(),
+            qq : $("#firstname2").val(),
+            password : $("#pwd").val()
+        };
+        $.ajax({
+            url:basePath+"/admin/user/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {});
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
+    });
 
+    $("#userTable").on("click", ".btn.btn-edit", function () {
 
-        $(".w_basicInfo").find("#userid2").val(userid);
-        $(".w_basicInfo").find("#userName2").val(user.username);
-        $(".w_basicInfo").find("#firstname2").val(user.firstname);
-        $(".w_basicInfo").find("#lastname2").val(user.lastname);
-        $(".w_basicInfo").find("#birthday2").val(user.birthday);
-        $(".w_basicInfo").find("#email2").val(user.email);
-        $(".w_basicInfo").find("#qq2").val(user.qq);
-        $(".w_basicInfo").find("#weChat2").val(user.weChat);
-        $(".w_basicInfo").find("#tel2").val(user.tel);
-        $(".w_basicInfo").find("#dorm2").val(user.dorm);
+        var userid = $(this).parents("tr").find("td").eq(0).html();
+        var user = getUser(userid);
+        var baseInfo = $(".w_basicInfo");
+
+        baseInfo.find("#userid2").val(userid);
+        baseInfo.find("#username2").val(user.username);
+        baseInfo.find("#firstname2").val(user.firstname);
+        baseInfo.find("#lastname2").val(user.lastname);
+        baseInfo.find("#birthday2").val(user.birthday);
+        baseInfo.find("#email2").val(user.email);
+        baseInfo.find("#qq2").val(user.qq);
+        baseInfo.find("#weChat2").val(user.weChat);
+        baseInfo.find("#tel2").val(user.tel);
+        baseInfo.find("#dorm2").val(user.dorm);
+        baseInfo.find("#pwd").val(user.password);
 
         if (user.status === "1") {
             $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
@@ -117,13 +151,16 @@ $(function () {
         $(".w_wrapper").css({display: "block"});
         $(".w_ul li").remove();
 
-        closePop(".system-control-btn button");
+        closePop("#cancel");
+        closePop("#cancel2");
     });
+
     function closePop(ele) {
         $(ele).click(function () {
             $(".w_wrapper").css({display: "none"});
         })
     }
+
     $(".base-info").click(function () {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
@@ -159,6 +196,7 @@ $(function () {
         $(".w_wrapper").css({display: "none"});
 
     });
+
 
     $(function () {
         var logTable = $("#userTable").DataTable({

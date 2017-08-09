@@ -148,6 +148,7 @@
                     <div class="w_basicInfo account-container register" style="margin-left: 0px;">
                         <form id="editUserForm" method="post" onsubmit="return false">
                             <table style="margin: 15px 27px;">
+                                <input id="pwd" name="pwd" value="" class="login" hidden/>
                                 <tr>
                                     <td><p style="float: left">UserID:</td>
                                     <td><input id="userid2" name="userid" value="" class="login" disabled/></td>

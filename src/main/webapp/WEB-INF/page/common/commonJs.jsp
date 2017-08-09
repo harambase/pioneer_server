@@ -6,4 +6,3 @@
 <script src="${basePath}/static/plugins/jedate/jquery.jedate.js"></script>
 <script src="${basePath}/static/plugins/confirm/confirm.js"></script>
 <script src="${basePath}/static/js/logout.js"></script>
-<script src="${basePath}/static/js/login.js"></script>

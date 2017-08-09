@@ -164,9 +164,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Person" >
     update Person
     <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=VARCHAR},
-      </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -216,7 +213,7 @@
         type = #{type,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where userid = #{userid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
     update Person

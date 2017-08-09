@@ -169,7 +169,7 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage update(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            int ret = personMapper.updateByPrimaryKey(person);
+            int ret = personMapper.updateByPrimaryKeySelective(person);
             if(ret == 1) {
                 haramMessage.setData(person);
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
