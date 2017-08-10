@@ -215,9 +215,8 @@
                     <input class='female' type="checkbox" name="powerState" value="female"/>FEMALE
 
                     <h4 class='reset-pass w_hide'>Reset Password：</h4>
-                    <input id="password2" name="userid" value="" class="login" required minlength="8" maxlength="16"/>
                     <p class='w_hide'>重置用户账号，新密码将通过邮箱发送给用户邮箱。</p>
-                    <button class='w_hide' id="resetPassword">用户密码重置</button>
+                    <button class='w_hide' id="resetPassword">Reset Password</button>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
                     <button id="apply" class="w_button">Confirm</button>

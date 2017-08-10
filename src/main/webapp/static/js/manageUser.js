@@ -1,6 +1,9 @@
 $(function () {
-
+    //变量定义
+    var status, gender, type;
+    var newStatus, newGender, newType;
     var registerForm = $("#createUserForm").validate({});
+
     //添加用户
     $("#registerBtn").click(function () {
         if(registerForm.form()){
@@ -67,7 +70,7 @@ $(function () {
         });
         return user;
     }
-    //更新用户
+    //更新用户信息
     $("#confirm").click(function (){
         var formdata = {
             userid :  $("#userid2").val(),
@@ -89,7 +92,9 @@ $(function () {
             data: JSON.stringify(formdata),
             success: function (data) {
                 if (data.code === 2001)
-                    Showbo.Msg.alert("更新成功!", function () {});
+                    Showbo.Msg.alert("更新成功!", function () {
+                        logTable.draw();
+                    });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
                 else
@@ -97,7 +102,132 @@ $(function () {
             }
         })
     });
+    //更新用户状态
+    $("#apply").click(function (){
+        if(newStatus !== status || newType !== type || newGender !== gender) {
+            var formdata = {
+                userid: $("#userid2").val(),
+                gender: newGender,
+                status: newStatus,
+                type: newType
+            };
+            $.ajax({
+                url: basePath + "/admin/user/update",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(formdata),
+                success: function (data) {
+                    if (data.code === 2001)
+                        Showbo.Msg.alert("更新成功!", function () {
+                            logTable.draw();
+                            writeSettings(newStatus, newType, newGender);
+                        });
+                    else if (data.code === 2005)
+                        Showbo.Msg.alert("系统异常!", function () {});
+                    else
+                        Showbo.Msg.alert("更新失败!", function () {});
+                }
+            })
+        }
+    });
+    //重置用户密码
+    $("#resetPassword").click(function () {
+        var userid = $("#userid2").val();
+        var formdata = {
+            userid: userid,
+            password: "pioneer" + userid
+        };
+        $.ajax({
+            url: basePath + "/admin/user/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        logTable.draw();
+                    });
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
 
+    });
+    //复选框控制
+    $(".enable").click(function () {
+        $(".w_manage input").eq(1).attr("checked", false);
+        $(".w_manage input").eq(0).attr("checked", true);
+        newStatus = $(".enable").val();
+    });
+    $(".disable").click(function () {
+        $(".w_manage input").eq(0).attr("checked", false);
+        $(".w_manage input").eq(1).attr("checked", true);
+        newStatus = $(".disable").val();
+    });
+    $(".student").click(function () {
+        $(".w_manage input").eq(3).attr("checked", false);
+        $(".w_manage input").eq(4).attr("checked", false);
+        $(".w_manage input").eq(2).attr("checked", true);
+        newType = $(".student").val();
+    });
+    $(".teacher").click(function () {
+        $(".w_manage input").eq(2).attr("checked", false);
+        $(".w_manage input").eq(4).attr("checked", false);
+        $(".w_manage input").eq(3).attr("checked", true);
+        newType = $(".teacher").val();
+    });
+    $(".admin").click(function () {
+        $(".w_manage input").eq(2).attr("checked", false);
+        $(".w_manage input").eq(3).attr("checked", false);
+        $(".w_manage input").eq(4).attr("checked", true);
+        newType = $(".admin").val();
+    });
+    $(".male").click(function () {
+        $(".w_manage input").eq(6).attr("checked", false);
+        $(".w_manage input").eq(5).attr("checked", true);
+        newGender = $(".male").val();
+    });
+    $(".female").click(function () {
+        $(".w_manage input").eq(5).attr("checked", false);
+        $(".w_manage input").eq(6).attr("checked", true);
+        newGender = $(".female").val();
+    });
+    //写入账户属性
+    function writeSettings(status, type, gender){
+        if (status === "1") {
+            $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
+            $(".w_manage input").eq(0).attr("checked", true);
+        }
+        else {
+            $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
+            $(".w_manage input").eq(1).attr("checked", true);
+        }
+
+        if(type === "a"){
+            $(".w_manage h4").eq(1).html("Account Type: Administrator");
+            $(".w_manage input").eq(4).attr("checked", true);
+        }
+        else if(type === "f"){
+            $(".w_manage h4").eq(1).html("Account Type: Faculty");
+            $(".w_manage input").eq(3).attr("checked", true);
+        }
+        else{
+            $(".w_manage h4").eq(1).html("Account Type: Student");
+            $(".w_manage input").eq(2).attr("checked", true);
+        }
+
+        if(gender === "male"){
+            $(".w_manage h4").eq(2).html("User Gender: Male");
+            $(".w_manage input").eq(5).attr("checked", true);
+        }
+        else{
+            $(".w_manage h4").eq(2).html("User Gender: Female");
+            $(".w_manage input").eq(6).attr("checked", true);
+        }
+    }
+    //编辑弹窗
     $("#userTable").on("click", ".btn.btn-edit", function () {
 
         var userid = $(this).parents("tr").find("td").eq(0).html();
@@ -115,38 +245,11 @@ $(function () {
         baseInfo.find("#tel2").val(user.tel);
         baseInfo.find("#dorm2").val(user.dorm);
         baseInfo.find("#pwd").val(user.password);
+        newStatus = status = user.status;
+        newType = type = user.type;
+        newGender = gender = user.gender;
 
-        if (user.status === "1") {
-            $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
-            $(".w_manage input").eq(0).attr("checked", true);
-            // $("input:radio[value='1']").attr('checked','true');
-        }
-        else {
-            $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
-            $(".w_manage input").eq(1).attr("checked", true);
-        }
-
-        if(user.type === "a"){
-            $(".w_manage h4").eq(1).html("Account Type: Administrator");
-            $(".w_manage input").eq(4).attr("checked", true);
-        }
-        else if(user.type === "f"){
-            $(".w_manage h4").eq(1).html("Account Type: Faculty");
-            $(".w_manage input").eq(3).attr("checked", true);
-        }
-        else{
-            $(".w_manage h4").eq(1).html("Account Type: Student");
-            $(".w_manage input").eq(2).attr("checked", true);
-        }
-
-        if(user.gender === "male"){
-            $(".w_manage h4").eq(2).html("User Gender: Male");
-            $(".w_manage input").eq(5).attr("checked", true);
-        }
-        else{
-            $(".w_manage h4").eq(2).html("User Gender: Female");
-            $(".w_manage input").eq(6).attr("checked", true);
-        }
+        writeSettings(status, type, gender);
 
         $(".w_wrapper").css({display: "block"});
         $(".w_ul li").remove();
@@ -197,99 +300,67 @@ $(function () {
 
     });
 
+    var logTable = $("#userTable").DataTable({
 
-    $(function () {
-        var logTable = $("#userTable").DataTable({
-
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                },
-                "emptyTable": "No Data Founded！",
-                "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-                "infoEmpty": "NO RECORDS FOUND！",
-                "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-                "lengthMenu": "SHOW: _MENU_",
-                "search": "SEARCH:",
-                "zeroRecords": "No Record Found！",
-                "paginate": {
-                    "previous": "Previous",
-                    "next": "Next",
-                    "last": "Last",
-                    "first": "First"
-                }
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
             },
-            "lengthMenu": [
-                [5, 10, 25, 50],
-                [5, 10, 25, 50]
-            ],
-            pageLength: 5,
-            processing: true,
-            serverSide: true,
-            order: [[8, "desc"]],
-            // paging: false,
-            ajax: {
-                url: basePath + "/admin/user/list",
-
-                data: function (d) {
-                    d.startTime = $("#inpstart").val();
-                    d.endTime = $("#inpend").val();
-                }
-            },
-            columns: [
-
-                {"data": "userid", "title": "userid"},
-                {"data": "username", "title": "username"},
-                {"data": "firstname", "title": "firstname"},
-                {"data": "lastname", "title": "lastname"},
-                {"data": "password", "title": "password"},
-                {"data": "type", "title": "type"},
-                {"data": "status", "title": "status"},
-                {"data": "createtime", "title": "createTime"},
-                {"data": "updatetime", "title": "updateTime"},
-                {
-                    "data": null, "title": "Tool", "createdCell": function (nTd) {
-                    $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');
-                }, "width": "100px"
-                }
-            ],
-            "columnDefs": [{
-                orderable: false,
-                targets: [0, 9]
-            }, {
-                "defaultContent": "",
-                "targets": "_all"
-            }]
-        });
-
-        var start = {
-            format: 'YYYY-MM-DD',
-            minDate: '2014-06-16 23:59:59', //设定最小日期为当前日期
-            maxDate: $.nowDate({DD: 0}), //最大日期
-            choosefun: function (elem, datas) {
-                end.minDate = datas; //开始日选好后，重置结束日的最小日期
-                endDates();
-                logTable.draw();
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
             }
-        };
-        var end = {
-            format: 'YYYY-MM-DD',
-            minDate: $.nowDate({DD: 0}), //设定最小日期为当前日期
-            maxDate: '2099-06-16 23:59:59', //最大日期
-            choosefun: function (elem, datas) {
-                start.maxDate = datas; //将结束日的初始值设定为开始日的最大日期
-                logTable.draw();
+        },
+        "lengthMenu": [
+            [5, 10, 25, 50],
+            [5, 10, 25, 50]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+
+            data: function (d) {
+                d.startTime = $("#inpstart").val();
+                d.endTime = $("#inpend").val();
             }
-        };
-
-        function endDates() {
-            end.trigger = false;
-            $("#inpend").jeDate(end);
-        }
-
-        $("#inpstart").jeDate(start);
-        $("#inpend").jeDate(end);
+        },
+        columns: [
+            {"data": "id", "title": "serial"},
+            {"data": "userid", "title": "userid"},
+            {"data": "username", "title": "username"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
+            {"data": "password", "title": "password"},
+            {"data": "type", "title": "type"},
+            {"data": "status", "title": "status"},
+            {"data": "createtime", "title": "createTime"},
+            {"data": "updatetime", "title": "updateTime"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [8]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
     });
 
 });
