@@ -328,7 +328,6 @@ $(function () {
             {"data": "password", "title": "password"},
             {"data": "type", "title": "type"},
             {"data": "status", "title": "status"},
-            {"data": "createtime", "title": "createTime"},
             {"data": "updatetime", "title": "updateTime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
@@ -338,7 +337,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [8]
+            targets: [7]
         }, {
             "defaultContent": "",
             "targets": "_all"

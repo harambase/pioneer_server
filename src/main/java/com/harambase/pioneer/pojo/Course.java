@@ -11,7 +11,7 @@ public class Course implements Serializable{
 
     private Integer credits;
 
-    private Integer precrn;
+    private String precrn;
 
     private String coulev;
 
@@ -71,11 +71,11 @@ public class Course implements Serializable{
         this.credits = credits;
     }
 
-    public Integer getPrecrn() {
+    public String getPrecrn() {
         return precrn;
     }
 
-    public void setPrecrn(Integer precrn) {
+    public void setPrecrn(String precrn) {
         this.precrn = precrn;
     }
 

@@ -6,7 +6,7 @@
     <result column="crn" property="crn" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="credits" property="credits" jdbcType="INTEGER" />
-    <result column="precrn" property="precrn" jdbcType="INTEGER" />
+    <result column="precrn" property="precrn" jdbcType="VARCHAR" />
     <result column="couLev" property="coulev" jdbcType="VARCHAR" />
     <result column="couSec" property="cousec" jdbcType="VARCHAR" />
     <result column="startDate" property="startdate" jdbcType="VARCHAR" />
@@ -44,7 +44,7 @@
       info, createtime, updatetime
       )
     values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=INTEGER}, #{coulev,jdbcType=VARCHAR}, 
+      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{coulev,jdbcType=VARCHAR},
       #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
       #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
       #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR}, 
@@ -123,7 +123,7 @@
         #{credits,jdbcType=INTEGER},
       </if>
       <if test="precrn != null" >
-        #{precrn,jdbcType=INTEGER},
+        #{precrn,jdbcType=VARCHAR},
       </if>
       <if test="coulev != null" >
         #{coulev,jdbcType=VARCHAR},
@@ -179,7 +179,7 @@
         credits = #{credits,jdbcType=INTEGER},
       </if>
       <if test="precrn != null" >
-        precrn = #{precrn,jdbcType=INTEGER},
+        precrn = #{precrn,jdbcType=VARCHAR},
       </if>
       <if test="coulev != null" >
         couLev = #{coulev,jdbcType=VARCHAR},
@@ -228,7 +228,7 @@
     set crn = #{crn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       credits = #{credits,jdbcType=INTEGER},
-      precrn = #{precrn,jdbcType=INTEGER},
+      precrn = #{precrn,jdbcType=VARCHAR},
       couLev = #{coulev,jdbcType=VARCHAR},
       couSec = #{cousec,jdbcType=VARCHAR},
       startDate = #{startdate,jdbcType=VARCHAR},
@@ -244,4 +244,60 @@
       updatetime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from Course <where> status = #{status,jdbcType=VARCHAR}
+    <if test="search != null" >
+      and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      name like '%' #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    limit 0,4
+  </select>
+
+  <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from Course <where> 1 = 1
+    <if test="search != null">
+      and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      name like  '%' #{search,jdbcType=VARCHAR} '%' or
+      credits like  '%' #{search,jdbcType=VARCHAR} '%' or
+      precrn like  '%' #{search,jdbcType=VARCHAR} '%' or
+      coulev like  '%' #{search,jdbcType=VARCHAR} '%' or
+      cousec like  '%' #{search,jdbcType=VARCHAR} '%' or
+      startdate like  '%' #{search,jdbcType=VARCHAR} '%' or
+      enddate like  '%' #{search,jdbcType=VARCHAR} '%' or
+      day like  '%' #{search,jdbcType=VARCHAR} '%' or
+      starttime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      endtime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      capa like  '%' #{search,jdbcType=VARCHAR} '%' or
+      status like  '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like  '%' #{search,jdbcType=VARCHAR} '%' or
+      info like  '%' #{search,jdbcType=VARCHAR} '%' or
+      createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if>
+  </where>
+  </select>
+  <select id="getCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from Course <where> 1 = 1
+    <if test="search != null" >
+      and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      name like  '%' #{search,jdbcType=VARCHAR} '%' or
+      credits like  '%' #{search,jdbcType=VARCHAR} '%' or
+      precrn like  '%' #{search,jdbcType=VARCHAR} '%' or
+      coulev like  '%' #{search,jdbcType=VARCHAR} '%' or
+      cousec like  '%' #{search,jdbcType=VARCHAR} '%' or
+      startdate like  '%' #{search,jdbcType=VARCHAR} '%' or
+      enddate like  '%' #{search,jdbcType=VARCHAR} '%' or
+      day like  '%' #{search,jdbcType=VARCHAR} '%' or
+      starttime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      endtime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      capa like  '%' #{search,jdbcType=VARCHAR} '%' or
+      status like  '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like  '%' #{search,jdbcType=VARCHAR} '%' or
+      info like  '%' #{search,jdbcType=VARCHAR} '%' or
+      createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    order by ${orderColumn} ${order}
+    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -14,7 +14,6 @@
             <span class="hover"></span>
             <ul class="sub-menu">
                 <li><a href="${basePath}/manageCourse">Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manageCourse">Course Lookup<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
                 <li><a href="${basePath}/manageUser">User Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
                 <li><a href="${basePath}/manageAdvising">Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
                 <li><a href="${basePath}/manageTranscript">Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
@@ -34,6 +33,7 @@
             <span class="hover"></span>
         </li>
         <li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
 <script src="../../../static/js/otherJs/index.js"></script>

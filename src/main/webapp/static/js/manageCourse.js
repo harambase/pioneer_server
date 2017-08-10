@@ -1,14 +1,15 @@
 $(function () {
     //变量定义
     var facultyids = "";
+    var precrns = "";
     var newStatus, newGender, newType;
     var createCourseForm = $("#createCourseForm").validate({});
 
     //教师列表
     $("#searchFValue").bind("input propertychange", function () {
         var search = $("#searchFValue").val();
-        $(".w_selected").css({display: "block"});
-        $(".w_selected li").remove();
+        $(".w_selected1").css({display: "block"});
+        $(".w_selected1 li").remove();
         $.ajax({
             url : basePath+"/admin/list/faculty?search="+search,
             type : "GET",
@@ -18,26 +19,34 @@ $(function () {
                         var userid = result.data[i].userid;
                         var temp = "<li data-id=" + userid + ">" + result.data[i].firstname
                             + result.data[i].lastname+ "</li>";
-                        $(".w_selected").append(temp);
-                        $(".w_selected").css({height: "180px", overflow: "auto"});
-                        $(".w_selected").find("li").css({
+                        $(".w_selected1").append(temp);
+                        $(".w_selected1").css({
+                            overflow: "auto",
+                            position: "absolute",
+                            top: "25px",
+                            left: "0",
+                            width: "100%",
+                            margin: "0",
+                            "z-index": "5"
+                        });
+                        $(".w_selected1").find("li").css({
                             lineHeight: "30px",
                             paddingLeft: "15px",
                             backgroundColor: "#fff",
                             cursor: "pointer"
                         });
-                        $(".w_selected").find("li").hover(function () {
-                            $(this).css({background: "#498BD5", color: "#fff"});
+                        $(".w_selected1").find("li").hover(function () {
+                            $(this).css({background: "#03ced0", color: "#fff"});
                         }, function () {
                             $(this).css({background: "#fff", color: "#333"});
                         });
                         $("#searchFValue").blur(function () {
                             setTimeout(function () {
-                                $(".w_selected").hide();
+                                $(".w_selected1").hide();
                             }, 200)
 
                         });
-                        $(".w_selected").find("li").click(function () {
+                        $(".w_selected1").find("li").click(function () {
                             $("#searchFValue").val(this.innerHTML);
                         })
                     }
@@ -48,14 +57,14 @@ $(function () {
             }
         });
     });
-    $(".w_selected").on("click", "li", function () {
+    $(".w_selected1").on("click", "li", function () {
         $("#searchFValue").val($(this).data("id"));
         $("#searchFValue").data("userid", $(this).data("id"));
-        $(".w_selected").css({display: "none"});
+        $(".w_selected1").css({display: "none"});
     });
     $("#addf-button").click(function () {
         facultyids = $("#searchFValue").data("userid");
-        if(facultyids === ""){
+        if(facultyids === "" || facultyids === undefined){
             var faculty = $("#searchFValue").val();
             getFaulcty(faculty);
         }
@@ -89,8 +98,94 @@ $(function () {
     }
 
     //课程列表
+    $("#searchCValue").bind("input propertychange", function () {
+        var search = $("#searchCValue").val();
+        $(".w_selected2").css({display: "block"});
+        $(".w_selected2 li").remove();
+        $.ajax({
+            url : basePath+"/course/list/search?search="+search,
+            type : "GET",
+            success: function (result) {
+                if (result.code === 2001) {
+                    for (var i = 0; i < result.data.length; i++) {
+                        var crn = result.data[i].crn;
+                        var temp = "<li data-id=" + crn + ">" + result.data[i].name + "</li>";
+                        $(".w_selected2").append(temp);
+                        $(".w_selected2").css({
+                            overflow: "auto",
+                            position: "absolute",
+                            top: "25px",
+                            left: "0",
+                            width: "100%",
+                            margin: "0",
+                            "z-index": "5"
+                        });
+                        $(".w_selected2").find("li").css({
+                            lineHeight: "30px",
+                            paddingLeft: "15px",
+                            backgroundColor: "#fff",
+                            cursor: "pointer"
+                        });
+                        $(".w_selected2").find("li").hover(function () {
+                            $(this).css({background: "#03ced0", color: "#fff"});
+                        }, function () {
+                            $(this).css({background: "#fff", color: "#333"});
+                        });
+                        $("#searchCValue").blur(function () {
+                            setTimeout(function () {
+                                $(".w_selected2").hide();
+                            }, 200)
 
+                        });
+                        $(".w_selected2").find("li").click(function () {
+                            $("#searchCValue").val(this.innerHTML);
+                        })
+                    }
+
+                } else {
+                    Showbo.Msg.alert("获取失败", function () {});
+                }
+            }
+        });
+    });
+    $(".w_selected2").on("click", "li", function () {
+        $("#searchCValue").val($(this).data("id"));
+        $("#searchCValue").data("crn", $(this).data("id"));
+        $(".w_selected2").css({display: "none"});
+    });
+    $("#addc-button").click(function () {
+        precrns = $("#searchCValue").data("crn");
+        if(precrns === "" || precrns === undefined){
+            var precrn = $("#searchCValue").val();
+            getCourse(precrn);
+        }
+        else
+            Showbo.Msg.alert("认证成功", function () {});
+
+    });
     //搜索课程
+    function getCourse(precrn){
+        var isSucc = false;
+        $.ajax({
+            url : basePath+"/course/list/search?search="+precrn,
+            type : "GET",
+            success: function (result) {
+                if (result.code === 2001) {
+                    if(result.data.length !== 1){
+                        Showbo.Msg.alert("课程获取失败", function () {});
+                    }
+                    else if(result.data.length === 1){
+                        precrns = result.data[i].crn;
+                        isSucc = true;
+                        Showbo.Msg.alert("课程获取成功", function () {});
+                    }
+                } else {
+                    Showbo.Msg.alert("课程获取失败", function () {});
+                }
+            }
+        });
+        return isSucc;
+    }
 
     //添加课程
     $("#registerBtn").click(function () {
@@ -127,7 +222,8 @@ $(function () {
                     capa: capa,
                     facultyid: facultyids,
                     day: day,
-                    info: info
+                    info: info,
+                    precrn: precrns,
                 };
 
                 $.ajax({
@@ -404,7 +500,7 @@ $(function () {
 
     });
 
-    var logTable = $("#userTable").DataTable({
+    var logTable = $("#courseTable").DataTable({
 
         "language": {
             "aria": {
@@ -434,7 +530,7 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/admin/user/list",
+            url: basePath + "/course/list",
 
             data: function (d) {
                 d.startTime = $("#inpstart").val();
@@ -443,15 +539,16 @@ $(function () {
         },
         columns: [
             {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "username", "title": "username"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {"data": "password", "title": "password"},
-            {"data": "type", "title": "type"},
+            {"data": "crn", "title": "crn"},
+            {"data": "name", "title": "name"},
+            {"data": "coulev", "title": "coulev"},
+            {"data": "cousec", "title": "cousec"},
+            {"data": "precrn", "title": "precrn"},
+            {"data": "capa", "title": "capa"},
             {"data": "status", "title": "status"},
-            {"data": "createtime", "title": "createTime"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "day", "title": "day"},
+            {"data": "facultyid", "title": "faculty"},
+            {"data": "updatetime", "title": "updatetime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');

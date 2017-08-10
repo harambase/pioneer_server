@@ -99,18 +99,18 @@
                     <div class="field">
                     <div class="group-form-input">
                         <label for="searchFValue">Assign Teacher:</label>
-                        <input id="searchFValue" placeholder="Assign Faculty" style="float: left; width: 155px;" minlength="5" maxlength="20">
+                        <input id="searchFValue" placeholder="Assign Faculty" style="float: left; width: 155px;" required>
                         <i id="searchFButton" class='fa fa-search fa-lg'></i>
                         <span class="w_button w_add" id="addf-button">Check Faculty</span>
-                        <ul class="w_selected">
+                        <ul class="w_selected1">
                         </ul>
                     </div>
                     <div class="group-form-input">
                         <label for="searchCValue">Assign Prerequest Course:</label>
-                        <input id="searchCValue" placeholder="Assign Precourse" style="float: left; width: 155px;" minlength="5" maxlength="20">
+                        <input id="searchCValue" placeholder="Assign Precourse" style="float: left; width: 155px;">
                         <i id="searchCButton" class='fa fa-search fa-lg'></i>
                         <span class="w_button w_add" id="addc-button">Check Precourse</span>
-                        <ul class="w_selected">
+                        <ul class="w_selected2">
                         </ul>
                     </div>
 
@@ -150,9 +150,9 @@
     <div style="float: right;margin: 0 120px 0 0;width: 1065px;height: 652px;"
          class="account-container register">
         <div class="content clearfix">
-            <h1>Lists of Users in System</h1>
-            <div class='user-table'>
-                <table width="100%" style="font-size: 14px;" id="userTable" class="display dataTable">
+            <h1>Lists of Courses in System</h1>
+            <div class='course-table'>
+                <table width="100%" style="font-size: 14px;" id="courseTable" class="display dataTable">
                 </table>
             </div>
         </div> <!-- /content -->

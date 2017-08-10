@@ -84,3 +84,13 @@ h1 {
 .color {
     color: #03ced0;
 }
+
+label.error {
+    position: absolute;
+    padding: 5px;
+    color: #fff;
+    white-space: nowrap;
+    font-weight: normal;
+    background: #e62163;
+    font-size: 12px;
+}

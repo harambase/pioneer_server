@@ -26,4 +26,8 @@ public interface CourseService {
     HaramMessage countStudent(String courseid);
 
     HaramMessage updateGrade(String courseid, String studentid, String grade);
+
+    HaramMessage listBySearch(String search);
+
+    HaramMessage courseList(String s, String s1, String search, String order, String orderCol);
 }

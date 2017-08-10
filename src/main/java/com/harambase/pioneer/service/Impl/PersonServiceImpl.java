@@ -89,23 +89,29 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
+            case 0:
+                orderColumn = "id";
+                break;
             case 1:
                 orderColumn = "userid";
                 break;
             case 2:
-                orderColumn = "name";
+                orderColumn = "username";
                 break;
             case 3:
-                orderColumn = "password";
+                orderColumn = "firstname";
                 break;
             case 4:
-                orderColumn = "nickname";
+                orderColumn = "lastname";
                 break;
             case 5:
-                orderColumn = "status";
+                orderColumn = "password";
                 break;
             case 6:
-                orderColumn = "createtime";
+                orderColumn = "type";
+                break;
+            case 7:
+                orderColumn = "status";
                 break;
             default:
                 orderColumn = "updatetime";
@@ -207,9 +213,9 @@ public class PersonServiceImpl implements PersonService {
             if(search.equals(""))
                 param.put("search", null);
 
-            List<Person> msgs = personMapper.getUsersBySearch(param);
+            List<Person> users = personMapper.getUsersBySearch(param);
 
-            message.setData(msgs);
+            message.setData(users);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
 

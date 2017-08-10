@@ -1,6 +1,7 @@
 package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.service.StudentService;
 import com.harambase.pioneer.service.CourseService;
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -40,6 +46,11 @@ public class CourseController {
         HaramMessage haramMessage = courseService.add(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
 
+    }
+    @RequestMapping(value = "/list/search", method = RequestMethod.GET)
+    public ResponseEntity listBySearch(@RequestParam("search") String search){
+        HaramMessage haramMessage = courseService.listBySearch(search);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     public String removeCourse(@RequestBody Course course){
@@ -85,5 +96,30 @@ public class CourseController {
     public String getNumOfStudent(@RequestParam(value = "courseid") String courseid){
         courseService.countStudent(courseid);
         return null;
+    }
+
+    @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
+                                    @RequestParam(value = "length") Integer length,
+                                    @RequestParam(value = "draw") Integer draw,
+                                    @RequestParam(value = "search[value]") String search,
+                                    @RequestParam(value = "order[0][dir]") String order,
+                                    @RequestParam(value = "order[0][column]") String orderCol,
+                                    HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            map.put("draw", draw);
+            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
+            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
+            map.put("data", message.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("draw", 1);
+            map.put("data", new ArrayList<>());
+            map.put("recordsTotal", 0);
+            map.put("recordsFiltered", 0);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }
