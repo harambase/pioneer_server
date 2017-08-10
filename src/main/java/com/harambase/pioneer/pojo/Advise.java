@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Advise implements Serializable {
     private Integer id;
 
-    private Integer studentid;
+    private String studentid;
 
-    private Integer facultyid;
+    private String facultyid;
 
     public Integer getId() {
         return id;
@@ -17,19 +17,19 @@ public class Advise implements Serializable {
         this.id = id;
     }
 
-    public Integer getStudentid() {
+    public String getStudentid() {
         return studentid;
     }
 
-    public void setStudentid(Integer studentid) {
-        this.studentid = studentid;
+    public void setStudentid(String studentid) {
+        this.studentid = studentid == null ? null : studentid.trim();
     }
 
-    public Integer getFacultyid() {
+    public String getFacultyid() {
         return facultyid;
     }
 
-    public void setFacultyid(Integer facultyid) {
-        this.facultyid = facultyid;
+    public void setFacultyid(String facultyid) {
+        this.facultyid = facultyid == null ? null : facultyid.trim();
     }
 }

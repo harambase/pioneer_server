@@ -3,9 +3,9 @@
 <mapper namespace="com.harambase.pioneer.dao.TranscriptMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="studentid" property="studentid" jdbcType="INTEGER" />
-    <result column="crn" property="crn" jdbcType="INTEGER" />
-    <result column="facultyid" property="facultyid" jdbcType="INTEGER" />
+    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+    <result column="crn" property="crn" jdbcType="VARCHAR" />
+    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
     <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="complete" property="complete" jdbcType="VARCHAR" />
   </resultMap>
@@ -26,8 +26,8 @@
     insert into Transcript (id, studentid, crn, 
       facultyid, grade, complete
       )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, 
-      #{facultyid,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{crn,jdbcType=VARCHAR}, 
+      #{facultyid,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
@@ -57,13 +57,13 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="studentid != null" >
-        #{studentid,jdbcType=INTEGER},
+        #{studentid,jdbcType=VARCHAR},
       </if>
       <if test="crn != null" >
-        #{crn,jdbcType=INTEGER},
+        #{crn,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        #{facultyid,jdbcType=INTEGER},
+        #{facultyid,jdbcType=VARCHAR},
       </if>
       <if test="grade != null" >
         #{grade,jdbcType=VARCHAR},
@@ -77,13 +77,13 @@
     update Transcript
     <set >
       <if test="studentid != null" >
-        studentid = #{studentid,jdbcType=INTEGER},
+        studentid = #{studentid,jdbcType=VARCHAR},
       </if>
       <if test="crn != null" >
-        crn = #{crn,jdbcType=INTEGER},
+        crn = #{crn,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=INTEGER},
+        facultyid = #{facultyid,jdbcType=VARCHAR},
       </if>
       <if test="grade != null" >
         grade = #{grade,jdbcType=VARCHAR},
@@ -96,9 +96,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript" >
     update Transcript
-    set studentid = #{studentid,jdbcType=INTEGER},
-      crn = #{crn,jdbcType=INTEGER},
-      facultyid = #{facultyid,jdbcType=INTEGER},
+    set studentid = #{studentid,jdbcType=VARCHAR},
+      crn = #{crn,jdbcType=VARCHAR},
+      facultyid = #{facultyid,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=VARCHAR},
       complete = #{complete,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

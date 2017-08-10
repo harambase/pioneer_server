@@ -3,8 +3,8 @@
 <mapper namespace="com.harambase.pioneer.dao.AdviseMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Advise" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="studentid" property="studentid" jdbcType="INTEGER" />
-    <result column="facultyid" property="facultyid" jdbcType="INTEGER" />
+    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, studentid, facultyid
@@ -22,7 +22,7 @@
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Advise" >
     insert into Advise (id, studentid, facultyid
       )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=INTEGER}, #{facultyid,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Advise" >
@@ -43,10 +43,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="studentid != null" >
-        #{studentid,jdbcType=INTEGER},
+        #{studentid,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        #{facultyid,jdbcType=INTEGER},
+        #{facultyid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -54,18 +54,18 @@
     update Advise
     <set >
       <if test="studentid != null" >
-        studentid = #{studentid,jdbcType=INTEGER},
+        studentid = #{studentid,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=INTEGER},
+        facultyid = #{facultyid,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Advise" >
     update Advise
-    set studentid = #{studentid,jdbcType=INTEGER},
-      facultyid = #{facultyid,jdbcType=INTEGER}
+    set studentid = #{studentid,jdbcType=VARCHAR},
+      facultyid = #{facultyid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

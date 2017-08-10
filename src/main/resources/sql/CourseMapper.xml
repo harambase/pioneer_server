@@ -3,7 +3,7 @@
 <mapper namespace="com.harambase.pioneer.dao.CourseMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Course" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="crn" property="crn" jdbcType="INTEGER" />
+    <result column="crn" property="crn" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="credits" property="credits" jdbcType="INTEGER" />
     <result column="precrn" property="precrn" jdbcType="INTEGER" />
@@ -16,11 +16,14 @@
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="capa" property="capa" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="facultyid" property="facultyid" jdbcType="INTEGER" />
+    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
+    <result column="info" property="info" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
-    endTime, capa, status, facultyid
+    endTime, capa, status, facultyid, info, createtime, updatetime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -37,13 +40,15 @@
       credits, precrn, couLev, 
       couSec, startDate, endDate, 
       day, startTime, endTime, 
-      capa, status, facultyid
+      capa, status, facultyid, 
+      info, createtime, updatetime
       )
-    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=INTEGER}, #{coulev,jdbcType=VARCHAR}, 
       #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
       #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
-      #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=INTEGER}
+      #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course" >
@@ -94,13 +99,22 @@
       <if test="facultyid != null" >
         facultyid,
       </if>
+      <if test="info != null" >
+        info,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
       <if test="crn != null" >
-        #{crn,jdbcType=INTEGER},
+        #{crn,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -139,7 +153,16 @@
         #{status,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        #{facultyid,jdbcType=INTEGER},
+        #{facultyid,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -147,7 +170,7 @@
     update Course
     <set >
       <if test="crn != null" >
-        crn = #{crn,jdbcType=INTEGER},
+        crn = #{crn,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -186,14 +209,23 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=INTEGER},
+        facultyid = #{facultyid,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null" >
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
     update Course
-    set crn = #{crn,jdbcType=INTEGER},
+    set crn = #{crn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       credits = #{credits,jdbcType=INTEGER},
       precrn = #{precrn,jdbcType=INTEGER},
@@ -206,7 +238,10 @@
       endTime = #{endtime,jdbcType=VARCHAR},
       capa = #{capa,jdbcType=INTEGER},
       status = #{status,jdbcType=VARCHAR},
-      facultyid = #{facultyid,jdbcType=INTEGER}
+      facultyid = #{facultyid,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -65,39 +65,14 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.addUser(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity list(@RequestParam(value = "start") Integer start,
-                               @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "draw") Integer draw,
-                               @RequestParam(value = "search[value]") String search,
-                               @RequestParam(value = "order[0][dir]") String order,
-                               @RequestParam(value = "order[0][column]") String orderCol,
-                               HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-        try {
-            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
-            map.put("draw", draw);
-            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
-            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
-            map.put("data", message.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("draw", 1);
-            map.put("data", new ArrayList<>());
-            map.put("recordsTotal", 0);
-            map.put("recordsFiltered", 0);
-        }
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public ResponseEntity update(@RequestBody Person person){
+    public ResponseEntity updateUser(@RequestBody Person person){
         HaramMessage message = personService.update(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -125,5 +100,36 @@ public class AdminController {
                                @RequestParam(value = "facultyid") String facultyid) {
         studentService.updateMentor(studentid, facultyid);
         return null;
+    }
+
+    @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
+                                    @RequestParam(value = "length") Integer length,
+                                    @RequestParam(value = "draw") Integer draw,
+                                    @RequestParam(value = "search[value]") String search,
+                                    @RequestParam(value = "order[0][dir]") String order,
+                                    @RequestParam(value = "order[0][column]") String orderCol,
+                                    HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            map.put("draw", draw);
+            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
+            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
+            map.put("data", message.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("draw", 1);
+            map.put("data", new ArrayList<>());
+            map.put("recordsTotal", 0);
+            map.put("recordsFiltered", 0);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity listFaculties(@RequestParam(value = "search") String search){
+        HaramMessage message = personService.listFaculties(search);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

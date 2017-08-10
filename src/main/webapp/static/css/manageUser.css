@@ -414,7 +414,7 @@
     border: 1px solid #a0a5ad;
 }
 #add-button{
-    color: #4a8cd6;
+    color: #03ced0;
     border: 1px solid #a0a5ad;
 }
 #add-button:hover{
@@ -484,9 +484,14 @@
 
 }
 .w_button{
-    display:inline-block;
-    color:#8e959e;
-    border-color:#8e959e;
+    display: inline-block;
+    color: #8e959e;
+    border-color: #8e959e;
+    background-color: #a8aaab;
+    color: white;
+    width: 132px;
+    height: 30px;
+    margin: 0 0 9px 0;
 }
 .w_button:hover,.w_button.active{
     color:#4a8cd6;

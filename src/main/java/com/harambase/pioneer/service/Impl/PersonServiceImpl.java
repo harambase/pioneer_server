@@ -42,6 +42,7 @@ public class PersonServiceImpl implements PersonService {
             }
             return haramMessage;
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
@@ -77,6 +78,7 @@ public class PersonServiceImpl implements PersonService {
             }
             return haramMessage;
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
@@ -134,9 +136,12 @@ public class PersonServiceImpl implements PersonService {
 
             message.setData(msgs);
             message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
         }catch (Exception e) {
+            e.printStackTrace();
             message.setMsg(FlagDict.SYSTEM_ERROR.getM());
             message.setCode(FlagDict.SYSTEM_ERROR.getV());
             return message;
@@ -159,6 +164,7 @@ public class PersonServiceImpl implements PersonService {
             }
             return haramMessage;
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
@@ -169,6 +175,7 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage update(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            person.setUpdatetime(DateUtil.DateToStr(new Date()));
             int ret = personMapper.updateByPrimaryKeySelective(person);
             if(ret == 1) {
                 haramMessage.setData(person);
@@ -181,9 +188,63 @@ public class PersonServiceImpl implements PersonService {
             }
             return haramMessage;
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage listFaculties(String search) {
+        HaramMessage message = new HaramMessage();
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("type", "f");
+            param.put("status", "1");
+
+            if(search.equals(""))
+                param.put("search", null);
+
+            List<Person> msgs = personMapper.getUsersBySearch(param);
+
+            message.setData(msgs);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
+    }
+
+    @Override
+    public HaramMessage listStudents(String search) {
+        HaramMessage message = new HaramMessage();
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("type", "s");
+            param.put("status", "1");
+
+            if(search.equals(""))
+                param.put("search", null);
+
+            List<Person> msgs = personMapper.getUsersBySearch(param);
+
+            message.setData(msgs);
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
         }
     }
 }

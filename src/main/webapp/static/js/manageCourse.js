@@ -1,57 +1,179 @@
 $(function () {
     //变量定义
-    var status, gender, type;
+    var facultyids = "";
     var newStatus, newGender, newType;
-    var registerForm = $("#createUserForm").validate({});
+    var createCourseForm = $("#createCourseForm").validate({});
 
-    //添加用户
-    $("#registerBtn").click(function () {
-        if(registerForm.form()){
-            var firstname = $("#firstname").val();
-            var lastname = $("#lastname").val();
-            var email = $("#email").val();
-            var qq = $("#qq").val();
-            var weChat = $("#weChat").val();
-            var dorm = $("#dorm").val();
-            var gender = $("#gender").val();
-            var info = $("#year-semester").val();
-            var type = $("#type").val();
-            var birthday = $("#birthday").val();
-
-            var person = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                qq: qq,
-                weChat: weChat,
-                dorm: dorm,
-                gender: gender,
-                info: info,
-                type: type,
-                birthday:birthday
-            };
-            $.ajax({
-                url: basePath + "/admin/user/add",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(person),
-                success: function (data) {
-                    console.log(data);
-                    if (data.code === 2001) {
-                        Showbo.Msg.alert("添加成功!", function () {
-                            window.location.reload();
+    //教师列表
+    $("#searchFValue").bind("input propertychange", function () {
+        var search = $("#searchFValue").val();
+        $(".w_selected").css({display: "block"});
+        $(".w_selected li").remove();
+        $.ajax({
+            url : basePath+"/admin/list/faculty?search="+search,
+            type : "GET",
+            success: function (result) {
+                if (result.code === 2001) {
+                    for (var i = 0; i < result.data.length; i++) {
+                        var userid = result.data[i].userid;
+                        var temp = "<li data-id=" + userid + ">" + result.data[i].firstname
+                            + result.data[i].lastname+ "</li>";
+                        $(".w_selected").append(temp);
+                        $(".w_selected").css({height: "180px", overflow: "auto"});
+                        $(".w_selected").find("li").css({
+                            lineHeight: "30px",
+                            paddingLeft: "15px",
+                            backgroundColor: "#fff",
+                            cursor: "pointer"
                         });
-                    }
-                    else if (data.code === 2005) {
-                        Showbo.Msg.alert("系统异常!", function () {} );
-                    }
-                    else
-                        Showbo.Msg.alert(data.msg, function () {});
-                }
-            })
-        }
-    })
+                        $(".w_selected").find("li").hover(function () {
+                            $(this).css({background: "#498BD5", color: "#fff"});
+                        }, function () {
+                            $(this).css({background: "#fff", color: "#333"});
+                        });
+                        $("#searchFValue").blur(function () {
+                            setTimeout(function () {
+                                $(".w_selected").hide();
+                            }, 200)
 
+                        });
+                        $(".w_selected").find("li").click(function () {
+                            $("#searchFValue").val(this.innerHTML);
+                        })
+                    }
+
+                } else {
+                    Showbo.Msg.alert("获取失败", function () {});
+                }
+            }
+        });
+    });
+    $(".w_selected").on("click", "li", function () {
+        $("#searchFValue").val($(this).data("id"));
+        $("#searchFValue").data("userid", $(this).data("id"));
+        $(".w_selected").css({display: "none"});
+    });
+    $("#addf-button").click(function () {
+        facultyids = $("#searchFValue").data("userid");
+        if(facultyids === ""){
+            var faculty = $("#searchFValue").val();
+            getFaulcty(faculty);
+        }
+        else
+            Showbo.Msg.alert("认证成功", function () {});
+
+    });
+    //搜索教师
+    function getFaulcty(faculty){
+        var isSucc = false;
+        $.ajax({
+            url : basePath+"/admin/list/faculty?search="+faculty,
+            type : "GET",
+            async: false,
+            success: function (result) {
+                if (result.code === 2001) {
+                    if(result.data.length !== 1){
+                        Showbo.Msg.alert("教师获取失败", function () {});
+                    }
+                    else if(result.data.length === 1){
+                        facultyids = result.data[i].userid;
+                        isSucc = true;
+                        Showbo.Msg.alert("教师获取成功", function () {});
+                    }
+                } else {
+                    Showbo.Msg.alert("教师获取失败", function () {});
+                }
+            }
+        });
+        return isSucc;
+    }
+
+    //课程列表
+
+    //搜索课程
+
+    //添加课程
+    $("#registerBtn").click(function () {
+        if(createCourseForm.form()) {
+            var name = $("#name").val();
+            var credits = $("#credits").val();
+            var coulev = $("#coulev").val();
+            var cousec = $("#cousec").val();
+            var startdate = $("#startdate").val();
+            var enddate = $("#enddate").val();
+            var starttime = $("#starttime").val();
+            var endtime = $("#endtime").val();
+            var capa = $("#capa").val();
+            var day = "";
+            var info = $("#year-semester").val();
+
+            if (facultyids !== "") {
+
+                $('input[name="day"]:checked').each(function () {
+                    day += $(this).val() + "/";
+                });
+
+                console.log(facultyids);
+
+                var course = {
+                    credits: credits,
+                    coulev: coulev,
+                    name: name,
+                    cousec: cousec,
+                    startdate: startdate,
+                    enddate: enddate,
+                    starttime: starttime,
+                    endtime: endtime,
+                    capa: capa,
+                    facultyid: facultyids,
+                    day: day,
+                    info: info
+                };
+
+                $.ajax({
+                    url: basePath + "/course/add",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(course),
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code === 2001) {
+                            Showbo.Msg.alert("添加成功!", function () {
+                                window.location.reload();
+                            });
+                        }
+                        else if (data.code === 2005) {
+                            Showbo.Msg.alert("系统异常!", function () {} );
+                        }
+                        else
+                            Showbo.Msg.alert(data.msg, function () {});
+                    }
+                })
+            }
+            else
+                Showbo.Msg.alert("教师信息获取失败", function () {});
+
+        }
+    });
+    //获取用户
+    function getUser(userid){
+        var user = new Object();
+        $.ajax({
+            url: basePath + "/admin/get?userid="+userid,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            async : false,
+            success: function (data) {
+                if (data.code === 2001)
+                    user = data.data;
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("获取失败!", function () {});
+            }
+        });
+        return user;
+    }
     //更新用户信息
     $("#confirm").click(function (){
         var formdata = {
@@ -212,7 +334,7 @@ $(function () {
     //编辑弹窗
     $("#userTable").on("click", ".btn.btn-edit", function () {
 
-        var userid = $(this).parents("tr").find("td").eq(1).html();
+        var userid = $(this).parents("tr").find("td").eq(0).html();
         var user = getUser(userid);
         var baseInfo = $(".w_basicInfo");
 

@@ -256,24 +256,34 @@
     </if>
   </where>
   </select>
-  <!--//(int currentIndex, int pageSize, String search, String order, String orderColumn);-->
   <select id="getByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="BaseResultMap">
     select * from Person <where> 1 = 1
     <if test="search != null" >
-    and (username like '%' #{search,jdbcType=VARCHAR} '%' or
-    type     like '%'  #{search,jdbcType=VARCHAR}  '%' or
-    password like '%'  #{search,jdbcType=VARCHAR} '%' or
-    qq       like '%'  #{search,jdbcType=VARCHAR}  '%' or
-    weChat   like '%'  #{search,jdbcType=VARCHAR} '%' or
-    dorm     like '%'  #{search,jdbcType=VARCHAR} '%' or
-    firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-    lastname like '%'  #{search,jdbcType=VARCHAR} '%' or
-    birthday like '%'  #{search,jdbcType=VARCHAR} '%' or
-    status like '%'  #{search,jdbcType=VARCHAR} '%' or
-    creatTime like '%'  #{search,jdbcType=VARCHAR} '%' or
-    updatetime like '%' #{search,jdbcType=VARCHAR}  '%')
+      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
+      username like '%' #{search,jdbcType=VARCHAR} '%' or
+      type     like '%'  #{search,jdbcType=VARCHAR}  '%' or
+      password like '%'  #{search,jdbcType=VARCHAR} '%' or
+      qq       like '%'  #{search,jdbcType=VARCHAR}  '%' or
+      weChat   like '%'  #{search,jdbcType=VARCHAR} '%' or
+      dorm     like '%'  #{search,jdbcType=VARCHAR} '%' or
+      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
+      lastname like '%'  #{search,jdbcType=VARCHAR} '%' or
+      birthday like '%'  #{search,jdbcType=VARCHAR} '%' or
+      status like '%'  #{search,jdbcType=VARCHAR} '%' or
+      creatTime like '%'  #{search,jdbcType=VARCHAR} '%' or
+      updatetime like '%' #{search,jdbcType=VARCHAR}  '%')
     </if></where>
     order by #{orderColumn,jdbcType=VARCHAR} #{order,jdbcType=VARCHAR}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+  <select id="getUsersBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from Person <where> type = #{type,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+    <if test="search != null" >
+      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
+      username like '%' #{search,jdbcType=VARCHAR} '%' or
+      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
+      lastname like '%'  #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    limit 0,4
   </select>
 </mapper>

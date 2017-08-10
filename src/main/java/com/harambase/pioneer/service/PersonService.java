@@ -13,4 +13,8 @@ public interface PersonService {
     HaramMessage getUser(String userid);
 
     HaramMessage update(Person person);
+
+    HaramMessage listFaculties(String search);
+
+    HaramMessage listStudents(String serach);
 }

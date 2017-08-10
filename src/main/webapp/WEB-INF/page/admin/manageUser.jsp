@@ -11,19 +11,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+    <link href="${basePath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="${basePath}/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
 
-    <link href="../../../static/css/font-awesome.css" rel="stylesheet">
+    <link href="${basePath}/static/css/font-awesome.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
-    <link href="../../../static/css/style.css" rel="stylesheet" type="text/css">
-    <link href="../../../static/css/pages/signin.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../../../static/css/header.css" media="screen" type="text/css" />
+    <link href="${basePath}/static/css/style.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/static/css/pages/signin.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="${basePath}/static/css/header.css" media="screen" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="../../../static/css/pages/title.css" rel="stylesheet" type="text/css">
-    <link href="../../../static/css/manageUser.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/static/css/pages/title.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/static/css/manageUser.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -216,7 +216,7 @@
 
                     <h4 class='reset-pass w_hide'>Reset Password：</h4>
                     <p class='w_hide'>重置用户账号，新密码将通过邮箱发送给用户邮箱。</p>
-                    <button class='w_hide' id="resetPassword">Reset Password</button>
+                    <button class='w_hide' id="resetPassword">Reset</button>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
                     <button id="apply" class="w_button">Confirm</button>

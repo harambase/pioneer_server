@@ -23,4 +23,6 @@ public interface PersonMapper {
     long getCountByMapPageSearchOrdered(Map param);
 
     List<Person> getByMapPageSearchOrdered(Map param);
+
+    List<Person> getUsersBySearch(Map param);
 }

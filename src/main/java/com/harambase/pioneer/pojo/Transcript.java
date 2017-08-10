@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Transcript implements Serializable {
     private Integer id;
 
-    private Integer studentid;
+    private String studentid;
 
-    private Integer crn;
+    private String crn;
 
-    private Integer facultyid;
+    private String facultyid;
 
     private String grade;
 
@@ -23,28 +23,28 @@ public class Transcript implements Serializable {
         this.id = id;
     }
 
-    public Integer getStudentid() {
+    public String getStudentid() {
         return studentid;
     }
 
-    public void setStudentid(Integer studentid) {
-        this.studentid = studentid;
+    public void setStudentid(String studentid) {
+        this.studentid = studentid == null ? null : studentid.trim();
     }
 
-    public Integer getCrn() {
+    public String getCrn() {
         return crn;
     }
 
-    public void setCrn(Integer crn) {
-        this.crn = crn;
+    public void setCrn(String crn) {
+        this.crn = crn == null ? null : crn.trim();
     }
 
-    public Integer getFacultyid() {
+    public String getFacultyid() {
         return facultyid;
     }
 
-    public void setFacultyid(Integer facultyid) {
-        this.facultyid = facultyid;
+    public void setFacultyid(String facultyid) {
+        this.facultyid = facultyid == null ? null : facultyid.trim();
     }
 
     public String getGrade() {

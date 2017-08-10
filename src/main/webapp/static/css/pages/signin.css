@@ -84,6 +84,7 @@ span.login-checkbox > input[type='checkbox'] + label {
     cursor: pointer;
 }
 
+
 span.login-checkbox > input[type='checkbox']:checked + label {	
 	background-position: 0 -15px;
 }

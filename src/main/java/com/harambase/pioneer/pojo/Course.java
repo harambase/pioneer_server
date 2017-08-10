@@ -2,10 +2,10 @@ package com.harambase.pioneer.pojo;
 
 import java.io.Serializable;
 
-public class Course implements Serializable {
+public class Course implements Serializable{
     private Integer id;
 
-    private Integer crn;
+    private String crn;
 
     private String name;
 
@@ -31,7 +31,13 @@ public class Course implements Serializable {
 
     private String status;
 
-    private Integer facultyid;
+    private String facultyid;
+
+    private String info;
+
+    private String createtime;
+
+    private String updatetime;
 
     public Integer getId() {
         return id;
@@ -41,12 +47,12 @@ public class Course implements Serializable {
         this.id = id;
     }
 
-    public Integer getCrn() {
+    public String getCrn() {
         return crn;
     }
 
-    public void setCrn(Integer crn) {
-        this.crn = crn;
+    public void setCrn(String crn) {
+        this.crn = crn == null ? null : crn.trim();
     }
 
     public String getName() {
@@ -145,11 +151,35 @@ public class Course implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
-    public Integer getFacultyid() {
+    public String getFacultyid() {
         return facultyid;
     }
 
-    public void setFacultyid(Integer facultyid) {
-        this.facultyid = facultyid;
+    public void setFacultyid(String facultyid) {
+        this.facultyid = facultyid == null ? null : facultyid.trim();
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info == null ? null : info.trim();
+    }
+
+    public String getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime == null ? null : createtime.trim();
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(String updatetime) {
+        this.updatetime = updatetime == null ? null : updatetime.trim();
     }
 }
