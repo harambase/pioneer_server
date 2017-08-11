@@ -372,33 +372,33 @@ $(function () {
             }
         })
     });
-    //更新课程状态
-    $("#apply").click(function (){
-        if(newStatus !== status || newType !== type || newGender !== gender) {
-            var formdata = {
-                userid: $("#userid2").val(),
-                gender: newGender,
-                status: newStatus,
-                type: newType
-            };
-            $.ajax({
-                url: basePath + "/admin/user/update",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(formdata),
-                success: function (data) {
-                    if (data.code === 2001)
-                        Showbo.Msg.alert("更新成功!", function () {
-                            logTable.draw();
-                            writeSettings(newStatus, newType, newGender);
-                        });
-                    else if (data.code === 2005)
-                        Showbo.Msg.alert("系统异常!", function () {});
-                    else
-                        Showbo.Msg.alert("更新失败!", function () {});
-                }
-            })
-        }
+    //更新课程时间
+    $("#change-day").click(function (){
+        var newDay="";
+        $('input[name="newDay"]:checked').each(function () {
+            newDay += $(this).val() + "/";
+        });
+        var formdata = {
+            crn :  $("#crn2").val(),
+            day: newDay
+        };
+        $.ajax({
+            url:basePath+"/course/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        logTable.draw();
+                        course.day = newDay;
+                    });
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
     });
 
     //复选框控制
@@ -448,9 +448,10 @@ $(function () {
             getCourse(pre, true);
             $(".w_manage h4").eq(2).html("Assigned Pre-required Course: " + preCourse.name);
         }
+        wirteDay();
+    }
+    function wirteDay(){
         var day = course.day.split("/");
-        console.log(day);
-        console.log(day.length);
         for(var i = 0; i < day.length; i++){
             switch (day[i]){
                 case "m":
@@ -479,6 +480,11 @@ $(function () {
             }
         }
     }
+    $("#cancelD").click(function () {
+        for(var i = 4; i<=10; i++)
+            $(".w_manage input").eq(i).prop("checked", false);
+        wirteDay();
+    });
     //编辑弹窗
     $("#courseTable").on("click", ".btn.btn-edit", function () {
 
