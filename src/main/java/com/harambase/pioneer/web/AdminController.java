@@ -109,10 +109,11 @@ public class AdminController {
                                     @RequestParam(value = "search[value]") String search,
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
+                                    @RequestParam(value = "type", required = false) String type,
                                     HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
-            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());

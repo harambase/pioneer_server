@@ -2,8 +2,7 @@ $(function () {
     //变量定义
     var facultyids = "";
     var precrns = "";
-    var course;
-    var preCourse, status, faculty, newFaculty, newStatus, newPreCourse;
+    var course, preCourse, status, faculty, newFaculty, newStatus, newPreCourse;
     var createCourseForm = $("#createCourseForm").validate({});
 
     //教师列表
@@ -113,6 +112,7 @@ $(function () {
             }
         })
     });
+
     //搜索教师
     function getFaulcty(f){
         var isSucc = false;
@@ -400,7 +400,11 @@ $(function () {
             }
         })
     });
-
+    $("#cancelD").click(function () {
+        for(var i = 4; i<=10; i++)
+            $(".w_manage input").eq(i).prop("checked", false);
+        wirteDay();
+    });
     //复选框控制
     $(".enable").click(function () {
         $(".w_manage input").eq(1).prop("checked", false);
@@ -480,11 +484,7 @@ $(function () {
             }
         }
     }
-    $("#cancelD").click(function () {
-        for(var i = 4; i<=10; i++)
-            $(".w_manage input").eq(i).prop("checked", false);
-        wirteDay();
-    });
+
     //编辑弹窗
     $("#courseTable").on("click", ".btn.btn-edit", function () {
 
@@ -519,7 +519,6 @@ $(function () {
             closePop(".w_close");
         }
     });
-
     function closePop(ele) {
         $(ele).click(function () {
             $(".w_wrapper").css({display: "none"});
@@ -533,36 +532,32 @@ $(function () {
         $(".w_pop").css({display: "none"});
         $(".w_pop")[0].style.display = "block";
     });
-
     $(".account").click(function () {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
         $(".w_pop").css({display: "none"});
         $(".w_pop")[1].style.display = "block";
     });
-
     $(".join-in").click(function () {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
         $(".w_pop").css({display: "none"});
         $(".w_pop")[2].style.display = "block";
     });
-
     $(".w_manage span").click(function () {
         $(this).siblings("span").removeClass("active");
         $(this).addClass("active");
     });
-
     $(".status span").click(function () {
         $(this).siblings("span").removeClass("active");
         $(this).addClass("active");
     });
-
     $(".w_close").click(function () {
         $(".w_wrapper").css({display: "none"});
 
     });
 
+    //列表
     var logTable = $("#courseTable").DataTable({
 
         "language": {
@@ -613,7 +608,7 @@ $(function () {
             {"data": "updatetime", "title": "updatetime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');
+                $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Detail</button>');
             }, "width": "100px"
             }
         ],

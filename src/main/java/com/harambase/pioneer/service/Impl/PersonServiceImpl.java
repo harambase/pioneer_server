@@ -86,7 +86,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn) {
+    public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                 String type) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -120,10 +121,11 @@ public class PersonServiceImpl implements PersonService {
         long totalSize = 0;
         try {
             Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("type", type);
+
             if(search.equals(""))
                 param.put("search", null);
-            else
-                param.put("search", search);
 
             totalSize = personMapper.getCountByMapPageSearchOrdered(param); //startTime, endTime);
 

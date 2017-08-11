@@ -1,0 +1,46 @@
+.user-pop{
+    box-sizing: border-box;
+    background: rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    display: none;
+}
+.user-pop-inner{
+    position:absolute;
+    top: 110px;
+    left:300px;
+    width:820px;
+    border-radius:5px;
+    background:#fff;
+    box-shadow:0 0 3px 3px rgba(0,0,0,0.3);
+}
+.user-pop-inner>.w_head{
+    position:relative;
+    height:50px;
+    padding:0 15px;
+    background: #02a5a6;
+    font:16px/50px 'Microsoft Yahei';
+    color:#fff;
+}
+.user-pop-inner .w_tab{
+    padding:15px 0 13px;
+    font:14px/2 "Microsoft Yahei";
+    color: #02a5a6;
+}
+.user-pop-inner .w_tab li{
+    float:left;
+    cursor: pointer;
+    padding:0 12px;
+
+}
+.user-pop-inner .w_tab li.active{
+    /*padding:0 12px;*/
+    border-bottom: 2px solid #b5adad;
+}
+.user-pop-inner .w_tab li:nth-child(2){
+    margin:0 20px 0;
+}

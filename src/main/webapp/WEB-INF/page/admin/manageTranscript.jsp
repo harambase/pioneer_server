@@ -3,7 +3,6 @@ manageCourse.jsp<%@ page contentType="text/html;charset=UTF-8" language="java" %
 <%@include file="../common/commonCSS.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Transcript Management</title>
@@ -22,66 +21,179 @@ manageCourse.jsp<%@ page contentType="text/html;charset=UTF-8" language="java" %
     <link rel="stylesheet" href="../../../static/css/header.css" media="screen" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href="${basePath}/static/css/pages/title.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/static/css/manageUser.css" rel="stylesheet" type="text/css">
+    <link href="${basePath}/static/css/manageTranscript.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
 <%@include file="manageHeader.jsp" %>
 
+<div class="site-branding-text" style="margin-left: 179px;">
+    <h1 class="site-title">Administrator Manage Site</h1>
+    <p class="site-description">Transcript Management</p>
+    <div class="choose-view" >
+        <div class='w_manage_btn system-control-btn'>
+            <button id="class" class="w_button" style="float: left">Class View</button>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="user" class="w_button" style="margin-left: 10px">User View</button>
+        </div>
+    </div>
+    <hr/>
+</div>
+<div class="user-pop">
+    <div class="user-pop-inner">
+        <div class="w_head">
+            <span>User Selection</span>
+            <span class="w_close">×</span>
+        </div>
+        <ul class="w_tab clearfix">
+            <li id="student" class="active">Student</li>
+            <li id="faculty">Faculty</li>
+        </ul>
+        <h1 id="user-title">Lists of Users in System</h1>
+        <div class='user-table' style="width: 756px;margin: -60px 0px 27px 37px;" >
+            <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
+            </table>
+        </div>
+    </div>
+</div>
+<div class="class-pop"></div>
 
-<div class="account-container register">
-    <div class="content clearfix">
-        <form action="#" method="post">
-            <h1>Signup for Free Account</h1>
-            <div class="login-fields">
-                <p>Create your free account:</p>
-                <div class="field">
-                    <label for="firstname">First Name:</label>
-                    <input type="text" id="firstname" name="firstname" value="" placeholder="First Name" class="login" />
-                </div> <!-- /field -->
+<div class="user-view">
 
-                <div class="field">
-                    <label for="lastname">Last Name:</label>
-                    <input type="text" id="lastname" name="lastname" value="" placeholder="Last Name" class="login" />
-                </div> <!-- /field -->
+</div>
+<div class="class-view">
+    <div class="spilt register-table">
+        <div style="float: left; height: 652px" class="account-container register">
+            <div class="content clearfix">
+                <form id="createCourseForm" method="post" onsubmit="return false">
+                    <h1>Create a course</h1>
+                    <div class="login-fields">
 
+                        <div class="field">
+                            <label for="year-semester">Year-semester:</label>
+                            <input id="year-semester" name="year-semester" value="" placeholder="year-semester:YYYY-SS" class="login"
+                                   minlength="7" maxlength="7" required/>
+                        </div> <!-- /field -->
 
-                <div class="field">
-                    <label for="email">Email Address:</label>
-                    <input type="text" id="email" name="email" value="" placeholder="Email" class="login"/>
-                </div> <!-- /field -->
+                        <div class="field">
+                            <label for="name">Course Name:</label>
+                            <input id="name" name="name" value="" placeholder="Course Name" class="login"
+                                   minlength="1" maxlength="20" required/>
+                        </div> <!-- /field -->
 
-                <div class="field">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" value="" placeholder="Password" class="login"/>
-                </div> <!-- /field -->
+                        <div class="field">
+                            <label for="credits">Last Name:</label>
+                            <input id="credits" name="credits" value="" placeholder="Credits" class="login"
+                                   minlength="1" maxlength="2" required/>
+                        </div> <!-- /field -->
 
-                <div class="field">
-                    <label for="confirm_password">Confirm Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" value="" placeholder="Confirm Password" class="login"/>
-                </div> <!-- /field -->
+                        <div class="field">
+                            <label for="coulev">Course Level:</label>
+                            <input id="coulev" name="coulev" value="" placeholder="Course Level" class="login" maxlength="3"/>
+                        </div> <!-- /field -->
 
-            </div> <!-- /login-fields -->
+                        <div class="field">
+                            <label for="cousec">Section:</label>
+                            <input id="cousec" name="cousec" value="" placeholder="Course Section" class="login" maxlength="2"/>
+                        </div> <!-- /field -->
 
-            <div class="login-actions">
+                        <div class="field">
+                            <label for="startdate">Start Date:</label>
+                            <input id="startdate" name="startdate" value="" placeholder="Start Date: YYYY-MM-DD"
+                                   class="login" minlength="10" maxlength="10"/>
+                        </div> <!-- /field -->
 
-				<span class="login-checkbox">
-					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-					<label class="choice" for="Field">Agree with the Terms & Conditions.</label>
-				</span>
-                <button class="button btn btn-primary btn-large">Register</button>
+                        <div class="field">
+                            <label for="enddate">End Date:</label>
+                            <input id="enddate" name="enddate" value="" placeholder="End Date: YYYY-MM-DD"
+                                   class="login" minlength="10" maxlength="10"/>
+                        </div> <!-- /field -->
+                        <div class="field">
+                            <label for="starttime">Start Time:</label>
+                            <input id="starttime" name="starttime" value="" placeholder="Start Time: HH:MM:SS"
+                                   class="login" minlength="8" maxlength="8"/>
+                        </div> <!-- /field -->
 
-            </div> <!-- .actions -->
-        </form>
-    </div> <!-- /content -->
-</div> <!-- /account-container -->
+                        <div class="field">
+                            <label for="endtime">End Time:</label>
+                            <input id="endtime" name="endtime" value="" placeholder="End Time: HH:MM:SS"
+                                   class="login" minlength="8" maxlength="8"/>
+                        </div> <!-- /field -->
 
+                        <div class="field">
+                            <label for="capa">Capacity:</label>
+                            <input id="capa" name="capa" value="" placeholder="Capacity" class="login"/>
+                        </div> <!-- /field -->
+                        <div class="field">
+                            <div class="group-form-input">
+                                <label for="searchFValue">Assign Teacher:</label>
+                                <input id="searchFValue" placeholder="Assign Faculty" style="float: left; width: 155px;" required>
+                                <i id="searchFButton" class='fa fa-search fa-lg'></i>
+                                <span class="w_button w_add" id="addf-button">Check Faculty</span>
+                                <ul class="w_selected1">
+                                </ul>
+                            </div>
+                            <div class="group-form-input">
+                                <label for="searchCValue">Assign Prerequest Course:</label>
+                                <input id="searchCValue" placeholder="Assign Precourse" style="float: left; width: 155px;">
+                                <i id="searchCButton" class='fa fa-search fa-lg'></i>
+                                <span class="w_button w_add" id="addc-button">Check Precourse</span>
+                                <ul class="w_selected2">
+                                </ul>
+                            </div>
 
-<%--<!-- Text Under Box -->--%>
-<%--<div class="login-extra">--%>
-    <%--Already have an account? <a href="login.html">Login to your account</a>--%>
-<%--</div> <!-- /login-extra -->--%>
+                        </div> <!-- /field -->
+                    </div> <!-- /login-fields -->
+                    <div class='w_day'>
+                        <h4 class="status" style="margin-top: 0px;">Choose Day: </h4>
+                        <input class='m' type="checkbox" name="day" value="m"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Mon
+                        <input class='t' type="checkbox" name="day" value="t"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Tue
+                        <input class='w' type="checkbox" name="day" value="w"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Wed
+                        <input class='tr' type="checkbox" name="day" value="tr"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Thr
+                        <input class='f' type="checkbox" name="day" value="f"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Fri
+                        <input class='sa' type="checkbox" name="day" value="sa"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Sat
+                        <input class='s' type="checkbox" name="day" value="s"
+                               style="margin: 10px 4px 10px 0; width: 12px;"/>Sun
+                    </div>
+
+                    <div class="login-actions" style="margin-top: -15px;">
+
+                    <span class="login-checkbox">
+                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+                        <label class="choice" for="Field">Agree with the Terms & Conditions.</label>
+                    </span>
+                        <button class="button btn btn-primary btn-large" id="registerBtn">Create</button>
+
+                    </div> <!-- .actions -->
+                </form>
+            </div> <!-- /content -->
+        </div> <!-- /account-container -->
+
+        <div style="float: right;margin: 0 120px 0 0;width: 1065px;height: 652px;"
+             class="account-container register">
+            <div class="content clearfix">
+                <h1>Lists of Courses in System</h1>
+                <div class='course-table'>
+                    <table width="100%" style="font-size: 14px;" id="courseTable" class="display dataTable">
+                    </table>
+                </div>
+            </div> <!-- /content -->
+        </div> <!-- /account-container -->
+    </div>
+</div>
+
 
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
+<script src="${basePath}/static/js/manageTranscript.js"></script>
 </html>

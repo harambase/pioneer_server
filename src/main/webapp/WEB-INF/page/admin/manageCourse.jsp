@@ -169,8 +169,9 @@
             <ul class="w_tab clearfix">
                 <li class="active base-info">Information</li>
                 <li class='account'>Course Setting</li>
-                <li class='account' href="${basePath}/manageTranscript">Overrides</li>
+                <li><a href="${basePath}/manageTranscript">Overrides</a></li>
             </ul>
+
             <div class="w_tabC w_pop">
                 <div class="w_content">
                     <div class="w_basicInfo account-container register" style="margin-left: 0px;">
@@ -226,8 +227,8 @@
                     </div> <!-- /account-container -->
                 </div>
                 <div class="w_buttons_w system-control-btn">
-                    <button id="confirm" class="w_button">Confirm</button>
-                    <button id="cancel" class="w_button">Cancel</button>
+                    <button id="confirm" class="w_button">Edit</button>
+                    <button id="cancel" class="w_button">Exit</button>
                 </div>
             </div>
             <div class="w_tabD w_pop">
