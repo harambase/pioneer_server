@@ -169,9 +169,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course" >
     update Course
     <set >
-      <if test="crn != null" >
-        crn = #{crn,jdbcType=VARCHAR},
-      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -221,7 +218,7 @@
         updatetime = #{updatetime,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where crn = #{crn,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
     update Course

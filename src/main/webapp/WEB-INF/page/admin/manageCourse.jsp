@@ -162,88 +162,98 @@
 <div class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
-            <span>Account Setting</span>
+            <span>Course Controller</span>
             <span class="w_close">×</span>
         </div>
         <div class="w_body">
             <ul class="w_tab clearfix">
-                <li class="active base-info">Profile</li>
-                <li class='account'>Account Setting</li>
+                <li class="active base-info">Information</li>
+                <li class='account'>Course Setting</li>
+                <li class='account' href="${basePath}/manageTranscript">Overrides</li>
             </ul>
             <div class="w_tabC w_pop">
                 <div class="w_content">
                     <div class="w_basicInfo account-container register" style="margin-left: 0px;">
-                        <form id="editUserForm" method="post" onsubmit="return false">
+                        <form id="editCourseForm" method="post" onsubmit="return false">
                             <table style="margin: 15px 27px;">
-                                <input id="pwd" name="pwd" value="" class="login" hidden/>
                                 <tr>
-                                    <td><p style="float: left">UserID:</td>
-                                    <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
+                                    <td><p style="float: left">CRN:</td>
+                                    <td><input id="crn2" name="crn" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Username:</td>
-                                    <td><input id="username2" name="username" value="" class="login" disabled/></td>
+                                    <td><p style="float: left">Year-Semester:</td>
+                                    <td><input id="year-semester2" name="year-semester2" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">First Name:</p></td>
-                                    <td><input id="firstname2" name="firstname" value=""class="login" minlength="1" maxlength="20" required/></td>
+                                    <td><p style="float: left">Course Name:</p></td>
+                                    <td><input id="name2" name="name2" value=""class="login" minlength="1" maxlength="20" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Last Name:</p></td>
-                                    <td><input id="lastname2" name="lastname" value="" class="login"
-                                               minlength="1" maxlength="20" required/></td>
+                                    <td><p style="float: left">Credits:</p></td>
+                                    <td><input id="credits2" name="credits2" value="" class="login"
+                                               minlength="1" maxlength="1" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Birthday:</p></td>
-                                    <td><input id="birthday2" name="birthday" value="YYYY-MM-DD" class="login" maxlength="10"/></td>
+                                    <td><p style="float: left">Course Level:</p></td>
+                                    <td><input id="coulev2" name="coulev2" value="" class="login" maxlength="10"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Email:</p></td>
-                                    <td> <input id="email2" name="email" value="" class="login"/></td>
+                                    <td><p style="float: left">Course Section:</p></td>
+                                    <td> <input id="cousec2" name="cousec2" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">QQ:</p></td>
-                                    <td><input id="qq2" name="QQ" value="" class="login"/></td>
+                                    <td><p style="float: left">Start Date:</p></td>
+                                    <td><input id="startdate2" name="startdate2" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">weChat:</p></td>
-                                    <td><input id="weChat2" name="weChat" value="" class="login"/></td>
+                                    <td><p style="float: left">End Date:</p></td>
+                                    <td><input id="enddate2" name="enddate2" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Mobile:</p></td>
-                                    <td><input id="tel2" name="tel" value="" class="login"/></td>
+                                    <td><p style="float: left">Start Time:</p></td>
+                                    <td><input id="starttime2" name="starttime2" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Dormitory:</p></td>
-                                    <td><input id="dorm2" name="dorm" value="" class="login"/></td>
+                                    <td><p style="float: left">End Time:</p></td>
+                                    <td><input id="endtime2" name="endtime2" value="" class="login"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">Capacity:</p></td>
+                                    <td><input id="capa2" name="capa2" value="" class="login"/></td>
                                 </tr>
                             </table>
                         </form>
                     </div> <!-- /account-container -->
                 </div>
-                <p class="w_buttons_w system-control-btn">
+                <div class="w_buttons_w system-control-btn">
                     <button id="confirm" class="w_button">Confirm</button>
                     <button id="cancel" class="w_button">Cancel</button>
-                </p>
+                </div>
             </div>
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
-                    <h4 class="status" style="margin-top: 0px;">Account Status: </h4>
+                    <h4 class="status" style="margin-top: 0px;">Course Status: </h4>
                     <input class='enable' type="checkbox" name="powerState" value="1"/>ACTIVE
                     <input class='disable' type="checkbox" name="powerState" value="0"/>DEACTIVE
 
-                    <h4 class="type">Account Type: </h4>
-                    <input class='student' type="checkbox" name="powerState" value="s"/>STUDENT
-                    <input class='teacher' type="checkbox" name="powerState" value="f"/>FACULTY
-                    <input class='admin' type="checkbox" name="powerState" value="a"/>ADMINISTRATOR
-
-                    <h4 class="gender">User Gender:</h4>
-                    <input class='male' type="checkbox" name="powerState" value="male"/>MALE
-                    <input class='female' type="checkbox" name="powerState" value="female"/>FEMALE
-
-                    <h4 class='reset-pass w_hide'>Reset Password：</h4>
-                    <p class='w_hide'>重置用户账号，新密码将通过邮箱发送给用户邮箱。</p>
-                    <button class='w_hide' id="reset">Reset Password</button>
+                    <h4 class="type">Assigned Faculty: </h4>
+                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">Assigned New Faculty</button>
+                    <div id="assignFDiv" class="group-form-input">
+                        <input id="searchFValue2" placeholder="Assign Faculty" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
+                        <span class="w_button w_add" id="addf-button2" style="width: 145px; text-align: center;">Change Faculty</span>
+                        <button class="w_button" id="cancelF">Cancel</button>
+                        <ul class="w_selected3">
+                        </ul>
+                    </div>
+                    <h4 class="gender">Assigned Pre-required Course: None</h4>
+                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">Assigned New Pre-course</button>
+                    <div id="assignCDiv" class="group-form-input">
+                        <input id="searchCValue2" placeholder="Assign Precourse" style="margin-right: 20px; height: 30px;float: left; width: 155px;">
+                        <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">Change Precourse</span>
+                        <button class="w_button" id="cancelC">Cancel</button>
+                        <ul class="w_selected4">
+                        </ul>
+                    </div>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
                     <button id="apply" class="w_button">Confirm</button>

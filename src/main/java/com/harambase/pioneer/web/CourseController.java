@@ -63,9 +63,10 @@ public class CourseController {
         return null;
     }
 
-    public String updateCourse(@RequestParam Course course){
-        courseService.updateCourse(course);
-        return null;
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity updateCourse(@RequestBody Course course){
+        HaramMessage haramMessage = courseService.updateCourse(course);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     public String assignFac2Cou(@RequestParam(value = "facultyid") String facultyid,

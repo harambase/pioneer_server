@@ -73,7 +73,26 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public HaramMessage updateCourse(Course course) {
-        return null;
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            course.setUpdatetime(DateUtil.DateToStr(new Date()));
+            int ret = courseMapper.updateByPrimaryKeySelective(course);
+            if(ret == 1){
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                haramMessage.setData(course);
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
     }
 
     @Override

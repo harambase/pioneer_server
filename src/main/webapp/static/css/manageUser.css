@@ -397,10 +397,9 @@
 .w_wrap .w_tabC .w_basicInfo span{
     color:#8e959e;
 }
-.w_tabC .system-control-btn button,.w_tabE .system-control-btn button{
-    border: 1px solid #a0a5ad;
-    color:#02a5a6;
-}
+/*.w_tabC .system-control-btn button,.w_tabE .system-control-btn button{*/
+    /*border: 1px solid #a0a5ad;*/
+/*}*/
 #nickname{
     height: 30px;
     border-radius: 5px;
@@ -485,17 +484,17 @@
 }
 .w_button{
     display: inline-block;
-    color: #8e959e;
-    border-color: #8e959e;
-    background-color: #a8aaab;
+    background-color: #03ced0;
     color: white;
     width: 132px;
     height: 30px;
     margin: 0 0 9px 0;
+    vertical-align: middle;
 }
-.w_button:hover,.w_button.active{
-    color:#4a8cd6;
-    border-color:#4a8cd6;
+.w_button:hover{
+    color:white;
+    background-color: #c7254e;
+    vertical-align: middle;
 }
 .w_content .w_add{
     margin: 0 15px;
@@ -620,9 +619,7 @@
     margin-top: 30px;
     margin-bottom: 10px;
 }
-.w_tabD .w_manage .active{
-    color: #498BD5;
-}
+
 .w_manage .active i,.status .active i{
     border: 1px solid #498BD5;
     padding: 5px;
@@ -665,14 +662,10 @@
 .w_tabD .w_manage_btn button,.status_btn button{
     width: 91px;
     height: 30px;
-    border: none;
     border-radius: 15px;
-    background: #fff;
-    color: #02a5a6;
     margin-left: 40px;
     margin-right: 40px;
     font-size: 14px;
-    border: 1px solid #a0a5ad;
     line-height: 30px;
 
 }
