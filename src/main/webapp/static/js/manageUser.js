@@ -155,74 +155,74 @@ $(function () {
     });
     //复选框控制
     $(".enable").click(function () {
-        $(".w_manage input").eq(1).attr("checked", false);
-        $(".w_manage input").eq(0).attr("checked", true);
+        $(".w_manage input").eq(1).prop("checked", false);
+        $(".w_manage input").eq(0).prop("checked", true);
         newStatus = $(".enable").val();
     });
     $(".disable").click(function () {
-        $(".w_manage input").eq(0).attr("checked", false);
-        $(".w_manage input").eq(1).attr("checked", true);
+        $(".w_manage input").eq(0).prop("checked", false);
+        $(".w_manage input").eq(1).prop("checked", true);
         newStatus = $(".disable").val();
     });
     $(".student").click(function () {
-        $(".w_manage input").eq(3).attr("checked", false);
-        $(".w_manage input").eq(4).attr("checked", false);
-        $(".w_manage input").eq(2).attr("checked", true);
+        $(".w_manage input").eq(3).prop("checked", false);
+        $(".w_manage input").eq(4).prop("checked", false);
+        $(".w_manage input").eq(2).prop("checked", true);
         newType = $(".student").val();
     });
     $(".teacher").click(function () {
-        $(".w_manage input").eq(2).attr("checked", false);
-        $(".w_manage input").eq(4).attr("checked", false);
-        $(".w_manage input").eq(3).attr("checked", true);
+        $(".w_manage input").eq(2).prop("checked", false);
+        $(".w_manage input").eq(4).prop("checked", false);
+        $(".w_manage input").eq(3).prop("checked", true);
         newType = $(".teacher").val();
     });
     $(".admin").click(function () {
-        $(".w_manage input").eq(2).attr("checked", false);
-        $(".w_manage input").eq(3).attr("checked", false);
-        $(".w_manage input").eq(4).attr("checked", true);
+        $(".w_manage input").eq(2).prop("checked", false);
+        $(".w_manage input").eq(3).prop("checked", false);
+        $(".w_manage input").eq(4).prop("checked", true);
         newType = $(".admin").val();
     });
     $(".male").click(function () {
-        $(".w_manage input").eq(6).attr("checked", false);
-        $(".w_manage input").eq(5).attr("checked", true);
+        $(".w_manage input").eq(6).prop("checked", false);
+        $(".w_manage input").eq(5).prop("checked", true);
         newGender = $(".male").val();
     });
     $(".female").click(function () {
-        $(".w_manage input").eq(5).attr("checked", false);
-        $(".w_manage input").eq(6).attr("checked", true);
+        $(".w_manage input").eq(5).prop("checked", false);
+        $(".w_manage input").eq(6).prop("checked", true);
         newGender = $(".female").val();
     });
     //写入账户属性
     function writeSettings(status, type, gender){
         if (status === "1") {
             $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
-            $(".w_manage input").eq(0).attr("checked", true);
+            $(".w_manage input").eq(0).prop("checked", true);
         }
         else {
             $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
-            $(".w_manage input").eq(1).attr("checked", true);
+            $(".w_manage input").eq(1).prop("checked", true);
         }
 
         if(type === "a"){
             $(".w_manage h4").eq(1).html("Account Type: Administrator");
-            $(".w_manage input").eq(4).attr("checked", true);
+            $(".w_manage input").eq(4).prop("checked", true);
         }
         else if(type === "f"){
             $(".w_manage h4").eq(1).html("Account Type: Faculty");
-            $(".w_manage input").eq(3).attr("checked", true);
+            $(".w_manage input").eq(3).prop("checked", true);
         }
         else{
             $(".w_manage h4").eq(1).html("Account Type: Student");
-            $(".w_manage input").eq(2).attr("checked", true);
+            $(".w_manage input").eq(2).prop("checked", true);
         }
 
         if(gender === "male"){
             $(".w_manage h4").eq(2).html("User Gender: Male");
-            $(".w_manage input").eq(5).attr("checked", true);
+            $(".w_manage input").eq(5).prop("checked", true);
         }
         else{
             $(".w_manage h4").eq(2).html("User Gender: Female");
-            $(".w_manage input").eq(6).attr("checked", true);
+            $(".w_manage input").eq(6).prop("checked", true);
         }
     }
     //编辑弹窗
@@ -254,11 +254,13 @@ $(function () {
 
         closePop("#cancel");
         closePop("#cancel2");
+        closePop(".w_close");
     });
 
     function closePop(ele) {
         $(ele).click(function () {
             $(".w_wrapper").css({display: "none"});
+            $("[type='checkbox']").removeAttr("checked");//取消全选
         })
     }
 
@@ -291,11 +293,6 @@ $(function () {
     $(".status span").click(function () {
         $(this).siblings("span").removeClass("active");
         $(this).addClass("active");
-    });
-
-    $(".w_close").click(function () {
-        $(".w_wrapper").css({display: "none"});
-
     });
 
     var logTable = $("#userTable").DataTable({

@@ -254,10 +254,24 @@
                         <ul class="w_selected4">
                         </ul>
                     </div>
+                    <h4 class="status" style="margin-top: 0px;">Current day of the Course: </h4>
+                    <input class='m' type="checkbox" name="day" value="m"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Mon
+                    <input class='t' type="checkbox" name="day" value="t"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Tue
+                    <input class='w' type="checkbox" name="day" value="w"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Wed
+                    <input class='tr' type="checkbox" name="day" value="tr"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Thr
+                    <input class='f' type="checkbox" name="day" value="f"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Fri
+                    <input class='sa' type="checkbox" name="day" value="sa"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Sat
+                    <input class='s' type="checkbox" name="day" value="s"
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>Sun
                 </div>
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="apply" class="w_button">Confirm</button>
-                    <button id="cancel2" class="w_button">Cancel</button>
+                    <button id="cancel2" class="w_button">Exit</button>
                 </div>
             </div>
         </div>

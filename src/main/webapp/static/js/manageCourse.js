@@ -18,8 +18,8 @@ $(function () {
                 if (result.code === 2001) {
                     for (var i = 0; i < result.data.length; i++) {
                         var userid = result.data[i].userid;
-                        var temp = "<li data-id=" + userid + ">" + result.data[i].lastname
-                            + result.data[i].firstname+ "</li>";
+                        newFaculty = result.data[i].lastname + result.data[i].firstname;
+                        var temp = "<li data-name="+ newFaculty +" data-id=" + userid + ">" + newFaculty + "</li>";
                         w_select.append(temp);
                         w_select.css({
                             overflow: "auto",
@@ -85,10 +85,12 @@ $(function () {
     $(".w_selected3").on("click", "li", function () {
         $("#searchFValue2").val($(this).data("id"));
         $("#searchFValue2").data("userid", $(this).data("id"));
+        $("#searchFValue2").data("name", $(this).data("name"));
         $(".w_selected3").css({display: "none"});
     });
     $("#addf-button2").click(function () {
         facultyids = $("#searchFValue2").data("userid");
+        var name = $("#searchFValue2").data("name");
         var formdata = {
             crn :  $("#crn2").val(),
             facultyid : facultyids
@@ -102,7 +104,7 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
-                        $(".w_manage h4").eq(1).html("Assigned Teacher:" + faculty.lastname + faculty.firstname);
+                        $(".w_manage h4").eq(1).html("Assigned Teacher: " + name);
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
@@ -148,7 +150,8 @@ $(function () {
                 if (result.code === 2001) {
                     for (var i = 0; i < result.data.length; i++) {
                         var crn = result.data[i].crn;
-                        var temp = "<li data-id=" + crn + ">" + result.data[i].name + "</li>";
+                        newPreCourse = result.data[i].name;
+                        var temp = "<li data-name="+ newPreCourse +"data-id=" + crn + ">" + newPreCourse + "</li>";
                         w_select.append(temp);
                         w_select.css({
                             overflow: "auto",
@@ -214,10 +217,12 @@ $(function () {
     $(".w_selected4").on("click", "li", function () {
         $("#searchCValue2").val($(this).data("id"));
         $("#searchCValue2").data("crn", $(this).data("id"));
+        $("#searchCValue2").data("name", $(this).data("name"));
         $(".w_selected4").css({display: "none"});
     });
     $("#addc-button2").click(function () {
         precrns = $("#searchCValue2").data("crn");
+        var name = $("#searchCValue2").data("name");
         var formdata = {
             crn :  $("#crn2").val(),
             precrn : precrns
@@ -231,6 +236,7 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
+                        $(".w_manage h4").eq(2).html("Assigned Pre-required Course: " + name);
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
@@ -397,13 +403,13 @@ $(function () {
 
     //复选框控制
     $(".enable").click(function () {
-        $(".w_manage input").eq(1).attr("checked", false);
-        $(".w_manage input").eq(0).attr("checked", true);
+        $(".w_manage input").eq(1).prop("checked", false);
+        $(".w_manage input").eq(0).prop("checked", true);
         newStatus = $(".enable").val();
     });
     $(".disable").click(function () {
-        $(".w_manage input").eq(0).attr("checked", false);
-        $(".w_manage input").eq(1).attr("checked", true);
+        $(".w_manage input").eq(0).prop("checked", false);
+        $(".w_manage input").eq(1).prop("checked", true);
         newStatus = $(".disable").val();
     });
     //更改按钮
@@ -427,20 +433,50 @@ $(function () {
     function writeSettings(status, pre){
         if (status === "1") {
             $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
-            $(".w_manage input").eq(0).attr("checked", true);
+            $(".w_manage input").eq(0).prop("checked", true);
         }
         else {
             $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
-            $(".w_manage input").eq(1).attr("checked", true);
+            $(".w_manage input").eq(1).prop("checked", true);
         }
         getFaulcty(course.facultyid);
-        $(".w_manage h4").eq(1).html("Assigned Teacher:" + faculty.lastname + faculty.firstname);
+        $(".w_manage h4").eq(1).html("Assigned Teacher: " + faculty.lastname + faculty.firstname);
 
         if(pre === null || pre === "")
             $(".w_manage h4").eq(2).html("Assigned Pre-required Course: None");
         else{
             getCourse(pre, true);
-            $(".w_manage h4").eq(2).html("Assigned Pre-required Course:" + preCourse.name);
+            $(".w_manage h4").eq(2).html("Assigned Pre-required Course: " + preCourse.name);
+        }
+        var day = course.day.split("/");
+        console.log(day);
+        console.log(day.length);
+        for(var i = 0; i < day.length; i++){
+            switch (day[i]){
+                case "m":
+                    $(".w_manage input").eq(4).prop("checked", true);
+                    break;
+                case "t":
+                    $(".w_manage input").eq(5).prop("checked", true);
+                    break;
+                case "w":
+                    $(".w_manage input").eq(6).prop("checked", true);
+                    break;
+                case "tr":
+                    $(".w_manage input").eq(7).prop("checked", true);
+                    break;
+                case "f":
+                    $(".w_manage input").eq(8).prop("checked", true);
+                    break;
+                case "sa":
+                    $(".w_manage input").eq(9).prop("checked", true);
+                    break;
+                case "s":
+                    $(".w_manage input").eq(10).prop("checked", true);
+                    break;
+                default:
+                    break;
+            }
         }
     }
     //编辑弹窗
@@ -474,13 +510,15 @@ $(function () {
 
             closePop("#cancel");
             closePop("#cancel2");
+            closePop(".w_close");
         }
     });
 
     function closePop(ele) {
         $(ele).click(function () {
             $(".w_wrapper").css({display: "none"});
-        })
+            $("[type='checkbox']").removeAttr("checked");//取消全选
+        });
     }
 
     $(".base-info").click(function () {
