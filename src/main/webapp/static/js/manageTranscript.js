@@ -2,6 +2,7 @@ $(function () {
     var userType = "s";
     var studentid = null;
     var crn = null;
+    var complete = null;
 
     $(".view").css({display: "none"});
     $(".user-pop").css({display: "none"});
@@ -63,6 +64,29 @@ $(function () {
 
         transTable.draw();
     });
+    //INPUT RADIO 选择控制
+    $("#complete").click(function () {
+        $("#complete").prop("checked", true);
+        $("#process").prop("checked", false);
+        $("#nComplete").prop("checked", false);
+        complete = "Complete";
+    });
+    $("#process").click(function () {
+        $("#process").prop("checked", true);
+        $("#complete").prop("checked", false);
+        $("#nComplete").prop("checked", false);
+        complete = "In Process";
+    });
+    $("#nComplete").click(function () {
+        $("#nComplete").prop("checked", true);
+        $("#process").prop("checked", false);
+        $("#complete").prop("checked", false);
+        complete = "Not Complete";
+    });
+
+    $("#cancel").click(function(){
+        $(".w_wrapper").css({display: "none"});
+    });
 
     $("#transTable").on("click", ".btn.btn-edit", function () {
         $(".w_wrapper").css({display: "block"});
@@ -72,19 +96,26 @@ $(function () {
         crn = $(this).parents("tr").find("td").eq(4).html();
         var credits =  $(this).parents("tr").find("td").eq(9).html();
         var grade = $(this).parents("tr").find("td").eq(6).html();
-        var complete =  $(this).parents("tr").find("td").eq(7).html();
+        complete =  $(this).parents("tr").find("td").eq(7).html();
 
         if(complete === "Complete"){
-            $("#complete").attr("checked", true);
+            $("#complete").prop("checked", true);
+            $("#process").prop("checked", false);
+            $("#nComplete").prop("checked", false);
+            complete = "Complete";
         }
         else if(complete === "In Process"){
-            $("#process").attr("checked", true);
+            $("#process").prop("checked", true);
+            $("#complete").prop("checked", false);
+            $("#nComplete").prop("checked", false);
+            complete = "In Process";
         }
         else{
-            $("#nComplete").attr("checked", true);
+            $("#nComplete").prop("checked", true);
+            $("#process").prop("checked", false);
+            $("#complete").prop("checked", false);
+            complete = "Not Complete";
         }
-
-
 
         baseInfo.find("#sid").val(studentid);
         baseInfo.find("#crn").val(crn);
@@ -93,8 +124,30 @@ $(function () {
         baseInfo.find("#complete").val(complete);
     });
 
+    //更新成绩
     $("#confirm").click(function(){
-
+        var formdata = {
+            studentid: studentid,
+            crn: crn,
+            grade: $("#grade").val(),
+            complete: complete
+        };
+        $.ajax({
+            url: basePath + "/course/transcript/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        transTable.draw();
+                    });
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
     });
 
     var userTable = $("#userTable").DataTable({

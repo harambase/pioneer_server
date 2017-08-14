@@ -9,6 +9,7 @@ import com.harambase.pioneer.dao.CourseMapper;
 import com.harambase.pioneer.dao.TranscriptMapper;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,8 +126,27 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage updateGrade(String courseid, String studentid, String grade) {
-        return null;
+    public HaramMessage updateGrade(Transcript transcript) {
+        HaramMessage message = new HaramMessage();
+        try {
+            transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+            int ret = transcriptMapper.updateByPrimaryKey(transcript);
+            if(ret == 1){
+                message.setData(transcript);
+                message.setMsg(FlagDict.SUCCESS.getM());
+                message.setCode(FlagDict.SUCCESS.getV());
+            }
+            else {
+                message.setMsg(FlagDict.FAIL.getM());
+                message.setCode(FlagDict.FAIL.getV());
+            }
+            return message;
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
     }
 
     @Override

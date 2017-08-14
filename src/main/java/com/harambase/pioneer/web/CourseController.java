@@ -3,6 +3,7 @@ package com.harambase.pioneer.web;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.StudentService;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.FacultyService;
@@ -149,5 +150,11 @@ public class CourseController {
             map.put("recordsFiltered", 0);
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/transcript/update", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity updateTranscript(@RequestBody Transcript transcript){
+        HaramMessage haramMessage = courseService.updateGrade(transcript);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 }

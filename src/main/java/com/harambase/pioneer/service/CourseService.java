@@ -2,6 +2,7 @@ package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.Transcript;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -25,7 +26,7 @@ public interface CourseService {
 
     HaramMessage countStudent(String courseid);
 
-    HaramMessage updateGrade(String courseid, String studentid, String grade);
+    HaramMessage updateGrade(Transcript transcript);
 
     HaramMessage listBySearch(String search);
 

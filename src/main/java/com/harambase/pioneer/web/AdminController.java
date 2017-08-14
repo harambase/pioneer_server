@@ -77,13 +77,6 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    public String updateGrade(@RequestParam(value = "courseid") String courseid,
-                              @RequestParam(value = "studentid") String studentid,
-                              @RequestParam(value = "grade") String grade) {
-        courseService.updateGrade(courseid, studentid, grade);
-        return null;
-    }
-
     public String assignMentor(@RequestParam(value = "studentid") String studentid,
                                @RequestParam(value = "facultyid") String facultyid){
         studentService.assignMentor(studentid, facultyid);

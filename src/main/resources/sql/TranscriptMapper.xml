@@ -96,12 +96,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript" >
     update Transcript
-    set studentid = #{studentid,jdbcType=VARCHAR},
-      crn = #{crn,jdbcType=VARCHAR},
-      grade = #{grade,jdbcType=VARCHAR},
+    set grade = #{grade,jdbcType=VARCHAR},
       complete = #{complete,jdbcType=VARCHAR},
       assigntime = #{assigntime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where studentid = #{studentid,jdbcType=VARCHAR} and crn = #{crn,jdbcType=VARCHAR}
   </update>
   <select id="getTranscriptCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from TranscriptView <where> 1 = 1
