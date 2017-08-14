@@ -3,6 +3,7 @@ package com.harambase.pioneer.service;
 import com.harambase.common.HaramMessage;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.Option;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -18,7 +19,7 @@ public interface CourseService {
 
     HaramMessage assignFac2Cou(String facultyid, String courseid);
 
-    HaramMessage addStu2Cou(String studentid, String courseid);
+    HaramMessage addStu2Cou(Option option);
 
     HaramMessage removeFacFromCou(String facultyid, String courseid);
 

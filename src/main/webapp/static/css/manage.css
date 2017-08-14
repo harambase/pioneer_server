@@ -496,6 +496,11 @@
     background-color: #c7254e;
     vertical-align: middle;
 }
+.w_button .w_add:hover{
+    color:white;
+    background-color: #c7254e;
+    vertical-align: middle;
+}
 .w_content .w_add{
     margin: 0 15px;
 }

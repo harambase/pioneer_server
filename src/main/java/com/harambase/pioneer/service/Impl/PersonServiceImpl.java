@@ -6,7 +6,9 @@ import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.PersonMapper;
+import com.harambase.pioneer.dao.StudentMapper;
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,13 @@ import java.util.Map;
 public class PersonServiceImpl implements PersonService {
 
     private final PersonMapper personMapper;
+    private final StudentMapper studentMapper;
 
     @Autowired
-    public PersonServiceImpl(PersonMapper personMapper){
+    public PersonServiceImpl(PersonMapper personMapper,
+                             StudentMapper studentMapper){
         this.personMapper = personMapper;
+        this.studentMapper = studentMapper;
     }
 
     @Override
@@ -66,6 +71,13 @@ public class PersonServiceImpl implements PersonService {
             person.setUserid(userid);
             person.setUsername(username);
             person.setPassword(password);
+
+            if(person.getType().equals("s")){
+                Student student = new Student();
+                student.setStudentid(userid);
+                student.setMaxCredits(18);
+                studentMapper.insert(student);
+            }
             int ret = personMapper.insert(person);
             if(ret == 1){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
@@ -87,7 +99,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                 String type) {
+                                 String type, String status) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -123,6 +135,7 @@ public class PersonServiceImpl implements PersonService {
             Map<String, Object> param = new HashMap<>();
             param.put("search", search);
             param.put("type", type);
+            param.put("status", status);
 
             if(search.equals(""))
                 param.put("search", null);

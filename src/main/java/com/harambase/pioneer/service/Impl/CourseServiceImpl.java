@@ -10,6 +10,7 @@ import com.harambase.pioneer.dao.TranscriptMapper;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -106,8 +107,38 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage addStu2Cou(String studentid, String courseid) {
-        return null;
+    public HaramMessage addStu2Cou(Option option) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Transcript transcript = new Transcript();
+            String crn = option.getCrn();
+            String studentid = option.getStudentid();
+            Course course = courseMapper.selectByPrimaryKey(crn);
+            transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+            transcript.setComplete("In Process");
+            transcript.setGrade("*");
+            transcript.setCrn(crn);
+            transcript.setStudentid(studentid);
+
+            if(option.isCapacity() && option.isPrereq() && option.isTime()) {
+                int ret = transcriptMapper.insert(transcript);
+                if (ret == 1) {
+                    haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                    haramMessage.setCode(FlagDict.SUCCESS.getV());
+
+                } else {
+                    haramMessage.setMsg(FlagDict.FAIL.getM());
+                    haramMessage.setCode(FlagDict.FAIL.getV());
+                }
+            }
+            return haramMessage;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
     }
 
     @Override
@@ -214,10 +245,12 @@ public class CourseServiceImpl implements CourseService {
         long totalSize = 0;
         try {
             Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+
             if(search.equals(""))
                 param.put("search", null);
-            else
-                param.put("search", search);
+
+
 
             totalSize = courseMapper.getCourseCountByMapPageSearchOrdered(param); //startTime, endTime);
 
@@ -248,6 +281,7 @@ public class CourseServiceImpl implements CourseService {
         }
     }
 
+    @Override
     public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, String orderColumn, String studentid, String crn){
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
@@ -288,6 +322,7 @@ public class CourseServiceImpl implements CourseService {
             param.put("search", search);
             param.put("studentid", studentid);
             param.put("crn", crn);
+
             if(search.equals(""))
                 param.put("search", null);
             if(studentid.equals(""))

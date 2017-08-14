@@ -4,6 +4,7 @@ $(function () {
     var precrns = "";
     var course, preCourse, status, faculty, newFaculty, newStatus, newPreCourse;
     var createCourseForm = $("#createCourseForm").validate({});
+    var crn = "";
 
     //教师列表
     function facultyList(searchFValue, w_select, w_select_li){
@@ -512,6 +513,10 @@ $(function () {
         $("#assignCDiv").css({display: "block"});
         $("#assignC").css({display: "none"});
     });
+    $("#assignS").click(function(){
+        $("#assignSDiv").css({display: "block"});
+        $("#assignS").css({display: "none"});
+    });
     $("#cancelF").click(function(){
         $("#assignFDiv").css({display: "none"});
         $("#assignF").css({display: "block"});
@@ -520,6 +525,11 @@ $(function () {
         $("#assignCDiv").css({display: "none"});
         $("#assignC").css({display: "block"});
     });
+    $("#cancelS").click(function(){
+        $("#assignSDiv").css({display: "none"});
+        $("#assignS").css({display: "block"});
+    });
+
     //写入课程属性
     function writeSettings(status, pre){
         if (status === "1") {
@@ -575,7 +585,7 @@ $(function () {
     //编辑弹窗
     $("#courseTable").on("click", ".btn.btn-edit", function () {
 
-        var crn = $(this).parents("tr").find("td").eq(1).html();
+        crn = $(this).parents("tr").find("td").eq(1).html();
         var baseInfo = $(".w_basicInfo");
         if (getCourse(crn, false)) {
             console.log(course);
@@ -598,8 +608,10 @@ $(function () {
             $(".w_ul li").remove();
             $("#assignFDiv").css({display: "none"});
             $("#assignCDiv").css({display: "none"});
+            $("#assignSDiv").css({display: "none"});
             $("#assignF").css({display: "block"});
             $("#assignC").css({display: "block"});
+            $("#assignS").css({display: "block"});
 
             closePop("#cancel");
             closePop("#cancel2");
@@ -643,6 +655,34 @@ $(function () {
     $(".w_close").click(function () {
         $(".w_wrapper").css({display: "none"});
 
+    });
+
+    //添加学生
+    $("#studentTable").on("click", ".btn.btn-info", function () {
+        var studentid = $(this).parents("tr").find("td").eq(2).html();
+        var formdata = {
+            pre  :true,//pre,
+            time :true,
+            capa :true,
+            studentid :studentid,
+            crn: crn
+        };
+        $.ajax({
+            url:basePath+"/course/add/student"
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("添加成功!", function () {
+                        curStuTable.draw();
+                    });
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
     });
 
     //列表
@@ -708,5 +748,132 @@ $(function () {
             "targets": "_all"
         }]
     });
+    var studentTable = $("#studentTable").DataTable({
 
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+
+            data: function (d) {
+                d.type = "s";
+                d.status = "1";
+            }
+        },
+        columns: [
+            {
+                "data": null,
+                "title": "<input id='allCheck' type='checkbox'/>All",
+                "createdCell": function (nTd) {
+                    $(nTd).html('<input type="checkbox"/>');
+                },
+                "width": "20px"
+            },
+            {"data": "id", "title": "serial"},
+            {"data": "userid", "title": "userid"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Add</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [5]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+    var curStuTable = $("#studentTable").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+
+            data: function (d) {
+                d.type = "s";
+                d.status = "1";
+            }
+        },
+        columns: [
+            {
+                "data": null,
+                "title": "<input id='allCheck' type='checkbox'/>All",
+                "createdCell": function (nTd) {
+                    $(nTd).html('<input type="checkbox"/>');
+                },
+                "width": "20px"
+            },
+            {"data": "id", "title": "serial"},
+            {"data": "userid", "title": "id"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Add</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [6]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
 });

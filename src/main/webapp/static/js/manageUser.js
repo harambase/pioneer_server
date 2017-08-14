@@ -301,8 +301,8 @@ $(function () {
             }
         },
         "lengthMenu": [
-            [5, 10, 25, 50],
-            [5, 10, 25, 50]
+            [5, 8],
+            [5, 8]
         ],
         pageLength: 5,
         processing: true,

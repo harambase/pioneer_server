@@ -97,7 +97,7 @@
                                 <tr>
                                     <td><p style="float: left">Completion:</p></td>
                                     <td> <input id="complete" type="radio" value="Complete"/>Complete
-                                         <input id="process" type="radio" value="In Process"/>In process
+                                         <input id="process" type="radio" value="In Progress"/>In Progress
                                          <input id="nComplete" type="radio" value="Not Complete"/>Not Complete</td>
                                 </tr>
                             </table>

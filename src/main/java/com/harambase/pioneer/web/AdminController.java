@@ -103,10 +103,12 @@ public class AdminController {
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
                                     @RequestParam(value = "type", required = false) String type,
+                                    @RequestParam(value = "status", required = false) String status,
                                     HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
-            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type);
+            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search,
+                    order, orderCol, type, status);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
@@ -122,7 +124,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity listFaculties(@RequestParam(value = "search") String search){
+    public ResponseEntity searchUser(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listFaculties(search);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

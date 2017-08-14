@@ -13,7 +13,7 @@ public interface CourseMapper {
 
     int insertSelective(Course record);
 
-    Course selectByPrimaryKey(Integer id);
+    Course selectByPrimaryKey(String crn);
 
     int updateByPrimaryKeySelective(Course record);
 

@@ -75,7 +75,7 @@ $(function () {
         $("#process").prop("checked", true);
         $("#complete").prop("checked", false);
         $("#nComplete").prop("checked", false);
-        complete = "In Process";
+        complete = "In Progress";
     });
     $("#nComplete").click(function () {
         $("#nComplete").prop("checked", true);
@@ -104,11 +104,11 @@ $(function () {
             $("#nComplete").prop("checked", false);
             complete = "Complete";
         }
-        else if(complete === "In Process"){
+        else if(complete === "In Progress"){
             $("#process").prop("checked", true);
             $("#complete").prop("checked", false);
             $("#nComplete").prop("checked", false);
-            complete = "In Process";
+            complete = "In Progress";
         }
         else{
             $("#nComplete").prop("checked", true);

@@ -8,7 +8,8 @@ public interface PersonService {
 
     HaramMessage addUser(Person person);
 
-    HaramMessage userList(String s, String s1, String search, String order, String orderCol, String type);
+    HaramMessage userList(String s, String s1, String search, String order,
+                          String orderCol, String type, String status);
 
     HaramMessage getUser(String userid);
 

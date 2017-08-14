@@ -25,11 +25,11 @@
     id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
     endTime, capa, status, facultyid, info, createtime, updatetime
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from Course
-    where id = #{id,jdbcType=INTEGER}
+    where crn = #{crn,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Course
@@ -297,4 +297,7 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
+
+
+
 </mapper>

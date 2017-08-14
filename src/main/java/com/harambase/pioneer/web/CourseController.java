@@ -4,6 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.StudentService;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.FacultyService;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -70,23 +68,10 @@ public class CourseController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    public String assignFac2Cou(@RequestParam(value = "facultyid") String facultyid,
-                                @RequestParam(value = "courseid") String courseid){
-        courseService.assignFac2Cou(facultyid, courseid);
-        return null;
-    }
-
-    public String removeFacFromCou(@RequestParam(value = "facultyid") String facultyid,
-                                   @RequestParam(value = "courseid") String courseid){
-        courseService.removeFacFromCou(facultyid, courseid);
-        return null;
-    }
-
-    public String addStu2Cou(@RequestParam(value = "studentid") String studentid,
-                             @RequestParam(value = "facultyid") String facultyid,
-                             @RequestParam(value = "courseid") String courseid){
-        courseService.addStu2Cou(studentid, courseid);
-        return null;
+    @RequestMapping(value = "/add/student", method = RequestMethod.POST)
+    public ResponseEntity addStu2Cou(@RequestBody Option option, HttpSession session){
+        HaramMessage haramMessage = courseService.addStu2Cou(option);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     public String removeStuFromCourse(@RequestParam(value = "studentid") String studentid,

@@ -266,13 +266,16 @@
             </div>
             <div class="w_tabE w_pop">
                 <h4 class="type">Add a student to course: </h4>
-                <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignS">Add</button>
+                <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignS">Add Students</button>
                 <div id="assignSDiv" class="group-form-input">
-                    <input id="searchSValue" placeholder="Assign Faculty" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
-                    <span class="w_button w_add" id="adds-button" style="width: 145px; text-align: center;">Change Faculty</span>
+                    <div class="content clearfix" style="padding: 0px">
+                        <div class='course-table'>
+                            <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
+                            </table>
+                        </div>
+                    </div> <!-- /content -->
+                    <span class="w_button w_add" id="choose" style="width: 145px; text-align: center;">Add Students</span>
                     <span class="w_button w_add" id="cancelS" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
-                    <ul class="w_selectedS">
-                    </ul>
                 </div>
             </div>
         </div>

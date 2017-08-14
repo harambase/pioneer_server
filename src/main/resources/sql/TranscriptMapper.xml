@@ -142,4 +142,10 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
+
+  <select id="getStudentCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR}
+  </select>
+
+
 </mapper>
