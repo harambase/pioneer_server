@@ -115,22 +115,23 @@ public class CourseServiceImpl implements CourseService {
             String studentid = option.getStudentid();
             Course course = courseMapper.selectByPrimaryKey(crn);
             transcript.setAssigntime(DateUtil.DateToStr(new Date()));
-            transcript.setComplete("In Process");
+            transcript.setComplete("In Progress");
             transcript.setGrade("*");
             transcript.setCrn(crn);
             transcript.setStudentid(studentid);
 
-            if(option.isCapacity() && option.isPrereq() && option.isTime()) {
-                int ret = transcriptMapper.insert(transcript);
-                if (ret == 1) {
-                    haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                    haramMessage.setCode(FlagDict.SUCCESS.getV());
-
-                } else {
-                    haramMessage.setMsg(FlagDict.FAIL.getM());
-                    haramMessage.setCode(FlagDict.FAIL.getV());
+            if(transcriptMapper.count(transcript) == 0) {
+                if (option.isCapacity() && option.isPrereq() && option.isTime()) {
+                    int ret = transcriptMapper.insert(transcript);
+                    if (ret == 1) {
+                        haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                        haramMessage.setCode(FlagDict.SUCCESS.getV());
+                        return haramMessage;
+                    }
                 }
             }
+            haramMessage.setMsg(FlagDict.FAIL.getM());
+            haramMessage.setCode(FlagDict.FAIL.getV());
             return haramMessage;
 
         }catch (Exception e){

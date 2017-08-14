@@ -661,14 +661,14 @@ $(function () {
     $("#studentTable").on("click", ".btn.btn-info", function () {
         var studentid = $(this).parents("tr").find("td").eq(2).html();
         var formdata = {
-            pre  :true,//pre,
+            prereq  :true,//pre,
             time :true,
-            capa :true,
+            capacity :true,
             studentid :studentid,
             crn: crn
         };
         $.ajax({
-            url:basePath+"/course/add/student"
+            url:basePath+"/course/add/student",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),
@@ -748,70 +748,6 @@ $(function () {
             "targets": "_all"
         }]
     });
-    var studentTable = $("#studentTable").DataTable({
-
-        "language": {
-            "aria": {
-                "sortAscending": ": activate to sort column ascending",
-                "sortDescending": ": activate to sort column descending"
-            },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
-            "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
-            }
-        },
-        "lengthMenu": [
-            [5],
-            [5]
-        ],
-        pageLength: 5,
-        processing: true,
-        serverSide: true,
-
-        ajax: {
-            url: basePath + "/admin/user/list",
-
-            data: function (d) {
-                d.type = "s";
-                d.status = "1";
-            }
-        },
-        columns: [
-            {
-                "data": null,
-                "title": "<input id='allCheck' type='checkbox'/>All",
-                "createdCell": function (nTd) {
-                    $(nTd).html('<input type="checkbox"/>');
-                },
-                "width": "20px"
-            },
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Add</button>');
-            }, "width": "100px"
-            }
-        ],
-        "columnDefs": [{
-            orderable: false,
-            targets: [5]
-        }, {
-            "defaultContent": "",
-            "targets": "_all"
-        }]
-    });
     var curStuTable = $("#studentTable").DataTable({
 
         "language": {
@@ -856,7 +792,7 @@ $(function () {
                 "createdCell": function (nTd) {
                     $(nTd).html('<input type="checkbox"/>');
                 },
-                "width": "20px"
+                "width": "100px"
             },
             {"data": "id", "title": "serial"},
             {"data": "userid", "title": "id"},
@@ -870,7 +806,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [6]
+            targets: [5]
         }, {
             "defaultContent": "",
             "targets": "_all"

@@ -22,4 +22,6 @@ public interface TranscriptMapper {
     long getTranscriptCountByMapPageSearchOrdered(Map<String, Object> param);
 
     List<Person> getTranscriptByMapPageSearchOrdered(Map<String, Object> param);
+
+    int count(Transcript transcript);
 }

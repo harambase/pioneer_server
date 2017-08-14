@@ -147,5 +147,9 @@
     select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR}
   </select>
 
+  <select id="count" parameterType="com.harambase.pioneer.pojo.Transcript" resultType="java.lang.Integer">
+    select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR} and studentid = #{studentid,jdbcType=VARCHAR}
+  </select>
+
 
 </mapper>
