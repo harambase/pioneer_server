@@ -132,13 +132,13 @@ CREATE TABLE `Transcript` (
   `complete` varchar(20) NOT NULL COMMENT '完成状态',
   `assigntime` varchar(20) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Transcript` */
 
 LOCK TABLES `Transcript` WRITE;
 
-insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','In Progress','2017-08-14 13:59:47');
+insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','In Progress','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18');
 
 UNLOCK TABLES;
 
@@ -150,11 +150,11 @@ DROP TABLE IF EXISTS `StudentView`;
 /*!50001 DROP TABLE IF EXISTS `StudentView` */;
 
 /*!50001 CREATE TABLE  `StudentView`(
- `id` bigint(11) unsigned NULL ,
- `studentid` varchar(100) NULL  default '' ,
- `max_credits` bigint(20) unsigned NULL ,
- `lastname` varchar(100) NULL  default '' ,
- `firstname` varchar(100) NULL  default '' ,
+ `id` int(11) unsigned NOT NULL  default '0' ,
+ `studentid` varchar(100) NOT NULL ,
+ `max_credits` int(20) unsigned NOT NULL ,
+ `lastname` varchar(100) NOT NULL ,
+ `firstname` varchar(100) NOT NULL ,
  `complete` decimal(32,0) NULL ,
  `incomplete` decimal(32,0) NULL ,
  `inprocess` decimal(32,0) NULL 
@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 DROP TABLE IF EXISTS `StudentView` */;
 /*!50001 DROP VIEW IF EXISTS `StudentView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`studentid` AS `studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,sum(`t1`.`credits`) AS `complete`,sum(`t2`.`credits`) AS `incomplete`,sum(`t3`.`credits`) AS `inprocess` from ((((`Student` `s` join `Person` `p`) join `TranscriptView` `t1`) join `TranscriptView` `t2`) join `TranscriptView` `t3`) where ((`p`.`userid` = `s`.`studentid`) and (`t1`.`studentid` = `s`.`studentid`) and (`t2`.`studentid` = `s`.`studentid`) and (`t3`.`studentid` = `s`.`studentid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`studentid` AS `studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,sum(`t1`.`credits`) AS `complete`,sum(`t2`.`credits`) AS `incomplete`,sum(`t3`.`credits`) AS `inprocess` from ((((`Student` `s` join `Person` `p`) join `TranscriptView` `t1`) join `TranscriptView` `t2`) join `TranscriptView` `t3`) where ((`p`.`userid` = `s`.`studentid`) and (`t1`.`studentid` = `s`.`studentid`) and (`t2`.`studentid` = `s`.`studentid`) and (`t3`.`studentid` = `s`.`studentid`)) group by `s`.`studentid` */;
 
 /*View structure for view TranscriptView */
 
