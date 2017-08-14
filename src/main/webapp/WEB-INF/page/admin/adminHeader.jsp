@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../../static/css/header.css" media="screen" type="text/css" />
+<link rel="stylesheet" href="${basePath}/static/css/header.css" media="screen" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 <div class="sidebar">
@@ -36,4 +36,4 @@
         <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="../../../static/js/otherJs/index.js"></script>
+<script src="${basePath}/static/js/otherJs/index.js"></script>
