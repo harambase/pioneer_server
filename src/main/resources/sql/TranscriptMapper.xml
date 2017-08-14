@@ -5,12 +5,12 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentid" property="studentid" jdbcType="VARCHAR" />
     <result column="crn" property="crn" jdbcType="VARCHAR" />
-    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
     <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="complete" property="complete" jdbcType="VARCHAR" />
+    <result column="assigntime" property="assigntime" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, studentid, crn, facultyid, grade, complete
+    id, studentid, crn, grade, complete, assigntime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,10 +24,10 @@
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Transcript" >
     insert into Transcript (id, studentid, crn, 
-      facultyid, grade, complete
+      grade, complete, assigntime
       )
     values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{crn,jdbcType=VARCHAR}, 
-      #{facultyid,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}
+      #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assigntime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
@@ -42,14 +42,14 @@
       <if test="crn != null" >
         crn,
       </if>
-      <if test="facultyid != null" >
-        facultyid,
-      </if>
       <if test="grade != null" >
         grade,
       </if>
       <if test="complete != null" >
         complete,
+      </if>
+      <if test="assigntime != null" >
+        assigntime,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -62,14 +62,14 @@
       <if test="crn != null" >
         #{crn,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        #{facultyid,jdbcType=VARCHAR},
-      </if>
       <if test="grade != null" >
         #{grade,jdbcType=VARCHAR},
       </if>
       <if test="complete != null" >
         #{complete,jdbcType=VARCHAR},
+      </if>
+      <if test="assigntime != null" >
+        #{assigntime,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -82,14 +82,14 @@
       <if test="crn != null" >
         crn = #{crn,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=VARCHAR},
-      </if>
       <if test="grade != null" >
         grade = #{grade,jdbcType=VARCHAR},
       </if>
       <if test="complete != null" >
         complete = #{complete,jdbcType=VARCHAR},
+      </if>
+      <if test="assigntime != null" >
+        assigntime = #{assigntime,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -98,9 +98,50 @@
     update Transcript
     set studentid = #{studentid,jdbcType=VARCHAR},
       crn = #{crn,jdbcType=VARCHAR},
-      facultyid = #{facultyid,jdbcType=VARCHAR},
       grade = #{grade,jdbcType=VARCHAR},
-      complete = #{complete,jdbcType=VARCHAR}
+      complete = #{complete,jdbcType=VARCHAR},
+      assigntime = #{assigntime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getTranscriptCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from TranscriptView <where> 1 = 1
+    <if test="studentid != null">
+      and studentid = #{studentid,jdbcType=VARCHAR}
+    </if>
+    <if test="crn != null">
+      and crn = #{crn,jdbcType=VARCHAR}
+    </if>
+    <if test="search != null">
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      grade like  '%' #{search,jdbcType=VARCHAR} '%' or
+      complete like  '%' #{search,jdbcType=VARCHAR} '%' or
+      assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
+      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if>
+  </where>
+  </select>
+  <select id="getTranscriptByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.TranscriptView">
+    select * from TranscriptView <where> 1 = 1
+    <if test="studentid != null">
+      and studentid = #{studentid,jdbcType=VARCHAR}
+    </if>
+    <if test="crn != null">
+      and crn = #{crn,jdbcType=VARCHAR}
+    </if>
+    <if test="search != null">
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      grade like  '%' #{search,jdbcType=VARCHAR} '%' or
+      complete like  '%' #{search,jdbcType=VARCHAR} '%' or
+      assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
+      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    order by ${orderColumn} ${order}
+    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

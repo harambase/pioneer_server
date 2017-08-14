@@ -17,7 +17,7 @@
 <body>
 <%@include file="common/manageHeader.jsp" %>
 
-<div class="site-branding-text" style="margin-left: 179px;">
+<div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">Transcript Management</p>
     <div class="choose-view" >
@@ -38,19 +38,42 @@
         </div>
         <ul class="w_tab clearfix">
             <li id="student" class="active">Student</li>
-            <li id="faculty">Faculty</li>
         </ul>
         <h1 id="user-title">Lists of Users in System</h1>
-        <div class='user-table' style="width: 756px;margin: -60px 0px 27px 37px;" >
+        <div class='user-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
         </div>
     </div>
 </div>
-<div class="class-pop"></div>
+<div class="class-pop">
+    <div class="user-pop-inner">
+        <div class="w_head">
+            <span>Course Selection</span>
+            <span class="w_close">×</span>
+        </div>
+        <ul class="w_tab clearfix">
+            <li class="active">Course</li>
+        </ul>
+        <div class='class-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
+            <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
+            </table>
+        </div>
+    </div>
+</div>
 
 <div class="user-view">
-
+    <div class="spilt register-table" style = "padding-left: 300px">
+        <div style=";margin: 0 120px 0 0;width: 1500px;height: 700px;" class="account-container register">
+            <div class="content clearfix">
+                <h1>List of Registered Course</h1>
+                <div class='course-table' >
+                    <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
+                    </table>
+                </div>
+            </div> <!-- /content -->
+        </div> <!-- /account-container -->
+    </div>
 </div>
 <div class="class-view">
     <div class="spilt register-table">

@@ -1,4 +1,3 @@
-
 <div class="sidebar" style="top: 0px;">
     <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Manage</span></h1>
     <ul>
@@ -10,4 +9,4 @@
         <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="../../../../static/js/otherJs/index.js"></script>
+<script src="${basePath}/static/js/otherJs/index.js"></script>

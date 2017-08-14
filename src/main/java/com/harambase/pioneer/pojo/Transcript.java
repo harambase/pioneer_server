@@ -2,18 +2,18 @@ package com.harambase.pioneer.pojo;
 
 import java.io.Serializable;
 
-public class Transcript implements Serializable {
+public class Transcript implements Serializable{
     private Integer id;
 
     private String studentid;
 
     private String crn;
 
-    private String facultyid;
-
     private String grade;
 
     private String complete;
+
+    private String assigntime;
 
     public Integer getId() {
         return id;
@@ -39,14 +39,6 @@ public class Transcript implements Serializable {
         this.crn = crn == null ? null : crn.trim();
     }
 
-    public String getFacultyid() {
-        return facultyid;
-    }
-
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid == null ? null : facultyid.trim();
-    }
-
     public String getGrade() {
         return grade;
     }
@@ -61,5 +53,13 @@ public class Transcript implements Serializable {
 
     public void setComplete(String complete) {
         this.complete = complete == null ? null : complete.trim();
+    }
+
+    public String getAssigntime() {
+        return assigntime;
+    }
+
+    public void setAssigntime(String assigntime) {
+        this.assigntime = assigntime == null ? null : assigntime.trim();
     }
 }

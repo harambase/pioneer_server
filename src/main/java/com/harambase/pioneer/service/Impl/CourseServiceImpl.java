@@ -6,6 +6,7 @@ import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.CourseMapper;
+import com.harambase.pioneer.dao.TranscriptMapper;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
@@ -23,10 +24,13 @@ import java.util.Map;
 @Service
 public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
+    private final TranscriptMapper transcriptMapper;
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper){
+    public CourseServiceImpl(CourseMapper courseMapper,
+                             TranscriptMapper transcriptMapper){
         this.courseMapper = courseMapper;
+        this.transcriptMapper = transcriptMapper;
     }
     
     @Override
@@ -209,6 +213,82 @@ public class CourseServiceImpl implements CourseService {
 
             //(int currentIndex, int pageSize, String search, String order, String orderColumn);
             List<Person> msgs = courseMapper.getCourseByMapPageSearchOrdered(param);
+
+            message.setData(msgs);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
+    }
+
+    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, String orderColumn, String studentid, String crn){
+        HaramMessage message = new HaramMessage();
+        switch (Integer.parseInt(orderColumn)) {
+            case 0:
+                orderColumn = "id";
+                break;
+            case 1:
+                orderColumn = "studentid";
+                break;
+            case 2:
+                orderColumn = "slast";
+                break;
+            case 3:
+                orderColumn = "sfirst";
+                break;
+            case 4:
+                orderColumn = "crn";
+                break;
+            case 5:
+                orderColumn = "grade";
+                break;
+            case 6:
+                orderColumn = "complete";
+                break;
+            case 7:
+                orderColumn = "facultyid";
+                break;
+            case 8:
+                orderColumn = "assigntime";
+                break;
+            default:
+                orderColumn = "id";
+                break;
+        }
+        long totalSize = 0;
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("studentid", studentid);
+            param.put("crn", crn);
+            if(search.equals(""))
+                param.put("search", null);
+            if(studentid.equals(""))
+                param.put("studentid", null);
+            if(crn.equals(""))
+                param.put("crn", null);
+
+            totalSize = transcriptMapper.getTranscriptCountByMapPageSearchOrdered(param); //startTime, endTime);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            param.put("currentIndex", page.getCurrentIndex());
+            param.put("pageSize",  page.getPageSize());
+            param.put("order",  order);
+            param.put("orderColumn",  orderColumn);
+
+            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+            List<Person> msgs = transcriptMapper.getTranscriptByMapPageSearchOrdered(param);
 
             message.setData(msgs);
             message.put("page", page);

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../common/commonJs.jsp" %>
 <%@include file="../common/commonCSS.jsp" %>
+<%@include file="common/adminCSS.jsp" %>
+
 <!DOCTYPE html>
 <html lang="en">
 

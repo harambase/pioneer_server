@@ -51,23 +51,7 @@ $(function () {
             })
         }
     });
-    //获取用户
-    function getUser(userid){
-        var user = null;
-        $.ajax({
-            url : basePath+"/admin/get?userid="+userid,
-            type : "GET",
-            async: false,
-            success: function (result) {
-                if (result.code === 2001) {
-                    user = result.data;
-                } else {
-                    Showbo.Msg.alert("教师获取失败", function () {});
-                }
-            }
-        });
-        return user;
-    }
+
     //更新用户信息
     $("#confirm").click(function (){
         var formdata = {
@@ -358,3 +342,20 @@ $(function () {
     });
 
 });
+//获取用户
+function getUser(userid){
+    var user = null;
+    $.ajax({
+        url : basePath+"/admin/get?userid="+userid,
+        type : "GET",
+        async: false,
+        success: function (result) {
+            if (result.code === 2001) {
+                user = result.data;
+            } else {
+                Showbo.Msg.alert("用户获取失败", function () {});
+            }
+        }
+    });
+    return user;
+}
