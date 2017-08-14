@@ -22,7 +22,7 @@
 </div>
 
 <div class="spilt register-table">
-    <div style="float: left; height: 652px" class="account-container register">
+    <div style="float: left; height: 700px" class="account-container register">
         <div class="content clearfix">
             <form id="createCourseForm" method="post" onsubmit="return false">
                 <h1>Create a course</h1>
@@ -134,7 +134,7 @@
         </div> <!-- /content -->
     </div> <!-- /account-container -->
 
-    <div style="float: right;margin: 0 120px 0 0;width: 1065px;height: 652px;"
+    <div style="float: right;margin: 0 120px 0 0;width: 1065px;height: 700px;"
          class="account-container register">
         <div class="content clearfix">
             <h1>Lists of Courses in System</h1>
@@ -156,7 +156,7 @@
             <ul class="w_tab clearfix">
                 <li class="active base-info">Information</li>
                 <li class='account'>Course Setting</li>
-                <li><a href="${basePath}/manageTranscript">Overrides</a></li>
+                <li class="override">Overrides</li>
             </ul>
 
             <div class="w_tabC w_pop">
@@ -262,6 +262,17 @@
                 </div>
                 <div class='w_manage_btn system-control-btn'>
                     <button id="cancel2" class="w_button">Exit</button>
+                </div>
+            </div>
+            <div class="w_tabE w_pop">
+                <h4 class="type">Add a student to course: </h4>
+                <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignS">Add</button>
+                <div id="assignSDiv" class="group-form-input">
+                    <input id="searchSValue" placeholder="Assign Faculty" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
+                    <span class="w_button w_add" id="adds-button" style="width: 145px; text-align: center;">Change Faculty</span>
+                    <span class="w_button w_add" id="cancelS" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                    <ul class="w_selectedS">
+                    </ul>
                 </div>
             </div>
         </div>

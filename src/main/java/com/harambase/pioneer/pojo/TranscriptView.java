@@ -26,7 +26,17 @@ public class TranscriptView implements Serializable {
 
     private String flast;
 
+    private Integer credits;
+
     private String assigntime;
+
+    public Integer getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Integer credits) {
+        this.credits = credits;
+    }
 
     public Integer getId() {
         return id;

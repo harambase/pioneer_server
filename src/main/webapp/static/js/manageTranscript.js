@@ -3,8 +3,7 @@ $(function () {
     var studentid = null;
     var crn = null;
 
-    $(".user-view").css({display: "none"});
-    $(".class-view").css({display: "none"});
+    $(".view").css({display: "none"});
     $(".user-pop").css({display: "none"});
     $(".class-pop").css({display: "none"});
 
@@ -24,24 +23,78 @@ $(function () {
         $(".user-table").css({display: "block"});
         userType = "s";
         userTable.draw();
-        // $(this).siblings("li").removeClass("active");
-        // $(this).addClass("active");
     });
 
     $(".w_close").click(function () {
         $(".user-pop").css({display: "none"});
         $(".class-pop").css({display: "none"});
+        $(".w_wrapper").css({display: "none"});
     });
 
     $("#userTable").on("click", ".btn.btn-info", function () {
         $(".user-view").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".class-pop").css({display: "none"});
-        $(".class-view").css({display: "none"});
-        $(".user-view").css({display: "block"});
+        $(".view").css({display: "none"});
+        crn = null;
+
+        $(".view").css({display: "block"});
 
         studentid = $(this).parents("tr").find("td").eq(1).html();
+        var sname = $(this).parents("tr").find("td").eq(2).html() +" "
+                    + $(this).parents("tr").find("td").eq(3).html();
+        $("#h1").html("Transcripts of Student: "+ sname +" ");
+
         transTable.draw();
+    });
+
+    $("#classTable").on("click", ".btn.btn-info", function () {
+        $(".user-view").css({display: "none"});
+        $(".user-pop").css({display: "none"});
+        $(".class-pop").css({display: "none"});
+        $(".view").css({display: "none"});
+        studentid = null;
+
+        $(".view").css({display: "block"});
+
+        crn = $(this).parents("tr").find("td").eq(1).html();
+        var cname = $(this).parents("tr").find("td").eq(2).html();
+        $("#h1").html("Student Transcripts in "+ cname +" Course");
+
+        transTable.draw();
+    });
+
+    $("#transTable").on("click", ".btn.btn-edit", function () {
+        $(".w_wrapper").css({display: "block"});
+        var baseInfo = $(".w_basicInfo");
+
+        studentid = $(this).parents("tr").find("td").eq(1).html();
+        crn = $(this).parents("tr").find("td").eq(4).html();
+        var credits =  $(this).parents("tr").find("td").eq(9).html();
+        var grade = $(this).parents("tr").find("td").eq(6).html();
+        var complete =  $(this).parents("tr").find("td").eq(7).html();
+
+        if(complete === "Complete"){
+            $("#complete").attr("checked", true);
+        }
+        else if(complete === "In Process"){
+            $("#process").attr("checked", true);
+        }
+        else{
+            $("#nComplete").attr("checked", true);
+        }
+
+
+
+        baseInfo.find("#sid").val(studentid);
+        baseInfo.find("#crn").val(crn);
+        baseInfo.find("#credits").val(credits);
+        baseInfo.find("#grade").val(grade);
+        baseInfo.find("#complete").val(complete);
+    });
+
+    $("#confirm").click(function(){
+
     });
 
     var userTable = $("#userTable").DataTable({
@@ -199,9 +252,11 @@ $(function () {
             {"data": "slast", "title": "lastName"},
             {"data": "sfirst", "title": "firstName"},
             {"data": "crn", "title": "crn"},
+            {"data": "coursename", "title": "coursename"},
             {"data": "grade", "title": "grade"},
             {"data": "complete", "title": "complete"},
             {"data": "facultyid", "title": "facultyid"},
+            {"data": "credits", "title": "credits"},
             {"data": "assigntime", "title": "assignTime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
@@ -211,7 +266,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [9]
+            targets: [10]
         }, {
             "defaultContent": "",
             "targets": "_all"
