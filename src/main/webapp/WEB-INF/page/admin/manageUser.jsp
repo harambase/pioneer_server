@@ -11,23 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="${basePath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="${basePath}/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
-
-    <link href="${basePath}/static/css/font-awesome.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-
-    <link href="${basePath}/static/css/style.css" rel="stylesheet" type="text/css">
-    <link href="${basePath}/static/css/pages/signin.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${basePath}/static/css/header.css" media="screen" type="text/css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-    <link href="${basePath}/static/css/pages/title.css" rel="stylesheet" type="text/css">
-    <link href="${basePath}/static/css/manageUser.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
-<%@include file="manageHeader.jsp" %>
+<%@include file="common/manageHeader.jsp" %>
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">User Management</p>

@@ -15,7 +15,7 @@
     <title>Dashboard</title>
 </head>
 <body>
-<%@include file="adminHeader.jsp"%>
+<%@include file="common/welcomeHeader.jsp"%>
 
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
