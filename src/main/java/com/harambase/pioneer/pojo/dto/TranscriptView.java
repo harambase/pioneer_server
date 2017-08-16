@@ -1,4 +1,4 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.dto;
 
 import java.io.Serializable;
 

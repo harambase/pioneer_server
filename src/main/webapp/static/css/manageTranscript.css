@@ -9,6 +9,7 @@
     z-index: 2;
     display: none;
 }
+
 .user-pop-inner{
     position:absolute;
     top: 110px;

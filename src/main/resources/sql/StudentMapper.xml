@@ -63,9 +63,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Student" >
-    update Student
-    set studentid = #{studentid,jdbcType=VARCHAR},
-      max_credits = #{maxCredits,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentid = #{studentid,jdbcType=VARCHAR}
   </update>
+
+  <select id="transcriptDetail" resultType="com.harambase.pioneer.pojo.dto.StudentView" parameterType="java.lang.String" >
+    select * from StudentView where studentid = #{studentid,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

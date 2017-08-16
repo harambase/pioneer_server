@@ -25,7 +25,7 @@
             <button id="class" class="w_button" style="float: left">Class View</button>
         </div>
         <div class='w_manage_btn system-control-btn'>
-            <button id="user" class="w_button" style="margin-left: 10px">User View</button>
+            <button id="user" class="w_button" style="margin-left: 10px">Student View</button>
         </div>
     </div>
     <hr/>
@@ -37,10 +37,10 @@
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li id="student" class="active">Student</li>
+            <li id="student" class="active">Students</li>
         </ul>
-        <h1 id="user-title">Lists of Users in System</h1>
-        <div class='user-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
+        <h1 id="user-title">Lists of Students in System</h1>
+        <div class='user-table' style="width: 756px;margin: -45px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
         </div>
@@ -117,8 +117,19 @@
 <div class="view">
     <div class="spilt register-table" style = "padding-left: 300px">
         <div style=";margin: 0 120px 0 0;width: 1500px;height: 700px;" class="account-container register">
+            <div>
+                <h1 id="h2" style="margin-left: 17px;"></h1>
+                <div class="student-trans">
+                    <table id="student-table" style="margin-left: 100px;color:#555;font-size: 15px;line-height: 1.2;">
+                    </table>
+                </div>
+                <div class="class-trans">
+                    <table id="class-table"></table>
+                </div>
+            </div> <!-- /content -->
+            <hr/>
             <div class="content clearfix">
-                <h1 id="h1"></h1>
+                <h1 id="h1" style="margin-left: -19px;margin-top: -10px;"></h1>
                 <div class='course-table' >
                     <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
                     </table>

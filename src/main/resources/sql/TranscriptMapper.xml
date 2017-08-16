@@ -121,7 +121,7 @@
     </if>
   </where>
   </select>
-  <select id="getTranscriptByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.TranscriptView">
+  <select id="getTranscriptByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
     select * from TranscriptView <where> 1 = 1
     <if test="studentid != null">
       and studentid = #{studentid,jdbcType=VARCHAR}

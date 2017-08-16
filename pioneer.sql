@@ -138,9 +138,70 @@ CREATE TABLE `Transcript` (
 
 LOCK TABLES `Transcript` WRITE;
 
-insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','In Progress','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18');
+insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','Complete','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18');
 
 UNLOCK TABLES;
+
+/* Function  structure for function  `Get_Complete_Credits` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Complete_Credits` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Complete_Credits`(sid varchar(100)) RETURNS int(11)
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM TranscriptView t WHERE t.studentid = sid AND t.complete = 'Complete';
+	
+	if counts > 0 then
+		SELECT SUM(t.credits) INTO credits FROM TranscriptView t WHERE t.studentid = sid and t.complete = 'Complete';
+	end if;	
+	
+	RETURN credits;
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `Get_In_Progress_Credits` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_In_Progress_Credits` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_In_Progress_Credits`(sid VARCHAR(100)) RETURNS int(11)
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM TranscriptView t WHERE t.studentid = sid AND t.complete = 'In Progress';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM TranscriptView t WHERE t.studentid = sid AND t.complete = 'In Progress';
+	END IF;	
+	
+	RETURN credits;
+	
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `Get_Not_Complete_Credits` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Not_Complete_Credits` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Not_Complete_Credits`(sid VARCHAR(100)) RETURNS int(11)
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM TranscriptView t WHERE t.studentid = sid AND t.complete = 'Not Complete';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM TranscriptView t WHERE t.studentid = sid AND t.complete = 'Not Complete';
+	END IF;	
+		
+    return credits;		
+    END */$$
+DELIMITER ;
 
 /*Table structure for table `StudentView` */
 
@@ -155,9 +216,9 @@ DROP TABLE IF EXISTS `StudentView`;
  `max_credits` int(20) unsigned NOT NULL ,
  `lastname` varchar(100) NOT NULL ,
  `firstname` varchar(100) NOT NULL ,
- `complete` decimal(32,0) NULL ,
- `incomplete` decimal(32,0) NULL ,
- `inprocess` decimal(32,0) NULL 
+ `complete` int(11) NULL ,
+ `progress` int(11) NULL ,
+ `incomplete` int(11) NULL 
 )*/;
 
 /*Table structure for table `TranscriptView` */
@@ -188,7 +249,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 DROP TABLE IF EXISTS `StudentView` */;
 /*!50001 DROP VIEW IF EXISTS `StudentView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`studentid` AS `studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,sum(`t1`.`credits`) AS `complete`,sum(`t2`.`credits`) AS `incomplete`,sum(`t3`.`credits`) AS `inprocess` from ((((`Student` `s` join `Person` `p`) join `TranscriptView` `t1`) join `TranscriptView` `t2`) join `TranscriptView` `t3`) where ((`p`.`userid` = `s`.`studentid`) and (`t1`.`studentid` = `s`.`studentid`) and (`t2`.`studentid` = `s`.`studentid`) and (`t3`.`studentid` = `s`.`studentid`)) group by `s`.`studentid` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`studentid` AS `studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`Get_Complete_Credits`(`s`.`studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`studentid`) AS `incomplete` from (`Student` `s` join `Person` `p`) where (`p`.`userid` = `s`.`studentid`) */;
 
 /*View structure for view TranscriptView */
 

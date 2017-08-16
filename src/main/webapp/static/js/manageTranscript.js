@@ -18,14 +18,12 @@ $(function () {
         $(".user-pop").css({display: "block"});
 
     });
-
     $("#student").click(function () {
         $("#user-title").html("Lists of Students in System");
         $(".user-table").css({display: "block"});
         userType = "s";
         userTable.draw();
     });
-
     $(".w_close").click(function () {
         $(".user-pop").css({display: "none"});
         $(".class-pop").css({display: "none"});
@@ -42,12 +40,57 @@ $(function () {
         $(".view").css({display: "block"});
 
         studentid = $(this).parents("tr").find("td").eq(1).html();
-        var sname = $(this).parents("tr").find("td").eq(2).html() +" "
-                    + $(this).parents("tr").find("td").eq(3).html();
-        $("#h1").html("Transcripts of Student: "+ sname +" ");
+        $("#h1").html("All Transcripts");
 
+        writingProperty(studentid);
         transTable.draw();
+
     });
+    function writingProperty(studentid){
+        $.ajax({
+            url: basePath + "/student/transcript/info?studentid="+studentid,
+            type: "GET",
+            success: function (data) {
+                if (data.code === 2001)
+                    writingTranscriptProperty(data.data);
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("获取失败!", function () {});
+            }
+        })
+    }
+    function writingTranscriptProperty(studentView){
+        var $studentTable = $("#student-table");
+        var detail = [];
+        $("#h2").html("General Transcript Detail for:" + studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid);
+        detail.push(setRow("", "Credit Limit: ",
+            '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
+            studentView.max_credits +'>' +
+            '<button class="btn btn-edit" style="display: block; margin-top: 10px;"id="enable">Edit</button>' +
+            '<button class="btn btn-edit" style="display: none;margin-top: 10px;" id="update">update</button>'));
+        detail.push(setRow("", "Incomplete Credits:    ", studentView.incomplete));
+        detail.push(setRow("", "In Progress Credits:   ", studentView.progress));
+        detail.push(setRow("", "Complete Credits:      ", studentView.complete));
+
+        writeTableResourceDetail($studentTable,detail);
+    }
+    function writeTableResourceDetail(tableId, list) {
+        var str = '<tr>';
+        for (var i = 0; i < list.length; i++) {
+            str += '<td style="padding: 0 10px 0 0;"><b>' + list[i].text + '</b></td>' +
+                '<td style="padding: 0 30px 0 0;">' + list[i].value + '</td>';
+        }
+        str += '</tr>';
+        tableId.html(str);
+    }
+    function setRow(name, text, value) {
+        return {
+            name: name,
+            text: text,
+            value: value
+        }
+    }
 
     $("#classTable").on("click", ".btn.btn-info", function () {
         $(".user-view").css({display: "none"});
@@ -124,6 +167,36 @@ $(function () {
         baseInfo.find("#complete").val(complete);
     });
 
+    //更新学分
+    $("#student-table").on("click", "#enable", function(){
+        $("#max").removeAttr("disabled");
+        $("#enable").css({display: "none"});
+        $("#update").css({display: "block"});
+    });
+    $("#student-table").on("click", "#update", function(){
+        var newMax = $("#max").val();
+        var formdata = {
+            studentid: studentid,
+            maxCredits: newMax
+        };
+        $.ajax({
+            url: basePath + "/student/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {});
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        });
+        $("#max").attr("disabled","disabled");
+        $("#update").css({display: "none"});
+        $("#enable").css({display: "block"});
+    });
     //更新成绩
     $("#confirm").click(function(){
         var formdata = {
