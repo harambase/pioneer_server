@@ -21,13 +21,27 @@
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">Transcript Management</p>
     <div class="choose-view" >
-        <div class='w_manage_btn system-control-btn'>
-            <button id="class" class="w_button" style="float: left">Class View</button>
-        </div>
-        <div class='w_manage_btn system-control-btn'>
-            <button id="user" class="w_button" style="margin-left: 10px">Student View</button>
-        </div>
+        <table>
+        <tr>
+            <td>
+                <div class='w_manage_btn system-control-btn'>
+                    <button id="overview" class="w_button" style="margin-left: 10px">Overview</button>
+                </div>
+            </td>
+            <td>
+                <div class='w_manage_btn system-control-btn'>
+                    <button id="class" class="w_button" style="margin-left: 10px">Class View</button>
+                </div>
+            </td>
+            <td>
+                <div class='w_manage_btn system-control-btn'>
+                    <button id="user" class="w_button" style="margin-left: 10px">Student View</button>
+                </div>
+            </td>
+        </tr>
+        </table>
     </div>
+
     <hr/>
 </div>
 <div class="user-pop">
@@ -61,7 +75,6 @@
         </div>
     </div>
 </div>
-
 <div class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
@@ -117,7 +130,7 @@
 <div class="view">
     <div class="spilt register-table" style = "padding-left: 300px">
         <div style=";margin: 0 120px 0 0;width: 1500px;height: 700px;" class="account-container register">
-            <div>
+            <div class="student-only">
                 <h1 id="h2" style="margin-left: 17px;"></h1>
                 <div class="student-trans">
                     <table id="student-table" style="margin-left: 100px;color:#555;font-size: 15px;line-height: 1.2;">
@@ -126,10 +139,11 @@
                 <div class="class-trans">
                     <table id="class-table"></table>
                 </div>
+                <hr style="margin-bottom: -5;"/>
             </div> <!-- /content -->
-            <hr/>
+
             <div class="content clearfix">
-                <h1 id="h1" style="margin-left: -19px;margin-top: -10px;"></h1>
+                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">All Transcripts</h1>
                 <div class='course-table' >
                     <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
                     </table>

@@ -4,19 +4,29 @@ $(function () {
     var crn = null;
     var complete = null;
 
-    $(".view").css({display: "none"});
+    $(".view").css({display: "block"});
     $(".user-pop").css({display: "none"});
     $(".class-pop").css({display: "none"});
+    $(".student-only").css({display:"none"});
 
+
+    $("#overview").click(function () {
+        $(".class-pop").css({display: "none"});
+        $(".user-pop").css({display: "none"});
+        $(".student-only").css({display:"none"});
+        $("#h1").html("All Transcripts");
+    });
     $("#class").click(function () {
         $(".class-pop").css({display: "block"});
         $(".user-pop").css({display: "none"});
-
+        $(".student-only").css({display:"none"});
+        $(".all").css({display:"none"});
     });
     $("#user").click(function () {
         $(".class-pop").css({display: "none"});
         $(".user-pop").css({display: "block"});
-
+        $(".student-only").css({display:"block"});
+        $(".all").css({display:"none"});
     });
     $("#student").click(function () {
         $("#user-title").html("Lists of Students in System");
@@ -40,7 +50,6 @@ $(function () {
         $(".view").css({display: "block"});
 
         studentid = $(this).parents("tr").find("td").eq(1).html();
-        $("#h1").html("All Transcripts");
 
         writingProperty(studentid);
         transTable.draw();
@@ -61,6 +70,7 @@ $(function () {
         })
     }
     function writingTranscriptProperty(studentView){
+        $("#h1").html(studentView.lastname+", "+studentView.firstname + " Transcripts");
         var $studentTable = $("#student-table");
         var detail = [];
         $("#h2").html("General Transcript Detail for:" + studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid);
@@ -373,7 +383,7 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
+            {"data": "id", "title": "serial", "width": "15px"},
             {"data": "studentid", "title": "studentid"},
             {"data": "slast", "title": "lastName"},
             {"data": "sfirst", "title": "firstName"},
@@ -383,16 +393,16 @@ $(function () {
             {"data": "complete", "title": "complete"},
             {"data": "facultyid", "title": "facultyid"},
             {"data": "credits", "title": "credits"},
-            {"data": "assigntime", "title": "assignTime"},
+            {"data": "assigntime", "title": "assignTime", "width": "100px"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-edit">Edit</button>');
-            }, "width": "100px"
+                }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [10]
+            targets: [11]
         }, {
             "defaultContent": "",
             "targets": "_all"
