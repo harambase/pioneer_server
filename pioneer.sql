@@ -116,7 +116,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 
-insert  into `Student`(`id`,`studentid`,`max_credits`) values (1,'9201701101',18),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18);
+insert  into `Student`(`id`,`studentid`,`max_credits`) values (1,'9201701101',20),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18);
 
 UNLOCK TABLES;
 
