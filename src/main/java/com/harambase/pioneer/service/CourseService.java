@@ -17,11 +17,9 @@ public interface CourseService {
 
     HaramMessage updateCourse(Course course);
 
-    HaramMessage assignFac2Cou(String facultyid, String courseid);
+    HaramMessage assignFac2Cou(Course course);
 
     HaramMessage addStu2Cou(Option option);
-
-    HaramMessage removeFacFromCou(String facultyid, String courseid);
 
     HaramMessage removeStuFromCou(String studentid, String courseid);
 

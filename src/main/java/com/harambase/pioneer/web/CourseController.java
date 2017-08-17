@@ -85,6 +85,12 @@ public class CourseController {
         return null;
     }
 
+    @RequestMapping(value = "/assign/faculty", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity assignF2Course(@RequestBody Course course){
+        HaramMessage haramMessage = courseService.assignFac2Cou(course);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity listCourses(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,

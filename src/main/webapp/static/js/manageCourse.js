@@ -105,7 +105,7 @@ $(function () {
             facultyid : facultyids
         };
         $.ajax({
-            url:basePath+"/course/update",
+            url:basePath+"/course/assign/faculty",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),

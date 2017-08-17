@@ -153,16 +153,11 @@
 
   <select id="checkTime" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) as count from TranscriptView where 1 = 1
-    <if test="studentid != null">
-      and studentid = #{studentid,jdbcType=VARCHAR}
-    </if>
-    <if test="facultyid != null">
-      and facultyid = #{facultyid,jdbcType=VARCHAR}
-    </if>
-      and time = #{time,jdbcType=VARCHAR}
-      and date = #{date,jdbcType=VARCHAR}
-      and day  = #{day,jdbcType=VARCHAR}
-      and crn  = #{crn,jdbcType=VARCHAR}
+    and studentid = #{studentid,jdbcType=VARCHAR}
+    and time = #{time,jdbcType=VARCHAR}
+    and date = #{date,jdbcType=VARCHAR}
+    and day  = #{day,jdbcType=VARCHAR}
+    and crn  = #{crn,jdbcType=VARCHAR}
   </select>
 
 </mapper>

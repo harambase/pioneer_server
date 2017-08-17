@@ -26,4 +26,6 @@ public interface CourseMapper {
     List<Person> getCourseByMapPageSearchOrdered(Map<String, Object> param);
 
     int getRemain(String crn);
+
+    int facultyTime(Map<String, String> param);
 }
