@@ -6,6 +6,15 @@ $(function () {
     var createCourseForm = $("#createCourseForm").validate({});
     var crn = "";
 
+    $("#add").click(function(){
+        $("#add-div").css({display: "block"});
+        $("#course-div").css({display: "none"});
+    });
+    $("#list").click(function(){
+        $("#add-div").css({display: "none"});
+        $("#course-div").css({display: "block"});
+    });
+
     //教师列表
     function facultyList(searchFValue, w_select, w_select_li){
         var search = searchFValue.val();
@@ -412,7 +421,10 @@ $(function () {
                         console.log(data);
                         if (data.code === 2001) {
                             Showbo.Msg.alert("添加成功!", function () {
-                                window.location.reload();
+                                logTable.draw();
+                                $("#add-div").css({display: "none"});
+                                $("#course-div").css({display: "block"});
+                                $('[type=text]').val("");
                             });
                         }
                         else if (data.code === 2005) {
@@ -727,12 +739,15 @@ $(function () {
             {"data": "id", "title": "serial"},
             {"data": "crn", "title": "crn"},
             {"data": "name", "title": "name"},
-            {"data": "coulev", "title": "coulev"},
-            {"data": "cousec", "title": "cousec"},
-            {"data": "capa", "title": "capa"},
+            {"data": "couLev", "title": "Level"},
+            {"data": "couSec", "title": "Section"},
+            {"data": "capa", "title": "capacity"},
+            {"data": "remain", "title": "Remain"},
             {"data": "status", "title": "status"},
+            {"data": "date", "title": "date"},
+            {"data": "time", "title": "time"},
             {"data": "day", "title": "day"},
-            {"data": "facultyid", "title": "faculty"},
+            {"data": "faculty", "title": "faculty"},
             {"data": "updatetime", "title": "updatetime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
@@ -742,7 +757,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [7]
+            targets: [13],
         }, {
             "defaultContent": "",
             "targets": "_all"

@@ -30,6 +30,36 @@ public class TranscriptView implements Serializable {
 
     private String assigntime;
 
+    private String day;
+
+    private String time;
+
+    private String date;
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public Integer getCredits() {
         return credits;
     }

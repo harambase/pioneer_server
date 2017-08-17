@@ -24,4 +24,6 @@ public interface TranscriptMapper {
     List<Person> getTranscriptByMapPageSearchOrdered(Map<String, Object> param);
 
     int count(Transcript transcript);
+
+    int checkTime(Map<String, String> param);
 }

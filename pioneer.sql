@@ -57,13 +57,13 @@ CREATE TABLE `Course` (
   `createtime` varchar(20) DEFAULT NULL,
   `updatetime` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Course` */
 
 LOCK TABLES `Course` WRITE;
 
-insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`status`,`facultyid`,`info`,`createtime`,`updatetime`) values (1,'120170100','test',4,NULL,'100','01','2017-08-11','2017-10-10','m/w/f/sa/','10:00:00','11:00:00',50,'1','9201701102','2017-01','2017-08-10 12:00:00','2017-08-11 16:23:27'),(2,'120170164','Test2',4,NULL,'200','01','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 15:55:53','2017-08-11 16:13:19'),(3,'120170123','Test3',4,'120170164','300','02','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39');
+insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`status`,`facultyid`,`info`,`createtime`,`updatetime`) values (1,'120170100','test',4,NULL,'100','01','2017-08-11','2017-10-10','t/w/tr/f/','10:00:00','11:00:00',50,'1','9201701102','2017-01','2017-08-10 12:00:00','2017-08-17 10:20:52'),(2,'120170164','Test2',4,NULL,'200','01','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 15:55:53','2017-08-11 16:13:19'),(3,'120170123','Test3',4,'120170164','300','02','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39'),(4,'120170191','myCity',4,'','100','01','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',1,'1','9201701100','2017-01','2017-08-17 13:20:39','2017-08-17 13:20:39');
 
 UNLOCK TABLES;
 
@@ -116,7 +116,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 
-insert  into `Student`(`id`,`studentid`,`max_credits`) values (1,'9201701101',20),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18);
+insert  into `Student`(`id`,`studentid`,`max_credits`) values (1,'9201701101',18),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18);
 
 UNLOCK TABLES;
 
@@ -132,13 +132,13 @@ CREATE TABLE `Transcript` (
   `complete` varchar(20) NOT NULL COMMENT '完成状态',
   `assigntime` varchar(20) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Transcript` */
 
 LOCK TABLES `Transcript` WRITE;
 
-insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','Complete','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18');
+insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','Complete','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18'),(5,'9201701942','120170164','A','Complete','2017-08-16 17:55:31'),(6,'9201701942','120170191','*','In Progress','2017-08-17 13:21:03'),(7,'9201701103','120170191','*','In Progress','2017-08-17 13:21:17');
 
 UNLOCK TABLES;
 
@@ -162,6 +162,46 @@ BEGIN
 END */$$
 DELIMITER ;
 
+/* Function  structure for function  `Get_Course_Date` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Course_Date` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Course_Date`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
+BEGIN
+	
+	DECLARE startdate VARCHAR(100);
+	DECLARE enddate VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.startdate, c.enddate INTO startdate,enddate FROM Course c WHERE c.crn = crn;
+	SET ctime = CONCAT(startdate," to ",enddate);
+	
+	
+	RETURN ctime ;
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `Get_Course_Time` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Course_Time` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Course_Time`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
+BEGIN
+	
+	DECLARE starttime VARCHAR(100);
+	DECLARE endtime VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.starttime, c.endtime  INTO starttime,endtime FROM Course c WHERE c.crn = crn;
+	SET ctime = CONCAT(starttime,"-",endtime);
+	
+	
+	RETURN ctime ;
+    END */$$
+DELIMITER ;
+
 /* Function  structure for function  `Get_In_Progress_Credits` */
 
 /*!50003 DROP FUNCTION IF EXISTS `Get_In_Progress_Credits` */;
@@ -180,6 +220,26 @@ BEGIN
 	
 	RETURN credits;
 	
+    END */$$
+DELIMITER ;
+
+/* Function  structure for function  `Get_Name` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Name` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Name`(id varchar(20)) RETURNS varchar(100) CHARSET utf8
+BEGIN
+	
+	DECLARE firstname varchar(100);
+	DECLARE lastname  VARCHAR(100);
+	declare fname varchar(100);
+	
+	SELECT p.firstname, p.lastname INTO firstname, lastname FROM Person p WHERE p.userid = id;
+	SET fname = CONCAT(lastname,",",firstname);
+	
+	
+	RETURN fname;
     END */$$
 DELIMITER ;
 
@@ -202,6 +262,50 @@ BEGIN
     return credits;		
     END */$$
 DELIMITER ;
+
+/* Function  structure for function  `Get_Remain_Capa` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Remain_Capa` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Remain_Capa`(crn VARCHAR(20)) RETURNS int(11)
+BEGIN
+	
+	DECLARE remain INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	DECLARE capa INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM TranscriptView t WHERE t.crn = crn;
+	SElect c.capa INTO capa FROM Course c WHERE c.crn = crn;
+	SET remain = capa - counts;
+	
+	RETURN remain;
+    END */$$
+DELIMITER ;
+
+/*Table structure for table `CourseView` */
+
+DROP TABLE IF EXISTS `CourseView`;
+
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
+
+/*!50001 CREATE TABLE  `CourseView`(
+ `id` int(11) NOT NULL  default '0' ,
+ `crn` varchar(20) NOT NULL ,
+ `name` varchar(100) NOT NULL ,
+ `credits` int(11) NULL ,
+ `couLev` varchar(11) NULL ,
+ `couSec` varchar(11) NULL ,
+ `capa` int(11) NULL ,
+ `remain` int(11) NULL ,
+ `faculty` varchar(100) NULL ,
+ `date` varchar(100) NULL ,
+ `Time` varchar(100) NULL ,
+ `status` varchar(11) NULL ,
+ `day` varchar(20) NULL ,
+ `updatetime` varchar(20) NULL 
+)*/;
 
 /*Table structure for table `StudentView` */
 
@@ -243,6 +347,13 @@ DROP TABLE IF EXISTS `TranscriptView`;
  `credits` int(11) NULL ,
  `assigntime` varchar(20) NOT NULL 
 )*/;
+
+/*View structure for view CourseView */
+
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`c`.`status` AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
 
 /*View structure for view StudentView */
 

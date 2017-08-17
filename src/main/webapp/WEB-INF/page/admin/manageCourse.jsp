@@ -18,11 +18,19 @@
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">Course Management</p>
+    <div class="choose-view" >
+        <div class='w_manage_btn system-control-btn'>
+            <button id="add" class="w_button" style="float:left; margin-left: 10px">Add a Course</button>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="list" class="w_button" style="margin-left: 10px">View List</button>
+        </div>
+    </div>
     <hr/>
 </div>
 
 <div class="spilt register-table">
-    <div style="float: left; height: 700px" class="account-container register">
+    <div id="add-div" style="position:absolute;height: 700px; display: none" class="account-container register">
         <div class="content clearfix">
             <form id="createCourseForm" method="post" onsubmit="return false">
                 <h1>Create a course</h1>
@@ -133,8 +141,7 @@
             </form>
         </div> <!-- /content -->
     </div> <!-- /account-container -->
-
-    <div style="float: right;margin: 0 120px 0 0;width: 1065px;height: 700px;"
+    <div id="course-div" style="float: right;position:absolute;width: 1563px;height: 700px; display: block"
          class="account-container register">
         <div class="content clearfix">
             <h1>Lists of Courses in System</h1>

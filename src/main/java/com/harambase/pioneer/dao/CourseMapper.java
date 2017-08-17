@@ -24,4 +24,6 @@ public interface CourseMapper {
     long getCourseCountByMapPageSearchOrdered(Map<String, Object> param);
 
     List<Person> getCourseByMapPageSearchOrdered(Map<String, Object> param);
+
+    int getRemain(String crn);
 }

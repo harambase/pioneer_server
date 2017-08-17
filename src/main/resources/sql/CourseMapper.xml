@@ -250,8 +250,12 @@
     limit 0,4
   </select>
 
+  <select id="getRemain" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select remain from CourseView where crn = #{crn,jdbcType=VARCHAR}
+  </select>
+
   <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
-    select count(*) as count from Course <where> 1 = 1
+    select count(*) as count from CourseView <where> 1 = 1
     <if test="search != null">
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like  '%' #{search,jdbcType=VARCHAR} '%' or
@@ -259,22 +263,19 @@
       precrn like  '%' #{search,jdbcType=VARCHAR} '%' or
       coulev like  '%' #{search,jdbcType=VARCHAR} '%' or
       cousec like  '%' #{search,jdbcType=VARCHAR} '%' or
-      startdate like  '%' #{search,jdbcType=VARCHAR} '%' or
-      enddate like  '%' #{search,jdbcType=VARCHAR} '%' or
       day like  '%' #{search,jdbcType=VARCHAR} '%' or
-      starttime like  '%' #{search,jdbcType=VARCHAR} '%' or
-      endtime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      time like  '%' #{search,jdbcType=VARCHAR} '%' or
       capa like  '%' #{search,jdbcType=VARCHAR} '%' or
+      reamin like  '%' #{search,jdbcType=VARCHAR} '%' or
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyid like  '%' #{search,jdbcType=VARCHAR} '%' or
-      info like  '%' #{search,jdbcType=VARCHAR} '%' or
-      createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      faculty like  '%' #{search,jdbcType=VARCHAR} '%' or
+      date like  '%' #{search,jdbcType=VARCHAR} '%' or
       updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
   </select>
-  <select id="getCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select * from Course <where> 1 = 1
+  <select id="getCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.CourseView">
+    select * from CourseView <where> 1 = 1
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like  '%' #{search,jdbcType=VARCHAR} '%' or
@@ -282,16 +283,13 @@
       precrn like  '%' #{search,jdbcType=VARCHAR} '%' or
       coulev like  '%' #{search,jdbcType=VARCHAR} '%' or
       cousec like  '%' #{search,jdbcType=VARCHAR} '%' or
-      startdate like  '%' #{search,jdbcType=VARCHAR} '%' or
-      enddate like  '%' #{search,jdbcType=VARCHAR} '%' or
       day like  '%' #{search,jdbcType=VARCHAR} '%' or
-      starttime like  '%' #{search,jdbcType=VARCHAR} '%' or
-      endtime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      time like  '%' #{search,jdbcType=VARCHAR} '%' or
       capa like  '%' #{search,jdbcType=VARCHAR} '%' or
+      reamin like  '%' #{search,jdbcType=VARCHAR} '%' or
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyid like  '%' #{search,jdbcType=VARCHAR} '%' or
-      info like  '%' #{search,jdbcType=VARCHAR} '%' or
-      createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      faculty like  '%' #{search,jdbcType=VARCHAR} '%' or
+      date like  '%' #{search,jdbcType=VARCHAR} '%' or
       updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     order by ${orderColumn} ${order}

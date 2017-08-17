@@ -11,6 +11,7 @@ import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
+import com.harambase.pioneer.pojo.dto.TranscriptView;
 import com.harambase.pioneer.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -114,21 +115,60 @@ public class CourseServiceImpl implements CourseService {
             String crn = option.getCrn();
             String studentid = option.getStudentid();
             Course course = courseMapper.selectByPrimaryKey(crn);
+            //检查课程状态
+            if(course.getStatus().equals("0")||
+                    DateUtil.StrToDate(course.getEnddate()).compareTo(new Date()) < 0){
+                haramMessage.setMsg(FlagDict.COURSE_DISABLED.getM());
+                haramMessage.setCode(FlagDict.COURSE_DISABLED.getV());
+                return haramMessage;
+            }
+            //检查时间冲突
+            String time = course.getStarttime() + "-" + course.getEndtime();
+            String date = course.getStartdate() + " to " + course.getEnddate();
+            String day  = course.getDay();
+            Map<String, String> param = new HashMap<>();
+            param.put("studentid",studentid);
+            param.put("time", time);
+            param.put("date", date);
+            param.put("day", day);
+            param.put("crn", crn);
+            int count = transcriptMapper.checkTime(param);
+            if(count != 0 && option.isTime()){
+                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
+                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
+                return haramMessage;
+            }
+            //检查课程容量
+            int remain = courseMapper.getRemain(crn);
+            if(remain <= 0 && option.isCapacity()){
+                haramMessage.setMsg(FlagDict.MAX_CAPACITY.getM());
+                haramMessage.setCode(FlagDict.MAX_CAPACITY.getV());
+                return haramMessage;
+            }
             transcript.setAssigntime(DateUtil.DateToStr(new Date()));
             transcript.setComplete("In Progress");
             transcript.setGrade("*");
             transcript.setCrn(crn);
             transcript.setStudentid(studentid);
-
-            if(transcriptMapper.count(transcript) == 0) {
-                if (option.isCapacity() && option.isPrereq() && option.isTime()) {
-                    int ret = transcriptMapper.insert(transcript);
-                    if (ret == 1) {
-                        haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                        haramMessage.setCode(FlagDict.SUCCESS.getV());
-                        return haramMessage;
-                    }
+            //检查预选
+            String precrn = course.getPrecrn();
+            if(precrn != null){
+                Transcript preTranscript = new Transcript();
+                preTranscript.setComplete("Complete");
+                preTranscript.setStudentid(studentid);
+                preTranscript.setCrn(precrn);
+                int ret = transcriptMapper.count(preTranscript);
+                if(ret != 1 && option.isPrereq()){
+                    haramMessage.setMsg(FlagDict.UNMET_PREREQ.getM());
+                    haramMessage.setCode(FlagDict.UNMET_PREREQ.getV());
+                    return haramMessage;
                 }
+            }
+            int ret = transcriptMapper.insert(transcript);
+            if (ret == 1) {
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                return haramMessage;
             }
             haramMessage.setMsg(FlagDict.FAIL.getM());
             haramMessage.setCode(FlagDict.FAIL.getV());
@@ -231,13 +271,22 @@ public class CourseServiceImpl implements CourseService {
                 orderColumn = "capa";
                 break;
             case 6:
-                orderColumn = "status";
+                orderColumn = "remain";
                 break;
             case 7:
-                orderColumn = "day";
+                orderColumn = "status";
                 break;
             case 8:
-                orderColumn = "facultyid";
+                orderColumn = "date";
+                break;
+            case 9:
+                orderColumn = "time";
+                break;
+            case 10:
+                orderColumn = "day";
+                break;
+            case 11:
+                orderColumn = "faculty";
                 break;
             default:
                 orderColumn = "updatetime";

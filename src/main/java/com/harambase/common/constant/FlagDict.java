@@ -19,10 +19,10 @@ public enum FlagDict {
     GROUP_NAME_EXISTS("组名已存在", 2010),
     GROUP_DISABLED("组已禁用", 2011),
     GROUP_NOT_EXISTS("组不存在", 2012),
-    USER_NOT_EXISTS("用户不存在", 2013),
-    USER_DISABLE("用户已禁用", 2014),
-    USER_GROUP_EXISTS("用户组已存在", 2015),
-    USER_NOT_IN_GROUP("该用户不在组内", 2016);
+    UNMET_PREREQ("预选课程未完成", 2013),
+    COURSE_DISABLED("课程禁止选课", 2014),
+    MAX_CAPACITY("课程容量上限", 2015),
+    TIMECONFLICT("时间冲突", 2016);
 
     // 成员变量
     private String m;
