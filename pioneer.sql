@@ -51,19 +51,18 @@ CREATE TABLE `Course` (
   `startTime` varchar(20) DEFAULT NULL COMMENT '起时间HH:MM:SS',
   `endTime` varchar(20) DEFAULT NULL COMMENT '终时间HH:MM:SS',
   `capa` int(11) DEFAULT NULL COMMENT '最大人数',
-  `status` varchar(11) DEFAULT NULL COMMENT '状态',
   `facultyid` varchar(20) NOT NULL COMMENT '教师ID',
   `info` varchar(20) NOT NULL,
   `createtime` varchar(20) DEFAULT NULL,
   `updatetime` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Course` */
 
 LOCK TABLES `Course` WRITE;
 
-insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`status`,`facultyid`,`info`,`createtime`,`updatetime`) values (1,'120170100','test',4,NULL,'100','01','2017-08-11','2017-10-10','t/w/tr/f/','10:00:00','11:00:00',50,'1','9201701102','2017-01','2017-08-10 12:00:00','2017-08-17 10:20:52'),(2,'120170164','Test2',4,NULL,'200','01','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 15:55:53','2017-08-11 16:13:19'),(3,'120170123','Test3',4,'120170164','300','02','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'1','9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39'),(4,'120170191','myCity',4,'','100','01','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',1,'1','9201701100','2017-01','2017-08-17 13:20:39','2017-08-17 13:20:39');
+insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`facultyid`,`info`,`createtime`,`updatetime`) values (2,'120170164','Test2',4,NULL,'200','01','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701100','2017-01','2017-08-10 15:55:53','2017-08-11 16:13:19'),(3,'120170123','Test3',4,'120170164','300','02','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39'),(6,'120170174','upper',4,'','499','01','2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05');
 
 UNLOCK TABLES;
 
@@ -132,13 +131,11 @@ CREATE TABLE `Transcript` (
   `complete` varchar(20) NOT NULL COMMENT '完成状态',
   `assigntime` varchar(20) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Transcript` */
 
 LOCK TABLES `Transcript` WRITE;
-
-insert  into `Transcript`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`) values (1,'9201701103','120170100','A','Complete','2017-08-14 13:59:47'),(2,'9201701309','120170100','*','In Progress','2017-08-14 17:26:39'),(4,'9201701103','120170164','*','In Progress','2017-08-14 17:40:18'),(5,'9201701942','120170164','A','Complete','2017-08-16 17:55:31'),(6,'9201701942','120170191','*','In Progress','2017-08-17 13:21:03'),(7,'9201701103','120170191','*','In Progress','2017-08-17 13:21:17');
 
 UNLOCK TABLES;
 
@@ -182,6 +179,28 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Function  structure for function  `Get_Course_Status` */
+
+/*!50003 DROP FUNCTION IF EXISTS `Get_Course_Status` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Course_Status`(crn varchar(100)) RETURNS int(11)
+BEGIN
+	DECLARE enddate VARCHAR(100);
+	DECLARE STATUS INT(11);
+	
+	SELECT c.enddate INTO enddate FROM Course c WHERE c.crn = crn;
+	
+	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
+		SET STATUS = 0;
+	else
+		set status = 1;
+	END IF;
+	
+	RETURN STATUS ;
+    END */$$
+DELIMITER ;
+
 /* Function  structure for function  `Get_Course_Time` */
 
 /*!50003 DROP FUNCTION IF EXISTS `Get_Course_Time` */;
@@ -189,7 +208,6 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `Get_Course_Time`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
 BEGIN
-	
 	DECLARE starttime VARCHAR(100);
 	DECLARE endtime VARCHAR(100);
 	DECLARE ctime VARCHAR(100);
@@ -199,6 +217,7 @@ BEGIN
 	
 	
 	RETURN ctime ;
+	
     END */$$
 DELIMITER ;
 
@@ -302,7 +321,7 @@ DROP TABLE IF EXISTS `CourseView`;
  `faculty` varchar(100) NULL ,
  `date` varchar(100) NULL ,
  `Time` varchar(100) NULL ,
- `status` varchar(11) NULL ,
+ `status` int(11) NULL ,
  `day` varchar(20) NULL ,
  `updatetime` varchar(20) NULL 
 )*/;
@@ -335,16 +354,19 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 CREATE TABLE  `TranscriptView`(
  `id` int(11) NOT NULL  default '0' ,
  `studentid` varchar(20) NOT NULL ,
- `crn` varchar(20) NOT NULL ,
- `grade` varchar(20) NOT NULL ,
- `complete` varchar(20) NOT NULL ,
- `coursename` varchar(100) NOT NULL ,
- `facultyid` varchar(20) NOT NULL ,
  `sfirst` varchar(100) NOT NULL ,
  `slast` varchar(100) NOT NULL ,
+ `crn` varchar(20) NOT NULL ,
+ `coursename` varchar(100) NOT NULL ,
+ `credits` int(11) NULL ,
+ `grade` varchar(20) NOT NULL ,
+ `complete` varchar(20) NOT NULL ,
+ `facultyid` varchar(20) NOT NULL ,
  `ffirst` varchar(100) NOT NULL ,
  `flast` varchar(100) NOT NULL ,
- `credits` int(11) NULL ,
+ `date` varchar(100) NULL ,
+ `time` varchar(100) NULL ,
+ `day` varchar(20) NULL ,
  `assigntime` varchar(20) NOT NULL 
 )*/;
 
@@ -353,7 +375,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 DROP TABLE IF EXISTS `CourseView` */;
 /*!50001 DROP VIEW IF EXISTS `CourseView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`c`.`status` AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
 
 /*View structure for view StudentView */
 
@@ -367,7 +389,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
 /*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`studentid` AS `studentid`,`t`.`crn` AS `crn`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`name` AS `coursename`,`c`.`facultyid` AS `facultyid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`c`.`credits` AS `credits`,`t`.`assigntime` AS `assigntime` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`studentid` AS `studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
