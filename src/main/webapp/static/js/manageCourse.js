@@ -616,7 +616,7 @@ $(function () {
 
             writeSettings(status, course.precrn);
 
-            $(".w_wrapper").css({display: "block"});
+            $("#course").css({display: "block"});
             $(".w_ul li").remove();
             $("#assignFDiv").css({display: "none"});
             $("#assignCDiv").css({display: "none"});
@@ -627,12 +627,13 @@ $(function () {
 
             closePop("#cancel");
             closePop("#cancel2");
+            closePop("#cancel3");
             closePop(".w_close");
         }
     });
     function closePop(ele) {
         $(ele).click(function () {
-            $(".w_wrapper").css({display: "none"});
+            $("#course").css({display: "none"});
             $("[type='checkbox']").removeAttr("checked");//取消全选
         });
     }
@@ -665,17 +666,31 @@ $(function () {
         $(this).addClass("active");
     });
     $(".w_close").click(function () {
-        $(".w_wrapper").css({display: "none"});
-
+        $("#course").css({display: "none"});
+        $("#student").css({display: "none"});
+        $("#confirm-wrapper").css({display:"none"});
     });
 
     //添加学生
     $("#studentTable").on("click", ".btn.btn-info", function () {
-        var studentid = $(this).parents("tr").find("td").eq(2).html();
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        var pre = false;
+        var time = false;
+        var capacity = false;
+        $('input[name="pre"]:checked').each(function () {
+            pre = true;
+        });
+        $('input[name="time"]:checked').each(function () {
+            time = true;
+        });
+        $('input[name="capa"]:checked').each(function () {
+            capacity = true;
+        });
+
         var formdata = {
-            prereq  :true,//pre,
-            time :true,
-            capacity :true,
+            prereq  :pre,
+            time : time,
+            capacity :capacity,
             studentid :studentid,
             crn: crn
         };
@@ -687,14 +702,78 @@ $(function () {
             success: function (data) {
                 if (data.code === 2001)
                     Showbo.Msg.alert("添加成功!", function () {
-                        curStuTable.draw();
+                        logTable.draw();
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
+    });
+
+    //课程中的学生
+    $("#courseTable").on("click", ".btn.btn-list", function () {
+
+        crn = $(this).parents("tr").find("td").eq(1).html();
+        stuListTable.draw();
+        $("#student").css({display : "block"})
+    });
+    $("#cancel4").click(function(){
+        $("#student").css({display : "none"})
+    });
+
+    //移除学生
+    $("#studentList").on("click", ".btn.btn-info", function () {
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        $.ajax({
+            url: basePath + "/course/transcript/remove?studentid="+studentid+"&crn="+crn,
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("删除成功!", function () {
+                        $("#student").css({display : "block"});
+                        stuListTable.draw();
+                    });
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {
+                    });
+                else
+                    Showbo.Msg.alert(data.msg, function () {
+                    });
+            }
+        });
+    });
+
+    //移除课程
+    $("#courseTable").on("click", ".btn.btn-info", function() {
+        crn = $(this).parents("tr").find("td").eq(1).html();
+        $("#confirm-wrapper").css({display:"block"});
+    });
+    $("#confirm-delete").click(function(){
+
+        $.ajax({
+            url: basePath + "/course/remove?crn="+crn,
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("删除成功!", function () {
+                        $("#confirm-wrapper").css({display:"none"});
+                        logTable.draw();
+                    });
+                else if (data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {
+                    });
+                else
+                    Showbo.Msg.alert(data.msg, function () {
+                    });
+            }
+        });
+    });
+    $("#cancel-delete").click(function () {
+        $("#confirm-wrapper").css({display:"none"});
     });
 
     //列表
@@ -751,13 +830,15 @@ $(function () {
             {"data": "updatetime", "title": "updatetime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Detail</button>');
-            }, "width": "100px"
+                $(nTd).html('<button class="btn btn-info">Delete</button>' +
+                    '<button class="btn btn-edit">Detail</button>' +
+                    '<button class="btn btn-list">Student List</button>');
+            }
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [13],
+            targets: [13]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -801,14 +882,6 @@ $(function () {
             }
         },
         columns: [
-            {
-                "data": null,
-                "title": "<input id='allCheck' type='checkbox'/>All",
-                "createdCell": function (nTd) {
-                    $(nTd).html('<input type="checkbox"/>');
-                },
-                "width": "100px"
-            },
             {"data": "id", "title": "serial"},
             {"data": "userid", "title": "id"},
             {"data": "firstname", "title": "firstname"},
@@ -821,7 +894,61 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [5]
+            targets: [4]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+    var stuListTable = $("#studentList").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/course/student/list",
+            data: function (d) {
+                d.crn = crn;
+            }
+        },
+        columns: [
+            {"data": "id", "title": "serial"},
+            {"data": "studentid", "title": "id"},
+            {"data": "sfirst", "title": "firstname"},
+            {"data": "slast", "title": "lastname"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Remove</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [4]
         }, {
             "defaultContent": "",
             "targets": "_all"

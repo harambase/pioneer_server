@@ -21,7 +21,7 @@ public enum FlagDict {
     REPEAT("课程重复", 2012),
     UNMET_PREREQ("预选课程未完成", 2013),
     COURSE_DISABLED("课程禁止选课", 2014),
-    MAX_CAPACITY("课程容量上限", 2015),
+    MAX_CAPACITY("课程容量达到上限", 2015),
     TIMECONFLICT("时间冲突", 2016);
 
     // 成员变量

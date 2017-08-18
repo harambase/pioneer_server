@@ -29,8 +29,6 @@ public class Course implements Serializable{
 
     private Integer capa;
 
-    private String status;
-
     private String facultyid;
 
     private String info;
@@ -141,14 +139,6 @@ public class Course implements Serializable{
 
     public void setCapa(Integer capa) {
         this.capa = capa;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
     }
 
     public String getFacultyid() {

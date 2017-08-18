@@ -153,7 +153,7 @@
     </div> <!-- /account-container -->
 </div>
 
-<div class="w_wrapper">
+<div id="course" class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
             <span>Course Controller</span>
@@ -273,18 +273,76 @@
             </div>
             <div class="w_tabE w_pop">
                 <h4 class="type">Add a student to course: </h4>
-                <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignS">Add Students</button>
+                <button class="w_button" style="width: 190px; vertical-align: middle;" id="assignS">Add Students</button>
                 <div id="assignSDiv" class="group-form-input">
+                    <h4 class="status" style="margin-top: 0px;">Override Options: </h4>
+                    <table style="font-size: 11px">
+                        <tr>
+                            <td style="margin-bottom: -5px"><input type="checkbox" name="pre" style="margin: 10px 4px 10px 0; width: 12px;"/>Override Without Pre-Required
+                                Class
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="time" style="margin: 10px 4px 10px 0; width: 12px;"/>Override with time confilct
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="capa"
+                                       style="margin: 10px 4px 10px 0; width: 12px;"/>Override even over course capacity
+                            </td>
+                        </tr>
+                    </table>
+                    <hr style="margin-top: 1px;"/>
+                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">Lists of Active Students: </h4>
                     <div class="content clearfix" style="padding: 0px">
                         <div class='course-table'>
                             <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
                             </table>
                         </div>
                     </div> <!-- /content -->
-                    <span class="w_button w_add" id="choose" style="width: 145px; text-align: center;">Add Students</span>
                     <span class="w_button w_add" id="cancelS" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
                 </div>
+                <div class='w_manage_btn system-control-btn'>
+                    <button id="cancel3" class="w_button" style="margin: 20px 0 0 122px;width: 190px">Exit</button>
+                </div>
             </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="student" class="w_wrapper">
+    <div class="w_wrap">
+        <div class="w_head">
+            <span>Course Controller</span>
+            <span class="w_close">×</span>
+        </div>
+        <div class="w_body" style="margin-top: 21px;">
+                <div class="content clearfix" style="padding: 0px">
+                    <h4 class="type">List of Students in Course: </h4>
+                    <hr style="margin: 7px 0 7px 0;"/>
+                    <table width="100%" style="font-size: 14px;" id="studentList" class="display dataTable">
+                    </table>
+                </div> <!-- /content -->
+            </div>
+            <div class='w_manage_btn system-control-btn'>
+                <button id="cancel4" class="w_button" style="margin: -14px 0 25px 167px;width: 123px;">Exit</button>
+            </div>
+         </div>
+    </div>
+
+
+<div id="confirm-wrapper" class="w_wrapper">
+    <div class="w_wrap">
+        <div class="w_head">
+            <span>Course Delete</span>
+            <span class="w_close">×</span>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="confirm-delete" class="w_button" style="float:left; margin: 20px 0 25px 50px;width: 123px;">Confirm</button>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="cancel-delete" class="w_button" style="margin: 20px 0 25px 50px;width: 123px;">Cancel</button>
         </div>
     </div>
 </div>

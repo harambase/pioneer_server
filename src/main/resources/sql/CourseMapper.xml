@@ -15,7 +15,6 @@
     <result column="startTime" property="starttime" jdbcType="VARCHAR" />
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="capa" property="capa" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
@@ -23,31 +22,29 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
-    endTime, capa, status, facultyid, info, createtime, updatetime
+    endTime, capa, facultyid, info, createtime, updatetime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from Course
-    where crn = #{crn,jdbcType=INTEGER}
+    from Course where crn = #{crn,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Course
-    where id = #{id,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from Course where crn = #{crn,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course" >
     insert into Course (id, crn, name, 
       credits, precrn, couLev, 
       couSec, startDate, endDate, 
       day, startTime, endTime, 
-      capa, status, facultyid, 
+      capa, facultyid,
       info, createtime, updatetime
       )
     values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{coulev,jdbcType=VARCHAR},
       #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
       #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
-      #{capa,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR}, 
+      #{capa,jdbcType=INTEGER}, #{facultyid,jdbcType=VARCHAR},
       #{info,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
       )
   </insert>
@@ -92,9 +89,6 @@
       </if>
       <if test="capa != null" >
         capa,
-      </if>
-      <if test="status != null" >
-        status,
       </if>
       <if test="facultyid != null" >
         facultyid,
@@ -149,9 +143,6 @@
       <if test="capa != null" >
         #{capa,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
       <if test="facultyid != null" >
         #{facultyid,jdbcType=VARCHAR},
       </if>
@@ -202,9 +193,6 @@
       <if test="capa != null" >
         capa = #{capa,jdbcType=INTEGER},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
       <if test="facultyid != null" >
         facultyid = #{facultyid,jdbcType=VARCHAR},
       </if>
@@ -234,7 +222,6 @@
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
       capa = #{capa,jdbcType=INTEGER},
-      status = #{status,jdbcType=VARCHAR},
       facultyid = #{facultyid,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=VARCHAR},
@@ -242,7 +229,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select * from Course <where> status = #{status,jdbcType=VARCHAR}
+    select * from CourseView <where> status = #{status,jdbcType=VARCHAR}
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like '%' #{search,jdbcType=VARCHAR} '%')
@@ -295,14 +282,12 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
+
   <select id="facultyTime" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) as count from TranscriptView where 1 = 1
     and facultyid = #{facultyid,jdbcType=VARCHAR}
     and time = #{time,jdbcType=VARCHAR}
     and date = #{date,jdbcType=VARCHAR}
     and day  = #{day,jdbcType=VARCHAR}
-    and crn  = #{crn,jdbcType=VARCHAR}
   </select>
-
-
 </mapper>

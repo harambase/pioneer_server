@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CourseMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String crn);
 
     int insert(Course record);
 

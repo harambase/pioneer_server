@@ -17,48 +17,28 @@
         <encoding>UTF-8</encoding>
     </properties>
 
-    <!--<profiles>-->
-        <!--&lt;!&ndash; 开发环境 &ndash;&gt;-->
-        <!--<profile>-->
-            <!--<id>dev</id>-->
-            <!--<properties>-->
-                <!--<db.url>192.168.30.225:3307/pioneer_db</db.url>-->
-                <!--<db.username>root</db.username>-->
-                <!--<db.password>123456</db.password>-->
-                <!--<redis.ip>192.168.30.200</redis.ip>-->
-                <!--<redis.port>6379</redis.port>-->
-                <!--<db.poolsize>10</db.poolsize>-->
-            <!--</properties>-->
-            <!--<activation>-->
-                <!--<activeByDefault>true</activeByDefault>-->
-            <!--</activation>-->
-        <!--</profile>-->
-        <!--&lt;!&ndash; 测试环境 &ndash;&gt;-->
-        <!--<profile>-->
-            <!--<id>test</id>-->
-            <!--<properties>-->
-                <!--<db.url>192.168.30.225:3307/pioneer_db</db.url>-->
-                <!--<db.username>root</db.username>-->
-                <!--<db.password>123456</db.password>-->
-                <!--<redis.ip>192.168.30.225</redis.ip>-->
-                <!--<redis.port>6379</redis.port>-->
-                <!--<db.poolsize>100</db.poolsize>-->
-            <!--</properties>-->
-        <!--</profile>-->
-        <!--&lt;!&ndash; 生产环境 &ndash;&gt;-->
-        <!--<profile>-->
-            <!--<id>prod</id>-->
-            <!--<properties>-->
-                <!--<db.url>192.168.30.225:3307/pioneer_db</db.url>-->
-                <!--<db.username>root</db.username>-->
-                <!--<db.password>123456</db.password>-->
-                <!--<redis.ip>192.168.30.200</redis.ip>-->
-                <!--<redis.port>6379</redis.port>-->
-                <!--<db.poolsize>100</db.poolsize>-->
-            <!--</properties>-->
-        <!--</profile>-->
-    <!---->
-    <!--</profiles>-->
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <url>http://192.168.30.175:8081/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+                 <id>nexus</id>
+                 <name>Team Nexus Repository</name>
+                 <url>http://192.168.30.175:8081/nexus/content/groups/public</url>
+             </repository>
+         </repositories>
+            <pluginRepositories>
+         <pluginRepository>
+                 <id>nexus</id>
+                <name>Team Nexus Repository</name>
+                 <url>http://192.168.30.175:8081/nexus/content/groups/public</url>
+             </pluginRepository>
+     </pluginRepositories>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -66,7 +46,7 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+        <!--https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -232,6 +212,12 @@
             <version>1.7.25</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.youedata.cd.store</groupId>
+            <artifactId>youedata-store</artifactId>
+            <version>0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -258,4 +244,5 @@
 
         </plugins>
     </build>
+
 </project>

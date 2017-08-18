@@ -52,9 +52,11 @@ public class CourseController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    public String removeCourse(@RequestBody Course course){
-        courseService.remove(course);
-        return null;
+    @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
+    public ResponseEntity removeCourse(@RequestParam(value = "crn") String crn,
+                                       HttpSession session){
+        HaramMessage haramMessage = courseService.remove(crn);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     public String getCourse(@RequestParam String courseid){
@@ -62,6 +64,13 @@ public class CourseController {
         return null;
     }
 
+    @RequestMapping(value = "/transcript/remove", method = RequestMethod.DELETE)
+    public ResponseEntity removeStuFromCourse(@RequestParam(value = "studentid") String studentid,
+                                              @RequestParam(value = "crn") String crn,
+                                              HttpSession session){
+        HaramMessage haramMessage = courseService.removeStuFromCou(studentid, crn);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ResponseEntity updateCourse(@RequestBody Course course){
         HaramMessage haramMessage = courseService.updateCourse(course);
@@ -148,4 +157,31 @@ public class CourseController {
         HaramMessage haramMessage = courseService.updateGrade(transcript);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/student/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity listStudent(@RequestParam(value = "start") Integer start,
+                                      @RequestParam(value = "length") Integer length,
+                                      @RequestParam(value = "draw") Integer draw,
+                                      @RequestParam(value = "search[value]") String search,
+                                      @RequestParam(value = "order[0][dir]") String order,
+                                      @RequestParam(value = "order[0][column]") String orderCol,
+                                      @RequestParam(value = "crn", required = false) String crn,
+                                      HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            HaramMessage message = courseService.studentList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, crn);
+            map.put("draw", draw);
+            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
+            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
+            map.put("data", message.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("draw", 1);
+            map.put("data", new ArrayList<>());
+            map.put("recordsTotal", 0);
+            map.put("recordsFiltered", 0);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
 }

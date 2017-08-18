@@ -590,7 +590,7 @@
 .w_tabD .w_manage,.w_tabE .status{
     /*height: 220px;*/
     background: #F7F7F9;
-    padding: 20px;
+    padding: 10px;
 }
 .w_tabD .w_manage h4,.w_tabE .status h4{
     font-size: 14px;

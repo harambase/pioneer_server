@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TranscriptMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Map<String, Object> param);
 
     int insert(Transcript record);
 
@@ -26,4 +26,10 @@ public interface TranscriptMapper {
     int count(Transcript transcript);
 
     int checkTime(Map<String, String> param);
+
+    long getStudentInCourseCountByMapPageSearchOrdered(Map<String, Object> param);
+
+    List<Person> getStudentInCourseByMapPageSearchOrdered(Map<String, Object> param);
+
+    int deleteByCRN(String crn);
 }

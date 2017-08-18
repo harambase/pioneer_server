@@ -11,7 +11,7 @@ import com.harambase.pioneer.pojo.dto.Option;
 public interface CourseService {
     HaramMessage add(Course course);
 
-    HaramMessage remove(Course course);
+    HaramMessage remove(String crn);
 
     HaramMessage get(String courseid);
 
@@ -32,4 +32,6 @@ public interface CourseService {
     HaramMessage courseList(String s, String s1, String search, String order, String orderCol);
 
     HaramMessage transcriptList(String s, String s1, String search, String order, String orderCol, String studentid, String crn);
+
+    HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String crn);
 }
