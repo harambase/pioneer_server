@@ -15,7 +15,7 @@
             <ul class="sub-menu">
                 <li><a href="${basePath}/manageCourse">Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
                 <li><a href="${basePath}/manageUser">User Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="${basePath}/manageAdvising">Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+                <%--<li><a href="${basePath}/manageAdvising">Advising Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>--%>
                 <li><a href="${basePath}/manageTranscript">Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
             </ul>
         </li>

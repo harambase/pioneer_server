@@ -25,18 +25,11 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/course")
 public class CourseController {
-
-    private final StudentService studentService;
     private final CourseService courseService;
-    private final FacultyService facultyService;
 
     @Autowired
-    public CourseController(StudentService studentService,
-                            CourseService courseService,
-                            FacultyService facultyService){
-        this.studentService = studentService;
+    public CourseController(CourseService courseService){
         this.courseService = courseService;
-        this.facultyService = facultyService;
     }
 
 
@@ -57,11 +50,6 @@ public class CourseController {
                                        HttpSession session){
         HaramMessage haramMessage = courseService.remove(crn);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
-    }
-
-    public String getCourse(@RequestParam String courseid){
-        courseService.get(courseid);
-        return null;
     }
 
     @RequestMapping(value = "/transcript/remove", method = RequestMethod.DELETE)
@@ -86,11 +74,6 @@ public class CourseController {
     public String removeStuFromCourse(@RequestParam(value = "studentid") String studentid,
                                 @RequestParam(value = "courseid") String courseid){
         courseService.removeStuFromCou(studentid, courseid);
-        return null;
-    }
-
-    public String getNumOfStudent(@RequestParam(value = "courseid") String courseid){
-        courseService.countStudent(courseid);
         return null;
     }
 

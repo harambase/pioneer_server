@@ -229,7 +229,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select * from CourseView <where> status = #{status,jdbcType=VARCHAR}
+    select * from Course c <where> EXISTS (SELECT * FROM CourseView cv
+                                            WHERE c.crn = cv.crn
+                                            AND cv.status = #{status,jdbcType=VARCHAR})
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like '%' #{search,jdbcType=VARCHAR} '%')

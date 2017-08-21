@@ -13,8 +13,6 @@ public interface CourseService {
 
     HaramMessage remove(String crn);
 
-    HaramMessage get(String courseid);
-
     HaramMessage updateCourse(Course course);
 
     HaramMessage assignFac2Cou(Course course);
@@ -22,8 +20,6 @@ public interface CourseService {
     HaramMessage addStu2Cou(Option option);
 
     HaramMessage removeStuFromCou(String studentid, String courseid);
-
-    HaramMessage countStudent(String courseid);
 
     HaramMessage updateGrade(Transcript transcript);
 

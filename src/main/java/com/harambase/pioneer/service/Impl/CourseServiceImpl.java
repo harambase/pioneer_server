@@ -110,11 +110,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage get(String courseid) {
-        return null;
-    }
-
-    @Override
     public HaramMessage updateCourse(Course course) {
         HaramMessage haramMessage = new HaramMessage();
         try {
@@ -284,11 +279,6 @@ public class CourseServiceImpl implements CourseService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
         }
-    }
-
-    @Override
-    public HaramMessage countStudent(String courseid) {
-        return null;
     }
 
     @Override
