@@ -1,6 +1,6 @@
-
 $(function (){
     var loginForm = $("#fm1").validate({});
+
     $("#btnLogin").click(function(){
         if(loginForm.form()){
             var username = $("#username").val();
@@ -16,12 +16,12 @@ $(function (){
                 data: JSON.stringify(person),
                 success: function (data) {
                     if (data.code === 2001) {
-                        user = data.data;
-                        if(data.data.type === "a")
+                        var user = data.data;
+                        if(user.type === "a")
                             window.location.href = basePath + "/welcomeAdmin";
-                        else if(data.data.type === "s")
+                        else if(user.type === "s")
                             window.location.href = basePath + "/welcomeStudent";
-                        else if(data.data.type === "f")
+                        else if(user.type === "f")
                             window.location.href = basePath + "/welcomeFaculty";
                     }
                     else if(data.code === 2005)
@@ -32,6 +32,5 @@ $(function (){
             })
         }
     });
-
-
 });
+

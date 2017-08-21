@@ -56,6 +56,29 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/get/current", method = RequestMethod.GET)
+    public ResponseEntity getCurrentUser(HttpSession session){
+        HaramMessage message = new HaramMessage();
+
+        try {
+            Person p = (Person) session.getAttribute("user");
+
+            if (p != null) {
+                message.setData(p);
+                message.setCode(FlagDict.SUCCESS.getV());
+                message.setMsg(FlagDict.SUCCESS.getM());
+            } else {
+                message.setCode(FlagDict.FAIL.getV());
+                message.setMsg(FlagDict.FAIL.getM());
+            }
+        }catch (Exception e){
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(HttpSession session){
         session.invalidate();

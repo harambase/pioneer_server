@@ -139,7 +139,7 @@
                 <div class="class-trans">
                     <table id="class-table"></table>
                 </div>
-                <hr style="margin-bottom: -5;"/>
+                <hr style="margin-bottom: -5px;"/>
             </div> <!-- /content -->
 
             <div class="content clearfix">

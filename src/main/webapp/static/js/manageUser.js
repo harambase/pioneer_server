@@ -55,17 +55,17 @@ $(function () {
     //更新用户信息
     $("#confirm").click(function (){
         var formdata = {
-            userid :  $("#userid2").val(),
+            userid    : $("#userid2").val(),
             username  : $("#username2").val(),
             firstname : $("#firstname2").val(),
-            lastname : $("#lastname2").val(),
-            birthday : $("#birthday2").val(),
-            email : $("#email2").val(),
-            weChat : $("#weChat2").val(),
-            tel : $("#tel2").val(),
-            dorm : $("#dorm2").val(),
-            qq : $("#firstname2").val(),
-            password : $("#pwd").val()
+            lastname  : $("#lastname2").val(),
+            birthday  : $("#birthday2").val(),
+            email     : $("#email2").val(),
+            weChat    : $("#weChat2").val(),
+            tel       : $("#tel2").val(),
+            dorm      : $("#dorm2").val(),
+            qq        : $("#qq2").val(),
+            password  : $("#pwd").val()
         };
         $.ajax({
             url:basePath+"/admin/user/update",

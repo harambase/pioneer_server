@@ -46,6 +46,10 @@ public class WebController {
     public String adminManageAdvising(){
         return "admin/manageAdvising";
     }
+    @RequestMapping("/adminProfile")
+    public String adminProfile(){
+        return "admin/adminProfile";
+    }
 
 
 }

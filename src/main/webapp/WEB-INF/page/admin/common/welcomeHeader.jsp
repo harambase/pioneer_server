@@ -27,8 +27,8 @@
             </ul>
         </li>
         <li>
-            <a href="#">
-            <i class="fa fa-cog push"></i>Settings<i class="fa fa-angle-right"></i>
+            <a href="${basePath}/adminProfile">
+            <i class="fa fa-cog push"></i>Profile<i class="fa fa-angle-right"></i>
             </a>
             <span class="hover"></span>
         </li>
