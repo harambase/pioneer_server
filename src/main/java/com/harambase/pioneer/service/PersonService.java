@@ -18,4 +18,6 @@ public interface PersonService {
     HaramMessage listFaculties(String search);
 
     HaramMessage listStudents(String serach);
+
+    HaramMessage countPerson();
 }

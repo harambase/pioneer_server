@@ -121,72 +121,72 @@
 </div>
 
 <div class="w_wrapper">
-    <div class="w_wrap">
-        <div class="w_head">
-            <span>Account Setting</span>
-            <span class="w_close">×</span>
-        </div>
-        <div class="w_body">
-            <ul class="w_tab clearfix">
-                <li class="active base-info">Profile</li>
-                <li class='account'>Account Setting</li>
-            </ul>
-            <div class="w_tabC w_pop">
-                <div class="w_content">
-                    <div class="w_basicInfo account-container register" style="margin-left: 0px;">
-                        <form id="editUserForm" method="post" onsubmit="return false">
-                            <table style="margin: 15px 27px;">
-                                <input id="pwd" name="pwd" value="" class="login" hidden/>
-                                <tr>
-                                    <td><p style="float: left">UserID:</td>
-                                    <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Username:</td>
-                                    <td><input id="username2" name="username" value="" class="login" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">First Name:</p></td>
-                                    <td><input id="firstname2" name="firstname" value=""class="login" minlength="1" maxlength="20" required/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Last Name:</p></td>
-                                    <td><input id="lastname2" name="lastname" value="" class="login"
-                                               minlength="1" maxlength="20" required/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Birthday:</p></td>
-                                    <td><input id="birthday2" name="birthday" value="YYYY-MM-DD" class="login" maxlength="10"/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Email:</p></td>
-                                    <td> <input id="email2" name="email" value="" class="login"/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">QQ:</p></td>
-                                    <td><input id="qq2" name="QQ" value="" class="login"/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">weChat:</p></td>
-                                    <td><input id="weChat2" name="weChat" value="" class="login"/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Mobile:</p></td>
-                                    <td><input id="tel2" name="tel" value="" class="login"/></td>
-                                </tr>
-                                <tr>
-                                    <td><p style="float: left">Dormitory:</p></td>
-                                    <td><input id="dorm2" name="dorm" value="" class="login"/></td>
-                                </tr>
-                            </table>
-                     </form>
-                </div> <!-- /account-container -->
+            <div class="w_wrap">
+                <div class="w_head">
+                    <span>Account Setting</span>
+                    <span class="w_close">×</span>
                 </div>
-                <p class="w_buttons_w system-control-btn">
-                    <button id="confirm" class="w_button">Confirm</button>
-                    <button id="cancel" class="w_button">Cancel</button>
-                </p>
-            </div>
+                <div class="w_body">
+                    <ul class="w_tab clearfix">
+                        <li class="active base-info">Profile</li>
+                        <li class='account'>Account Setting</li>
+                    </ul>
+                    <div class="w_tabC w_pop">
+                        <div class="w_content">
+                            <div class="w_basicInfo account-container register" style="margin-left: 0px;">
+                                <form id="editUserForm" method="post" onsubmit="return false">
+                                    <table style="margin: 15px 27px;">
+                                        <input id="pwd" name="pwd" value="" class="login" hidden/>
+                                        <tr>
+                                            <td><p style="float: left">UserID:</td>
+                                            <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Username:</td>
+                                            <td><input id="username2" name="username" value="" class="login" disabled/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">First Name:</p></td>
+                                            <td><input id="firstname2" name="firstname" value=""class="login" minlength="1" maxlength="20" required/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Last Name:</p></td>
+                                            <td><input id="lastname2" name="lastname" value="" class="login"
+                                                       minlength="1" maxlength="20" required/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Birthday:</p></td>
+                                            <td><input id="birthday2" name="birthday" value="YYYY-MM-DD" class="login" maxlength="10"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Email:</p></td>
+                                            <td> <input id="email2" name="email" value="" class="login"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">QQ:</p></td>
+                                            <td><input id="qq2" name="QQ" value="" class="login"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">weChat:</p></td>
+                                            <td><input id="weChat2" name="weChat" value="" class="login"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Mobile:</p></td>
+                                            <td><input id="tel2" name="tel" value="" class="login"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p style="float: left">Dormitory:</p></td>
+                                            <td><input id="dorm2" name="dorm" value="" class="login"/></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div> <!-- /account-container -->
+                        </div>
+                        <p class="w_buttons_w system-control-btn">
+                            <button id="confirm" class="w_button">Confirm</button>
+                            <button id="cancel" class="w_button">Cancel</button>
+                        </p>
+                    </div>
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
                     <h4 class="status" style="margin-top: 0px;">Account Status: </h4>
@@ -218,5 +218,5 @@
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="${basePath}/static/js/manageUser.js"></script>
+<script src="${basePath}/static/js/adminJs/manageUser.js"></script>
 </html>

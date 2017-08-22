@@ -25,4 +25,14 @@ public interface PersonMapper {
     List<Person> getByMapPageSearchOrdered(Map param);
 
     List<Person> getUsersBySearch(Map param);
+
+    int countStudent();
+
+    int countFaculty();
+
+    int countAdmin();
+
+    int countMale();
+
+    int countFemale();
 }

@@ -40,6 +40,11 @@ public class AdminController {
         this.studentService = studentService;
         this.personService = personService;
     }
+    @RequestMapping(value = "/student/count", method = RequestMethod.GET)
+    public ResponseEntity getStudentCount(){
+        HaramMessage haramMessage = personService.countPerson();
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
 
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)

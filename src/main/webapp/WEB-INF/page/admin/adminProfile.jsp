@@ -16,7 +16,22 @@
     <title>Dashboard</title>
 </head>
 <body>
-<%@include file="common/welcomeHeader.jsp"%>
+<link rel="stylesheet" href="${basePath}/static/css/header.css" media="screen" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<div class="sidebar">
+    <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Menu</span></h1>
+    <ul>
+        <li>
+            <a href="${basePath}/welcomeAdmin">
+                <i class="fa fa-dashboard push"></i>Dashboard<i class="fa fa-angle-right"></i>
+            </a>
+            <span class="hover"></span>
+        </li>
+        <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+    </ul>
+</div>
+<script src="${basePath}/static/js/otherJs/index.js"></script>
 
 <div class="site-branding-text">
     <h1 class="site-title">User Manage Site</h1>

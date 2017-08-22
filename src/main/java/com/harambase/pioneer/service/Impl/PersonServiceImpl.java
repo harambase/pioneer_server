@@ -1,9 +1,6 @@
 package com.harambase.pioneer.service.Impl;
 
-import com.harambase.common.DateUtil;
-import com.harambase.common.HaramMessage;
-import com.harambase.common.Page;
-import com.harambase.common.PageUtil;
+import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.PersonMapper;
 import com.harambase.pioneer.dao.StudentMapper;
@@ -13,10 +10,7 @@ import com.harambase.pioneer.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -268,4 +262,36 @@ public class PersonServiceImpl implements PersonService {
             return message;
         }
     }
+
+    @Override
+    public HaramMessage countPerson() {
+        HaramMessage message = new HaramMessage();
+        //统计用户种类
+        List<Map<String, String>> data1 = new ArrayList<>();
+        Map<String, String> innerData = new HashMap<>();
+
+        int s = personMapper.countStudent();
+        int f = personMapper.countFaculty();
+        int a = personMapper.countAdmin();
+
+        data1.add(MapParam.pieChartValue(String.valueOf(s), "Student"));
+        data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
+        data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
+
+
+        //统计性别
+        List<Map<String, String>> data2 = new ArrayList<>();
+        int male = personMapper.countMale();
+        int female = personMapper.countFemale();
+
+        data2.add(MapParam.pieChartValue(String.valueOf(male), "Male"));
+        data2.add(MapParam.pieChartValue(String.valueOf(female), "Female"));
+
+        message.put("dataBeast", data1);
+        message.put("xAxisData", data2);
+
+        return message;
+    }
+
+
 }

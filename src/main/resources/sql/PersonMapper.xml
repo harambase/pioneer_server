@@ -290,13 +290,34 @@
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
   <select id="getUsersBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
-  select * from Person <where> type = #{type,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
-  <if test="search != null" >
-    and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
-    username like '%' #{search,jdbcType=VARCHAR} '%' or
-    firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-    lastname like '%'  #{search,jdbcType=VARCHAR} '%')
-  </if></where>
-  limit 0,4
-</select>
+    select * from Person <where> type = #{type,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+    <if test="search != null" >
+      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
+      username like '%' #{search,jdbcType=VARCHAR} '%' or
+      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
+      lastname like '%'  #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    limit 0,4
+  </select>
+
+  <select id="countStudent" resultType="java.lang.Integer">
+    select count(*) from Person where type = "s"
+  </select>
+
+  <select id="countFaculty" resultType="java.lang.Integer">
+    select count(*) from Person where type = "f"
+  </select>
+
+  <select id="countAdmin" resultType="java.lang.Integer">
+    select count(*) from Person where type = "a"
+  </select>
+
+  <select id="countMale" resultType="java.lang.Integer">
+    select count(*) from Person where gender = "male"
+  </select>
+
+  <select id="countFemale" resultType="java.lang.Integer">
+    select count(*) from Person where gender = "female"
+  </select>
+
 </mapper>

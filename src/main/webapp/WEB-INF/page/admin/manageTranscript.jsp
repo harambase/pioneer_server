@@ -157,5 +157,5 @@
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="${basePath}/static/js/manageTranscript.js"></script>
+<script src="${basePath}/static/js/adminJs/manageTranscript.js"></script>
 </html>
