@@ -330,7 +330,7 @@ function relation(divUrl,data1,data2) {
 
         var graph = echarts.dataTool.gexf.parse(xml);
         var categories = [];
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < 4; i++) {
             categories[i] = {
                 name: '类目' + i
             };
@@ -344,7 +344,7 @@ function relation(divUrl,data1,data2) {
                     show: node.symbolSize > 10
                 }
             };
-            node.category = node.attributes.cate;
+            node.category = node.attributes.type;
         });
         option = {
             title: {
