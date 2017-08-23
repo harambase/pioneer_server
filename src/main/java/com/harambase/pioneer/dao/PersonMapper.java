@@ -35,4 +35,6 @@ public interface PersonMapper {
     int countMale();
 
     int countFemale();
+
+    List<Person> getAllUsers();
 }

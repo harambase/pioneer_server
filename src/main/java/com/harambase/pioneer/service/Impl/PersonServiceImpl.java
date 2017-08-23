@@ -2,10 +2,15 @@ package com.harambase.pioneer.service.Impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.charts.StaticGexfGraph;
+import com.harambase.pioneer.dao.CourseMapper;
 import com.harambase.pioneer.dao.PersonMapper;
 import com.harambase.pioneer.dao.StudentMapper;
+import com.harambase.pioneer.dao.TranscriptMapper;
+import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Student;
+import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +22,18 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonMapper personMapper;
     private final StudentMapper studentMapper;
+    private final CourseMapper courseMapper;
+    private final TranscriptMapper transcriptMapper;
 
     @Autowired
     public PersonServiceImpl(PersonMapper personMapper,
-                             StudentMapper studentMapper){
+                             StudentMapper studentMapper,
+                             CourseMapper courseMapper,
+                             TranscriptMapper transcriptMapper){
         this.personMapper = personMapper;
         this.studentMapper = studentMapper;
+        this.courseMapper = courseMapper;
+        this.transcriptMapper = transcriptMapper;
     }
 
     @Override
@@ -290,6 +301,22 @@ public class PersonServiceImpl implements PersonService {
         message.put("dataBeast", data1);
         message.put("xAxisData", data2);
 
+        return message;
+    }
+
+    @Override
+    public HaramMessage getRelationChart() {
+        HaramMessage message = new HaramMessage();
+        try {
+
+            List<Person> personList = personMapper.getAllUsers();
+            List<Course> courseList = courseMapper.getAllCourses();
+            List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
+
+            StaticGexfGraph.graphGenerator(personList, courseList, transcriptList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return message;
     }
 

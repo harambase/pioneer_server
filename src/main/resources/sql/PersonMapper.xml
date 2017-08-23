@@ -300,6 +300,10 @@
     limit 0,4
   </select>
 
+  <select id="getAllUsers" resultMap="BaseResultMap">
+    select * from Person
+  </select>
+
   <select id="countStudent" resultType="java.lang.Integer">
     select count(*) from Person where type = "s"
   </select>

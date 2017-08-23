@@ -20,4 +20,6 @@ public interface PersonService {
     HaramMessage listStudents(String serach);
 
     HaramMessage countPerson();
+
+    HaramMessage getRelationChart();
 }

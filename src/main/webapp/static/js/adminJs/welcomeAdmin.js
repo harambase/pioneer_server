@@ -11,4 +11,12 @@ $(function(){
             exampleUserTop("exampleChart", dataBeast, xAxisData);
         }
     });
+    $.ajax({
+        type: "GET",
+        url: basePath + "/admin/relation/chart",
+        success: function () {
+            relation("relationChart");
+        }
+    });
+
 });

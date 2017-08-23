@@ -31,12 +31,17 @@
         <div class="exampleChart" style="margin-top:25px; width: 800px;height: 500px;">
             <div id="exampleChart" style="width: 800px;height: 500px;"></div>
         </div>
-        </form>
+    </div> <!-- /content -->
+    <div class="content clearfix">
+        <div class="exampleChart" style="margin-top:25px; width: 800px;height: 500px;">
+            <div id="relationChart" style="width: 800px;height: 500px;"></div>
+        </div>
     </div> <!-- /content -->
 </div> <!-- /account-container -->
 
 </body>
 <script src="${basePath}/static/plugins/echarts/echarts.min.js"></script>
 <script src="${basePath}/static/js/otherJs/chart.js"></script>
+<script src="${basePath}/static/js/otherJs/dataTool.js"></script>
 <script src="${basePath}/static/js/adminJs/welcomeAdmin.js"></script>
 </html>

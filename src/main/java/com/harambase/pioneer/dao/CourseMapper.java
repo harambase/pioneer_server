@@ -28,4 +28,6 @@ public interface CourseMapper {
     int getRemain(String crn);
 
     int facultyTime(Map<String, String> param);
+
+    List<Course> getAllCourses();
 }

@@ -176,6 +176,10 @@
   </where>
   </select>
 
+  <select id="getAllTranscripts" resultMap="BaseResultMap">
+    select * from Transcript
+  </select>
+
   <select id="getStudentInCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
     select * from TranscriptView where 1 = 1
     <if test="crn != null">
@@ -187,6 +191,16 @@
     </if>
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+  <select id="getTranscriptBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from Transcript <where>
+    <if test="search != null" >
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      crn like '%' #{search,jdbcType=VARCHAR} '%' or
+      coursename like '%'  #{search,jdbcType=VARCHAR} '%' or
+      faculyid like '%'  #{search,jdbcType=VARCHAR} '%')
+    </if></where>
   </select>
 
 </mapper>

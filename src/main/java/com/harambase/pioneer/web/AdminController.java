@@ -3,6 +3,7 @@ package com.harambase.pioneer.web;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.charts.StaticGexfGraph;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
@@ -46,6 +47,11 @@ public class AdminController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/relation/chart", method = RequestMethod.GET)
+    public ResponseEntity getRelationChart(){
+        HaramMessage haramMessage = personService.getRelationChart();
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResponseEntity getUser(@RequestParam(value = "userid") String userid){

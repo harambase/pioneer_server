@@ -213,9 +213,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.youedata.cd.store</groupId>
-            <artifactId>youedata-store</artifactId>
-            <version>0.1</version>
+            <groupId>it.uniroma1.dis.wsngroup.gexf4j</groupId>
+            <artifactId>gexf4j</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
     </dependencies>

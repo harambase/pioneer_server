@@ -239,6 +239,10 @@
     limit 0,4
   </select>
 
+  <select id="getAllCourses" resultMap="BaseResultMap">
+    select * from Course
+  </select>
+
   <select id="getRemain" parameterType="java.lang.String" resultType="java.lang.Integer">
     select remain from CourseView where crn = #{crn,jdbcType=VARCHAR}
   </select>
