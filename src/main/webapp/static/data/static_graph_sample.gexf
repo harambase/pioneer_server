@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" version="1.2">
+ <meta lastmodifieddate="2017-08-23">
+  <creator>pioneer.org</creator>
+  <description>A relation graph</description>
+ </meta>
+ <graph defaultedgetype="undirected" idtype="string" mode="static">
+  <attributes class="node" mode="static">
+   <attribute id="type" title="type" type="integer"/>
+   <attribute id="id" title="id" type="string"/>
+   <attribute id="crn" title="crn" type="string"/>
+  </attributes>
+  <nodes count="11">
+   <node id="9000000000" label="adminitorsystem">
+    <attvalues>
+     <attvalue for="id" value="9000000000"/>
+     <attvalue for="type" value="3"/>
+    </attvalues>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701687" label="LinShilei">
+    <attvalues>
+     <attvalue for="id" value="9201701687"/>
+     <attvalue for="type" value="3"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701100" label="lastfirst">
+    <attvalues>
+     <attvalue for="id" value="9201701100"/>
+     <attvalue for="type" value="2"/>
+    </attvalues>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701101" label="last1first1">
+    <attvalues>
+     <attvalue for="id" value="9201701101"/>
+     <attvalue for="type" value="1"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701102" label="last2first">
+    <attvalues>
+     <attvalue for="id" value="9201701102"/>
+     <attvalue for="type" value="2"/>
+    </attvalues>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701103" label="last3first">
+    <attvalues>
+     <attvalue for="id" value="9201701103"/>
+     <attvalue for="type" value="1"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701942" label="Testdisable">
+    <attvalues>
+     <attvalue for="id" value="9201701942"/>
+     <attvalue for="type" value="1"/>
+    </attvalues>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="9201701309" label="testtestStu3">
+    <attvalues>
+     <attvalue for="id" value="9201701309"/>
+     <attvalue for="type" value="1"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
+   <node id="120170164" label="Test2">
+    <attvalues>
+     <attvalue for="crn" value="120170164"/>
+     <attvalue for="type" value="4"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:shape value="triangle"/>
+   </node>
+   <node id="120170123" label="Test3">
+    <attvalues>
+     <attvalue for="crn" value="120170123"/>
+     <attvalue for="type" value="4"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:shape value="triangle"/>
+   </node>
+   <node id="120170174" label="upper">
+    <attvalues>
+     <attvalue for="crn" value="120170174"/>
+     <attvalue for="type" value="4"/>
+    </attvalues>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:shape value="triangle"/>
+   </node>
+  </nodes>
+  <edges count="7">
+   <edge id="0" source="9201701100" target="120170164" type="undirected"/>
+   <edge id="1" source="9201701100" target="120170123" type="undirected"/>
+   <edge id="2" source="9201701101" target="120170164" type="undirected"/>
+   <edge id="3" source="9201701102" target="120170174" type="undirected"/>
+   <edge id="4" source="9201701103" target="120170164" type="undirected"/>
+   <edge id="5" source="9201701942" target="120170164" type="undirected"/>
+   <edge id="6" source="9201701309" target="120170164" type="undirected"/>
+  </edges>
+ </graph>
+</gexf>
