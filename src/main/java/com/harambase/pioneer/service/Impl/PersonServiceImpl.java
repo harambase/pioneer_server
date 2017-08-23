@@ -71,7 +71,7 @@ public class PersonServiceImpl implements PersonService {
             Integer last = (int)(Math.random() * (999 - 100 + 1) + 100);
             String userid = "9" + info.split("-")[0] + info.split("-")[1] + last;
             String username = person.getLastname().substring(0,1)+ person.getFirstname();
-            String password = "pioneer" + userid;
+            String password = "Pioneer" + userid;
 
             person.setUserid(userid);
             person.setUsername(username);

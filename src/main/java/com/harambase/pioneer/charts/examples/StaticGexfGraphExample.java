@@ -108,7 +108,7 @@ public class StaticGexfGraphExample {
 		gephi.connectTo("4", blab);
 
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
-		File f = new File("D:\\Project\\gitProjects\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
+		File f = new File("static_graph_sample.gexf");
 		Writer out;
 		try {
 			out =  new FileWriter(f, false);

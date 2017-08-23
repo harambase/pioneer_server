@@ -76,7 +76,7 @@ public class StaticGexfGraph {
 		//设置course Node
 		for(Course c: courseList){
 			Node cNode = graph.createNode(c.getCrn());
-			cNode.setLabel(c.getName());
+			cNode.setLabel(c.getName()).setSize(20);
 			cNode.getAttributeValues().addValue(attcrn, c.getCrn()).addValue(attType, "4");
 			cNode.getShapeEntity().setNodeShape(NodeShape.TRIANGLE);
 			cNode.setPosition(generatePosition(300,index));
@@ -109,7 +109,7 @@ public class StaticGexfGraph {
 		}
 
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
-		File f = new File("D:\\Project\\gitProjects\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
+		File f = new File("C:\\Users\\linsh\\Documents\\GitHub\\Harambase_Project\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
 		Writer out;
 		try {
 			out =  new FileWriter(f, false);

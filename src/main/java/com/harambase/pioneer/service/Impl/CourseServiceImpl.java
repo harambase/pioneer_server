@@ -13,6 +13,7 @@ import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.pojo.dto.TranscriptView;
 import com.harambase.pioneer.service.CourseService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -177,6 +178,7 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage addStu2Cou(Option option) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+
             Transcript transcript = new Transcript();
             String crn = option.getCrn();
             String studentid = option.getStudentid();
@@ -218,7 +220,7 @@ public class CourseServiceImpl implements CourseService {
             transcript.setStudentid(studentid);
             //检查预选
             String precrn = course.getPrecrn();
-            if (precrn != null) {
+            if (StringUtils.isNotEmpty(precrn)) {
                 Transcript preTranscript = new Transcript();
                 preTranscript.setComplete("Complete");
                 preTranscript.setStudentid(studentid);
