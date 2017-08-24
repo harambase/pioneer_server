@@ -21,22 +21,28 @@
 <%@include file="common/welcomeHeader.jsp"%>
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
-    <p class="site-description">Welcome back!</p>
+    <p class="site-description">Course Management</p>
+    <div class="choose-view" >
+        <div class='w_manage_btn system-control-btn'>
+            <button id="user" class="w_button" style="float:left; margin-left: 10px">User Chart</button>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="connection" class="w_button" style="margin-left: 10px">Relation Chart</button>
+        </div>
+    </div>
     <hr/>
 </div>
 
 
-<div class="account-container register">
-    <div class="content clearfix">
-        <div class="exampleChart" style="margin-top:25px; width: 800px;height: 500px;">
-            <div id="exampleChart" style="width: 800px;height: 500px;"></div>
-        </div>
-    </div> <!-- /content -->
-    <div class="content clearfix">
-        <div class="exampleChart" style="margin-top:25px; width: 800px;height: 500px;">
-            <div id="relationChart" style="width: 800px;height: 500px;"></div>
-        </div>
-    </div> <!-- /content -->
+<div id="chart">
+    <div class="exampleChart" style="margin-top:25px; margin-left:300px;width: 800px;height: 500px;">
+        <div id="exampleChart" style="width: 800px;height: 500px;"></div>
+    </div>
+</div> <!-- /account-container -->
+<div id="relation">
+    <div class="exampleChart" style="margin-top:25px; margin-left:300px;width: 1000px;height: 700px;">
+        <div id="relationChart" style="width: 1000px;height: 700px;"></div>
+    </div>
 </div> <!-- /account-container -->
 
 </body>

@@ -18,5 +18,16 @@ $(function(){
             relation("relationChart");
         }
     });
+    $("#chart").css({display:"none"});
+    $("#relation").css({display:"block"});
+
+    $("#user").click(function(){
+        $("#chart").css({display:"block"});
+        $("#relation").css({display:"none"});
+    });
+    $("#connection").click(function(){
+        $("#relation").css({display:"block"});
+        $("#chart").css({display:"none"});
+    });
 
 });
