@@ -457,11 +457,11 @@ public class CourseServiceImpl implements CourseService {
             param.put("studentid", studentid);
             param.put("crn", crn);
 
-            if (search.equals(""))
+            if (StringUtils.isEmpty(search))
                 param.put("search", null);
-            if (studentid.equals(""))
+            if (StringUtils.isEmpty(studentid))
                 param.put("studentid", null);
-            if (crn.equals(""))
+            if (StringUtils.isEmpty(crn))
                 param.put("crn", null);
 
             totalSize = transcriptMapper.getTranscriptCountByMapPageSearchOrdered(param); //startTime, endTime);
@@ -501,10 +501,10 @@ public class CourseServiceImpl implements CourseService {
                     orderColumn = "studentid";
                     break;
                 case 2:
-                    orderColumn = "firstname";
+                    orderColumn = "sfirst";
                     break;
                 case 3:
-                    orderColumn = "lastname";
+                    orderColumn = "slast";
                     break;
                 default:
                     orderColumn = "id";

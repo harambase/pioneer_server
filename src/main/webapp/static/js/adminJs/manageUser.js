@@ -1,6 +1,6 @@
 $(function () {
     //变量定义
-    var status, gender, type;
+    var status, gender, type, userid;
     var newStatus, newGender, newType;
     var registerForm = $("#createUserForm").validate({});
 
@@ -178,6 +178,7 @@ $(function () {
     });
     //写入账户属性
     function writeSettings(status, type, gender){
+
         if (status === "1") {
             $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
             $(".w_manage input").eq(0).prop("checked", true);
@@ -212,7 +213,7 @@ $(function () {
     //编辑弹窗
     $("#userTable").on("click", ".btn.btn-edit", function () {
 
-        var userid = $(this).parents("tr").find("td").eq(1).html();
+        userid = $(this).parents("tr").find("td").eq(1).html();
         var user = getUser(userid);
         var baseInfo = $(".w_basicInfo");
 
@@ -238,6 +239,7 @@ $(function () {
 
         closePop("#cancel");
         closePop("#cancel2");
+        closePop("#cancel3");
         closePop(".w_close");
     });
 
@@ -245,6 +247,11 @@ $(function () {
         $(ele).click(function () {
             $(".w_wrapper").css({display: "none"});
             $("[type='checkbox']").removeAttr("checked");//取消全选
+            $(".account").siblings("li").removeClass("active");
+            $(".advise").siblings("li").removeClass("active");
+            $(".base-info").addClass("active");
+            $(".w_pop").css({display: "none"});
+            $(".w_pop")[0].style.display = "block";
         })
     }
 
@@ -262,11 +269,28 @@ $(function () {
         $(".w_pop")[1].style.display = "block";
     });
 
-    $(".join-in").click(function () {
+    $(".advise").click(function () {
+
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
+        $("#assignSDiv").css({display: "none"});
+        $("#assignFDiv").css({display: "none"});
+        if(type === "f") {
+            $("#assignSDiv").css({display: "block"});
+            studentTable.draw();
+        }
+        else {
+            $("#assignFDiv").css({display: "block"});
+            facultyTable.draw();
+        }
+
         $(".w_pop").css({display: "none"});
         $(".w_pop")[2].style.display = "block";
+
+        if(type === "a"){
+            $(".w_pop").css({display: "none"});
+            $(".w_pop")[2].style.display = "none";
+        }
     });
 
     $(".w_manage span").click(function () {
@@ -278,6 +302,40 @@ $(function () {
         $(this).siblings("span").removeClass("active");
         $(this).addClass("active");
     });
+
+
+    //添加Advise
+    $("#studentTable").on("click", ".btn.btn-info", function () {
+        var facultyid = userid;
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        assginAdvise(studentid, facultyid)
+    });
+    $("#facultyTable").on("click", ".btn.btn-info", function () {
+        var studentid= userid;
+        var facultyid = $(this).parents("tr").find("td").eq(1).html();
+        assginAdvise(studentid, facultyid)
+    });
+
+    function assginAdvise(studentid, facultyid){
+        var formdata = {
+            facultyid:facultyid,
+            studentid :studentid
+        };
+        $.ajax({
+            url:basePath+"/admin/advise/assign",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("添加成功!", function () {});
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert(data.msg, function () {});
+            }
+        })
+    }
 
     var logTable = $("#userTable").DataTable({
 
@@ -329,12 +387,122 @@ $(function () {
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');
-            }, "width": "100px"
+            }, "width": "200px"
             }
         ],
         "columnDefs": [{
             orderable: false,
             targets: [7]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+    var studentTable = $("#studentTable").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+            data: function (d) {
+                d.type = "s";
+                d.status = "1";
+            }
+        },
+        columns: [
+            {"data": "id", "title": "serial"},
+            {"data": "userid", "title": "userid"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Choose</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [4]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+    var facultyTable = $("#facultyTable").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "No Data Founded！",
+            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
+            "infoEmpty": "NO RECORDS FOUND！",
+            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
+            "lengthMenu": "SHOW: _MENU_",
+            "search": "SEARCH:",
+            "zeroRecords": "No Record Found！",
+            "paginate": {
+                "previous": "Previous",
+                "next": "Next",
+                "last": "Last",
+                "first": "First"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+            data: function (d) {
+                d.type = type;
+                d.status = "f";
+            }
+        },
+        columns: [
+            {"data": "id", "title": "serial"},
+            {"data": "userid", "title": "userid"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
+            {
+                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">Choose</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [4]
         }, {
             "defaultContent": "",
             "targets": "_all"

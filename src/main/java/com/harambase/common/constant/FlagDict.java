@@ -17,7 +17,7 @@ public enum FlagDict {
     USER_DISABLED("用户已禁用", 2008),
     USER_BLOCKED("用户已截断", 2009),
     GROUP_NAME_EXISTS("组名已存在", 2010),
-    GROUP_DISABLED("组已禁用", 2011),
+    ADVISE_DUPLICATE("辅导关系已确立", 2011),
     REPEAT("课程重复", 2012),
     UNMET_PREREQ("预选课程未完成", 2013),
     COURSE_DISABLED("课程禁止选课", 2014),

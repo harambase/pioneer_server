@@ -73,7 +73,7 @@ function exampleUserTop(divUrl,data1,data2) {
 function relation(divUrl) {
     var myChart = echarts.init(document.getElementById(divUrl));
     myChart.showLoading();
-    $.get(basePath+'/static/data/static_graph_sample.gexf', function (xml) {
+    $.get(basePath+'/static/data/les-miserables.gexf', function (xml) {
         myChart.hideLoading();
 
         var graph = echarts.dataTool.gexf.parse(xml);

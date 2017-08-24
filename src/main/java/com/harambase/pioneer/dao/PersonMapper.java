@@ -1,6 +1,7 @@
 package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.dto.AdviseView;
 
 import java.util.List;
 import java.util.Map;

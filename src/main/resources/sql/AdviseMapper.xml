@@ -9,12 +9,16 @@
   <sql id="Base_Column_List" >
     id, studentid, facultyid
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.Advise" >
     select 
     <include refid="Base_Column_List" />
-    from Advise
-    where id = #{id,jdbcType=INTEGER}
+    from Advise where studentid = #{studentid,jdbcType=VARCHAR} and facultyid = #{facultyid,jdbcType=VARCHAR}
   </select>
+
+  <select id="getAllAdvise" resultMap="BaseResultMap">
+    select * from Advise 
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Advise
     where id = #{id,jdbcType=INTEGER}
@@ -68,4 +72,44 @@
       facultyid = #{facultyid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getAdvisingCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from AdviseView <where> 1 = 1
+    <if test="studentid != null">
+      and studentid = #{studentid,jdbcType=VARCHAR}
+    </if>
+    <if test="facultyid != null">
+      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    </if>
+    <if test="search != null">
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like '%' #{search,jdbcType=VARCHAR} '%' or
+      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
+      ffirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      flast like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if>
+  </where>
+  </select>
+  <select id="getAdvisingByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.AdviseView">
+    select * from AdviseView <where> 1 = 1
+    <if test="studentid != null">
+      and studentid = #{studentid,jdbcType=VARCHAR}
+    </if>
+    <if test="facultyid != null">
+      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    </if>
+    <if test="search != null">
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyid like '%' #{search,jdbcType=VARCHAR} '%' or
+      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
+      ffirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      flast like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    order by ${orderColumn} ${order}
+    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+
+
 </mapper>

@@ -4,6 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
+import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
@@ -111,22 +112,16 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    public String assignMentor(@RequestParam(value = "studentid") String studentid,
-                               @RequestParam(value = "facultyid") String facultyid){
-        studentService.assignMentor(studentid, facultyid);
-        return null;
+    @RequestMapping(value ="/advise/assign", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity assignMentor(@RequestBody Advise advise){
+        HaramMessage message = personService.assignMentor(advise);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    public String removeMentor(@RequestParam(value = "studentid") String studentid,
-                               @RequestParam(value = "facultyid") String facultyid) {
-        studentService.removeMentor(studentid, facultyid);
-        return null;
-    }
-
-    public String changeMentor(@RequestParam(value = "studentid") String studentid,
-                               @RequestParam(value = "facultyid") String facultyid) {
-        studentService.updateMentor(studentid, facultyid);
-        return null;
+    @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
+    public ResponseEntity removeMentor(@RequestParam(value = "serial") Integer id ) {
+        HaramMessage message = personService.removeMentor(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
@@ -157,9 +152,51 @@ public class AdminController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/advise/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity advisingList(@RequestParam(value = "start") Integer start,
+                                       @RequestParam(value = "length") Integer length,
+                                       @RequestParam(value = "draw") Integer draw,
+                                       @RequestParam(value = "search[value]") String search,
+                                       @RequestParam(value = "order[0][dir]") String order,
+                                       @RequestParam(value = "order[0][column]") String orderCol,
+                                       @RequestParam(value = "studentid", required = false) String studentid,
+                                       @RequestParam(value = "facultyid", required = false) String facultyid,
+                                       HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            HaramMessage message = personService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search,
+                    order, orderCol, studentid, facultyid);
+            map.put("draw", draw);
+            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
+            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
+            map.put("data", message.getData());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("draw", 1);
+            map.put("data", new ArrayList<>());
+            map.put("recordsTotal", 0);
+            map.put("recordsFiltered", 0);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity searchUser(@RequestParam(value = "search") String search){
+    public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listFaculties(search);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/list/student", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
+        HaramMessage message = personService.listStudents(search);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value ="/advise/update", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity adviseUpdate(@RequestBody Advise advise){
+        HaramMessage message = personService.updateAdvise(advise);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+
 }

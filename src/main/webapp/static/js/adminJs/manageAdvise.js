@@ -1,14 +1,15 @@
 $(function () {
     var userType = "s";
     var studentid = null;
-    var crn = null;
-    var complete = null;
+    var facultyid = null;
+    var id = null;
 
     $(".view").css({display: "block"});
     $(".user-pop").css({display: "none"});
     $(".class-pop").css({display: "none"});
     $(".student-only").css({display:"none"});
-
+    $("#assignFDiv").css({display: "none"});
+    $("#assignCDiv").css({display: "none"});
 
     $("#overview").click(function () {
         $(".class-pop").css({display: "none"});
@@ -32,7 +33,7 @@ $(function () {
         $("#user-title").html("Lists of Students in System");
         $(".user-table").css({display: "block"});
         userType = "s";
-        userTable.draw();
+        studentTable.draw();
     });
     $(".w_close").click(function () {
         $(".user-pop").css({display: "none"});
@@ -44,15 +45,13 @@ $(function () {
         $(".user-view").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".class-pop").css({display: "none"});
-        $(".view").css({display: "none"});
-        crn = null;
-
         $(".view").css({display: "block"});
 
+        facultyid = null;
         studentid = $(this).parents("tr").find("td").eq(1).html();
 
         writingProperty(studentid);
-        transTable.draw();
+        adviseTable.draw();
 
     });
     function writingProperty(studentid){
@@ -70,164 +69,141 @@ $(function () {
         })
     }
     function writingTranscriptProperty(studentView){
-        $("#h1").html(studentView.lastname+", "+studentView.firstname + " Transcripts");
-        var $studentTable = $("#student-table");
-        var detail = [];
-        $("#h2").html("General Transcript Detail for:" + studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid);
-        detail.push(setRow("", "Credit Limit: ",
-            '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
-            studentView.max_credits +'>' +
-            '<button class="btn btn-edit" style="display: block; margin-top: 10px;"id="enable">Edit</button>' +
-            '<button class="btn btn-edit" style="display: none;margin-top: 10px;" id="update">update</button>'));
-        detail.push(setRow("", "Incomplete Credits:    ", studentView.incomplete));
-        detail.push(setRow("", "In Progress Credits:   ", studentView.progress));
-        detail.push(setRow("", "Complete Credits:      ", studentView.complete));
+        $("#h1").html("Advisor for:" + studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid);
+    }
 
-        writeTableResourceDetail($studentTable,detail);
-    }
-    function writeTableResourceDetail(tableId, list) {
-        var str = '<tr>';
-        for (var i = 0; i < list.length; i++) {
-            str += '<td style="padding: 0 10px 0 0;"><b>' + list[i].text + '</b></td>' +
-                '<td style="padding: 0 30px 0 0;">' + list[i].value + '</td>';
-        }
-        str += '</tr>';
-        tableId.html(str);
-    }
-    function setRow(name, text, value) {
-        return {
-            name: name,
-            text: text,
-            value: value
-        }
-    }
+    $("#assignF").click(function(){
+        $("#assignFDiv").css({display: "block"});
+        $("#assignF").css({display: "none"});
+    });
+    $("#assignC").click(function(){
+        $("#assignCDiv").css({display: "block"});
+        $("#assignC").css({display: "none"});
+    });
+    $("#cancelF").click(function(){
+        $("#assignFDiv").css({display: "none"});
+        $("#assignF").css({display: "block"});
+    });
+    $("#cancelC").click(function(){
+        $("#assignCDiv").css({display: "none"});
+        $("#assignC").css({display: "block"});
+    });
 
     $("#classTable").on("click", ".btn.btn-info", function () {
         $(".user-view").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".class-pop").css({display: "none"});
-        $(".view").css({display: "none"});
-        studentid = null;
-
         $(".view").css({display: "block"});
 
-        crn = $(this).parents("tr").find("td").eq(1).html();
-        var cname = $(this).parents("tr").find("td").eq(2).html();
-        $("#h1").html("Student Transcripts in "+ cname +" Course");
+        facultyid = $(this).parents("tr").find("td").eq(1).html();
+        studentid = null;
 
-        transTable.draw();
-    });
-    //INPUT RADIO 选择控制
-    $("#complete").click(function () {
-        $("#complete").prop("checked", true);
-        $("#process").prop("checked", false);
-        $("#nComplete").prop("checked", false);
-        complete = "Complete";
-    });
-    $("#process").click(function () {
-        $("#process").prop("checked", true);
-        $("#complete").prop("checked", false);
-        $("#nComplete").prop("checked", false);
-        complete = "In Progress";
-    });
-    $("#nComplete").click(function () {
-        $("#nComplete").prop("checked", true);
-        $("#process").prop("checked", false);
-        $("#complete").prop("checked", false);
-        complete = "Not Complete";
+        var fname = $(this).parents("tr").find("td").eq(3).html()+
+                    $(this).parents("tr").find("td").eq(4).html();
+        $("#h1").html("Advisee List for "+ fname);
+
+        adviseTable.draw();
     });
 
     $("#cancel").click(function(){
         $(".w_wrapper").css({display: "none"});
     });
+    $("#cancel2").click(function(){
+        $(".w_wrapper").css({display: "none"});
+    });
 
     $("#transTable").on("click", ".btn.btn-edit", function () {
         $(".w_wrapper").css({display: "block"});
-        var baseInfo = $(".w_basicInfo");
+        $("#aF").css({display: "none"});
+        $("#aS").css({display: "none"});
+        if(studentid === null)
+            $("#aS").css({display: "block"});
+        if(facultyid === null)
+            $("#aF").css({display: "block"});
 
-        studentid = $(this).parents("tr").find("td").eq(1).html();
-        crn = $(this).parents("tr").find("td").eq(4).html();
-        var credits =  $(this).parents("tr").find("td").eq(9).html();
-        var grade = $(this).parents("tr").find("td").eq(6).html();
-        complete =  $(this).parents("tr").find("td").eq(7).html();
-
-        if(complete === "Complete"){
-            $("#complete").prop("checked", true);
-            $("#process").prop("checked", false);
-            $("#nComplete").prop("checked", false);
-            complete = "Complete";
-        }
-        else if(complete === "In Progress"){
-            $("#process").prop("checked", true);
-            $("#complete").prop("checked", false);
-            $("#nComplete").prop("checked", false);
-            complete = "In Progress";
-        }
-        else{
-            $("#nComplete").prop("checked", true);
-            $("#process").prop("checked", false);
-            $("#complete").prop("checked", false);
-            complete = "Not Complete";
-        }
-
-        baseInfo.find("#sid").val(studentid);
-        baseInfo.find("#crn").val(crn);
-        baseInfo.find("#credits").val(credits);
-        baseInfo.find("#grade").val(grade);
-        baseInfo.find("#complete").val(complete);
+        id = $(this).parents("tr").find("td").eq(0).html();
     });
 
-    //更新学分
-    $("#student-table").on("click", "#enable", function(){
-        $("#max").removeAttr("disabled");
-        $("#enable").css({display: "none"});
-        $("#update").css({display: "block"});
-    });
-    $("#student-table").on("click", "#update", function(){
-        var newMax = $("#max").val();
-        var formdata = {
-            studentid: studentid,
-            maxCredits: newMax
-        };
+
+    //教师列表
+    function facultyList(searchFValue, w_select, w_select_li){
+        var search = searchFValue.val();
+        w_select.css({display: "block"});
+        w_select_li.remove();
         $.ajax({
-            url: basePath + "/student/update",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formdata),
-            success: function (data) {
-                if (data.code === 2001)
-                    Showbo.Msg.alert("更新成功!", function () {});
-                else if (data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
-                else
-                    Showbo.Msg.alert("更新失败!", function () {});
+            url : basePath+"/admin/list/faculty?search="+search,
+            type : "GET",
+            success: function (result) {
+                if (result.code === 2001) {
+                    for (var i = 0; i < result.data.length; i++) {
+                        var userid = result.data[i].userid;
+                        newFaculty = result.data[i].lastname + result.data[i].firstname;
+                        var temp = "<li data-name="+ newFaculty +" data-id=" + userid + ">" + newFaculty + "</li>";
+                        w_select.append(temp);
+                        w_select.css({
+                            overflow: "auto",
+                            position: "absolute",
+                            top: "25px",
+                            left: "0",
+                            width: "100%",
+                            margin: "0",
+                            "z-index": "5"
+                        });
+                        w_select.find("li").css({
+                            lineHeight: "30px",
+                            paddingLeft: "15px",
+                            backgroundColor: "#fff",
+                            cursor: "pointer"
+                        });
+                        w_select.find("li").hover(function () {
+                            $(this).css({background: "#03ced0", color: "#fff"});
+                        }, function () {
+                            $(this).css({background: "#fff", color: "#333"});
+                        });
+                        searchFValue.blur(function () {
+                            setTimeout(function () {
+                                w_select.hide();
+                            }, 200)
+
+                        });
+                        w_select.find("li").click(function () {
+                            searchFValue.val(this.innerHTML);
+                        })
+                    }
+
+                } else {
+                    Showbo.Msg.alert("获取失败", function () {});
+                }
             }
         });
-        $("#max").attr("disabled","disabled");
-        $("#update").css({display: "none"});
-        $("#enable").css({display: "block"});
+    }
+
+    $("#searchFValue2").bind("input propertychange", function () {
+        facultyList($("#searchFValue2"), $(".w_selected3"),$(".w_selected3 li"));
     });
-    //更新成绩
-    $("#confirm").click(function(){
+    $(".w_selected3").on("click", "li", function () {
+        $("#searchFValue2").val($(this).data("id"));
+        $("#searchFValue2").data("userid", $(this).data("id"));
+        $("#searchFValue2").data("name", $(this).data("name"));
+        $(".w_selected3").css({display: "none"});
+    });
+    $("#addf-button2").click(function () {
+        facultyid = $("#searchFValue2").data("userid");
         var formdata = {
-            studentid: studentid,
-            crn: crn,
-            grade: $("#grade").val(),
-            complete: complete
+            id :  id,
+            facultyid : facultyid
         };
         $.ajax({
-            url: basePath + "/course/transcript/update",
+            url:basePath+"/admin/advise/update",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),
             success: function (data) {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
-                        studentid = "";
-                        crn = "";
-                        transTable.draw();
+                        adviseTable.draw();
                     });
-                else if (data.code === 2005)
+                else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
                 else
                     Showbo.Msg.alert("更新失败!", function () {});
@@ -235,7 +211,94 @@ $(function () {
         })
     });
 
-    var userTable = $("#userTable").DataTable({
+    //学生列表
+    function studentList(searchFValue, w_select, w_select_li){
+        var search = searchFValue.val();
+        w_select.css({display: "block"});
+        w_select_li.remove();
+        $.ajax({
+            url : basePath+"/admin/list/student?search="+search,
+            type : "GET",
+            success: function (result) {
+                if (result.code !== 2005) {
+                    for (var i = 0; i < result.data.length; i++) {
+                        var userid = result.data[i].userid;
+                        newFaculty = result.data[i].lastname + result.data[i].firstname;
+                        var temp = "<li data-name="+ newFaculty +" data-id=" + userid + ">" + newFaculty + "</li>";
+                        w_select.append(temp);
+                        w_select.css({
+                            overflow: "auto",
+                            position: "absolute",
+                            top: "25px",
+                            left: "0",
+                            width: "100%",
+                            margin: "0",
+                            "z-index": "5"
+                        });
+                        w_select.find("li").css({
+                            lineHeight: "30px",
+                            paddingLeft: "15px",
+                            backgroundColor: "#fff",
+                            cursor: "pointer"
+                        });
+                        w_select.find("li").hover(function () {
+                            $(this).css({background: "#03ced0", color: "#fff"});
+                        }, function () {
+                            $(this).css({background: "#fff", color: "#333"});
+                        });
+                        searchFValue.blur(function () {
+                            setTimeout(function () {
+                                w_select.hide();
+                            }, 200)
+
+                        });
+                        w_select.find("li").click(function () {
+                            searchFValue.val(this.innerHTML);
+                        })
+                    }
+
+                } else {
+                    Showbo.Msg.alert("获取失败", function () {});
+                }
+            }
+        });
+    }
+
+    $("#searchCValue2").bind("input propertychange", function () {
+        studentList($("#searchCValue2"), $(".w_selected4"),$(".w_selected4 li"));
+    });
+    $(".w_selected4").on("click", "li", function () {
+        $("#searchCValue2").val($(this).data("id"));
+        $("#searchCValue2").data("userid", $(this).data("id"));
+        $("#searchCValue2").data("name", $(this).data("name"));
+        $(".w_selected3").css({display: "none"});
+    });
+    $("#addc-button2").click(function () {
+        studentid = $("#searchCValue2").data("userid");
+        var formdata = {
+            id :  id,
+            studentid : studentid
+        };
+        $.ajax({
+            url:basePath+"/admin/advise/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        adviseTable.draw();
+                    });
+                else if(data.code === 2005)
+                    Showbo.Msg.alert("系统异常!", function () {});
+                else
+                    Showbo.Msg.alert("更新失败!", function () {});
+            }
+        })
+    });
+
+
+    var studentTable = $("#userTable").DataTable({
 
         "language": {
             "aria": {
@@ -267,7 +330,7 @@ $(function () {
         ajax: {
             url: basePath + "/admin/user/list",
             data: function (d) {
-                d.type = userType;
+                d.type = 's';
             }
         },
         columns: [
@@ -292,7 +355,7 @@ $(function () {
             "targets": "_all"
         }]
     });
-    var classTable = $("#classTable").DataTable({
+    var facultyTable = $("#classTable").DataTable({
 
         "language": {
             "aria": {
@@ -321,18 +384,18 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/list"
+            url: basePath + "/admin/user/list",
+            data: function (d) {
+                d.type = 'f';
+            }
         },
-
         columns: [
             {"data": "id", "title": "serial"},
-            {"data": "crn", "title": "crn"},
-            {"data": "name", "title": "name"},
-            {"data": "coulev", "title": "coulev"},
-            {"data": "cousec", "title": "cousec"},
-            {"data": "capa", "title": "capa"},
+            {"data": "userid", "title": "userid"},
+            {"data": "username", "title": "username"},
+            {"data": "firstname", "title": "firstname"},
+            {"data": "lastname", "title": "lastname"},
             {"data": "status", "title": "status"},
-            {"data": "facultyid", "title": "faculty"},
             {"data": "updatetime", "title": "updateTime"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
@@ -348,7 +411,7 @@ $(function () {
             "targets": "_all"
         }]
     });
-    var transTable = $("#transTable").DataTable({
+    var adviseTable = $("#transTable").DataTable({
 
         "language": {
             "aria": {
@@ -378,10 +441,10 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/transcript/list",
+            url: basePath + "/admin/advise/list",
             data: function (d) {
                 d.studentid = studentid;
-                d.crn = crn;
+                d.facultyid = facultyid;
             }
         },
         columns: [
@@ -389,22 +452,19 @@ $(function () {
             {"data": "studentid", "title": "studentid"},
             {"data": "slast", "title": "lastName"},
             {"data": "sfirst", "title": "firstName"},
-            {"data": "crn", "title": "crn"},
-            {"data": "coursename", "title": "coursename"},
-            {"data": "grade", "title": "grade"},
-            {"data": "complete", "title": "complete"},
             {"data": "facultyid", "title": "facultyid"},
-            {"data": "credits", "title": "credits"},
-            {"data": "assigntime", "title": "assignTime", "width": "100px"},
+            {"data": "flast", "title": "flast"},
+            {"data": "ffirst", "title": "ffirst"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-edit">Edit</button>');
-                }, "width": "100px"
+                $(nTd).html('<button class="btn btn-info">remove</button>'+
+                '<button class="btn btn-edit">Change</button>');
+            }, "width": "300px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [11]
+            targets: [7]
         }, {
             "defaultContent": "",
             "targets": "_all"

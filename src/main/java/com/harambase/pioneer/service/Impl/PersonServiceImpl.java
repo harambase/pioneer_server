@@ -3,15 +3,11 @@ package com.harambase.pioneer.service.Impl;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
-import com.harambase.pioneer.dao.CourseMapper;
-import com.harambase.pioneer.dao.PersonMapper;
-import com.harambase.pioneer.dao.StudentMapper;
-import com.harambase.pioneer.dao.TranscriptMapper;
-import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.Student;
-import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.dao.*;
+import com.harambase.pioneer.pojo.*;
+import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.service.PersonService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,16 +20,17 @@ public class PersonServiceImpl implements PersonService {
     private final StudentMapper studentMapper;
     private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
+    private final AdviseMapper adviseMapper;
 
     @Autowired
-    public PersonServiceImpl(PersonMapper personMapper,
-                             StudentMapper studentMapper,
-                             CourseMapper courseMapper,
-                             TranscriptMapper transcriptMapper){
+    public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
+                             CourseMapper courseMapper, TranscriptMapper transcriptMapper,
+                             AdviseMapper adviseMapper){
         this.personMapper = personMapper;
         this.studentMapper = studentMapper;
         this.courseMapper = courseMapper;
         this.transcriptMapper = transcriptMapper;
+        this.adviseMapper = adviseMapper;
     }
 
     @Override
@@ -142,7 +139,7 @@ public class PersonServiceImpl implements PersonService {
             param.put("type", type);
             param.put("status", status);
 
-            if(search.equals(""))
+            if(StringUtils.isEmpty(search))
                 param.put("search", null);
 
             totalSize = personMapper.getCountByMapPageSearchOrdered(param); //startTime, endTime);
@@ -230,7 +227,7 @@ public class PersonServiceImpl implements PersonService {
             param.put("type", "f");
             param.put("status", "1");
 
-            if(search.equals(""))
+            if(StringUtils.isEmpty(search))
                 param.put("search", null);
 
             List<Person> users = personMapper.getUsersBySearch(param);
@@ -258,12 +255,14 @@ public class PersonServiceImpl implements PersonService {
             param.put("type", "s");
             param.put("status", "1");
 
-            if(search.equals(""))
+            if(StringUtils.isEmpty(search))
                 param.put("search", null);
 
-            List<Person> msgs = personMapper.getUsersBySearch(param);
+            List<Person> users = personMapper.getUsersBySearch(param);
 
-            message.setData(msgs);
+            message.setData(users);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
         }catch (Exception e) {
@@ -312,12 +311,156 @@ public class PersonServiceImpl implements PersonService {
             List<Person> personList = personMapper.getAllUsers();
             List<Course> courseList = courseMapper.getAllCourses();
             List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
+            List<Advise> adviseList = adviseMapper.getAllAdvise();
 
-            StaticGexfGraph.graphGenerator(personList, courseList, transcriptList);
+            StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
         }catch (Exception e){
             e.printStackTrace();
         }
         return message;
+    }
+
+    @Override
+    public HaramMessage advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                     String studentid, String facultyid) {
+        HaramMessage message = new HaramMessage();
+        switch (Integer.parseInt(orderColumn)) {
+            case 1:
+                orderColumn = "studentid";
+                break;
+            case 2:
+                orderColumn = "sfirst";
+                break;
+            case 3:
+                orderColumn = "slast";
+                break;
+            case 4:
+                orderColumn = "facultyid";
+                break;
+            case 5:
+                orderColumn = "ffirst";
+                break;
+            case 6:
+                orderColumn = "flast";
+                break;
+            default:
+                orderColumn = "id";
+                break;
+        }
+        long totalSize = 0;
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("studentid", studentid);
+            param.put("facultyid", facultyid);
+            if(StringUtils.isEmpty(studentid))
+                param.put("studentid", null);
+            if(StringUtils.isEmpty(facultyid))
+                param.put("facultyid", null);
+            if(StringUtils.isEmpty(search))
+                param.put("search", null);
+
+            totalSize = adviseMapper.getAdvisingCountByMapPageSearchOrdered(param); //startTime, endTime);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            param.put("currentIndex", page.getCurrentIndex());
+            param.put("pageSize",  page.getPageSize());
+            param.put("order",  order);
+            param.put("orderColumn",  orderColumn);
+
+            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+            List<AdviseView> msgs = adviseMapper.getAdvisingByMapPageSearchOrdered(param);
+
+            message.setData(msgs);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
+    }
+
+    @Override
+    public HaramMessage updateAdvise(Advise advise) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            int ret = adviseMapper.updateByPrimaryKeySelective(advise);
+            if(ret == 1) {
+                haramMessage.setData(advise);
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage assignMentor(Advise advise) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            Advise a = adviseMapper.selectByPrimaryKey(advise);
+            if(a != null){
+                haramMessage.setCode(FlagDict.ADVISE_DUPLICATE.getV());
+                haramMessage.setMsg(FlagDict.ADVISE_DUPLICATE.getM());
+                return haramMessage;
+            }
+            int ret = adviseMapper.insertSelective(advise);
+            if(ret == 1) {
+                haramMessage.setData(advise);
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage removeMentor(Integer id) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            int ret = adviseMapper.deleteByPrimaryKey(id);
+            if(ret == 1) {
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else{
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
+            }
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
     }
 
 

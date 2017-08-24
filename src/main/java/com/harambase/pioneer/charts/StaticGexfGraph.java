@@ -1,6 +1,7 @@
 package com.harambase.pioneer.charts;
 
 import com.harambase.common.constant.Type;
+import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
@@ -31,7 +32,8 @@ import java.util.List;
 public class StaticGexfGraph {
 	public static void graphGenerator(List<Person> personList,
 									  List<Course> courseList,
-									  List<Transcript> transcriptList){
+									  List<Transcript> transcriptList,
+									  List<Advise> adviseList){
 		Gexf gexf = new GexfImpl();
 		Calendar date = Calendar.getInstance();
 
@@ -80,10 +82,11 @@ public class StaticGexfGraph {
 			cNode.getAttributeValues().addValue(attcrn, c.getCrn()).addValue(attType, "4");
 			cNode.getShapeEntity().setNodeShape(NodeShape.TRIANGLE);
 			cNode.setPosition(generatePosition(300,index));
+			index++;
 		}
 
 		index = 0;
-		//设置connection
+		//设置COURSE_PERSON_connection
 		for(Person p: personList) {
 			String userid = p.getUserid();
 			String type = p.getType();
@@ -105,11 +108,19 @@ public class StaticGexfGraph {
 					}
 				}
 			}
-
+		}
+		//设置FACULTY_STUDENT_CONNECTION
+		for(Advise a: adviseList){
+			Node sNode = graph.getNode(a.getStudentid());
+			Node fNode = graph.getNode(a.getFacultyid());
+			sNode.connectTo(String.valueOf(index), fNode);
+			index++;
 		}
 
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
-		File f = new File("C:\\Users\\linsh\\Documents\\GitHub\\Harambase_Project\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
+		//D:\Project\gitProjects
+		//C:\Users\linsh\Documents\GitHub\Harambase_Project
+		File f = new File("D:\\Project\\gitProjects\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
 		Writer out;
 		try {
 			out =  new FileWriter(f, false);

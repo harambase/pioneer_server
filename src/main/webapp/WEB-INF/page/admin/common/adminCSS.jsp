@@ -3,7 +3,7 @@
 <link href="${basePath}/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="${basePath}/static/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
 
-<link href="${basePath}/static/css/font-awesome.css" rel="stylesheet">
+<link href="${basePath}/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
 <link href="${basePath}/static/css/style.css" rel="stylesheet" type="text/css">

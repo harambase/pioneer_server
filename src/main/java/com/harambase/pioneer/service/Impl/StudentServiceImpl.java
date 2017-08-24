@@ -22,20 +22,6 @@ public class StudentServiceImpl implements StudentService {
     public StudentServiceImpl(StudentMapper studentMapper){
         this.studentMapper = studentMapper;
     }
-    @Override
-    public void assignMentor(String studentid, String facultyid) {
-
-    }
-
-    @Override
-    public void removeMentor(String studentid, String facultyid) {
-
-    }
-
-    @Override
-    public void updateMentor(String studentid, String facultyid) {
-
-    }
 
     @Override
     public HaramMessage transcriptDetail(String studentid) {
