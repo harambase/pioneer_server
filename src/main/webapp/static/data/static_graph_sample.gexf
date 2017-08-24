@@ -10,7 +10,7 @@
    <attribute id="id" title="id" type="string"/>
    <attribute id="crn" title="crn" type="string"/>
   </attributes>
-  <nodes count="11">
+  <nodes count="12">
    <node id="9000000000" label="adminitorsystem">
     <attvalues>
      <attvalue for="id" value="9000000000"/>
@@ -83,12 +83,21 @@
     <viz:size value="20.0"/>
     <viz:shape value="diamond"/>
    </node>
+   <node id="9201701310" label="ERIKOKIA">
+    <attvalues>
+     <attvalue for="id" value="9201701310"/>
+     <attvalue for="type" value="1"/>
+    </attvalues>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:size value="20.0"/>
+    <viz:shape value="diamond"/>
+   </node>
    <node id="120170164" label="Test2">
     <attvalues>
      <attvalue for="crn" value="120170164"/>
      <attvalue for="type" value="4"/>
     </attvalues>
-    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
     <viz:size value="20.0"/>
     <viz:shape value="triangle"/>
    </node>
@@ -97,7 +106,7 @@
      <attvalue for="crn" value="120170123"/>
      <attvalue for="type" value="4"/>
     </attvalues>
-    <viz:position x="-300.0" y="600.0" z="0.0"/>
+    <viz:position x="300.0" y="0.0" z="0.0"/>
     <viz:size value="20.0"/>
     <viz:shape value="triangle"/>
    </node>
@@ -106,7 +115,7 @@
      <attvalue for="crn" value="120170174"/>
      <attvalue for="type" value="4"/>
     </attvalues>
-    <viz:position x="300.0" y="0.0" z="0.0"/>
+    <viz:position x="-300.0" y="600.0" z="0.0"/>
     <viz:size value="20.0"/>
     <viz:shape value="triangle"/>
    </node>

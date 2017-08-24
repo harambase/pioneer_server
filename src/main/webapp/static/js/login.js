@@ -1,5 +1,5 @@
 $(function (){
-    var loginForm = $("#fm1").validate({});
+    var loginForm = $("#loginForm").validate({});
 
     $("#btnLogin").click(function(){
         if(loginForm.form()){
