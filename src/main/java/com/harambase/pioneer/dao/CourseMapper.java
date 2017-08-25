@@ -30,4 +30,6 @@ public interface CourseMapper {
     int facultyTime(Map<String, String> param);
 
     List<Course> getAllCourses();
+
+    int countActiveCourse();
 }

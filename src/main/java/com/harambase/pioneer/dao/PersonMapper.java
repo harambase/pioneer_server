@@ -27,9 +27,9 @@ public interface PersonMapper {
 
     List<Person> getUsersBySearch(Map param);
 
-    int countStudent();
+    int countStudent(Map param);
 
-    int countFaculty();
+    int countFaculty(Map param);
 
     int countAdmin();
 

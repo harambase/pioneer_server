@@ -3,7 +3,6 @@ package com.harambase.pioneer.web;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.charts.StaticGexfGraph;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
@@ -44,7 +43,7 @@ public class AdminController {
     }
     @RequestMapping(value = "/student/count", method = RequestMethod.GET)
     public ResponseEntity getStudentCount(){
-        HaramMessage haramMessage = personService.countPerson();
+        HaramMessage haramMessage = personService.userChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -192,11 +191,30 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value ="/advise/update", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity adviseUpdate(@RequestBody Advise advise){
         HaramMessage message = personService.updateAdvise(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/system/info", produces = "application/json")
+    public ResponseEntity getSystemInfo(){
+        HaramMessage message = new HaramMessage();
+
+        Map<String, Integer> data = new HashMap<>();
+        int course, student, faculty;
+
+        student = (Integer) personService.countActivePerson("s").getData();
+        faculty = (Integer) personService.countActivePerson("f").getData();
+        course  = (Integer) courseService.countActiveCourse().getData();
+
+        data.put("student",student);
+        data.put("faculty",faculty);
+        data.put("course", course);
+
+        message.setData(data);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+    }
 
 }

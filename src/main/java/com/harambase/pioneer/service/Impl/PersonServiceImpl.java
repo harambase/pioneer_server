@@ -274,13 +274,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage countPerson() {
+    public HaramMessage userChart() {
         HaramMessage message = new HaramMessage();
         //统计用户种类
         List<Map<String, String>> data1 = new ArrayList<>();
+        Map<String, String> param = new HashMap<>();
+        param.put("status", null);
 
-        int s = personMapper.countStudent();
-        int f = personMapper.countFaculty();
+        int s = personMapper.countStudent(param);
+        int f = personMapper.countFaculty(param);
         int a = personMapper.countAdmin();
 
         data1.add(MapParam.pieChartValue(String.valueOf(s), "Student"));
@@ -460,6 +462,27 @@ public class PersonServiceImpl implements PersonService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
         }
+    }
+
+    @Override
+    public HaramMessage countActivePerson(String type) {
+        HaramMessage message = new HaramMessage();
+        Map<String, String> param = new HashMap<>();
+        param.put("status", "1");
+        //统计用户种类
+        switch (type){
+            case "s":
+                int s = personMapper.countStudent(param);
+                message.setData(s);
+                return message;
+            case "f":
+                int f = personMapper.countFaculty(param);
+                message.setData(f);
+                return message;
+        }
+
+        message.setData(0);
+        return message;
     }
 
 

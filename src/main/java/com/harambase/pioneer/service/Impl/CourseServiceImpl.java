@@ -550,4 +550,12 @@ public class CourseServiceImpl implements CourseService {
             }
         }
     }
+
+    @Override
+    public HaramMessage countActiveCourse() {
+        HaramMessage message = new HaramMessage();
+        int c = courseMapper.countActiveCourse();
+        message.setData(c);
+        return message;
+    }
 }

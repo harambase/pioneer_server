@@ -28,8 +28,6 @@
                     </div>
                     <p class="site-description">Dashboard</p>
                 </div>
-                <div class="clearfix">
-                </div>
             </div>
             <!--END TITLE & BREADCRUMB PAGE-->
             <!--BEGIN CONTENT-->
@@ -40,9 +38,12 @@
                             <div class="panel profit db mbm">
                                 <div class="panel-body">
                                     <p class="icon">
-                                        <i class="icon fa fa-shopping-cart"></i>
+                                        <i class="icon fa fa-user"></i>
                                     </p>
-
+                                    <h4 class="value">
+                                        <span id="studentNum">55</span>
+                                    </h4>
+                                    <p class="description"> The amount of total active students</p>
                                 </div>
                             </div>
                         </div>
@@ -50,9 +51,12 @@
                             <div class="panel income db mbm">
                                 <div class="panel-body">
                                     <p class="icon">
-                                        <i class="icon fa fa-money"></i>
+                                        <i class="icon fa fa-user"></i>
                                     </p>
-
+                                    <h4 class="value">
+                                        <span id="facultyNum">55</span>
+                                    </h4>
+                                    <p class="description"> The amount of total active faculties</p>
                                 </div>
                             </div>
                         </div>
@@ -60,19 +64,17 @@
                             <div class="panel task db mbm">
                                 <div class="panel-body">
                                     <p class="icon">
-                                        <i class="icon fa fa-signal"></i>
+                                        <i class="icon fa fa-book"></i>
                                     </p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="panel visit db mbm">
-                                <div class="panel-body">
-                                    <p class="icon">
-                                        <i class="icon fa fa-group"></i>
-                                    </p>
-
+                                    <h4 class="value">
+                                        <span id="courseNum">55</span>
+                                    </h4>
+                                    <p class="description"> The amount of total active courses</p>
+                                    <%--<div class="progress progress-sm mbn">--%>
+                                        <%--<div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"--%>
+                                             <%--style="width: 100%;" class="progress-bar progress-bar-success">--%>
+                                            <%--<span class="sr-only">80% Complete (success)</span></div>--%>
+                                    <%--</div>--%>
                                 </div>
                             </div>
                         </div>
@@ -83,12 +85,12 @@
                                 <div class="row text-center divider" style="margin: 5px 5px 0px 5px;">
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <button  id="user" class="btn btn-yellow btn-block">
-                                            <span class="fa fa-user"></span>User Chart
+                                            <span class="fa fa-pie-chart"></span>&nbsp; User Chart
                                         </button>
                                     </div>
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <button id="connection" class="btn btn-blue btn-block">
-                                            <span class="fa fa-plane"></span>Relational Chart
+                                            <span class="fa fa-area-chart"></span>&nbsp; Relational Chart
                                         </button>
                                     </div>
                                 </div>

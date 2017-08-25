@@ -19,8 +19,8 @@ $(function(){
             relation2("relationChart2")
         }
     });
-    $("#chart").css({display:"none"});
-    $("#relation").css({display:"block"});
+    $("#chart").css({display:"block"});
+    $("#relation").css({display:"none"});
 
     $("#user").click(function(){
         $("#chart").css({display:"block"});
@@ -30,5 +30,17 @@ $(function(){
         $("#relation").css({display:"block"});
         $("#chart").css({display:"none"});
     });
+
+    $.ajax({
+        type: "GET",
+        url: basePath + "/admin/system/info",
+        success: function (data) {
+            var result = data.data;
+            $("#studentNum").html(result.student);
+            $("#facultyNum").html(result.faculty);
+            $("#courseNum").html(result.course);
+        }
+    });
+
 
 });

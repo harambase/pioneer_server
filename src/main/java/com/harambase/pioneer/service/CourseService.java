@@ -30,4 +30,6 @@ public interface CourseService {
     HaramMessage transcriptList(String s, String s1, String search, String order, String orderCol, String studentid, String crn);
 
     HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String crn);
+
+    HaramMessage countActiveCourse();
 }

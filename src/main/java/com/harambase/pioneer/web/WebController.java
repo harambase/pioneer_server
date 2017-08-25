@@ -16,11 +16,11 @@ public class WebController {
     }
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
-        return "admin/welcomeAdmin6";
+        return "admin/welcomeAdmin";
     }
     @RequestMapping("/welcomeAdmin2")
     public String welcomeAdmin2(){
-        return "admin/welcomeAdmin";
+        return "admin/welcomeAdmin6";
     }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){

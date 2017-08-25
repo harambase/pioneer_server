@@ -20,7 +20,7 @@ public interface PersonService {
 
     HaramMessage listStudents(String serach);
 
-    HaramMessage countPerson();
+    HaramMessage userChart();
 
     HaramMessage getRelationChart();
 
@@ -31,4 +31,6 @@ public interface PersonService {
     HaramMessage assignMentor(Advise advise);
 
     HaramMessage removeMentor(Integer id);
+
+    HaramMessage countActivePerson(String type);
 }

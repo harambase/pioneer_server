@@ -19,20 +19,20 @@
                 <li><a href="${basePath}/manageTranscript">Transcript Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
             </ul>
         </li>
-        <li><a href="#"><i class="fa fa-file push"></i>Information<i class="fa fa-angle-right"></i></a><span class="hover"></span>
-            <ul class="sub-menu">
-                <li><a href="#">Latest Messages<i class="fa fa-angle-right"></i></a><span class="hover"></span>
-                </li>
-                <li><a href="#">View Advisor Profile<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-            </ul>
-        </li>
+        <%--<li><a href="#"><i class="fa fa-file push"></i>Information<i class="fa fa-angle-right"></i></a><span class="hover"></span>--%>
+            <%--<ul class="sub-menu">--%>
+                <%--<li><a href="#">Latest Messages<i class="fa fa-angle-right"></i></a><span class="hover"></span>--%>
+                <%--</li>--%>
+                <%--<li><a href="#">View Advisor Profile<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
         <li>
             <a href="${basePath}/adminProfile">
             <i class="fa fa-cog push"></i>Profile<i class="fa fa-angle-right"></i>
             </a>
             <span class="hover"></span>
         </li>
-        <li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <%--<li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>--%>
         <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>

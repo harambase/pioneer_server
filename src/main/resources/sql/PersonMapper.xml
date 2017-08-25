@@ -304,12 +304,14 @@
     select * from Person
   </select>
 
-  <select id="countStudent" resultType="java.lang.Integer">
+  <select id="countStudent" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) from Person where type = "s"
+    <if test="status != null"> and status = '1'</if>
   </select>
 
-  <select id="countFaculty" resultType="java.lang.Integer">
+  <select id="countFaculty" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) from Person where type = "f"
+    <if test="status != null"> and status = '1'</if>
   </select>
 
   <select id="countAdmin" resultType="java.lang.Integer">
