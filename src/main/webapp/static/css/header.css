@@ -15,6 +15,7 @@ html {
     position: fixed;
     background: url("http://themes.mediacreed.com/html/synergy/assets/patterns/menu/menu_pattern_1.png");
     border-right: 10px solid #03ced0;
+    z-index: 5;
 }
 .sidebar ul {
     margin-top: 30px;

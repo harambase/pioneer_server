@@ -2,11 +2,11 @@
 function exampleUserTop(divUrl,data1,data2) {
     var myChart = echarts.init(document.getElementById(divUrl));
     var option = {
-        title : {
-            text: 'Pioneer User Chart',
-            subtext: 'Realtime',
-            x:'center'
-        },
+        // title : {
+        //     text: 'Pioneer User Chart',
+        //     subtext: 'Realtime',
+        //     x:'center'
+        // },
         tooltip : {
             trigger: 'item',
             formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -77,19 +77,11 @@ function relation(divUrl) {
         myChart.hideLoading();
 
         var graph = echarts.dataTool.gexf.parse(xml);
-        var categories = [{
-            name: '课程'
-        },{
-            name: '学生'
-        },{
-            name:'教师'
-        },{
-            name:'管理员'}];
+        var categories = [{name: '课程'},{name: '学生'},{name:'教师'}];
 
         graph.nodes.forEach(function (node) {
             node.itemStyle = null;
             node.value = node.symbolSize;
-            node.symbolSize /= 1.5;
             node.label = {
                 normal: {
                     show: node.symbolSize > 10
@@ -98,12 +90,12 @@ function relation(divUrl) {
             node.category = node.attributes.type;
         });
         option = {
-            title: {
-                text: 'Pioneer SFC Relations',
-                subtext: 'Student-Faculty-Course',
-                top: 'bottom',
-                left: 'right'
-            },
+            // title: {
+            //     text: 'Pioneer SFC Relations',
+            //     subtext: 'Student-Faculty-Course',
+            //     top: 'bottom',
+            //     left: 'right'
+            // },
             tooltip: {},
             legend: [{
                 // selectedMode: 'single',
@@ -124,7 +116,71 @@ function relation(divUrl) {
                     data: graph.nodes,
                     links: graph.links,
                     categories: categories,
-                    roam: true,
+                    roam: false,
+                    label: {
+                        normal: {
+                            position: 'right',
+                            formatter: '{b}'
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            color: 'source',
+                            curveness: 0.3
+                        }
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+    }, 'xml');
+}
+
+function relation2(divUrl){
+    var myChart = echarts.init(document.getElementById(divUrl));
+    myChart.showLoading();
+    $.get(basePath+'/static/data/static_graph_sample.gexf', function (xml) {
+        myChart.hideLoading();
+
+        var graph = echarts.dataTool.gexf.parse(xml);
+        var categories = [{name: '课程'},{name: '学生'},{name:'教师'}];
+
+        graph.nodes.forEach(function (node) {
+            node.itemStyle = null;
+            node.value = node.symbolSize;
+            node.label = {
+                normal: {
+                    show: node.symbolSize > 10
+                }
+            };
+            node.category = node.attributes.type;
+        });
+        option = {
+            // title: {
+            //     text: 'Les Miserables',
+            //     subtext: 'Default layout',
+            //     top: 'bottom',
+            //     left: 'right'
+            // },
+            tooltip: {},
+            legend: [{
+                // selectedMode: 'single',
+                data: categories.map(function (a) {
+                    return a.name;
+                })
+            }],
+            animationDuration: 1500,
+            animationEasingUpdate: 'quinticInOut',
+            series : [
+                {
+                    // name: 'Les Miserables',
+                    type: 'graph',
+                    layout: 'none',
+                    data: graph.nodes,
+                    links: graph.links,
+                    categories: categories,
+                    roam: false,
                     label: {
                         normal: {
                             position: 'right',

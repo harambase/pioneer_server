@@ -57,22 +57,29 @@ public class StaticGexfGraph {
 		for(Person p: personList){
 			Node pNode = graph.createNode(p.getUserid());
 			pNode.setLabel(p.getLastname()+p.getFirstname()).setSize(20);
-
-			if(p.getType().equals(Type.STUDENT.getM()))
+			int type = 0;
+			if(p.getType().equals(Type.STUDENT.getM())) {
 				pNode.getAttributeValues()
 						.addValue(attid, p.getUserid())
 						.addValue(attType, String.valueOf(Type.STUDENT.getV()));
-			else if(p.getType().equals(Type.FACULTY.getM()))
+				type = Type.STUDENT.getV();
+			}
+			else if(p.getType().equals(Type.FACULTY.getM())) {
 				pNode.getAttributeValues()
 						.addValue(attid, p.getUserid())
 						.addValue(attType, String.valueOf(Type.FACULTY.getV()));
-			else if(p.getType().equals(Type.ADMINISTRATOR.getM()))
+				type = Type.FACULTY.getV();
+			}
+			else if(p.getType().equals(Type.ADMINISTRATOR.getM())) {
 				pNode.getAttributeValues()
 						.addValue(attid, p.getUserid())
 						.addValue(attType, String.valueOf(Type.ADMINISTRATOR.getV()));
+				pNode.setSize(0);
+				type = Type.ADMINISTRATOR.getV();
+			}
 
 			pNode.getShapeEntity().setNodeShape(NodeShape.DIAMOND);
-			pNode.setPosition(generatePosition(300,index+1));
+			pNode.setPosition(generatePosition(type,index+1));
 			index++;
 		}
 		//设置course Node
@@ -81,7 +88,7 @@ public class StaticGexfGraph {
 			cNode.setLabel(c.getName()).setSize(20);
 			cNode.getAttributeValues().addValue(attcrn, c.getCrn()).addValue(attType, "0");
 			cNode.getShapeEntity().setNodeShape(NodeShape.TRIANGLE);
-			cNode.setPosition(generatePosition(300,index));
+			cNode.setPosition(generatePosition(0,index));
 			index++;
 		}
 
@@ -136,10 +143,10 @@ public class StaticGexfGraph {
 		}
 
 	}
-	public static Position generatePosition(int base, int index){
+	public static Position generatePosition(int type, int index){
 		PositionImpl position = new PositionImpl();
-		double x = Math.pow(-1,index) * (base);
-		double y = x * (-1) + index * base/index;
+		double x = (Math.random() * (10*type + 1));
+		double y = (Math.random() * (10*type + 1));
 
 		position.setX(Float.parseFloat(String.valueOf(x)));
 		position.setY(Float.parseFloat(String.valueOf(y)));

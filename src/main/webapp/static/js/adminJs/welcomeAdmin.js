@@ -16,6 +16,7 @@ $(function(){
         url: basePath + "/admin/relation/chart",
         success: function () {
             relation("relationChart");
+            relation2("relationChart2")
         }
     });
     $("#chart").css({display:"none"});

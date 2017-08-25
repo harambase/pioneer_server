@@ -278,7 +278,6 @@ public class PersonServiceImpl implements PersonService {
         HaramMessage message = new HaramMessage();
         //统计用户种类
         List<Map<String, String>> data1 = new ArrayList<>();
-        Map<String, String> innerData = new HashMap<>();
 
         int s = personMapper.countStudent();
         int f = personMapper.countFaculty();
