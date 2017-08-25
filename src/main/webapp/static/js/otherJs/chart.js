@@ -77,12 +77,15 @@ function relation(divUrl) {
         myChart.hideLoading();
 
         var graph = echarts.dataTool.gexf.parse(xml);
-        var categories = [];
-        for (var i = 0; i <= 4; i++) {
-            categories[i] = {
-                name: '类目' + i
-            };
-        }
+        var categories = [{
+            name: '课程'
+        },{
+            name: '学生'
+        },{
+            name:'教师'
+        },{
+            name:'管理员'}];
+
         graph.nodes.forEach(function (node) {
             node.itemStyle = null;
             node.value = node.symbolSize;
