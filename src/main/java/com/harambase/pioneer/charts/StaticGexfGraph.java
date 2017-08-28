@@ -145,8 +145,8 @@ public class StaticGexfGraph {
 	}
 	private static Position generatePosition(int type, int index){
 		PositionImpl position = new PositionImpl();
-		double x = 100*type;
-		double y = (Math.random() *(index) + 100);
+		double x = 10*type + index;
+		double y = 500 + index*2;
 
 		position.setX(Float.parseFloat(String.valueOf(x)));
 		position.setY(Float.parseFloat(String.valueOf(y)));

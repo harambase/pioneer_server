@@ -43,7 +43,7 @@
                                     <h4 class="value">
                                         <span id="studentNum">55</span>
                                     </h4>
-                                    <p class="description"> The amount of total active students</p>
+                                    <p class="description"> Active Students</p>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                     <h4 class="value">
                                         <span id="facultyNum">55</span>
                                     </h4>
-                                    <p class="description"> The amount of total active faculties</p>
+                                    <p class="description"> Active Faculties</p>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                     <h4 class="value">
                                         <span id="courseNum">55</span>
                                     </h4>
-                                    <p class="description"> The amount of total active courses</p>
+                                    <p class="description"> Active Courses</p>
                                     <%--<div class="progress progress-sm mbn">--%>
                                         <%--<div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"--%>
                                              <%--style="width: 100%;" class="progress-bar progress-bar-success">--%>
@@ -98,8 +98,8 @@
                                 <div id="chart">
                                     <div class="panel-body" style="width: 100%; height: 400px;">
                                         <div class="row">
-                                            <div class="col-md-8">
-                                                <h4 class="mbs">
+                                            <div class="col-md-8" style="margin-left: 330px">
+                                                <h4 class="mbs" style="margin-left: 300px">
                                                     Pioneer System User Formation Chart
                                                 </h4>
                                                 <p class="help-block">
@@ -110,63 +110,63 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <h4 class="mbm">Top Courses</h4>
-                                                <span class="task-item">CPU Usage (25 - 32 cpus)
-                                                    <small class="pull-right text-muted">40%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="40" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 40%;" class="progress-bar progress-bar-orange">
-                                                            <span class="sr-only">40% Complete (success)</span>
-                                                        </div>
-                                                </div>
-                                                </span>
-                                                <span>Memory Usage (2.5GB)<small class="pull-right text-muted">60%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 60%;" class="progress-bar progress-bar-blue">
-                                                            <span class="sr-only">60% Complete (success)</span>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                                <span>Disk Usage (C:\ 120GB , D:\ 430GB)
-                                                    <small class="pull-right text-muted">55%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="55" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 55%;" class="progress-bar progress-bar-green">
-                                                            <span class="sr-only">55% Complete (success)</span>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                                <span>Domain (2/5)<small class="pull-right text-muted">66%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="66" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 66%;" class="progress-bar progress-bar-yellow">
-                                                            <span class="sr-only">66% Complete (success)</span>
-                                                        </div>
-                                                    </div>
-                                                </span>
-                                                <span>Database (90/100)<small class="pull-right text-muted">90%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="90" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 90%;" class="progress-bar progress-bar-pink">
-                                                            <span class="sr-only">90% Complete (success)</span></div>
-                                                    </div>
-                                                </span>
-                                                <span>Email Account (25/50)<small class="pull-right text-muted">50%</small>
-                                                    <div class="progress progress-sm">
-                                                        <div role="progressbar" aria-valuenow="50" aria-valuemin="0"
-                                                             aria-valuemax="100"
-                                                             style="width: 50%;" class="progress-bar progress-bar-violet">
-                                                            <span class="sr-only">50% Complete (success)</span></div>
-                                                    </div>
-                                                </span>
-                                            </div>
+                                            <%--<div class="col-md-4">--%>
+                                                <%--<h4 class="mbm">Top Courses</h4>--%>
+                                                <%--<span class="task-item">CPU Usage (25 - 32 cpus)--%>
+                                                    <%--<small class="pull-right text-muted">40%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="40" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 40%;" class="progress-bar progress-bar-orange">--%>
+                                                            <%--<span class="sr-only">40% Complete (success)</span>--%>
+                                                        <%--</div>--%>
+                                                <%--</div>--%>
+                                                <%--</span>--%>
+                                                <%--<span>Memory Usage (2.5GB)<small class="pull-right text-muted">60%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="60" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 60%;" class="progress-bar progress-bar-blue">--%>
+                                                            <%--<span class="sr-only">60% Complete (success)</span>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</span>--%>
+                                                <%--<span>Disk Usage (C:\ 120GB , D:\ 430GB)--%>
+                                                    <%--<small class="pull-right text-muted">55%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="55" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 55%;" class="progress-bar progress-bar-green">--%>
+                                                            <%--<span class="sr-only">55% Complete (success)</span>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</span>--%>
+                                                <%--<span>Domain (2/5)<small class="pull-right text-muted">66%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="66" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 66%;" class="progress-bar progress-bar-yellow">--%>
+                                                            <%--<span class="sr-only">66% Complete (success)</span>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</span>--%>
+                                                <%--<span>Database (90/100)<small class="pull-right text-muted">90%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="90" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 90%;" class="progress-bar progress-bar-pink">--%>
+                                                            <%--<span class="sr-only">90% Complete (success)</span></div>--%>
+                                                    <%--</div>--%>
+                                                <%--</span>--%>
+                                                <%--<span>Email Account (25/50)<small class="pull-right text-muted">50%</small>--%>
+                                                    <%--<div class="progress progress-sm">--%>
+                                                        <%--<div role="progressbar" aria-valuenow="50" aria-valuemin="0"--%>
+                                                             <%--aria-valuemax="100"--%>
+                                                             <%--style="width: 50%;" class="progress-bar progress-bar-violet">--%>
+                                                            <%--<span class="sr-only">50% Complete (success)</span></div>--%>
+                                                    <%--</div>--%>
+                                                <%--</span>--%>
+                                            <%--</div>--%>
                                         </div>
                                     </div>
                                 </div>
