@@ -20,7 +20,7 @@
     <distributionManagement>
         <repository>
             <id>nexus-releases</id>
-            <url>http://192.168.30.175:8081/nexus/content/repositories/releases</url>
+            <url>http://192.168.30.225:8001/nexus/content/repositories/releases</url>
         </repository>
     </distributionManagement>
 
@@ -28,14 +28,14 @@
         <repository>
                  <id>nexus</id>
                  <name>Team Nexus Repository</name>
-                 <url>http://192.168.30.175:8081/nexus/content/groups/public</url>
+                 <url>http://192.168.30.225:8001/nexus/content/groups/public</url>
              </repository>
          </repositories>
             <pluginRepositories>
          <pluginRepository>
                  <id>nexus</id>
                 <name>Team Nexus Repository</name>
-                 <url>http://192.168.30.175:8081/nexus/content/groups/public</url>
+                 <url>http://192.168.30.225:8001/nexus/content/groups/public</url>
              </pluginRepository>
      </pluginRepositories>
 
