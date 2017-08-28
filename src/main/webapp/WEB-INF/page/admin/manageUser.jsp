@@ -23,7 +23,7 @@
 </div>
 
 <div class="spilt register-table">
-    <div style="float: left; height: 586px" class="account-container register">
+    <div style="float: left; height: 620px" class="account-container register">
         <div class="content clearfix">
             <form id="createUserForm" method="post" onsubmit="return false">
                 <h1>Create a new account</h1>
@@ -108,7 +108,7 @@
         </div> <!-- /content -->
     </div> <!-- /account-container -->
 
-    <div style="float: right;margin: 0px 120px 0 0;width: 1065px;height: 586px;"
+    <div style="float: right;margin: 0px 120px 0 0;width: 1065px;height: 620px;"
          class="account-container register">
     <div class="content clearfix">
         <h1>Lists of Users in System</h1>

@@ -362,7 +362,7 @@ $(function () {
             [5, 8],
             [5, 8]
         ],
-        pageLength: 5,
+        pageLength: 8,
         processing: true,
         serverSide: true,
 

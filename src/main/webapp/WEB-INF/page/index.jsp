@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script src="${basePath}/static/plugins/jQuery/jquery-1.11.3.js"></script>
 <%@include file="common/commonInner.jsp" %>
 <!DOCTYPE html>
-<html lang="en-US" class="gr__sts_csbsju_edu">
+<html lang="en-US">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=10.000">
@@ -57,8 +58,8 @@
 </div>
 
 </body>
+
 <script src="${basePath}/static/plugins/confirm/confirm.js"></script>
-<script src="${basePath}/static/plugins/jQuery/jquery-1.11.3.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="${basePath}/static/js/login.js"></script>

@@ -143,10 +143,10 @@ public class StaticGexfGraph {
 		}
 
 	}
-	public static Position generatePosition(int type, int index){
+	private static Position generatePosition(int type, int index){
 		PositionImpl position = new PositionImpl();
-		double x = (Math.random() * (10*type + 1));
-		double y = (Math.random() * (10*type + 1));
+		double x = 100*type;
+		double y = (Math.random() *(index) + 100);
 
 		position.setX(Float.parseFloat(String.valueOf(x)));
 		position.setY(Float.parseFloat(String.valueOf(y)));

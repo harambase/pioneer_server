@@ -799,10 +799,10 @@ $(function () {
             }
         },
         "lengthMenu": [
-            [8],
-            [8]
+            [10],
+            [10]
         ],
-        pageLength: 8,
+        pageLength: 10,
         processing: true,
         serverSide: true,
 
