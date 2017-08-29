@@ -346,7 +346,16 @@
         </div>
     </div>
 </div>
-
+<div class='delete-user-pop'>
+    <div class='delete-user'>
+        <div class='true-delete'>确认删除<span>×</span></div>
+        <div class='true-delete-user'>确认删除XXX用户吗？</div>
+        <div class='delete-btn'>
+            <button class='true w_button'>确认</button>
+            <button class='cancel w_button'>取消</button>
+        </div>
+    </div>
+</div>
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
