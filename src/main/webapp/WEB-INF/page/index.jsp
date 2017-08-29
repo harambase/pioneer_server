@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=10.000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>Sign In</title>
+    <title>登录</title>
     <link rel="stylesheet" href="${basePath}/static/css/login.css">
 
 </head>
@@ -31,21 +31,21 @@
                             <div id="formsAuthenticationArea">
                                 <div id="userNameArea">
                                     <input id="username" name="UserName" value="" minlength="1"
-                                           class="text fullWidth" spellcheck="false" placeholder="Username">
+                                           class="text fullWidth" spellcheck="false" placeholder="用户名">
                                 </div>
                                 <div id="passwordArea">
                                     <input id="password" name="Password" type="password" minlength="1"
-                                           class="text fullWidth" placeholder="Password">
+                                           class="text fullWidth" placeholder="密码">
                                 </div>
                                 <div id="submissionArea" class="submitMargin">
-                                    <span id="btnLogin" class="submit" tabindex="4">Sign in</span>
+                                    <span id="btnLogin" class="submit" tabindex="4">登录</span>
                                 </div>
                             </div>
                             <input id="optionForms" type="hidden" name="AuthMethod" value="FormsAuthentication">
                         </form>
 
                         <div id="introduction" class="groupMargin">
-                            <p><b><font color="red">NOTE:</font> Use your Pioneer provided username when signing in.</b></p>
+                            <p><b><font color="red">注意：</font> 请使用用户名登录(不是ID).</b></p>
                         </div>
                     </div>
                 </div>

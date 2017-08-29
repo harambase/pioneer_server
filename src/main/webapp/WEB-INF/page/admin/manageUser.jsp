@@ -26,30 +26,30 @@
     <div style="float: left; height: 620px" class="account-container register">
         <div class="content clearfix">
             <form id="createUserForm" method="post" onsubmit="return false">
-                <h1>Create a new account</h1>
+                <h1>创建一个新的用户</h1>
                 <div class="login-fields">
 
                     <div class="field">
                         <label for="year-semester">Year-semester:</label>
-                        <input id="year-semester" name="year-semester" value="-" placeholder="year-semester" class="login"
+                        <input id="year-semester" name="year-semester" value="-" placeholder="年份-学期(YYYY-XX)" class="login"
                                minlength="7" maxlength="7" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="firstname">First Name:</label>
-                        <input id="firstname" name="firstname" value="" placeholder="First Name" class="login"
+                        <input id="firstname" name="firstname" value="" placeholder="名" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="lastname">Last Name:</label>
-                        <input id="lastname" name="lastname" value="" placeholder="Last Name" class="login"
+                        <input id="lastname" name="lastname" value="" placeholder="姓" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="birthday">Birthday:</label>
-                        <input id="birthday" name="birthday" value="YYYY-MM-DD" placeholder="birthday" class="login"
+                        <input id="birthday" name="birthday" value="YYYY-MM-DD" placeholder="生日(YYYY-MM-DD)" class="login"
                                maxlength="10"/>
                     </div> <!-- /field -->
 
@@ -70,26 +70,26 @@
 
                     <div class="field">
                         <label for="tel">tel:</label>
-                        <input id="tel" name="tel" value="" placeholder="tel" class="login"/>
+                        <input id="tel" name="tel" value="" placeholder="电话号" class="login"/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="dorm">dorm:</label>
-                        <input id="dorm" name="dorm" value="" placeholder="dorm" class="login"/>
+                        <input id="dorm" name="dorm" value="" placeholder="宿舍号" class="login"/>
                     </div> <!-- /field -->
                     <div class="field" >
-                        <p style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">Type:</p>
+                        <p style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">账户类型:</p>
                         <select name="type" id="type" title="Type" style="width: 261px;margin-left: 5px;">
-                            <option id="student" value="s">Student</option>
-                            <option id="faculty" value="f">Faculty</option>
-                            <option id="admin"   value="a">Administrator</option>
+                            <option id="student" value="s">学生</option>
+                            <option id="faculty" value="f">教师</option>
+                            <option id="admin"   value="a">系统管理员</option>
                         </select>
                     </div> <!-- /field -->
                     <div class="field" >
-                        <p style="float: left;margin-bottom: 4.5px;">Gender:</p>
+                        <p style="float: left;margin-bottom: 4.5px;">性别:</p>
                         <select name="gender" id="gender" title="Type" style="width: 245px;margin-left: 5px;">
-                            <option id="male" value="male">Male</option>
-                            <option id="female" value="female">Female</option>
+                            <option id="male" value="male">男</option>
+                            <option id="female" value="female">女</option>
                         </select>
                     </div> <!-- /field -->
 
@@ -98,10 +98,10 @@
                 <div class="login-actions" style="margin-top: -30px;">
 
                     <span class="login-checkbox">
-                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-                        <label class="choice" for="Field">Agree with the Terms & Conditions.</label>
+                        <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" required/>
+                        <label class="choice" for="Field">确认上述信息正确无误.</label>
                     </span>
-                    <button class="button btn btn-primary btn-large" id="registerBtn">Register</button>
+                    <button class="button btn btn-primary btn-large" id="registerBtn">注册</button>
 
                 </div> <!-- .actions -->
             </form>
@@ -111,7 +111,7 @@
     <div style="float: right;margin: 0px 120px 0 0;width: 1065px;height: 620px;"
          class="account-container register">
     <div class="content clearfix">
-        <h1>Lists of Users in System</h1>
+        <h1>系统用户列表</h1>
         <div class='user-table'>
             <table width="100%" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
@@ -123,14 +123,14 @@
 <div class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
-            <span>Account Setting</span>
+            <span>用户设置</span>
             <span class="w_close">×</span>
         </div>
         <div class="w_body">
             <ul class="w_tab clearfix">
-                <li class="active base-info">Profile</li>
-                <li class='account'>Account Setting</li>
-                <li class='advise'>Advising Management</li>
+                <li class="active base-info">用户基本信息</li>
+                <li class='account'>账户属性</li>
+                <li class='advise'>辅导员/学生分配</li>
             </ul>
             <div class="w_tabC w_pop">
                 <div class="w_content">
@@ -139,7 +139,7 @@
                             <table style="margin: 15px 27px;">
                                 <input id="pwd" name="pwd" value="" class="login" hidden/>
                                 <tr>
-                                    <td><p style="float: left">UserID:</td>
+                                    <td><p style="float: left">用户ID:</td>
                                     <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>

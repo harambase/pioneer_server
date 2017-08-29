@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard | Dashboard</title>
+    <title>Dashboard</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +41,9 @@
                                         <i class="icon fa fa-user"></i>
                                     </p>
                                     <h4 class="value">
-                                        <span id="studentNum">55</span>
+                                        <span id="studentNum"></span>
                                     </h4>
-                                    <p class="description"> Active Students</p>
+                                    <p class="description">当前学生总数</p>
                                 </div>
                             </div>
                         </div>
@@ -54,9 +54,9 @@
                                         <i class="icon fa fa-user"></i>
                                     </p>
                                     <h4 class="value">
-                                        <span id="facultyNum">55</span>
+                                        <span id="facultyNum"></span>
                                     </h4>
-                                    <p class="description"> Active Faculties</p>
+                                    <p class="description">当前教师总数</p>
                                 </div>
                             </div>
                         </div>
@@ -67,9 +67,9 @@
                                         <i class="icon fa fa-book"></i>
                                     </p>
                                     <h4 class="value">
-                                        <span id="courseNum">55</span>
+                                        <span id="courseNum"></span>
                                     </h4>
-                                    <p class="description"> Active Courses</p>
+                                    <p class="description">当前课程总数</p>
                                     <%--<div class="progress progress-sm mbn">--%>
                                         <%--<div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"--%>
                                              <%--style="width: 100%;" class="progress-bar progress-bar-success">--%>
@@ -85,12 +85,12 @@
                                 <div class="row text-center divider" style="margin: 5px 5px 0px 5px;">
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <button  id="user" class="btn btn-yellow btn-block">
-                                            <span class="fa fa-pie-chart"></span>&nbsp; User Chart
+                                            <span class="fa fa-pie-chart"></span>&nbsp; 用户表
                                         </button>
                                     </div>
                                     <div class="col-xs-12 col-sm-4 emphasis">
                                         <button id="connection" class="btn btn-blue btn-block">
-                                            <span class="fa fa-area-chart"></span>&nbsp; Relational Chart
+                                            <span class="fa fa-area-chart"></span>&nbsp; 关系表
                                         </button>
                                     </div>
                                 </div>
@@ -100,10 +100,10 @@
                                         <div class="row">
                                             <div class="col-md-8" style="margin-left: 330px">
                                                 <h4 class="mbs" style="margin-left: 300px">
-                                                    Pioneer System User Formation Chart
+                                                    先锋用户组成情况表
                                                 </h4>
                                                 <p class="help-block">
-                                                    By Type, By Gender
+                                                    按类型,按性别
                                                 </p>
                                                 <div id="area-chart-spline" style="width: 800px; height: 300px">
                                                     <div id="exampleChart" style="width: 800px; height: 300px"></div>
@@ -174,11 +174,11 @@
                                     <div class="panel-body" style="width: 100%; height: 900px;">
                                         <div class="row">
                                             <h4 class="mbs" style="margin-left: 600px;font-weight: 500;color: #03ced0;">
-                                                Pioneer SFC Relational Chart
+                                                先锋SFC关系表
                                             </h4>
                                             <div class="col-md-8" style="margin-left: 50px;">
                                                 <p class="help-block">
-                                                    SFC: Student-Faculty-Course Combining View
+                                                    SFC: Student-Faculty-Course(学生-教师-课程) 总览
                                                 </p>
                                                 <div class="exampleChart" >
                                                     <div id="relationChart"style="width: 800px;height: 800px;"></div>
@@ -186,7 +186,7 @@
                                             </div>
                                             <div class="col-md-4" style="margin-left: -200px;">
                                                 <p class="help-block">
-                                                    SFC: Student-Faculty-Course Separating View
+                                                    SFC: Student-Faculty-Course 种类单列
                                                 </p>
                                                 <div class="exampleChart" >
                                                     <div id="relationChart2"style="width: 800px;height: 800px;"></div>
