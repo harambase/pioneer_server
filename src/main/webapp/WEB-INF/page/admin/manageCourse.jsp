@@ -20,10 +20,10 @@
     <p class="site-description">Course Management</p>
     <div class="choose-view" >
         <div class='w_manage_btn system-control-btn'>
-            <button id="add" class="w_button" style="float:left; margin-left: 10px">Add a Course</button>
+            <button id="add" class="w_button" style="float:left; margin-left: 10px">添加一个课程</button>
         </div>
         <div class='w_manage_btn system-control-btn'>
-            <button id="list" class="w_button" style="margin-left: 10px">View List</button>
+            <button id="list" class="w_button" style="margin-left: 10px">浏览课程列表</button>
         </div>
     </div>
     <hr/>
@@ -33,30 +33,30 @@
     <div id="add-div" style="position:absolute;height: 700px; display: none" class="account-container register">
         <div class="content clearfix">
             <form id="createCourseForm" method="post" onsubmit="return false">
-                <h1>Create a course</h1>
+                <h1>添加一个课程</h1>
                 <div class="login-fields">
 
                     <div class="field">
                         <label for="year-semester">Year-semester:</label>
-                        <input id="year-semester" name="year-semester" value="" placeholder="year-semester:YYYY-SS" class="login"
+                        <input id="year-semester" name="year-semester" value="" placeholder="年份-学期(YYYY-SS)" class="login"
                                minlength="7" maxlength="7" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="name">Course Name:</label>
-                        <input id="name" name="name" value="" placeholder="Course Name" class="login"
+                        <input id="name" name="name" value="" placeholder="课程名" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="credits">Last Name:</label>
-                        <input id="credits" name="credits" value="" placeholder="Credits" class="login"
+                        <input id="credits" name="credits" value="" placeholder="学分" class="login"
                                minlength="1" maxlength="2" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="coulev">Course Level:</label>
-                        <input id="coulev" name="coulev" value="" placeholder="Course Level" class="login" maxlength="3"/>
+                        <input id="coulev" name="coulev" value="" placeholder="课程等级" class="login" maxlength="3"/>
                     </div> <!-- /field -->
 
                     <div class="field">

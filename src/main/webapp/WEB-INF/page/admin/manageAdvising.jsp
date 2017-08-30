@@ -26,17 +26,17 @@
             <tr>
                 <td>
                     <div class='w_manage_btn system-control-btn'>
-                        <button id="overview" class="w_button" style="margin-left: 10px">Overview</button>
+                        <button id="overview" class="w_button" style="margin-left: 10px">总览</button>
                     </div>
                 </td>
                 <td>
                     <div class='w_manage_btn system-control-btn'>
-                        <button id="class" class="w_button" style="margin-left: 10px">Faculty View</button>
+                        <button id="class" class="w_button" style="margin-left: 10px">浏览教师</button>
                     </div>
                 </td>
                 <td>
                     <div class='w_manage_btn system-control-btn'>
-                        <button id="user" class="w_button" style="margin-left: 10px">Student View</button>
+                        <button id="user" class="w_button" style="margin-left: 10px">浏览学生</button>
                     </div>
                 </td>
             </tr>
@@ -47,13 +47,13 @@
 <div class="user-pop">
     <div class="user-pop-inner">
         <div class="w_head">
-            <span>User Selection</span>
+            <span>用户选择</span>
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li id="student" class="active">Students</li>
+            <li id="student" class="active">学生</li>
         </ul>
-        <h1 id="user-title">Lists of Students in System</h1>
+        <h1 id="user-title">学生列表</h1>
         <div class='user-table' style="width: 756px;margin: -45px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
@@ -63,12 +63,13 @@
 <div class="class-pop">
     <div class="user-pop-inner">
         <div class="w_head">
-            <span>Faculty Selection</span>
+            <span>教师选择</span>
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li class="active">Faculty</li>
+            <li class="active">教师</li>
         </ul>
+        <h1 id="faculty-title">教师列表</h1>
         <div class='class-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
             </table>
@@ -83,33 +84,33 @@
         </div>
         <div class="w_body">
             <ul class="w_tab clearfix">
-                <li class="active base-info">Advising Relation Change</li>
+                <li class="active base-info">修改辅导关系</li>
             </ul>
             <div class="w_tabC w_pop">
                 <div class='w_manage'>
                     <div id="aF">
-                        <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">Assigned New Faculty</button>
+                        <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">分配新的老师</button>
                         <div id="assignFDiv" class="group-form-input">
                             <input id="searchFValue2" placeholder="Assign Faculty" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
-                            <span class="w_button w_add" id="addf-button2" style="width: 145px; text-align: center;">Change Faculty</span>
-                            <span class="w_button w_add" id="cancelF" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                            <span class="w_button w_add" id="addf-button2" style="width: 145px; text-align: center;">修改老师</span>
+                            <span class="w_button w_add" id="cancelF" style="width: 100px; text-align: center; background-color: #3d8ca7;">取消</span>
                             <ul class="w_selected3">
                             </ul>
                         </div>
                     </div>
                     <div id="aS">
-                        <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">Assigned New Student</button>
+                        <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">分配新的学生</button>
                         <div id="assignCDiv" class="group-form-input">
                             <input id="searchCValue2" placeholder="Assign Student" style="margin-right: 20px; height: 30px;float: left; width: 155px;">
-                            <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">Change Student</span>
-                            <span class="w_button w_add" id="cancelC" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                            <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">修改学生</span>
+                            <span class="w_button w_add" id="cancelC" style="width: 100px; text-align: center; background-color: #3d8ca7;">取消</span>
                             <ul class="w_selected4">
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="cancel2" class="w_button">Exit</button>
+                    <button id="cancel2" class="w_button">退出</button>
                 </div>
             </div>
 
@@ -121,7 +122,7 @@
     <div class="spilt register-table" style = "padding-left: 300px">
         <div style=";margin: 0 120px 0 0;width: 1500px;height: 700px;" class="account-container register">
             <div class="content clearfix">
-                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">General Advising List</h1>
+                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">所有辅导关系列表</h1>
                 <div class='course-table' >
                     <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
                     </table>

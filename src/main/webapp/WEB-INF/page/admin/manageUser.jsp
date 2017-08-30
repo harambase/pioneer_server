@@ -143,21 +143,21 @@
                                     <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Username:</td>
+                                    <td><p style="float: left">用户名:</td>
                                     <td><input id="username2" name="username" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">First Name:</p></td>
+                                    <td><p style="float: left">名:</p></td>
                                     <td><input id="firstname2" name="firstname" value="" class="login" minlength="1"
                                                maxlength="20" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Last Name:</p></td>
+                                    <td><p style="float: left">姓:</p></td>
                                     <td><input id="lastname2" name="lastname" value="" class="login"
                                                minlength="1" maxlength="20" required/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Birthday:</p></td>
+                                    <td><p style="float: left">生日:</p></td>
                                     <td><input id="birthday2" name="birthday" value="YYYY-MM-DD" class="login"
                                                maxlength="10"/></td>
                                 </tr>
@@ -174,11 +174,11 @@
                                     <td><input id="weChat2" name="weChat" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Mobile:</p></td>
+                                    <td><p style="float: left">电话号码:</p></td>
                                     <td><input id="tel2" name="tel" value="" class="login"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">Dormitory:</p></td>
+                                    <td><p style="float: left">宿舍分配:</p></td>
                                     <td><input id="dorm2" name="dorm" value="" class="login"/></td>
                                 </tr>
                             </table>
@@ -186,37 +186,37 @@
                     </div> <!-- /account-container -->
                 </div>
                 <p class="w_buttons_w system-control-btn">
-                    <button id="confirm" class="w_button">Confirm</button>
-                    <button id="cancel" class="w_button">Cancel</button>
+                    <button id="confirm" class="w_button">确认</button>
+                    <button id="cancel" class="w_button">取消</button>
                 </p>
             </div>
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
-                    <h4 class="status" style="margin-top: 0px;">Account Status: </h4>
-                    <input class='enable' type="checkbox" name="powerState" value="1"/>ACTIVE
-                    <input class='disable' type="checkbox" name="powerState" value="0"/>DEACTIVE
+                    <h4 class="status" style="margin-top: 0px;">用户账户状态: </h4>
+                    <input class='enable' type="checkbox" name="powerState" value="1"/>启用
+                    <input class='disable' type="checkbox" name="powerState" value="0"/>停用
 
-                    <h4 class="type">Account Type: </h4>
-                    <input class='student' type="checkbox" name="powerState" value="s"/>STUDENT
-                    <input class='teacher' type="checkbox" name="powerState" value="f"/>FACULTY
-                    <input class='admin' type="checkbox" name="powerState" value="a"/>ADMINISTRATOR
+                    <h4 class="type">用户账户类型: </h4>
+                    <input class='student' type="checkbox" name="powerState" value="s"/>学生
+                    <input class='teacher' type="checkbox" name="powerState" value="f"/>教师
+                    <input class='admin' type="checkbox" name="powerState" value="a"/>管理员
 
-                    <h4 class="gender">User Gender:</h4>
-                    <input class='male' type="checkbox" name="powerState" value="male"/>MALE
-                    <input class='female' type="checkbox" name="powerState" value="female"/>FEMALE
+                    <h4 class="gender">用户性别:</h4>
+                    <input class='male' type="checkbox" name="powerState" value="male"/>男
+                    <input class='female' type="checkbox" name="powerState" value="female"/>女
 
-                    <h4 class='reset-pass w_hide'>Reset Password：</h4>
-                    <p class='w_hide'>重置用户账号，新密码将通过邮箱发送给用户邮箱。</p>
-                    <button class='w_hide' id="resetPassword">Reset</button>
+                    <h4 class='reset-pass w_hide'>重置密码：</h4>
+                    <%--<p class='w_hide'>重置用户账号，新密码将通过邮箱发送给用户邮箱。</p>--%>
+                    <button class='w_hide' id="resetPassword">重置</button>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="apply" class="w_button">Confirm</button>
-                    <button id="cancel2" class="w_button">Cancel</button>
+                    <button id="apply" class="w_button">确认</button>
+                    <button id="cancel2" class="w_button">取消</button>
                 </div>
             </div>
             <div class="w_tabE w_pop">
                 <div id="assignSDiv" class="group-form-input">
-                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">Lists of Active Students: </h4>
+                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">启用学生列表: </h4>
                     <div class="content clearfix" style="padding: 0px">
                         <div class='course-table'>
                             <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
@@ -225,7 +225,7 @@
                     </div> <!-- /content -->
                 </div>
                 <div id="assignFDiv" class="group-form-input">
-                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">Lists of Active Faculties: </h4>
+                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">启用教师列表: </h4>
                     <div class="content clearfix" style="padding: 0px">
                         <div class='course-table'>
                             <table width="100%" style="font-size: 14px;" id="facultyTable" class="display dataTable">
@@ -235,7 +235,7 @@
                 </div>
 
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="cancel3" class="w_button" style="margin: 20px 0 0 122px;width: 190px">Exit</button>
+                    <button id="cancel3" class="w_button" style="margin: 20px 0 0 122px;width: 190px">退出</button>
                 </div>
 
             </div>
@@ -245,7 +245,7 @@
 <div class='delete-user-pop'>
     <div class='delete-user'>
         <div class='true-delete'>确认删除<span>×</span></div>
-        <div class='true-delete-user'>确认删除XXX用户吗？</div>
+        <%--<div class='true-delete-user'>确认删除XXX用户吗？</div>--%>
         <div class='delete-btn'>
             <button class='true w_button'>确认</button>
             <button class='cancel w_button'>取消</button>
