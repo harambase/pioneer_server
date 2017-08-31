@@ -490,7 +490,7 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
+            {"data": "id", "title": "序号"},
             {"data": "userid", "title": "userid"},
             {"data": "firstname", "title": "firstname"},
             {"data": "lastname", "title": "lastname"},

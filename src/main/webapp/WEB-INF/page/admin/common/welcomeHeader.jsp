@@ -10,7 +10,7 @@
             </a>
             <span class="hover"></span>
         </li>
-        <li><a href="#"><i class="fa fa-user push"></i>Manage<i class="fa fa-angle-right"></i></a>
+        <li><a href="#"><i class="fa fa-user push"></i>管理<i class="fa fa-angle-right"></i></a>
             <span class="hover"></span>
             <ul class="sub-menu">
                 <li><a href="${basePath}/manageCourse">Course Manage<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>

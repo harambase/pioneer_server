@@ -11,6 +11,9 @@ $(function () {
 
 
     $("#overview").click(function () {
+        studentid = null;
+        crn = null;
+        transTable.draw();
         $(".class-pop").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".student-only").css({display:"none"});
