@@ -125,14 +125,11 @@ public class StaticGexfGraph {
 		}
 
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
-		//D:\Project\gitProjects
-		//C:\Users\linsh\Documents\GitHub\Harambase_Project
 		String path = StaticGexfGraph.class.getResource("").getPath();
-		System.out.println(path);
+
 		File f = new File(path + "../../../../../../../pioneer/static/data/static_graph_sample.gexf");
 		Writer out;
 
-		//File f = new File("D:\\Project\\gitProjects\\pioneer\\src\\main\\webapp\\static\\data\\static_graph_sample.gexf");
 		try {
 			if (!f.exists()) f.createNewFile();
 			out =  new FileWriter(f, false);
