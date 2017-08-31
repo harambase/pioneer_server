@@ -4,7 +4,6 @@ $(function(){
         type: "GET",
         success: function (data) {
             if (data.code === 2001) {
-                console.log(data.data);
                 var user = data.data;
                 var baseInfo = $("#editUserForm2");
                 baseInfo.find("#userid").val(user.userid);

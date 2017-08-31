@@ -394,8 +394,6 @@ $(function () {
                     day += $(this).val() + "/";
                 });
 
-                console.log(facultyids);
-
                 var course = {
                     credits: credits,
                     coulev: coulev,
@@ -418,7 +416,6 @@ $(function () {
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(course),
                     success: function (data) {
-                        console.log(data);
                         if (data.code === 2001) {
                             Showbo.Msg.alert("添加成功!", function () {
                                 logTable.draw();
@@ -600,7 +597,6 @@ $(function () {
         crn = $(this).parents("tr").find("td").eq(1).html();
         var baseInfo = $(".w_basicInfo");
         if (getCourse(crn, false)) {
-            console.log(course);
             baseInfo.find("#crn2").val(crn);
             baseInfo.find("#year-semester2").val(course.info);
             baseInfo.find("#name2").val(course.name);

@@ -36,7 +36,6 @@ $(function () {
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(person),
                 success: function (data) {
-                    console.log(data);
                     if (data.code === 2001) {
                         Showbo.Msg.alert("添加成功!", function () {
                             window.location.reload();

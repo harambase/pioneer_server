@@ -424,7 +424,7 @@ $(function () {
             "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
             "lengthMenu": "SHOW: _MENU_",
             "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "zeroRecords": "没有发现记录！",
             "paginate": {
                 "previous": "Previous",
                 "next": "Next",
@@ -448,17 +448,17 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial", "width": "15px"},
-            {"data": "studentid", "title": "studentid"},
-            {"data": "slast", "title": "lastName"},
-            {"data": "sfirst", "title": "firstName"},
-            {"data": "facultyid", "title": "facultyid"},
-            {"data": "flast", "title": "flast"},
-            {"data": "ffirst", "title": "ffirst"},
+            {"data": "id", "title": "序列号", "width": "15px"},
+            {"data": "studentid", "title": "学生ID"},
+            {"data": "slast", "title": "学生姓"},
+            {"data": "sfirst", "title": "学生名"},
+            {"data": "facultyid", "title": "教师ID"},
+            {"data": "flast", "title": "教师姓"},
+            {"data": "ffirst", "title": "教师名"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">remove</button>'+
-                '<button class="btn btn-edit">Change</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">删除</button>'+
+                '<button class="btn btn-edit">修改</button>');
             }, "width": "300px"
             }
         ],
