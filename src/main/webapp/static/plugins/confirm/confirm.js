@@ -104,7 +104,7 @@ Showbo.Msg = {
     createBtn: function (p, v, fn) {
         var btn = document.createElement("input");
         btn.type = "button";
-        btn.className = 'btn';
+        btn.className = 'btn2';
         btn.value = v;
         btn.onmouseover = function () {
             this.className = 'btnfocus';

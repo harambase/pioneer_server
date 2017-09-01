@@ -1,16 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../common/commonJs.jsp" %>
-<%@include file="../common/commonCSS.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Dashboard</title>
+    <title>主页</title>
+    <%@include file="../common/commonJs.jsp" %>
+    <%@include file="../common/commonCSS.jsp" %>
     <meta charset="utf-8">
-    <%--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">--%>
-    <%--<meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
-    <!--Loading bootstrap css-->
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/admin/main.css">
+
 </head>
 <body>
 <div>

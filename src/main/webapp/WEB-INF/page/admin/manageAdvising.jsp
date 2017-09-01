@@ -1,18 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../common/commonJs.jsp" %>
-<%@include file="../common/commonCSS.jsp" %>
-<%@include file="common/adminCSS.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <title>Advising Management</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>辅导关系管理</title>
+    <%@include file="../common/commonJs.jsp" %>
+    <%@include file="../common/commonCSS.jsp" %>
+    <%@include file="common/adminCSS.jsp" %>
+    <link href="${basePath}/static/css/header.css" rel="stylesheet">
     <link href="${basePath}/static/css/manageTranscript.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="${basePath}/static/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css">
 
 </head>
 <body>

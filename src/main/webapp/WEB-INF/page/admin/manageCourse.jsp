@@ -1,17 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../common/commonJs.jsp" %>
-<%@include file="../common/commonCSS.jsp" %>
-<%@include file="common/adminCSS.jsp" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>课程管理</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-
+    <%@include file="../common/commonJs.jsp" %>
+    <%@include file="../common/commonCSS.jsp" %>
+    <%@include file="common/adminCSS.jsp" %>
+    <link rel="stylesheet" href="${basePath}/static/css/header.css">
 </head>
 <body>
 <%@include file="common/manageHeader.jsp" %>
@@ -163,7 +159,7 @@
             <ul class="w_tab clearfix">
                 <li class="active base-info">基本信息</li>
                 <li class='account'> 课程设置</li>
-                <li class="override">超级管理</li>
+                <li class="override">添加学生</li>
             </ul>
 
             <div class="w_tabC w_pop">
@@ -228,82 +224,83 @@
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
                     <h4 class="status" style="margin-top: 0px;">课程状态(无法修改): </h4>
-                    <input class='enable' type="checkbox" name="powerState" value="1" disabled/>尽心
+                    <input class='enable' type="checkbox" name="powerState" value="1" disabled/>正常
                     <input class='disable' type="checkbox" name="powerState" value="0" disabled/>停课
 
-                    <h4 class="type">Assigned Faculty: </h4>
-                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">Assigned New Faculty</button>
+                    <h4 class="type">授课老师: </h4>
+                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">修改授课老师</button>
                     <div id="assignFDiv" class="group-form-input">
-                        <input id="searchFValue2" placeholder="Assign Faculty" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
-                        <span class="w_button w_add" id="addf-button2" style="width: 145px; text-align: center;">Change Faculty</span>
-                        <span class="w_button w_add" id="cancelF" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                        <input id="searchFValue2" placeholder="修改授课老师" style="margin-right: 20px; height: 30px;float: left; width: 155px;" required>
+                        <span class="w_button w_add" id="addf-button2" style="width: 145px; text-align: center;">修改授课老师</span>
+                        <span class="w_button w_add" id="cancelF" style="width: 100px; text-align: center; background-color: #3d8ca7;">取消操作</span>
                         <ul class="w_selected3">
                         </ul>
                     </div>
-                    <h4 class="gender">Assigned Pre-required Course: None</h4>
-                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">Assigned New Pre-course</button>
+                    <h4 class="gender">分配的预选课程：无</h4>
+                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">分配新的预选课程：</button>
                     <div id="assignCDiv" class="group-form-input">
-                        <input id="searchCValue2" placeholder="Assign Precourse" style="margin-right: 20px; height: 30px;float: left; width: 155px;">
-                        <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">Change Precourse</span>
-                        <span class="w_button w_add" id="cancelC" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                        <input id="searchCValue2" placeholder="分配新的预选课程" style="margin-right: 20px; height: 30px;float: left; width: 155px;">
+                        <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">分配此预选课程</span>
+                        <span class="w_button w_add" id="cancelC" style="width: 100px; text-align: center; background-color: #3d8ca7;">取消操作</span>
                         <ul class="w_selected4">
                         </ul>
                     </div>
-                    <h4 class="status" style="margin-top: 0px;">Current day of the Course: </h4>
+                    <h4 class="status" style="margin-top: 0px;">当前课程的上课时间: </h4>
                     <input class='m' type="checkbox" name="newDay" value="m"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Mon
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期一
                     <input class='t' type="checkbox" name="newDay" value="t"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Tue
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期二
                     <input class='w' type="checkbox" name="newDay" value="w"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Wed
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期三
                     <input class='tr' type="checkbox" name="newDay" value="tr"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Thr
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期四
                     <input class='f' type="checkbox" name="newDay" value="f"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Fri
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期五
                     <input class='sa' type="checkbox" name="newDay" value="sa"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Sat
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期六
                     <input class='s' type="checkbox" name="newDay" value="s"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>Sun
-                    <span class="w_button w_add" id="change-day" style="width: 145px; text-align: center;">Change Day</span>
-                    <span class="w_button w_add" id="cancelD" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期日
+                    <span class="w_button w_add" id="change-day" style="width: 145px; text-align: center;">修改时间</span>
+                    <span class="w_button w_add" id="cancelD"    style="width: 145px; text-align: center;">取消操作</span>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
                     <button id="cancel2" class="w_button">Exit</button>
                 </div>
             </div>
             <div class="w_tabE w_pop">
-                <h4 class="type">Add a student to course: </h4>
-                <button class="w_button" style="width: 190px; vertical-align: middle;" id="assignS">Add Students</button>
+                <h4 class="type">添加学生: </h4>
+                <button class="w_button" style="width: 190px; vertical-align: middle;" id="assignS">添加学生</button>
                 <div id="assignSDiv" class="group-form-input">
-                    <h4 class="status" style="margin-top: 0px;">Override Options: </h4>
+                    <h4 class="status" style="margin-top: 0px;">添加选项: </h4>
                     <table style="font-size: 11px">
                         <tr>
-                            <td style="margin-bottom: -5px"><input type="checkbox" name="pre" style="margin: 10px 4px 10px 0; width: 12px;"/>Override Without Pre-Required
-                                Class
+                            <td style="color: red;font-weight: 900;margin-bottom: -5px"><input type="checkbox" name="pre" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                                添加此学生，即使未完成预选课程
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="time" style="margin: 10px 4px 10px 0; width: 12px;"/>Override with time confilct
+                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="time" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                                添加此学生，即使有时间冲突
                             </td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" name="capa"
-                                       style="margin: 10px 4px 10px 0; width: 12px;"/>Override even over course capacity
+                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="capa" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                                添加此学生，即使已经达到课程人数上限
                             </td>
                         </tr>
                     </table>
                     <hr style="margin-top: 1px;"/>
-                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">Lists of Active Students: </h4>
+                    <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">系统中所有学生: </h4>
                     <div class="content clearfix" style="padding: 0px">
                         <div class='course-table'>
                             <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
                             </table>
                         </div>
                     </div> <!-- /content -->
-                    <span class="w_button w_add" id="cancelS" style="width: 100px; text-align: center; background-color: #3d8ca7;">Cancel</span>
+                    <span class="w_button w_add" id="cancelS" style="width: 100px; text-align: center; background-color: #3d8ca7;">取消</span>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="cancel3" class="w_button" style="margin: 20px 0 0 122px;width: 190px">Exit</button>
+                    <button id="cancel3" class="w_button" style="margin: 20px 0 0 122px;width: 190px">退出</button>
                 </div>
             </div>
 
