@@ -76,7 +76,7 @@ $(function () {
         $("#h1").html(studentView.lastname+", "+studentView.firstname + " 成绩单");
         var $studentTable = $("#student-table");
         var detail = [];
-        $("#h2").html(+ studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+"的综合成绩单");
+        $("#h2").html(studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+" 的成绩单");
         detail.push(setRow("", "学分上限: ",
             '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
             studentView.max_credits +'>' +
@@ -274,12 +274,11 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号"},
+            {"data": "id", "title": "序列号", "width":"45px"},
             {"data": "userid", "title": "用户ID"},
             {"data": "username", "title": "用户名"},
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
-            {"data": "status", "title": "用户状态"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">选择</button>');
@@ -288,7 +287,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [6]
+            targets: [5]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -327,7 +326,7 @@ $(function () {
         },
 
         columns: [
-            {"data": "id", "title": "序列号"},
+            {"data": "id", "title": "序列号","width":"45px"},
             {"data": "crn", "title": "课程编号"},
             {"data": "name", "title": "课程名"},
             {"data": "couLev", "title": "课程等级"},
@@ -386,7 +385,7 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width": "15px"},
+            {"data": "id", "title": "序列号", "width": "45px"},
             {"data": "studentid", "title": "学生ID"},
             {"data": "slast", "title": "学生姓"},
             {"data": "sfirst", "title": "学生名"},
@@ -396,7 +395,7 @@ $(function () {
             {"data": "complete", "title": "完成情况"},
             {"data": "facultyid", "title": "授课人ID"},
             {"data": "credits", "title": "课程学分"},
-            {"data": "assigntime", "title": "成绩提交时间", "width": "100px"},
+            {"data": "assigntime", "title": "成绩提交时间", "width": "200px"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-edit">修改</button>');

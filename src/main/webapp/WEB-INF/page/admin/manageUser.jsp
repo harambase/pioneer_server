@@ -32,25 +32,25 @@
 
                     <div class="field">
                         <label for="year-semester">Year-semester:</label>
-                        <input id="year-semester" name="year-semester" value="-" placeholder="年份-学期(YYYY-XX)" class="login"
+                        <input id="year-semester" name="year-semester" value="" placeholder="*年份-学期(YYYY-XX)" class="login"
                                minlength="7" maxlength="7" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="firstname">First Name:</label>
-                        <input id="firstname" name="firstname" value="" placeholder="名" class="login"
+                        <input id="firstname" name="firstname" value="" placeholder="*名" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="lastname">Last Name:</label>
-                        <input id="lastname" name="lastname" value="" placeholder="姓" class="login"
+                        <input id="lastname" name="lastname" value="" placeholder="*姓" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="birthday">Birthday:</label>
-                        <input id="birthday" name="birthday" value="YYYY-MM-DD" placeholder="生日(YYYY-MM-DD)" class="login"
+                        <input id="birthday" name="birthday" value="" placeholder="*生日(YYYY-MM-DD)" class="login"
                                maxlength="10"/>
                     </div> <!-- /field -->
 
@@ -109,7 +109,7 @@
         </div> <!-- /content -->
     </div> <!-- /account-container -->
 
-    <div style="float: right;margin: 0px 120px 0 0;width: 1065px;height: 620px;"
+    <div style="float: right;margin: 0px 120px 0 0;width: 1200px;height: 620px;"
          class="account-container register">
     <div class="content clearfix">
         <h1>系统用户列表</h1>

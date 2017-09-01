@@ -399,9 +399,9 @@ public class CourseServiceImpl implements CourseService {
             param.put("orderColumn", orderColumn);
 
             //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<Person> msgs = courseMapper.getCourseByMapPageSearchOrdered(param);
+            List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
 
-            message.setData(msgs);
+            message.setData(courses);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());

@@ -2,7 +2,7 @@ package com.harambase.pioneer.pojo;
 
 import java.io.Serializable;
 
-public class Person implements Serializable{
+public class Person implements Serializable {
     private Integer id;
 
     private String userid;
@@ -39,6 +39,8 @@ public class Person implements Serializable{
 
     private String type;
 
+    private String comment;
+
     public Integer getId() {
         return id;
     }
@@ -52,7 +54,7 @@ public class Person implements Serializable{
     }
 
     public void setUserid(String userid) {
-        this.userid = userid;
+        this.userid = userid == null ? null : userid.trim();
     }
 
     public String getUsername() {
@@ -181,5 +183,13 @@ public class Person implements Serializable{
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 }

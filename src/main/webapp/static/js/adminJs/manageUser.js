@@ -179,33 +179,33 @@ $(function () {
     function writeSettings(status, type, gender){
 
         if (status === "1") {
-            $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
+            $(".w_manage h4").eq(0).html("账户状态：启用");
             $(".w_manage input").eq(0).prop("checked", true);
         }
         else {
-            $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
+            $(".w_manage h4").eq(0).html("账户状态：禁用");
             $(".w_manage input").eq(1).prop("checked", true);
         }
 
         if(type === "a"){
-            $(".w_manage h4").eq(1).html("Account Type: Administrator");
+            $(".w_manage h4").eq(1).html("账户类型：系统管理员");
             $(".w_manage input").eq(4).prop("checked", true);
         }
         else if(type === "f"){
-            $(".w_manage h4").eq(1).html("Account Type: Faculty");
+            $(".w_manage h4").eq(1).html("账户类型：教师");
             $(".w_manage input").eq(3).prop("checked", true);
         }
         else{
-            $(".w_manage h4").eq(1).html("Account Type: Student");
+            $(".w_manage h4").eq(1).html("账户类型：学生");
             $(".w_manage input").eq(2).prop("checked", true);
         }
 
         if(gender === "male"){
-            $(".w_manage h4").eq(2).html("User Gender: Male");
+            $(".w_manage h4").eq(2).html("用户性别：男");
             $(".w_manage input").eq(5).prop("checked", true);
         }
         else{
-            $(".w_manage h4").eq(2).html("User Gender: Female");
+            $(".w_manage h4").eq(2).html("用户性别：女");
             $(".w_manage input").eq(6).prop("checked", true);
         }
     }
@@ -317,8 +317,8 @@ $(function () {
 
     function assginAdvise(studentid, facultyid){
         var formdata = {
-            facultyid:facultyid,
-            studentid :studentid
+            facultyid : facultyid,
+            studentid : studentid
         };
         $.ajax({
             url:basePath+"/admin/advise/assign",
@@ -343,25 +343,25 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
-            [5, 8],
-            [5, 8]
+            [5,10],
+            [5,10]
         ],
-        pageLength: 8,
+        pageLength: 10,
         processing: true,
         serverSide: true,
 
@@ -374,48 +374,47 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "username", "title": "username"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {"data": "password", "title": "password"},
-            {"data": "type", "title": "type"},
-            {"data": "status", "title": "status"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "username", "title": "用户名"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
+            {"data": "password", "title": "密码"},
+            {"data": "type", "title": "账户类型"},
+            {"data": "status", "title": "状态"},
+            {"data": "updatetime", "title": "更新时间"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Delete</button><button class="btn btn-edit">Edit</button>');
-            }, "width": "200px"
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">删除</button><button class="btn btn-edit">Edit</button>');
+                }, "width": "200px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [7]
+            targets: [9]
         }, {
             "defaultContent": "",
             "targets": "_all"
         }]
     });
     var studentTable = $("#studentTable").DataTable({
-
         "language": {
             "aria": {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -434,13 +433,13 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
+            {"data": "id", "title": "序列号","width":"45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
@@ -459,18 +458,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -484,18 +483,18 @@ $(function () {
         ajax: {
             url: basePath + "/admin/user/list",
             data: function (d) {
-                d.type = type;
-                d.status = "f";
+                d.type = "f";
+                d.status = "1";
             }
         },
         columns: [
-            {"data": "id", "title": "序号"},
-            {"data": "userid", "title": "userid"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
+            {"data": "id", "title": "序列号","width":"45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],

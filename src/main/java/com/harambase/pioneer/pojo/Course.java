@@ -17,6 +17,8 @@ public class Course implements Serializable{
 
     private String cousec;
 
+    private String classroom;
+
     private String startdate;
 
     private String enddate;
@@ -36,6 +38,8 @@ public class Course implements Serializable{
     private String createtime;
 
     private String updatetime;
+
+    private String comment;
 
     public Integer getId() {
         return id;
@@ -74,7 +78,7 @@ public class Course implements Serializable{
     }
 
     public void setPrecrn(String precrn) {
-        this.precrn = precrn;
+        this.precrn = precrn == null ? null : precrn.trim();
     }
 
     public String getCoulev() {
@@ -91,6 +95,14 @@ public class Course implements Serializable{
 
     public void setCousec(String cousec) {
         this.cousec = cousec == null ? null : cousec.trim();
+    }
+
+    public String getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom) {
+        this.classroom = classroom == null ? null : classroom.trim();
     }
 
     public String getStartdate() {
@@ -171,5 +183,13 @@ public class Course implements Serializable{
 
     public void setUpdatetime(String updatetime) {
         this.updatetime = updatetime == null ? null : updatetime.trim();
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment == null ? null : comment.trim();
     }
 }

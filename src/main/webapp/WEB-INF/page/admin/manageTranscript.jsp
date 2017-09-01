@@ -24,19 +24,13 @@
     <p class="site-description">Transcript Management</p>
     <div class="choose-view" >
         <table>
-        <tr>
-            <td>
-                <div class='w_manage_btn system-control-btn'>
+        <tr><td><div class='w_manage_btn system-control-btn'>
                     <button id="overview" class="w_button" style="margin-left: 10px">总览</button>
                 </div>
-            </td>
-            <td>
-                <div class='w_manage_btn system-control-btn'>
+            </td><td><div class='w_manage_btn system-control-btn'>
                     <button id="class" class="w_button" style="margin-left: 10px">按课程浏览</button>
                 </div>
-            </td>
-            <td>
-                <div class='w_manage_btn system-control-btn'>
+            </td><td><div class='w_manage_btn system-control-btn'>
                     <button id="user" class="w_button" style="margin-left: 10px">按学生浏览</button>
                 </div>
             </td>
@@ -53,10 +47,9 @@
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li id="student" class="active">学生</li>
+            <li id="student" class="active">学生列表</li>
         </ul>
-        <h1 id="user-title">系统中的所有学生</h1>
-        <div class='user-table' style="width: 756px;margin: -45px 0px 27px 37px;" >
+        <div class='user-table' style="width: 550px;margin: 0px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
         </div>
@@ -69,10 +62,9 @@
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li class="active">课程</li>
+            <li class="active">课程列表</li>
         </ul>
-        <h1 id="course-title">系统中的所有课程</h1>
-        <div class='class-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
+        <div class='class-table' style="width: 550px;margin: 0px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
             </table>
         </div>

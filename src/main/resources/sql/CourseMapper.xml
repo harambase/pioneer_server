@@ -9,6 +9,7 @@
     <result column="precrn" property="precrn" jdbcType="VARCHAR" />
     <result column="couLev" property="coulev" jdbcType="VARCHAR" />
     <result column="couSec" property="cousec" jdbcType="VARCHAR" />
+    <result column="classroom" property="classroom" jdbcType="VARCHAR" />
     <result column="startDate" property="startdate" jdbcType="VARCHAR" />
     <result column="endDate" property="enddate" jdbcType="VARCHAR" />
     <result column="day" property="day" jdbcType="VARCHAR" />
@@ -20,14 +21,22 @@
     <result column="createtime" property="createtime" jdbcType="VARCHAR" />
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Course" extends="BaseResultMap" >
+    <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    id, crn, name, credits, precrn, couLev, couSec, startDate, endDate, day, startTime, 
-    endTime, capa, facultyid, info, createtime, updatetime
+    id, crn, name, credits, precrn, couLev, couSec, classroom, startDate, endDate, day, 
+    startTime, endTime, capa, facultyid, info, createtime, updatetime
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <sql id="Blob_Column_List" >
+    comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from Course where crn = #{crn,jdbcType=INTEGER}
+    ,
+    <include refid="Blob_Column_List" />
+    from course where crn = #{crn,jdbcType=INTEGER}
   </select>
   <select id="countActiveCourse" resultType="java.lang.Integer" >
     select count(*) from CourseView where status = '1'
@@ -36,23 +45,23 @@
     delete from Course where crn = #{crn,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course" >
-    insert into Course (id, crn, name, 
+    insert into course (id, crn, name, 
       credits, precrn, couLev, 
-      couSec, startDate, endDate, 
-      day, startTime, endTime, 
-      capa, facultyid,
-      info, createtime, updatetime
-      )
+      couSec, classroom, startDate, 
+      endDate, day, startTime, 
+      endTime, capa, facultyid, 
+      info, createtime, updatetime, 
+      comment)
     values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{coulev,jdbcType=VARCHAR},
-      #{cousec,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
-      #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, 
-      #{capa,jdbcType=INTEGER}, #{facultyid,jdbcType=VARCHAR},
-      #{info,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}
-      )
+      #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{coulev,jdbcType=VARCHAR}, 
+      #{cousec,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, 
+      #{enddate,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{endtime,jdbcType=VARCHAR}, #{capa,jdbcType=INTEGER}, #{facultyid,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{comment,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course" >
-    insert into Course
+    insert into course
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -74,6 +83,9 @@
       </if>
       <if test="cousec != null" >
         couSec,
+      </if>
+      <if test="classroom != null" >
+        classroom,
       </if>
       <if test="startdate != null" >
         startDate,
@@ -105,6 +117,9 @@
       <if test="updatetime != null" >
         updatetime,
       </if>
+      <if test="comment != null" >
+        comment,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -127,6 +142,9 @@
       </if>
       <if test="cousec != null" >
         #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null" >
+        #{classroom,jdbcType=VARCHAR},
       </if>
       <if test="startdate != null" >
         #{startdate,jdbcType=VARCHAR},
@@ -158,10 +176,13 @@
       <if test="updatetime != null" >
         #{updatetime,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course" >
-    update Course
+    update course
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -177,6 +198,9 @@
       </if>
       <if test="cousec != null" >
         couSec = #{cousec,jdbcType=VARCHAR},
+      </if>
+      <if test="classroom != null" >
+        classroom = #{classroom,jdbcType=VARCHAR},
       </if>
       <if test="startdate != null" >
         startDate = #{startdate,jdbcType=VARCHAR},
@@ -208,17 +232,43 @@
       <if test="updatetime != null" >
         updatetime = #{updatetime,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where crn = #{crn,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
-    update Course
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Course" >
+    update course
     set crn = #{crn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       credits = #{credits,jdbcType=INTEGER},
       precrn = #{precrn,jdbcType=VARCHAR},
       couLev = #{coulev,jdbcType=VARCHAR},
       couSec = #{cousec,jdbcType=VARCHAR},
+      classroom = #{classroom,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      day = #{day,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      capa = #{capa,jdbcType=INTEGER},
+      facultyid = #{facultyid,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
+    update course
+    set crn = #{crn,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      credits = #{credits,jdbcType=INTEGER},
+      precrn = #{precrn,jdbcType=VARCHAR},
+      couLev = #{coulev,jdbcType=VARCHAR},
+      couSec = #{cousec,jdbcType=VARCHAR},
+      classroom = #{classroom,jdbcType=VARCHAR},
       startDate = #{startdate,jdbcType=VARCHAR},
       endDate = #{enddate,jdbcType=VARCHAR},
       day = #{day,jdbcType=VARCHAR},
@@ -231,25 +281,19 @@
       updatetime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
+  <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select * from Course c <where> EXISTS (SELECT * FROM CourseView cv
-                                            WHERE c.crn = cv.crn
-                                            AND cv.status = #{status,jdbcType=VARCHAR})
+    WHERE c.crn = cv.crn
+    AND cv.status = #{status,jdbcType=VARCHAR})
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     limit 0,4
   </select>
-
-  <select id="getAllCourses" resultMap="BaseResultMap">
-    select * from Course
+  <select id="getAllCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
+    select * from CourseView where status = '1'
   </select>
-
-  <select id="getRemain" parameterType="java.lang.String" resultType="java.lang.Integer">
-    select remain from CourseView where crn = #{crn,jdbcType=VARCHAR}
-  </select>
-
   <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from CourseView <where> 1 = 1
     <if test="search != null">
@@ -289,7 +333,6 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
-
   <select id="facultyTime" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) as count from TranscriptView where 1 = 1
     and facultyid = #{facultyid,jdbcType=VARCHAR}
@@ -297,4 +340,5 @@
     and date = #{date,jdbcType=VARCHAR}
     and day  = #{day,jdbcType=VARCHAR}
   </select>
+
 </mapper>

@@ -21,33 +21,46 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Person" extends="BaseResultMap" >
+    <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
     qq, weChat, dorm, gender, createTime, updateTime, status, type
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select * from Person where userid = #{id,jdbcType=VARCHAR}
+  <sql id="Blob_Column_List" >
+    comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from person
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Person
-    where userid = #{userid,jdbcType=VARCHAR}
+    delete from person
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
-    insert into Person (id, userid, username, 
+    insert into person (id, userid, username, 
       firstname, lastname, password, 
       info, birthday, email, 
       tel, qq, weChat, dorm, 
       gender, createTime, updateTime, 
-      status, type)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+      status, type, comment
+      )
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{info,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, 
       #{gender,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{comment,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Person" >
-    insert into Person
+    insert into person
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -102,6 +115,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="comment != null" >
+        comment,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -159,11 +175,17 @@
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Person" >
-    update Person
+    update person
     <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
@@ -212,12 +234,38 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
     </set>
-    where userid = #{userid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Person" >
+    update person
+    set userid = #{userid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      firstname = #{firstname,jdbcType=VARCHAR},
+      lastname = #{lastname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      weChat = #{wechat,jdbcType=VARCHAR},
+      dorm = #{dorm,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
-    update Person
-    set username = #{username,jdbcType=VARCHAR},
+    update person
+    set userid = #{userid,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       firstname = #{firstname,jdbcType=VARCHAR},
       lastname = #{lastname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -233,97 +281,6 @@
       updateTime = #{updatetime,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR}
-    where userid = #{userid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="BaseResultMap">
-    select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
-  </select>
-  <select id="getCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
-    select count(*) as count from Person <where> 1 = 1
-    <if test="type != null">
-      and type = #{type,jdbcType=VARCHAR}
-    </if>
-    <if test="status != null">
-      and status = #{status,jdbcType=VARCHAR}
-    </if>
-    <if test="search != null">
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
-      username like '%' #{search,jdbcType=VARCHAR} '%' or
-      type like  '%' #{search,jdbcType=VARCHAR} '%' or
-      password like  '%' #{search,jdbcType=VARCHAR} '%' or
-      qq like  '%' #{search,jdbcType=VARCHAR} '%' or
-      weChat like  '%' #{search,jdbcType=VARCHAR} '%' or
-      dorm like  '%' #{search,jdbcType=VARCHAR} '%' or
-      firstname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      lastname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      birthday like  '%' #{search,jdbcType=VARCHAR} '%' or
-      status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
-      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
-    </if>
-  </where>
-  </select>
-  <select id="getByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select * from Person <where> 1 = 1
-    <if test="type != null">
-      and type = #{type,jdbcType=VARCHAR}
-    </if>
-    <if test="status != null">
-      and status = #{status,jdbcType=VARCHAR}
-    </if>
-    <if test="search != null" >
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
-      username like '%' #{search,jdbcType=VARCHAR} '%' or
-      type     like '%'  #{search,jdbcType=VARCHAR}  '%' or
-      password like '%'  #{search,jdbcType=VARCHAR} '%' or
-      qq       like '%'  #{search,jdbcType=VARCHAR}  '%' or
-      weChat   like '%'  #{search,jdbcType=VARCHAR} '%' or
-      dorm     like '%'  #{search,jdbcType=VARCHAR} '%' or
-      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-      lastname like '%'  #{search,jdbcType=VARCHAR} '%' or
-      birthday like '%'  #{search,jdbcType=VARCHAR} '%' or
-      status like '%'  #{search,jdbcType=VARCHAR} '%' or
-      createTime like '%'  #{search,jdbcType=VARCHAR} '%' or
-      updatetime like '%' #{search,jdbcType=VARCHAR}  '%')
-    </if></where>
-    order by ${orderColumn} ${order}
-    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
-  </select>
-  <select id="getUsersBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select * from Person <where> type = #{type,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
-    <if test="search != null" >
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
-      username like '%' #{search,jdbcType=VARCHAR} '%' or
-      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-      lastname like '%'  #{search,jdbcType=VARCHAR} '%')
-    </if></where>
-    limit 0,4
-  </select>
-
-  <select id="getAllUsers" resultMap="BaseResultMap">
-    select * from Person
-  </select>
-
-  <select id="countStudent" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(*) from Person where type = "s"
-    <if test="status != null"> and status = '1'</if>
-  </select>
-
-  <select id="countFaculty" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(*) from Person where type = "f"
-    <if test="status != null"> and status = '1'</if>
-  </select>
-
-  <select id="countAdmin" resultType="java.lang.Integer">
-    select count(*) from Person where type = "a"
-  </select>
-
-  <select id="countMale" resultType="java.lang.Integer">
-    select count(*) from Person where gender = "male"
-  </select>
-
-  <select id="countFemale" resultType="java.lang.Integer">
-    select count(*) from Person where gender = "female"
-  </select>
-
 </mapper>
