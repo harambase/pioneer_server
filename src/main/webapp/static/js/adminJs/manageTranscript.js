@@ -245,18 +245,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -301,18 +301,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -356,18 +356,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [

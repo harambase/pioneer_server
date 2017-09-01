@@ -780,18 +780,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -803,32 +803,27 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/list",
-
-            data: function (d) {
-                d.startTime = $("#inpstart").val();
-                d.endTime = $("#inpend").val();
-            }
+            url: basePath + "/course/list"
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "crn", "title": "crn"},
-            {"data": "name", "title": "name"},
-            {"data": "couLev", "title": "Level"},
-            {"data": "couSec", "title": "Section"},
-            {"data": "capa", "title": "capacity"},
-            {"data": "remain", "title": "Remain"},
-            {"data": "status", "title": "status"},
-            {"data": "date", "title": "date"},
-            {"data": "time", "title": "time"},
-            {"data": "day", "title": "day"},
-            {"data": "faculty", "title": "faculty"},
-            {"data": "updatetime", "title": "updatetime"},
+            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "crn", "title": "课程编号"},
+            {"data": "name", "title": "课程名"},
+            {"data": "couLev", "title": "课程等级"},
+            {"data": "couSec", "title": "课程班级"},
+            {"data": "capa", "title": "容量"},
+            {"data": "remain", "title": "剩余"},
+            {"data": "status", "title": "状态"},
+            {"data": "date", "title": "起止时间"},
+            {"data": "time", "title": "上课时间"},
+            {"data": "day", "title": "星期"},
+            {"data": "faculty", "title": "授课老师"},
+            {"data": "updatetime", "title": "更新时间"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Delete</button>' +
-                    '<button class="btn btn-edit">Detail</button>' +
-                    '<button class="btn btn-list">Student List</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">删除</button>' +
+                    '<button class="btn btn-edit">更新</button>' +
+                    '<button class="btn btn-list">学生列表</button>');
             }
             }
         ],
@@ -847,18 +842,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -878,13 +873,13 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "id"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
+            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Add</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">添加</button>');
             }, "width": "100px"
             }
         ],
@@ -903,18 +898,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -932,13 +927,13 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "studentid", "title": "id"},
-            {"data": "sfirst", "title": "firstname"},
-            {"data": "slast", "title": "lastname"},
+            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "studentid", "title": "用户ID"},
+            {"data": "sfirst", "title": "名"},
+            {"data": "slast", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Remove</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">移除</button>');
             }, "width": "100px"
             }
         ],

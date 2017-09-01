@@ -216,10 +216,5 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
 
     }
-    
-//    @RequestMapping(value = "/selective/course/info", produces = "application/json")
-//    public ResponseEntity getCourseInfo(){
-//
-//    }
 
 }

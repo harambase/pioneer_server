@@ -1,4 +1,4 @@
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="${basePath}/static/css/header.css" media="screen" type="text/css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
@@ -7,7 +7,7 @@
     <ul>
         <li>
             <a href="${basePath}/welcomeAdmin">
-                <i class="fa fa-dashboard push"></i>Dashboard<i class="fa fa-angle-right"></i>
+                <i class="fa fa-dashboard push"></i>主页<i class="fa fa-angle-right"></i>
             </a>
             <span class="hover"></span>
         </li>

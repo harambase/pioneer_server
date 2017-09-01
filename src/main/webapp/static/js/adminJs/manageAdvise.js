@@ -334,22 +334,20 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "username", "title": "username"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {"data": "status", "title": "status"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "id", "title": "序列号", "width": "45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "username", "title": "用户名"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [6]
+            targets: [5]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -390,22 +388,20 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "username", "title": "username"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {"data": "status", "title": "status"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "id", "title": "序列号", "width": "45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "username", "title": "用户名"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [7]
+            targets: [5]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -448,7 +444,7 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width": "15px"},
+            {"data": "id", "title": "序列号", "width": "45px"},
             {"data": "studentid", "title": "学生ID"},
             {"data": "slast", "title": "学生姓"},
             {"data": "sfirst", "title": "学生名"},
@@ -459,7 +455,7 @@ $(function () {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">删除</button>'+
                 '<button class="btn btn-edit">修改</button>');
-            }, "width": "300px"
+                }, "width": "300px"
             }
         ],
         "columnDefs": [{

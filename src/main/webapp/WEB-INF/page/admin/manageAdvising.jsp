@@ -31,12 +31,12 @@
                 </td>
                 <td>
                     <div class='w_manage_btn system-control-btn'>
-                        <button id="class" class="w_button" style="margin-left: 10px">浏览教师</button>
+                        <button id="class" class="w_button" style="margin-left: 10px">按教师浏览</button>
                     </div>
                 </td>
                 <td>
                     <div class='w_manage_btn system-control-btn'>
-                        <button id="user" class="w_button" style="margin-left: 10px">浏览学生</button>
+                        <button id="user" class="w_button" style="margin-left: 10px">按学生浏览</button>
                     </div>
                 </td>
             </tr>
@@ -51,10 +51,9 @@
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li id="student" class="active">学生</li>
+            <li id="student" class="active">学生列表</li>
         </ul>
-        <h1 id="user-title">学生列表</h1>
-        <div class='user-table' style="width: 756px;margin: -45px 0px 27px 37px;" >
+        <div class='user-table' style="width: 500px;margin: -10px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
             </table>
         </div>
@@ -67,10 +66,9 @@
             <span class="w_close">×</span>
         </div>
         <ul class="w_tab clearfix">
-            <li class="active">教师</li>
+            <li class="active">教师列表</li>
         </ul>
-        <h1 id="faculty-title">教师列表</h1>
-        <div class='class-table' style="width: 756px;margin: 0px 0px 27px 37px;" >
+        <div class='class-table' style="width: 500px;margin: -10px 0px 27px 37px;" >
             <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
             </table>
         </div>
