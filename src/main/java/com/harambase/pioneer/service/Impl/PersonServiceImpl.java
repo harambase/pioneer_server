@@ -103,34 +103,52 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                  String type, String status) {
         HaramMessage message = new HaramMessage();
-        switch (Integer.parseInt(orderColumn)) {
-            case 0:
-                orderColumn = "id";
-                break;
-            case 1:
-                orderColumn = "userid";
-                break;
-            case 2:
-                orderColumn = "username";
-                break;
-            case 3:
-                orderColumn = "firstname";
-                break;
-            case 4:
-                orderColumn = "lastname";
-                break;
-            case 5:
-                orderColumn = "password";
-                break;
-            case 6:
-                orderColumn = "type";
-                break;
-            case 7:
-                orderColumn = "status";
-                break;
-            default:
-                orderColumn = "updatetime";
-                break;
+        if(StringUtils.isNotEmpty(type)){
+            switch (Integer.parseInt(orderColumn)) {
+                case 1:
+                    orderColumn = "userid";
+                    break;
+                case 2:
+                    orderColumn = "firstname";
+                    break;
+                case 3:
+                    orderColumn = "lastname";
+                    break;
+                default:
+                    orderColumn = "id";
+                    break;
+            }
+        }
+        else {
+            switch (Integer.parseInt(orderColumn)) {
+                case 0:
+                    orderColumn = "id";
+                    break;
+                case 1:
+                    orderColumn = "userid";
+                    break;
+                case 2:
+                    orderColumn = "username";
+                    break;
+                case 3:
+                    orderColumn = "firstname";
+                    break;
+                case 4:
+                    orderColumn = "lastname";
+                    break;
+                case 5:
+                    orderColumn = "password";
+                    break;
+                case 6:
+                    orderColumn = "type";
+                    break;
+                case 7:
+                    orderColumn = "status";
+                    break;
+                default:
+                    orderColumn = "updatetime";
+                    break;
+            }
         }
         long totalSize = 0;
         try {

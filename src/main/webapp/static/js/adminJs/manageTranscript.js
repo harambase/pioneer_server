@@ -73,18 +73,18 @@ $(function () {
         })
     }
     function writingTranscriptProperty(studentView){
-        $("#h1").html(studentView.lastname+", "+studentView.firstname + " Transcripts");
+        $("#h1").html(studentView.lastname+", "+studentView.firstname + " 成绩单");
         var $studentTable = $("#student-table");
         var detail = [];
-        $("#h2").html("General Transcript Detail for:" + studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid);
-        detail.push(setRow("", "Credit Limit: ",
+        $("#h2").html(+ studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+"的综合成绩单");
+        detail.push(setRow("", "学分上限: ",
             '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
             studentView.max_credits +'>' +
-            '<button class="btn btn-edit" style="display: block; margin-top: 10px;"id="enable">Edit</button>' +
-            '<button class="btn btn-edit" style="display: none;margin-top: 10px;" id="update">update</button>'));
-        detail.push(setRow("", "Incomplete Credits:    ", studentView.incomplete));
-        detail.push(setRow("", "In Progress Credits:   ", studentView.progress));
-        detail.push(setRow("", "Complete Credits:      ", studentView.complete));
+            '<button class="btn btn-edit" style="display: block; margin-top: 10px;"id="enable">修改</button>' +
+            '<button class="btn btn-edit" style="display: none;margin-top: 10px;" id="update">确认更新</button>'));
+        detail.push(setRow("", "未完成学分数:    ", studentView.incomplete));
+        detail.push(setRow("", "正在进行的学分数:   ", studentView.progress));
+        detail.push(setRow("", "已完成学分数:      ", studentView.complete));
 
         writeTableResourceDetail($studentTable,detail);
     }
@@ -274,16 +274,15 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "userid", "title": "userid"},
-            {"data": "username", "title": "username"},
-            {"data": "firstname", "title": "firstname"},
-            {"data": "lastname", "title": "lastname"},
-            {"data": "status", "title": "status"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "id", "title": "序列号"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "username", "title": "用户名"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
+            {"data": "status", "title": "用户状态"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
@@ -328,24 +327,23 @@ $(function () {
         },
 
         columns: [
-            {"data": "id", "title": "serial"},
-            {"data": "crn", "title": "crn"},
-            {"data": "name", "title": "name"},
-            {"data": "coulev", "title": "coulev"},
-            {"data": "cousec", "title": "cousec"},
-            {"data": "capa", "title": "capa"},
-            {"data": "status", "title": "status"},
-            {"data": "facultyid", "title": "faculty"},
-            {"data": "updatetime", "title": "updateTime"},
+            {"data": "id", "title": "序列号"},
+            {"data": "crn", "title": "课程编号"},
+            {"data": "name", "title": "课程名"},
+            {"data": "couLev", "title": "课程等级"},
+            {"data": "couSec", "title": "课程部分"},
+            {"data": "capa", "title": "课程容量"},
+            {"data": "status", "title": "课程状态"},
+            {"data": "faculty", "title": "授课教师"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">Choose</button>');
+                $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [7]
+            targets: [8]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -388,20 +386,20 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "serial", "width": "15px"},
-            {"data": "studentid", "title": "studentid"},
-            {"data": "slast", "title": "lastName"},
-            {"data": "sfirst", "title": "firstName"},
-            {"data": "crn", "title": "crn"},
-            {"data": "coursename", "title": "coursename"},
-            {"data": "grade", "title": "grade"},
-            {"data": "complete", "title": "complete"},
-            {"data": "facultyid", "title": "facultyid"},
-            {"data": "credits", "title": "credits"},
-            {"data": "assigntime", "title": "assignTime", "width": "100px"},
+            {"data": "id", "title": "序列号", "width": "15px"},
+            {"data": "studentid", "title": "学生ID"},
+            {"data": "slast", "title": "学生姓"},
+            {"data": "sfirst", "title": "学生名"},
+            {"data": "crn", "title": "课程编码"},
+            {"data": "coursename", "title": "课程编号"},
+            {"data": "grade", "title": "成绩"},
+            {"data": "complete", "title": "完成情况"},
+            {"data": "facultyid", "title": "授课人ID"},
+            {"data": "credits", "title": "课程学分"},
+            {"data": "assigntime", "title": "成绩提交时间", "width": "100px"},
             {
                 "data": null, "title": "Tool", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-edit">Edit</button>');
+                $(nTd).html('<button class="btn btn-edit">修改</button>');
                 }, "width": "100px"
             }
         ],

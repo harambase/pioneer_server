@@ -6,8 +6,8 @@
 <head>
     <title>Dashboard</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">--%>
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
     <!--Loading bootstrap css-->
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/admin/main.css">

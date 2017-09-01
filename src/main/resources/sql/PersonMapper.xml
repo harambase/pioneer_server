@@ -283,7 +283,7 @@
       lastname like '%'  #{search,jdbcType=VARCHAR} '%' or
       birthday like '%'  #{search,jdbcType=VARCHAR} '%' or
       status like '%'  #{search,jdbcType=VARCHAR} '%' or
-      creatTime like '%'  #{search,jdbcType=VARCHAR} '%' or
+      createTime like '%'  #{search,jdbcType=VARCHAR} '%' or
       updatetime like '%' #{search,jdbcType=VARCHAR}  '%')
     </if></where>
     order by ${orderColumn} ${order}

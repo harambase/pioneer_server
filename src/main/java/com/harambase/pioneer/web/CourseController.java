@@ -109,14 +109,14 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/transcript/list", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity listCourses(@RequestParam(value = "start") Integer start,
-                                      @RequestParam(value = "length") Integer length,
-                                      @RequestParam(value = "draw") Integer draw,
-                                      @RequestParam(value = "search[value]") String search,
-                                      @RequestParam(value = "order[0][dir]") String order,
-                                      @RequestParam(value = "order[0][column]") String orderCol,
-                                      @RequestParam(value = "studentid", required = false) String studentid,
-                                      @RequestParam(value = "crn", required = false) String crn,
+    public ResponseEntity listTranscripts(@RequestParam(value = "start") Integer start,
+                                          @RequestParam(value = "length") Integer length,
+                                          @RequestParam(value = "draw") Integer draw,
+                                          @RequestParam(value = "search[value]") String search,
+                                          @RequestParam(value = "order[0][dir]") String order,
+                                          @RequestParam(value = "order[0][column]") String orderCol,
+                                          @RequestParam(value = "studentid", required = false) String studentid,
+                                          @RequestParam(value = "crn", required = false) String crn,
                                       HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
