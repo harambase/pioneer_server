@@ -5,7 +5,7 @@
     <%@include file="../common/commonJs.jsp" %>
     <%@include file="../common/commonCSS.jsp" %>
     <%@include file="common/adminCSS.jsp" %>
-    <title>User Management</title>
+    <title>用户管理</title>
 
     <meta charset="utf-8">
 
@@ -80,11 +80,16 @@
                     </div> <!-- /field -->
                     <div class="field" >
                         <p style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">账户类型:</p>
-                        <select name="type" id="type" title="Type" style="width: 261px;margin-left: 5px;">
-                            <option id="student" value="s">学生</option>
-                            <option id="faculty" value="f">教师</option>
-                            <option id="admin"   value="a">系统管理员</option>
-                        </select>
+                        <h4 class="type">用户账户类型: </h4>
+                        <input id='student1' type="checkbox" name="powerState" value="s"/>学生
+                        <input id='faculty1' type="checkbox" name="powerState" value="f"/>教师
+                        <input id='admin1' type="checkbox" name="powerState" value="a"/>系统管理员
+
+                        <%--<select name="type" id="type" title="Type" style="width: 261px;margin-left: 5px;">--%>
+                            <%--<option id="student" value="s">学生</option>--%>
+                            <%--<option id="faculty" value="f">教师</option>--%>
+                            <%--<option id="admin"   value="a">系统管理员</option>--%>
+                        <%--</select>--%>
                     </div> <!-- /field -->
                     <div class="field" >
                         <p style="float: left;margin-bottom: 4.5px;">性别:</p>

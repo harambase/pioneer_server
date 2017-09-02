@@ -1,19 +1,11 @@
 package com.harambase.pioneer.pojo.dto;
 
+import com.harambase.pioneer.pojo.Transcript;
+
 import java.io.Serializable;
 
-public class TranscriptView implements Serializable {
-
-    private Integer id;
-
-    private String studentid;
-
-    private String crn;
-
-    private String grade;
-
-    private String complete;
-
+public class TranscriptView extends Transcript implements Serializable {
+    
     private String coursename;
 
     private String facultyid;
@@ -27,9 +19,7 @@ public class TranscriptView implements Serializable {
     private String flast;
 
     private Integer credits;
-
-    private String assigntime;
-
+    
     private String day;
 
     private String time;
@@ -67,47 +57,7 @@ public class TranscriptView implements Serializable {
     public void setCredits(Integer credits) {
         this.credits = credits;
     }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getStudentid() {
-        return studentid;
-    }
-
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
-    }
-
-    public String getCrn() {
-        return crn;
-    }
-
-    public void setCrn(String crn) {
-        this.crn = crn;
-    }
-
-    public String getGrade() {
-        return grade;
-    }
-
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    public String getComplete() {
-        return complete;
-    }
-
-    public void setComplete(String complete) {
-        this.complete = complete;
-    }
-
+    
     public String getCoursename() {
         return coursename;
     }
@@ -154,13 +104,5 @@ public class TranscriptView implements Serializable {
 
     public void setFlast(String flast) {
         this.flast = flast;
-    }
-
-    public String getAssigntime() {
-        return assigntime;
-    }
-
-    public void setAssigntime(String assigntime) {
-        this.assigntime = assigntime;
     }
 }

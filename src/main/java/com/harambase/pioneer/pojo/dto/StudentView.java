@@ -1,25 +1,17 @@
 package com.harambase.pioneer.pojo.dto;
 
+import com.harambase.pioneer.pojo.Person;
+
 import java.io.Serializable;
 
-public class StudentView implements Serializable{
-    private int id;
+public class StudentView extends Person implements Serializable{
+
     private String studentid;
     private int max_credits;
-    private String lastname;
-    private String firstname;
     private int complete;
     private int progress;
     private int incomplete;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    
     public String getStudentid() {
         return studentid;
     }
@@ -35,23 +27,7 @@ public class StudentView implements Serializable{
     public void setMax_credits(int max_credits) {
         this.max_credits = max_credits;
     }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
+    
     public int getComplete() {
         return complete;
     }

@@ -5,6 +5,7 @@ import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.CourseView;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Graph;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class StaticGexfGraph {
 	public static void graphGenerator(List<Person> personList,
-									  List<Course> courseList,
+									  List<CourseView> courseList,
 									  List<Transcript> transcriptList,
 									  List<Advise> adviseList){
 		Gexf gexf = new GexfImpl();
@@ -83,7 +84,7 @@ public class StaticGexfGraph {
 			index++;
 		}
 		//设置course Node
-		for(Course c: courseList){
+		for(CourseView c: courseList){
 			Node cNode = graph.createNode(c.getCrn());
 			cNode.setLabel(c.getName()).setSize(20);
 			cNode.getAttributeValues().addValue(attcrn, c.getCrn()).addValue(attType, "0");
@@ -107,7 +108,7 @@ public class StaticGexfGraph {
 					}
 				}
 			}else if(type.equals(Type.FACULTY.getM())) {
-				for(Course c: courseList){
+				for(CourseView c: courseList){
 					if(c.getFacultyid().equals(userid)){
 						Node cNode = graph.getNode(c.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);

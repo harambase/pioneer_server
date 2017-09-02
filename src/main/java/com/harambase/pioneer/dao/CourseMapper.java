@@ -2,6 +2,7 @@ package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.dto.CourseView;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public interface CourseMapper {
 
     int facultyTime(Map<String, String> param);
 
-    List<Course> getAllCourses();
+    List<CourseView> getAllCourses();
 
     int countActiveCourse();
 }

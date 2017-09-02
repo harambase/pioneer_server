@@ -6,6 +6,7 @@ import com.harambase.pioneer.charts.StaticGexfGraph;
 import com.harambase.pioneer.dao.*;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.pojo.dto.AdviseView;
+import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -328,7 +329,7 @@ public class PersonServiceImpl implements PersonService {
         try {
 
             List<Person> personList = personMapper.getAllUsers();
-            List<Course> courseList = courseMapper.getAllCourses();
+            List<CourseView> courseList = courseMapper.getAllCourses();
             List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
             List<Advise> adviseList = adviseMapper.getAllAdvise();
 

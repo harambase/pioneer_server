@@ -11,7 +11,6 @@ import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
-import com.harambase.pioneer.pojo.dto.TranscriptView;
 import com.harambase.pioneer.service.CourseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -398,7 +397,6 @@ public class CourseServiceImpl implements CourseService {
             param.put("order", order);
             param.put("orderColumn", orderColumn);
 
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
             List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
 
             message.setData(courses);
