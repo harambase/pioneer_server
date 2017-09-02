@@ -18,10 +18,6 @@ public class WebController {
     public String welcomeAdmin(){
         return "admin/welcomeAdmin";
     }
-    @RequestMapping("/welcomeAdmin2")
-    public String welcomeAdmin2(){
-        return "admin/welcomeAdmin6";
-    }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){
         return "faculty/welcomeFaculty";

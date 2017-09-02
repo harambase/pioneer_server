@@ -91,16 +91,14 @@
                     <div class="group-form-input">
                         <label for="searchFValue">分配教师:</label>
                         <input id="searchFValue" placeholder="*分配教师" style="float: left; width: 155px;" required>
-                        <i id="searchFButton" class='fa fa-search fa-lg'></i>
-                        <span class="w_button w_add" id="addf-button">检查教师信息</span>
+                        <span class="w_button w_add" id="addf-button">检查教师</span>
                         <ul class="w_selected1">
                         </ul>
                     </div>
                     <div class="group-form-input">
                         <label for="searchCValue">分配预选课程：</label>
                         <input id="searchCValue" placeholder="分配预选课程(非必填)" style="float: left; width: 155px;">
-                        <i id="searchCButton" class='fa fa-search fa-lg'></i>
-                        <span class="w_button w_add" id="addc-button">检查课程信息</span>
+                        <span class="w_button w_add" id="addc-button">检查课程</span>
                         <ul class="w_selected2">
                         </ul>
                     </div>
@@ -237,7 +235,7 @@
                         </ul>
                     </div>
                     <h4 class="gender">分配的预选课程：无</h4>
-                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">分配新的预选课程：</button>
+                    <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignC">分配新的预选课程</button>
                     <div id="assignCDiv" class="group-form-input">
                         <input id="searchCValue2" placeholder="分配新的预选课程" style="margin-right: 20px; height: 30px;float: left; width: 155px;">
                         <span class="w_button w_add" id="addc-button2" style="width: 145px; text-align: center;">分配此预选课程</span>

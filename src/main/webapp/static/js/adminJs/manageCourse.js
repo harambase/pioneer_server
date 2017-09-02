@@ -113,93 +113,6 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
-                        $(".w_manage h4").eq(1).html("Assigned Teacher: " + name);
-                    });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
-                else
-                    Showbo.Msg.alert("更新失败!", function () {});
-            }
-        })
-    });
-
-    //学生列表
-    function studentList(searchFValue, w_select, w_select_li){
-        var search = searchFValue.val();
-        w_select.css({display: "block"});
-        w_select_li.remove();
-        $.ajax({
-            url : basePath+"/admin/list/student?search="+search,
-            type : "GET",
-            success: function (result) {
-                if (result.code === 2001) {
-                    for (var i = 0; i < result.data.length; i++) {
-                        var userid = result.data[i].userid;
-                        newFaculty = result.data[i].lastname + result.data[i].firstname;
-                        var temp = "<li data-name="+ newFaculty +" data-id=" + userid + ">" + newFaculty + "</li>";
-                        w_select.append(temp);
-                        w_select.css({
-                            overflow: "auto",
-                            position: "absolute",
-                            top: "25px",
-                            left: "0",
-                            width: "100%",
-                            margin: "0",
-                            "z-index": "5"
-                        });
-                        w_select.find("li").css({
-                            lineHeight: "30px",
-                            paddingLeft: "15px",
-                            backgroundColor: "#fff",
-                            cursor: "pointer"
-                        });
-                        w_select.find("li").hover(function () {
-                            $(this).css({background: "#03ced0", color: "#fff"});
-                        }, function () {
-                            $(this).css({background: "#fff", color: "#333"});
-                        });
-                        searchFValue.blur(function () {
-                            setTimeout(function () {
-                                w_select.hide();
-                            }, 200)
-
-                        });
-                        w_select.find("li").click(function () {
-                            searchFValue.val(this.innerHTML);
-                        })
-                    }
-
-                } else {
-                    Showbo.Msg.alert("获取失败", function () {});
-                }
-            }
-        });
-    }
-    $("#searchSValue").bind("input propertychange", function () {
-        studentList($("#searchSValue"), $(".w_selected4"),$(".w_selected4 li"));
-    });
-    $(".w_selected4").on("click", "li", function () {
-        $("#searchSValue").val($(this).data("id"));
-        $("#searchSValue").data("userid", $(this).data("id"));
-        $("#searchSValue").data("name", $(this).data("name"));
-        $(".w_selected3").css({display: "none"});
-    });
-    $("#adds-button").click(function () {
-        facultyids = $("#searchSValue").data("userid");
-        var name = $("#searchSValue").data("name");
-        var formdata = {
-            crn :  $("#crn2").val(),
-            facultyid : facultyids
-        };
-        $.ajax({
-            url:basePath+"/course/update",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formdata),
-            success: function (data) {
-                if (data.code === 2001)
-                    Showbo.Msg.alert("更新成功!", function () {
-                        logTable.draw();
                         $(".w_manage h4").eq(1).html("分配的老师: " + name);
                     });
                 else if(data.code === 2005)
@@ -248,7 +161,7 @@ $(function () {
                     for (var i = 0; i < result.data.length; i++) {
                         var crn = result.data[i].crn;
                         newPreCourse = result.data[i].name;
-                        var temp = "<li data-name="+ newPreCourse +"data-id=" + crn + ">" + newPreCourse + "</li>";
+                        var temp = "<li data-name="+ newPreCourse +" data-id=" + crn + ">" + newPreCourse + "</li>";
                         w_select.append(temp);
                         w_select.css({
                             overflow: "auto",
@@ -319,28 +232,35 @@ $(function () {
     });
     $("#addc-button2").click(function () {
         precrns = $("#searchCValue2").data("crn");
-        var name = $("#searchCValue2").data("name");
-        var formdata = {
-            crn :  $("#crn2").val(),
-            precrn : precrns
-        };
-        $.ajax({
-            url:basePath+"/course/update",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formdata),
-            success: function (data) {
-                if (data.code === 2001)
-                    Showbo.Msg.alert("更新成功!", function () {
-                        logTable.draw();
-                        $(".w_manage h4").eq(2).html("分配的预选课程: " + name);
-                    });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
-                else
-                    Showbo.Msg.alert("更新失败!", function () {});
-            }
-        })
+        if(precrns != crn) {
+            var name = $("#searchCValue2").data("name");
+            var formdata = {
+                crn: $("#crn2").val(),
+                precrn: precrns
+            };
+            $.ajax({
+                url: basePath + "/course/update",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(formdata),
+                success: function (data) {
+                    if (data.code === 2001)
+                        Showbo.Msg.alert("更新成功!", function () {
+                            logTable.draw();
+                            $(".w_manage h4").eq(2).html("分配的预选课程: " + name);
+                        });
+                    else if (data.code === 2005)
+                        Showbo.Msg.alert("系统异常!", function () {
+                        });
+                    else
+                        Showbo.Msg.alert("更新失败!", function () {
+                        });
+                }
+            })
+        }else{
+            Showbo.Msg.alert("课程重复!", function () {
+            });
+        }
     });
 
     //搜索课程
@@ -541,7 +461,8 @@ $(function () {
 
     //写入课程属性
     function writeSettings(status, pre){
-        if (status === "1") {
+
+        if (status == "1") {
             $(".w_manage h4").eq(0).html("课程状态: 正常");
             $(".w_manage input").eq(0).prop("checked", true);
         }

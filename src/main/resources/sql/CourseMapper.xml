@@ -281,16 +281,42 @@
       updatetime = #{updatetime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getCourseBySearch" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
-    select * from Course c <where> EXISTS (SELECT * FROM CourseView cv
-    WHERE c.crn = cv.crn
-    AND cv.status = #{status,jdbcType=VARCHAR})
+  <select id="getCourseBySearch" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.CourseView">
+    select c.crn as crn,
+           c.name as name,
+           c.credits as credits,
+           c.precrn as precrn,
+           c.coulev as coulev,
+           c.cousec as cousec,
+           c.classroom as classroom,
+           c.startdate as startdate,
+           c.enddate as enddate,
+           c.startTime as startTime,
+           c.endTime as endTime,
+           c.info as info,
+           c.day as day,
+           c.capa as capa,
+           c.facultyid as facultyid,
+           cv.status as status,
+           cv.faculty as faculty
+    from CourseView cv, Course c
+    where c.crn = cv.crn and cv.status = #{status,jdbcType=VARCHAR}
     <if test="search != null" >
-      and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
-      name like '%' #{search,jdbcType=VARCHAR} '%')
-    </if></where>
+      and (c.crn like '%' #{search,jdbcType=VARCHAR} '%' or
+           c.name like '%' #{search,jdbcType=VARCHAR} '%')
+    </if>
     limit 0,4
   </select>
+  <!--<select id="getCourseBySearch" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.CourseView">&ndash;&gt;-->
+    <!--select * from Course c <where> EXISTS (SELECT * FROM CourseView cv-->
+    <!--WHERE c.crn = cv.crn-->
+    <!--AND cv.status = #{status,jdbcType=VARCHAR})-->
+    <!--<if test="search != null" >-->
+      <!--and (crn like '%' #{search,jdbcType=VARCHAR} '%' or-->
+      <!--name like '%' #{search,jdbcType=VARCHAR} '%')-->
+    <!--</if></where>-->
+    <!--limit 0,4-->
+  <!--</select>-->
   <select id="getAllCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
     select * from CourseView where status = '1'
   </select>

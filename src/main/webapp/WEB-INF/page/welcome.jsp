@@ -24,12 +24,14 @@
             <div id="workArea">
                 <div id="authArea" class="groupMargin">
                     <div id="loginArea">
-                        <div id="loginMessage" class="groupMargin">进入:</div>
-                        <form>
-                            <div id="adSys"><input id="admin"   type="submit" class="button" value="管理系统"/></div>
-                            <div id="faSys"><input id="faculty" type="submit" class="button" value="教学系统"/></div>
-                            <div id="stSys"><input id="student" type="submit" class="button" value="学生系统"/></div>
-                        </form>
+                        <div id="loginMessage" class="groupMargin"><b>请选择接入系统:</b></div>
+                        <table>
+                            <tr>
+                                <td><div id="adSys"><input id="admin"   type="submit" class="button" value="管理系统"/></div></td>
+                                <td><div id="faSys"><input id="faculty" type="submit" class="button" value="教学系统"/></div></td>
+                                <td><div id="stSys"><input id="student" type="submit" class="button" value="学生系统"/></div></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -46,5 +48,5 @@
 <script src="${basePath}/static/plugins/confirm/confirm.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="${basePath}/static/js/login.js"></script>
+<script src="${basePath}/static/js/welcome.js"></script>
 </html>

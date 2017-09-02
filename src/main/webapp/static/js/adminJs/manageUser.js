@@ -279,7 +279,7 @@ $(function () {
         $(this).addClass("active");
         $("#assignSDiv").css({display: "none"});
         $("#assignFDiv").css({display: "none"});
-        if(type === "f") {
+        if(type.indexOf("f") !== -1){
             $("#assignSDiv").css({display: "block"});
             studentTable.draw();
         }
@@ -291,7 +291,7 @@ $(function () {
         $(".w_pop").css({display: "none"});
         $(".w_pop")[2].style.display = "block";
 
-        if(type === "a"){
+        if(type.indexOf("a")!==-1 && type.indexOf("f") === -1){
             $(".w_pop").css({display: "none"});
             $(".w_pop")[2].style.display = "none";
         }
@@ -390,7 +390,7 @@ $(function () {
             {"data": "updatetime", "title": "更新时间"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">删除</button><button class="btn btn-edit">Edit</button>');
+                $(nTd).html('<button class="btn btn-info">删除用户</button><button class="btn btn-edit">编辑用户</button>');
                 }, "width": "200px"
             }
         ],

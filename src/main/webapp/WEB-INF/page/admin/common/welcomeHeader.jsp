@@ -27,13 +27,8 @@
                 <%--<li><a href="#">View Advisor Profile<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>--%>
             <%--</ul>--%>
         <%--</li>--%>
-        <li>
-            <a href="${basePath}/adminProfile">
-            <i class="fa fa-cog push"></i>个人信息<i class="fa fa-angle-right"></i>
-            </a>
-            <span class="hover"></span>
-        </li>
-        <%--<li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>--%>
+        <li><a href="${basePath}/adminProfile"><i class="fa fa-cog push"></i>个人信息<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="${basePath}/welcome"><i class="fa fa-plane push"></i>选择接入系统<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
         <li><a id="logout"><i class="fa fa-plane push"></i>登出<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
