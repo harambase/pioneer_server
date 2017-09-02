@@ -24,28 +24,12 @@
             <div id="workArea">
                 <div id="authArea" class="groupMargin">
                     <div id="loginArea">
-                        <div id="loginMessage" class="groupMargin">Log in using your Pioneer network account:</div>
-
-                        <form method="post" id="loginForm">
-                            <div id="formsAuthenticationArea">
-                                <div id="userNameArea">
-                                    <input id="username" name="UserName" value="" minlength="1"
-                                           class="text fullWidth" spellcheck="false" placeholder="用户名">
-                                </div>
-                                <div id="passwordArea">
-                                    <input id="password" name="Password" type="password" minlength="1"
-                                           class="text fullWidth" placeholder="密码">
-                                </div>
-                                <div id="submissionArea" class="submitMargin">
-                                    <span id="btnLogin" class="submit">登录</span>
-                                </div>
-                            </div>
-                            <input id="optionForms" type="hidden" name="AuthMethod" value="FormsAuthentication">
+                        <div id="loginMessage" class="groupMargin">进入:</div>
+                        <form>
+                            <div id="adSys"><input id="admin"   type="submit" class="button" value="管理系统"/></div>
+                            <div id="faSys"><input id="faculty" type="submit" class="button" value="教学系统"/></div>
+                            <div id="stSys"><input id="student" type="submit" class="button" value="学生系统"/></div>
                         </form>
-
-                        <div id="introduction" class="groupMargin">
-                            <p><b><font color="red">注意：</font> 请使用用户名登录(不是ID).</b></p>
-                        </div>
                     </div>
                 </div>
             </div>

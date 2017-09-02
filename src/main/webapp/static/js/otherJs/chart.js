@@ -81,7 +81,7 @@ function relation(divUrl) {
 
         graph.nodes.forEach(function (node) {
             node.itemStyle = null;
-            node.value = node.symbolSize;
+            node.value = (node.symbolSize-10)/5;
             node.label = {
                 normal: {
                     show: node.symbolSize > 10

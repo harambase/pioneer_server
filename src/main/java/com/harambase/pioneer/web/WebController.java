@@ -54,5 +54,9 @@ public class WebController {
     public String adminProfile(){
         return "admin/adminProfile";
     }
+    @RequestMapping("/welcome")
+    public String welcome(){
+        return "welcome";
+    }
     
 }

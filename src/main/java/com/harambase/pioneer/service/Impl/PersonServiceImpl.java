@@ -68,17 +68,20 @@ public class PersonServiceImpl implements PersonService {
             String info = person.getInfo();
             Integer last = (int)(Math.random() * (999 - 100 + 1) + 100);
             String userid = "9" + info.split("-")[0] + info.split("-")[1] + last;
-            String username = person.getLastname().substring(0,1)+ person.getFirstname();
             String password = "Pioneer" + userid;
+            
+            String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastname());
+            String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstname());
+            String username = lastPY + firstPY + last;
 
             person.setUserid(userid);
             person.setUsername(username);
             person.setPassword(password);
 
-            if(person.getType().equals("s")){
+            if(person.getType().contains("s")){
                 Student student = new Student();
                 student.setStudentid(userid);
-                student.setMaxCredits(18);
+                student.setMaxCredits(12);
                 studentMapper.insert(student);
             }
             int ret = personMapper.insert(person);

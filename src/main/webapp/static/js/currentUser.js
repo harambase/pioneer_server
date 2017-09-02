@@ -1,29 +1,18 @@
 $(function(){
-    $.ajax({
-        url: basePath + "/admin/get/current",
-        type: "GET",
-        success: function (data) {
-            if (data.code === 2001) {
-                var user = data.data;
-                var baseInfo = $("#editUserForm2");
-                baseInfo.find("#userid").val(user.userid);
-                baseInfo.find("#username").val(user.username);
-                baseInfo.find("#firstname").val(user.firstname);
-                baseInfo.find("#lastname").val(user.lastname);
-                baseInfo.find("#birthday").val(user.birthday);
-                baseInfo.find("#email").val(user.email);
-                baseInfo.find("#qq").val(user.qq);
-                baseInfo.find("#weChat").val(user.weChat);
-                baseInfo.find("#tel").val(user.tel);
-                baseInfo.find("#dorm").val(user.dorm);
-                baseInfo.find("#pwd").val(user.password);
-            }
-            else if(data.code === 2005)
-                Showbo.Msg.alert("系统异常!", function () {});
-            else
-                Showbo.Msg.alert(data.msg , function () {});
-        }
-    });
+    var user = JSON.parse($.session.get("user"));
+    var baseInfo = $("#editUserForm2");
+
+    baseInfo.find("#userid").val(user.userid);
+    baseInfo.find("#username").val(user.username);
+    baseInfo.find("#firstname").val(user.firstname);
+    baseInfo.find("#lastname").val(user.lastname);
+    baseInfo.find("#birthday").val(user.birthday);
+    baseInfo.find("#email").val(user.email);
+    baseInfo.find("#qq").val(user.qq);
+    baseInfo.find("#weChat").val(user.weChat);
+    baseInfo.find("#tel").val(user.tel);
+    baseInfo.find("#dorm").val(user.dorm);
+    baseInfo.find("#pwd").val(user.password);
 
     $("#confirm").click(function (){
         var formdata = {

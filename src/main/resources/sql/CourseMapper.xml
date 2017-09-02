@@ -31,12 +31,12 @@
   <sql id="Blob_Column_List" >
     comment
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from course where crn = #{crn,jdbcType=INTEGER}
+    from course where crn = #{crn,jdbcType=VARCHAR}
   </select>
   <select id="countActiveCourse" resultType="java.lang.Integer" >
     select count(*) from CourseView where status = '1'
@@ -293,6 +293,9 @@
   </select>
   <select id="getAllCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
     select * from CourseView where status = '1'
+  </select>
+  <select id="getRemain" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select remain from CourseView where crn = #{crn,jdbcType=VARCHAR}
   </select>
   <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from CourseView <where> 1 = 1

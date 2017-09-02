@@ -200,7 +200,7 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
-                        $(".w_manage h4").eq(1).html("Assigned Teacher: " + name);
+                        $(".w_manage h4").eq(1).html("分配的老师: " + name);
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
@@ -333,7 +333,7 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
-                        $(".w_manage h4").eq(2).html("Assigned Pre-required Course: " + name);
+                        $(".w_manage h4").eq(2).html("分配的预选课程: " + name);
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
@@ -352,8 +352,8 @@ $(function () {
             async: false,
             success: function (result) {
                 if (result.code === 2001) {
-                    if(result.data.length !== 1){
-                        Showbo.Msg.alert("课程获取失败", function () {});
+                    if(result.data.length === 0){
+                        Showbo.Msg.alert("课程已经结束", function () {});
                     }
                     else if(result.data.length === 1){
                         isSucc = true;
@@ -366,7 +366,7 @@ $(function () {
 
                     }
                 } else {
-                    Showbo.Msg.alert("课程获取失败", function () {});
+                    Showbo.Msg.alert(result.msg, function () {});
                 }
             }
         });
@@ -542,21 +542,21 @@ $(function () {
     //写入课程属性
     function writeSettings(status, pre){
         if (status === "1") {
-            $(".w_manage h4").eq(0).html("Account Status: ACTIVE");
+            $(".w_manage h4").eq(0).html("课程状态: 正常");
             $(".w_manage input").eq(0).prop("checked", true);
         }
         else {
-            $(".w_manage h4").eq(0).html("Account Status: DEACTIVE");
+            $(".w_manage h4").eq(0).html("课程状态: 停课");
             $(".w_manage input").eq(1).prop("checked", true);
         }
         getFaulcty(course.facultyid);
-        $(".w_manage h4").eq(1).html("Assigned Teacher: " + faculty.lastname + faculty.firstname);
+        $(".w_manage h4").eq(1).html("分配的老师: " + faculty.lastname + faculty.firstname);
 
         if(pre === null || pre === "")
-            $(".w_manage h4").eq(2).html("Assigned Pre-required Course: None");
+            $(".w_manage h4").eq(2).html("分配的预选课程：无");
         else{
             getCourse(pre, true);
-            $(".w_manage h4").eq(2).html("Assigned Pre-required Course: " + preCourse.name);
+            $(".w_manage h4").eq(2).html("分配的预选课程: " + preCourse.name);
         }
         wirteDay();
     }

@@ -13,23 +13,34 @@ $(function () {
             var qq = $("#qq").val();
             var weChat = $("#weChat").val();
             var dorm = $("#dorm").val();
-            var gender = $("#gender").val();
-            var info = $("#year-semester").val();
-            var type = $("#type").val();
+            var gender = "";
+            var type="";
             var birthday = $("#birthday").val();
+            var info = $("#year-semester").val();
+            var comment = $("#comment").val();
+
+            $('input[name="gender"]:checked').each(function(){
+                gender = $(this).val();
+            });
+
+            $('input[name="type"]:checked').each(function () {
+                type += $(this).val() + "/";
+            });
 
             var person = {
                 firstname: firstname,
                 lastname: lastname,
                 email: email,
                 qq: qq,
-                weChat: weChat,
+                wechat: weChat,
                 dorm: dorm,
                 gender: gender,
                 info: info,
                 type: type,
-                birthday:birthday
+                birthday:birthday,
+                comment :comment
             };
+            alert(JSON.stringify(person));
             $.ajax({
                 url: basePath + "/admin/user/add",
                 type: "POST",
@@ -60,11 +71,12 @@ $(function () {
             lastname  : $("#lastname2").val(),
             birthday  : $("#birthday2").val(),
             email     : $("#email2").val(),
-            weChat    : $("#weChat2").val(),
+            wechat    : $("#weChat2").val(),
             tel       : $("#tel2").val(),
             dorm      : $("#dorm2").val(),
             qq        : $("#qq2").val(),
-            password  : $("#pwd").val()
+            password  : $("#pwd").val(),
+            comment   : $("#comment2").val()
         };
         $.ajax({
             url:basePath+"/admin/user/update",
@@ -85,6 +97,10 @@ $(function () {
     });
     //更新用户状态
     $("#apply").click(function (){
+        newType = "";
+        $('input[name="type2"]:checked').each(function () {
+            newType += $(this).val() + "/";
+        });
         if(newStatus !== status || newType !== type || newGender !== gender) {
             var formdata = {
                 userid: $("#userid2").val(),
@@ -109,6 +125,12 @@ $(function () {
                         Showbo.Msg.alert("更新失败!", function () {});
                 }
             })
+        }
+        else{
+            Showbo.Msg.alert("无任何更改!", function () {
+                logTable.draw();
+                writeSettings(newStatus, newType, newGender);
+            });
         }
     });
     //重置用户密码
@@ -147,24 +169,6 @@ $(function () {
         $(".w_manage input").eq(1).prop("checked", true);
         newStatus = $(".disable").val();
     });
-    $(".student").click(function () {
-        $(".w_manage input").eq(3).prop("checked", false);
-        $(".w_manage input").eq(4).prop("checked", false);
-        $(".w_manage input").eq(2).prop("checked", true);
-        newType = $(".student").val();
-    });
-    $(".teacher").click(function () {
-        $(".w_manage input").eq(2).prop("checked", false);
-        $(".w_manage input").eq(4).prop("checked", false);
-        $(".w_manage input").eq(3).prop("checked", true);
-        newType = $(".teacher").val();
-    });
-    $(".admin").click(function () {
-        $(".w_manage input").eq(2).prop("checked", false);
-        $(".w_manage input").eq(3).prop("checked", false);
-        $(".w_manage input").eq(4).prop("checked", true);
-        newType = $(".admin").val();
-    });
     $(".male").click(function () {
         $(".w_manage input").eq(6).prop("checked", false);
         $(".w_manage input").eq(5).prop("checked", true);
@@ -186,20 +190,20 @@ $(function () {
             $(".w_manage h4").eq(0).html("账户状态：禁用");
             $(".w_manage input").eq(1).prop("checked", true);
         }
-
-        if(type === "a"){
-            $(".w_manage h4").eq(1).html("账户类型：系统管理员");
+        var text = "账户类型：";
+        if(type.indexOf("a") !== -1){
+            text += "系统管理员/";
             $(".w_manage input").eq(4).prop("checked", true);
         }
-        else if(type === "f"){
-            $(".w_manage h4").eq(1).html("账户类型：教师");
+        if(type.indexOf("f") !== -1){
+            text += "教师/";
             $(".w_manage input").eq(3).prop("checked", true);
         }
-        else{
-            $(".w_manage h4").eq(1).html("账户类型：学生");
+        if(type.indexOf("s") !== -1){
+            text += "学生/";
             $(".w_manage input").eq(2).prop("checked", true);
         }
-
+        $(".w_manage h4").eq(1).html(text);
         if(gender === "male"){
             $(".w_manage h4").eq(2).html("用户性别：男");
             $(".w_manage input").eq(5).prop("checked", true);
@@ -223,10 +227,11 @@ $(function () {
         baseInfo.find("#birthday2").val(user.birthday);
         baseInfo.find("#email2").val(user.email);
         baseInfo.find("#qq2").val(user.qq);
-        baseInfo.find("#weChat2").val(user.weChat);
+        baseInfo.find("#weChat2").val(user.wechat);
         baseInfo.find("#tel2").val(user.tel);
         baseInfo.find("#dorm2").val(user.dorm);
         baseInfo.find("#pwd").val(user.password);
+        baseInfo.find("#comment2").val(user.comment);
         newStatus = status = user.status;
         newType = type = user.type;
         newGender = gender = user.gender;

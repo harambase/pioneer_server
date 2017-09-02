@@ -24,7 +24,7 @@
 </div>
 
 <div class="spilt register-table">
-    <div style="float: left; height: 620px" class="account-container register">
+    <div style="float: left; height: 650px" class="account-container register">
         <div class="content clearfix">
             <form id="createUserForm" method="post" onsubmit="return false">
                 <h1>创建一个新的用户</h1>
@@ -78,31 +78,26 @@
                         <label for="dorm">dorm:</label>
                         <input id="dorm" name="dorm" value="" placeholder="宿舍号" class="login"/>
                     </div> <!-- /field -->
-                    <div class="field" >
-                        <p style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">账户类型:</p>
-                        <h4 class="type">用户账户类型: </h4>
-                        <input id='student1' type="checkbox" name="powerState" value="s"/>学生
-                        <input id='faculty1' type="checkbox" name="powerState" value="f"/>教师
-                        <input id='admin1' type="checkbox" name="powerState" value="a"/>系统管理员
-
-                        <%--<select name="type" id="type" title="Type" style="width: 261px;margin-left: 5px;">--%>
-                            <%--<option id="student" value="s">学生</option>--%>
-                            <%--<option id="faculty" value="f">教师</option>--%>
-                            <%--<option id="admin"   value="a">系统管理员</option>--%>
-                        <%--</select>--%>
-                    </div> <!-- /field -->
-                    <div class="field" >
-                        <p style="float: left;margin-bottom: 4.5px;">性别:</p>
-                        <select name="gender" id="gender" title="Type" style="width: 245px;margin-left: 5px;">
-                            <option id="male" value="male">男</option>
-                            <option id="female" value="female">女</option>
-                        </select>
-                    </div> <!-- /field -->
-
                 </div> <!-- /login-fields -->
 
-                <div class="login-actions" style="margin-top: -30px;">
+                <div class="login-actions" style="margin-top: 0px;">
+                    <table style="margin: 0px 0px 15px 0px;">
+                        <tr>
+                            <td style="padding-right: 5px"><h4 style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">*选择用户性别:</h4></td>
+                            <td style="padding-right: 5px"><input id='male' type="radio" name="gender" value="s"/>男</td>
+                            <td style="padding-right: 5px"><input id='female' type="radio" name="gender" value="f"/>女</td>
+                        </tr>
+                    </table>
 
+                    <table style="margin: -10px 0px 0px 0px;">
+                        <tr>
+                            <td style="padding-right: 5px"><h4 style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">*选择账户类型:</h4></td>
+                            <td style="padding-right: 5px"><input id='student1' type="checkbox" name="type" value="s"/>学生</td>
+                            <td style="padding-right: 5px"><input id='faculty1' type="checkbox" name="type" value="f"/>教师</td>
+                            <td style="padding-right: 5px"><input id='admin1'   type="checkbox" name="type" value="a"/>系统管理员</td>
+                        </tr>
+                    </table>
+                    <textarea id="comment" style="margin: 5px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
                     <span class="login-checkbox">
                         <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" required/>
                         <label class="choice" for="Field">确认上述信息正确无误.</label>
@@ -114,7 +109,7 @@
         </div> <!-- /content -->
     </div> <!-- /account-container -->
 
-    <div style="float: right;margin: 0px 120px 0 0;width: 1200px;height: 620px;"
+    <div style="float: right;margin: 0px 120px 0 0;width: 1200px;height: 650px;"
          class="account-container register">
     <div class="content clearfix">
         <h1>系统用户列表</h1>
@@ -145,7 +140,7 @@
                             <table style="margin: 15px 27px;">
                                 <input id="pwd" name="pwd" value="" class="login" hidden/>
                                 <tr>
-                                    <td><p style="float: left">用户ID:</td>
+                                    <td><p style="float: left; margin-right: 35px">用户ID:</td>
                                     <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
@@ -187,6 +182,10 @@
                                     <td><p style="float: left">宿舍分配:</p></td>
                                     <td><input id="dorm2" name="dorm" value="" class="login"/></td>
                                 </tr>
+                                <tr>
+                                    <td><p style="float: left">备注信息:</p></td>
+                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 210px; height: 100px; resize: none;"></textarea></td>
+                                </tr>
                             </table>
                         </form>
                     </div> <!-- /account-container -->
@@ -203,9 +202,9 @@
                     <input class='disable' type="checkbox" name="powerState" value="0"/>停用
 
                     <h4 class="type">用户账户类型: </h4>
-                    <input class='student' type="checkbox" name="powerState" value="s"/>学生
-                    <input class='teacher' type="checkbox" name="powerState" value="f"/>教师
-                    <input class='admin' type="checkbox" name="powerState" value="a"/>管理员
+                    <input class='student' type="checkbox" name="type2" value="s"/>学生
+                    <input class='teacher' type="checkbox" name="type2" value="f"/>教师
+                    <input class='admin' type="checkbox" name="type2" value="a"/>管理员
 
                     <h4 class="gender">用户性别:</h4>
                     <input class='male' type="checkbox" name="powerState" value="male"/>男
