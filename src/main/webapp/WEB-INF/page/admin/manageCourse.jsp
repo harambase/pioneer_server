@@ -26,7 +26,7 @@
 </div>
 
 <div class="spilt register-table">
-    <div id="add-div" style="position:absolute;height: 700px; display: none" class="account-container register">
+    <div id="add-div" style="position:absolute;height: 870px; display: none" class="account-container register">
         <div class="content clearfix">
             <form id="createCourseForm" method="post" onsubmit="return false">
                 <h1>添加一个课程</h1>
@@ -52,56 +52,61 @@
 
                     <div class="field">
                         <label for="coulev">Course Level:</label>
-                        <input id="coulev" name="coulev" value="" placeholder="*课程等级：100-499" class="login" maxlength="3"/>
+                        <input id="coulev" name="coulev" value="" placeholder="*课程等级：100-499" class="login" maxlength="3" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="cousec">Section:</label>
-                        <input id="cousec" name="cousec" value="" placeholder="*课程班级(01,02,03...)" class="login" maxlength="2"/>
+                        <input id="cousec" name="cousec" value="" placeholder="*课程班级(01,02,03...)" class="login" maxlength="2" required/>
+                    </div> <!-- /field -->
+
+                    <div class="field">
+                        <label for="classroom">Section:</label>
+                        <input id="classroom" name="classroom" value="" placeholder="教室" class="login" maxlength="20"/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="startdate">Start Date:</label>
-                        <input id="startdate" name="startdate" value="" placeholder="*开始日期：YYYY-MM-DD"
-                               class="login" minlength="10" maxlength="10"/>
+                        <input id="startdate" name="startdate" value="" placeholder="*开始日期：YYYY-MM-DD" class="login" minlength="10" maxlength="10" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="enddate">End Date:</label>
                         <input id="enddate" name="enddate" value="" placeholder="*结束日期：YYYY-MM-DD"
-                               class="login" minlength="10" maxlength="10"/>
+                               class="login" minlength="10" maxlength="10" required/>
                     </div> <!-- /field -->
                     <div class="field">
                         <label for="starttime">Start Time:</label>
                         <input id="starttime" name="starttime" value="" placeholder="*开始时间：HH:MM:SS"
-                               class="login" minlength="8" maxlength="8"/>
+                               class="login" minlength="8" maxlength="8" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="endtime">End Time:</label>
                         <input id="endtime" name="endtime" value="" placeholder="*结束时间： HH:MM:SS"
-                               class="login" minlength="8" maxlength="8"/>
+                               class="login" minlength="8" maxlength="8" required/>
                     </div> <!-- /field -->
 
                     <div class="field">
                         <label for="capa">Capacity:</label>
-                        <input id="capa" name="capa" value="" placeholder="*课程容量" class="login"/>
+                        <input id="capa" name="capa" value="" placeholder="*课程容量" class="login" required/>
                     </div> <!-- /field -->
                     <div class="field">
-                    <div class="group-form-input">
-                        <label for="searchFValue">分配教师:</label>
-                        <input id="searchFValue" placeholder="*分配教师" style="float: left; width: 155px;" required>
-                        <span class="w_button w_add" id="addf-button">检查教师</span>
-                        <ul class="w_selected1">
-                        </ul>
-                    </div>
-                    <div class="group-form-input">
-                        <label for="searchCValue">分配预选课程：</label>
-                        <input id="searchCValue" placeholder="分配预选课程(非必填)" style="float: left; width: 155px;">
-                        <span class="w_button w_add" id="addc-button">检查课程</span>
-                        <ul class="w_selected2">
-                        </ul>
-                    </div>
+
+                        <div class="group-form-input">
+                            <label for="searchFValue">分配教师:</label>
+                            <input id="searchFValue" placeholder="*分配教师" style="float: left; width: 155px;" required>
+                            <span class="w_button w_add" id="addf-button" style="height: 30px;margin-left: 10px;">检查教师</span>
+                            <ul class="w_selected1">
+                            </ul>
+                        </div>
+                        <div class="group-form-input">
+                            <label for="searchCValue">分配预选课程：</label>
+                            <input id="searchCValue" placeholder="分配预选课程(非必填)" style="float: left; width: 155px;">
+                            <span class="w_button w_add" id="addc-button" style="height: 30px;margin-left: 10px;">检查课程</span>
+                            <ul class="w_selected2">
+                            </ul>
+                        </div>
 
                     </div> <!-- /field -->
                 </div> <!-- /login-fields -->
@@ -122,9 +127,9 @@
                     <input class='s' type="checkbox" name="day" value="s"
                            style="margin: 10px 4px 10px 0; width: 13px;"/>星期日
                 </div>
-
+                <hr style="margin-top: 5px"/>
                 <div class="login-actions" style="margin-top: -15px;">
-
+                    <textarea id="comment" style="margin: 15px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
                     <span class="login-checkbox">
                         <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
                         <label class="choice" for="Field">确认上述信息正确无误</label>
@@ -134,6 +139,7 @@
                 </div> <!-- .actions -->
             </form>
         </div> <!-- /content -->
+
     </div> <!-- /account-container -->
     <div id="course-div" style="float: right;position:absolute;width: 1563px;height: 700px; display: block"
          class="account-container register">
@@ -191,6 +197,10 @@
                                     <td> <input id="cousec2" name="cousec2" value="" class="login"/></td>
                                 </tr>
                                 <tr>
+                                    <td><p style="float: left">教室:</p></td>
+                                    <td> <input id="classroom2" name="classroom2" value="" class="login"/></td>
+                                </tr>
+                                <tr>
                                     <td><p style="float: left">开始日期:</p></td>
                                     <td><input id="startdate2" name="startdate2" value="" class="login"/></td>
                                 </tr>
@@ -209,6 +219,10 @@
                                 <tr>
                                     <td><p style="float: left">容量:</p></td>
                                     <td><input id="capa2" name="capa2" value="" class="login"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">备注信息:</p></td>
+                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 210px; height: 100px; resize: none;"></textarea></td>
                                 </tr>
                             </table>
                         </form>
@@ -262,7 +276,7 @@
                     <span class="w_button w_add" id="cancelD"    style="width: 145px; text-align: center;">取消操作</span>
                 </div>
                 <div class='w_manage_btn system-control-btn'>
-                    <button id="cancel2" class="w_button">Exit</button>
+                    <button id="cancel2" class="w_button">退出</button>
                 </div>
             </div>
             <div class="w_tabE w_pop">
@@ -291,7 +305,7 @@
                     <h4 class="status" style="margin-top: -10px; margin-bottom: 5px">系统中所有学生: </h4>
                     <div class="content clearfix" style="padding: 0px">
                         <div class='course-table'>
-                            <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
+                                <table width="100%" style="font-size: 14px;" id="studentTable" class="display dataTable">
                             </table>
                         </div>
                     </div> <!-- /content -->
@@ -321,7 +335,7 @@
                 </div> <!-- /content -->
             </div>
             <div class='w_manage_btn system-control-btn'>
-                <button id="cancel4" class="w_button" style="margin: -14px 0 25px 167px;width: 123px;">Exit</button>
+                <button id="cancel4" class="w_button" style="margin: -14px 0 25px 167px;width: 123px;">退出</button>
             </div>
          </div>
     </div>
@@ -341,16 +355,18 @@
         </div>
     </div>
 </div>
+
 <div class='delete-user-pop'>
     <div class='delete-user'>
         <div class='true-delete'>确认删除<span>×</span></div>
-        <div class='true-delete-user'>确认删除XXX用户吗？</div>
+        <div class='true-delete-user'>确认删除吗？</div>
         <div class='delete-btn'>
-            <button class='true w_button'>确认</button>
-            <button class='cancel w_button'>取消</button>
+            <button id="delete" class='true w_button'>确认</button>
+            <button id="no" class='cancel w_button'>取消</button>
         </div>
     </div>
 </div>
+
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>

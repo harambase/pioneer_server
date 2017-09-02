@@ -296,6 +296,7 @@
            c.info as info,
            c.day as day,
            c.capa as capa,
+           c.comment as comment,
            c.facultyid as facultyid,
            cv.status as status,
            cv.faculty as faculty

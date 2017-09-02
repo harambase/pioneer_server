@@ -294,7 +294,7 @@ $(function () {
     }
 
     //添加课程
-    $("#registerBtn").click(function () {
+    $("#registerBtn").click(function (){
         if(createCourseForm.form()) {
             var name = $("#name").val();
             var credits = $("#credits").val();
@@ -307,7 +307,8 @@ $(function () {
             var capa = $("#capa").val();
             var day = "";
             var info = $("#year-semester").val();
-
+            var classroom  = $("#classroom").val();
+            var comment  = $("#comment").val();
             if (facultyids !== "") {
 
                 $('input[name="day"]:checked').each(function () {
@@ -327,7 +328,9 @@ $(function () {
                     facultyid: facultyids,
                     day: day,
                     info: info,
-                    precrn: precrns
+                    precrn: precrns,
+                    classroom: classroom,
+                    comment : comment
                 };
 
                 $.ajax({
@@ -370,7 +373,9 @@ $(function () {
             enddate : $("#enddate2").val(),
             starttime : $("#starttime2").val(),
             endtime : $("#endtime2").val(),
-            capa : $("#capa2").val()
+            capa : $("#capa2").val(),
+            classroom : $("#classroom2").val(),
+            comment : $("#comment2").val()
         };
         $.ajax({
             url:basePath+"/course/update",
@@ -529,8 +534,9 @@ $(function () {
             baseInfo.find("#starttime2").val(course.starttime);
             baseInfo.find("#endtime2").val(course.endtime);
             baseInfo.find("#capa2").val(course.capa);
+            baseInfo.find("#classroom2").val(course.classroom);
+            baseInfo.find("#comment2").val(course.comment);
             newStatus = status = course.status;
-
             writeSettings(status, course.precrn);
 
             $("#course").css({display: "block"});
