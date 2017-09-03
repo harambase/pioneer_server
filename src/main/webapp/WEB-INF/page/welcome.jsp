@@ -9,6 +9,7 @@
 
     <title>登录</title>
     <link rel="stylesheet" href="${basePath}/static/css/login.css">
+    <link rel="stylesheet" href="${basePath}/static/plugins/confirm/confirm.css">
 
 </head>
 <body class="body" data-gr-c-s-loaded="true">

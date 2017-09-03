@@ -1,9 +1,6 @@
 package com.harambase.pioneer.service.Impl;
 
-import com.harambase.common.DateUtil;
-import com.harambase.common.HaramMessage;
-import com.harambase.common.Page;
-import com.harambase.common.PageUtil;
+import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.CourseMapper;
 import com.harambase.pioneer.dao.TranscriptMapper;
@@ -45,8 +42,15 @@ public class CourseServiceImpl implements CourseService {
             String facultyid = course.getFacultyid();
             //生成CRN
             String info = course.getInfo();
-            Integer last = (int) (Math.random() * (99 - 10 + 1) + 10);
-            String crn = "1" + info.split("-")[0] + info.split("-")[1] + last;
+            List<Course> courses = courseMapper.getAllCoursesWithInfo(info);
+            String crn = IDUtil.genCRN(info);
+            for(int i = 0; i<courses.size(); i++){
+                Course c = courses.get(i);
+                if(crn.equals(c.getCrn())){
+                    crn = IDUtil.genCRN(info);
+                    i = 0;
+                }
+            }
             course.setCrn(crn);
             //检查时间冲突
             String time = course.getStarttime() + "-" + course.getEndtime();

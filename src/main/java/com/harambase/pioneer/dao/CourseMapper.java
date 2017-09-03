@@ -34,4 +34,6 @@ public interface CourseMapper {
     List<CourseView> getAllCourses();
 
     int countActiveCourse();
+    
+    List<Course> getAllCoursesWithInfo(String info);
 }

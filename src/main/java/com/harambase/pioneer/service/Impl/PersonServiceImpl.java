@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+
 @Service
 public class PersonServiceImpl implements PersonService {
 
@@ -39,10 +40,14 @@ public class PersonServiceImpl implements PersonService {
         HaramMessage haramMessage = new HaramMessage();
         try {
             Person user = personMapper.selectByPerson(person);
-            if(user != null) {
+            if(user != null && user.getStatus().equals("1")) {
                 haramMessage.setData(user);
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            }
+            else if(user != null && user.getStatus().equals("0")){
+                haramMessage.setCode(FlagDict.USER_DISABLED.getV());
+                haramMessage.setMsg(FlagDict.USER_DISABLED.getM());
             }
             else{
                 haramMessage.setCode(FlagDict.FAIL.getV());
@@ -61,8 +66,9 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage addUser(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            List<Person> people = personMapper.getAllUsers();
             String info = person.getInfo();
+            List<Person> people = personMapper.getAllUsersWithInfo(info);
+            
             String userid = IDUtil.genUserID(info);
             for(int i = 0; i<people.size(); i++){
                 Person p = people.get(i);
@@ -79,7 +85,7 @@ public class PersonServiceImpl implements PersonService {
             
             String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastname());
             String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstname());
-            String username = lastPY + firstPY + userid.substring(6,9);
+            String username = lastPY + firstPY + userid.substring(7,10);
            
             person.setUserid(userid);
             person.setUsername(username);

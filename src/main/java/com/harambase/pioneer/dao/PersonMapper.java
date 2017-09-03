@@ -39,4 +39,6 @@ public interface PersonMapper {
     int countFemale();
 
     List<Person> getAllUsers();
+    
+    List<Person> getAllUsersWithInfo(String info);
 }

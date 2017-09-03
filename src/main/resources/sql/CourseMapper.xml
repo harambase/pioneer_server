@@ -321,6 +321,9 @@
   <select id="getAllCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
     select * from CourseView where status = '1'
   </select>
+  <select id="getAllCoursesWithInfo" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">
+    select * from Course where info = #{arg0,jdbcType=VARCHAR}
+  </select>
   <select id="getRemain" parameterType="java.lang.String" resultType="java.lang.Integer">
     select remain from CourseView where crn = #{crn,jdbcType=VARCHAR}
   </select>

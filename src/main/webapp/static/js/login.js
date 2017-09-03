@@ -32,8 +32,10 @@ $(function (){
                     }
                     else if(data.code === 2005)
                         Showbo.Msg.alert("系统异常!", function () {});
+                    else if(data.code === 2008)
+                        Showbo.Msg.alert("账户被停用，请联系管理员!", function () {});
                     else
-                        Showbo.Msg.alert("用户名或密码不正确!", function () {});
+                        Showbo.Msg.alert("用户名或密码不正确！", function () {});
                     }
             })
         }

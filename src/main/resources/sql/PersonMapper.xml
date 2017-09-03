@@ -348,6 +348,9 @@
   <select id="getAllUsers" resultMap="ResultMapWithBLOBs">
     select * from Person
   </select>
+  <select id="getAllUsersWithInfo" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select * from Person where info = #{arg0, jdbcType=VARCHAR};
+  </select>
 
   <select id="countStudent" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) from Person where type LIKE '%s%' and status = '1'
