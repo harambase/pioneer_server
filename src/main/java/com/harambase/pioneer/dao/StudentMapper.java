@@ -2,7 +2,9 @@ package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.dto.StudentView;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
 

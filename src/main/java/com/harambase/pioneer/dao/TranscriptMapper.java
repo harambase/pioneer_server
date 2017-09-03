@@ -2,10 +2,11 @@ package com.harambase.pioneer.dao;
 
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-
+@Component
 public interface TranscriptMapper {
     int deleteByPrimaryKey(Map<String, Object> param);
 

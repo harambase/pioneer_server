@@ -346,7 +346,7 @@
   </select>
 
   <select id="getAllUsers" resultMap="ResultMapWithBLOBs">
-    select * from Person where status = '1'
+    select * from Person
   </select>
 
   <select id="countStudent" parameterType="java.util.Map" resultType="java.lang.Integer">

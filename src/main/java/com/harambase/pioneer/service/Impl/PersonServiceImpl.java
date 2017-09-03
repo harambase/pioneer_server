@@ -61,19 +61,26 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage addUser(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            List<Person> people = personMapper.getAllUsers();
+            String info = person.getInfo();
+            String userid = IDUtil.genUserID(info);
+            for(int i = 0; i<people.size(); i++){
+                Person p = people.get(i);
+                if(userid.equals(p.getUserid())){
+                    userid = IDUtil.genUserID(info);
+                    i = 0;
+                }
+            }
             person.setCreatetime(DateUtil.DateToStr(new Date()));
             person.setUpdatetime(DateUtil.DateToStr(new Date()));
             person.setStatus("1");
-
-            String info = person.getInfo();
-            Integer last = (int)(Math.random() * (999 - 100 + 1) + 100);
-            String userid = "9" + info.split("-")[0] + info.split("-")[1] + last;
+            
             String password = "Pioneer" + userid;
             
             String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastname());
             String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstname());
-            String username = lastPY + firstPY + last;
-
+            String username = lastPY + firstPY + userid.substring(6,9);
+           
             person.setUserid(userid);
             person.setUsername(username);
             person.setPassword(password);
@@ -506,6 +513,5 @@ public class PersonServiceImpl implements PersonService {
         message.setData(0);
         return message;
     }
-
-
+    
 }
