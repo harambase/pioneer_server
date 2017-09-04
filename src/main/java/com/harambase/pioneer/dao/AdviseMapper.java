@@ -27,4 +27,6 @@ public interface AdviseMapper {
     List<AdviseView> getAdvisingByMapPageSearchOrdered(Map<String, Object> param);
 
     List<Advise> getAllAdvise();
+
+    int deleteByUserID(String userid);
 }

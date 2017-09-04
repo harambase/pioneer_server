@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 @Component
 public interface PersonMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String userid);
 
     int insert(Person record);
 

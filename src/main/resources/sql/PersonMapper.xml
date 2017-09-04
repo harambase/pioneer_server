@@ -37,11 +37,10 @@
     ,
     <include refid="Blob_Column_List" />
     from person
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userid = #{arg0,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from person
-    where userid = #{userid,jdbcType=VARCHAR}
+    delete from person where userid = #{arg0,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
     insert into person (id, userid, username, 

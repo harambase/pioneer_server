@@ -217,4 +217,9 @@ public class AdminController {
 
     }
 
+    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
+    public ResponseEntity removeUser(@RequestParam("userid") String userid){
+        HaramMessage message = personService.removeUser(userid);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

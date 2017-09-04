@@ -20,8 +20,10 @@
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from Advise
-    where id = #{id,jdbcType=INTEGER}
+    delete from Advise where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByUserID" parameterType="java.lang.String" >
+    delete from Advise where studentid = #{studentid,jdbcType=INTEGER} or facultyid = #{studentid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Advise" >
     insert into Advise (id, studentid, facultyid

@@ -4,6 +4,7 @@ import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.CourseMapper;
 import com.harambase.pioneer.dao.TranscriptMapper;
+import com.harambase.pioneer.helper.CheckTime;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
@@ -53,22 +54,10 @@ public class CourseServiceImpl implements CourseService {
             }
             course.setCrn(crn);
             //检查时间冲突
-            String time = course.getStarttime() + "-" + course.getEndtime();
-            String date = course.getStartdate() + " to " + course.getEnddate();
-            String day = course.getDay();
-            Map<String, String> param = new HashMap<>();
-            param.put("facultyid", facultyid);
-            param.put("time", time);
-            param.put("date", date);
-            param.put("day", day);
-            param.put("crn", crn);
-
-            int count = courseMapper.facultyTime(param);
-            if (count != 0) {
-                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
-                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
+            if (CheckTime.isTimeConflict(courseMapper, haramMessage, course))
                 return haramMessage;
-            }
+
+            course.setFacultyid(facultyid);
             //插入课程
             int ret = courseMapper.insert(course);
             if (ret == 1) {
@@ -142,21 +131,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             Course c = courseMapper.selectByPrimaryKey(course.getCrn());
             //检查时间冲突
-            String time = c.getStarttime() + "-" + c.getEndtime();
-            String date = c.getStartdate() + " to " + c.getEnddate();
-            String day = c.getDay();
-            Map<String, String> param = new HashMap<>();
-            param.put("facultyid", course.getFacultyid());
-            param.put("time", time);
-            param.put("date", date);
-            param.put("day", day);
-            param.put("crn", course.getCrn());
-            int count = courseMapper.facultyTime(param);
-            if (count != 0) {
-                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
-                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
-                return haramMessage;
-            }
+            if (CheckTime.isTimeConflict(courseMapper, haramMessage, c)) return haramMessage;
 
             course.setUpdatetime(DateUtil.DateToStr(new Date()));
             int ret = courseMapper.updateByPrimaryKeySelective(course);

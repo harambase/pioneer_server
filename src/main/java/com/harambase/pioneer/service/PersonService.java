@@ -33,4 +33,6 @@ public interface PersonService {
     HaramMessage removeMentor(Integer id);
 
     HaramMessage countActivePerson(String type);
+
+    HaramMessage removeUser(String userid);
 }

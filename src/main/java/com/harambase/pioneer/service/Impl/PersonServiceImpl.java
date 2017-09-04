@@ -9,9 +9,12 @@ import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.util.*;
 
 
@@ -519,5 +522,19 @@ public class PersonServiceImpl implements PersonService {
         message.setData(0);
         return message;
     }
-    
+
+    @Override
+    @Transactional
+    public HaramMessage removeUser(String userid) {
+        HaramMessage message = new HaramMessage();
+        try {
+            int ret = personMapper.deleteByPrimaryKey(userid);
+            ret = adviseMapper.deleteByUserID("0");
+            ret = 1/0;
+        } catch(Exception e){
+
+        }
+        return message;
+    }
+
 }

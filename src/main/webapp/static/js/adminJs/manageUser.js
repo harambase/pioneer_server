@@ -523,6 +523,34 @@ $(function () {
         }]
     });
 
+    //移除用户
+    $("#userTable").on("click", ".btn.btn-info", function() {
+        userid = $(this).parents("tr").find("td").eq(1).html();
+        Showbo.Msg.confirm("确认删除该用户？",function(){
+            if($(".btnfocus").val() !== "取消"){
+                /*删除操作*/
+                alert(userid);
+                $.ajax({
+                    url: basePath + "/admin/remove/user?userid="+userid,
+                    type: "DELETE",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.code === 2001)
+                            Showbo.Msg.alert("删除成功!", function () {
+                                logTable.draw();
+                            });
+                        else if (data.code === 2005)
+                            Showbo.Msg.alert("系统异常!", function () {
+                            });
+                        else
+                            Showbo.Msg.alert(data.msg, function () {
+                            });
+                    }
+                });
+            }
+        });
+    });
+
 });
 //获取用户
 function getUser(userid){
