@@ -37,36 +37,36 @@
         </tr>
         </table>
     </div>
-
-    <hr/>
 </div>
 <div class="user-pop">
-    <div class="user-pop-inner">
+    <div class="w_wrap">
         <div class="w_head">
-            <span>请选择学生进行浏览</span>
+            <span>选择学生</span>
             <span class="w_close">×</span>
         </div>
-        <ul class="w_tab clearfix">
-            <li id="student" class="active">学生列表</li>
-        </ul>
-        <div class='user-table' style="width: 550px;margin: 0px 0px 27px 37px;" >
-            <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
-            </table>
+        <div class="w_body" style="margin-top: 21px;">
+            <div class="content clearfix" style="padding: 0px">
+                <h4 class="type">学生列表</h4>
+                <hr style="margin: 7px 0 7px 0;"/>
+                <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
+                </table>
+            </div> <!-- /content -->
         </div>
     </div>
 </div>
 <div class="class-pop">
-    <div class="user-pop-inner">
+    <div class="w_wrap">
         <div class="w_head">
-            <span>请选择课程进行浏览</span>
+            <span>选择课程</span>
             <span class="w_close">×</span>
         </div>
-        <ul class="w_tab clearfix">
-            <li class="active">课程列表</li>
-        </ul>
-        <div class='class-table' style="width: 550px;margin: 0px 0px 27px 37px;" >
-            <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
-            </table>
+        <div class="w_body" style="margin-top: 21px;">
+            <div class="content clearfix" style="padding: 0px">
+                <h4 class="type">课程列表</h4>
+                <hr style="margin: 7px 0 7px 0;"/>
+                <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -88,23 +88,23 @@
                             <table style="margin: 15px 27px;">
                                 <tr>
                                     <td><p style="float: left">学生ID:</td>
-                                    <td><input id="sid" name="sid" value="" class="login" disabled/></td>
+                                    <td><input id="sid" name="sid" value="" class="login" disabled style="height: 20px;"/></td>
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">课程编码:</td>
-                                    <td><input id="crn" name="crn" value="" class="login" disabled/></td>
+                                    <td><input id="crn" name="crn" value="" class="login" disabled style="height: 20px;"/></td>
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">学分:</p></td>
-                                    <td><input id="credits" name="credits" value="" class="login" disabled/></td>
+                                    <td><input id="credits" name="credits" value="" class="login" disabled style="height: 20px;"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">成绩:</p></td>
+                                    <td><p style="float: left">*成绩:</p></td>
                                     <td> <input placeholder="可使用Letter Grade或百分制"
-                                                id="grade" name="grade" value="" class="login" minlength="1" required/></td>
+                                                id="grade" name="grade" value="" class="login" minlength="1" required style="height: 20px;"/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">完成情况:</p></td>
+                                    <td><p style="float: left">*完成情况:</p></td>
                                     <td> <input id="complete" type="radio" value="Complete"/>完成
                                          <input id="process" type="radio" value="In Progress"/>正在进行
                                          <input id="nComplete" type="radio" value="Not Complete"/>未完成</td>
@@ -139,7 +139,7 @@
             </div> <!-- /content -->
 
             <div class="content clearfix">
-                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">所有成绩单列表</h1>
+                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">成绩单列表</h1>
                 <div class='course-table' >
                     <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
                     </table>
@@ -148,18 +148,6 @@
         </div> <!-- /account-container -->
     </div>
 </div>
-<div class='delete-user-pop'>
-    <div class='delete-user'>
-        <div class='true-delete'>确认删除<span>×</span></div>
-        <%--<div class='true-delete-user'>确认删除XXX用户吗？</div>--%>
-        <div class='delete-btn'>
-            <button class='true w_button'>确认</button>
-            <button class='cancel w_button'>取消</button>
-        </div>
-    </div>
-</div>
-
-
 </body>
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>

@@ -3,6 +3,17 @@ $(function () {
     var status, gender, type, userid;
     var newStatus, newGender, newType;
     var registerForm = $("#createUserForm").validate({});
+    $("#userList").css({display:"block"});
+    $("#addUser").css({display:"none"});
+
+    $("#add").click(function () {
+        $("#addUser").css({display:"block"});
+        $("#userList").css({display:"none"});
+    });
+    $("#list").click(function () {
+        $("#addUser").css({display:"none"});
+        $("#userList").css({display:"block"});
+    });
 
     //添加用户
     $("#registerBtn").click(function () {

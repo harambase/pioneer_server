@@ -20,10 +20,17 @@
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">User Management</p>
-    <hr/>
+    <div class="choose-view" >
+        <div class='w_manage_btn system-control-btn'>
+            <button id="add" class="w_button" style="float:left; margin-left: 10px">添加一个用户</button>
+        </div>
+        <div class='w_manage_btn system-control-btn'>
+            <button id="list" class="w_button" style="margin-left: 10px">浏览用户列表</button>
+        </div>
+    </div>
 </div>
 
-<div class="spilt register-table">
+<div id="addUser" class="spilt register-table">
     <div style="float: left; height: 650px" class="account-container register">
         <div class="content clearfix">
             <form id="createUserForm" method="post" onsubmit="return false">
@@ -108,17 +115,17 @@
             </form>
         </div> <!-- /content -->
     </div> <!-- /account-container -->
-
-    <div style="float: right;margin: 0px 120px 0 0;width: 1200px;height: 650px;"
-         class="account-container register">
-    <div class="content clearfix">
-        <h1>系统用户列表</h1>
-        <div class='user-table'>
-            <table width="100%" style="font-size: 14px;" id="userTable" class="display dataTable">
-            </table>
-        </div>
-    </div> <!-- /content -->
-</div> <!-- /account-container -->
+</div>
+<div id="userList" class="spilt register-table">
+    <div style="width: 1200px;height: 650px;"class="account-container register">
+        <div class="content clearfix">
+            <h1>系统用户列表</h1>
+            <div class='user-table'>
+                <table width="100%" style="font-size: 14px;" id="userTable" class="display dataTable">
+                </table>
+            </div>
+        </div> <!-- /content -->
+    </div> <!-- /account-container -->
 </div>
 
 <div class="w_wrapper">
@@ -244,16 +251,6 @@
                 </div>
 
             </div>
-        </div>
-    </div>
-</div>
-<div class='delete-user-pop'>
-    <div class='delete-user'>
-        <div class='true-delete'>确认删除<span>×</span></div>
-        <%--<div class='true-delete-user'>确认删除XXX用户吗？</div>--%>
-        <div class='delete-btn'>
-            <button class='true w_button'>确认</button>
-            <button class='cancel w_button'>取消</button>
         </div>
     </div>
 </div>

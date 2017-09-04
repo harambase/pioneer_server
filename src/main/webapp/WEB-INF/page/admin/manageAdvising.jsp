@@ -38,42 +38,44 @@
             </tr>
         </table>
     </div>
-    <hr/>
 </div>
+
 <div class="user-pop">
-    <div class="user-pop-inner">
+    <div class="w_wrap">
         <div class="w_head">
-            <span>用户选择</span>
+            <span>选择学生</span>
             <span class="w_close">×</span>
         </div>
-        <ul class="w_tab clearfix">
-            <li id="student" class="active">学生列表</li>
-        </ul>
-        <div class='user-table' style="width: 500px;margin: -10px 0px 27px 37px;" >
-            <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
-            </table>
+        <div class="w_body" style="margin-top: 21px;">
+            <div class="content clearfix" style="padding: 0px">
+                <h4 class="type">列表</h4>
+                <hr style="margin: 7px 0 7px 0;"/>
+                <table width="100%;" style="font-size: 14px;" id="userTable" class="display dataTable">
+                </table>
+            </div> <!-- /content -->
         </div>
     </div>
 </div>
 <div class="class-pop">
-    <div class="user-pop-inner">
+    <div class="w_wrap">
         <div class="w_head">
-            <span>教师选择</span>
+            <span>选择教师</span>
             <span class="w_close">×</span>
         </div>
-        <ul class="w_tab clearfix">
-            <li class="active">教师列表</li>
-        </ul>
-        <div class='class-table' style="width: 500px;margin: -10px 0px 27px 37px;" >
-            <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
-            </table>
+        <div class="w_body" style="margin-top: 21px;">
+            <div class="content clearfix" style="padding: 0px">
+                <h4 class="type">教师列表</h4>
+                <hr style="margin: 7px 0 7px 0;"/>
+                <table width="100%;" style="font-size: 14px;" id="classTable" class="display dataTable">
+                </table>
+            </div>
         </div>
     </div>
 </div>
 <div class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
-            <span>Edit Advisor</span>
+            <span>修改辅导关系</span>
             <span class="w_close">×</span>
         </div>
         <div class="w_body">
@@ -114,25 +116,15 @@
 
 <div class="view">
     <div class="spilt register-table" style = "padding-left: 300px">
-        <div style=";margin: 0 120px 0 0;width: 1500px;height: 700px;" class="account-container register">
+        <div style=";margin: 0 120px 0 0;width: 1000px;height: 700px;" class="account-container register">
             <div class="content clearfix">
-                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">所有辅导关系列表</h1>
+                <h1 id="h1" style="margin-left: -19px;margin-top: 15px;">辅导关系总览表</h1>
                 <div class='course-table' >
                     <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable">
                     </table>
                 </div>
             </div> <!-- /content -->
         </div> <!-- /account-container -->
-    </div>
-</div>
-<div class='delete-user-pop'>
-    <div class='delete-user'>
-        <div class='true-delete'>确认删除<span>×</span></div>
-        <div class='true-delete-user'>确认删除XXX用户吗？</div>
-        <div class='delete-btn'>
-            <button class='true w_button'>确认</button>
-            <button class='cancel w_button'>取消</button>
-        </div>
     </div>
 </div>
 

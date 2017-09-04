@@ -322,46 +322,19 @@
 <div id="student" class="w_wrapper">
     <div class="w_wrap">
         <div class="w_head">
-            <span>Course Controller</span>
+            <span>课程控制台</span>
             <span class="w_close">×</span>
         </div>
         <div class="w_body" style="margin-top: 21px;">
-                <div class="content clearfix" style="padding: 0px">
-                    <h4 class="type">该课程学生列表: </h4>
-                    <hr style="margin: 7px 0 7px 0;"/>
-                    <table width="100%" style="font-size: 14px;" id="studentList" class="display dataTable">
-                    </table>
-                </div> <!-- /content -->
-            </div>
-            <div class='w_manage_btn system-control-btn'>
-                <button id="cancel4" class="w_button" style="margin: -14px 0 25px 167px;width: 123px;">退出</button>
-            </div>
-         </div>
-    </div>
-
-
-<div id="confirm-wrapper" class="w_wrapper">
-    <div class="w_wrap">
-        <div class="w_head">
-            <span>Course Delete</span>
-            <span class="w_close">×</span>
+            <div class="content clearfix" style="padding: 0px">
+                <h4 class="type">该课程学生列表: </h4>
+                <hr style="margin: 7px 0 7px 0;"/>
+                <table width="100%" style="font-size: 14px;" id="studentList" class="display dataTable">
+                </table>
+            </div> <!-- /content -->
         </div>
         <div class='w_manage_btn system-control-btn'>
-            <button id="confirm-delete" class="w_button" style="float:left; margin: 20px 0 25px 50px;width: 123px;">Confirm</button>
-        </div>
-        <div class='w_manage_btn system-control-btn'>
-            <button id="cancel-delete" class="w_button" style="margin: 20px 0 25px 50px;width: 123px;">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<div class='delete-user-pop'>
-    <div class='delete-user'>
-        <div class='true-delete'>确认删除<span>×</span></div>
-        <div class='true-delete-user'>确认删除吗？</div>
-        <div class='delete-btn'>
-            <button id="delete" class='true w_button'>确认</button>
-            <button id="no" class='cancel w_button'>取消</button>
+            <button id="cancel4" class="w_button" style="margin: -14px 0 25px 167px;width: 123px;">退出</button>
         </div>
     </div>
 </div>

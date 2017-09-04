@@ -17,7 +17,7 @@ $(function () {
         $(".class-pop").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".student-only").css({display:"none"});
-        $("#h1").html("All Transcripts");
+        $("#h1").html("成绩单列表");
     });
     $("#class").click(function () {
         $(".class-pop").css({display: "block"});
@@ -49,13 +49,9 @@ $(function () {
         $(".class-pop").css({display: "none"});
         $(".view").css({display: "none"});
         crn = null;
-
-        $(".view").css({display: "block"});
-
         studentid = $(this).parents("tr").find("td").eq(1).html();
 
         writingProperty(studentid);
-        transTable.draw();
 
     });
     function writingProperty(studentid){
@@ -80,13 +76,15 @@ $(function () {
         detail.push(setRow("", "学分上限: ",
             '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
             studentView.max_credits +'>' +
-            '<button class="btn btn-edit" style="display: block; margin-top: 10px;"id="enable">修改</button>' +
-            '<button class="btn btn-edit" style="display: none;margin-top: 10px;" id="update">确认更新</button>'));
+            '<button class="btn btn-edit" style="display: block; margin-top: 8px;"id="enable">修改</button>' +
+            '<button class="btn btn-edit" style="display: none;margin-top: 8px;" id="update">确认更新</button>'));
         detail.push(setRow("", "未完成学分数:    ", studentView.incomplete));
         detail.push(setRow("", "正在进行的学分数:   ", studentView.progress));
         detail.push(setRow("", "已完成学分数:      ", studentView.complete));
 
         writeTableResourceDetail($studentTable,detail);
+        transTable.draw();
+        $(".view").css({display: "block"});
     }
     function writeTableResourceDetail(tableId, list) {
         var str = '<tr>';
@@ -116,7 +114,7 @@ $(function () {
 
         crn = $(this).parents("tr").find("td").eq(1).html();
         var cname = $(this).parents("tr").find("td").eq(2).html();
-        $("#h1").html("Student Transcripts in "+ cname +" Course");
+        $("#h1").html(cname +"课的学生成绩单");
 
         transTable.draw();
     });
@@ -280,7 +278,7 @@ $(function () {
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
@@ -326,23 +324,22 @@ $(function () {
         },
 
         columns: [
-            {"data": "id", "title": "序列号","width":"45px"},
-            {"data": "crn", "title": "课程编号"},
-            {"data": "name", "title": "课程名"},
-            {"data": "coulev", "title": "课程等级"},
-            {"data": "cousec", "title": "课程部分"},
-            {"data": "capa", "title": "课程容量"},
-            {"data": "status", "title": "课程状态"},
-            {"data": "faculty", "title": "授课教师"},
+            {"data": "id", "title": "序号","width":"50px"},
+            {"data": "crn", "title": "编号"},
+            {"data": "name", "title": "课名"},
+            {"data": "coulev", "title": "等级"},
+            {"data": "cousec", "title": "部分"},
+            {"data": "status", "title": "状态"},
+            {"data": "faculty", "title": "教师"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [8]
+            targets: [7]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -397,7 +394,7 @@ $(function () {
             {"data": "credits", "title": "课程学分"},
             {"data": "assigntime", "title": "成绩提交时间", "width": "200px"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-edit">修改</button>');
                 }, "width": "100px"
             }

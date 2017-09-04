@@ -15,7 +15,10 @@ $(function () {
         $(".class-pop").css({display: "none"});
         $(".user-pop").css({display: "none"});
         $(".student-only").css({display:"none"});
-        $("#h1").html("All Transcripts");
+        studentid = null;
+        facultyid = null;
+        adviseTable.draw();
+        $("#h1").html("辅导关系总览表");
     });
     $("#class").click(function () {
         $(".class-pop").css({display: "block"});
@@ -100,7 +103,7 @@ $(function () {
 
         var fname = $(this).parents("tr").find("td").eq(3).html()+
                     $(this).parents("tr").find("td").eq(4).html();
-        $("#h1").html("Advisee List for "+ fname);
+        $("#h1").html(fname+"的辅导学生列表");
 
         adviseTable.draw();
     });
@@ -305,18 +308,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -340,7 +343,7 @@ $(function () {
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
@@ -360,18 +363,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "No Record Found！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -394,7 +397,7 @@ $(function () {
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
             {
-                "data": null, "title": "Tool", "createdCell": function (nTd) {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">选择</button>');
             }, "width": "100px"
             }
@@ -414,18 +417,18 @@ $(function () {
                 "sortAscending": ": activate to sort column ascending",
                 "sortDescending": ": activate to sort column descending"
             },
-            "emptyTable": "No Data Founded！",
-            "info": "SHOW FROM _START_ TO _END_ ，TOTAL OF _TOTAL_ RECORDS",
-            "infoEmpty": "NO RECORDS FOUND！",
-            "infoFiltered": "(SEARCH FROM _MAX_ RECORDS)",
-            "lengthMenu": "SHOW: _MENU_",
-            "search": "SEARCH:",
-            "zeroRecords": "没有发现记录！",
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
             "paginate": {
-                "previous": "Previous",
-                "next": "Next",
-                "last": "Last",
-                "first": "First"
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
             }
         },
         "lengthMenu": [
@@ -455,7 +458,7 @@ $(function () {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">删除</button>'+
                 '<button class="btn btn-edit">修改</button>');
-                }, "width": "300px"
+                }, "width": "200px"
             }
         ],
         "columnDefs": [{
