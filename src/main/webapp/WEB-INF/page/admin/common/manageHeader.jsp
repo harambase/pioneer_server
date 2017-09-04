@@ -10,4 +10,4 @@
         <li><a id="logout"><i class="fa fa-plane push"></i>登出<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="${basePath}/static/js/otherJs/index.js"></script>
+<script src="${basePath}/static/js/adminJs/index.js"></script>

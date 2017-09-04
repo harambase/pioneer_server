@@ -35,4 +35,4 @@
         <li><a href="#"><i class="fa fa-plane push"></i>Contact<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="../../../static/js/otherJs/index.js"></script>
+<script src="../../../static/js/adminJs/index.js"></script>

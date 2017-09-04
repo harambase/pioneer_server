@@ -492,9 +492,9 @@
 <script src="${basePath}/static/plugins/jQuery/jquerySession.js"></script>
 <script src="${basePath}/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="${basePath}/static/plugins/echarts/echarts.min.js"></script>
-<script src="${basePath}/static/js/otherJs/chart.js"></script>
-<script src="${basePath}/static/js/otherJs/dataTool.js"></script>
+<script src="${basePath}/static/js/adminJs/chart.js"></script>
+<script src="${basePath}/static/js/adminJs/dataTool.js"></script>
 <script src="${basePath}/static/js/adminJs/welcomeAdmin.js"></script>
-<script src="${basePath}/static/js/otherJs/index.js"></script>
+<script src="${basePath}/static/js/adminJs/index.js"></script>
 </body>
 </html>

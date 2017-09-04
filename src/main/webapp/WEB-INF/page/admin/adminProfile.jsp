@@ -31,7 +31,7 @@
         <li><a id="logout"><i class="fa fa-plane push"></i>Logout<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
-<script src="${basePath}/static/js/otherJs/index.js"></script>
+<script src="${basePath}/static/js/adminJs/index.js"></script>
 
 <div class="site-branding-text">
     <h1 class="site-title">User Manage Site</h1>

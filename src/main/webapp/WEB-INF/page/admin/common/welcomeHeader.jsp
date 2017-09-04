@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <link href="${basePath}/static/css/header.css" type="text/css" rel="stylesheet"/>
-<link href="${basePath}/static/css/font.css" type='text/css' rel="stylesheet">
+<link href="${basePath}/static/plugins/font/font.css" type='text/css' rel="stylesheet">
 <div class="sidebar">
     <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Menu</span></h1>
     <ul>
