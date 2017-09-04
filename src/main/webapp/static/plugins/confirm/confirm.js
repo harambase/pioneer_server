@@ -61,7 +61,7 @@ Showbo.Msg = {
     dvBtns: null,
     lightBox: null,
     dvMsgBox: null,
-    defaultWidth: 300,
+    defaultWidth: 330,
     moveProcessbar: function () {
         var o = Showbo.$('dvProcessbar'), w = o.style.width;
         if (w == '') w = 20;

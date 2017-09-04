@@ -648,23 +648,27 @@ $(function () {
 
     //移除学生
     $("#studentList").on("click", ".btn.btn-info", function () {
-        var studentid = $(this).parents("tr").find("td").eq(1).html();
-        $.ajax({
-            url: basePath + "/course/transcript/remove?studentid="+studentid+"&crn="+crn,
-            type: "DELETE",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                if (data.code === 2001)
-                    Showbo.Msg.alert("删除成功!", function () {
-                        $("#student").css({display : "block"});
-                        stuListTable.draw();
-                    });
-                else if (data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {
-                    });
-                else
-                    Showbo.Msg.alert(data.msg, function () {
-                    });
+        Showbo.Msg.confirm("确认删除该学生？",function(){
+            if($(".btnfocus").val() !== "取消"){
+                var studentid = $(this).parents("tr").find("td").eq(1).html();
+                $.ajax({
+                    url: basePath + "/course/transcript/remove?studentid="+studentid+"&crn="+crn,
+                    type: "DELETE",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.code === 2001)
+                            Showbo.Msg.alert("删除成功!", function () {
+                                $("#student").css({display : "block"});
+                                stuListTable.draw();
+                            });
+                        else if (data.code === 2005)
+                            Showbo.Msg.alert("系统异常!", function () {
+                            });
+                        else
+                            Showbo.Msg.alert(data.msg, function () {
+                            });
+                    }
+                });
             }
         });
     });
@@ -672,8 +676,14 @@ $(function () {
     //移除课程
     $("#courseTable").on("click", ".btn.btn-info", function() {
         crn = $(this).parents("tr").find("td").eq(1).html();
-        $("#confirm-wrapper").css({display:"block"});
+        Showbo.Msg.confirm("确认删除该课程？",function(){
+           if($(".btnfocus").val() !== "取消"){
+               /*删除操作*/
+               alert(crn);
+           }
+        });
     });
+
     $("#confirm-delete").click(function(){
 
         $.ajax({

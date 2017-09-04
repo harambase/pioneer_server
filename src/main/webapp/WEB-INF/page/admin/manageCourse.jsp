@@ -327,7 +327,7 @@
         </div>
         <div class="w_body" style="margin-top: 21px;">
                 <div class="content clearfix" style="padding: 0px">
-                    <h4 class="type">List of Students in Course: </h4>
+                    <h4 class="type">该课程学生列表: </h4>
                     <hr style="margin: 7px 0 7px 0;"/>
                     <table width="100%" style="font-size: 14px;" id="studentList" class="display dataTable">
                     </table>
