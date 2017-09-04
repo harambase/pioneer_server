@@ -3,12 +3,9 @@
 <html lang="en">
 <head>
     <title>主页</title>
-    <%@include file="../common/commonJs.jsp" %>
     <%@include file="../common/commonCSS.jsp" %>
     <meta charset="utf-8">
-    <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/admin/main.css">
-
 </head>
 <body>
 <div>
@@ -491,10 +488,13 @@
         </div>
     </div>
 </div>
+<script src="${basePath}/static/plugins/jQuery/jquery-1.11.3.js"></script>
+<script src="${basePath}/static/plugins/jQuery/jquerySession.js"></script>
+<script src="${basePath}/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script src="${basePath}/static/plugins/echarts/echarts.min.js"></script>
 <script src="${basePath}/static/js/otherJs/chart.js"></script>
 <script src="${basePath}/static/js/otherJs/dataTool.js"></script>
 <script src="${basePath}/static/js/adminJs/welcomeAdmin.js"></script>
-
+<script src="${basePath}/static/js/otherJs/index.js"></script>
 </body>
 </html>

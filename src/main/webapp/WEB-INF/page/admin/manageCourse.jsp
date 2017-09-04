@@ -22,9 +22,8 @@
             <button id="list" class="w_button" style="margin-left: 10px">浏览课程列表</button>
         </div>
     </div>
-    <hr/>
-</div>
 
+</div>
 <div class="spilt register-table">
     <div id="add-div" style="position:absolute;height: 870px; display: none" class="account-container register">
         <div class="content clearfix">
@@ -129,7 +128,7 @@
                 </div>
                 <hr style="margin-top: 5px"/>
                 <div class="login-actions" style="margin-top: -15px;">
-                    <textarea id="comment" style="margin: 15px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
+                    <textarea id="comment" style="margin:5px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
                     <span class="login-checkbox">
                         <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
                         <label class="choice" for="Field">确认上述信息正确无误</label>

@@ -1,4 +1,3 @@
-
 $( "li" ).hover(
   function() {
       $(this).find("a").css("color","#FFF");

@@ -87,6 +87,7 @@ a:hover {
     vertical-align: middle;
     font-size: 14px;
     overflow: hidden;
+    font-weight: 500;
 }
 
 #dvMsgBox .body {
@@ -100,9 +101,11 @@ a:hover {
 }
 
 #dvMsgBox .body .right .ct {
-    line-height: 60px;
+    line-height: 24px;
+    margin-top: 41px;
+    padding-top: 20px;
     vertical-align: middle;
-    width: 100%;
+    width: 94%;
     text-align: center;
     color: #000000;
     font-size: 14px;
@@ -137,33 +140,10 @@ a:hover {
 
 input.btn {
     padding: 6px 50px 6px 50px;
-    font-size:.8em;
-    -webkit-appearance:button;
-    overflow: hidden;
-    text-decoration:none;
-    color: #ffffff;
-    font-family:"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-    background: #3465a4;
-    text-shadow: 0px 1px 3px #333333;
-    font-weight: normal;
-    text-transform:uppercase;
-    background: -webkit-linear-gradient(top, #3465a4, #333333);
 }
 
 input.btnfocus{
     padding: 6px 50px 6px 50px;
-    font-size:.8em;
-    -webkit-appearance:button;
-    overflow: hidden;
-    text-decoration:none;
-    color: #ffffff;
-    font-family:"Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
-    background: #3465a4;
-    text-shadow: 0px 1px 3px #333333;
-    font-weight: normal;
-    text-transform:uppercase;
-    background: -webkit-linear-gradient(top, #3465a4, #333333);
-    outline: none;
 }
 
 #dvMsgBox .icon {
