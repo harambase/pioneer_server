@@ -114,6 +114,9 @@ $(function () {
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
                         $(".w_manage h4").eq(1).html("分配的老师: " + name);
+                        $("#assignFDiv").css({display: "none"});
+                        $("#assignF").css({display: "block"});
+                        $("#searchFValue2").val("");
                     });
                 else if(data.code === 2005)
                     Showbo.Msg.alert("系统异常!", function () {});
@@ -247,7 +250,10 @@ $(function () {
                     if (data.code === 2001)
                         Showbo.Msg.alert("更新成功!", function () {
                             logTable.draw();
+                            $("#assignCDiv").css({display: "none"});
+                            $("#assignC").css({display: "block"});
                             $(".w_manage h4").eq(2).html("分配的预选课程: " + name);
+                            $("#searchCValue2").val("");
                         });
                     else if (data.code === 2005)
                         Showbo.Msg.alert("系统异常!", function () {

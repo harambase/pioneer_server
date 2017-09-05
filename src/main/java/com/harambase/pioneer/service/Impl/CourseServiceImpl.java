@@ -133,7 +133,9 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage assignFac2Cou(Course course) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            String newFacultyid = course.getFacultyid();
             Course c = courseMapper.selectByPrimaryKey(course.getCrn());
+            c.setFacultyid(newFacultyid);
             //检查时间冲突
             if (CheckTime.isTimeConflict(courseMapper, haramMessage, c)) return haramMessage;
 
