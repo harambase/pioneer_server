@@ -44,3 +44,15 @@ $(function(){
         })
     });
 });
+function removeStuFromCourse(studentid, crn){
+    $.ajax({
+        url: basePath + "/course/student/remove?studentid="+studentid+"&crn="+crn,
+        type: "DELETE",
+        async:false,
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            Showbo.Msg.alert(data.msg, function () {});
+            return data;
+        }
+    });
+}

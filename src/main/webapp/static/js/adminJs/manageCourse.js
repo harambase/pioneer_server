@@ -648,24 +648,10 @@ $(function () {
         Showbo.Msg.confirm("确认删除该学生？",function(){
             if($(".btnfocus").val() !== "取消"){
                 var studentid = $(this).parents("tr").find("td").eq(1).html();
-                $.ajax({
-                    url: basePath + "/course/transcript/remove?studentid="+studentid+"&crn="+crn,
-                    type: "DELETE",
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        if (data.code === 2001)
-                            Showbo.Msg.alert("删除成功!", function () {
-                                $("#student").css({display : "block"});
-                                stuListTable.draw();
-                            });
-                        else if (data.code === 2005)
-                            Showbo.Msg.alert("系统异常!", function () {
-                            });
-                        else
-                            Showbo.Msg.alert(data.msg, function () {
-                            });
-                    }
-                });
+                var data = removeStuFromCourse(studentid, crn);
+                $("#student").css({display: "block"});
+                stuListTable.draw();
+
             }
         });
     });

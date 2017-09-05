@@ -243,7 +243,7 @@ public class CourseServiceImpl implements CourseService {
             Map<String, Object> param = new HashMap<>();
             param.put("studentid", studentid);
             param.put("crn", crn);
-            int ret = transcriptMapper.deleteByPrimaryKey(param);
+            int ret = 1;//transcriptMapper.deleteByPrimaryKey(param);
             if(ret == 1){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -535,4 +535,5 @@ public class CourseServiceImpl implements CourseService {
         message.setData(c);
         return message;
     }
+    
 }

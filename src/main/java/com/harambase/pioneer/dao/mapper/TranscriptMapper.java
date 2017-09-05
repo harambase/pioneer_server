@@ -39,4 +39,5 @@ public interface TranscriptMapper {
     List<Transcript> getAllTranscripts();
 
     void deleteByStudentid(String userid);
+    
 }

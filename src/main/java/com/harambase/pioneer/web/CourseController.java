@@ -52,7 +52,7 @@ public class CourseController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/transcript/remove", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/student/remove", method = RequestMethod.DELETE)
     public ResponseEntity removeStuFromCourse(@RequestParam(value = "studentid") String studentid,
                                               @RequestParam(value = "crn") String crn,
                                               HttpSession session){
@@ -70,13 +70,7 @@ public class CourseController {
         HaramMessage haramMessage = courseService.addStu2Cou(option);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-
-    public String removeStuFromCourse(@RequestParam(value = "studentid") String studentid,
-                                @RequestParam(value = "courseid") String courseid){
-        courseService.removeStuFromCou(studentid, courseid);
-        return null;
-    }
-
+    
     @RequestMapping(value = "/assign/faculty", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity assignF2Course(@RequestBody Course course){
         HaramMessage haramMessage = courseService.assignFac2Cou(course);
@@ -140,7 +134,7 @@ public class CourseController {
         HaramMessage haramMessage = courseService.updateGrade(transcript);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-
+    
     @RequestMapping(value = "/student/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity listStudent(@RequestParam(value = "start") Integer start,
                                       @RequestParam(value = "length") Integer length,

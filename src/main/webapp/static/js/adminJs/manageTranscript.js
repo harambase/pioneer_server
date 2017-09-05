@@ -396,8 +396,8 @@ $(function () {
             {"data": "assigntime", "title": "成绩提交时间", "width": "200px"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-edit">修改</button>');
-                }, "width": "100px"
+                $(nTd).html('<button class="btn btn-info">删除</button><button class="btn btn-edit">修改</button>');
+                }, "width": "200px"
             }
         ],
         "columnDefs": [{
@@ -408,5 +408,19 @@ $(function () {
             "targets": "_all"
         }]
     });
+
+    //移除记录
+    $("#transTable").on("click", ".btn.btn-info", function() {
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        var crn       = $(this).parents("tr").find("td").eq(4).html();
+        Showbo.Msg.confirm("确认删除该记录？",function(){
+            if($(".btnfocus").val() !== "取消"){
+                /*删除操作*/
+                removeStuFromCourse(studentid, crn);
+                transTable.draw();
+            }
+        });
+    });
+
 });
 
