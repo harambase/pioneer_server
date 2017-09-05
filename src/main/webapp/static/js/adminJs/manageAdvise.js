@@ -469,5 +469,32 @@ $(function () {
             "targets": "_all"
         }]
     });
+
+    //移除关系
+    $("#transTable").on("click", ".btn.btn-info", function() {
+        id = $(this).parents("tr").find("td").eq(0).html();
+        Showbo.Msg.confirm("确认删除该关系？",function(){
+            if($(".btnfocus").val() !== "取消"){
+                /*删除操作*/
+                $.ajax({
+                    url: basePath + "/admin/advise/remove?id="+id,
+                    type: "DELETE",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        if (data.code === 2001)
+                            Showbo.Msg.alert("删除成功!", function () {
+                                adviseTable.draw();
+                            });
+                        else if (data.code === 2005)
+                            Showbo.Msg.alert("系统异常!", function () {
+                            });
+                        else
+                            Showbo.Msg.alert(data.msg, function () {
+                            });
+                    }
+                });
+            }
+        });
+    });
 });
 

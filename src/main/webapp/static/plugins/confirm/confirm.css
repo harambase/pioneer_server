@@ -9,13 +9,6 @@ ul, ol, li {
     list-style: none;
 }
 
-input{
-    margin: 0;
-    font-size: 12px;
-    vertical-align: middle;
-    height: 30px;
-    width: 250px;
-}
 button {
     margin: 0;
     font-size: 12px;

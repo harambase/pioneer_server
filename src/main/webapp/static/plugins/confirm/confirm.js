@@ -123,7 +123,11 @@ Showbo.Msg = {
     },
     confirm: function (msg, fn) {
         //fn为回调函数，参数和show方法的一致
-        this.show({buttons: {yes: '确认', no: '取消'}, msg: msg, title: '提示消息', fn: fn});
+        this.show({
+            buttons: {yes: '确认', no: '取消'},
+            msg: msg, title: '提示消息',
+            fn: fn
+        });
     },
     prompt: function (labelWord, defaultValue, txtId, fn) {
         if (!labelWord) labelWord = '请输入：';
@@ -209,4 +213,4 @@ Showbo.Msg = {
         Showbo.Msg.dvMsgBox.style.left = Math.floor((Showbo.BodyScale.x - Showbo.Msg.dvMsgBox.offsetWidth) / 2) + 'px';
     }
 
-}
+};

@@ -118,7 +118,7 @@ public class AdminController {
     }
 
     @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
-    public ResponseEntity removeMentor(@RequestParam(value = "serial") Integer id ) {
+    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id ) {
         HaramMessage message = personService.removeMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -222,4 +222,6 @@ public class AdminController {
         HaramMessage message = personService.removeUser(userid);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+
 }
