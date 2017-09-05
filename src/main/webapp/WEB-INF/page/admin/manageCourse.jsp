@@ -112,19 +112,19 @@
                 <div class='w_day'>
                     <h4 class="status" style="margin-top: 0px;">*选择上课的时间: </h4>
                     <input class='m' type="checkbox" name="day" value="m"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期一
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期一
                     <input class='t' type="checkbox" name="day" value="t"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期二
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期二
                     <input class='w' type="checkbox" name="day" value="w"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期三
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期三
                     <input class='tr' type="checkbox" name="day" value="tr"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期四
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期四
                     <input class='f' type="checkbox" name="day" value="f"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期五
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期五
                     <input class='sa' type="checkbox" name="day" value="sa"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期六
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期六
                     <input class='s' type="checkbox" name="day" value="s"
-                           style="margin: 10px 4px 10px 0; width: 13px;"/>星期日
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期日
                 </div>
                 <hr style="margin-top: 5px"/>
                 <div class="login-actions" style="margin-top: -15px;">
@@ -167,7 +167,7 @@
 
             <div class="w_tabC w_pop">
                 <div class="w_content">
-                    <div class="w_basicInfo account-container register" style="margin-left: 0px;">
+                    <div class="w_basicInfo account-container register" style="margin-left: 0px;width: 430px;">
                         <form id="editCourseForm" method="post" onsubmit="return false">
                             <table style="margin: 15px 27px;">
                                 <tr>
@@ -221,7 +221,7 @@
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">备注信息:</p></td>
-                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 210px; height: 100px; resize: none;"></textarea></td>
+                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 250px; height: 100px; resize: none;"></textarea></td>
                                 </tr>
                             </table>
                         </form>
@@ -234,10 +234,7 @@
             </div>
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
-                    <h4 class="status" style="margin-top: 0px;">课程状态(无法修改): </h4>
-                    <input class='enable' type="checkbox" name="powerState" value="1" disabled/>正常
-                    <input class='disable' type="checkbox" name="powerState" value="0" disabled/>停课
-
+                    <h4 class="status" style="color:red; font-weight: 300; margin-top: 0px;">课程状态(无法修改): </h4>
                     <h4 class="type">授课老师: </h4>
                     <button class="w_button" style="width: 190px;height: 35px; vertical-align: middle;" id="assignF">修改授课老师</button>
                     <div id="assignFDiv" class="group-form-input">
@@ -258,19 +255,19 @@
                     </div>
                     <h4 class="status" style="margin-top: 0px;">当前课程的上课时间: </h4>
                     <input class='m' type="checkbox" name="newDay" value="m"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期一
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期一
                     <input class='t' type="checkbox" name="newDay" value="t"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期二
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期二
                     <input class='w' type="checkbox" name="newDay" value="w"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期三
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期三
                     <input class='tr' type="checkbox" name="newDay" value="tr"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期四
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期四
                     <input class='f' type="checkbox" name="newDay" value="f"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期五
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期五
                     <input class='sa' type="checkbox" name="newDay" value="sa"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期六
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期六
                     <input class='s' type="checkbox" name="newDay" value="s"
-                           style="margin: 10px 4px 10px 0; width: 12px;"/>星期日
+                           style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>星期日
                     <span class="w_button w_add" id="change-day" style="width: 145px; text-align: center;">修改时间</span>
                     <span class="w_button w_add" id="cancelD"    style="width: 145px; text-align: center;">取消操作</span>
                 </div>
@@ -279,23 +276,23 @@
                 </div>
             </div>
             <div class="w_tabE w_pop">
-                <h4 class="type">添加学生: </h4>
+                <h4 class="type"></h4>
                 <button class="w_button" style="width: 190px; vertical-align: middle;" id="assignS">添加学生</button>
                 <div id="assignSDiv" class="group-form-input">
                     <h4 class="status" style="margin-top: 0px;">添加选项: </h4>
                     <table style="font-size: 11px">
                         <tr>
-                            <td style="color: red;font-weight: 900;margin-bottom: -5px"><input type="checkbox" name="pre" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                            <td style="color: red;font-weight: 900;margin-bottom: -5px"><input type="checkbox" name="pre" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
                                 添加此学生，即使未完成预选课程
                             </td>
                         </tr>
                         <tr>
-                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="time" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="time" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
                                 添加此学生，即使有时间冲突
                             </td>
                         </tr>
                         <tr>
-                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="capa" style="margin: 10px 4px 10px 0; width: 12px;"/>
+                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="capa" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
                                 添加此学生，即使已经达到课程人数上限
                             </td>
                         </tr>

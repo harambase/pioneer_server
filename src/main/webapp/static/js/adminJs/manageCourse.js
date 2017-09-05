@@ -467,14 +467,11 @@ $(function () {
     //写入课程属性
     function writeSettings(status, pre){
 
-        if (status == "1") {
+        if (status == "1")
             $(".w_manage h4").eq(0).html("课程状态: 正常");
-            $(".w_manage input").eq(0).prop("checked", true);
-        }
-        else {
+        else
             $(".w_manage h4").eq(0).html("课程状态: 停课");
-            $(".w_manage input").eq(1).prop("checked", true);
-        }
+
         getFaulcty(course.facultyid);
         $(".w_manage h4").eq(1).html("分配的老师: " + faculty.lastname + faculty.firstname);
 

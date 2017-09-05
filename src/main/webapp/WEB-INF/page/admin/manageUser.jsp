@@ -31,7 +31,7 @@
 </div>
 
 <div id="addUser" class="spilt register-table">
-    <div style="float: left; height: 650px" class="account-container register">
+    <div style="float: left; height: 700px" class="account-container register">
         <div class="content clearfix">
             <form id="createUserForm" method="post" onsubmit="return false">
                 <h1>创建一个新的用户</h1>
@@ -91,17 +91,17 @@
                     <table style="margin: 0px 0px 15px 0px;">
                         <tr>
                             <td style="padding-right: 5px"><h4 style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">*选择用户性别:</h4></td>
-                            <td style="padding-right: 5px"><input id='male' type="radio" name="gender" value="s"/>男</td>
-                            <td style="padding-right: 5px"><input id='female' type="radio" name="gender" value="f"/>女</td>
+                            <td style="padding-right: 5px"><input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id='male' type="radio" name="gender" value="s"/>男</td>
+                            <td style="padding-right: 5px"><input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id='female' type="radio" name="gender" value="f"/>女</td>
                         </tr>
                     </table>
 
                     <table style="margin: -10px 0px 0px 0px;">
                         <tr>
                             <td style="padding-right: 5px"><h4 style="float: left;margin-bottom: 4.5px;margin-top: 4.5px;">*选择账户类型:</h4></td>
-                            <td style="padding-right: 5px"><input id='student1' type="checkbox" name="type" value="s"/>学生</td>
-                            <td style="padding-right: 5px"><input id='faculty1' type="checkbox" name="type" value="f"/>教师</td>
-                            <td style="padding-right: 5px"><input id='admin1'   type="checkbox" name="type" value="a"/>系统管理员</td>
+                            <td style="padding-right: 5px"><input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id='student1' type="checkbox" name="type" value="s"/>学生</td>
+                            <td style="padding-right: 5px"><input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id='faculty1' type="checkbox" name="type" value="f"/>教师</td>
+                            <td style="padding-right: 5px"><input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id='admin1'   type="checkbox" name="type" value="a"/>系统管理员</td>
                         </tr>
                     </table>
                     <textarea id="comment" style="margin: 5px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
@@ -117,7 +117,7 @@
     </div> <!-- /account-container -->
 </div>
 <div id="userList" class="spilt register-table">
-    <div style="width: 1200px;height: 650px;"class="account-container register">
+    <div style="width: 1563px;height: 700px;"class="account-container register">
         <div class="content clearfix">
             <h1>系统用户列表</h1>
             <div class='user-table'>
@@ -191,7 +191,7 @@
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">备注信息:</p></td>
-                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 210px; height: 100px; resize: none;"></textarea></td>
+                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 250px; height: 100px; resize: none;"></textarea></td>
                                 </tr>
                             </table>
                         </form>
