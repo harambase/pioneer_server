@@ -2,8 +2,8 @@ package com.harambase.pioneer.service.Impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.CourseMapper;
-import com.harambase.pioneer.dao.TranscriptMapper;
+import com.harambase.pioneer.dao.mapper.CourseMapper;
+import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.pioneer.helper.CheckTime;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;

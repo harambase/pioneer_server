@@ -3,18 +3,16 @@ package com.harambase.pioneer.service.Impl;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
-import com.harambase.pioneer.dao.*;
+import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.transaction.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.*;
 
 
@@ -348,7 +346,7 @@ public class PersonServiceImpl implements PersonService {
         try {
 
             List<Person> personList = personMapper.getAllUsers();
-            List<CourseView> courseList = courseMapper.getAllCourses();
+            List<CourseView> courseList = courseMapper.getAllActiveCourses();
             List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
             List<Advise> adviseList = adviseMapper.getAllAdvise();
 
@@ -528,11 +526,41 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage removeUser(String userid) {
         HaramMessage message = new HaramMessage();
         try {
-            int ret = personMapper.deleteByPrimaryKey(userid);
-            ret = adviseMapper.deleteByUserID("0");
-            ret = 1/0;
-        } catch(Exception e){
-
+            if(!userid.equals("9000000000")) {
+                Person p = personMapper.selectByPrimaryKey(userid);
+                if (p != null) {
+                    String type = p.getType();
+                    if (type.contains("s")) {
+                        studentMapper.deleteByPrimaryKey(userid);
+                        transcriptMapper.deleteByStudentid(userid);
+                    } else if (type.contains("f")) {
+                        List<CourseView> courseViewList = courseMapper.getAllActiveCourses();
+                        for (CourseView c : courseViewList) {
+                            String facultyid = c.getFacultyid();
+                            if (facultyid.equals(userid)) {
+                                String opTime = DateUtil.DateToStr(new Date());
+                                c.setFacultyid("9000000000");
+                                c.setComment(c.getFaculty() + "老师被删除, 删除时间：" + opTime);
+                                c.setUpdatetime(DateUtil.DateToStr(new Date()));
+                                courseMapper.updateByPrimaryKeySelective(c);
+                            }
+                        }
+                    }
+                    adviseMapper.deleteByUserID(userid);
+                    personMapper.deleteByPrimaryKey(userid);
+                }
+                message.setMsg(FlagDict.SUCCESS.getM());
+                message.setCode(FlagDict.SUCCESS.getV());
+            }
+            else{
+                message.setCode(FlagDict.DELETE_BLOCK.getV());
+                message.setMsg(FlagDict.DELETE_BLOCK.getM());
+            }
+            return message;
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
         }
         return message;
     }

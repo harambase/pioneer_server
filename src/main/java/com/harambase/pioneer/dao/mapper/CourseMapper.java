@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao;
+package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
@@ -31,7 +31,7 @@ public interface CourseMapper {
 
     int facultyTime(Map<String, String> param);
 
-    List<CourseView> getAllCourses();
+    List<CourseView> getAllActiveCourses();
 
     int countActiveCourse();
     

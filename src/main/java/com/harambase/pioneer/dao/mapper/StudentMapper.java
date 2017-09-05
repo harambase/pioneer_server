@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao;
+package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.dto.StudentView;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface StudentMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String userid);
 
     int insert(Student record);
 

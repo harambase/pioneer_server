@@ -2,10 +2,8 @@ package com.harambase.pioneer.service.Impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.StudentMapper;
+import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.pojo.Student;
-import com.harambase.pioneer.pojo.Transcript;
-import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.pojo.dto.StudentView;
 import com.harambase.pioneer.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;

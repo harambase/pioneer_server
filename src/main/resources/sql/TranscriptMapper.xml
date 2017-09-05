@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harambase.pioneer.dao.TranscriptMapper" >
+<mapper namespace="com.harambase.pioneer.dao.mapper.TranscriptMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentid" property="studentid" jdbcType="VARCHAR" />
@@ -24,6 +24,9 @@
   </delete>
   <delete id="deleteByCRN" parameterType="java.lang.String" >
     delete from Transcript where crn = #{crn,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByStudentid" parameterType="java.lang.String" >
+    delete from Transcript where studentid = #{arg0,jdbcType=VARCHAR}
   </delete>
 
 

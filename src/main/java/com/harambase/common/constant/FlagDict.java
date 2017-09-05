@@ -12,7 +12,7 @@ public enum FlagDict {
     ILLEGAL_PARAM("参数有误",2003),
     SENSITIVE_WORD("含有非法字符",2004),
     SYSTEM_ERROR("系统异常",2005),
-    TOKEN_SUCCESS("获取Token成功", 2006),
+    DELETE_BLOCK("不可删除", 2006),
     USER_NAME_EXISTS("用户已存在", 2007),
     USER_DISABLED("用户已禁用", 2008),
     USER_BLOCKED("用户已截断", 2009),

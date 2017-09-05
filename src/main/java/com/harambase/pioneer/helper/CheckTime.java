@@ -2,9 +2,8 @@ package com.harambase.pioneer.helper;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.CourseMapper;
+import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.pojo.Course;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao;
+package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
@@ -37,4 +37,6 @@ public interface TranscriptMapper {
     List<Transcript> getTranscriptBySearch(Map<String, Object> param);
 
     List<Transcript> getAllTranscripts();
+
+    void deleteByStudentid(String userid);
 }

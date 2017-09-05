@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harambase.pioneer.dao.CourseMapper" >
+<mapper namespace="com.harambase.pioneer.dao.mapper.CourseMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Course" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="crn" property="crn" jdbcType="VARCHAR" />
@@ -36,7 +36,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from course where crn = #{crn,jdbcType=VARCHAR}
+    from Course where crn = #{crn,jdbcType=VARCHAR}
   </select>
   <select id="countActiveCourse" resultType="java.lang.Integer" >
     select count(*) from CourseView where status = '1'
@@ -45,7 +45,7 @@
     delete from Course where crn = #{crn,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Course" >
-    insert into course (id, crn, name, 
+    insert into Course (id, crn, name, 
       credits, precrn, couLev, 
       couSec, classroom, startDate, 
       endDate, day, startTime, 
@@ -61,7 +61,7 @@
       #{comment,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Course" >
-    insert into course
+    insert into Course
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -182,7 +182,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Course" >
-    update course
+    update Course
     <set >
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -239,7 +239,7 @@
     where crn = #{crn,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Course" >
-    update course
+    update Course
     set crn = #{crn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       credits = #{credits,jdbcType=INTEGER},
@@ -261,7 +261,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Course" >
-    update course
+    update Course
     set crn = #{crn,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       credits = #{credits,jdbcType=INTEGER},
@@ -319,6 +319,9 @@
     <!--limit 0,4-->
   <!--</select>-->
   <select id="getAllCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
+    select * from CourseView
+  </select>
+  <select id="getAllActiveCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
     select * from CourseView where status = '1'
   </select>
   <select id="getAllCoursesWithInfo" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">

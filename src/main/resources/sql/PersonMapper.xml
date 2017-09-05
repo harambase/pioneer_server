@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harambase.pioneer.dao.PersonMapper" >
+<mapper namespace="com.harambase.pioneer.dao.mapper.PersonMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Person" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
@@ -36,14 +36,14 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from person
+    from Person
     where userid = #{arg0,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from person where userid = #{arg0,jdbcType=VARCHAR}
+    delete from Person where userid = #{arg0,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Person" >
-    insert into person (id, userid, username, 
+    insert into Person (id, userid, username, 
       firstname, lastname, password, 
       info, birthday, email, 
       tel, qq, weChat, dorm, 
@@ -59,7 +59,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Person" >
-    insert into person
+    insert into Person
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -180,7 +180,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Person" >
-    update person
+    update Person
     <set >
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
@@ -237,7 +237,7 @@
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Person" >
-    update person
+    update Person
     set userid = #{userid,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       firstname = #{firstname,jdbcType=VARCHAR},
@@ -262,7 +262,7 @@
     select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
-    update person
+    update Person
     set userid = #{userid,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       firstname = #{firstname,jdbcType=VARCHAR},

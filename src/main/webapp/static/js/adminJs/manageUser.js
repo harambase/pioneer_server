@@ -51,7 +51,7 @@ $(function () {
                 birthday:birthday,
                 comment :comment
             };
-            alert(JSON.stringify(person));
+
             $.ajax({
                 url: basePath + "/admin/user/add",
                 type: "POST",
@@ -529,7 +529,6 @@ $(function () {
         Showbo.Msg.confirm("确认删除该用户？",function(){
             if($(".btnfocus").val() !== "取消"){
                 /*删除操作*/
-                alert(userid);
                 $.ajax({
                     url: basePath + "/admin/remove/user?userid="+userid,
                     type: "DELETE",
