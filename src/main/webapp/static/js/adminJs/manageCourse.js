@@ -662,25 +662,24 @@ $(function () {
         Showbo.Msg.confirm("确认删除该课程？",function(){
            if($(".btnfocus").val() !== "取消"){
                /*删除操作*/
-               alert(crn);
-               // $.ajax({
-               //     url: basePath + "/course/remove?crn="+crn,
-               //     type: "DELETE",
-               //     contentType: "application/json; charset=utf-8",
-               //     success: function (data) {
-               //         if (data.code === 2001)
-               //             Showbo.Msg.alert("删除成功!", function () {
-               //                 $("#confirm-wrapper").css({display:"none"});
-               //                 logTable.draw();
-               //             });
-               //         else if (data.code === 2005)
-               //             Showbo.Msg.alert("系统异常!", function () {
-               //             });
-               //         else
-               //             Showbo.Msg.alert(data.msg, function () {
-               //             });
-               //     }
-               // });
+               $.ajax({
+                   url: basePath + "/course/remove?crn="+crn,
+                   type: "DELETE",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+                       if (data.code === 2001)
+                           Showbo.Msg.alert("删除成功!", function () {
+                               $("#confirm-wrapper").css({display:"none"});
+                               logTable.draw();
+                           });
+                       else if (data.code === 2005)
+                           Showbo.Msg.alert("系统异常!", function () {
+                           });
+                       else
+                           Showbo.Msg.alert(data.msg, function () {
+                           });
+                   }
+               });
            }
         });
     });

@@ -13,6 +13,7 @@ import com.harambase.pioneer.service.CourseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -78,6 +79,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public HaramMessage remove(String crn) {
         HaramMessage haramMessage = new HaramMessage();
         try{
@@ -87,12 +89,14 @@ public class CourseServiceImpl implements CourseService {
                 if (ret == 1) {
                     haramMessage.setCode(FlagDict.SUCCESS.getV());
                     haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                    return haramMessage;
+                    
                 }
+            }else {
+                haramMessage.setCode(FlagDict.FAIL.getV());
+                haramMessage.setMsg(FlagDict.FAIL.getM());
             }
-            haramMessage.setCode(FlagDict.FAIL.getV());
-            haramMessage.setMsg(FlagDict.FAIL.getM());
-            return haramMessage;
+            throw new RuntimeException("Error");
+            //return haramMessage;
 
         }catch (Exception e){
             e.printStackTrace();
