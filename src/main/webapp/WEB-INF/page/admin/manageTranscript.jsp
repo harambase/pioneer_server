@@ -105,9 +105,9 @@
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">*完成情况:</p></td>
-                                    <td> <input id="complete" type="radio" value="Complete"/>完成
-                                         <input id="process" type="radio" value="In Progress"/>正在进行
-                                         <input id="nComplete" type="radio" value="Not Complete"/>未完成</td>
+                                    <td> <input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id="complete" type="radio" value="Complete"/>完成
+                                         <input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id="process" type="radio" value="In Progress"/>正在进行
+                                         <input style="height: 14px;margin: 10px 4px 10px 0;width: 13px;" id="nComplete" type="radio" value="Not Complete"/>未完成</td>
                                 </tr>
                             </table>
                         </form>

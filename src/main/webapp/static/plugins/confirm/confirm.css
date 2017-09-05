@@ -141,10 +141,12 @@ a:hover {
 
 input.btn {
     padding: 6px 50px 6px 50px;
+    width: 130px;
 }
 
 input.btnfocus{
     padding: 6px 50px 6px 50px;
+    width: 130px;
 }
 
 #dvMsgBox .icon {

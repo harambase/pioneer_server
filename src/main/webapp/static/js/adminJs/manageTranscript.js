@@ -52,6 +52,7 @@ $(function () {
         studentid = $(this).parents("tr").find("td").eq(1).html();
 
         writingProperty(studentid);
+        $(".view").css({display: "block"});
 
     });
     function writingProperty(studentid){
@@ -84,7 +85,7 @@ $(function () {
 
         writeTableResourceDetail($studentTable,detail);
         transTable.draw();
-        $(".view").css({display: "block"});
+
     }
     function writeTableResourceDetail(tableId, list) {
         var str = '<tr>';
