@@ -102,4 +102,9 @@
         <!--<url-pattern>/*</url-pattern>-->
     <!--</filter-mapping>-->
 
+    <!-- session 失效时间50分钟 -->
+    <session-config>
+        <session-timeout>50</session-timeout>
+    </session-config>
+
 </web-app>

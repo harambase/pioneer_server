@@ -301,12 +301,11 @@
            cv.status as status,
            cv.faculty as faculty
     from CourseView cv, Course c
-    where c.crn = cv.crn and cv.status = #{status,jdbcType=VARCHAR}
+    where c.crn = cv.crn
     <if test="search != null" >
       and (c.crn like '%' #{search,jdbcType=VARCHAR} '%' or
            c.name like '%' #{search,jdbcType=VARCHAR} '%')
     </if>
-    limit 0,4
   </select>
   <!--<select id="getCourseBySearch" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.CourseView">&ndash;&gt;-->
     <!--select * from Course c <where> EXISTS (SELECT * FROM CourseView cv-->

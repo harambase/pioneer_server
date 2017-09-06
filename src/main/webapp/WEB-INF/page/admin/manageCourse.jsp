@@ -91,18 +91,17 @@
                         <input id="capa" name="capa" value="" placeholder="*课程容量" class="login" required/>
                     </div> <!-- /field -->
                     <div class="field">
-
                         <div class="group-form-input">
                             <label for="searchFValue">分配教师:</label>
-                            <input id="searchFValue" placeholder="*分配教师" style="float: left; width: 155px;" required>
-                            <span class="w_button w_add" id="addf-button" style="height: 30px;margin-left: 10px;">检查教师</span>
+                            <input id="searchFValue" placeholder="*分配教师" required>
                             <ul class="w_selected1">
                             </ul>
                         </div>
+                    </div>
+                    <div class="field">
                         <div class="group-form-input">
                             <label for="searchCValue">分配预选课程：</label>
-                            <input id="searchCValue" placeholder="分配预选课程(非必填)" style="float: left; width: 155px;">
-                            <span class="w_button w_add" id="addc-button" style="height: 30px;margin-left: 10px;">检查课程</span>
+                            <input id="searchCValue" placeholder="分配预选课程(非必填)">
                             <ul class="w_selected2">
                             </ul>
                         </div>

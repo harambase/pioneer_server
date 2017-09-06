@@ -21,7 +21,7 @@ public interface CourseMapper {
 
     int updateByPrimaryKey(Course record);
 
-    List<Course> getCourseBySearch(Map<String, Object> param);
+    List<CourseView> getCourseBySearch(Map<String, Object> param);
 
     long getCourseCountByMapPageSearchOrdered(Map<String, Object> param);
 

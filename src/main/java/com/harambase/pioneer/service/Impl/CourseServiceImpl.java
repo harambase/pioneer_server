@@ -8,6 +8,7 @@ import com.harambase.pioneer.helper.CheckTime;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import org.apache.commons.lang3.StringUtils;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -296,17 +294,33 @@ public class CourseServiceImpl implements CourseService {
         try {
             Map<String, Object> param = new HashMap<>();
             param.put("search", search);
-            param.put("status", "1");
 
             if (search.equals(""))
                 param.put("search", null);
 
-            List<Course> courses = courseMapper.getCourseBySearch(param);
+            List<CourseView> results = courseMapper.getCourseBySearch(param);
+            List<CourseView> courses = new ArrayList<>();
+            int index = 0;
 
-            message.setData(courses);
+            if(results.size() > 1) {
+                for(CourseView c: results){
+                    if (c.getStatus().equals("1"))
+                        courses.add(c);
+                    index++;
+                    if(index == 5) break;
+                }
+            }else if(results.size() == 1){
+                CourseView cv = results.get(0);
+                if(cv.getStatus().equals("0")){
+                    message.setCode(FlagDict.COURSE_FINISHED.getV());
+                    message.setMsg(FlagDict.COURSE_FINISHED.getM());
+                    return message;
+                }
+                courses.add(cv);
+                message.setData(courses);
+            }
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
-
             return message;
 
         } catch (Exception e) {

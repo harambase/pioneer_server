@@ -76,17 +76,6 @@ $(function () {
         $("#searchFValue").data("userid", $(this).data("id"));
         $(".w_selected1").css({display: "none"});
     });
-    $("#addf-button").click(function () {
-        facultyids = $("#searchFValue").data("userid");
-        if(facultyids === "" || facultyids === undefined){
-            var faculty = $("#searchFValue").val();
-            if(getFaulcty(faculty))
-                Showbo.Msg.alert("教师获取成功", function () {});
-        }
-        else
-            Showbo.Msg.alert("认证成功", function () {});
-
-    });
 
     $("#searchFValue2").bind("input propertychange", function () {
         facultyList($("#searchFValue2"), $(".w_selected3"),$(".w_selected3 li"));
@@ -97,6 +86,7 @@ $(function () {
         $("#searchFValue2").data("name", $(this).data("name"));
         $(".w_selected3").css({display: "none"});
     });
+    //分配新老师
     $("#addf-button2").click(function () {
         facultyids = $("#searchFValue2").data("userid");
         var name = $("#searchFValue2").data("name");
@@ -125,31 +115,6 @@ $(function () {
             }
         })
     });
-
-    //搜索教师
-    function getFaulcty(f){
-        var isSucc = false;
-        $.ajax({
-            url : basePath+"/admin/list/faculty?search="+f,
-            type : "GET",
-            async: false,
-            success: function (result) {
-                if (result.code === 2001) {
-                    if(result.data.length !== 1){
-                        Showbo.Msg.alert("教师获取失败", function () {});
-                    }
-                    else if(result.data.length === 1){
-                        facultyids = result.data[0].userid;
-                        faculty = result.data[0];
-                        isSucc = true;
-                    }
-                } else {
-                    Showbo.Msg.alert("教师获取失败", function () {});
-                }
-            }
-        });
-        return isSucc;
-    }
 
     //课程列表
     function courseList(searchCValue, w_select, w_select_li){
@@ -278,10 +243,7 @@ $(function () {
             async: false,
             success: function (result) {
                 if (result.code === 2001) {
-                    if(result.data.length === 0){
-                        Showbo.Msg.alert("课程已经结束", function () {});
-                    }
-                    else if(result.data.length === 1){
+                    if(result.data.length === 1){
                         isSucc = true;
                         if(pre){
                             precrns = result.data[0].crn;
@@ -289,7 +251,6 @@ $(function () {
                         }
                         else
                             course = result.data[0];
-
                     }
                 } else {
                     Showbo.Msg.alert(result.msg, function () {});
@@ -315,55 +276,52 @@ $(function () {
             var info = $("#year-semester").val();
             var classroom  = $("#classroom").val();
             var comment  = $("#comment").val();
-            if (facultyids !== "") {
+            var facultyid = $("#searchFValue").val();
+            var precrn = $("#searchCValue").val();
 
-                $('input[name="day"]:checked').each(function () {
-                    day += $(this).val() + "/";
-                });
+            $('input[name="day"]:checked').each(function () {
+                day += $(this).val() + "/";
+            });
 
-                var course = {
-                    credits: credits,
-                    coulev: coulev,
-                    name: name,
-                    cousec: cousec,
-                    startdate: startdate,
-                    enddate: enddate,
-                    starttime: starttime,
-                    endtime: endtime,
-                    capa: capa,
-                    facultyid: facultyids,
-                    day: day,
-                    info: info,
-                    precrn: precrns,
-                    classroom: classroom,
-                    comment : comment
-                };
+            var course = {
+                credits: credits,
+                coulev: coulev,
+                name: name,
+                cousec: cousec,
+                startdate: startdate,
+                enddate: enddate,
+                starttime: starttime,
+                endtime: endtime,
+                capa: capa,
+                facultyid: facultyid,
+                day: day,
+                info: info,
+                precrn: precrn,
+                classroom: classroom,
+                comment : comment
+            };
 
-                $.ajax({
-                    url: basePath + "/course/add",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(course),
-                    success: function (data) {
-                        if (data.code === 2001) {
-                            Showbo.Msg.alert("添加成功!", function () {
-                                logTable.draw();
-                                $("#add-div").css({display: "none"});
-                                $("#course-div").css({display: "block"});
-                                $('[type=text]').val("");
-                            });
-                        }
-                        else if (data.code === 2005) {
-                            Showbo.Msg.alert("系统异常!", function () {} );
-                        }
-                        else
-                            Showbo.Msg.alert(data.msg, function () {});
+            $.ajax({
+                url: basePath + "/course/add",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(course),
+                success: function (data) {
+                    if (data.code === 2001) {
+                        Showbo.Msg.alert("添加成功!", function () {
+                            logTable.draw();
+                            $("#add-div").css({display: "none"});
+                            $("#course-div").css({display: "block"});
+                            $('[type=text]').val("");
+                        });
                     }
-                })
-            }
-            else
-                Showbo.Msg.alert("教师信息获取失败", function () {});
-
+                    else if (data.code === 2005) {
+                        Showbo.Msg.alert("系统异常!", function () {} );
+                    }
+                    else
+                        Showbo.Msg.alert(data.msg, function () {});
+                }
+            })
         }
     });
     //更新课程信息
@@ -471,17 +429,19 @@ $(function () {
     });
 
     //写入课程属性
-    function writeSettings(status, pre){
+    function writeSettings(status, course){
+        var pre = course.precrn;
+        var faculty = course.faculty;
+        facultyids = course.facultyid;
 
         if (status == "1")
             $(".w_manage h4").eq(0).html("课程状态: 正常");
         else
             $(".w_manage h4").eq(0).html("课程状态: 停课");
 
-        getFaulcty(course.facultyid);
-        $(".w_manage h4").eq(1).html("分配的老师: " + faculty.lastname + faculty.firstname);
+        $(".w_manage h4").eq(1).html("分配的老师: " + faculty);
 
-        if(pre === null || pre === "")
+        if(pre == null || pre == "")
             $(".w_manage h4").eq(2).html("分配的预选课程：无");
         else{
             getCourse(pre, true);
@@ -540,7 +500,7 @@ $(function () {
             baseInfo.find("#classroom2").val(course.classroom);
             baseInfo.find("#comment2").val(course.comment);
             newStatus = status = course.status;
-            writeSettings(status, course.precrn);
+            writeSettings(status, course);
 
             $("#course").css({display: "block"});
             $(".w_ul li").remove();

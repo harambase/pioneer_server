@@ -98,11 +98,10 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
+                        resetPop();
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -128,12 +127,10 @@ $(function () {
                     if (data.code === 2001)
                         Showbo.Msg.alert("更新成功!", function () {
                             logTable.draw();
-                            writeSettings(newStatus, newType, newGender);
+                            resetPop();
                         });
-                    else if (data.code === 2005)
-                        Showbo.Msg.alert("系统异常!", function () {});
                     else
-                        Showbo.Msg.alert("更新失败!", function () {});
+                        Showbo.Msg.alert(data.msg, function () {});
                 }
             })
         }
@@ -160,11 +157,10 @@ $(function () {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
+                        resetPop();
                     });
-                else if (data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
 
@@ -260,14 +256,17 @@ $(function () {
 
     function closePop(ele) {
         $(ele).click(function () {
-            $(".w_wrapper").css({display: "none"});
-            $("[type='checkbox']").removeAttr("checked");//取消全选
-            $(".account").siblings("li").removeClass("active");
-            $(".advise").siblings("li").removeClass("active");
-            $(".base-info").addClass("active");
-            $(".w_pop").css({display: "none"});
-            $(".w_pop")[0].style.display = "block";
+           resetPop();
         })
+    }
+    function resetPop(){
+        $(".w_wrapper").css({display: "none"});
+        $("[type='checkbox']").removeAttr("checked");//取消全选
+        $(".account").siblings("li").removeClass("active");
+        $(".advise").siblings("li").removeClass("active");
+        $(".base-info").addClass("active");
+        $(".w_pop").css({display: "none"});
+        $(".w_pop")[0].style.display = "block";
     }
 
     $(".base-info").click(function () {
