@@ -1,8 +1,9 @@
-package com.harambase.database;
+package com.harambase.pioneer.database;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,10 @@ public class Manager {
             ScriptRunner runner = new ScriptRunner(conn);
             runner.setErrorLogWriter(null);
             runner.setLogWriter(null);
-            runner.runScript(Resources.getResourceAsReader("/pioneer.sql"));
+            String path = Manager.class.getResource("").getPath();
+            File f = new File(path + "../../../../../../../pioneer/WEB-INF/classes/sql/pioneer.sql");
+
+            runner.runScript(Resources.getResourceAsReader(f.getPath()));
 
         } catch (Exception e) {
             e.printStackTrace();

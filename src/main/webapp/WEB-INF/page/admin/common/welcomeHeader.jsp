@@ -14,8 +14,8 @@
                 <li><a href="${basePath}/manageTranscript">成绩单管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
             </ul>
         </li>
-        <li><a href="${basePath}/adminProfile"><i class="fa fa-cog push"></i>个人信息<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="${basePath}/welcome"><i class="fa fa-plane push"></i>选择接入系统<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a id="logout"><i class="fa fa-plane push"></i>登出<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="${basePath}/adminProfile"><i class="fa fa-id-card push"></i>个人信息<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="${basePath}/welcome"><i class="fa fa-cog push"></i>选择接入系统<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="#" id="logout"><i class="fa fa-plane push"></i>登出<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>

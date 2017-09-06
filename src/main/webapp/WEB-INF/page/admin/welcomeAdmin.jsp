@@ -496,5 +496,6 @@
 <script src="${basePath}/static/js/adminJs/dataTool.js"></script>
 <script src="${basePath}/static/js/adminJs/welcomeAdmin.js"></script>
 <script src="${basePath}/static/js/adminJs/index.js"></script>
+<script src="${basePath}/static/js/logout.js"></script>
 </body>
 </html>
