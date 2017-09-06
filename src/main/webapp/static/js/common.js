@@ -36,10 +36,8 @@ $(function(){
             success: function (data) {
                 if (data.code === 2001)
                     Showbo.Msg.alert("更新成功!", function () {});
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });

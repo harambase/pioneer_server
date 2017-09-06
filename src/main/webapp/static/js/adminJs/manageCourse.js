@@ -108,10 +108,8 @@ $(function () {
                         $("#assignF").css({display: "block"});
                         $("#searchFValue2").val("");
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -220,11 +218,8 @@ $(function () {
                             $(".w_manage h4").eq(2).html("分配的预选课程: " + name);
                             $("#searchCValue2").val("");
                         });
-                    else if (data.code === 2005)
-                        Showbo.Msg.alert("系统异常!", function () {
-                        });
                     else
-                        Showbo.Msg.alert("更新失败!", function () {
+                        Showbo.Msg.alert(data.msg, function () {
                         });
                 }
             })
@@ -315,9 +310,6 @@ $(function () {
                             $('[type=text]').val("");
                         });
                     }
-                    else if (data.code === 2005) {
-                        Showbo.Msg.alert("系统异常!", function () {} );
-                    }
                     else
                         Showbo.Msg.alert(data.msg, function () {});
                 }
@@ -351,10 +343,8 @@ $(function () {
                     Showbo.Msg.alert("更新成功!", function () {
                         logTable.draw();
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -379,10 +369,8 @@ $(function () {
                         logTable.draw();
                         course.day = newDay;
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -590,8 +578,6 @@ $(function () {
                     Showbo.Msg.alert("添加成功!", function () {
                         logTable.draw();
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
                     Showbo.Msg.alert(data.msg, function () {});
             }
@@ -637,9 +623,6 @@ $(function () {
                            Showbo.Msg.alert("删除成功!", function () {
                                $("#confirm-wrapper").css({display:"none"});
                                logTable.draw();
-                           });
-                       else if (data.code === 2005)
-                           Showbo.Msg.alert("系统异常!", function () {
                            });
                        else
                            Showbo.Msg.alert(data.msg, function () {

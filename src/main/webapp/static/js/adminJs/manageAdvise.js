@@ -64,10 +64,8 @@ $(function () {
             success: function (data) {
                 if (data.code === 2001)
                     writingTranscriptProperty(data.data);
-                else if (data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("获取失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     }
@@ -206,10 +204,8 @@ $(function () {
                     Showbo.Msg.alert("更新成功!", function () {
                         adviseTable.draw();
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -292,10 +288,8 @@ $(function () {
                     Showbo.Msg.alert("更新成功!", function () {
                         adviseTable.draw();
                     });
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
-                    Showbo.Msg.alert("更新失败!", function () {});
+                    Showbo.Msg.alert(data.msg, function () {});
             }
         })
     });
@@ -485,12 +479,8 @@ $(function () {
                             Showbo.Msg.alert("删除成功!", function () {
                                 adviseTable.draw();
                             });
-                        else if (data.code === 2005)
-                            Showbo.Msg.alert("系统异常!", function () {
-                            });
                         else
-                            Showbo.Msg.alert(data.msg, function () {
-                            });
+                            Showbo.Msg.alert(data.msg, function () {});
                     }
                 });
             }

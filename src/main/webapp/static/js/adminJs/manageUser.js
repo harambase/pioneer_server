@@ -63,9 +63,6 @@ $(function () {
                             window.location.reload();
                         });
                     }
-                    else if (data.code === 2005) {
-                        Showbo.Msg.alert("系统异常!", function () {} );
-                    }
                     else
                         Showbo.Msg.alert(data.msg, function () {});
                 }
@@ -343,8 +340,6 @@ $(function () {
             success: function (data) {
                 if (data.code === 2001)
                     Showbo.Msg.alert("添加成功!", function () {});
-                else if(data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
                 else
                     Showbo.Msg.alert(data.msg, function () {});
             }
@@ -537,12 +532,8 @@ $(function () {
                             Showbo.Msg.alert("删除成功!", function () {
                                 logTable.draw();
                             });
-                        else if (data.code === 2005)
-                            Showbo.Msg.alert("系统异常!", function () {
-                            });
                         else
-                            Showbo.Msg.alert(data.msg, function () {
-                            });
+                            Showbo.Msg.alert(data.msg, function () {});
                     }
                 });
             }
