@@ -53,8 +53,11 @@ public class CourseServiceImpl implements CourseService {
             }
             course.setCrn(crn);
             //检查时间冲突
-            if (CheckTime.isTimeConflict(courseMapper, haramMessage, course))
+            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(facultyid), course)) {
+                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
+                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
+            }
 
             course.setFacultyid(facultyid);
             //插入课程
@@ -81,20 +84,18 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage remove(String crn) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            int ret = transcriptMapper.deleteByCRN(crn);
-            if(ret >= 0) {
-                ret = courseMapper.deleteByPrimaryKey(crn);
-                if (ret == 1) {
+            int ret = courseMapper.deleteByPrimaryKey(crn);
+            if(ret == 1) {
+                ret = transcriptMapper.deleteByCRN(crn);
+                if (ret != -1) {
                     haramMessage.setCode(FlagDict.SUCCESS.getV());
                     haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                    
+                    return haramMessage;
                 }
-            }else {
-                haramMessage.setCode(FlagDict.FAIL.getV());
-                haramMessage.setMsg(FlagDict.FAIL.getM());
             }
-            throw new RuntimeException("Error");
-            //return haramMessage;
+            haramMessage.setCode(FlagDict.FAIL.getV());
+            haramMessage.setMsg(FlagDict.FAIL.getM());
+            return haramMessage;
 
         }catch (Exception e){
             e.printStackTrace();
@@ -133,9 +134,12 @@ public class CourseServiceImpl implements CourseService {
         try {
             String newFacultyid = course.getFacultyid();
             Course c = courseMapper.selectByPrimaryKey(course.getCrn());
-            c.setFacultyid(newFacultyid);
             //检查时间冲突
-            if (CheckTime.isTimeConflict(courseMapper, haramMessage, c)) return haramMessage;
+            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(newFacultyid), c)){
+                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
+                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
+                return haramMessage;
+            }
 
             course.setUpdatetime(DateUtil.DateToStr(new Date()));
             int ret = courseMapper.updateByPrimaryKeySelective(course);
@@ -160,30 +164,19 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage addStu2Cou(Option option) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-
             Transcript transcript = new Transcript();
             String crn = option.getCrn();
             String studentid = option.getStudentid();
             Course course = courseMapper.selectByPrimaryKey(crn);
-            Date endDate = DateUtil.StrToDate(course.getEnddate() + " 00:00:00");
+            String status = courseMapper.getStatus(crn);
             //检查课程状态
-            if (endDate.compareTo(new Date()) < 0) {
+            if (status.equals("0")) {
                 haramMessage.setMsg(FlagDict.COURSE_DISABLED.getM());
                 haramMessage.setCode(FlagDict.COURSE_DISABLED.getV());
                 return haramMessage;
             }
             //检查时间冲突
-            String time = course.getStarttime() + "-" + course.getEndtime();
-            String date = course.getStartdate() + " to " + course.getEnddate();
-            String day = course.getDay();
-            Map<String, String> param = new HashMap<>();
-            param.put("studentid", studentid);
-            param.put("time", time);
-            param.put("date", date);
-            param.put("day", day);
-            param.put("crn", crn);
-            int count = transcriptMapper.checkTime(param);
-            if (count != 0 && !option.isTime()) {
+            if (!option.isTime() && CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
@@ -319,6 +312,7 @@ public class CourseServiceImpl implements CourseService {
                 courses.add(cv);
                 message.setData(courses);
             }
+            message.setData(courses);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;

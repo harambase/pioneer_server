@@ -1,5 +1,6 @@
 package com.harambase.pioneer.dao.mapper;
 
+import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public interface TranscriptMapper {
 
     int count(Transcript transcript);
 
-    int checkTime(Map<String, String> param);
+    List<Course> studentCourse(String studentid);
 
     long getStudentInCourseCountByMapPageSearchOrdered(Map<String, Object> param);
 

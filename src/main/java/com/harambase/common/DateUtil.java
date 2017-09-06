@@ -41,6 +41,41 @@ public class DateUtil {
     }
 
     /**
+     * 字符串转换成日期
+     * @param str
+     * @return date
+     */
+    public static Date StrToDateOnly(String str) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = format.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    /**
+     * 字符串转换成日期
+     * @param str
+     * @return date
+     */
+    public static Date StrToDateTimeOnly(String str) {
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        Date date = null;
+        try {
+            date = format.parse(str);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+
+    /**
      * 获取日期
      * @param timeType 时间类型，譬如：Calendar.DAY_OF_YEAR
      * @param timenum  时间数字，譬如：-1 昨天，0 今天，1 明天

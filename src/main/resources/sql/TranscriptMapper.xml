@@ -159,12 +159,8 @@
     select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR} and studentid = #{studentid,jdbcType=VARCHAR}
   </select>
 
-  <select id="checkTime" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(*) as count from TranscriptView where 1 = 1
-    and studentid = #{studentid,jdbcType=VARCHAR}
-    and time = #{time,jdbcType=VARCHAR}
-    and date = #{date,jdbcType=VARCHAR}
-    and day  = #{day,jdbcType=VARCHAR}
+  <select id="studentCourse" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">
+    SELECT * FROM Course c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.studentid = #{arg0,jdbcType=VARCHAR});
   </select>
 
   <select id="getStudentInCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">

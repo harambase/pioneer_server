@@ -29,11 +29,13 @@ public interface CourseMapper {
 
     int getRemain(String crn);
 
-    int facultyTime(Map<String, String> param);
+    List<Course> facultyCourse(String facultyid);
 
     List<CourseView> getAllActiveCourses();
 
     int countActiveCourse();
     
     List<Course> getAllCoursesWithInfo(String info);
+
+    String getStatus(String crn);
 }
