@@ -339,4 +339,49 @@
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="${basePath}/static/js/adminJs/manageCourse.js"></script>
+<script src="${basePath}/static/plugins/layer/laydate/laydate.js"></script>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#startdate',
+        theme: '#03ced0',showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#enddate',
+        theme: '#03ced0',showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#startdate2',
+        theme: '#03ced0',showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#enddate2',
+        theme: '#03ced0',
+        showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#starttime',
+        theme: '#03ced0',
+        type: 'time',
+        showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#starttime2',
+        theme: '#03ced0',
+        type: 'time',
+        showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#endtime',
+        theme: '#03ced0',
+        type: 'time',
+        showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#endtime2',
+        theme: '#03ced0',
+        type: 'time',
+        showBottom: false//指定元素
+    });
+</script>
 </html>
