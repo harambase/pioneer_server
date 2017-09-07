@@ -8,6 +8,7 @@
     <%@include file="../common/commonCSS.jsp" %>
     <%@include file="common/adminCSS.jsp" %>
     <link rel="stylesheet" href="${basePath}/static/css/header.css">
+    <link rel="stylesheet" href="${basePath}/static/css/manageCourse.css">
 </head>
 <body>
 <%@include file="common/manageHeader.jsp" %>
@@ -25,106 +26,75 @@
 
 </div>
 <div class="spilt register-table">
-    <div id="add-div" style="position:absolute;height: 870px; display: none" class="account-container register">
+    <div id="add-div" style="position:absolute;width: 1563px;height: 700px;display: none" class="account-container register">
         <div class="content clearfix">
-            <form id="createCourseForm" method="post" onsubmit="return false">
+            <form id="createCourseForm" method="post" class="createCourseForm" onsubmit="return false">
                 <h1>添加一个课程</h1>
                 <div class="login-fields">
+                    <h4>基本信息</h4><hr/>
+                    <table>
+                    <tr>
+                        <td><p style="float: left">*年份-学期：</p></td><td><input id="year-semester" placeholder="YYYY-SS" name="year-semester" value="" class="login" minlength="7" maxlength="7" required/></td>
+                        <td><p style="float: left">*课程名：</p></td><td><input id="name" name="name" value="" class="login" minlength="1" maxlength="20" required/></td>
+                        <td><p style="float: left">*课程等级：</p></td><td><input id="coulev" name="coulev" value="" placeholder="*100-499" class="login" maxlength="3" required/></td>
+                        <td><p style="float: left">*课程班级：</p></td><td><input id="cousec" name="cousec" value="" placeholder="*01,02,03..." class="login" maxlength="2" required/></td>
 
-                    <div class="field">
-                        <label for="year-semester">Year-semester:</label>
-                        <input id="year-semester" name="year-semester" value="" placeholder="*年份-学期(YYYY-SS)" class="login"
-                               minlength="7" maxlength="7" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="name">Course Name:</label>
-                        <input id="name" name="name" value="" placeholder="*课程名" class="login"
-                               minlength="1" maxlength="20" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="credits">Last Name:</label>
-                        <input id="credits" name="credits" value="" placeholder="*学分" class="login"
-                               minlength="1" maxlength="2" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="coulev">Course Level:</label>
-                        <input id="coulev" name="coulev" value="" placeholder="*课程等级：100-499" class="login" maxlength="3" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="cousec">Section:</label>
-                        <input id="cousec" name="cousec" value="" placeholder="*课程班级(01,02,03...)" class="login" maxlength="2" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="classroom">Section:</label>
-                        <input id="classroom" name="classroom" value="" placeholder="教室" class="login" maxlength="20"/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="startdate">Start Date:</label>
-                        <input id="startdate" name="startdate" value="" placeholder="*开始日期：YYYY-MM-DD" class="login" minlength="10" maxlength="10" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="enddate">End Date:</label>
-                        <input id="enddate" name="enddate" value="" placeholder="*结束日期：YYYY-MM-DD"
-                               class="login" minlength="10" maxlength="10" required/>
-                    </div> <!-- /field -->
-                    <div class="field">
-                        <label for="starttime">Start Time:</label>
-                        <input id="starttime" name="starttime" value="" placeholder="*开始时间：HH:MM:SS"
-                               class="login" minlength="8" maxlength="8" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="endtime">End Time:</label>
-                        <input id="endtime" name="endtime" value="" placeholder="*结束时间： HH:MM:SS"
-                               class="login" minlength="8" maxlength="8" required/>
-                    </div> <!-- /field -->
-
-                    <div class="field">
-                        <label for="capa">Capacity:</label>
-                        <input id="capa" name="capa" value="" placeholder="*课程容量" class="login" required/>
-                    </div> <!-- /field -->
-                    <div class="field">
-                        <div class="group-form-input">
-                            <label for="searchFValue">分配教师:</label>
-                            <input id="searchFValue" placeholder="*分配教师" required>
+                    </tr>
+                    <tr>
+                        <td><p style="float: left">*学分:</p></td><td><input id="credits" name="credits" value="" class="login" minlength="1" maxlength="1" required/></td>
+                        <td><p style="float: left">*课程容量:</p></td><td><input id="capa" name="capa" value="" placeholder="*课程容量" class="login" required/></td>
+                        <td><p style="float: left">教室:</p></td><td><input id="classroom" name="classroom" value="" placeholder="教室" class="login" maxlength="20"/></td>
+                    </tr>
+                    </table>
+                    <h4>时间信息</h4><hr/>
+                    <table>
+                    <tr>
+                        <td><p style="float: left">*开始日期：</p></td><td><input id="startdate" name="startdate" value="" class="login" minlength="10" maxlength="10" required/></td>
+                        <td><p style="float: left">*结束日期：</p></td><td><input id="enddate" name="enddate" value="" class="login" minlength="10" maxlength="10" required/></td>
+                        <td><p style="float: left">*开始时间：</p></td><td><input id="starttime" name="starttime" value="" class="login" minlength="8" maxlength="8" required/></td>
+                        <td><p style="float: left">*结束时间：</p></td><td><input id="endtime" name="endtime" value="" class="login" minlength="8" maxlength="8" required/></td>
+                    </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <td><p class="status">*选择上课的时间: </p></td>
+                            <td><div class='w_day'>
+                                <input class='m' type="checkbox" name="day" value="m"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期一
+                                <input class='t' type="checkbox" name="day" value="t"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期二
+                                <input class='w' type="checkbox" name="day" value="w"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期三
+                                <input class='tr' type="checkbox" name="day" value="tr"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期四
+                                <input class='f' type="checkbox" name="day" value="f"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期五
+                                <input class='sa' type="checkbox" name="day" value="sa"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期六
+                                <input class='s' type="checkbox" name="day" value="s"
+                                       style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期日
+                            </div></td>
+                        </tr>
+                    </table>
+                    <h4>教师信息</h4><hr/>
+                    <table>
+                    <tr>
+                        <td><p>*分配教师:</p></td>
+                        <td><div class="group-form-input">
+                            <input id="searchFValue" required>
                             <ul class="w_selected1">
                             </ul>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="group-form-input">
-                            <label for="searchCValue">分配预选课程：</label>
-                            <input id="searchCValue" placeholder="分配预选课程(非必填)">
+                        </div></td>
+                        <td><p>分配预选课程(非必填)：</p></td>
+                        <td><div class="group-form-input">
+                            <input id="searchCValue">
                             <ul class="w_selected2">
                             </ul>
-                        </div>
-
-                    </div> <!-- /field -->
+                        </div></td>
+                    </tr>
+                    </table>
                 </div> <!-- /login-fields -->
-                <div class='w_day'>
-                    <h4 class="status" style="margin-top: 0px;">*选择上课的时间: </h4>
-                    <input class='m' type="checkbox" name="day" value="m"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期一
-                    <input class='t' type="checkbox" name="day" value="t"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期二
-                    <input class='w' type="checkbox" name="day" value="w"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期三
-                    <input class='tr' type="checkbox" name="day" value="tr"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期四
-                    <input class='f' type="checkbox" name="day" value="f"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期五
-                    <input class='sa' type="checkbox" name="day" value="sa"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期六
-                    <input class='s' type="checkbox" name="day" value="s"
-                           style="height: 14px;margin: 10px 4px 10px 0; width: 13px;"/>星期日
-                </div>
+
                 <hr style="margin-top: 5px"/>
                 <div class="login-actions" style="margin-top: -15px;">
                     <textarea id="comment" style="margin:5px 0px 0px 0px; width: 300px; height: 100px; resize: none;" placeholder="请输入备注信息"></textarea>
@@ -133,8 +103,7 @@
                         <label class="choice" for="Field">确认上述信息正确无误</label>
                     </span>
                     <button class="button btn btn-primary btn-large" id="registerBtn">创建</button>
-
-                </div> <!-- .actions -->
+                </div>
             </form>
         </div> <!-- /content -->
 
@@ -339,49 +308,59 @@
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="${basePath}/static/js/adminJs/manageCourse.js"></script>
-<script src="${basePath}/static/plugins/layer/laydate/laydate.js"></script>
+<script src="${basePath}/static/plugins/layui/layui.all.js"></script>
+
 <script>
     //执行一个laydate实例
     laydate.render({
         elem: '#startdate',
-        theme: '#03ced0',showBottom: false//指定元素
+        theme: '#393D49',showBottom: false//指定元素
     });
     laydate.render({
         elem: '#enddate',
-        theme: '#03ced0',showBottom: false//指定元素
+        theme: '#393D49',showBottom: false//指定元素
     });
     laydate.render({
         elem: '#startdate2',
-        theme: '#03ced0',showBottom: false//指定元素
+        theme: '#393D49',showBottom: false//指定元素
     });
     laydate.render({
         elem: '#enddate2',
-        theme: '#03ced0',
+        theme: '#393D49',
         showBottom: false//指定元素
     });
     laydate.render({
         elem: '#starttime',
-        theme: '#03ced0',
-        type: 'time',
-        showBottom: false//指定元素
+        theme: '#393D49'
+        , type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
     });
     laydate.render({
         elem: '#starttime2',
-        theme: '#03ced0',
-        type: 'time',
-        showBottom: false//指定元素
+        theme: '#393D49'
+        ,type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
+
     });
     laydate.render({
         elem: '#endtime',
-        theme: '#03ced0',
-        type: 'time',
-        showBottom: false//指定元素
+        theme: '#393D49',
+        type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
     });
     laydate.render({
         elem: '#endtime2',
-        theme: '#03ced0',
-        type: 'time',
-        showBottom: false//指定元素
+        theme: '#393D49',
+        type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
     });
 </script>
 </html>
