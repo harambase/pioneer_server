@@ -597,9 +597,9 @@ $(function () {
 
     //移除学生
     $("#studentList").on("click", ".btn.btn-info", function () {
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
         Showbo.Msg.confirm("确认删除该学生？",function(){
             if($(".btnfocus").val() !== "取消"){
-                var studentid = $(this).parents("tr").find("td").eq(1).html();
                 var data = removeStuFromCourse(studentid, crn);
                 $("#student").css({display: "block"});
                 stuListTable.draw();
