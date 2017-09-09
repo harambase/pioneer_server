@@ -6,13 +6,13 @@
     <title>辅导关系管理</title>
     <%@include file="../common/commonJs.jsp" %>
     <%@include file="../common/commonCSS.jsp" %>
-    <%@include file="common/adminCSS.jsp" %>
+    <%@include file="../common/adminCSS.jsp" %>
     <link href="${basePath}/static/css/header.css" rel="stylesheet">
     <link href="${basePath}/static/css/manageTranscript.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-<%@include file="common/manageHeader.jsp" %>
+<%@include file="../common/manageHeader.jsp" %>
 
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>

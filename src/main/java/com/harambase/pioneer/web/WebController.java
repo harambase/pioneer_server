@@ -16,7 +16,7 @@ public class WebController {
     }
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
-        return "admin/welcomeAdmin";
+        return "welcomeAdmin";
     }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){
@@ -32,23 +32,23 @@ public class WebController {
     }
     @RequestMapping("/manageCourse")
     public String adminManageCourse(){
-        return "admin/manageCourse";
+        return "course/manageCourse";
     }
     @RequestMapping("/manageTranscript")
     public String adminManageTranscript(){
-        return "admin/manageTranscript";
+        return "transcript/manageTranscript";
     }
     @RequestMapping("/manageUser")
     public String adminManageUser(){
-        return "admin/manageUser";
+        return "account/manageUser";
     }
     @RequestMapping("/manageAdvising")
     public String adminManageAdvising(){
-        return "admin/manageAdvising";
+        return "advising/manageAdvising";
     }
     @RequestMapping("/adminProfile")
     public String adminProfile(){
-        return "admin/adminProfile";
+        return "account/adminProfile";
     }
     @RequestMapping("/welcome")
     public String welcome(){

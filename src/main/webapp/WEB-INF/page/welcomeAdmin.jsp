@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <title>主页</title>
-    <%@include file="../common/commonCSS.jsp" %>
+    <%@include file="common/commonCSS.jsp" %>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="${basePath}/static/plugins/admin/main.css">
 </head>

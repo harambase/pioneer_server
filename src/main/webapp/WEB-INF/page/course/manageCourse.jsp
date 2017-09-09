@@ -6,12 +6,12 @@
     <title>课程管理</title>
     <%@include file="../common/commonJs.jsp" %>
     <%@include file="../common/commonCSS.jsp" %>
-    <%@include file="common/adminCSS.jsp" %>
+    <%@include file="../common/adminCSS.jsp" %>
     <link rel="stylesheet" href="${basePath}/static/css/header.css">
     <link rel="stylesheet" href="${basePath}/static/css/manageCourse.css">
 </head>
 <body>
-<%@include file="common/manageHeader.jsp" %>
+<%@include file="../common/manageHeader.jsp" %>
 <div class="site-branding-text">
     <h1 class="site-title">Administrator Manage Site</h1>
     <p class="site-description">Course Management</p>
