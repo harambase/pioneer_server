@@ -61,11 +61,12 @@
 	</mvc:annotation-driven>
     -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		  <property name="prefix" value="/WEB-INF/page/" />
-		  <property name="suffix" value=".jsp"/>
+		  <property name="prefix" value="/WEB-INF/html/" />
+		  <property name="suffix" value=".html"/>
 	</bean>
 
-	   <!-- 语言支持：国际化配置 -->
+
+	<!-- 语言支持：国际化配置 -->
 	<!-- 国际化操作拦截器 如果采用基于（请求/Session/Cookie）则必需配置 -->
 	<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />
 
@@ -80,7 +81,7 @@
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="cookieMaxAge" value="604800" />
 		<property name="defaultLocale" value="zh_CN" />
-		<property name="cookieName" value="Language"></property>
+		<property name="cookieName" value="Language"/>
 	</bean>
 	<!-- 基于Session的本地化解析器 -->
 	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/> -->

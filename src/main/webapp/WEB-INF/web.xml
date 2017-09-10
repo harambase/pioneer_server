@@ -47,6 +47,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
         <url-pattern>*.woff</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -70,7 +74,7 @@
     <distributable/>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/page/index.jsp</welcome-file>
+        <welcome-file>/WEB-INF/html/preview.html</welcome-file>
     </welcome-file-list>
     <!-- 添加全局Request监听，用于权限的session获取 -->
 
