@@ -25,16 +25,10 @@ import javax.servlet.http.HttpSession;
 public class StudentController {
 
     private final StudentService studentService;
-    private final CourseService courseService;
-    private final FacultyService facultyService;
 
     @Autowired
-    public StudentController(StudentService studentService,
-                             CourseService courseService,
-                             FacultyService facultyService){
-        this.courseService = courseService;
+    public StudentController(StudentService studentService){
         this.studentService = studentService;
-        this.facultyService = facultyService;
     }
 
     @RequestMapping(value = "/transcript/info", method = RequestMethod.GET)

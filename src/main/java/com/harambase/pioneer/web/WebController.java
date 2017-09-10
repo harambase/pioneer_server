@@ -9,26 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class WebController {
-
-    @RequestMapping("/welcomeStudent")
-    public String welcomeStudent(){
-        return "student/welcomeStudent";
-    }
+    
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
         return "welcomeAdmin";
     }
-    @RequestMapping("/welcomeFaculty")
-    public String welcomeFaculty(){
-        return "faculty/welcomeFaculty";
-    }
     @RequestMapping("/index")
     public String index(){
         return "index";
-    }
-    @RequestMapping("/studentHeader")
-    public String header(){
-        return "student/studentHeader";
     }
     @RequestMapping("/manageCourse")
     public String adminManageCourse(){
