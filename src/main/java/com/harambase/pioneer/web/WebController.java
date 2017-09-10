@@ -17,7 +17,7 @@ public class WebController {
    
     @RequestMapping("/signIn")
     public String login(){
-        return "src/auth";
+        return "release/auth";
     }
     
 }

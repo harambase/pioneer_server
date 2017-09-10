@@ -25,6 +25,11 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
+	<mvc:resources mapping="/javascript/**" location="WEB-INF/html/release/scripts/"/>
+	<mvc:resources mapping="/styles/**" location="WEB-INF/html/release/styles/"/>
+	<mvc:resources mapping="/images/**" location="WEB-INF/html/release/assets/"/>
+	<mvc:default-servlet-handler />
+
 	<!-- 放行 登陆的界面 因为springmvc要带*.do -->
 	 	 <!-- <mvc:interceptors>
 			<mvc:interceptor>
