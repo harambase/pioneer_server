@@ -1,9 +1,8 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.7.17-log : Database - pioneer_db
+MySQL - 5.7.18 : Database - pioneer_2.0
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -13,9 +12,9 @@ MySQL - 5.7.17-log : Database - pioneer_db
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`pioneer_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`pioneer_2.0` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `pioneer_db`;
+USE `pioneer_2.0`;
 
 /*Table structure for table `Advise` */
 
@@ -27,14 +26,6 @@ CREATE TABLE `Advise` (
   `facultyid` varchar(20) NOT NULL COMMENT '教师编号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
-
-/*Data for the table `Advise` */
-
-LOCK TABLES `Advise` WRITE;
-
-insert  into `Advise`(`id`,`Studentid`,`facultyid`) values (1,'9201701103','9201701102'),(2,'9201701942','9201701100'),(4,'9201701309','9201701100'),(5,'9201701310','9201701100'),(6,'9201701101','9201701100'),(7,'9201701103','9201701100'),(8,'9201701310','9201701102'),(9,'9201701784','9201701102');
-
-UNLOCK TABLES;
 
 /*Table structure for table `Course` */
 
@@ -63,13 +54,21 @@ CREATE TABLE `Course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-/*Data for the table `Course` */
+/*Table structure for table `Message` */
 
-LOCK TABLES `Course` WRITE;
+DROP TABLE IF EXISTS `Message`;
 
-insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`classroom`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`facultyid`,`info`,`createtime`,`updatetime`,`comment`) values (2,'120170164','Test2',4,NULL,'203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2017-09-03 00:00:12','qwerq2'),(3,'120170123','Test3',4,'120170164','300','02',NULL,'2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL),(6,'120170174','upper',4,'','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL),(7,'120170149','delete',4,'','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701100','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe'),(8,'120170125','test4',4,'120170164','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52','');
-
-UNLOCK TABLES;
+CREATE TABLE `Message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `senderid` varchar(50) NOT NULL COMMENT '发送者ID',
+  `receiverid` varchar(50) DEFAULT NULL COMMENT '接收者ID',
+  `type` varchar(20) DEFAULT NULL COMMENT '类型',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `content` text COMMENT '内容',
+  `status` varchar(10) DEFAULT NULL COMMENT '已读、未读、草稿',
+  `createtime` varchar(50) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `Person` */
 
@@ -98,13 +97,17 @@ CREATE TABLE `Person` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
-/*Data for the table `Person` */
+/*Table structure for table `Role` */
 
-LOCK TABLES `Person` WRITE;
+DROP TABLE IF EXISTS `Role`;
 
-insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`) values (1,'9000000000','admin','system','adminitor','123456','','1955-01-01','admin@pioneer.edu','1333222111','123456','asdfasda','456','male','2017-08-08 07:00:00','2017-09-02 17:12:19','1','s/f/a/','asdgasdgdsfgs'),(2,'9201701687','admLShilei','Shilei','Lin','adm1201701687','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-08-08 12:44:24','1','a/',NULL),(3,'9201701100','testTeacher','first','last','pioneer9201701100','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-08-10 12:44:24','1','f/',NULL),(4,'9201701101','testStudent','first1','last1','pioneer9201701101','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-08-10 12:22:12','1','s/',NULL),(5,'9201701102','testTeacher2','first','last2','pioneer9201701102','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-02 16:26:47','1','f/a/',NULL),(6,'9201701103','testStudent','first','last3','pioneer9201701103','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-02 16:27:56','1','s/',NULL),(7,'9201701942','Tdisable','disable','Test','pioneer9201701942','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-02 16:28:09','1','s/',NULL),(8,'9201701309','ttestStu3','testStu3','test','pioneer9201701309','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-02 16:28:12','1','s/',NULL),(9,'9201701310','rick','KOKIA','ERI','pioneer9201701310','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-02 23:13:04','1','s/',NULL),(10,'9201701784','zhengsan784','三','张','Pioneer9201701784','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-02 16:28:24','1','s/',NULL),(11,'9201701840','lili840','四','李','Pioneer9201701840','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','f','2017-09-02 16:10:12','2017-09-03 13:35:28','0','f/a/','first'),(12,'9201701261','meimeili261','梅梅','李','Pioneer9201701261','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','f','2017-09-02 16:12:49','2017-09-02 16:12:49','1','s/','new Student'),(13,'9201701848','ww184','五','王','Pioneer9201701848','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','f','2017-09-03 13:32:21','2017-09-03 13:32:21','1','f/','新老师'),(14,'9201701876','ew876','二','王','Pioneer9201701876','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','f','2017-09-03 13:56:50','2017-09-03 13:56:50','1','s/','');
-
-UNLOCK TABLES;
+CREATE TABLE `Role` (
+  `id` int(11) NOT NULL,
+  `userid` varchar(20) NOT NULL,
+  `role` varchar(20) DEFAULT NULL,
+  `role_name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Table structure for table `Student` */
 
@@ -117,13 +120,27 @@ CREATE TABLE `Student` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-/*Data for the table `Student` */
+/*Table structure for table `TempCourse` */
 
-LOCK TABLES `Student` WRITE;
+DROP TABLE IF EXISTS `TempCourse`;
 
-insert  into `Student`(`id`,`Studentid`,`max_credits`) values (1,'9201701101',18),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18),(5,'9201701310',18),(6,'9201701784',18),(7,'9201701261',18),(8,'9201701876',12);
+CREATE TABLE `TempCourse` (
+  `id` int(11) NOT NULL,
+  `crn` varchar(20) NOT NULL,
+  `json` tinytext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-UNLOCK TABLES;
+/*Table structure for table `TempUser` */
+
+DROP TABLE IF EXISTS `TempUser`;
+
+CREATE TABLE `TempUser` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `userid` varchar(20) NOT NULL,
+  `user_json` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Table structure for table `Transcript` */
 
@@ -138,14 +155,6 @@ CREATE TABLE `Transcript` (
   `assigntime` varchar(20) NOT NULL COMMENT '时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-
-/*Data for the table `Transcript` */
-
-LOCK TABLES `Transcript` WRITE;
-
-insert  into `Transcript`(`id`,`Studentid`,`crn`,`grade`,`complete`,`assigntime`) values (15,'9201701101','120170164','B','In Progress','2017-08-25 16:03:22'),(16,'9201701103','120170164','A','In Progress','2017-08-24 09:34:40'),(17,'9201701942','120170164','*','In Progress','2017-08-23 17:47:54'),(18,'9201701309','120170164','B','Complete','2017-08-24 09:35:14'),(19,'9201701310','120170164','*','In Progress','2017-09-01 20:10:41'),(20,'9201701942','120170123','*','In Progress','2017-09-02 14:46:23'),(21,'9201701103','120170123','*','In Progress','2017-09-02 14:46:24'),(22,'9201701101','120170123','*','In Progress','2017-09-02 14:46:27'),(23,'9201701101','120170125','*','In Progress','2017-09-03 14:07:15'),(24,'9201701876','120170125','*','In Progress','2017-09-03 14:07:27');
-
-UNLOCK TABLES;
 
 /* Function  structure for function  `Get_Complete_Credits` */
 
@@ -396,28 +405,28 @@ DROP TABLE IF EXISTS `TranscriptView`;
  `assigntime` varchar(20) NOT NULL 
 )*/;
 
-/*View structure for View AdviseView */
+/*View structure for view AdviseView */
 
 /*!50001 DROP TABLE IF EXISTS `AdviseView` */;
 /*!50001 DROP VIEW IF EXISTS `AdviseView` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `AdviseView` AS select `a`.`id` AS `id`,`a`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`a`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast` from ((`Advise` `a` join `Person` `p1`) join `Person` `p2`) where ((`p1`.`userid` = `a`.`Studentid`) and (`p2`.`userid` = `a`.`facultyid`)) */;
 
-/*View structure for View CourseView */
+/*View structure for view CourseView */
 
 /*!50001 DROP TABLE IF EXISTS `CourseView` */;
 /*!50001 DROP VIEW IF EXISTS `CourseView` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
 
-/*View structure for View StudentView */
+/*View structure for view StudentView */
 
 /*!50001 DROP TABLE IF EXISTS `StudentView` */;
 /*!50001 DROP VIEW IF EXISTS `StudentView` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`Student` `s` join `Person` `p`) where (`p`.`userid` = `s`.`Studentid`) */;
 
-/*View structure for View TranscriptView */
+/*View structure for view TranscriptView */
 
 /*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
 /*!50001 DROP VIEW IF EXISTS `TranscriptView` */;

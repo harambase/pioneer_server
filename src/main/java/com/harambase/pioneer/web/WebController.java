@@ -9,16 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class WebController {
-    
-//    @RequestMapping("/welcomeAdmin")
-//    public String welcomeAdmin(){
-//        return "welcomeAdmin";
-//    }
-   
-    @RequestMapping("/signIn")
-    public String login(){
-        return "index";
-    }
+
+
     @RequestMapping("/reg")
     public String signUp(){
         return "reg";
@@ -26,5 +18,9 @@ public class WebController {
     @RequestMapping("/auth")
     public String auth(){
         return "auth";
+    }
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
     }
 }

@@ -2,7 +2,7 @@ $(function (){
     var loginForm = $("#loginForm").validate({});
 
     $("#btnLogin").click(function(){
-        if(loginForm.form()){
+        if(loginForm.form()) {
             var username = $("#username").val();
             var password = $("#password").val();
             var person = {
@@ -16,28 +16,10 @@ $(function (){
                 data: JSON.stringify(person),
                 success: function (data) {
                     if (data.code === 2001) {
-                        var user = data.data;
-                        $.session.set("user",JSON.stringify(user));
-                        if(user.type.length === 2) {
-                            if (user.type.indexOf("a")!== -1)
-                                window.location.href = basePath + "/welcomeAdmin";
-                            else if (user.type.indexOf("s")!== -1)
-                                window.location.href = basePath + "/welcomeStudent";
-                            else if (user.type.indexOf("f")!== -1)
-                                window.location.href = basePath + "/welcomeFaculty";
-                        }
-                        else{
-                            window.location.href = basePath + "/welcome";
-                        }
+                        window.location.href = basePath + "/index";
                     }
-                    else if(data.code === 2005)
-                        Showbo.Msg.alert("系统异常!", function () {});
-                    else if(data.code === 2008)
-                        Showbo.Msg.alert("账户被停用，请联系管理员!", function () {});
-                    else
-                        Showbo.Msg.alert("用户名或密码不正确！", function () {});
-                    }
-            })
+                }
+            });
         }
     });
 });
