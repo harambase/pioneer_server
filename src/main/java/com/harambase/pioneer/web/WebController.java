@@ -17,7 +17,14 @@ public class WebController {
    
     @RequestMapping("/signIn")
     public String login(){
-        return "release/auth";
+        return "index";
     }
-    
+    @RequestMapping("/reg")
+    public String signUp(){
+        return "reg";
+    }
+    @RequestMapping("/auth")
+    public String auth(){
+        return "auth";
+    }
 }

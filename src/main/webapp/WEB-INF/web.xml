@@ -74,7 +74,7 @@
     <distributable/>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/html/preview.html</welcome-file>
+        <welcome-file>/WEB-INF/release/auth.jsp</welcome-file>
     </welcome-file-list>
     <!-- 添加全局Request监听，用于权限的session获取 -->
 
