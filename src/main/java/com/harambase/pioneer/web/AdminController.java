@@ -44,6 +44,13 @@ public class AdminController {
         HaramMessage haramMessage = personService.register(jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
+    @RequestMapping(value = "/approve", method = RequestMethod.GET)
+    public ResponseEntity approve(@RequestParam(value = "userid") int userid,
+                                  @RequestParam(value = "discard") boolean discard){
+        HaramMessage haramMessage = personService.approve(userid, discard);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/student/count", method = RequestMethod.GET)
     public ResponseEntity getStudentCount(){
         HaramMessage haramMessage = personService.userChart();

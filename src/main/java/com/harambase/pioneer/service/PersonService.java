@@ -38,4 +38,6 @@ public interface PersonService {
     HaramMessage removeUser(String userid);
 
     HaramMessage register(JSONObject jsonObject);
+
+    HaramMessage approve(int userid, boolean discard);
 }

@@ -72,6 +72,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public HaramMessage addUser(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
@@ -110,12 +111,30 @@ public class PersonServiceImpl implements PersonService {
             if(ret == 1){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                haramMessage.setData(person);
             }
             else{
                 haramMessage.setCode(FlagDict.FAIL.getV());
                 haramMessage.setMsg(FlagDict.FAIL.getM());
             }
+            Message message = new Message();
+            message.setCreatetime(DateUtil.DateToStr(new Date()));
+            message.setReceiverid(userid);
+            message.setSenderid("9000000000");
+            message.setContent("您的接收到来自管理员的一条消息");
+            message.setTitle("账户信息");
+            message.setStatus("UNREAD");
+            message.setType("注册成功");
+
+            ret = messageMapper.insertSelective(message);
+            if(ret <= 0)
+                throw new RuntimeException("Message 插入失败!");
+
+            else if(ret == 1){
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                haramMessage.setData(person);
+            }
+
             return haramMessage;
         }catch (Exception e){
             e.printStackTrace();
@@ -608,6 +627,53 @@ public class PersonServiceImpl implements PersonService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
         }
         return haramMessage;
+    }
+
+    @Override
+    public HaramMessage approve(int serialId, boolean discard) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            if(discard){
+                int ret = tempUserMapper.deleteByPrimaryKey(serialId);
+                if(ret <= 0)
+                    throw new RuntimeException("tempUser 删除失败!");
+            }else{
+                TempUser tempUser = tempUserMapper.selectByPrimaryKey(serialId);
+                JSONObject jsonObject = JSONObject.parseObject(tempUser.getUserJson());
+                Person person = new Person();
+                String opTime = DateUtil.DateToStr(new Date());
+
+                person.setUserid(jsonObject.getString("userid"));
+
+                String userid = person.getUserid();
+
+                person.setUpdatetime(opTime);
+                person.setCreatetime(opTime);
+                person.setPassword(jsonObject.getString("password"));
+                person.setInfo(jsonObject.getString("info"));
+                person.setStatus("1");
+
+                String pingying = Pinyin4jUtil.converterToFirstSpell(jsonObject.getString("name"));
+                String username = pingying + userid.substring(7,10);
+
+                person.setUsername(username);
+
+                if(person.getType().contains("s")){
+                    Student student = new Student();
+                    student.setStudentid(userid);
+                    student.setMaxCredits(12);
+                    studentMapper.insert(student);
+                }
+                int ret = personMapper.insert(person);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        }
+        return haramMessage;
+
     }
 
 }
