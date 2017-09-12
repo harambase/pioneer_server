@@ -23,12 +23,20 @@
     <h1>申请加入先锋</h1>
     <a href="${basePath}/auth" class="auth-link">已有先锋账号？点击登录!</a>
 
-    <form class="form-horizontal">
+
+    <form id="regForm" class="form-horizontal" onclick="return false">
+      <div class="form-group">
+        <label for="inputName3" class="col-sm-2 control-label">注册学期</label>
+
+        <div class="col-sm-10">
+          <input id="info" class="form-control" placeholder="*YYYY-SS" name="year-semester" value="" class="login" minlength="7" maxlength="7" required/></td>
+        </div>
+      </div>
       <div class="form-group">
         <label for="inputName3" class="col-sm-2 control-label">姓名</label>
 
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputName3" stringCheck="true placeholder="*全名" minlength="1" maxlength="20" required>
+          <input type="text" class="form-control" id="inputName3" stringCheck="true" placeholder="*全名" minlength="1" maxlength="20" required>
         </div>
       </div>
       <div class="form-group">
@@ -68,7 +76,7 @@
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default btn-auth">提交申请</button>
+          <button id="submit" type="submit" class="btn btn-default btn-auth">提交申请</button>
         </div>
       </div>
     </form>
@@ -79,11 +87,14 @@
 <script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="${basePath}/static/plugins/layer/laydate/laydate.js"></script>
+<script src="${basePath}/static/js/register.js"></script>
 <script>
     laydate.render({
         elem: '#birthday',
         theme: '#393D49',showBottom: false//指定元素
     });
+</script>
+<script>
     // 字符验证，只能包含中文、英文、数字、下划线等字符。
     jQuery.validator.addMethod("stringCheck", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/.test(value);

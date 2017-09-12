@@ -1,25 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.harambase.pioneer.dao.mapper.MessageMapper">
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.harambase.pioneer.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="senderid" property="senderid" jdbcType="VARCHAR" />
+    <result column="receiverid" property="receiverid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, senderid, receiverid, type, title, status, createtime
   </sql>
-  <sql id="Blob_Column_List">
+  <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -27,11 +27,11 @@
     from Message
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Message
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message" >
     insert into Message (id, senderid, receiverid, 
       type, title, status, 
       createtime, content)
@@ -39,89 +39,89 @@
       #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message" >
     insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="senderid != null">
+      <if test="senderid != null" >
         senderid,
       </if>
-      <if test="receiverid != null">
+      <if test="receiverid != null" >
         receiverid,
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type,
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         title,
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status,
       </if>
-      <if test="createtime != null">
+      <if test="createtime != null" >
         createtime,
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="senderid != null">
+      <if test="senderid != null" >
         #{senderid,jdbcType=VARCHAR},
       </if>
-      <if test="receiverid != null">
+      <if test="receiverid != null" >
         #{receiverid,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null">
+      <if test="createtime != null" >
         #{createtime,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message" >
     update Message
-    <set>
-      <if test="senderid != null">
+    <set >
+      <if test="senderid != null" >
         senderid = #{senderid,jdbcType=VARCHAR},
       </if>
-      <if test="receiverid != null">
+      <if test="receiverid != null" >
         receiverid = #{receiverid,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
+      <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="title != null">
+      <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null">
+      <if test="createtime != null" >
         createtime = #{createtime,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
+      <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message" >
     update Message
     set senderid = #{senderid,jdbcType=VARCHAR},
       receiverid = #{receiverid,jdbcType=VARCHAR},
@@ -132,853 +132,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="senderid" jdbcType="VARCHAR" property="senderid" />
-    <result column="receiverid" jdbcType="VARCHAR" property="receiverid" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Message">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, senderid, receiverid, type, title, status, createtime
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from Message
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from Message
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message (id, senderid, receiverid, 
-      type, title, status, 
-      createtime, content)
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Message">
-    insert into Message
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="senderid != null">
-        senderid,
-      </if>
-      <if test="receiverid != null">
-        receiverid,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createtime != null">
-        createtime,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="senderid != null">
-        #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    <set>
-      <if test="senderid != null">
-        senderid = #{senderid,jdbcType=VARCHAR},
-      </if>
-      <if test="receiverid != null">
-        receiverid = #{receiverid,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Message">
-    update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message">
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message" >
     update Message
     set senderid = #{senderid,jdbcType=VARCHAR},
       receiverid = #{receiverid,jdbcType=VARCHAR},

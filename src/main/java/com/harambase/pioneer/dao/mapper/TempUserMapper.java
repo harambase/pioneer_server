@@ -1,7 +1,9 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.TempUser;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface TempUserMapper {
     int deleteByPrimaryKey(Integer id);
 

@@ -1,5 +1,6 @@
 package com.harambase.pioneer.service.Impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
@@ -24,16 +25,23 @@ public class PersonServiceImpl implements PersonService {
     private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
     private final AdviseMapper adviseMapper;
+    private final TempUserMapper tempUserMapper;
+    private final RoleMapper roleMapper;
+    private final MessageMapper messageMapper;
 
     @Autowired
     public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
                              CourseMapper courseMapper, TranscriptMapper transcriptMapper,
-                             AdviseMapper adviseMapper){
+                             AdviseMapper adviseMapper, TempUserMapper tempUserMapper,
+                             RoleMapper roleMapper, MessageMapper messageMapper){
         this.personMapper = personMapper;
         this.studentMapper = studentMapper;
         this.courseMapper = courseMapper;
         this.transcriptMapper = transcriptMapper;
         this.adviseMapper = adviseMapper;
+        this.tempUserMapper = tempUserMapper;
+        this.roleMapper = roleMapper;
+        this.messageMapper = messageMapper;
     }
 
     @Override
@@ -563,6 +571,42 @@ public class PersonServiceImpl implements PersonService {
             message.setMsg(FlagDict.SYSTEM_ERROR.getM());
         }
         return message;
+    }
+
+    @Override
+    public HaramMessage register(JSONObject jsonObject) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+
+            String userid = IDUtil.genUserID(jsonObject.getString("info"));
+
+            TempUser tempUser = new TempUser();
+            tempUser.setUserid(userid);
+            tempUser.setUserJson(jsonObject.toJSONString());
+
+            int ret = tempUserMapper.insertSelective(tempUser);
+            if(ret <= 0)
+                throw new RuntimeException("TempUser 插入失败!");
+
+            Message message = new Message();
+            message.setCreatetime(DateUtil.DateToStr(new Date()));
+            message.setReceiverid("9000000000");
+            message.setSenderid("9000000000");
+            message.setContent("注意!接收到来自" + userid + "的请求注册信息");
+            message.setTitle("注册信息");
+            message.setStatus("UNREAD");
+            message.setType("用户注册");
+
+            ret = messageMapper.insertSelective(message);
+            if(ret <= 0)
+                throw new RuntimeException("Message 插入失败!");
+
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        }
+        return haramMessage;
     }
 
 }

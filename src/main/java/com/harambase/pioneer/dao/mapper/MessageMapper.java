@@ -1,7 +1,9 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Message;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
 

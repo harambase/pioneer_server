@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class TempUser {
+import java.io.Serializable;
+
+public class TempUser implements Serializable {
     private Integer id;
 
     private String userid;

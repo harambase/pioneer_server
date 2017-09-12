@@ -1,5 +1,6 @@
 package com.harambase.pioneer.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
@@ -30,16 +31,18 @@ import java.util.Map;
 public class AdminController {
 
     private final CourseService courseService;
-    private final StudentService studentService;
     private final PersonService personService;
 
     @Autowired
     public AdminController(CourseService courseService,
-                           StudentService studentService,
                            PersonService personService){
         this.courseService = courseService;
-        this.studentService = studentService;
         this.personService = personService;
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity register(@RequestBody JSONObject jsonObject){
+        HaramMessage haramMessage = personService.register(jsonObject);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     @RequestMapping(value = "/student/count", method = RequestMethod.GET)
     public ResponseEntity getStudentCount(){

@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class TempCourse {
+import java.io.Serializable;
+
+public class TempCourse implements Serializable {
     private Integer id;
 
     private String crn;
