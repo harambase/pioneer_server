@@ -574,6 +574,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public HaramMessage register(JSONObject jsonObject) {
         HaramMessage haramMessage = new HaramMessage();
         try{
