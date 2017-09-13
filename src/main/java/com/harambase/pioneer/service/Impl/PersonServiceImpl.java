@@ -116,18 +116,19 @@ public class PersonServiceImpl implements PersonService {
                 haramMessage.setCode(FlagDict.FAIL.getV());
                 haramMessage.setMsg(FlagDict.FAIL.getM());
             }
-            Message message = new Message();
-            message.setCreatetime(DateUtil.DateToStr(new Date()));
+            MessageWithBLOBs message = new MessageWithBLOBs();
+            message.setDate(DateUtil.DateToStr(new Date()));
             message.setReceiverid(userid);
             message.setSenderid("9000000000");
-            message.setContent("您的接收到来自管理员的一条消息");
+            message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
             message.setTitle("账户信息");
             message.setStatus("UNREAD");
-            message.setType("注册成功");
+            message.setTag("work");
+            message.setLabels("['inbox','important']");
 
             ret = messageMapper.insertSelective(message);
             if(ret <= 0)
-                throw new RuntimeException("Message 插入失败!");
+                throw new RuntimeException("MessageWithBLOBs 插入失败!");
 
             else if(ret == 1){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
@@ -608,18 +609,19 @@ public class PersonServiceImpl implements PersonService {
             if(ret <= 0)
                 throw new RuntimeException("TempUser 插入失败!");
 
-            Message message = new Message();
-            message.setCreatetime(DateUtil.DateToStr(new Date()));
+            MessageWithBLOBs message = new MessageWithBLOBs();
+            message.setDate(DateUtil.DateToStr(new Date()));
             message.setReceiverid("9000000000");
             message.setSenderid("9000000000");
-            message.setContent("注意!接收到来自" + userid + "的请求注册信息");
+            message.setBody("注意!接收到来自" + userid + "的请求注册信息");
             message.setTitle("注册信息");
             message.setStatus("UNREAD");
-            message.setType("用户注册");
+            message.setTag("work");
+            message.setLabels("['inbox','important']");
 
             ret = messageMapper.insertSelective(message);
             if(ret <= 0)
-                throw new RuntimeException("Message 插入失败!");
+                throw new RuntimeException("MessageWithBLOBs 插入失败!");
 
         }catch (Exception e){
             e.printStackTrace();

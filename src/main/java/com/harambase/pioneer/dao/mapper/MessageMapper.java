@@ -1,21 +1,26 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Message;
+import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Message record);
+    int insert(MessageWithBLOBs record);
 
-    int insertSelective(Message record);
+    int insertSelective(MessageWithBLOBs record);
 
-    Message selectByPrimaryKey(Integer id);
+    MessageWithBLOBs selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Message record);
+    int updateByPrimaryKeySelective(MessageWithBLOBs record);
 
-    int updateByPrimaryKeyWithBLOBs(Message record);
+    int updateByPrimaryKeyWithBLOBs(MessageWithBLOBs record);
 
     int updateByPrimaryKey(Message record);
+
+    List<Message> list(String userid);
 }

@@ -1,23 +1,25 @@
 package com.harambase.pioneer.pojo;
 
-import java.io.Serializable;
-
-public class Message implements Serializable{
+public class Message {
     private Integer id;
 
     private String senderid;
 
     private String receiverid;
 
-    private String type;
+    private String subject;
 
     private String title;
 
     private String status;
 
-    private String createtime;
+    private String date;
 
-    private String content;
+    private String attachment;
+
+    private String tag;
+
+    private String labels;
 
     public Integer getId() {
         return id;
@@ -43,12 +45,12 @@ public class Message implements Serializable{
         this.receiverid = receiverid == null ? null : receiverid.trim();
     }
 
-    public String getType() {
-        return type;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setSubject(String subject) {
+        this.subject = subject == null ? null : subject.trim();
     }
 
     public String getTitle() {
@@ -67,19 +69,35 @@ public class Message implements Serializable{
         this.status = status == null ? null : status.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getDate() {
+        return date;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setDate(String date) {
+        this.date = date == null ? null : date.trim();
     }
 
-    public String getContent() {
-        return content;
+    public String getAttachment() {
+        return attachment;
     }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+    public void setAttachment(String attachment) {
+        this.attachment = attachment == null ? null : attachment.trim();
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag == null ? null : tag.trim();
+    }
+
+    public String getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels == null ? null : labels.trim();
     }
 }
