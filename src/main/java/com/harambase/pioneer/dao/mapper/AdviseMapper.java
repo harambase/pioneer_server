@@ -2,12 +2,14 @@ package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.dto.AdviseView;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+@Mapper
 @Component
 public interface AdviseMapper {
     int deleteByPrimaryKey(Integer id);

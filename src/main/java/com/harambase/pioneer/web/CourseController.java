@@ -23,6 +23,7 @@ import java.util.Map;
  * Created by linsh on 7/12/2017.
  */
 @Controller
+@CrossOrigin
 @RequestMapping(value = "/course")
 public class CourseController {
     private final CourseService courseService;

@@ -2,8 +2,10 @@ package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.dto.StudentView;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+@Mapper
 @Component
 public interface StudentMapper {
     int deleteByPrimaryKey(String userid);

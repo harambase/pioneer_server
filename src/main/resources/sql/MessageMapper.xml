@@ -195,8 +195,5 @@
   </update>
   <select id="list" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.dto.MessageView" >
     select * from MessageView where 1=1
-    <if test="userid != null" >
-      and userid = #{userid,jdbcType=VARCHAR}
-    </if>
   </select>
 </mapper>

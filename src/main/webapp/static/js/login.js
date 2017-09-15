@@ -16,7 +16,7 @@ $(function (){
                 data: JSON.stringify(person),
                 success: function (data) {
                     if (data.code === 2001) {
-                        window.location.href = basePath + "/index";
+                        window.location.href = "http://localhost:3000/#/dashboard/index";
                     }
                 }
             });

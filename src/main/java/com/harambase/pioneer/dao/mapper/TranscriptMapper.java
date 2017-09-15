@@ -3,10 +3,13 @@ package com.harambase.pioneer.dao.mapper;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+
+@Mapper
 @Component
 public interface TranscriptMapper {
     int deleteByPrimaryKey(Map<String, Object> param);

@@ -2,18 +2,12 @@ package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.pioneer.pojo.Student;
-import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.StudentService;
-import com.harambase.pioneer.service.CourseService;
-import com.harambase.pioneer.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +15,7 @@ import javax.servlet.http.HttpSession;
  * Created by linsh on 7/12/2017.
  */
 @Controller
+@CrossOrigin
 @RequestMapping(value = "/student")
 public class StudentController {
 

@@ -2,10 +2,12 @@ package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Message;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Mapper
 @Component
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);

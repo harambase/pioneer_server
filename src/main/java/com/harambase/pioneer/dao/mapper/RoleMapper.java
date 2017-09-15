@@ -1,8 +1,10 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Role;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+@Mapper
 @Component
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);

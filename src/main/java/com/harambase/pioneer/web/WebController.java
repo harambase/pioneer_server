@@ -1,15 +1,17 @@
 package com.harambase.pioneer.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 /**
  * Created by shilei on 2017/08/07.
  */
 @Controller
+@CrossOrigin
 public class WebController {
-
 
     @RequestMapping("/reg")
     public String signUp(){
@@ -19,7 +21,7 @@ public class WebController {
     public String auth(){
         return "auth";
     }
-    @RequestMapping("/index")
+    @RequestMapping(value="/index",method = RequestMethod.GET)
     public String index(){
         return "index";
     }

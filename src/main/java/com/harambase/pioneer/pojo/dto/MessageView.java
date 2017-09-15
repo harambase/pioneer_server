@@ -1,10 +1,10 @@
 package com.harambase.pioneer.pojo.dto;
 
-import com.harambase.pioneer.pojo.Message;
+import com.harambase.pioneer.pojo.MessageWithBLOBs;
 
 import java.io.Serializable;
 
-public class MessageView extends Message implements Serializable {
+public class MessageView extends MessageWithBLOBs implements Serializable {
 
     private String semail;
     private String sfirst;
