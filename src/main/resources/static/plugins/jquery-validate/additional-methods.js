@@ -909,10 +909,10 @@ $.validator.addMethod( "postalcodeBR", function( cep_value, element ) {
 /**
  * Matches a valid Canadian Postal Code
  *
- * @example jQuery.validator.methods.postalCodeCA( "H0H 0H0", element )
+ * @example jquery.validator.methods.postalCodeCA( "H0H 0H0", element )
  * @result true
  *
- * @example jQuery.validator.methods.postalCodeCA( "H0H0H0", element )
+ * @example jquery.validator.methods.postalCodeCA( "H0H0H0", element )
  * @result false
  *
  * @name jQuery.validator.methods.postalCodeCA

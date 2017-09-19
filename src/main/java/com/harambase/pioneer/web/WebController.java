@@ -33,7 +33,7 @@ public class WebController {
     }
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
-        return "page/admin/welcomeAdmin";
+        return "page/welcomeAdmin";
     }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){
@@ -68,9 +68,4 @@ public class WebController {
         return "page/welcome";
     }
 
-    public static void basePath(HttpServletRequest request){
-        String path = request.getContextPath();
-        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-        request.setAttribute("basePath", basePath);
-    }
 }
