@@ -22,16 +22,13 @@ import it.uniroma1.dis.wsngroup.gexf4j.core.impl.viz.PositionImpl;
 import it.uniroma1.dis.wsngroup.gexf4j.core.viz.NodeShape;
 import it.uniroma1.dis.wsngroup.gexf4j.core.viz.Position;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.Calendar;
 import java.util.List;
 
 
 public class StaticGexfGraph {
-	public static void graphGenerator(List<Person> personList,
+	public static String graphGenerator(List<Person> personList,
 									  List<CourseView> courseList,
 									  List<Transcript> transcriptList,
 									  List<Advise> adviseList){
@@ -140,18 +137,28 @@ public class StaticGexfGraph {
 		StaxGraphWriter graphWriter = new StaxGraphWriter();
 		String path = StaticGexfGraph.class.getResource("").getPath();
 
-		File f = new File(path + "../../../../../../../pioneer/static/data/static_graph_sample.gexf");
-		Writer out;
+
 
 		try {
-			if (!f.exists()) f.createNewFile();
-			out =  new FileWriter(f, false);
+			File f = new File(path + "/static_graph_sample.gexf");
+			Writer out =  new FileWriter(f, false);
+
 			graphWriter.writeToStream(gexf, out, "UTF-8");
-			System.out.println(f.getAbsolutePath());
+//			System.out.println(f.getAbsolutePath());
+
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String line = "";
+			StringBuffer buffer = new StringBuffer();
+			while((line=br.readLine())!=null)
+				buffer.append(line);
+
+			f.delete();
+			return buffer.toString();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		return "";
 	}
 	private static Position generatePosition(int type, int index){
 		PositionImpl position = new PositionImpl();

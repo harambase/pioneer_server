@@ -378,7 +378,8 @@ public class PersonServiceImpl implements PersonService {
             List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
             List<Advise> adviseList = adviseMapper.getAllAdvise();
 
-            StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
+            String xml = StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
+            message.setData(xml);
         }catch (Exception e){
             e.printStackTrace();
         }

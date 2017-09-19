@@ -70,13 +70,13 @@ function exampleUserTop(divUrl,data1,data2) {
     return myChart;
 }
 
-function relation(divUrl) {
+function relation(data, divUrl) {
     var myChart = echarts.init(document.getElementById(divUrl));
     myChart.showLoading();
-    $.get(basePath+'/data/static_graph_sample.gexf', function (xml) {
+    if(data !== ""){
         myChart.hideLoading();
 
-        var graph = echarts.dataTool.gexf.parse(xml);
+        var graph = echarts.dataTool.gexf.parse(data);
         var categories = [{name: '课程'},{name: '学生'},{name:'教师'}];
 
         graph.nodes.forEach(function (node) {
@@ -89,7 +89,7 @@ function relation(divUrl) {
             };
             node.category = node.attributes.type;
         });
-        option = {
+        var option = {
             // title: {
             //     text: 'Pioneer SFC Relations',
             //     subtext: 'Student-Faculty-Course',
@@ -132,18 +132,17 @@ function relation(divUrl) {
                 }
             ]
         };
-
         myChart.setOption(option);
-    }, 'xml');
+    }
 }
 
-function relation2(divUrl){
+function relation2(data, divUrl){
     var myChart = echarts.init(document.getElementById(divUrl));
     myChart.showLoading();
-    $.get(basePath+'/static/data/static_graph_sample.gexf', function (xml) {
+    if(data !== ""){
         myChart.hideLoading();
 
-        var graph = echarts.dataTool.gexf.parse(xml);
+        var graph = echarts.dataTool.gexf.parse(data);
         var categories = [{name: '课程'},{name: '学生'},{name:'教师'}];
 
         graph.nodes.forEach(function (node) {
@@ -196,7 +195,6 @@ function relation2(divUrl){
                 }
             ]
         };
-
         myChart.setOption(option);
-    }, 'xml');
+    }
 }
