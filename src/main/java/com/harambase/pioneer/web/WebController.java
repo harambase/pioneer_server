@@ -39,17 +39,13 @@ public class WebController {
     public String welcomeFaculty(){
         return "page/faculty/welcomeFaculty";
     }
-    @RequestMapping("/studentHeader")
-    public String header(){
-        return "page/student/studentHeader";
-    }
     @RequestMapping("/manageCourse")
     public String adminManageCourse(){
-        return "page/admin/manageCourse";
+        return "page/course/manageCourse";
     }
     @RequestMapping("/manageTranscript")
     public String adminManageTranscript(){
-        return "page/admin/manageTranscript";
+        return "page/transcript/manageTranscript";
     }
     @RequestMapping("/manageUser")
     public String adminManageUser(){
@@ -57,11 +53,11 @@ public class WebController {
     }
     @RequestMapping("/manageAdvising")
     public String adminManageAdvising(){
-        return "page/admin/manageAdvising";
+        return "page/advising/manageAdvising";
     }
     @RequestMapping("/adminProfile")
     public String adminProfile(){
-        return "page/admin/adminProfile";
+        return "page/account/adminProfile";
     }
     @RequestMapping("/welcome")
     public String welcome(){

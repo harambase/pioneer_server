@@ -103,6 +103,19 @@ function relation(data, divUrl) {
                     return a.name;
                 })
             }],
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
             animationDurationUpdate: 1500,
             animationEasingUpdate: 'quinticInOut',
             series: [
@@ -155,7 +168,7 @@ function relation2(data, divUrl){
             };
             node.category = node.attributes.type;
         });
-        option = {
+        var option = {
             // title: {
             //     text: 'Les Miserables',
             //     subtext: 'Default layout',
@@ -163,6 +176,19 @@ function relation2(data, divUrl){
             //     left: 'right'
             // },
             tooltip: {},
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    magicType : {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
             legend: [{
                 // selectedMode: 'single',
                 data: categories.map(function (a) {
