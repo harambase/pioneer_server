@@ -26,7 +26,7 @@ public class Filter implements javax.servlet.Filter {
         if(session.getAttribute("user") !=null)
             chain.doFilter(request,resp);
         else {
-            request.getRequestDispatcher("/WEB-INF/page/index.jsp").forward(req,resp);
+            request.getRequestDispatcher("/WEB-INF/page/index.html").forward(req,resp);
         }
     }
 

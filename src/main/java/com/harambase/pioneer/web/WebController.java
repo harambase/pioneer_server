@@ -15,14 +15,14 @@ public class WebController {
 
     @RequestMapping("/reg")
     public String signUp(){
-        return "reg";
+        return "release/reg";
     }
     @RequestMapping("/auth")
     public String auth(){
-        return "auth";
+        return "release/auth";
     }
     @RequestMapping(value="/index",method = RequestMethod.GET)
     public String index(){
-        return "index";
+        return "release/index";
     }
 }
