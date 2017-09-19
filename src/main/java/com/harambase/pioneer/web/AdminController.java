@@ -231,5 +231,11 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/approve/user", method = RequestMethod.GET)
+    public ResponseEntity approveUser(@RequestParam("serialId") Integer serialId,
+                                      @RequestParam("discard") Boolean discard){
+        HaramMessage message = personService.approve(serialId, discard);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 
 }

@@ -632,7 +632,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage approve(int serialId, boolean discard) {
+    public HaramMessage approve(Integer serialId, Boolean discard) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             if(discard){
@@ -667,6 +667,11 @@ public class PersonServiceImpl implements PersonService {
                     studentMapper.insert(student);
                 }
                 int ret = personMapper.insert(person);
+                if (ret == 1){
+//                    haramMessage.setData();
+                    haramMessage.setCode(FlagDict.SUCCESS.getV());
+                    haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                }
 
             }
         }catch (Exception e){

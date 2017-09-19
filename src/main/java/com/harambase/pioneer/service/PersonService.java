@@ -39,5 +39,5 @@ public interface PersonService {
 
     HaramMessage register(JSONObject jsonObject);
 
-    HaramMessage approve(int userid, boolean discard);
+    HaramMessage approve(Integer serialId, Boolean discard);
 }
