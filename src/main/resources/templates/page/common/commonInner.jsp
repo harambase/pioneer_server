@@ -4,4 +4,6 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
     request.setAttribute("basePath", basePath);
 %>
-<script type="text/javascript">var basePath="${basePath}";</script>
+<script type="text/javascript">
+    var basePath="${basePath}";
+</script>
