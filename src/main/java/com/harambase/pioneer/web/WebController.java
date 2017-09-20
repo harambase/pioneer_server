@@ -51,6 +51,10 @@ public class WebController {
     public String adminManageUser(){
         return "page/admin/manageUser";
     }
+    @RequestMapping("/manageRequest")
+    public String adminmanageRequest(){
+        return "page/administration/manageRequest";
+    }
     @RequestMapping("/manageAdvising")
     public String adminManageAdvising(){
         return "page/advising/manageAdvising";

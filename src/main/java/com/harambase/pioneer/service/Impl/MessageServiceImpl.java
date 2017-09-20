@@ -35,21 +35,24 @@ public class MessageServiceImpl implements MessageService {
                 orderColumn = "semail";
                 break;
             case 2:
-                orderColumn = "subject";
-                break;
-            case 3:
-                orderColumn = "title";
-                break;
-            case 4:
-                orderColumn = "status";
-                break;
-            case 5:
                 orderColumn = "slast";
                 break;
-            case 6:
+            case 3:
                 orderColumn = "sfirst";
                 break;
+            case 4:
+                orderColumn = "subject";
+                break;
+            case 5:
+                orderColumn = "title";
+                break;
+            case 6:
+                orderColumn = "body";
+                break;
             case 7:
+                orderColumn = "status";
+                break;
+            case 8:
                 orderColumn = "date";
                 break;
             default:

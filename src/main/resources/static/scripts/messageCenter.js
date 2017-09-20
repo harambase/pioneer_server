@@ -1,4 +1,14 @@
 $(function(){
+    $(".message-pop").css({display: "none"});
+
+    $("#messageTable").on("click", ".btn.btn-info", function () {
+        $(".message-pop").css({display: "block"});
+
+    });
+
+    $(".w_close").click(function () {
+        $(".message-pop").css({display: "none"});
+    });
 
     var messageTable = $("#messageTable").DataTable({
 
@@ -35,28 +45,30 @@ $(function(){
             data: function (d) {
                 d.receiverid = "9000000000";
             }
+
         },
         columns: [
             {"data": "id", "title": "序列号", "width" : "45px"},
-            {"data": "semail", "title": "发件人ID"},
-            {"data": "subject", "title": "主题"},
-            {"data": "title", "title": "标题"},
-            {"data": "status", "title": "状态"},
+            {"data": "semail", "title": "发件人邮件"},
             {"data": "slast", "title": "发件人姓"},
             {"data": "sfirst", "title": "发件人名"},
+            {"data": "subject", "title": "主题"},
+            {"data": "title", "title": "标题"},
+            {"data": "body", "title": "内容"},
+            {"data": "status", "title": "状态"},
             {"data": "date", "title": "发送时间"},
             {
-                "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('' +
-                    '<button class="btn btn-info">查看消息</button>' +
-                    '<button class="btn btn-edit">删除消息</button>' +
-                    '<button class="btn btn-edit">标记已读</button>');
+                "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
+                var htmlStr = '<button  class="btn btn-edit btn-warning">删除消息</button>';
+                htmlStr += '<button  class="btn btn-edit">标记已读</button>';
+                $(nTd).html(htmlStr);
+
             }, "width": "300px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [8]
+            targets: [9]
         }, {
             "defaultContent": "",
             "targets": "_all"
