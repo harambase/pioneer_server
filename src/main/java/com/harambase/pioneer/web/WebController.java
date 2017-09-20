@@ -23,7 +23,7 @@ public class WebController {
     public String auth(){
         return "release/auth";
     }
-    @RequestMapping(value="/index")
+    @RequestMapping("/index")
     public String index(){
         return "release/index";
     }

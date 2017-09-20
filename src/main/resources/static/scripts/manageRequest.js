@@ -30,7 +30,7 @@ $(function(){
         serverSide: true,
 
         ajax: {
-            url: basePath + "/message/list",
+            url: basePath + "/request/user/list",
 
             data: function (d) {
                 d.receiverid = "9000000000";
