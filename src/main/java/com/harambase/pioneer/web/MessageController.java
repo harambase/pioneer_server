@@ -2,6 +2,7 @@ package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,9 @@ public class MessageController {
                                     @RequestParam(value = "order[0][column]") String orderCol,
                                     @RequestParam(value = "receiverid", required = false) String receiverid,
                                     HttpSession session) {
+
+        Person user = (Person)session.getAttribute("user");
+        System.out.println(user.getUserid());
         Map<String, Object> map = new HashMap<>();
         try {
             HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search,
