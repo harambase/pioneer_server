@@ -43,7 +43,9 @@ $(function(){
                 data: JSON.stringify(formdata),
                 success: function (data) {
                     if (data.code === 2001)
-                        Showbo.Msg.alert("申请成功!", function () {});
+                        Showbo.Msg.alert("成功！请等待管理员审核。", function () {
+                            window.location.href = basePath + "/auth";
+                        });
                     else
                         Showbo.Msg.alert(data.msg, function () {});
                 }

@@ -617,8 +617,9 @@ public class PersonServiceImpl implements PersonService {
             message.setBody("注意!接收到来自" + userid + "的请求注册信息");
             message.setTitle("注册信息");
             message.setStatus("UNREAD");
+            message.setSubject("用户注册");
             message.setTag("work");
-            message.setLabels("['inbox','important']");
+            message.setLabels("inbox/important/");
 
             ret = messageMapper.insertSelective(message);
             if(ret <= 0)

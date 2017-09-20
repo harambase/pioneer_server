@@ -63,5 +63,9 @@ public class WebController {
     public String welcome(){
         return "page/welcome";
     }
+    @RequestMapping("/messageCenter")
+    public String messageCenter(){
+        return "page/message/messageCenter";
+    }
 
 }
