@@ -8,12 +8,15 @@
 
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900&subset=latin,greek,greek-ext,vietnamese,cyrillic-ext,latin-ext,cyrillic'
           rel='stylesheet' type='text/css'>
+    <link href="/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugins/confirm/confirm.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96x96.png">
     <link rel="stylesheet" href="/styles/vendor-dddc8eebb5.css">
     <link rel="stylesheet" href="/styles/auth-6732706e87.css">
+
 
 
 </head>
@@ -28,29 +31,25 @@
                 <label for="inputName3" class="col-sm-2 control-label"><span style="color: red">*</span>姓</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputName3" stringCheck="true" placeholder="*姓"
-                           minlength="1" maxlength="20" required>
+                    <input class="form-control" id="inputName3" stringCheck="true" placeholder="*姓" minlength="1" maxlength="20" value="" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputName3" class="col-sm-2 control-label"><span style="color: red">*</span>名</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="firstName" stringCheck="true" placeholder="*名"
-                           minlength="1" maxlength="20" required>
+                    <input class="form-control" id="firstName" stringCheck="true" placeholder="*名" minlength="1" maxlength="20" value="" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputName3" class="col-sm-2 control-label"><span style="color: red">*</span>生日</label>
-
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="birthday" placeholder="*生日">
+                    <input  class="form-control" id="birthday" placeholder="*生日" value="">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label"><span style="color: red">*</span>邮箱</label>
-
                 <div class="col-sm-10">
                     <input type="email" class="form-control" id="inputEmail3" placeholder="*邮件">
                 </div>
@@ -59,24 +58,20 @@
                 <label for="inputPassword3" class="col-sm-2 control-label"><span style="color: red">*</span>密码</label>
 
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword3" placeholder="*密码" minlength="6"
-                           maxlength="16" required>
+                    <input type="password" class="form-control" id="inputPassword3" placeholder="*密码" minlength="6" maxlength="16" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputName3" class="col-sm-2 control-label"><span style="color: red">*</span>QQ</label>
-
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="qq" isDigits="true" placeholder="*QQ号" minlength="6"
-                           maxlength="16" required>
+                    <input  class="form-control" id="qq" isDigits="true" placeholder="*QQ号" minlength="6" maxlength="16" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputName3" class="col-sm-2 control-label"><span style="color: red">*</span>电话</label>
 
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="tel" isDigits="true" placeholder="*电话号码" minlength="8"
-                           maxlength="11" required>
+                    <input class="form-control" id="tel" isDigits="true" placeholder="*电话号码" minlength="8" maxlength="11" required>
                 </div>
             </div>
 
@@ -101,18 +96,13 @@
             </div>
             <div class="form-group">
                 <label for="inputName3" class="col-sm-2 control-label">性别</label>
-
-                <!--<div class="col-sm-10">-->
-                <!--<input class="radio-inline custom-radio nowrap" id='male' type="radio" name="gender" value="s"/>男-->
-                <!--<input class="radio-inline custom-radio nowrap" id='female' type="radio" name="gender" value="f"/>女-->
-                <!--<div class="input-demo radio-demo row">-->
                 <div class="col-md-4">
                     <label id="male1" class="radio-inline custom-radio nowrap">
-                        <input type="radio" name="radio" id="male" value="m">
+                        <input type="radio" name="radio2" id="male" value="m">
                         <span>男</span>
                     </label>
                     <label id="female1" class="radio-inline custom-radio nowrap">
-                        <input type="radio" name="radio" id="female" value="f">
+                        <input type="radio" name="radio2" id="female" value="f">
                         <span>女</span>
                     </label>
                     <input id="gender" hidden>
@@ -135,6 +125,8 @@
 
 </main>
 <script src="/plugins/jQuery/jquery-1.12.3.min.js"></script>
+<script src="/plugins/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+<script src="/plugins/confirm/confirm.js"></script>
 <script src="/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="/plugins/jquery-validate/messages_zh.js"></script>
 <script src="/plugins/layer/laydate/laydate.js"></script>

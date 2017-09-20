@@ -623,6 +623,8 @@ public class PersonServiceImpl implements PersonService {
             ret = messageMapper.insertSelective(message);
             if(ret <= 0)
                 throw new RuntimeException("MessageWithBLOBs 插入失败!");
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
 
         }catch (Exception e){
             e.printStackTrace();

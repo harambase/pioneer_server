@@ -24,7 +24,7 @@ $(function(){
 
 
     $("#submit").click(function () {
-        if(regForm){
+        if(regForm.form()){
             var formdata = {
                 info: $("#info").val(),
                 lastname : $("#inputName3").val(),
@@ -43,7 +43,7 @@ $(function(){
                 data: JSON.stringify(formdata),
                 success: function (data) {
                     if (data.code === 2001)
-                        Showbo.Msg.alert("注册成功!", function () {});
+                        Showbo.Msg.alert("申请成功!", function () {});
                     else
                         Showbo.Msg.alert(data.msg, function () {});
                 }
@@ -51,5 +51,5 @@ $(function(){
             })
         }
     });
-})
+});
 
