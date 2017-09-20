@@ -1,4 +1,5 @@
 $(function(){
+
     var messageTable = $("#messageTable").DataTable({
 
         "language": {
