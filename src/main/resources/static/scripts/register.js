@@ -1,15 +1,40 @@
 $(function(){
     var regForm = $("#regForm").validate({});
+    $("#male1").click(function(){
+        $("#male").prop("checked", true);
+        $("#female").prop("checked", false);
+        $("#gender").val("male");
+    });
+    $("#female1").click(function(){
+        $("#male").prop("checked", false);
+        $("#female").prop("checked", true);
+        $("#gender").val("female");
+    });
+    $("#newStudent").click(function(){
+        $("#return").prop("checked", false);
+        $("#new").prop("checked", true);
+        $("#info").prop("disabled", true);
+        $("#info").val("2017-02");
+    });
+    $("#retStudent").click(function(){
+        $("#new").prop("checked", false);
+        $("#return").prop("checked", true);
+        $("#info").prop("disabled", false);
+    });
+
+
     $("#submit").click(function () {
         if(regForm){
             var formdata = {
                 info: $("#info").val(),
-                name : $("#inputName3").val(),
+                lastname : $("#inputName3").val(),
+                firstname : $("#firstName").val(),
                 email : $("#inputEmail3").val(),
                 password : $("#inputPassword3").val(),
                 qq : $("#qq").val(),
                 tel : $("#tel").val(),
-                birthday : $("#birthday").val()
+                birthday : $("#birthday").val(),
+                gender : $("#gender").val()
             };
             $.ajax({
                 url: basePath + "/admin/register",

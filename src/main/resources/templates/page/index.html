@@ -7,8 +7,8 @@
 
     <title>登录</title>
 
-    <link rel="stylesheet" href="${basePath}/static/plugins/confirm/confirm.css">
-    <link rel="stylesheet" href="${basePath}/static/css/login.css">
+    <link rel="stylesheet" href="/plugins/confirm/confirm.css">
+    <link rel="stylesheet" href="/styles/login.css">
 
 </head>
 <body class="body" data-gr-c-s-loaded="true">
@@ -19,7 +19,7 @@
     <div id="contentWrapper" class="float">
         <div id="content">
             <div id="header">
-                <img src="${basePath}/Images/HaramBaseICON.png" style="width: 400px;">
+                <img src="/assets/img/HaramBaseICON.png" style="width: 400px;">
             </div>
             <div id="workArea">
                 <div id="authArea" class="groupMargin">
@@ -50,7 +50,12 @@
                 </div>
             </div>
             <div id="footerPlaceholder">
-                <b><%@include file="common/commonFooter.jsp" %></b>
+                <b><div id="footer">
+                    <div id="copyright">
+                        <p><a>Copyright &copy; 2017</a> - All Rights Reserved<br>
+                            <a>Harambase Development Team</a></p>
+                    </div>
+                </div></b>
             </div>
         </div>
     </div>
@@ -58,9 +63,8 @@
 
 </body>
 <script src="/plugins/jQuery/jquery-1.12.3.min.js"></script>
-<script src="${basePath}/static/plugins/jQuery/jquerySession.js"></script>
-<script src="${basePath}/static/plugins/confirm/confirm.js"></script>
-<script src="${basePath}/static/plugins/jquery-validate/jquery.validate.min.js"></script>
-<script src="${basePath}/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="${basePath}/static/js/login.js"></script>
+<script src="/plugins/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
+<script src="/plugins/confirm/confirm.js"></script>
+<script src="/plugins/jquery-validate/jquery.validate.min.js"></script>
+<script src="/plugins/jquery-validate/messages_zh.js"></script>
 </html>
