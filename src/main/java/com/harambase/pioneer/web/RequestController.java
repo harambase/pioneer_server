@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
-import com.harambase.pioneer.service.StudentService;
+import com.harambase.pioneer.service.RequestSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,19 @@ public class RequestController {
 
     private final CourseService courseService;
     private final PersonService personService;
+    private final RequestSerivce requestSerivce;
 
     @Autowired
-    public RequestController(CourseService courseService, PersonService personService){
+    public RequestController(CourseService courseService, PersonService personService, RequestSerivce requestSerivce){
         this.courseService = courseService;
         this.personService = personService;
+        this.requestSerivce = requestSerivce;
+    }
+
+    @RequestMapping(value = "/delete/user", produces = "application/json", method = RequestMethod.DELETE)
+    public ResponseEntity deleteRequest(@RequestParam(value = "serialId") Integer id){
+        HaramMessage message = requestSerivce.deleteTempUserById(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)

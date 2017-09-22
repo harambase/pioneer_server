@@ -38,8 +38,6 @@ public interface PersonService {
 
     HaramMessage register(JSONObject jsonObject);
 
-    HaramMessage approve(Integer serialId, Boolean discard);
-
     HaramMessage tempUserList(String s, String s1, String search, String order, String orderCol);
 
 }

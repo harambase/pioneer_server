@@ -13,8 +13,7 @@
     <link href="/styles/signin.css" rel="stylesheet" type="text/css">
     <link href="/styles/title.css" rel="stylesheet" type="text/css">
     <link href="/styles/manage.css" rel="stylesheet" type="text/css">
-
-    <link href="/styles/header.css" rel="stylesheet" >
+    <link href="/styles/header.css" rel="stylesheet">
     <link href="/styles/manageCourse.css" rel="stylesheet">
 </head>
 <body>
@@ -60,7 +59,99 @@
         </div> <!-- /content -->
     </div> <!-- /account-container -->
 </div>
+<div class="w_wrapper">
+    <div class="w_wrap" style="position: absolute">
+        <div class="w_head">
+            <span>申请详情</span>
+            <span class="w_close">×</span>
+        </div>
+        <div class="w_body">
+            <ul class="w_tab clearfix">
+                <li class="active base-info">用户基本信息</li>
+                <li class='account'>账户属性</li>
+            </ul>
+            <div class="w_tabC w_pop">
+                <div class="w_content">
+                    <div class="w_basicInfo account-container register" style="margin-left: 0px;">
+                        <form id="editUserForm" method="post" onsubmit="return false">
+                            <table style="margin: 15px 27px;">
+                                <input id="pwd" name="pwd" value="" class="login" hidden/>
+                                <tr>
+                                    <td><p style="float: left; margin-right: 35px">用户ID:</td>
+                                    <td><input id="userid2" name="userid" value="" class="login" disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">名:</p></td>
+                                    <td><input id="firstname2" name="firstname" value="" class="login" minlength="1"
+                                               maxlength="20" required/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">姓:</p></td>
+                                    <td><input id="lastname2" name="lastname" value="" class="login"
+                                               minlength="1" maxlength="20" required/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">生日:</p></td>
+                                    <td><input id="birthday2" name="birthday" value="YYYY-MM-DD" class="login"
+                                               maxlength="10"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">Email:</p></td>
+                                    <td><input id="email2" name="email" value="" class="login"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">QQ:</p></td>
+                                    <td><input id="qq2" name="QQ" value="" class="login"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">电话号码:</p></td>
+                                    <td><input id="tel2" name="tel" value="" class="login"/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">备注信息:</p></td>
+                                    <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 250px; height: 100px; resize: none;"></textarea></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div> <!-- /account-container -->
+                </div>
+                <p class="w_buttons_w system-control-btn">
+                    <button id="next"    class="w_button account">下一页</button>
+                    <button id="cancel"  class="w_button">取消查看</button>
+                </p>
+            </div>
+            <div class="w_tabD w_pop">
+                <div class='w_manage'>
+                    <h4 class="status" style="margin-top: 0px;">用户账户状态: </h4>
+                    <input class='enable' type="checkbox" name="powerState" value="1"/>启用
+                    <input class='disable' type="checkbox" name="powerState" value="0"/>停用
 
+                    <h4 class="type">用户账户类型: </h4>
+                    <input class='student' type="checkbox" name="type2" value="s"/>学生
+                    <input class='teacher' type="checkbox" name="type2" value="f"/>教师
+                    <input class='admin' type="checkbox" name="type2" value="a"/>管理员
+
+                    <h4 class="gender">用户性别:</h4>
+                    <input class='male' type="checkbox" name="powerState" value="male"/>男
+                    <input class='female' type="checkbox" name="powerState" value="female"/>女
+
+                    <h4 class="gender" style="color: red">申请状态:</h4>
+                    <div class='w_manage_btn system-control-btn'>
+                        <table><tr><td>
+                            <button class="w_button" style="width: 150px;height: 30px;" id="apply">批准申请</button>
+                        </td><td>
+                            <button class="w_button" style="width: 150px;height: 30px;" id="decline">拒绝申请</button>
+                        </td></tr></table>
+                    </div>
+                </div>
+                <div class='w_manage_btn system-control-btn'>
+                    <button id="previous" class="w_button base-info">上一页</button>
+                    <button id="cancel2"  class="w_button">取消查看</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script src="/plugins/jQuery/jquery-1.12.3.min.js"></script>
 <script src="/plugins/jquery/jquerySession.js"></script>

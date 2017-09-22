@@ -76,30 +76,38 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage addUser(Person person) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            String info = person.getInfo();
-            List<Person> people = personMapper.getAllUsersWithInfo(info);
-            
-            String userid = IDUtil.genUserID(info);
-            for(int i = 0; i<people.size(); i++){
-                Person p = people.get(i);
-                if(userid.equals(p.getUserid())){
-                    userid = IDUtil.genUserID(info);
-                    i = 0;
+            String userid, password;
+
+            if(person.getUserid() == null) {
+                String info = person.getInfo();
+                List<Person> people = personMapper.getAllUsersWithInfo(info);
+
+
+                userid = IDUtil.genUserID(info);
+                for (int i = 0; i < people.size(); i++) {
+                    Person p = people.get(i);
+                    if (userid.equals(p.getUserid())) {
+                        userid = IDUtil.genUserID(info);
+                        i = 0;
+                    }
                 }
+                person.setCreatetime(DateUtil.DateToStr(new Date()));
+                person.setUpdatetime(DateUtil.DateToStr(new Date()));
+                person.setStatus("1");
+                person.setUserid(userid);
+            } else
+                userid = person.getUserid();
+
+            if(person.getPassword() == null) {
+                password = "Pioneer" + userid;
+                person.setPassword(password);
             }
-            person.setCreatetime(DateUtil.DateToStr(new Date()));
-            person.setUpdatetime(DateUtil.DateToStr(new Date()));
-            person.setStatus("1");
-            
-            String password = "Pioneer" + userid;
             
             String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastname());
             String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstname());
             String username = lastPY + firstPY + userid.substring(7,10);
-           
-            person.setUserid(userid);
+
             person.setUsername(username);
-            person.setPassword(password);
 
             if(person.getType().contains("s")){
                 Student student = new Student();
@@ -633,58 +641,6 @@ public class PersonServiceImpl implements PersonService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
         }
         return haramMessage;
-    }
-
-    @Override
-    public HaramMessage approve(Integer serialId, Boolean discard) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
-            if(discard){
-                int ret = tempUserMapper.deleteByPrimaryKey(serialId);
-                if(ret <= 0)
-                    throw new RuntimeException("tempUser 删除失败!");
-            }else{
-                TempUser tempUser = tempUserMapper.selectByPrimaryKey(serialId);
-                JSONObject jsonObject = JSONObject.parseObject(tempUser.getUserJson());
-                Person person = new Person();
-                String opTime = DateUtil.DateToStr(new Date());
-
-                person.setUserid(jsonObject.getString("userid"));
-
-                String userid = person.getUserid();
-
-                person.setUpdatetime(opTime);
-                person.setCreatetime(opTime);
-                person.setPassword(jsonObject.getString("password"));
-                person.setInfo(jsonObject.getString("info"));
-                person.setStatus("1");
-
-                String pingying = Pinyin4jUtil.converterToFirstSpell(jsonObject.getString("name"));
-                String username = pingying + userid.substring(7,10);
-
-                person.setUsername(username);
-
-                if(person.getType().contains("s")){
-                    Student student = new Student();
-                    student.setStudentid(userid);
-                    student.setMaxCredits(12);
-                    studentMapper.insert(student);
-                }
-                int ret = personMapper.insert(person);
-                if (ret == 1){
-//                    haramMessage.setData();
-                    haramMessage.setCode(FlagDict.SUCCESS.getV());
-                    haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                }
-
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-        }
-        return haramMessage;
-
     }
 
     @Override

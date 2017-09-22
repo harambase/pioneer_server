@@ -34,7 +34,7 @@ $(function(){
                 qq : $("#qq").val(),
                 tel : $("#tel").val(),
                 birthday : $("#birthday").val(),
-                gender : $("#gender").val()
+                gender : $("#gender").val(),
             };
             $.ajax({
                 url: basePath + "/admin/register",
