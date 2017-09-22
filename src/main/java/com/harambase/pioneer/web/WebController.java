@@ -14,18 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @CrossOrigin
 public class WebController {
-
+    @RequestMapping("")
+    public String login(){
+        return "release/index";
+    }
     @RequestMapping("/reg")
     public String signUp(){
         return "release/reg";
     }
     @RequestMapping("/auth")
     public String auth(){
-        return "release/auth";
+        return "release/index";
     }
     @RequestMapping("/index")
     public String index(){
-        return "release/index";
+        return "page/index";
     }
     @RequestMapping("/welcomeStudent")
     public String welcomeStudent(){
@@ -49,7 +52,7 @@ public class WebController {
     }
     @RequestMapping("/manageUser")
     public String adminManageUser(){
-        return "page/admin/manageUser";
+        return "page/account/manageUser";
     }
     @RequestMapping("/manageRequest")
     public String adminmanageRequest(){
