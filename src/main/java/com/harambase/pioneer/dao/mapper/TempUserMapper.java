@@ -1,8 +1,12 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.TempUser;
+import com.harambase.pioneer.pojo.dto.AdviseView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
@@ -20,4 +24,8 @@ public interface TempUserMapper {
     int updateByPrimaryKeyWithBLOBs(TempUser record);
 
     int updateByPrimaryKey(TempUser record);
+
+    long getTempUserCountByMapPageSearchOrdered(Map<String, Object> param);
+
+    List<AdviseView> getTempUserByMapPageSearchOrdered(Map<String, Object> param);
 }

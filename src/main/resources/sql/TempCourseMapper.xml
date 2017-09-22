@@ -68,4 +68,21 @@
       json = #{json,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getTempCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from TempCourse <where> 1 = 1
+    <if test="search != null">
+      and crn like '%' #{search,jdbcType=VARCHAR} '%'
+    </if>
+  </where>
+  </select>
+  <select id="getTempCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.TempCourse">
+    select * from TempCourse <where> 1 = 1
+    <if test="search != null">
+      and crn like '%' #{search,jdbcType=VARCHAR} '%'
+    </if>
+  </where>
+    order by ${orderColumn} ${order}
+    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

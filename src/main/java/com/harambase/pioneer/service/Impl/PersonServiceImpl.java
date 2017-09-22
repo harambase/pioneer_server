@@ -687,4 +687,51 @@ public class PersonServiceImpl implements PersonService {
 
     }
 
+    @Override
+    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn) {
+        HaramMessage message = new HaramMessage();
+        switch (Integer.parseInt(orderColumn)) {
+            case 1:
+                orderColumn = "userid";
+                break;
+            default:
+                orderColumn = "id";
+                break;
+        }
+        long totalSize = 0;
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            if(StringUtils.isEmpty(search))
+                param.put("search", null);
+
+            totalSize = tempUserMapper.getTempUserCountByMapPageSearchOrdered(param); //startTime, endTime);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            param.put("currentIndex", page.getCurrentIndex());
+            param.put("pageSize",  page.getPageSize());
+            param.put("order",  order);
+            param.put("orderColumn",  orderColumn);
+
+            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+            List<AdviseView> msgs = tempUserMapper.getTempUserByMapPageSearchOrdered(param);
+
+            message.setData(msgs);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
+    }
+
 }
