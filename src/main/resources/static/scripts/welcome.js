@@ -1,5 +1,17 @@
 $(function () {
-    var user = JSON.parse($.session.get("user"));
+    var user;
+    $.ajax({
+        url: basePath + "/admin/get/current",
+        type: "GET",
+        async: false,
+        success: function (data) {
+            if (data.code === 2001)
+                user = data.data;
+            else
+                Showbo.Msg.alert(data.msg, function () {});
+        }
+    });
+
     $("#adSys").css({display: "none"});
     $("#faSys").css({display: "none"});
     $("#stSys").css({display: "none"});
@@ -23,3 +35,4 @@ $(function () {
         window.location.href = basePath + "/welcomeStudent";
     });
 });
+
