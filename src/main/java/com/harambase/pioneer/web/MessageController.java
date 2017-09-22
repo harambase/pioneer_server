@@ -36,11 +36,10 @@ public class MessageController {
                                     @RequestParam(value = "search[value]") String search,
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
-                                    @RequestParam(value = "receiverid", required = false) String receiverid,
                                     HttpSession session) {
 
         Person user = (Person)session.getAttribute("user");
-        System.out.println(user.getUserid());
+        String receiverid = user.getUserid();
         Map<String, Object> map = new HashMap<>();
         try {
             HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search,

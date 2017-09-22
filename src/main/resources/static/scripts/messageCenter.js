@@ -31,11 +31,6 @@ $(function(){
 
         ajax: {
             url: basePath + "/message/list",
-
-            data: function (d) {
-                d.receiverid = "9000000000";
-            }
-
         },
         columns: [
             {"data": "id", "title": "序列号", "width" : "45px"},
