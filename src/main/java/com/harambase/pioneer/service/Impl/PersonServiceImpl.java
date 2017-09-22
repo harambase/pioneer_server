@@ -82,7 +82,6 @@ public class PersonServiceImpl implements PersonService {
                 String info = person.getInfo();
                 List<Person> people = personMapper.getAllUsersWithInfo(info);
 
-
                 userid = IDUtil.genUserID(info);
                 for (int i = 0; i < people.size(); i++) {
                     Person p = people.get(i);
@@ -91,9 +90,6 @@ public class PersonServiceImpl implements PersonService {
                         i = 0;
                     }
                 }
-                person.setCreatetime(DateUtil.DateToStr(new Date()));
-                person.setUpdatetime(DateUtil.DateToStr(new Date()));
-                person.setStatus("1");
                 person.setUserid(userid);
             } else
                 userid = person.getUserid();
@@ -108,6 +104,9 @@ public class PersonServiceImpl implements PersonService {
             String username = lastPY + firstPY + userid.substring(7,10);
 
             person.setUsername(username);
+            person.setCreatetime(DateUtil.DateToStr(new Date()));
+            person.setUpdatetime(DateUtil.DateToStr(new Date()));
+            person.setStatus("1");
 
             if(person.getType().contains("s")){
                 Student student = new Student();

@@ -1,6 +1,8 @@
 
 $(function(){
-    var status, gender;
+    var gender, id, password, info;
+    var editUserForm = $("#editUserForm").validate({});
+
     $(".base-info").click(function () {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
@@ -15,10 +17,65 @@ $(function(){
         $(".w_pop")[1].style.display = "block";
     });
 
+    //批准
+    $("#apply").click(function () {
+        if(editUserForm.form()) {
+            var firstname = $("#firstname2").val();
+            var userid = $("#userid2").val();
+            var lastname = $("#lastname2").val();
+            var email = $("#email2").val();
+            var qq = $("#qq2").val();
+            var birthday = $("#birthday2").val();
+            var comment = $("#comment2").val();
+            var type = "";
+
+            $('input[name="type2"]:checked').each(function () {
+                type += $(this).val() + "/";
+            });
+
+            var person = {
+                userid: userid,
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                qq: qq,
+                gender: gender,
+                type: type,
+                info: info,
+                birthday: birthday,
+                comment: comment,
+                password: password
+            };
+            //console.log(person);
+            $.ajax({
+                url: basePath + "/admin/user/add",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(person),
+                success: function (data) {
+                    if (data.code === 2001) {
+                        deleteTempUser();
+                        Showbo.Msg.alert("添加成功!", function () {
+                            window.location.reload();
+                        });
+                    }
+                    else
+                        Showbo.Msg.alert(data.msg, function () {
+                        });
+                }
+            });
+        }
+    });
+    function deleteTempUser(){
+        $.ajax({
+            url: basePath + "/request/delete/user?serialId="+id,
+            type: "DELETE"
+        })
+    }
     //详情弹窗
     $("#userReg").on("click", ".btn.btn-edit", function () {
 
-        var id = $(this).parents("tr").find("td").eq(0).html();
+        id = $(this).parents("tr").find("td").eq(0).html();
         var userid = $(this).parents("tr").find("td").eq(1).html();
         //先拿到点击的行号
         var rowIndex = $(this).parents("tr").index();
@@ -35,14 +92,16 @@ $(function(){
         $("#email2").val(user.email);
         $("#qq2").val(user.qq);
         $("#tel2").val(user.tel);
-
+        password = user.password;
+        info = user.info;
+        gender = user.gender;
         if(user.gender === "male"){
-            $(".w_manage h4").eq(2).html("用户性别：男");
-            $(".w_manage input").eq(5).prop("checked", true);
+            $(".w_manage h4").eq(1).html("用户性别：男");
+            $(".w_manage input").eq(3).prop("checked", true);
         }
         else{
-            $(".w_manage h4").eq(2).html("用户性别：女");
-            $(".w_manage input").eq(6).prop("checked", true);
+            $(".w_manage h4").eq(1).html("用户性别：女");
+            $(".w_manage input").eq(4).prop("checked", true);
         }
         $(".w_wrapper").css({display: "block"});
         $(".w_ul li").remove();

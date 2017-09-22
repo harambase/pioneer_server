@@ -42,12 +42,6 @@ public class AdminController {
         HaramMessage haramMessage = personService.register(jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    @RequestMapping(value = "/approve", method = RequestMethod.GET)
-    public ResponseEntity approve(@RequestParam(value = "userid") int userid,
-                                  @RequestParam(value = "discard") boolean discard){
-        HaramMessage haramMessage = personService.approve(userid, discard);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/student/count", method = RequestMethod.GET)
     public ResponseEntity getStudentCount(){
@@ -228,13 +222,6 @@ public class AdminController {
     @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
     public ResponseEntity removeUser(@RequestParam("userid") String userid){
         HaramMessage message = personService.removeUser(userid);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/approve/user", method = RequestMethod.GET)
-    public ResponseEntity approveUser(@RequestParam("serialId") Integer serialId,
-                                      @RequestParam("discard") Boolean discard){
-        HaramMessage message = personService.approve(serialId, discard);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

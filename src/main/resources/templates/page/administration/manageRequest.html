@@ -17,20 +17,15 @@
     <link href="/styles/manageCourse.css" rel="stylesheet">
 </head>
 <body>
-<div class="sidebar">
-    <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Menu</span></h1>
+<div class="sidebar" style="top: 0px;">
+    <h1><i class="fa fa-bars push"></i>Administrator <span class="color">Manage</span></h1>
     <ul>
         <li><a href="/welcomeAdmin"><i class="fa fa-dashboard push"></i>主页<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="#"><i class="fa fa-user push"></i>管理<i class="fa fa-angle-right"></i></a><span class="hover"></span>
-            <ul class="sub-menu">
-                <li><a href="/manageCourse">课程管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="/manageUser">用户管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="/manageAdvising">辅导管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-                <li><a href="/manageTranscript">成绩单管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-            </ul>
-        </li>
-        <li><a href="/adminProfile"><i class="fa fa-id-card push"></i>个人信息<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
-        <li><a href="/welcome"><i class="fa fa-cog push"></i>选择接入系统<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="/manageCourse"><i class="fa fa-book push"></i>课程<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="/manageUser"><i class="fa fa-user push"></i>用户<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="/manageAdvising"><i class="fa fa-users push"></i>辅导关系<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="/manageTranscript"><i class="fa fa-sticky-note push"></i>成绩单<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
+        <li><a href="/manageRequest"><i class="fa fa-sticky-note push"></i>申请管理<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
         <li><a href="#" id="logout"><i class="fa fa-plane push"></i>登出<i class="fa fa-angle-right"></i></a><span class="hover"></span></li>
     </ul>
 </div>
@@ -70,10 +65,11 @@
                 <li class="active base-info">用户基本信息</li>
                 <li class='account'>账户属性</li>
             </ul>
+            <form id="editUserForm" method="post" onsubmit="return false">
             <div class="w_tabC w_pop">
                 <div class="w_content">
                     <div class="w_basicInfo account-container register" style="margin-left: 0px;">
-                        <form id="editUserForm" method="post" onsubmit="return false">
+
                             <table style="margin: 15px 27px;">
                                 <input id="pwd" name="pwd" value="" class="login" hidden/>
                                 <tr>
@@ -112,7 +108,7 @@
                                     <td><textarea id="comment2" style="margin: 5px 0px 0px 0px; width: 250px; height: 100px; resize: none;"></textarea></td>
                                 </tr>
                             </table>
-                        </form>
+
                     </div> <!-- /account-container -->
                 </div>
                 <p class="w_buttons_w system-control-btn">
@@ -122,20 +118,17 @@
             </div>
             <div class="w_tabD w_pop">
                 <div class='w_manage'>
-                    <h4 class="status" style="margin-top: 0px;">用户账户状态: </h4>
-                    <input class='enable' type="checkbox" name="powerState" value="1"/>启用
-                    <input class='disable' type="checkbox" name="powerState" value="0"/>停用
 
                     <h4 class="type">用户账户类型: </h4>
-                    <input class='student' type="checkbox" name="type2" value="s"/>学生
-                    <input class='teacher' type="checkbox" name="type2" value="f"/>教师
-                    <input class='admin' type="checkbox" name="type2" value="a"/>管理员
+                    <input class='student' type="checkbox" name="type2" value="s" required/>学生
+                    <input class='teacher' type="checkbox" name="type2" value="f" required/>教师
+                    <input class='admin' type="checkbox" name="type2" value="a" required/>管理员
 
                     <h4 class="gender">用户性别:</h4>
                     <input class='male' type="checkbox" name="powerState" value="male"/>男
                     <input class='female' type="checkbox" name="powerState" value="female"/>女
 
-                    <h4 class="gender" style="color: red">申请状态:</h4>
+                    <h4 class="gender" style="color: red">申请批准:</h4>
                     <div class='w_manage_btn system-control-btn'>
                         <table><tr><td>
                             <button class="w_button" style="width: 150px;height: 30px;" id="apply">批准申请</button>
@@ -149,6 +142,7 @@
                     <button id="cancel2"  class="w_button">取消查看</button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
