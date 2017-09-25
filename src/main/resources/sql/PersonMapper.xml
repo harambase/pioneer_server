@@ -261,6 +261,11 @@
   <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="ResultMapWithBLOBs">
     select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select * from Person where username = #{arg0,jdbcType=VARCHAR}
+  </select>
+
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Person" >
     update Person
     set userid = #{userid,jdbcType=VARCHAR},

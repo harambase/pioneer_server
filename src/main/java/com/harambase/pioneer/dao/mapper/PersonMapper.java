@@ -25,6 +25,8 @@ public interface PersonMapper {
 
     Person selectByPerson(Person person);
 
+    List<Person> selectByUsername(String username);
+
     long getCountByMapPageSearchOrdered(Map param);
 
     List<Person> getByMapPageSearchOrdered(Map param);
