@@ -30,7 +30,7 @@ $(function(){
                 lastname : $("#inputName3").val(),
                 firstname : $("#firstName").val(),
                 email : $("#inputEmail3").val(),
-                password : $("#inputPassword3").val(),
+                password :  hex_md5($("#inputPassword3").val()),
                 qq : $("#qq").val(),
                 tel : $("#tel").val(),
                 birthday : $("#birthday").val(),

@@ -83,7 +83,7 @@ $(function () {
             tel       : $("#tel2").val(),
             dorm      : $("#dorm2").val(),
             qq        : $("#qq2").val(),
-            password  : $("#pwd").val(),
+            password  : hex_md5($("#pwd").val()),
             comment   : $("#comment2").val()
         };
         $.ajax({
@@ -143,7 +143,7 @@ $(function () {
         var userid = $("#userid2").val();
         var formdata = {
             userid: userid,
-            password: "pioneer" + userid
+            password: hex_md5("pioneer" + userid)
         };
         $.ajax({
             url: basePath + "/admin/user/update",
@@ -389,7 +389,6 @@ $(function () {
             {"data": "username", "title": "用户名"},
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
-            {"data": "password", "title": "密码"},
             {"data": "type", "title": "账户类型"},
             {"data": "status", "title": "状态"},
             {"data": "updatetime", "title": "更新时间"},
@@ -401,7 +400,7 @@ $(function () {
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [9]
+            targets: [8]
         }, {
             "defaultContent": "",
             "targets": "_all"

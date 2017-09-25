@@ -1,10 +1,9 @@
 $(function (){
     var loginForm = $("#loginForm").validate({});
-
     $("#btnLogin").click(function(){
         if(loginForm.form()) {
             var username = $("#username").val();
-            var password = $("#password").val();
+            var password = hex_md5($("#password").val());
             var person = {
                 username: username,
                 password: password
