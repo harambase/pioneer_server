@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class WebController {
     @RequestMapping("")
     public String login(){
-        return "release/index";
+        return "page/index";
     }
     @RequestMapping("/reg")
     public String signUp(){
@@ -24,7 +24,7 @@ public class WebController {
     }
     @RequestMapping("/auth")
     public String auth(){
-        return "release/index";
+        return "page/index";
     }
     @RequestMapping("/index")
     public String index(){
