@@ -88,13 +88,13 @@ CREATE TABLE `Message` (
   `tag` varchar(50) DEFAULT NULL,
   `labels` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Message` */
 
 LOCK TABLES `Message` WRITE;
 
-insert  into `Message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`pic`,`attachment`,`tag`,`labels`) values (49,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','UNREAD','2017-09-20 13:37:44',NULL,NULL,'work','inbox/important/'),(50,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','UNREAD','2017-09-20 13:39:29',NULL,NULL,'work','inbox/important/');
+insert  into `Message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`pic`,`attachment`,`tag`,`labels`) values (49,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','UNREAD','2017-09-20 13:37:44',NULL,NULL,'work','inbox/important/'),(50,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','UNREAD','2017-09-20 13:39:29',NULL,NULL,'work','inbox/important/'),(54,'9000000000','9201702937',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-22 16:58:04',NULL,NULL,'work','[\'inbox\',\'important\']');
 
 UNLOCK TABLES;
 
@@ -123,13 +123,13 @@ CREATE TABLE `Person` (
   `type` varchar(20) NOT NULL COMMENT '属性',
   `comment` text COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Data for the table `Person` */
 
 LOCK TABLES `Person` WRITE;
 
-insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`) values (1,'9000000000','admin','system','adminitor','123456','','1955-01-01','admin@pioneer.edu','1333222111','123456','asdfasda','456','male','2017-08-08 07:00:00','2017-09-02 17:12:19','1','s/f/a/','asdgasdgdsfgs'),(2,'9201701687','admLShilei','Shilei','Lin','adm1201701687','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-08-08 12:44:24','1','a/',NULL),(3,'9201701100','testTeacher','first','last','pioneer9201701100','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-08-10 12:44:24','1','f/',NULL),(4,'9201701101','testStudent','first1','last1','pioneer9201701101','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-08-10 12:22:12','1','s/',NULL),(5,'9201701102','testTeacher2','first','last2','pioneer9201701102','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-02 16:26:47','1','f/a/',NULL),(6,'9201701103','testStudent','first','last3','pioneer9201701103','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-02 16:27:56','1','s/',NULL),(7,'9201701942','Tdisable','disable','Test','pioneer9201701942','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-02 16:28:09','1','s/',NULL),(8,'9201701309','ttestStu3','testStu3','test','pioneer9201701309','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-02 16:28:12','1','s/',NULL),(9,'9201701310','rick','KOKIA','ERI','pioneer9201701310','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-02 23:13:04','1','s/',NULL),(10,'9201701784','zhengsan784','三','张','Pioneer9201701784','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-02 16:28:24','1','s/',NULL),(11,'9201701840','lili840','四','李','Pioneer9201701840','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-03 13:35:28','0','f/a/','first'),(12,'9201701261','meimeili261','梅梅','李','Pioneer9201701261','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-02 16:12:49','1','s/','new Student'),(13,'9201701848','ww184','五','王','Pioneer9201701848','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-03 13:32:21','1','f/','新老师'),(14,'9201701876','ew876','二','王','Pioneer9201701876','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-03 13:56:50','1','s/','');
+insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`) values (1,'9000000000','admin','system','adminitor','e10adc3949ba59abbe56e057f20f883e','','1955-01-01','admin@pioneer.edu','1333222111','123456','asdfasda','456','male','2017-08-08 07:00:00','2017-09-02 17:12:19','1','s/f/a/','asdgasdgdsfgs'),(2,'9201701687','admLShilei','Shilei','Lin','c810ec29fed33d8e79ccee3b2589d115','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28','1','a/',NULL),(3,'9201701100','testTeacher','first','last','65b89c6cbb58ae07b15c9d001ef768e0','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-09-25 16:17:43','1','f/',NULL),(4,'9201701101','testStudent','first1','last1','39957c100f046dadeeda60c077f87add','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47','1','s/',NULL),(5,'9201701102','testTeacher2','first','last2','fa2c5ff0989f481f02ea54c6368382bc','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45','1','f/a/',NULL),(6,'9201701103','testStudent','first','last3','f0d4a0759284a87b7e7031091f230727','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:41','1','s/',NULL),(7,'9201701942','Tdisable','disable','Test','e5485a9d0622cdf031da25286337d6dd','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38','1','s/',NULL),(8,'9201701309','ttestStu3','testStu3','test','804a8c28891c3211b3075baeb800c504','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34','1','s/',NULL),(9,'9201701310','rick','KOKIA','ERI','487ef5eeb53eb03654198edfd545a513','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31','1','s/',NULL),(10,'9201701784','zhengsan784','三','张','a8156a924c4a701ca465bc5e9cd46484','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28','1','s/',NULL),(11,'9201701840','lili840','四','李','492d18d57e97001bd9bffa45911c55de','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25','0','f/a/','first'),(12,'9201701261','meimeili261','梅梅','李','16ea29c07c4a343f1aa569d147936d81','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21','1','s/','new Student'),(13,'9201701848','ww184','五','王','f11f5d8566cccdef4e9cfa29d80a4223','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18','1','f/','新老师'),(14,'9201701876','ew876','二','王','dff9c3e4686c4faceb0e7f9175b6defc','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15','1','s/',''),(15,'9201702937','DoeJon937','Doe','Jon','7d66eb52a44ad4dc575674396a78203d','2017-02','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11','1','f/a/','');
 
 UNLOCK TABLES;
 
@@ -178,10 +178,10 @@ DROP TABLE IF EXISTS `TempCourse`;
 
 CREATE TABLE `TempCourse` (
   `id` int(11) NOT NULL,
-  `crn` varchar(20) NOT NULL,
-  `json` tinytext NOT NULL,
+  `crn` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `json` tinytext CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `TempCourse` */
 
@@ -195,16 +195,16 @@ DROP TABLE IF EXISTS `TempUser`;
 
 CREATE TABLE `TempUser` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
-  `userid` varchar(20) NOT NULL,
-  `user_json` text NOT NULL,
+  `userid` varchar(20) CHARACTER SET latin1 NOT NULL,
+  `user_json` text CHARACTER SET latin1 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `TempUser` */
 
 LOCK TABLES `TempUser` WRITE;
 
-insert  into `TempUser`(`id`,`userid`,`user_json`) values (3,'9201702937','{\"qq\":\"1343214384\",\"birthday\":\"2017-09-08\",\"firstname\":\"Doe\",\"password\":\"123456\",\"gender\":\"male\",\"tel\":\"13684621481\",\"email\":\"1343214384@qq.com\",\"info\":\"2017-02\",\"lastname\":\"Jon\"}'),(4,'9201703122','{\"qq\":\"132132132132\",\"birthday\":\"2017-09-20\",\"firstname\":\"Smith\",\"password\":\"132132132132\",\"gender\":\"male\",\"tel\":\"13213213213\",\"email\":\"132132132132@qq.com\",\"info\":\"2017-03\",\"lastname\":\"Tom\"}');
+insert  into `TempUser`(`id`,`userid`,`user_json`) values (4,'9201703122','{\"qq\":\"132132132132\",\"birthday\":\"2017-09-20\",\"firstname\":\"???\",\"password\":\"132132132132\",\"gender\":\"male\",\"tel\":\"13213213213\",\"email\":\"132132132132@qq.com\",\"info\":\"2017-03\",\"lastname\":\"Tom\"}');
 
 UNLOCK TABLES;
 

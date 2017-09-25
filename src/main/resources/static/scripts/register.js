@@ -25,17 +25,19 @@ $(function(){
 
     $("#submit").click(function () {
         if(regForm.form()){
+            var password = $("#inputPassword3").val();
             var formdata = {
                 info: $("#info").val(),
                 lastname : $("#inputName3").val(),
                 firstname : $("#firstName").val(),
                 email : $("#inputEmail3").val(),
-                password :  hex_md5($("#inputPassword3").val()),
+                password :  hex_md5(password),
                 qq : $("#qq").val(),
                 tel : $("#tel").val(),
                 birthday : $("#birthday").val(),
                 gender : $("#gender").val(),
             };
+            console.log(formdata);
             $.ajax({
                 url: basePath + "/admin/register",
                 type: "POST",

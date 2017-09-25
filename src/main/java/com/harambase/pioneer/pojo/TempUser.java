@@ -1,7 +1,5 @@
 package com.harambase.pioneer.pojo;
 
-import com.harambase.common.annotation.Column;
-
 import java.io.Serializable;
 
 public class TempUser implements Serializable {

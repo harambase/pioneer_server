@@ -37,7 +37,7 @@ $(function(){
             tel       : $("#tel").val(),
             dorm      : $("#dorm").val(),
             qq        : $("#qq").val(),
-            password  : $("#pwd").val()
+            password  : hex_md5($("#pwd").val())
         };
         $.ajax({
             url:basePath+"/admin/user/update",

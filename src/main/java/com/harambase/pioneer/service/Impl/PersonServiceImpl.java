@@ -613,7 +613,7 @@ public class PersonServiceImpl implements PersonService {
             tempUser.setUserid(userid);
             tempUser.setUserJson(jsonObject.toJSONString());
 
-            int ret = tempUserMapper.insertSelective(tempUser);
+            int ret = tempUserMapper.insert(tempUser);
             if(ret <= 0)
                 throw new RuntimeException("TempUser 插入失败!");
 
