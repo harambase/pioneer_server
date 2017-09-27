@@ -13,7 +13,7 @@
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-web:1.2.5" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.5" />
-          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-ehcache:1.2.5" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-ehcache:1.2.3" />
           <element id="library" level="project" name="Maven: net.sf.ehcache:ehcache-core:2.5.0" />
           <element id="library" level="project" name="Maven: com.belerweb:pinyin4j:2.5.0" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:1.5.7.RELEASE" />

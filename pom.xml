@@ -7,7 +7,7 @@
     <groupId>com.harambase</groupId>
     <artifactId>pioneer</artifactId>
     <version>1.0</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>harambase Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-ehcache</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.3</version>
         </dependency>
         <dependency>
             <groupId>com.belerweb</groupId>
