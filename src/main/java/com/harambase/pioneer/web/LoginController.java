@@ -1,9 +1,8 @@
 package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.security.ShiroKit;
-import com.harambase.pioneer.security.pojo.ShiroToken;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -28,7 +27,6 @@ public class LoginController {
         this.personService = personService;
     }
 
-
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
@@ -39,6 +37,16 @@ public class LoginController {
             subject.login(token); //完成登录
             session.setAttribute("user", message.getData());
         }
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/admin/logout", method = RequestMethod.POST)
+    public ResponseEntity logout(HttpSession session){
+        HaramMessage message = new HaramMessage();
+        session.invalidate();
+        SecurityUtils.getSubject().logout();
+        message.setCode(FlagDict.SUCCESS.getV());
+        message.setMsg(FlagDict.SUCCESS.getM());
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
