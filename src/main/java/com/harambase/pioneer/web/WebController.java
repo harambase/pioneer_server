@@ -74,5 +74,13 @@ public class WebController {
     public String messageCenter(){
         return "page/message/messageCenter";
     }
+    @RequestMapping("/403")
+    public String authError(){
+        return "release/403";
+    }
+    @RequestMapping("/404")
+    public String pageNotFound(){
+        return "release/404";
+    }
 
 }

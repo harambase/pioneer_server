@@ -35,7 +35,7 @@ html {
     width: 250px;
     height: 100%;
     position: fixed;
-    background: url("../../Images/menu_pattern_1.png");
+    background: url("../images/menu_pattern_1.png");
     border-right: 10px solid #03ced0;
     z-index: 5;
 }
@@ -81,7 +81,7 @@ html {
     padding: 0px;
     width: 220px;
     display: none;
-    background: url("../../Images/menu_pattern_1.png");
+    background: url("../images/menu_pattern_1.png");
 }
 .sidebar .sub-menu li a {
     padding-left: 20px;

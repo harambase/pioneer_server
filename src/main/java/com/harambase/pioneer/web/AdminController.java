@@ -61,14 +61,6 @@ public class AdminController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody Person person, HttpSession session){
-        HaramMessage message = personService.login(person);
-        if(message.getCode() == 2001)
-            session.setAttribute("user", message.getData());
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/get/current", method = RequestMethod.GET)
     public ResponseEntity getCurrentUser(HttpSession session){
         HaramMessage message = new HaramMessage();

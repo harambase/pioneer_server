@@ -1,9 +1,6 @@
-package com.harambase.pioneer.security.config;
+package com.harambase.pioneer.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import com.harambase.pioneer.security.ShiroDbRealm;
 import com.harambase.pioneer.security.properties.ShiroSessionListener;
@@ -14,11 +11,13 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ShiroConfig{
+
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -27,27 +26,52 @@ public class ShiroConfig{
      */
     @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
-        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
+        shiroFilter.setSecurityManager(securityManager);
 
-        // 必须设置 SecurityManager
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        /**
+         * 默认的登陆访问url
+         */
+        shiroFilter.setLoginUrl("/auth");
+        /**
+         * 登陆成功后跳转的url
+         */
+        shiroFilter.setSuccessUrl("/welcome");
+        /**
+         * 没有权限跳转的url
+         */
+        shiroFilter.setUnauthorizedUrl("/403");
+        /**
+         * 配置shiro拦截器链
+         *
+         * anon  不需要认证
+         * authc 需要认证
+         * user  验证通过或RememberMe登录的都可以
+         *
+         */
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("/styles/**", "anon");
+        hashMap.put("/scripts/**", "anon");
+        hashMap.put("/plugins/**", "anon");
+        hashMap.put("/assets/img/**", "anon");
+        hashMap.put("/fonts/**", "anon");
+        hashMap.put("/auth", "anon");
+        hashMap.put("/", "anon");
+        hashMap.put("/admin/login", "anon");
+        hashMap.put("/reg", "anon");
+//        hashMap.put("/kaptcha", "anon");
+        hashMap.put("/**", "authc");
+        shiroFilter.setFilterChainDefinitionMap(hashMap);
 
-        // 拦截器.
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
-        //filterChainDefinitionMap.put("/page/*", "authc");
-        // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
-        //filterChainDefinitionMap.put("/security/logoff", "logout");
-
-        shiroFilterFactoryBean.setLoginUrl("/auth");
-        // 未授权界面;
-        shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        return shiroFilterFactoryBean;
+        return shiroFilter;
     }
-
+    /**
+     * 项目自定义的Realm
+     */
+    @Bean
+    public ShiroDbRealm shiroDbRealm() {
+        return new ShiroDbRealm();
+    }
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
