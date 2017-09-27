@@ -149,7 +149,7 @@ CREATE TABLE `Role` (
 
 LOCK TABLES `Role` WRITE;
 
-insert  into `Role`(`id`,`userid`,`role`,`role_name`) values (2,'9000000000','ALL\\','系统管理员');
+insert  into `Role`(`id`,`userid`,`role`,`role_name`) values (2,'9000000000','1','系统管理员');
 
 UNLOCK TABLES;
 
