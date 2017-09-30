@@ -58,6 +58,7 @@ public class ShiroConfig{
         hashMap.put("/auth", "anon");
         hashMap.put("/", "anon");
         hashMap.put("/admin/login", "anon");
+        hashMap.put("/request/user/register", "anon");
         hashMap.put("/reg", "anon");
 //        hashMap.put("/kaptcha", "anon");
         hashMap.put("/**", "authc");

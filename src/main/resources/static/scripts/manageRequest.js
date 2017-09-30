@@ -1,6 +1,6 @@
 
 $(function(){
-    var gender, id, password, info;
+    var gender, id, password, info, userJson, status, createtime;
     var editUserForm = $("#editUserForm").validate({});
 
     $(".base-info").click(function () {
@@ -19,6 +19,7 @@ $(function(){
 
     //批准
     $("#apply").click(function () {
+        status = "1";
         if(editUserForm.form()) {
             var firstname = $("#firstname2").val();
             var userid = $("#userid2").val();
@@ -46,7 +47,6 @@ $(function(){
                 comment: comment,
                 password: password
             };
-            //console.log(person);
             $.ajax({
                 url: basePath + "/admin/user/add",
                 type: "POST",
@@ -54,7 +54,7 @@ $(function(){
                 data: JSON.stringify(person),
                 success: function (data) {
                     if (data.code === 2001) {
-                        deleteTempUser();
+                        updateTempUser(userid);
                         Showbo.Msg.alert("添加成功!", function () {
                             window.location.reload();
                         });
@@ -66,24 +66,38 @@ $(function(){
             });
         }
     });
-    function deleteTempUser(){
+    function updateTempUser(userid){
+        var tempUser = {
+            id: id,
+            userJson: userJson,
+            userid: userid,
+            status: status,
+            createtime: createtime
+        };
         $.ajax({
-            url: basePath + "/request/delete/user?serialId="+id,
-            type: "DELETE"
-        })
+            url: basePath + "/request/update/user",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(tempUser),
+            success: function (data) {
+                if (data.code !== 2001)
+                    Showbo.Msg.alert(data.msg, function () {});
+            }
+        });
     }
     //详情弹窗
     $("#userReg").on("click", ".btn.btn-edit", function () {
 
         id = $(this).parents("tr").find("td").eq(0).html();
+        createtime = $(this).parents("tr").find("td").eq(2).html();
         var userid = $(this).parents("tr").find("td").eq(1).html();
+
         //先拿到点击的行号
         var rowIndex = $(this).parents("tr").index();
         //此处拿到隐藏列的id
-        var userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
+        userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
         var user = JSON.parse(userJson);
 
-        console.log(user);
         $("#userid2").val(userid);
         $("#username2").val(user.username);
         $("#firstname2").val(user.firstname);
@@ -187,6 +201,7 @@ $(function(){
         columns: [
             {"data": "id", "title": "序列号", "width" : "45px"},
             {"data": "userid", "title": "用户ID"},
+            {"data": "createtime", "title": "创建时间"},
             {"data": "userJson", "title": "用户JSON","bVisible": false},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
@@ -199,7 +214,7 @@ $(function(){
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [2]
+            targets: [3]
         }, {
             "defaultContent": "",
             "targets": "_all"

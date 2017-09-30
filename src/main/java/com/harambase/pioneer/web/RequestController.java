@@ -1,7 +1,10 @@
 package com.harambase.pioneer.web;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
 import com.harambase.pioneer.service.RequestSerivce;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +37,18 @@ public class RequestController {
         this.requestSerivce = requestSerivce;
     }
 
-    @RequestMapping(value = "/delete/user", produces = "application/json", method = RequestMethod.DELETE)
-    public ResponseEntity deleteRequest(@RequestParam(value = "serialId") Integer id){
-        HaramMessage message = requestSerivce.deleteTempUserById(id);
+    @RequestMapping(value = "/update/user", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){
+        Person person = (Person) session.getAttribute("user");
+        tempUser.setOperator(person.getUserid());
+        HaramMessage message = requestSerivce.updateTempUser(tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
+    public ResponseEntity register(@RequestBody JSONObject jsonObject){
+        HaramMessage haramMessage = requestSerivce.register(jsonObject);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)

@@ -37,9 +37,9 @@ $(function(){
                 birthday : $("#birthday").val(),
                 gender : $("#gender").val(),
             };
-            console.log(formdata);
+
             $.ajax({
-                url: basePath + "/admin/register",
+                url: basePath + "/request/user/register",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(formdata),

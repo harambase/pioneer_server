@@ -602,47 +602,6 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    @Transactional
-    public HaramMessage register(JSONObject jsonObject) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
-
-            String userid = IDUtil.genUserID(jsonObject.getString("info"));
-
-            TempUser tempUser = new TempUser();
-            tempUser.setUserid(userid);
-            tempUser.setUserJson(jsonObject.toJSONString());
-
-            int ret = tempUserMapper.insert(tempUser);
-            if(ret <= 0)
-                throw new RuntimeException("TempUser 插入失败!");
-
-            MessageWithBLOBs message = new MessageWithBLOBs();
-            message.setDate(DateUtil.DateToStr(new Date()));
-            message.setReceiverid("9000000000");
-            message.setSenderid("9000000000");
-            message.setBody("注意!接收到来自" + userid + "的请求注册信息");
-            message.setTitle("注册信息");
-            message.setStatus("UNREAD");
-            message.setSubject("用户注册");
-            message.setTag("work");
-            message.setLabels("inbox/important/");
-
-            ret = messageMapper.insertSelective(message);
-            if(ret <= 0)
-                throw new RuntimeException("MessageWithBLOBs 插入失败!");
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-        }
-        return haramMessage;
-    }
-
-    @Override
     public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {

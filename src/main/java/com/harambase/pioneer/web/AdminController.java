@@ -37,11 +37,6 @@ public class AdminController {
         this.courseService = courseService;
         this.personService = personService;
     }
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity register(@RequestBody JSONObject jsonObject){
-        HaramMessage haramMessage = personService.register(jsonObject);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/student/count", method = RequestMethod.GET)
     public ResponseEntity getStudentCount(){
