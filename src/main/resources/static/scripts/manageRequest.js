@@ -4,6 +4,23 @@ $(function(){
 
     var editUserForm = $("#editUserForm").validate({});
 
+    $("#general").click(function(){
+        viewStatus = "";
+        userReg.draw();
+    });
+    $("#active").click(function(){
+        viewStatus = "0";
+        userReg.draw();
+    });
+    $("#declined").click(function(){
+        viewStatus = "-1";
+        userReg.draw();
+    });
+    $("#approved").click(function(){
+        viewStatus = "1";
+        userReg.draw();
+    });
+
     $(".base-info").click(function () {
         $(this).siblings("li").removeClass("active");
         $(this).addClass("active");
@@ -77,8 +94,7 @@ $(function(){
                         });
                     }
                     else
-                        Showbo.Msg.alert(data.msg, function () {
-                        });
+                        Showbo.Msg.alert(data.msg, function () {});
                 }
             });
         }
@@ -99,6 +115,7 @@ $(function(){
             data: JSON.stringify(tempUser),
             success: function (data) {
                 if(data.code === 2001 && status === "-1"){
+                    resetPop();
                     userReg.draw();
                     Showbo.Msg.alert(data.msg, function () {});
                 }else if (data.code !== 2001)
