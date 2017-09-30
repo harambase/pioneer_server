@@ -1,6 +1,6 @@
 $( "li" ).hover(
   function() {
-      $(this).find("a").css("color","#FFF");
+      $(this).find("a").css("color","#f7fffc");
       $(this).find("span").stop().animate({
       width:"100%",
       opacity:"1"
@@ -9,7 +9,7 @@ $( "li" ).hover(
         // Show Navigation
     })
   }, function() {
-      $(this).find("a").css("color","#555");
+      $(this).find("a").css("color","#f7fffc");
       $(this).find("span").stop().animate({
       width:"0%",
       opacity:"0"
