@@ -36,6 +36,4 @@ public interface PersonService {
 
     HaramMessage removeUser(String userid);
 
-    HaramMessage tempUserList(String s, String s1, String search, String order, String orderCol);
-
 }

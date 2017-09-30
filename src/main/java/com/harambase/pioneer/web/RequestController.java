@@ -58,10 +58,10 @@ public class RequestController {
                                    @RequestParam(value = "search[value]") String search,
                                    @RequestParam(value = "order[0][dir]") String order,
                                    @RequestParam(value = "order[0][column]") String orderCol,
-                                   HttpSession session){
+                                   @RequestParam(value = "viewStatus") String viewStatus){
         Map<String, Object> map = new HashMap<>();
         try {
-            HaramMessage message = personService.tempUserList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            HaramMessage message = requestSerivce.tempUserList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, viewStatus);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());

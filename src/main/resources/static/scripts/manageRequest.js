@@ -1,6 +1,7 @@
 
 $(function(){
-    var gender, id, password, info, userJson, status, createtime;
+    var gender, id, password, info, userJson, status = "0", createtime, userid, viewStatus = "";
+
     var editUserForm = $("#editUserForm").validate({});
 
     $(".base-info").click(function () {
@@ -16,13 +17,29 @@ $(function(){
         $(".w_pop").css({display: "none"});
         $(".w_pop")[1].style.display = "block";
     });
+    //拒绝
+    $("#userReg").on("click", ".btn.btn-decline", function () {
+        id = $(this).parents("tr").find("td").eq(0).html();
+        createtime = $(this).parents("tr").find("td").eq(2).html();
+        userid = $(this).parents("tr").find("td").eq(1).html();
+        status = "-1";
+        //先拿到点击的行号
+        var rowIndex = $(this).parents("tr").index();
+        //此处拿到隐藏列的id
+        userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
+
+        updateTempUser(userid);
+    });
+    $("#decline").click(function () {
+        status = "-1";
+        updateTempUser(userid);
+    });
 
     //批准
     $("#apply").click(function () {
         status = "1";
         if(editUserForm.form()) {
             var firstname = $("#firstname2").val();
-            var userid = $("#userid2").val();
             var lastname = $("#lastname2").val();
             var email = $("#email2").val();
             var qq = $("#qq2").val();
@@ -56,7 +73,7 @@ $(function(){
                     if (data.code === 2001) {
                         updateTempUser(userid);
                         Showbo.Msg.alert("添加成功!", function () {
-                            window.location.reload();
+                            userReg.draw();
                         });
                     }
                     else
@@ -66,6 +83,7 @@ $(function(){
             });
         }
     });
+
     function updateTempUser(userid){
         var tempUser = {
             id: id,
@@ -80,7 +98,10 @@ $(function(){
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(tempUser),
             success: function (data) {
-                if (data.code !== 2001)
+                if(data.code === 2001 && status === "-1"){
+                    userReg.draw();
+                    Showbo.Msg.alert(data.msg, function () {});
+                }else if (data.code !== 2001)
                     Showbo.Msg.alert(data.msg, function () {});
             }
         });
@@ -90,7 +111,7 @@ $(function(){
 
         id = $(this).parents("tr").find("td").eq(0).html();
         createtime = $(this).parents("tr").find("td").eq(2).html();
-        var userid = $(this).parents("tr").find("td").eq(1).html();
+        userid = $(this).parents("tr").find("td").eq(1).html();
 
         //先拿到点击的行号
         var rowIndex = $(this).parents("tr").index();
@@ -109,6 +130,7 @@ $(function(){
         password = user.password;
         info = user.info;
         gender = user.gender;
+
         if(user.gender === "male"){
             $(".w_manage h4").eq(1).html("用户性别：男");
             $(".w_manage input").eq(3).prop("checked", true);
@@ -194,7 +216,7 @@ $(function(){
             url: basePath + "/request/user/list",
 
             data: function (d) {
-                d.receiverid = "9000000000";
+                d.viewStatus = viewStatus;
             }
 
         },
@@ -202,19 +224,27 @@ $(function(){
             {"data": "id", "title": "序列号", "width" : "45px"},
             {"data": "userid", "title": "用户ID"},
             {"data": "createtime", "title": "创建时间"},
+            {"data": "status", "title": "申请状态", "createdCell": function (nTd, rowData) {
+                    if(rowData === "0") $(nTd).html("申请中");
+                    else if(rowData === "1") $(nTd).html("已批准");
+                    else if(rowData === "-1") $(nTd).html("已拒绝");
+                }
+            },
             {"data": "userJson", "title": "用户JSON","bVisible": false},
-            {
-                "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
-                    var htmlStr = '<button class="btn btn-edit btn-warning">查看详情</button>';
-                    htmlStr += '<button  class="btn btn-decline">拒绝申请</button>';
-                    $(nTd).html(htmlStr);
+            {"data": "status", "title": "操作", "createdCell": function (nTd, rowData) {
+                    if(rowData === "0") {
+                        var htmlStr = '<button class="btn btn-edit btn-warning">查看详情</button>';
+                        htmlStr += '<button  class="btn btn-decline">拒绝申请</button>';
+                        $(nTd).html(htmlStr);
+                    } else
+                        $(nTd).html("无可用操作");
 
                 }, "width": "200px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [3]
+            targets: [4]
         }, {
             "defaultContent": "",
             "targets": "_all"

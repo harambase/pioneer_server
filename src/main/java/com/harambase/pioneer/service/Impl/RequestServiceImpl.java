@@ -1,21 +1,24 @@
 package com.harambase.pioneer.service.Impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.common.DateUtil;
-import com.harambase.common.HaramMessage;
-import com.harambase.common.IDUtil;
+import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.TempCourseMapper;
 import com.harambase.pioneer.dao.mapper.TempUserMapper;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.TempUser;
+import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.service.RequestSerivce;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class RequestServiceImpl implements RequestSerivce{
@@ -116,4 +119,59 @@ public class RequestServiceImpl implements RequestSerivce{
         }
         return haramMessage;
     }
+
+    @Override
+    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String viewStatus) {
+        HaramMessage message = new HaramMessage();
+        switch (Integer.parseInt(orderColumn)) {
+            case 1:
+                orderColumn = "userid";
+                break;
+            case 2:
+                orderColumn = "createtime";
+                break;
+            default:
+                orderColumn = "id";
+                break;
+        }
+        long totalSize = 0;
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("status", viewStatus);
+
+            if(StringUtils.isEmpty(search))
+                param.put("search", null);
+            if(StringUtils.isEmpty(viewStatus))
+                param.put("status", null);
+
+            totalSize = tempUserMapper.getTempUserCountByMapPageSearchOrdered(param); //startTime, endTime);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            param.put("currentIndex", page.getCurrentIndex());
+            param.put("pageSize",  page.getPageSize());
+            param.put("order",  order);
+            param.put("orderColumn",  orderColumn);
+
+            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+            List<AdviseView> msgs = tempUserMapper.getTempUserByMapPageSearchOrdered(param);
+
+            message.setData(msgs);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
+        }
+    }
+
 }

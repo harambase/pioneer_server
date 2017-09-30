@@ -133,6 +133,9 @@
 
   <select id="getTempUserCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from TempUser <where> 1 = 1
+    <if test="status != null">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
       and userid like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
@@ -140,6 +143,9 @@
   </select>
   <select id="getTempUserByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
     select * from TempUser <where> 1 = 1
+    <if test="status != null">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
       and userid like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
