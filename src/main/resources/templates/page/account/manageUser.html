@@ -17,7 +17,6 @@
     <link href="/styles/signin.css" rel="stylesheet" type="text/css">
     <link href="/styles/title.css" rel="stylesheet" type="text/css">
     <link href="/styles/manage.css" rel="stylesheet" type="text/css">
-
     <link href="/styles/header.css" rel="stylesheet">
 
 </head>
@@ -61,16 +60,17 @@
                     </div> <!-- /field -->
 
                     <div class="field">
+                        <label for="lastname">Last Name:</label>
+                        <input id="lastname" name="lastname" value="" placeholder="*姓" class="login"
+                               minlength="1" maxlength="20" required/>
+                    </div> <!-- /field -->
+
+                    <div class="field">
                         <label for="firstname">First Name:</label>
                         <input id="firstname" name="firstname" value="" placeholder="*名" class="login"
                                minlength="1" maxlength="20" required/>
                     </div> <!-- /field -->
 
-                    <div class="field">
-                        <label for="lastname">Last Name:</label>
-                        <input id="lastname" name="lastname" value="" placeholder="*姓" class="login"
-                               minlength="1" maxlength="20" required/>
-                    </div> <!-- /field -->
 
                     <div class="field">
                         <label for="birthday">Birthday:</label>
@@ -172,14 +172,14 @@
                                     <td><input id="username2" name="username" value="" class="login" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><p style="float: left">名:</p></td>
-                                    <td><input id="firstname2" name="firstname" value="" class="login" minlength="1"
-                                               maxlength="20" required/></td>
-                                </tr>
-                                <tr>
                                     <td><p style="float: left">姓:</p></td>
                                     <td><input id="lastname2" name="lastname" value="" class="login"
                                                minlength="1" maxlength="20" required/></td>
+                                </tr>
+                                <tr>
+                                    <td><p style="float: left">名:</p></td>
+                                    <td><input id="firstname2" name="firstname" value="" class="login" minlength="1"
+                                               maxlength="20" required/></td>
                                 </tr>
                                 <tr>
                                     <td><p style="float: left">生日:</p></td>
