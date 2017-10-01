@@ -1,6 +1,5 @@
 package com.harambase.pioneer.service.Impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
@@ -25,22 +24,17 @@ public class PersonServiceImpl implements PersonService {
     private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
     private final AdviseMapper adviseMapper;
-    private final TempUserMapper tempUserMapper;
-    private final RoleMapper roleMapper;
     private final MessageMapper messageMapper;
 
     @Autowired
     public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
                              CourseMapper courseMapper, TranscriptMapper transcriptMapper,
-                             AdviseMapper adviseMapper, TempUserMapper tempUserMapper,
-                             RoleMapper roleMapper, MessageMapper messageMapper){
+                             AdviseMapper adviseMapper, MessageMapper messageMapper){
         this.personMapper = personMapper;
         this.studentMapper = studentMapper;
         this.courseMapper = courseMapper;
         this.transcriptMapper = transcriptMapper;
         this.adviseMapper = adviseMapper;
-        this.tempUserMapper = tempUserMapper;
-        this.roleMapper = roleMapper;
         this.messageMapper = messageMapper;
     }
 
