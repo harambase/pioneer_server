@@ -2,7 +2,7 @@ $(function () {
     //变量定义
     var status, gender, type, userid;
     var newStatus, newGender, newType;
-    var registerForm = $("#createUserForm").validate({});
+
     $("#userList").css({display:"block"});
     $("#addUser").css({display:"none"});
 
@@ -13,61 +13,6 @@ $(function () {
     $("#list").click(function () {
         $("#addUser").css({display:"none"});
         $("#userList").css({display:"block"});
-    });
-
-    //添加用户
-    $("#registerBtn").click(function () {
-        if(registerForm.form()){
-            var firstname = $("#firstname").val();
-            var lastname = $("#lastname").val();
-            var email = $("#email").val();
-            var qq = $("#qq").val();
-            var weChat = $("#weChat").val();
-            var dorm = $("#dorm").val();
-            var gender = "";
-            var type="";
-            var birthday = $("#birthday").val();
-            var info = $("#year-semester").val();
-            var comment = $("#comment").val();
-
-            $('input[name="gender"]:checked').each(function(){
-                gender = $(this).val();
-            });
-
-            $('input[name="type"]:checked').each(function () {
-                type += $(this).val() + "/";
-            });
-
-            var person = {
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                qq: qq,
-                wechat: weChat,
-                dorm: dorm,
-                gender: gender,
-                info: info,
-                type: type,
-                birthday:birthday,
-                comment :comment
-            };
-
-            $.ajax({
-                url: basePath + "/admin/user/add",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(person),
-                success: function (data) {
-                    if (data.code === 2001) {
-                        Showbo.Msg.alert("添加成功!", function () {
-                            window.location.reload();
-                        });
-                    }
-                    else
-                        Showbo.Msg.alert(data.msg, function () {});
-                }
-            })
-        }
     });
 
     //更新用户信息
@@ -384,18 +329,18 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "id", "title": "序列号", "width" : "100px"},
             {"data": "userid", "title": "用户ID"},
             {"data": "username", "title": "用户名"},
             {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
             {"data": "type", "title": "账户类型"},
             {"data": "status", "title": "状态"},
-            {"data": "updatetime", "title": "更新时间"},
+            {"data": "updatetime", "title": "更新时间", "width" : "180px"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">删除用户</button><button class="btn btn-edit">编辑用户</button>');
-                }, "width": "200px"
+                }, "width": "180px"
             }
         ],
         "columnDefs": [{

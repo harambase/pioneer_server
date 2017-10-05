@@ -3,8 +3,7 @@
     var mainApp = {
 
         initFunction: function () {
-            /*MENU 
-            ------------------------------------*/
+
             $('#main-menu').metisMenu();
 			
             $(window).bind("load resize", function () {
@@ -14,9 +13,7 @@
                     $('div.sidebar-collapse').removeClass('collapse')
                 }
             });
-
         },
-
         initialization: function () {
             mainApp.initFunction();
 
@@ -32,7 +29,6 @@
 				$('.navbar-side').animate({left: '0px'});
 				$(this).removeClass('closed');
 				$('#page-wrapper').animate({'margin-left' : '260px'});
-				
 			}
 			else{
 			    $(this).addClass('closed');
@@ -40,6 +36,7 @@
 				$('#page-wrapper').animate({'margin-left' : '0px'});
 			}
 		});
+
     });
 
 }(jQuery));

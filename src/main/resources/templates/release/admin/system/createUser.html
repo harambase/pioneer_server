@@ -315,7 +315,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" onclick="return false;">
+                            <form class="form-horizontal" id = "createUserForm" onclick="return false;">
                                 <div class="col-md-12 col-sm-4">
                                     <div class="panel panel-danger">
                                         <div class="panel-heading">
@@ -327,7 +327,7 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <input id="year-semester" class="form-control" minlength="7"
-                                                       maxlength="7" required/>
+                                                       placeholder="示例：2017-01" maxlength="7" required/>
                                             </div>
                                         </div>
                                         <div class="panel-footer">
@@ -406,18 +406,13 @@
                                                     <label for="qq" class="col-sm-12 control-label">*性别:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="radio3 radio-check radio-inline">
-                                                        <input type="radio" id="male" name="radio" value="male"
-                                                               checked="">
-                                                        <label for="male">
-                                                            男
-                                                        </label>
+                                                    <div class="radio3 radio-check radio-success radio-inline" id="male-div">
+                                                        <input type="radio" id="male" name="gender" value="male">
+                                                        <label for="male">男</label>
                                                     </div>
-                                                    <div class="radio3 radio-check radio-success radio-inline">
-                                                        <input type="radio" id="female" name="radio" value="female">
-                                                        <label for="female">
-                                                            女
-                                                        </label>
+                                                    <div class="radio3 radio-check radio-success radio-inline" id="female-div">
+                                                        <input type="radio" id="female" name="gender" value="female">
+                                                        <label for="female">女</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,33 +433,24 @@
                                                     <label class="col-sm-12 control-label">*角色:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="student1" checked="" name="type"
-                                                               value="s">
-                                                        <label for="student1">
-                                                            学生
-                                                        </label>
+                                                    <div id="student-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="student1" name="type" value="s">
+                                                        <label for="student1">学生</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="faculty1" checked="" name="type"
-                                                               value="f">
-                                                        <label for="faculty1">
-                                                            教师
-                                                        </label>
+                                                    <div id="faculty-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="faculty1" name="type" value="f">
+                                                        <label for="faculty1">教师</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="admin1" checked="" name="type"
-                                                               value="a">
-                                                        <label for="admin1">
-                                                            系统管理员
-                                                        </label>
+                                                    <div id="admin-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="admin1" name="type" value="a">
+                                                        <label for="admin1">系统管理员</label>
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="panel-footer">
-                                            注意：此处为角色，为用户的第一属性。
+                                            注意：此处为角色，为用户的属性，非权限。
                                         </div>
                                     </div>
                                 </div>
@@ -487,22 +473,17 @@
                                                            class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" checked="" name="type"><label
-                                                            for="admin1">确认</label>
+                                                    <div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="yes" name="type"><label for="admin1">确认</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
-                                                    <label for="password"
-                                                           class="col-sm-12 control-label">*管理员密码:</label>
+                                                    <label for="password" class="col-sm-12 control-label">*管理员操作密码:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control"
-                                                           minlength="7" maxlength="7" required/>
+                                                    <input type="password" id="password" class="form-control" minlength="6" maxlength="16" required/>
                                                 </div>
-                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">
-                                                    创建
-                                                </button>
+                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">创建</button>
                                             </div>
                                         </div>
                                     </div>
@@ -529,13 +510,14 @@
 <script src="/static/plugins/layer/laydate/laydate.js"></script>
 <script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
 <script src="/static/plugins/datatables/datatables.all.min.js"></script>
+<script src="/static/plugins/md5/md5.js"></script>
 
 <script src="/static/scripts/custom-scripts.js"></script>
 <script src="/static/scripts/basePath.js"></script>
 <script src="/static/scripts/logout.js"></script>
 <script src="/static/scripts/common.js"></script>
 
-<script src="/static/scripts/manageUser.js"></script>
+<script src="/static/scripts/admin/system/createUser.js"></script>
 <script>
     laydate.render({
         elem: '#birthday',
