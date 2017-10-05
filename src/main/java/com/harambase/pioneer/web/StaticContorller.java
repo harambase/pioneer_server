@@ -12,6 +12,7 @@ public class StaticContorller extends WebMvcConfigurerAdapter {
 
         registry.addResourceHandler("/styles/**").addResourceLocations("classpath:/static/styles/");
         registry.addResourceHandler("/scripts/**").addResourceLocations("classpath:/static/scripts/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/plugins/**").addResourceLocations("classpath:/static/plugins/");
         registry.addResourceHandler("/assets/img/**").addResourceLocations("classpath:/static/images/");
         registry.addResourceHandler("/data/**").addResourceLocations("classpath:/static/data/");

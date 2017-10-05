@@ -48,7 +48,7 @@ public class WebController {
     }
     @RequestMapping("/manageTranscript")
     public String adminManageTranscript(){
-        return "page/transcript/manageTranscript";
+        return "release/admin/course/viewTranscript";
     }
     @RequestMapping("/manageUser")
     public String adminManageUser(){

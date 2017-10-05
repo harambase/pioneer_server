@@ -9,9 +9,9 @@
     <!-- Bootstrap Styles-->
     <link href="../../../../static/css/bootstrap.css" rel="stylesheet"/>
     <!-- FontAwesome Styles-->
-    <link href="../../../../static/css/font-awesome.css" rel="stylesheet"/>
+    <link href="../../../../static/styles/font-awesome.css" rel="stylesheet"/>
     <!-- Custom Styles-->
-    <link href="../../../../static/css/custom-styles.css" rel="stylesheet"/>
+    <link href="../../../../static/styles/custom-styles.css" rel="stylesheet"/>
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 </head>
@@ -237,7 +237,7 @@
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -250,42 +250,42 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
 
-                <li><a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> 主页</a></li>
-                <li><a href="ui-elements.html"><i class="fa fa-desktop"></i>教务管理<span class="fa arrow"></span></a>
+                <li><a class="active-menu" href="/index"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li><a href=""><i class="fa fa-desktop"></i>教务管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#">课程管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
-                                <li><a href="#">创建新课程</a></li>
-                                <li><a href="#">查看已有课程</a></li>
-                                <li><a href="#">设置选课时间</a></li>
+                                <li><a href="/manage/course/create">创建新课程</a></li>
+                                <li><a href="/manage/course/view">查看已有课程</a></li>
+                                <li><a href="/manage/course/time">设置选课时间</a></li>
                             </ul>
                         </li>
-                        <li><a href="/manageTranscript">成绩单管理</a></li>
-                        <li><a href="#">新课程申请管理</a></li>
+                        <li><a href="/manage/transcript/view">成绩单管理</a></li>
+                        <li><a href="/manage/course/request">新课程申请管理</a></li>
                     </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-sitemap"></i>行政管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="/manageAdvising">导师管理</a></li>
-                        <li><a href="#">请假管理</a></li>
-                        <li><a href="#">宿舍管理</a></li>
+                        <li><a href="/manage/advising">导师管理</a></li>
+                        <li><a href="/manage/leave">请假管理</a></li>
+                        <li><a href="/manage/course">宿舍管理</a></li>
                     </ul>
                 </li>
 
-                <li><a href="tab-panel.html"><i class="fa fa-qrcode"></i>系统管理<span class="fa arrow"></span></a>
+                <li><a href="#"><i class="fa fa-qrcode"></i>系统管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#">用户管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-third-level">
-                                <li><a href="#">创建新用户</a></li>
-                                <li><a href="#">查看已有用户</a></li>
+                                <li><a href="/manage/user/create">创建新用户</a></li>
+                                <li><a href="/manage/user/view">查看已有用户</a></li>
                             </ul>
                         </li>
                         <li><a href="#">用户权限管理</a></li>
-                        <li><a href="/manageRequest">用户申请管理</a></li>
+                        <li><a href="/manage/user/request">用户申请管理</a></li>
                     </ul>
                 </li>
 
-                <li><a href="table.html"><i class="fa fa-table"></i>个人中心</a></li>
+                <li><a href="/manage/message"><i class="fa fa-table"></i>消息中心</a></li>
 
             </ul>
 
