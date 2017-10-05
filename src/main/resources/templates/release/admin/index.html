@@ -251,7 +251,7 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
 
-                <li><a class="active-menu" href="/welcomeAdmin"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li><a href="/welcomeAdmin"><i class="fa fa-dashboard"></i> 主页</a></li>
                 <li><a href=""><i class="fa fa-desktop"></i>教务管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#">课程管理<span class="fa arrow"></span></a>
@@ -300,327 +300,98 @@
                 <small id="name">欢迎回来</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/welcome">管理系统</a></li>
-                <li class="active"><a href="index.html">主页</a></li>
-                <!--<li class="active">Data</li>-->
+                <li class="active"><a href="/welcomeAdmin">主页</a></li>
             </ol>
 
         </div>
         <div id="page-inner">
 
             <!-- /. ROW  -->
-
-            <div class="row">
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="board">
-                        <div class="panel panel-primary">
-                            <div class="number">
-                                <h3>
-                                    <h3>44,023</h3>
-                                    <small>Daily Visits</small>
-                                </h3>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-eye fa-5x red"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="board">
-                        <div class="panel panel-primary">
-                            <div class="number">
-                                <h3>
-                                    <h3>32,850</h3>
-                                    <small>Sales</small>
-                                </h3>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-shopping-cart fa-5x blue"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="board">
-                        <div class="panel panel-primary">
-                            <div class="number">
-                                <h3>
-                                    <h3>56,150</h3>
-                                    <small>Comments</small>
-                                </h3>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-comments fa-5x green"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="board">
-                        <div class="panel panel-primary">
-                            <div class="number">
-                                <h3>
-                                    <h3>89,645</h3>
-                                    <small>Daily Profits</small>
-                                </h3>
-                            </div>
-                            <div class="icon">
-                                <i class="fa fa-user fa-5x yellow"></i>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <div class="panel panel-default chartJs">
-                        <div class="panel-heading">
-                            <div class="card-title">
-                                <div class="title">Line Chart</div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <canvas id="line-chart" class="chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-xs-12">
-                    <div class="panel panel-default chartJs">
-                        <div class="panel-heading">
-                            <div class="card-title">
-                                <div class="title">Bar Chart</div>
-                            </div>
-                        </div>
-                        <div class="panel-body">
-                            <canvas id="bar-chart" class="chart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>Profit</h4>
-                            <div class="easypiechart" id="easypiechart-blue" data-percent="82"><span
-                                    class="percent">82%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>Sales</h4>
-                            <div class="easypiechart" id="easypiechart-orange" data-percent="55"><span class="percent">55%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>Customers</h4>
-                            <div class="easypiechart" id="easypiechart-teal" data-percent="84"><span
-                                    class="percent">84%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-md-3">
-                    <div class="panel panel-default">
-                        <div class="panel-body easypiechart-panel">
-                            <h4>No. of Visits</h4>
-                            <div class="easypiechart" id="easypiechart-red" data-percent="46"><span
-                                    class="percent">46%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/.row-->
-
-            <div class="copyrights">Collect from <a href="http://www.cssmoban.com/">企业网站模板</a></div>
-
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Line Chart
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-line-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-7">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Bar Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-bar-chart"></div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div class="row">
-                <div class="col-md-9 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Area Chart
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-area-chart"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Donut Chart Example
-                        </div>
-                        <div class="panel-body">
-                            <div id="morris-donut-chart"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-
-                </div>
-            </div>
-            <!-- /. ROW  -->
-
-
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Tasks Panel
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3> <span id="studentNum"></span></h3>
+                                    <small>当前学生总数</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-user fa-5x red"></i>
+                            </div>
 
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">7 minutes ago</span>
-                                    <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">16 minutes ago</span>
-                                    <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">36 minutes ago</span>
-                                    <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1 hour ago</span>
-                                    <i class="fa fa-fw fa-user"></i> A new user has been added
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1.23 hour ago</span>
-                                    <i class="fa fa-fw fa-user"></i> A new user has added
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">yesterday</span>
-                                    <i class="fa fa-fw fa-globe"></i> Saved the world
-                                </a>
-                            </div>
-                            <div class="text-right">
-                                <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-md-8 col-sm-12 col-xs-12">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Responsive Table Example
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>S No.</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>User Name</th>
-                                        <th>Email ID.</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>John15482</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Kimsila</td>
-                                        <td>Marriye</td>
-                                        <td>Kim1425</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Rossye</td>
-                                        <td>Nermal</td>
-                                        <td>Rossy1245</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Richard</td>
-                                        <td>Orieal</td>
-                                        <td>Rich5685</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Jacob</td>
-                                        <td>Hielsar</td>
-                                        <td>Jac4587</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Wrapel</td>
-                                        <td>Dere</td>
-                                        <td>Wrap4585</td>
-                                        <td>name@site.com</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3> <span id="facultyNum"></span></h3>
+                                    <small>当前教师总数</small>
+                                </h3>
                             </div>
+                            <div class="icon">
+                                <i class="fa fa-eye fa-5x blue"></i>
+                            </div>
+
                         </div>
                     </div>
+                </div>
 
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="board">
+                        <div class="panel panel-primary">
+                            <div class="number">
+                                <h3>
+                                    <h3><span id="courseNum"></span></h3>
+                                    <small>当前课程总数</small>
+                                </h3>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-book fa-5x green"></i>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">先锋用户组成情况表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="exampleChart" style="width: 100%; height: 460px"></div>
+                        </div>
+                        <div class="panel-footer">
+                            图例：左图按类型分类,右图按性别分类。
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">
+                            <div class="card-title">
+                                <div class="title">先锋SFC关系表</div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="relationChart" style="width: 100%; height: 460px"></div>
+                        </div>
+                        <div class="panel-footer">
+                            图例：Student-Faculty-Course(SFC: 学生-教师-课程)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <footer>
                 <p><a>Copyright &copy; 2017</a> - All Rights Reserved<br>
                     <a>Harambase Development Team</a></p>
@@ -634,15 +405,17 @@
 <script src="/static/plugins/jquery/jquery-1.12.3.min.js"></script>
 <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/plugins/confirm/confirm.js"></script>
-<script src="/static/plugins/jquery-validate/jquery.validate.min.js"></script>
-<script src="/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="/static/plugins/layer/laydate/laydate.js"></script>
 <script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
 
 <script src="/static/scripts/custom-scripts.js"></script>
 <script src="/static/scripts/basePath.js"></script>
 <script src="/static/scripts/logout.js"></script>
 <script src="/static/scripts/common.js"></script>
+
+<script src="/static/plugins/echarts/echarts.min.js"></script>
+<script src="/static/scripts/chart.js"></script>
+<script src="/static/scripts/dataTool.js"></script>
+<script src="/static/scripts/welcomeAdmin.js"></script>
 
 </body>
 
