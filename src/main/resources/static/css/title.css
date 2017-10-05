@@ -1,0 +1,22 @@
+body:not(.title-tagline-hidden) .site-branding-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 300px;
+    margin-top:2%;
+}
+.site-title {
+    clear: none;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: 0.08em;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    color: #03ced0;
+}
+.site-description {
+    color: #666;
+    font-size: 0.8125rem;
+    margin-bottom: 0;
+}
