@@ -3,21 +3,21 @@
 ------------------------------------------------*/
 body {
     font-family: 'Open Sans', sans-serif;
-    background: #3E3E3E;
+    /*background: #3E3E3E;*/
+    background:rgba(0,0,0,.60);
 }
 
 #wrapper {
     width: 100%;
+    background-image: url("/static/images/03484_moonlitnight_2880x1620.jpg");
+    background-size: cover;
 }
 
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
-    background: #EDEDED;
-    /*background-image: url("/static/images/03484_moonlitnight_2880x1620.jpg");*/
-    /*background-size: cover;*/
-    /*width:100%;*/
-    /*height:100%;*/
+    /*background: #EDEDED;*/
+
 }
 #page-inner {
     width:100%;
@@ -68,9 +68,7 @@ p {
 	font-size:0;
 	overflow:hidden;
 }
-.panel{
-border-radius:0px;
-}
+
 .navbar-side .nav > li > a > i{color: #8C8C8C;padding: 8px;width: 30px;text-align: center;}
 .top-navbar{
 position: fixed;
@@ -84,7 +82,7 @@ position: fixed;
   z-index: 1;
   position: fixed;
   width: 260px;
-  top: 80px;
+  top: 60px;
 }
 #page-wrapper {
   position: relative;
@@ -99,9 +97,11 @@ position: fixed;
 padding: 12px 10px 12px 20px;
 margin-bottom: 20px;
 list-style: none;
-
 border-radius: 0;
--webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);    box-shadow: 0 1px 1px rgba(0,0,0,.05);background: #fff;}
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    background: rgba(255,255,255,0.85);
+}
 .dropdown-menu>li>a {
   display: block;
   padding: 3px 20px;
@@ -143,7 +143,14 @@ border-radius: 0;
 /*----------------------------------------------
    DASHBOARD STYLES    
 ------------------------------------------------*/
-.page-header {margin: 0;border-bottom: 1px solid transparent;text-align: left;background-color: rgb(237, 237, 237);padding: 32px 22px 32px 0;color: #323232;}
+.page-header {
+    margin: 0;
+    border-bottom: 1px solid transparent;
+    text-align: left;
+    /*background-color: rgba(0, 0, 0,0.55);*/
+    padding: 32px 22px 32px 0;
+    color: white;
+}
 .panel-left{  
 width: 100px;
 height: 100px;background: #0866C6;/* border: 2px solid #4590DA; */
@@ -175,11 +182,13 @@ padding: 18px 10px 13px 0;color: #5D5D5D;}
 .panel-default {
   border-color: #ECECEC;
 }
-.panel-default > .panel-heading {color: #555;
-border-color: #FFF;
-font-weight:bold;background: #FFFFFF;
-font-size: 16px;
-text-shadow: none;}
+.panel-default > .panel-heading {
+    color: #555;
+    border-color: #FFF;
+    font-weight:bold;background: #FFFFFF;
+    font-size: 16px;
+    text-shadow: none;
+}
 .panel-heading {
   /* padding: 15px 15px 0px; */
   border-bottom: 1px solid transparent;
@@ -211,7 +220,6 @@ i.fa.fa-bars:hover {
 .board .panel {
     padding: 25px 15px;
 	border:none;
-	background:#fff;
 }
 .board .number{
 	float:left;
@@ -553,7 +561,8 @@ color: #F36A5A;
  
 .navbar-side {
 	border:none;
-	background: #3E3E3E;
+    background:rgba(0,0,0,.55);
+    height: 100%;
 }
 .top-navbar {
 	background: #FFFFFF;
@@ -671,6 +680,10 @@ font-size: 19px;
   overflow: hidden;
   margin: 14px;
 }
+}
+.panel{
+    border-radius:0px;
+    background: rgba(255,255,255,0.85);
 }
 
 

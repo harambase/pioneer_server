@@ -15,8 +15,7 @@ $(function(){
         type: "GET",
         url: basePath + "/admin/relation/chart",
         success: function (data) {
-            relation(data.data,"relationChart");
-            relation2(data.data,"relationChart2");
+            relation(data.data,"relationChart")
         }
     });
     $("#chart").css({display:"block"});
