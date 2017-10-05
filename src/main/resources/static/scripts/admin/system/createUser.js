@@ -31,11 +31,9 @@ $("#admin-div").click(function(){
 
 //确认
 $("#yes-div").click(function(){
-    $("#yes").prop("checked", yes);
+    $("#yes").prop("checked", !yes);
     yes = !yes;
 });
-
-
 
 $("#registerBtn").click(function () {
     if(registerForm.form()){
@@ -70,8 +68,7 @@ $("#registerBtn").click(function () {
             info: info,
             type: type,
             birthday:birthday,
-            comment :comment,
-            password: hex_md5($("#password").val())
+            comment :comment
         };
 
         $.ajax({
@@ -82,7 +79,7 @@ $("#registerBtn").click(function () {
             success: function (data) {
                 if (data.code === 2001) {
                     Showbo.Msg.alert("添加成功!", function () {
-                        window.location.reload();
+                        window.location.href = basePath + "/manage/user/view";
                     });
                 }
                 else

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta content="" name="description"/>
     <meta content="webthemez" name="author"/>
-    <title>用户创建</title>
+    <title>用户查看</title>
 
     <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/plugins/font/font.css" rel="stylesheet"/>
@@ -296,13 +296,12 @@
         <div class="header">
             <h1 class="page-header">
                 先锋系统管理
-                <small>用户创建</small>
+                <small>用户查看</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/welcomeAdmin">主页</a></li>
                 <li><a href="#">系统管理</a></li>
-                <li><a href="/viewUser"></a>用户查看</li>
-                <li class="active">用户修改</li>
+                <li class="active">用户查看</li>
             </ol>
 
         </div>
@@ -312,204 +311,11 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="card-title">
-                                <div class="title">修改用户表单</div>
+                                <div class="title">系统用户列表</div>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" onclick="return false;">
-                                <div class="col-md-12 col-sm-4">
-                                    <div class="panel panel-danger">
-                                        <div class="panel-heading">
-                                            学期信息
-                                        </div>
-                                        <div class="form-group panel-body">
-                                            <div class="col-sm-2">
-                                                <label for="year-semester" class="col-sm-12 control-label">*年份-学期(YYYY-XX):</label>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input id="year-semester" class="form-control" minlength="7"
-                                                       maxlength="7" required/>
-                                            </div>
-                                        </div>
-                                        <div class="panel-footer">
-                                            注意：该处填写规则为注册年份-学期号。学期号规则为：春季是01，秋季是02，其他为03。
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-4">
-                                    <div class="panel panel-info">
-                                        <div class="panel-heading">
-                                            人员基本信息
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="lastname" class="col-sm-12 control-label">*姓:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="lastname" class="form-control" minlength="1"
-                                                           maxlength="20" required/>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="firstname" class="col-sm-12 control-label">*名:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="firstname" class="form-control" minlength="1"
-                                                           maxlength="20" required/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="birthday" class="col-sm-12 control-label">*生日:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="birthday" class="form-control" minlength="10"
-                                                           maxlength="10" required/>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="email" class="col-sm-12 control-label">*邮箱:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="email" type="email" class="form-control" required/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="tel" class="col-sm-12 control-label">*电话号:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="tel" isDigits="true" class="form-control" minlength="8"
-                                                           maxlength="11" required/>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="dorm" class="col-sm-12 control-label">宿舍号:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="dorm" class="form-control"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="qq" class="col-sm-12 control-label">QQ号:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="qq" isDigits="true" class="form-control"/>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="weChat" class="col-sm-12 control-label">微信号:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input id="weChat" class="form-control"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="qq" class="col-sm-12 control-label">*性别:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="radio3 radio-check radio-inline">
-                                                        <input type="radio" id="male" name="radio" value="male"
-                                                               checked="">
-                                                        <label for="male">
-                                                            男
-                                                        </label>
-                                                    </div>
-                                                    <div class="radio3 radio-check radio-success radio-inline">
-                                                        <input type="radio" id="female" name="radio" value="female">
-                                                        <label for="female">
-                                                            女
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel-footer">
-                                            注意：*为必填项，其余选填。
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-4">
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading">
-                                            分配角色
-                                        </div>
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label class="col-sm-12 control-label">*角色:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="student1" checked="" name="type"
-                                                               value="s">
-                                                        <label for="student1">
-                                                            学生
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="faculty1" checked="" name="type"
-                                                               value="f">
-                                                        <label for="faculty1">
-                                                            教师
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="admin1" checked="" name="type"
-                                                               value="a">
-                                                        <label for="admin1">
-                                                            系统管理员
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="panel-footer">
-                                            注意：此处为角色，为用户的第一属性。
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-sm-4">
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="password" class="col-sm-12 control-label">备注信息:</label>
-                                                </div>
-
-                                                <div class="col-sm-8">
-                                                    <textarea style="resize: none;" class="form-control" id="comments"
-                                                              rows="3"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="password"
-                                                           class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" checked="" name="type"><label
-                                                            for="admin1">确认</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="password"
-                                                           class="col-sm-12 control-label">*管理员密码:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control"
-                                                           minlength="7" maxlength="7" required/>
-                                                </div>
-                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">
-                                                    创建
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
+                            <table class="table table-striped table-bordered table-hover" id="userTable"></table>
                         </div>
                     </div>
                 </div>
@@ -525,9 +331,6 @@
 <script src="/static/plugins/jquery/jquery-1.12.3.min.js"></script>
 <script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/plugins/confirm/confirm.js"></script>
-<script src="/static/plugins/jquery-validate/jquery.validate.min.js"></script>
-<script src="/static/plugins/jquery-validate/messages_zh.js"></script>
-<script src="/static/plugins/layer/laydate/laydate.js"></script>
 <script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
 <script src="/static/plugins/datatables/datatables.all.min.js"></script>
 

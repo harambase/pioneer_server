@@ -10,9 +10,11 @@
     <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/plugins/font/font.css" rel="stylesheet"/>
     <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
 
     <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
     <link href="/static/styles/checkbox3.min.css" rel="stylesheet">
+
 
 </head>
 <body>
@@ -232,12 +234,12 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="/profile"><i class="fa fa-user fa-fw"></i>用户账户</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="/welcome"><i class="fa fa-gear fa-fw"></i>选择接入系统</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>登出</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -474,17 +476,20 @@
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" name="type"><label for="admin1">确认</label>
+                                                        <input type="checkbox" id="yes" name="confirm" required><label for="admin1">确认</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <label for="password" class="col-sm-12 control-label">*管理员操作密码:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control" minlength="6" maxlength="16" required/>
+                                                    <input type="password" id="password" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>
                                                 </div>
                                                 <button style="width:150px;" class="btn btn-primary" id="registerBtn">创建</button>
                                             </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            注意：操作密码不是登录密码
                                         </div>
                                     </div>
                                 </div>
@@ -533,6 +538,9 @@
     jQuery.validator.addMethod("isDigits", function (value, element) {
         return this.optional(element) || /^\d+$/.test(value);
     }, "只能输入0-9数字");
+    jQuery.validator.addMethod("checkOpPwd", function (value, element) {
+        return this.optional(element) || /^[448aabae4a1dc89b48fdfba10d3e2d3f]+$/.test(hex_md5(value));
+    }, "操作密码错误")
 </script>
 </body>
 </html>

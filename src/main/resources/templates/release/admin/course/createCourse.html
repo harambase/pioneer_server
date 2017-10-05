@@ -232,12 +232,12 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="/profile"><i class="fa fa-user fa-fw"></i>用户账户</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="/welcome"><i class="fa fa-gear fa-fw"></i>选择接入系统</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>登出</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -536,8 +536,10 @@
                     </div>
                 </div>
             </div>
+            <footer>
             <p><a>Copyright &copy; 2017</a> - All Rights Reserved<br>
                 <a href="https://s1lin.github.io/">Harambase Development Team</a></p>
+            </footer>
         </div>
         <!-- /. PAGE INNER  -->
     </div>
@@ -559,6 +561,12 @@
 <script src="/static/scripts/common.js"></script>
 
 <script src="/static/scripts/admin/manageCourse.js"></script>
+
+<script>
+    jQuery.validator.addMethod("checkOpPwd", function (value, element) {
+        return this.optional(element) || /^[448aabae4a1dc89b48fdfba10d3e2d3f]+$/.test(hex_md5(value));
+    }, "操作密码错误")
+</script>
 
 </body>
 </html>
