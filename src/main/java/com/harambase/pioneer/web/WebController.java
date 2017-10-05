@@ -26,7 +26,7 @@ public class WebController {
     }
     @RequestMapping("/welcome")
     public String welcome(){
-        return "page/welcome";
+        return "release/welcome";
     }
     @RequestMapping("/reg")
     public String signUp(){
