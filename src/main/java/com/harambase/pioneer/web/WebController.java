@@ -14,73 +14,106 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @CrossOrigin
 public class WebController {
+    
+    //before login
     @RequestMapping("")
     public String login(){
-        return "page/index";
-    }
-    @RequestMapping("/reg")
-    public String signUp(){
-        return "release/reg";
-    }
-    @RequestMapping("/auth")
-    public String auth(){
         return "page/index";
     }
     @RequestMapping("/index")
     public String index(){
         return "page/index";
     }
+    @RequestMapping("/welcome")
+    public String welcome(){
+        return "page/welcome";
+    }
+    @RequestMapping("/reg")
+    public String signUp(){
+        return "release/web/reg";
+    }
+    
+    //system index
     @RequestMapping("/welcomeStudent")
     public String welcomeStudent(){
         return "student/welcomeStudent";
     }
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
-        return "page/welcomeAdmin";
+        return "release/admin/index";
     }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){
         return "page/faculty/welcomeFaculty";
     }
-    @RequestMapping("/manageCourse")
-    public String adminManageCourse(){
-        return "page/course/manageCourse";
+    
+    //manage
+    //course
+    @RequestMapping("/manage/course/create")
+    public String createCourse(){
+        return "release/admin/course/createCourse";
     }
-    @RequestMapping("/manageTranscript")
-    public String adminManageTranscript(){
+    @RequestMapping("/manage/course/view")
+    public String viewCourse(){
+        return "release/admin/course/viewCourse";
+    }
+    @RequestMapping("/manage/course/time")
+    public String setTime(){
+        return "release/admin/course/setTime";
+    }
+    @RequestMapping("/manage/transcript/view")
+    public String viewTranscript(){
         return "release/admin/course/viewTranscript";
     }
-    @RequestMapping("/manageUser")
-    public String adminManageUser(){
-        return "page/account/manageUser";
+    @RequestMapping("/manage/course/request")
+    public String viewCourseRequest(){
+        return "release/admin/course/viewCourseRequest";
     }
-    @RequestMapping("/manageRequest")
-    public String adminmanageRequest(){
-        return "page/administration/userRequest";
+    
+    //administration
+    @RequestMapping("/manage/leave")
+    public String viewLeave(){
+        return "release/admin/administration/viewLeave";
     }
-    @RequestMapping("/manageAdvising")
-    public String adminManageAdvising(){
-        return "page/advising/manageAdvising";
+    @RequestMapping("/manage/dorm")
+    public String viewDorm(){
+        return "release/admin/administration/viewDorm";
     }
-    @RequestMapping("/adminProfile")
-    public String adminProfile(){
-        return "page/account/adminProfile";
+    @RequestMapping("/manage/advising")
+    public String viewAdvising(){
+        return "release/admin/administration/viewAdvising";
     }
-    @RequestMapping("/welcome")
-    public String welcome(){
-        return "page/welcome";
+    
+    //system
+    @RequestMapping("/manage/user/create")
+    public String createUser(){
+        return "release/admin/system/createUser";
     }
-    @RequestMapping("/messageCenter")
-    public String messageCenter(){
-        return "page/message/messageCenter";
+    @RequestMapping("/manage/user/view")
+    public String viewUser(){
+        return "release/admin/system/viewUser";
+    }
+    @RequestMapping("/manage/user/request")
+    public String viewRegister(){
+        return "release/admin/system/viewRegister";
+    }
+    
+    //web
+    @RequestMapping("/manage/message")
+    public String message(){
+        return "release/web/message";
+    }
+    @RequestMapping("/manage/profile")
+    public String profile() {
+        return "release/web/profile";
     }
     @RequestMapping("/403")
     public String authError(){
-        return "release/403";
+        return "release/web/403";
     }
     @RequestMapping("/404")
     public String pageNotFound(){
-        return "release/404";
+        return "release/web/404";
     }
 
 }

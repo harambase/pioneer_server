@@ -6,13 +6,11 @@
     <meta content="" name="description"/>
     <meta content="webthemez" name="author"/>
     <title>用户查看</title>
-    <!-- Bootstrap Styles-->
-    <link href="../../../../static/css/bootstrap.css" rel="stylesheet"/>
-    <!-- FontAwesome Styles-->
-    <link href="../../../../static/styles/font-awesome.css" rel="stylesheet"/>
-    <!-- Custom Styles-->
-    <link href="../../../../static/styles/custom-styles.css" rel="stylesheet"/>
-    <!-- Google Fonts-->
+
+    <link href="/styles/bootstrap.css" rel="stylesheet"/>
+    <link href="/styles/font-awesome.css" rel="stylesheet"/>
+    <link href="/styles/custom-styles.css" rel="stylesheet"/>
+    <link href="/styles/checkbox3.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 </head>
 <body>
@@ -745,18 +743,20 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="../../../../static/js/jquery-1.10.2.js"></script>
-<!-- Bootstrap Js -->
-<script src="../../../../static/js/bootstrap.min.js"></script>
-<!-- Metis Menu Js -->
-<script src="../../../../static/js/jquery.metisMenu.js"></script>
-<!-- Custom Js -->
-<script src="../../../../static/js/custom-scripts.js"></script>
+<script src="/plugins/jquery/jquery-1.12.3.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/plugins/datatables/datatables.all.min.js"></script>
+<script src="/plugins/confirm/confirm.js"></script>
+<script src="/plugins/jquery-validate/jquery.validate.min.js"></script>
+<script src="/plugins/jquery-validate/messages_zh.js"></script>
+<script src="/plugins/layer/laydate/laydate.js"></script>
+<script src="/js/jquery.metisMenu.js"></script>
+<script src="/js/custom-scripts.js"></script>
 
-<script src="../../../../static/js/dataTables/jquery.dataTables.js"></script>
-<script src="../../../../static/js/dataTables/dataTables.bootstrap.js"></script>
+<script src="/scripts/basePath.js"></script>
+<script src="/scripts/logout.js"></script>
+<script src="/scripts/common.js"></script>
+
 <script>
     $(document).ready(function () {
         $('#userTable').dataTable();
