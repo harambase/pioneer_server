@@ -7,12 +7,12 @@
     <meta content="webthemez" name="author"/>
     <title>创建课程</title>
 
-    <link href="/styles/bootstrap.css" rel="stylesheet"/>
-    <link href="/styles/font-awesome.css" rel="stylesheet"/>
-    <link href="/styles/custom-styles.css" rel="stylesheet"/>
-    <link href="/styles/checkbox3.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
+    <link href="/static/styles/checkbox3.min.css" rel="stylesheet">
 
+    <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link href="/static/plugins/font/font.css" rel="stylesheet"/>
+    <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
@@ -25,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="../index.html"><strong><i class="icon fa fa-plane"></i>
+            <a class="navbar-brand" href="/welcomeAdmin"><strong><i class="icon fa fa-plane"></i>
                 PIONEER</strong></a>
             <div id="sideNav" href="">
                 <i class="fa fa-bars icon"></i>
@@ -250,7 +250,7 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
 
-                <li><a class="active-menu" href="/index"><i class="fa fa-dashboard"></i> 主页</a></li>
+                <li><a class="active-menu" href="/welcomeAdmin"><i class="fa fa-dashboard"></i> 主页</a></li>
                 <li><a href=""><i class="fa fa-desktop"></i>教务管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#">课程管理<span class="fa arrow"></span></a>
@@ -299,7 +299,7 @@
                 <small>创建新课程</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#">主页</a></li>
+                <li><a href="/welcomeAdmin">主页</a></li>
                 <li><a href="#">教务管理</a></li>
                 <li class="active">创建新课程</li>
             </ol>
@@ -544,18 +544,21 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<script src="/plugins/jquery/jquery-1.12.3.min.js"></script>
-<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="/plugins/datatables/datatables.all.min.js"></script>
-<script src="/plugins/confirm/confirm.js"></script>
-<script src="/plugins/jquery-validate/jquery.validate.min.js"></script>
-<script src="/plugins/jquery-validate/messages_zh.js"></script>
-<script src="/js/jquery.metisMenu.js"></script>
-<script src="/js/custom-scripts.js"></script>
+<script src="/static/plugins/jquery/jquery-1.12.3.min.js"></script>
+<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/plugins/confirm/confirm.js"></script>
+<script src="/static/plugins/jquery-validate/jquery.validate.min.js"></script>
+<script src="/static/plugins/jquery-validate/messages_zh.js"></script>
+<script src="/static/plugins/layer/laydate/laydate.js"></script>
+<script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
+<script src="/static/plugins/datatables/datatables.all.min.js"></script>
 
-<script src="/scripts/basePath.js"></script>
-<script src="/scripts/logout.js"></script>
-<script src="/scripts/common.js"></script>
+<script src="/static/scripts/custom-scripts.js"></script>
+<script src="/static/scripts/basePath.js"></script>
+<script src="/static/scripts/logout.js"></script>
+<script src="/static/scripts/common.js"></script>
+
+<script src="/static/scripts/manageCourse.js"></script>
 
 </body>
 </html>

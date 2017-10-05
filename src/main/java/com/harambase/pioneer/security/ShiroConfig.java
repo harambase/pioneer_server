@@ -32,7 +32,7 @@ public class ShiroConfig{
         /**
          * 默认的登陆访问url
          */
-        shiroFilter.setLoginUrl("/auth");
+        shiroFilter.setLoginUrl("/index");
         /**
          * 登陆成功后跳转的url
          */
@@ -50,12 +50,12 @@ public class ShiroConfig{
          *
          */
         Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("/styles/**", "anon");
-        hashMap.put("/scripts/**", "anon");
-        hashMap.put("/plugins/**", "anon");
-        hashMap.put("/assets/img/**", "anon");
-        hashMap.put("/fonts/**", "anon");
-        hashMap.put("/auth", "anon");
+        hashMap.put("/static/styles/**", "anon");
+        hashMap.put("/static/scripts/**", "anon");
+        hashMap.put("/static/plugins/**", "anon");
+        hashMap.put("/static/images/**", "anon");
+        hashMap.put("/static/fonts/**", "anon");
+        hashMap.put("/index", "anon");
         hashMap.put("/", "anon");
         hashMap.put("/admin/login", "anon");
         hashMap.put("/request/user/register", "anon");
