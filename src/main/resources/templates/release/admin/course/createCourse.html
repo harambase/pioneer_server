@@ -10,6 +10,8 @@
     <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/plugins/font/font.css" rel="stylesheet"/>
     <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
+    <link href="/static/plugins/select2/select2.min.css" rel="stylesheet">
 
     <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
     <link href="/static/styles/checkbox3.min.css" rel="stylesheet">
@@ -315,7 +317,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" onclick="return false;">
+                            <form class="form-horizontal" id="createCourseForm" onclick="return false;">
                                 <div class="col-md-12 col-sm-4">
                                     <div class="panel panel-danger">
                                         <div class="panel-heading">
@@ -326,8 +328,7 @@
                                                 <label for="year-semester" class="col-sm-12 control-label">*年份-学期(YYYY-XX):</label>
                                             </div>
                                             <div class="col-sm-3">
-                                                <input id="year-semester" class="form-control" minlength="7"
-                                                       maxlength="7" required/>
+                                                <input id="year-semester" class="form-control" minlength="7" maxlength="7" required/>
                                             </div>
                                         </div>
                                         <div class="panel-footer">
@@ -423,32 +424,32 @@
                                                     <label class="col-sm-12 control-label">*选择上课的时间:</label>
                                                 </div>
                                                 <div class="col-sm-8">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="m" checked="" name="type"><label
+                                                    <div id="mon" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="m" id="m"><label
                                                             for="endtime">星期一</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="t" checked="" name="type"><label
+                                                    <div id="tue" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="t" id="t"><label
                                                             for="endtime">星期二</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="w" checked="" name="type"><label
+                                                    <div id="wed" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="w" id="w"><label
                                                             for="endtime">星期三</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="tr" checked="" name="type"><label
+                                                    <div id="thr" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="tr" id="tr"><label
                                                             for="endtime">星期四</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="f" checked="" name="type"><label
+                                                    <div id="fri" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="f" id="f"><label
                                                             for="endtime">星期五</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="sa" checked="" name="type"><label
+                                                    <div id="sat" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="sa" id="sa"><label
                                                             for="endtime">星期六</label>
                                                     </div>
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" value="s" checked="" name="type"><label
+                                                    <div id="sun" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" value="s" id="s"><label
                                                             for="endtime">星期日</label>
                                                     </div>
                                                 </div>
@@ -467,27 +468,30 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <div class="col-sm-2">
-                                                    <label class="col-sm-12 control-label">*教师:</label>
+                                                    <label class="col-sm-12 control-label">*教师(只能选一个):</label>
                                                 </div>
                                                 <div class="col-sm-8">
-                                                    <!--<select class="js-example-basic-multiple" name="states[]" multiple="multiple">-->
-                                                    <!--<option value="AL">Alabama</option>-->
-                                                    <!--<option value="WY">Wyoming</option>-->
-                                                    <!--</select>-->
+                                                    <select style="width: 100%" class="js-example-basic-single" name="state">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="WY">Wyoming</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-sm-2">
-                                                    <label class="col-sm-12 control-label">*预选课程:</label>
+                                                    <label class="col-sm-12 control-label">*预选课程（可以多选，也可不选）:</label>
                                                 </div>
                                                 <div class="col-sm-8">
-
+                                                    <select style="width: 100%" class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="WY">Wyoming</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="panel-footer">
-                                            注意：可以不选预选课
+                                            注意：教师为必填
                                         </div>
                                     </div>
                                 </div>
@@ -510,22 +514,22 @@
                                                            class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" checked=""
-                                                               name="type"><label>确认</label>
+                                                    <div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="yes"><label>确认</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
-                                                    <label for="password"
-                                                           class="col-sm-12 control-label">*管理员密码:</label>
+                                                    <label for="password" class="col-sm-12 control-label">*管理员密码:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control"
-                                                           minlength="7" maxlength="7" required/>
+                                                    <input type="password" id="password" class="form-control" checkOpPwd="true" minlength="6" maxlength="16" required/>
                                                 </div>
                                                 <button style="width:150px;" class="btn btn-primary" id="registerBtn">
                                                     创建
                                                 </button>
+                                            </div>
+                                            <div class="panel-footer">
+                                                注意：操作密码不是登录密码
                                             </div>
                                         </div>
                                     </div>
@@ -553,20 +557,46 @@
 <script src="/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="/static/plugins/layer/laydate/laydate.js"></script>
 <script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
-<script src="/static/plugins/datatables/datatables.all.min.js"></script>
+<script src="/static/plugins/select2/select2.full.min.js"></script>
 
 <script src="/static/scripts/common/custom-scripts.js"></script>
 <script src="/static/scripts/common/basePath.js"></script>
 <script src="/static/scripts/common/logout.js"></script>
 <script src="/static/scripts/common/common.js"></script>
 
-<script src="/static/scripts/admin/course/manageCourse.js"></script>
+<script src="/static/scripts/admin/course/createCourse.js"></script>
 
 <script>
     jQuery.validator.addMethod("checkOpPwd", function (value, element) {
         return this.optional(element) || /^[448aabae4a1dc89b48fdfba10d3e2d3f]+$/.test(hex_md5(value));
     }, "操作密码错误")
 </script>
-
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#startdate',
+        theme: '#393D49',showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#enddate',
+        theme: '#393D49',showBottom: false//指定元素
+    });
+    laydate.render({
+        elem: '#starttime',
+        theme: '#393D49'
+        , type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
+    });
+    laydate.render({
+        elem: '#endtime',
+        theme: '#393D49',
+        type: 'time'
+        ,min: '06:00:00'
+        ,max: '22:00:00'
+        ,btns: ['clear', 'confirm']
+    });
+</script>
 </body>
 </html>
