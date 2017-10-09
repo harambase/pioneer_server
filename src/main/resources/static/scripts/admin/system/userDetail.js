@@ -1,67 +1,183 @@
+var student = false;
+var faculty = false;
+var admin = false;
+var yes = false;
+var reset = false;
+var password = "";
+var userid = location.search.split("&")[0].split("=")[1];//location.search获取url中的?后的字符串
+
+var registerForm = $("#editUserForm").validate({});
+//重置
+$("#reset-div").click(function (){
+    $("#reset").prop("checked", !reset);
+    reset = !reset;
+});
+
+//启用
+$("#active-div").click(function (){
+    $("#inactive").prop("checked", false);
+    $("#active").prop("checked", true);
+});
+$("#inactive-div").click(function (){
+    $("#active").prop("checked", false);
+    $("#inactive").prop("checked", true);
+});
+
+//性别
+$("#male-div").click(function (){
+    $("#female").prop("checked", false);
+    $("#male").prop("checked", true);
+});
+$("#female-div").click(function (){
+    $("#male").prop("checked", false);
+    $("#female").prop("checked", true);
+});
+
+//角色
+$("#student-div").click(function(){
+    $("#student1").prop("checked", !student);
+    student = !student;
+});
+$("#faculty-div").click(function(){
+    $("#faculty1").prop("checked", !faculty);
+    faculty = !faculty;
+});
+$("#admin-div").click(function(){
+    $("#admin1").prop("checked", !admin);
+    admin = !admin;
+});
+
+//确认
+$("#yes-div").click(function(){
+    $("#yes").prop("checked", !yes);
+    yes = !yes;
+});
+
+var active = false;
 //写入账户属性
 function writeSettings(status, type, gender){
 
     if (status === "1") {
-        $(".w_manage h4").eq(0).html("账户状态：启用");
-        $(".w_manage input").eq(0).prop("checked", true);
+        $("#active").prop("checked", true);
+        active = true;
     }
     else {
-        $(".w_manage h4").eq(0).html("账户状态：禁用");
-        $(".w_manage input").eq(1).prop("checked", true);
+        $("#inactive").prop("checked", true);
+        active = false;
     }
-    var text = "账户类型：";
+
     if(type.indexOf("a") !== -1){
-        text += "系统管理员/";
-        $(".w_manage input").eq(4).prop("checked", true);
+        $("#admin1").prop("checked", true);
+        admin = true;
     }
     if(type.indexOf("f") !== -1){
-        text += "教师/";
-        $(".w_manage input").eq(3).prop("checked", true);
+        $("#faculty1").prop("checked", true);
+        faculty = true;
     }
     if(type.indexOf("s") !== -1){
-        text += "学生/";
-        $(".w_manage input").eq(2).prop("checked", true);
+        $("#student1").prop("checked", true);
+        student = true;
     }
-    $(".w_manage h4").eq(1).html(text);
+
     if(gender === "male"){
-        $(".w_manage h4").eq(2).html("用户性别：男");
-        $(".w_manage input").eq(5).prop("checked", true);
+        $("#male").prop("checked", true);
+
     }
     else{
-        $(".w_manage h4").eq(2).html("用户性别：女");
-        $(".w_manage input").eq(6).prop("checked", true);
+        $("#female").prop("checked", true);
     }
 }
-//编辑弹窗
-$("#userTable").on("click", ".btn.btn-edit", function () {
+$(function(){
 
-    userid = $(this).parents("tr").find("td").eq(1).html();
-    var user = getUser(userid);
-    var baseInfo = $(".w_basicInfo");
-
-    baseInfo.find("#userid2").val(userid);
-    baseInfo.find("#username2").val(user.username);
-    baseInfo.find("#firstname2").val(user.firstname);
-    baseInfo.find("#lastname2").val(user.lastname);
-    baseInfo.find("#birthday2").val(user.birthday);
-    baseInfo.find("#email2").val(user.email);
-    baseInfo.find("#qq2").val(user.qq);
-    baseInfo.find("#weChat2").val(user.wechat);
-    baseInfo.find("#tel2").val(user.tel);
-    baseInfo.find("#dorm2").val(user.dorm);
-    baseInfo.find("#pwd").val(user.password);
-    baseInfo.find("#comment2").val(user.comment);
-    newStatus = status = user.status;
-    newType = type = user.type;
-    newGender = gender = user.gender;
-
-    writeSettings(status, type, gender);
-
-    $(".w_wrapper").css({display: "block"});
-    $(".w_ul li").remove();
-
-    closePop("#cancel");
-    closePop("#cancel2");
-    closePop("#cancel3");
-    closePop(".w_close");
+    getUser(userid);
 });
+
+//更新用户信息
+$("#confirm").click(function (){
+    if(registerForm.form()) {
+        var gender = "";
+        var type = "";
+        var status = "";
+
+        $('input[name="gender"]:checked').each(function () {
+            gender = $(this).val();
+        });
+
+        $('input[name="type"]:checked').each(function () {
+            type += $(this).val() + "/";
+        });
+
+        $('input[name="status"]:checked').each(function () {
+            status = $(this).val();
+        });
+
+        if (reset)
+            password = hex_md5("pioneer" + userid);
+
+        var formdata = {
+            userid: $("#userid").val(),
+            username: $("#username").val(),
+            firstname: $("#firstname").val(),
+            lastname: $("#lastname").val(),
+            birthday: $("#birthday").val(),
+            email: $("#email").val(),
+            wechat: $("#weChat").val(),
+            tel: $("#tel").val(),
+            dorm: $("#dorm").val(),
+            qq: $("#qq").val(),
+            comment: $("#comments").val(),
+            password: password,
+            gender: gender,
+            type: type,
+            status: status
+        };
+        console.log(formdata);
+        // $.ajax({
+        //     url:basePath+"/admin/user/update",
+        //     type: "POST",
+        //     contentType: "application/json; charset=utf-8",
+        //     data: JSON.stringify(formdata),
+        //     success: function (data) {
+        //         if (data.code === 2001)
+        //             Showbo.Msg.alert("更新成功!", function () {
+        //                 window.location.reload();
+        //             });
+        //         else
+        //             Showbo.Msg.alert(data.msg, function () {});
+        //     }
+        // })
+    }
+});
+
+//获取用户
+function getUser(userid){
+    var user = null;
+    $.ajax({
+        url : basePath+"/admin/get?userid="+userid,
+        type : "GET",
+        success: function (result) {
+            if (result.code === 2001) {
+                user = result.data;
+                $("#userid").val(userid);
+                $("#year-semester").val(user.info);
+                $("#username").val(user.username);
+                $("#firstname").val(user.firstname);
+                $("#lastname").val(user.lastname);
+                $("#birthday").val(user.birthday);
+                $("#email").val(user.email);
+                $("#qq").val(user.qq);
+                $("#weChat").val(user.wechat);
+                $("#tel").val(user.tel);
+                $("#dorm").val(user.dorm);
+                $("#comments").val(user.comment);
+
+                password = user.password;
+
+                writeSettings(user.status, user.type, user.gender);
+
+            } else {
+                Showbo.Msg.alert("用户获取失败", function () {});
+            }
+        }
+    });
+}

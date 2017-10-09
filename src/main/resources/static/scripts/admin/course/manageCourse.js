@@ -618,12 +618,11 @@ $(function () {
                 if(rowData === "1")
                     // $(nTd).css({color: "green"});
                     $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; font-size: 12px">未开始</p>');
-                else if(rowData === "0"){
+                else if(rowData === "0")
                     $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; font-size: 12px">进行中</p>');
-                }
-                else if(rowData === "-1") {
+
+                else if(rowData === "-1")
                     $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; font-size: 12px">已结课</p>');
-                }
 
             }},
             {"data": "date", "title": "起止时间"},

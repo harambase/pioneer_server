@@ -93,6 +93,10 @@ public class WebController {
     public String viewUser(){
         return "release/admin/system/viewUser";
     }
+    @RequestMapping("/manage/user/detail")
+    public String userDetail(){
+        return "release/admin/system/userDetail";
+    }
     @RequestMapping("/manage/user/request")
     public String viewRegister(){
         return "release/admin/system/viewRegister";
