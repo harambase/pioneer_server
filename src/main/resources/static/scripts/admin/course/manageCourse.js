@@ -616,13 +616,11 @@ $(function () {
             {"data": "remain", "title": "剩余"},
             {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
                 if(rowData === "1")
-                    // $(nTd).css({color: "green"});
-                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; font-size: 12px">未开始</p>');
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; ">未开始</p>');
                 else if(rowData === "0")
-                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; font-size: 12px">进行中</p>');
-
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; ">进行中</p>');
                 else if(rowData === "-1")
-                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; font-size: 12px">已结课</p>');
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">已结课</p>');
 
             }},
             {"data": "date", "title": "起止时间"},

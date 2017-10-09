@@ -3,14 +3,12 @@
 ------------------------------------------------*/
 body {
     font-family: 'Open Sans', sans-serif;
-    /*background: #3E3E3E;*/
-    background: rgba(0, 0, 0, .60);
+    background-image: url("/static/images/blur-bg.jpg");
+    background-size: cover;
 }
 
 #wrapper {
     width: 100%;
-    background-image: url("/static/images/blur-bg.jpg");
-    background-size: cover;
 }
 
 #page-wrapper {

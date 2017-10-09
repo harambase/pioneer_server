@@ -78,10 +78,8 @@ $(function () {
             {"data": "firstname", "title": "名"},
             {"data": "type", "title": "账户类型"},
             {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
-                if(rowData === "1")
-                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green;">已启用</p>');
-                else if(rowData === "0")
-                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">已禁用</p>')
+                if(rowData === "1") $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green;">已启用</p>');
+                else if(rowData === "0")$(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">已禁用</p>')
             }},
             {"data": "updatetime", "title": "更新时间"},
             {

@@ -101,6 +101,10 @@ public class WebController {
     public String viewRegister(){
         return "release/admin/system/viewRegister";
     }
+    @RequestMapping("/manage/user/request/detail")
+    public String userRegisterDetail(){
+        return "release/admin/system/userRegisterDetail";
+    }
     
     //web
     @RequestMapping("/manage/message")
