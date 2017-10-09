@@ -596,8 +596,8 @@ $(function () {
             }
         },
         "lengthMenu": [
-            [10],
-            [10]
+            [5,10,15,20],
+            [5,10,15,20]
         ],
         pageLength: 10,
         processing: true,
@@ -607,14 +607,25 @@ $(function () {
             url: basePath + "/course/list"
         },
         columns: [
-            {"data": "id", "title": "序列号", "width" : "45px"},
-            {"data": "crn", "title": "课程编号"},
+            {"data": "id", "title": "序号", "width" : "30px"},
+            {"data": "crn", "title": "编号"},
             {"data": "name", "title": "课程名"},
-            {"data": "coulev", "title": "课程等级"},
-            {"data": "cousec", "title": "课程班级"},
+            {"data": "coulev", "title": "等级"},
+            {"data": "cousec", "title": "班级"},
             {"data": "capa", "title": "容量"},
             {"data": "remain", "title": "剩余"},
-            {"data": "status", "title": "状态"},
+            {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
+                if(rowData === "1")
+                    // $(nTd).css({color: "green"});
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; font-size: 12px">未开始</p>');
+                else if(rowData === "0"){
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; font-size: 12px">进行中</p>');
+                }
+                else if(rowData === "-1") {
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; font-size: 12px">已结课</p>');
+                }
+
+            }},
             {"data": "date", "title": "起止时间"},
             {"data": "time", "title": "上课时间"},
             {"data": "day", "title": "星期"},

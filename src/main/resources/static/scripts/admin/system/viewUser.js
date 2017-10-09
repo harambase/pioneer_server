@@ -242,14 +242,17 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width" : "100px"},
+            {"data": "id", "title": "序号"},
             {"data": "userid", "title": "用户ID"},
             {"data": "username", "title": "用户名"},
-            {"data": "firstname", "title": "名"},
             {"data": "lastname", "title": "姓"},
+            {"data": "firstname", "title": "名"},
             {"data": "type", "title": "账户类型"},
-            {"data": "status", "title": "状态"},
-            {"data": "updatetime", "title": "更新时间", "width" : "180px"},
+            {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
+                if(rowData === "1") $(nTd).html('<p style="color:green;">已启用</p>');
+                else if(rowData === "0") $(nTd).html('<p style="color:red;">已禁用</p>')
+            }},
+            {"data": "updatetime", "title": "更新时间"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">删除用户</button><button class="btn btn-edit">编辑用户</button>');

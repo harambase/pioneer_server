@@ -7,10 +7,10 @@
     <meta content="webthemez" name="author"/>
     <title>用户创建</title>
 
+    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
     <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/plugins/font/font.css" rel="stylesheet"/>
     <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
 
     <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
     <link href="/static/styles/checkbox3.min.css" rel="stylesheet">
@@ -317,7 +317,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" id = "createUserForm" onclick="return false;">
+                            <form class="form-horizontal" id="createUserForm" onclick="return false;">
                                 <div class="col-md-12 col-sm-4">
                                     <div class="panel panel-danger">
                                         <div class="panel-heading">
@@ -408,11 +408,13 @@
                                                     <label for="qq" class="col-sm-12 control-label">*性别:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="radio3 radio-check radio-success radio-inline" id="male-div">
+                                                    <div class="radio3 radio-check radio-success radio-inline"
+                                                         id="male-div">
                                                         <input type="radio" id="male" name="gender" value="male">
                                                         <label for="male">男</label>
                                                     </div>
-                                                    <div class="radio3 radio-check radio-success radio-inline" id="female-div">
+                                                    <div class="radio3 radio-check radio-success radio-inline"
+                                                         id="female-div">
                                                         <input type="radio" id="female" name="gender" value="female">
                                                         <label for="female">女</label>
                                                     </div>
@@ -435,15 +437,18 @@
                                                     <label class="col-sm-12 control-label">*角色:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div id="student-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                    <div id="student-div"
+                                                         class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
                                                         <input type="checkbox" id="student1" name="type" value="s">
                                                         <label for="student1">学生</label>
                                                     </div>
-                                                    <div id="faculty-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                    <div id="faculty-div"
+                                                         class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
                                                         <input type="checkbox" id="faculty1" name="type" value="f">
                                                         <label for="faculty1">教师</label>
                                                     </div>
-                                                    <div id="admin-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                    <div id="admin-div"
+                                                         class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
                                                         <input type="checkbox" id="admin1" name="type" value="a">
                                                         <label for="admin1">系统管理员</label>
                                                     </div>
@@ -475,17 +480,23 @@
                                                            class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" name="confirm" required><label for="admin1">确认</label>
+                                                    <div id="yes-div"
+                                                         class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
+                                                        <input type="checkbox" id="yes" name="confirm" required><label
+                                                            for="admin1">确认</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
-                                                    <label for="password" class="col-sm-12 control-label">*管理员操作密码:</label>
+                                                    <label for="password"
+                                                           class="col-sm-12 control-label">*管理员操作密码:</label>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>
+                                                    <input type="password" id="password" class="form-control"
+                                                           minlength="6" maxlength="16" checkOpPwd="true" required/>
                                                 </div>
-                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">创建</button>
+                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">
+                                                    创建
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="panel-footer">
@@ -496,15 +507,19 @@
                             </form>
 
                         </div>
+                        <div class="panel-footer" style="font-size: smaller">
+                            Copyright &copy; 2017 - All Rights Reserved <br>
+                            <a href="https://s1lin.github.io/">Harambase Development Team</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <p><a>Copyright &copy; 2017</a> - All Rights Reserved<br>
-                <a>Harambase Development Team</a></p>
         </div>
-        <!-- /. PAGE INNER  -->
+
     </div>
-    <!-- /. PAGE WRAPPER  -->
+    <!-- /. PAGE INNER  -->
+</div>
+<!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
 <script src="/static/plugins/jquery/jquery-1.12.3.min.js"></script>
@@ -530,17 +545,7 @@
     });
 </script>
 <script>
-    // 字符验证，只能包含中文、英文、数字、下划线等字符。
-    jQuery.validator.addMethod("stringCheck", function (value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/.test(value);
-    }, "只能包含中文、英文、数字、下划线等字符");
-    // 只能输入[0-9]数字
-    jQuery.validator.addMethod("isDigits", function (value, element) {
-        return this.optional(element) || /^\d+$/.test(value);
-    }, "只能输入0-9数字");
-    jQuery.validator.addMethod("checkOpPwd", function (value, element) {
-        return this.optional(element) || /^[448aabae4a1dc89b48fdfba10d3e2d3f]+$/.test(hex_md5(value));
-    }, "操作密码错误")
+
 </script>
 </body>
 </html>

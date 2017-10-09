@@ -179,10 +179,10 @@ public class PersonServiceImpl implements PersonService {
                     orderColumn = "username";
                     break;
                 case 3:
-                    orderColumn = "firstname";
+                    orderColumn = "lastname";
                     break;
                 case 4:
-                    orderColumn = "lastname";
+                    orderColumn = "firstname";
                     break;
                 case 5:
                     orderColumn = "password";

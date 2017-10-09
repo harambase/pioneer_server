@@ -42,7 +42,7 @@
     select status from CourseView where crn = #{crn,jdbcType=VARCHAR}
   </select>
   <select id="countActiveCourse" resultType="java.lang.Integer" >
-    select count(*) from CourseView where status = '1'
+    select count(*) from CourseView where status = '1' or status = '0'
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from Course where crn = #{crn,jdbcType=VARCHAR}
@@ -324,7 +324,7 @@
     select * from CourseView
   </select>
   <select id="getAllActiveCourses" resultType="com.harambase.pioneer.pojo.dto.CourseView">
-    select * from CourseView where status = '1'
+    select * from CourseView where status = '0' UNION select * from CourseView where status = '1'
   </select>
   <select id="getAllCoursesWithInfo" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">
     select * from Course where info = #{arg0,jdbcType=VARCHAR}
