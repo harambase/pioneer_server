@@ -131,21 +131,21 @@ $("#confirm").click(function (){
             type: type,
             status: status
         };
-        console.log(formdata);
-        // $.ajax({
-        //     url:basePath+"/admin/user/update",
-        //     type: "POST",
-        //     contentType: "application/json; charset=utf-8",
-        //     data: JSON.stringify(formdata),
-        //     success: function (data) {
-        //         if (data.code === 2001)
-        //             Showbo.Msg.alert("更新成功!", function () {
-        //                 window.location.reload();
-        //             });
-        //         else
-        //             Showbo.Msg.alert(data.msg, function () {});
-        //     }
-        // })
+
+        $.ajax({
+            url:basePath+"/admin/user/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        window.location.reload();
+                    });
+                else
+                    Showbo.Msg.alert(data.msg, function () {});
+            }
+        })
     }
 });
 

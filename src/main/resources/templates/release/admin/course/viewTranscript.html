@@ -7,9 +7,12 @@
     <meta content="webthemez" name="author"/>
     <title>查看成绩单</title>
 
+    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
     <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
     <link href="/static/plugins/font/font.css" rel="stylesheet"/>
     <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+    <link href="/static/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" >
+    <link href="/static/plugins/datatables/datatables.min.css" rel="stylesheet">
 
     <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
     <link href="/static/styles/checkbox3.min.css" rel="stylesheet">
@@ -311,13 +314,23 @@
                     <!-- Advanced Tables -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            成绩单总列表
+                            <div class="col-md-12">
+                                成绩单总列表
+                            </div>
+                            <div class="col-md-4">
+                                <button id="overview" class="btn btn-primary" style="width: 100%">总览</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button id="class" class="btn btn-primary" style="width: 100%">按课程浏览</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button id="user" class="btn btn-primary" style="width: 100%">按学生浏览</button>
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                               <table width="100%" style="font-size: 14px;" id="transTable" class="display dataTable"></table>
+                               <table id="transTable" class="table table-striped table-bordered table-hover"></table>
                             </div>
-
                         </div>
                     </div>
                     <!--End Advanced Tables -->
