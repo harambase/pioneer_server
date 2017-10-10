@@ -22,14 +22,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        logger.debug("登录验证后进行权限认证....");
+//        config.debug("登录验证后进行权限认证....");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         return info;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-//        logger.debug("登录操作进行登录认证......");
+//        config.debug("登录操作进行登录认证......");
         System.out.println("登录操作进行登录认证......");
         ShiroService shiroService = ShiroServiceImpl.me();
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
