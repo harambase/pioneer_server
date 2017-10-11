@@ -1,23 +1,8 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta content="" name="description"/>
-    <meta content="webthemez" name="author"/>
-    <title>用户查看</title>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <link href="/static/plugins/confirm/confirm.css" rel="stylesheet">
-    <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/static/plugins/font/font.css" rel="stylesheet"/>
-    <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <link href="/static/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" >
-    <link href="/static/plugins/datatables/datatables.min.css" rel="stylesheet">
+<head th:include="/release/common/header :: commonHeader('用户查看',true)"></head>
 
-    <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
-    <link href="/static/plugins/checkbox3/checkbox3.min.css" rel="stylesheet">
-
-</head>
 <body>
 <div id="wrapper">
 
@@ -64,15 +49,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<script src="/static/plugins/jquery/jquery-1.12.3.min.js"></script>
-<script src="/static/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/plugins/confirm/confirm.js"></script>
-<script src="/static/plugins/jquery/jquery.metisMenu.js"></script>
-<script src="/static/plugins/datatables/datatables.all.min.js"></script>
-
-<script src="/static/scripts/common/custom-scripts.js"></script>
-<script src="/static/scripts/common/basePath.js"></script>
-<script src="/static/scripts/common/logout.js"></script>
+<div th:include="/release/common/js :: load_js(true , false)"></div>
 
 <script src="/static/scripts/admin/system/viewUser.js"></script>
 
