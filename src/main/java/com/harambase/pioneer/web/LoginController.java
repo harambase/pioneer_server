@@ -32,10 +32,11 @@ public class LoginController {
         HaramMessage message = personService.login(person);
 
         if(message.getCode() == 2001) {
+            person = (Person)message.getData();
             UsernamePasswordToken token = new UsernamePasswordToken(person.getUsername(),person.getPassword().toCharArray()) ;
             Subject subject = SecurityUtils.getSubject();
             subject.login(token); //完成登录
-            session.setAttribute("user", message.getData());
+            session.setAttribute("user", person);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

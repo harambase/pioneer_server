@@ -29,12 +29,12 @@
                         <form method="post" id="loginForm">
                             <div id="formsAuthenticationArea">
                                 <div id="userNameArea">
-                                    <input id="username" name="UserName" value="" minlength="1"
-                                           class="text fullWidth" spellcheck="false" placeholder="用户名">
+                                    <input id="userid" name="userid" value="" minlength="1"
+                                           class="text fullWidth" spellcheck="false" isDigits="true" placeholder="用户ID" required>
                                 </div>
                                 <div id="passwordArea">
                                     <input id="password" name="Password" type="password" minlength="1"
-                                           class="text fullWidth" placeholder="密码">
+                                           class="text fullWidth" placeholder="密码" required>
                                 </div>
                                 <div id="submissionArea" class="submitMargin">
                                     <span id="btnLogin" class="submit">登录</span>
@@ -45,7 +45,7 @@
 
                         <div id="introduction" class="groupMargin">
                             <a href="/reg" class="auth-link">还未注册先锋账号？立即申请!</a>
-                            <p><b><font color="red">注意：</font> 请使用用户名登录(不是ID).</b></p>
+                            <p><b><font color="red">注意：</font> 请使用ID登录(不是用户名).</b></p>
                         </div>
                     </div>
                 </div>
@@ -67,6 +67,8 @@
 <script src="/static/plugins/jquery-validate/jquery.validate.min.js"></script>
 <script src="/static/plugins/jquery-validate/messages_zh.js"></script>
 <script src="/static/plugins/md5/md5.js"></script>
+<script src="/static/scripts/common/common.js"></script>
 <script src="/static/scripts/login.js"></script>
+
 
 </html>

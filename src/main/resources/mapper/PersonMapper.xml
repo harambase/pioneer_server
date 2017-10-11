@@ -259,7 +259,7 @@
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
   <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="ResultMapWithBLOBs">
-    select * from Person where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    select * from Person where userid = #{userid,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByUsername" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">

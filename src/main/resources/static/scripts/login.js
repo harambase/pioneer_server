@@ -2,10 +2,10 @@ $(function (){
     var loginForm = $("#loginForm").validate({});
     $("#btnLogin").click(function(){
         if(loginForm.form()) {
-            var username = $("#username").val();
+            var userid = $("#userid").val();
             var password = hex_md5($("#password").val());
             var person = {
-                username: username,
+                userid: userid,
                 password: password
             };
             $.ajax({
@@ -14,9 +14,10 @@ $(function (){
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(person),
                 success: function (data) {
-                    if (data.code === 2001) {
+                    if (data.code === 2001)
                         window.location.href = basePath + "/welcome";
-                    }
+                    else
+                        Showbo.Msg.alert("登录失败", function () {});
                 }
             });
         }
