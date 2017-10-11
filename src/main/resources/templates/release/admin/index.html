@@ -1,7 +1,9 @@
 ﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('先锋OA系统',false)"></head>
+<head th:include="/release/common/header :: commonHeader('先锋OA系统',false,false)"></head>
 <body>
 <div id="wrapper">
 
@@ -121,7 +123,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div><!-- /. WRAPPER  -->
 </body>
-<div th:include="/release/common/js :: load_js(true , true)"></div>
+<div th:include="/release/common/js :: load_js(true , false, false)"></div>
 
 <script src="/static/scripts/admin/welcomeAdmin.js"></script>
 

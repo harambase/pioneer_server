@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('用户详情',false)"></head>
+<head th:include="/release/common/header :: commonHeader('用户详情',false,false)"></head>
 <body>
 <div id="wrapper">
 
@@ -279,7 +279,7 @@
 <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/common/js :: load_js(false , false)"></div>
+<div th:include="/release/common/js :: load_js(false , false, false)"></div>
 
 <script src="/static/scripts/admin/system/userDetail.js"></script>
 <script>

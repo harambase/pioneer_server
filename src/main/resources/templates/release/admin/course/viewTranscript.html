@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('成绩单查看',true)"></head>
+<head th:include="/release/common/header :: commonHeader('成绩单查看',true, false)"></head>
 <body>
 <div id="wrapper">
     <!--/. NAV TOP  -->
@@ -71,7 +71,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/common/js :: load_js(true , false)"></div>
+<div th:include="/release/common/js :: load_js(true , false, false)"></div>
 
 <script src="/static/scripts/admin/course/manageTranscript.js"></script>
 </body>

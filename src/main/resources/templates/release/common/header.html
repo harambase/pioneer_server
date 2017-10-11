@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="commonHeader(title,table)">
+<head th:fragment="commonHeader(title,table,select2)">
 
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,6 +18,8 @@
 
     <link th:if="${table}" rel="stylesheet" type=text/css href="/static/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css">
     <link th:if="${table}" rel="stylesheet" type=text/css href="/static/plugins/datatables/datatables.min.css">
+
+    <link th:if="${select2}" rel="stylesheet" type=text/css href="/static/plugins/select2/select2.min.css">
 
     <link rel="stylesheet" type=text/css href="/static/styles/custom-styles.css"/>
 </head>

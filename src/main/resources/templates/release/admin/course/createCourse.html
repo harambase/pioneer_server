@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('创建新课程',false)"></head>
+<head th:include="/release/common/header :: commonHeader('选课设置',false, true)"></head>
 <body>
 <div id="wrapper">
     <!--/. NAV TOP  -->
@@ -257,7 +257,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/common/js :: load_js(false , false)"></div>
+<div th:include="/release/common/js :: load_js(false , false, true)"></div>
 
 <script src="/static/scripts/admin/course/createCourse.js"></script>
 

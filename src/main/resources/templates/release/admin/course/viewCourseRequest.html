@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('新课程注册',true)"></head>
+<head th:include="/release/common/header :: commonHeader('新课程注册',true, true)"></head>
 <body>
 <div id="wrapper">
     <!--/. NAV TOP  -->
@@ -33,7 +33,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/common/js :: load_js(false , false)"></div>
+<div th:include="/release/common/js :: load_js(false , false, true)"></div>
 
 </body>
 </html>
