@@ -18,11 +18,11 @@ public class WebController {
     //before login
     @RequestMapping("")
     public String login(){
-        return "page/index";
+        return "release/index";
     }
     @RequestMapping("/index")
     public String index(){
-        return "page/index";
+        return "release/index";
     }
     @RequestMapping("/welcome")
     public String welcome(){

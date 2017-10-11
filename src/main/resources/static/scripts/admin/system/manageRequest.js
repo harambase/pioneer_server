@@ -23,11 +23,22 @@ $(function(){
     $("#userReg").on("click", ".btn.btn-edit", function () {
         id = $(this).parents("tr").find("td").eq(0).html();
         var userid = $(this).parents("tr").find("td").eq(1).html();
+
         var rowIndex = $(this).parents("tr").index();
         //此处拿到隐藏列的id
         userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
+        var createtime = $(this).parents("tr").find("td").eq(3).html();
+
+        localStorage.clear();
         localStorage.setItem("user", userJson);
-        window.location.href = basePath + "/manage/user/request/detail?id=" + id + "&userid=" + userid;
+        localStorage.setItem("createtune", createtime);
+
+
+
+        rowIndex = $(this).parents("tr").index();
+        var status = $("#userReg").DataTable().row(rowIndex).data().status;
+
+        window.location.href = basePath + "/manage/user/request/detail?id=" + id + "&userid=" + userid +"&status="+status;
     });
 
     var userReg = $("#userReg").DataTable({

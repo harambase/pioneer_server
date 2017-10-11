@@ -4,62 +4,76 @@ var admin = false;
 var yes = false;
 var reset = false;
 var password = "";
-var id = location.search.split("&")[0].split("=")[1];
-var userid = location.search.split("&")[1].split("=")[1];
+var user;
 
-var editUserForm = $("#editUserForm").validate({});
+var uri = location.search.split("&");
+var id = uri[0].split("=")[1];
+var userid = uri[1].split("=")[1];
+var status = uri[2].split("=")[1];
+var createtime =  localStorage.getItem("createtime");
+var userJson = localStorage.getItem("user");
 
-// //拒绝
-// $("#userReg").on("click", ".btn.btn-decline", function () {
-//     id = $(this).parents("tr").find("td").eq(0).html();
-//     createtime = $(this).parents("tr").find("td").eq(2).html();
-//     userid = $(this).parents("tr").find("td").eq(1).html();
-//     status = "-1";
-//     //先拿到点击的行号
-//     var rowIndex = $(this).parents("tr").index();
-//     //此处拿到隐藏列的id
-//     userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
-//     updateTempUser(userid);
-// });
-//
-// $("#decline").click(function () {
-//     status = "-1";
-//     updateTempUser(userid);
-// });
+if(status !== "0"){
+    $(' input').each(function(){
+        $(this).prop("disabled", true);
+    });
+    $("#action").css({display: "none"});
+    $("#type").css({display: "none"});
+    $("#comments").prop("disabled", true);
+}
+
+//拒绝
+$("#decline").click(function () {
+
+    var comment = $("#comments").val();
+    if(comment === "")
+        Showbo.Msg.alert("拒绝申请，必须填写备注！", function () {});
+    else
+        updateTempUser("-1", comment, userid);
+});
 
 
-// function updateTempUser(userid){
-//     var tempUser = {
-//         id: id,
-//         userJson: userJson,
-//         userid: userid,
-//         status: status,
-//         createtime: createtime
-//     };
-//     $.ajax({
-//         url: basePath + "/request/update/user",
-//         type: "POST",
-//         contentType: "application/json; charset=utf-8",
-//         data: JSON.stringify(tempUser),
-//         success: function (data) {
-//             if(data.code === 2001 && status === "-1"){
-//                 Showbo.Msg.alert(data.msg, function () {});
-//             }else if (data.code !== 2001)
-//                 Showbo.Msg.alert(data.msg, function () {});
-//         }
-//     });
-// }
+function updateTempUser(regStatus, comment, userid){
+    user.comment = comment;
+    var newUserJson = JSON.stringify(user);
+
+    var tempUser = {
+        id: id,
+        userJson: newUserJson,
+        userid: userid,
+        status: regStatus,
+        createtime: createtime
+    };
+    $.ajax({
+        url: basePath + "/request/update/user",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(tempUser),
+        success: function (data) {
+            if(data.code === 2001){
+                Showbo.Msg.alert(data.msg, function () {
+                    window.location.href = basePath + "/manage/user/request";
+                });
+            }else if (data.code !== 2001)
+                Showbo.Msg.alert(data.msg, function () {});
+        }
+    });
+}
 
 var registerForm = $("#registerUserForm").validate({});
 
 //性别
 $("#male-div").click(function (){
-    $("#female").prop("checked", false);
-    $("#male").prop("checked", true);
+    if(status === "0") {
+        $("#female").prop("checked", false);
+        $("#male").prop("checked", true);
+    }
 });
 $("#female-div").click(function (){
-    $("#male").prop("checked", false);
-    $("#female").prop("checked", true);
+    if(status === "0") {
+        $("#male").prop("checked", false);
+        $("#female").prop("checked", true);
+    }
 });
 
 //角色
@@ -84,12 +98,11 @@ $("#yes-div").click(function(){
 
 
 $(function(){
-    var user = JSON.parse(localStorage.getItem("user"));
-    localStorage.clear();
+    user = JSON.parse(userJson);
 
     $("#userid").val(userid);
     $("#year-semester").val(user.info);
-    $("#username").val(user.username);
+    $("#username").val(user.lastname + user.firstname);
     $("#firstname").val(user.firstname);
     $("#lastname").val(user.lastname);
     $("#birthday").val(user.birthday);
@@ -131,33 +144,31 @@ $("#approve").click(function (){
         if (reset)
             password = hex_md5("pioneer" + userid);
 
-        var formdata = {
-            userid: $("#userid").val(),
-            username: $("#username").val(),
-            firstname: $("#firstname").val(),
-            lastname: $("#lastname").val(),
-            birthday: $("#birthday").val(),
-            email: $("#email").val(),
-            wechat: $("#weChat").val(),
-            tel: $("#tel").val(),
-            dorm: $("#dorm").val(),
-            qq: $("#qq").val(),
-            comment: $("#comments").val(),
-            password: password,
-            gender: gender,
-            type: type,
-            status: "1"
-        };
+        var comment = $("#comments").val();
+
+        user.username = $("#username").val();
+        user.firstname = $("#firstname").val();
+        user.lastname = $("#lastname").val();
+        user.birthday = $("#birthday").val();
+        user.email = $("#email").val();
+        user.wechat = $("#weChat").val();
+        user.tel = $("#tel").val();
+        user.dorm = $("#dorm").val();
+        user.qq = $("#qq").val();
+        user.comment = comment;
+        user.gender = gender;
+        user.type = type;
+        user.status  = "1";
+
 
         $.ajax({
             url: basePath + "/admin/user/add",
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formdata),
+            data: JSON.stringify(user),
             success: function (data) {
                 if (data.code === 2001) {
-                    //updateTempUser(userid);
-                    Showbo.Msg.alert("添加成功!", function () {});
+                    updateTempUser("1", comment, userid);
                 }
                 else
                     Showbo.Msg.alert(data.msg, function () {});
