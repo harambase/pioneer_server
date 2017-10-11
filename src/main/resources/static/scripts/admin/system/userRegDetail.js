@@ -4,8 +4,8 @@ var admin = false;
 var yes = false;
 var reset = false;
 var password = "";
-var userid = location.search.split("&")[0].split("=")[1];//location.search获取url中的?后的字符串
-var userJson = location.search.split("&")[1].split("=")[1];
+var id = location.search.split("&")[0].split("=")[1];
+var userid = location.search.split("&")[1].split("=")[1];
 
 var editUserForm = $("#editUserForm").validate({});
 
@@ -84,7 +84,9 @@ $("#yes-div").click(function(){
 
 
 $(function(){
-    var user = JSON.parse(userJson);
+    var user = JSON.parse(localStorage.getItem("user"));
+    localStorage.clear();
+
     $("#userid").val(userid);
     $("#year-semester").val(user.info);
     $("#username").val(user.username);

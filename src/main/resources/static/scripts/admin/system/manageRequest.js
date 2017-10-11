@@ -22,10 +22,12 @@ $(function(){
     //编辑用户跳转
     $("#userReg").on("click", ".btn.btn-edit", function () {
         id = $(this).parents("tr").find("td").eq(0).html();
+        var userid = $(this).parents("tr").find("td").eq(1).html();
         var rowIndex = $(this).parents("tr").index();
         //此处拿到隐藏列的id
         userJson = $("#userReg").DataTable().row(rowIndex).data().userJson;
-        window.location.href = basePath + "/manage/user/request/detail?id=" + id + "&user="+hex_md5(userJson);
+        localStorage.setItem("user", userJson);
+        window.location.href = basePath + "/manage/user/request/detail?id=" + id + "&userid=" + userid;
     });
 
     var userReg = $("#userReg").DataTable({
@@ -79,7 +81,6 @@ $(function(){
                     else if(rowData === "-1") $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0;color:red; ">已拒绝</p>');
                 }
             },
-            {"data": "userJson", "title": "用户JSON","bVisible": false},
             {"data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-edit btn-warning">查看详情</button>');
                 }, "width": "100px"
