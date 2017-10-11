@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=10.000">
@@ -51,12 +51,10 @@
                 </div>
             </div>
             <div id="footerPlaceholder">
-                <b><div id="footer">
-                    <div id="copyright">
-                        Copyright &copy; 2017 - All Rights Reserved <br>
-                        <a href="https://s1lin.github.io/">Harambase Development Team</a>
-                    </div>
-                </div></b>
+                <div th:fragment="copy">
+                    Copyright &copy; 2017 - All Rights Reserved <br>
+                    <a href="https://s1lin.github.io/">Harambase Development Team</a>
+                </div>
             </div>
         </div>
     </div>

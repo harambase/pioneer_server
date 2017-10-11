@@ -611,8 +611,8 @@ div#sideNav:hover {
 }
 
 .top-navbar .dropdown-menu > li > a:hover, .top-navbar .dropdown-menu > li > a:focus {
-    color: #225081;
-    background: none;
+    background: #F36A5A;
+    color: #dedfd7;
 }
 
 .dropdown-tasks {
@@ -701,17 +701,14 @@ ul.nav.nav-second-level.collapse.in {
 
 .sidebar-collapse .nav > li > a:hover,
 .sidebar-collapse .nav > li > a:focus {
-
     outline: 0;
-
-    background: #575757;
-
+    background: #1b2839;
     color: #F36A5A;
 }
 
 .navbar-side {
     border: none;
-    background: rgba(0, 0, 0, .55);
+    background: rgba(0, 0, 0, .8);
     height: 100%;
 }
 
