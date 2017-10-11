@@ -1,6 +1,6 @@
 
 $(function(){
-    var id, userJson, status = "0", viewStatus = "";
+    var id, userJson, viewStatus = "";
 
     $("#general").click(function(){
         viewStatus = "";
@@ -67,8 +67,12 @@ $(function(){
         },
         columns: [
             {"data": "id", "title": "序列号", "width" : "100px"},
-            {"data": "userid", "title": "用户ID"},
-            {"data": "createtime", "title": "创建时间"},
+            {"data": "userid", "title": "分配ID"},
+            {"data": "userJson", "title": "姓, 名","createdCell": function (nTd, rowData){
+                var user = JSON.parse(rowData);
+                $(nTd).html(user.lastname + ", " + user.firstname);
+            }},
+            {"data": "createtime", "title": "申请时间"},
             {"data": "status", "title": "申请状态", "createdCell": function (nTd, rowData) {
                     if(rowData === "0") $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:blue; ">申请中</p>');
                     else if(rowData === "1") $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0;color:green; ">已批准</p>');

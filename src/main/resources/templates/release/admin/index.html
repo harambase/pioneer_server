@@ -17,7 +17,7 @@
         <div class="header">
             <h1 class="page-header">
                 先锋管理系统
-                <small id="name">欢迎回来</small>
+                <small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname}"></small>
             </h1>
             <ol class="breadcrumb">
                 <li class="active"><a href="/welcomeAdmin">主页</a></li>
@@ -25,7 +25,6 @@
 
         </div>
         <div id="page-inner">
-
             <!-- /. ROW  -->
             <div class="row">
                 <div class="col-md-4 col-sm-12 col-xs-12">
@@ -40,7 +39,6 @@
                             <div class="icon">
                                 <i class="fa fa-user fa-5x red"></i>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -123,7 +121,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div><!-- /. WRAPPER  -->
 </body>
-<div th:include="/release/common/js :: load_js(true , false, false)"></div>
+<div th:include="/release/common/js :: load_js(true,true,false)"></div>
 
 <script src="/static/scripts/admin/welcomeAdmin.js"></script>
 

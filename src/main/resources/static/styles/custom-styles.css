@@ -586,7 +586,7 @@ div#sideNav:hover {
 .top-navbar .nav > li {
     position: relative;
     display: inline-block;
-    margin: 0px;
+    margin: -2px;
     padding: 0px;
 }
 

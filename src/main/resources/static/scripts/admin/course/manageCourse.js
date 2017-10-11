@@ -415,7 +415,7 @@ $(function () {
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">删除</button>' +
-                    '<button class="btn btn-edit">更新</button>' +
+                    '<button class="btn btn-edit">详情</button>' +
                     '<button class="btn btn-list">学生列表</button>');
             }
             }
