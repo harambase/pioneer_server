@@ -14,133 +14,73 @@ $(function () {
         studentid = null;
         crn = null;
         transTable.draw();
-        $(".class-pop").css({display: "none"});
-        $(".user-pop").css({display: "none"});
-        $(".student-only").css({display:"none"});
-        $("#h1").html("成绩单列表");
     });
-    $("#class").click(function () {
-        $(".class-pop").css({display: "block"});
-        $(".user-pop").css({display: "none"});
-        $(".student-only").css({display:"none"});
-        $(".all").css({display:"none"});
-    });
-    $("#user").click(function () {
-        $(".class-pop").css({display: "none"});
-        $(".user-pop").css({display: "block"});
-        $(".student-only").css({display:"block"});
-        $(".all").css({display:"none"});
-    });
-    $("#student").click(function () {
-        $("#user-title").html("Lists of Students in System");
-        $(".user-table").css({display: "block"});
-        userType = "s";
-        userTable.draw();
-    });
-    $(".w_close").click(function () {
-        $(".user-pop").css({display: "none"});
-        $(".class-pop").css({display: "none"});
-        $(".w_wrapper").css({display: "none"});
-    });
+
 
     $("#userTable").on("click", ".btn.btn-info", function () {
-        $(".user-view").css({display: "none"});
-        $(".user-pop").css({display: "none"});
-        $(".class-pop").css({display: "none"});
-        $(".view").css({display: "none"});
         crn = null;
-        studentid = $(this).parents("tr").find("td").eq(1).html();
-
-        writingProperty(studentid);
-        $(".view").css({display: "block"});
-
-    });
-    function writingProperty(studentid){
-        $.ajax({
-            url: basePath + "/student/transcript/info?studentid="+studentid,
-            type: "GET",
-            success: function (data) {
-                if (data.code === 2001)
-                    writingTranscriptProperty(data.data);
-                else if (data.code === 2005)
-                    Showbo.Msg.alert("系统异常!", function () {});
-                else
-                    Showbo.Msg.alert(data.msg, function () {});
-            }
-        })
-    }
-    function writingTranscriptProperty(studentView){
-        $("#h1").html(studentView.lastname+", "+studentView.firstname + " 成绩单");
-        var $studentTable = $("#student-table");
-        var detail = [];
-        $("#h2").html(studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+" 的成绩单");
-        detail.push(setRow("", "学分上限: ",
-            '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
-            studentView.max_credits +'>' +
-            '<button class="btn btn-edit" style="display: block; margin-top: 8px;"id="enable">修改</button>' +
-            '<button class="btn btn-edit" style="display: none;margin-top: 8px;" id="update">确认更新</button>'));
-        detail.push(setRow("", "未完成学分数:    ", studentView.incomplete));
-        detail.push(setRow("", "正在进行的学分数:   ", studentView.progress));
-        detail.push(setRow("", "已完成学分数:      ", studentView.complete));
-
-        writeTableResourceDetail($studentTable,detail);
+        studentid = $(this).parents("tr").find("td").eq(0).html();
         transTable.draw();
+    });
+    // function writingProperty(studentid){
+    //     $.ajax({
+    //         url: basePath + "/student/transcript/info?studentid="+studentid,
+    //         type: "GET",
+    //         success: function (data) {
+    //             if (data.code === 2001)
+    //                 writingTranscriptProperty(data.data);
+    //             else if (data.code === 2005)
+    //                 Showbo.Msg.alert("系统异常!", function () {});
+    //             else
+    //                 Showbo.Msg.alert(data.msg, function () {});
+    //         }
+    //     })
+    // }
+    // function writingTranscriptProperty(studentView){
+    //     $("#h1").html(studentView.lastname+", "+studentView.firstname + " 成绩单");
+    //     var $studentTable = $("#student-table");
+    //     var detail = [];
+    //     $("#h2").html(studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+" 的成绩单");
+    //     detail.push(setRow("", "学分上限: ",
+    //         '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
+    //         studentView.max_credits +'>' +
+    //         '<button class="btn btn-edit" style="display: block; margin-top: 8px;"id="enable">修改</button>' +
+    //         '<button class="btn btn-edit" style="display: none;margin-top: 8px;" id="update">确认更新</button>'));
+    //     detail.push(setRow("", "未完成学分数:    ", studentView.incomplete));
+    //     detail.push(setRow("", "正在进行的学分数:   ", studentView.progress));
+    //     detail.push(setRow("", "已完成学分数:      ", studentView.complete));
+    //
+    //     writeTableResourceDetail($studentTable,detail);
+    //     transTable.draw();
+    //
+    // }
+    // function writeTableResourceDetail(tableId, list) {
+    //     var str = '<tr>';
+    //     for (var i = 0; i < list.length; i++) {
+    //         str += '<td style="padding: 0 10px 0 0;"><b>' + list[i].text + '</b></td>' +
+    //             '<td style="padding: 0 30px 0 0;">' + list[i].value + '</td>';
+    //     }
+    //     str += '</tr>';
+    //     tableId.html(str);
+    // }
+    // function setRow(name, text, value) {
+    //     return {
+    //         name: name,
+    //         text: text,
+    //         value: value
+    //     }
+    // }
 
-    }
-    function writeTableResourceDetail(tableId, list) {
-        var str = '<tr>';
-        for (var i = 0; i < list.length; i++) {
-            str += '<td style="padding: 0 10px 0 0;"><b>' + list[i].text + '</b></td>' +
-                '<td style="padding: 0 30px 0 0;">' + list[i].value + '</td>';
-        }
-        str += '</tr>';
-        tableId.html(str);
-    }
-    function setRow(name, text, value) {
-        return {
-            name: name,
-            text: text,
-            value: value
-        }
-    }
+    $("#overall").click(function(){
+        studentid = null;
+        crn = null;
+        transTable.draw();
+    });
 
     $("#classTable").on("click", ".btn.btn-info", function () {
-        $(".user-view").css({display: "none"});
-        $(".user-pop").css({display: "none"});
-        $(".class-pop").css({display: "none"});
-        $(".view").css({display: "none"});
         studentid = null;
-
-        $(".view").css({display: "block"});
-
-        crn = $(this).parents("tr").find("td").eq(1).html();
-        var cname = $(this).parents("tr").find("td").eq(2).html();
-        $("#h1").html(cname +"课的学生成绩单");
-
+        crn = $(this).parents("tr").find("td").eq(0).html();
         transTable.draw();
-    });
-    //INPUT RADIO 选择控制
-    $("#complete").click(function () {
-        $("#complete").prop("checked", true);
-        $("#process").prop("checked", false);
-        $("#nComplete").prop("checked", false);
-        complete = "Complete";
-    });
-    $("#process").click(function () {
-        $("#process").prop("checked", true);
-        $("#complete").prop("checked", false);
-        $("#nComplete").prop("checked", false);
-        complete = "In Progress";
-    });
-    $("#nComplete").click(function () {
-        $("#nComplete").prop("checked", true);
-        $("#process").prop("checked", false);
-        $("#complete").prop("checked", false);
-        complete = "Not Complete";
-    });
-
-    $("#cancel").click(function(){
-        $(".w_wrapper").css({display: "none"});
     });
 
     $("#transTable").on("click", ".btn.btn-edit", function () {
@@ -269,20 +209,18 @@ $(function () {
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width":"45px"},
-            {"data": "userid", "title": "用户ID"},
-            {"data": "username", "title": "用户名"},
-            {"data": "firstname", "title": "名"},
+            {"data": "userid", "title": "学生ID"},
             {"data": "lastname", "title": "姓"},
+            {"data": "firstname", "title": "名"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">选择</button>');
+                $(nTd).html('<button class="btn btn-info" style="width:100%">选择</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [5]
+            targets: [3]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -321,22 +259,29 @@ $(function () {
         },
 
         columns: [
-            {"data": "id", "title": "序号","width":"50px"},
             {"data": "crn", "title": "编号"},
             {"data": "name", "title": "课名"},
             {"data": "coulev", "title": "等级"},
-            {"data": "cousec", "title": "部分"},
-            {"data": "status", "title": "状态"},
+            {"data": "cousec", "title": "班级"},
             {"data": "faculty", "title": "教师"},
+            {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
+                if(rowData === "1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; ">未开始</p>');
+                else if(rowData === "0")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; ">进行中</p>');
+                else if(rowData === "-1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">已结课</p>');
+
+            }},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">选择</button>');
-            }, "width": "100px"
+                $(nTd).html('<button class="btn btn-info" style="width:100%">选择</button>');
+            }, "width": "60px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [7]
+            targets: [6]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -375,30 +320,35 @@ $(function () {
             url: basePath + "/course/transcript/list",
             data: function (d) {
                 d.studentid = studentid;
-                d.crn = crn;
-            }
+                d.crn = crn;            }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width": "45px"},
+            {"data": "id", "title": "序号", "bVisible":false},
             {"data": "studentid", "title": "学生ID"},
-            {"data": "slast", "title": "学生姓"},
-            {"data": "sfirst", "title": "学生名"},
-            {"data": "crn", "title": "课程编码"},
-            {"data": "coursename", "title": "课程编号"},
+            {"data": "sname", "title": "姓名"},
+            {"data": "crn", "title": "课码"},
+            {"data": "coursename", "title": "课名"},
+            {"data": "fname", "title": "授课人"},
             {"data": "grade", "title": "成绩"},
-            {"data": "complete", "title": "完成情况"},
-            {"data": "facultyid", "title": "授课人ID"},
-            {"data": "credits", "title": "课程学分"},
-            {"data": "assigntime", "title": "成绩提交时间", "width": "200px"},
+            {"data": "complete", "title": "完成情况", "createdCell": function (nTd, rowData) {
+                if(rowData === "1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; ">完成</p>');
+                else if(rowData === "0")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:blue; ">进行中</p>');
+                else if(rowData === "-1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">挂科</p>');
+                }
+            },
+            {"data": "assigntime", "title": "提交时间"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">删除</button><button class="btn btn-edit">修改</button>');
-                }, "width": "200px"
+                $(nTd).html('<button class="btn btn-info" style="width: 50%">删除</button><button class="btn btn-edit"style="width: 50%">修改</button>');
+                }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [11]
+            targets: [9]
         }, {
             "defaultContent": "",
             "targets": "_all"

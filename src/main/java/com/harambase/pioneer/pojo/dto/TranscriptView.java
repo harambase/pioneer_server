@@ -10,14 +10,6 @@ public class TranscriptView extends Transcript implements Serializable {
 
     private String facultyid;
 
-    private String sfirst;
-
-    private String slast;
-
-    private String ffirst;
-
-    private String flast;
-
     private Integer credits;
     
     private String day;
@@ -25,7 +17,27 @@ public class TranscriptView extends Transcript implements Serializable {
     private String time;
 
     private String date;
-
+    
+    private String sname;
+    
+    private String fname;
+    
+    public String getSname() {
+        return sname;
+    }
+    
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
+    
+    public String getFname() {
+        return fname;
+    }
+    
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+    
     public String getDay() {
         return day;
     }
@@ -73,36 +85,5 @@ public class TranscriptView extends Transcript implements Serializable {
     public void setFacultyid(String facultyid) {
         this.facultyid = facultyid;
     }
-
-    public String getSfirst() {
-        return sfirst;
-    }
-
-    public void setSfirst(String sfirst) {
-        this.sfirst = sfirst;
-    }
-
-    public String getSlast() {
-        return slast;
-    }
-
-    public void setSlast(String slast) {
-        this.slast = slast;
-    }
-
-    public String getFfirst() {
-        return ffirst;
-    }
-
-    public void setFfirst(String ffirst) {
-        this.ffirst = ffirst;
-    }
-
-    public String getFlast() {
-        return flast;
-    }
-
-    public void setFlast(String flast) {
-        this.flast = flast;
-    }
+    
 }
