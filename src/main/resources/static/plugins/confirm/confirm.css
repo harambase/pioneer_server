@@ -47,7 +47,6 @@ a:hover {
 /*.box-163css{ width:500px; height:900px; margin:220px auto; position:relative;}*/
 .box-163css input {
     margin-left: 10px;
-    border: none;
     border: 1px solid #a10000;
     background: #c00;
     text-align: center;
@@ -59,13 +58,12 @@ a:hover {
 
 #dvMsgBox {
     display: none;
-    position: absolute;
     font-size: 12px;
     width: 300px;
     overflow: hidden;
     z-index: 1050;
     border-radius: 3px;
-    font-family: "Microsoft YaHei";
+    position: fixed;
 }
 
 #dvMsgBox .top {
@@ -122,7 +120,7 @@ a:hover {
 }
 
 #dvMsgBox .body .right .ct .pro .bg {
-    width: 0%;
+    width: 0;
     height: 100%;
     background: #c9dffc;
 }
@@ -173,8 +171,8 @@ input.btnfocus{
     background-color: #000000;
     z-index: 100;
     position: absolute;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
 }
 
 #dvMsgBtns {

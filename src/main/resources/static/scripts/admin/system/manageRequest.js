@@ -1,3 +1,6 @@
+$("#collapseOne").click(function(){
+   $(this).css({height: "100px"});
+});
 
 $(function(){
     var id, userJson, viewStatus = "";
@@ -99,7 +102,7 @@ $(function(){
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [4]
+            targets: [5]
         }, {
             "defaultContent": "",
             "targets": "_all"
