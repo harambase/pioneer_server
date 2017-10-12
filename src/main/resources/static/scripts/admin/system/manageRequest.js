@@ -1,7 +1,3 @@
-$("#collapseOne").click(function(){
-   $(this).css({height: "100px"});
-});
-
 $(function(){
     var id, userJson, viewStatus = "";
 
