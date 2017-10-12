@@ -342,7 +342,7 @@ $(function () {
             {"data": "assigntime", "title": "提交时间"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info" style="width: 50%">删除</button><button class="btn btn-edit"style="width: 50%">修改</button>');
+                $(nTd).html('<button class="btn btn-edit"style="width: 100%">修改</button>');
                 }, "width": "100px"
             }
         ],
