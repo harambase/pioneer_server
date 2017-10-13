@@ -304,11 +304,11 @@ public class CourseServiceImpl implements CourseService {
                 }
             }else if(results.size() == 1){
                 CourseView cv = results.get(0);
-                if(cv.getStatus().equals("0")){
-                    message.setCode(FlagDict.COURSE_FINISHED.getV());
-                    message.setMsg(FlagDict.COURSE_FINISHED.getM());
-                    return message;
-                }
+//                if(cv.getStatus().equals("0")){
+//                    message.setCode(FlagDict.COURSE_FINISHED.getV());
+//                    message.setMsg(FlagDict.COURSE_FINISHED.getM());
+//                    return message;
+//                }
                 courses.add(cv);
                 message.setData(courses);
             }

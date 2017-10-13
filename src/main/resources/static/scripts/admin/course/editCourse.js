@@ -81,10 +81,10 @@ $(function(){
             }
         },
         columns: [
-            {"data": "id", "title": "序列号", "width" : "45px"},
-            {"data": "userid", "title": "用户ID"},
-            {"data": "firstname", "title": "名"},
+            {"data": "userid", "title": "学生ID"},
             {"data": "lastname", "title": "姓"},
+            {"data": "firstname", "title": "名"},
+
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
                 $(nTd).html('<button class="btn btn-info">添加</button>');
@@ -93,7 +93,7 @@ $(function(){
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [4]
+            targets: [3]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -137,12 +137,20 @@ $(function(){
         columns: [
             {"data": "studentid", "title": "学生ID"},
             {"data": "sname", "title": "学生名"},
-            {"data": "slast", "title": "姓"},
             {"data": "grade", "title": "学生成绩"},
+            {"data": "complete", "title": "完成情况", "createdCell": function (nTd, rowData) {
+                if(rowData === "1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; ">完成</p>');
+                else if(rowData === "0")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:blue; ">进行中</p>');
+                else if(rowData === "-1")
+                    $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:red; ">挂科</p>');
+            }
+            },
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">移除</button>');
-            }, "width": "100px"
+                $(nTd).html('<button style="width: 50%" class="btn btn-success">修改成绩</button><button style="width: 50%" class="btn btn-danger">移除</button>');
+            }, "width": "10px"
             }
         ],
         "columnDefs": [{
@@ -162,10 +170,10 @@ $(function(){
                 var data = removeStuFromCourse(studentid, crn);
                 $("#student").css({display: "block"});
                 stuListTable.draw();
-
             }
         });
     });
+
     //添加学生
     $("#studentTable").on("click", ".btn.btn-info", function () {
         var studentid = $(this).parents("tr").find("td").eq(1).html();
@@ -205,18 +213,27 @@ $(function(){
         })
     });
     function getCourse(crn){
-        var isSucc = false;
         $.ajax({
             url : basePath+"/course/list/search?search="+crn,
             type : "GET",
-            async: false,
             success: function (result) {
-                // if (result.code === 2001){
-                //
-                // }
-                // else {
-                //     Showbo.Msg.alert(result.msg, function () {});
-                // }
+                var course = result.data[0];
+                $("#crn").val(course.crn);
+                $("#name").val(course.name);
+                $("#credits").val(course.credits);
+                $("#coulev").val(course.coulev);
+                $("#cousec").val(course.cousec);
+                $("#startdate").val(course.startdate);
+                $("#enddate").val(course.starttime);
+                $("#starttime").val(course.starttime);
+                $("#endtime").val(course.endtime);
+                $("#capa").val(course.capa);
+                $("#year-semester").val(course.info);
+                $("#classroom").val(course.classroom);
+                $("#comment").val(course.comment);
+                $("#searchFValue").val(course.facultyid);
+                var precrn = course.precrn.split("/");
+                $("#searchCValue").val(precrn);
             }
         });
     }
