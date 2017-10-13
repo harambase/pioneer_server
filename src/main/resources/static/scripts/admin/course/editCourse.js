@@ -39,6 +39,191 @@ $("#sun").click(function(){
     s = !s;
 });
 
+var uri = location.search.split("&");
+var crn = uri[0].split("=")[1];
+$(function(){
+    getCourse(crn);
+    var curStuTable = $("#studentTable").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
+            "paginate": {
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/admin/user/list",
+
+            data: function (d) {
+                d.type = "s";
+                d.status = "1";
+            }
+        },
+        columns: [
+            {"data": "id", "title": "序列号", "width" : "45px"},
+            {"data": "userid", "title": "用户ID"},
+            {"data": "firstname", "title": "名"},
+            {"data": "lastname", "title": "姓"},
+            {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">添加</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [4]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+    var stuListTable = $("#studentList").DataTable({
+
+        "language": {
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            },
+            "emptyTable": "没有数据！",
+            "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
+            "infoEmpty": "没有发现记录！",
+            "infoFiltered": "(从_MAX_条记录中搜索)",
+            "lengthMenu": "显示: _MENU_",
+            "search": "搜索:",
+            "zeroRecords": "没有找到匹配的记录！",
+            "paginate": {
+                "previous": "上一页",
+                "next": "下一页",
+                "last": "尾页",
+                "first": "首页"
+            }
+        },
+        "lengthMenu": [
+            [5],
+            [5]
+        ],
+        pageLength: 5,
+        processing: true,
+        serverSide: true,
+
+        ajax: {
+            url: basePath + "/course/student/list",
+            data: function (d) {
+                d.crn = crn;
+            }
+        },
+        columns: [
+            {"data": "studentid", "title": "学生ID"},
+            {"data": "sname", "title": "学生名"},
+            {"data": "slast", "title": "姓"},
+            {"data": "grade", "title": "学生成绩"},
+            {
+                "data": null, "title": "操作", "createdCell": function (nTd) {
+                $(nTd).html('<button class="btn btn-info">移除</button>');
+            }, "width": "100px"
+            }
+        ],
+        "columnDefs": [{
+            orderable: false,
+            targets: [4]
+        }, {
+            "defaultContent": "",
+            "targets": "_all"
+        }]
+    });
+
+    //移除学生
+    $("#studentList").on("click", ".btn.btn-info", function () {
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        Showbo.Msg.confirm("确认删除该学生？",function(){
+            if($(".btnfocus").val() !== "取消"){
+                var data = removeStuFromCourse(studentid, crn);
+                $("#student").css({display: "block"});
+                stuListTable.draw();
+
+            }
+        });
+    });
+    //添加学生
+    $("#studentTable").on("click", ".btn.btn-info", function () {
+        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        var pre = false;
+        var time = false;
+        var capacity = false;
+        $('input[name="pre"]:checked').each(function () {
+            pre = true;
+        });
+        $('input[name="time"]:checked').each(function () {
+            time = true;
+        });
+        $('input[name="capa"]:checked').each(function () {
+            capacity = true;
+        });
+
+        var formdata = {
+            prereq  :pre,
+            time : time,
+            capacity :capacity,
+            studentid :studentid,
+            crn: crn
+        };
+        $.ajax({
+            url:basePath+"/course/add/student",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("添加成功!", function () {
+                        logTable.draw();
+                    });
+                else
+                    Showbo.Msg.alert(data.msg, function () {});
+            }
+        })
+    });
+    function getCourse(crn){
+        var isSucc = false;
+        $.ajax({
+            url : basePath+"/course/list/search?search="+crn,
+            type : "GET",
+            async: false,
+            success: function (result) {
+                // if (result.code === 2001){
+                //
+                // }
+                // else {
+                //     Showbo.Msg.alert(result.msg, function () {});
+                // }
+            }
+        });
+    }
+});
+
+
+
 //教师列表
 $(".js-example-basic-single").select2({
     ajax: {
@@ -182,8 +367,6 @@ $("#registerBtn").click(function (){
         })
     }
 });
-
-
 
 function formatRepoSelection(repo) {
     return repo.id
