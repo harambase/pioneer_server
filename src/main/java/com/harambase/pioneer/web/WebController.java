@@ -57,6 +57,10 @@ public class WebController {
     public String viewCourse(){
         return "release/admin/course/viewCourse";
     }
+    @RequestMapping("/manage/course/edit")
+    public String editCourse(){
+        return "release/admin/course/editCourse";
+    }
     @RequestMapping("/manage/course/time")
     public String setTime(){
         return "release/admin/course/setTime";
@@ -64,6 +68,14 @@ public class WebController {
     @RequestMapping("/manage/transcript/view")
     public String viewTranscript(){
         return "release/admin/course/viewTranscript";
+    }
+    @RequestMapping("/manage/transcript/edit")
+    public String editTranscript(){
+        return "release/admin/course/editTranscript";
+    }
+    @RequestMapping("/manage/student/credit")
+    public String setCredit(){
+        return "release/admin/course/setCredit";
     }
     @RequestMapping("/manage/course/request")
     public String viewCourseRequest(){
