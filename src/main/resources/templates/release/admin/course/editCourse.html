@@ -223,7 +223,7 @@
                                                         <div class="panel-body">
                                                             <div class="form-group">
                                                                 <div class="col-sm-2">
-                                                                    <label class="col-sm-12 control-label">*教师:</label>
+                                                                    <label class="col-sm-12 control-label">*分配教师:</label>
                                                                 </div>
                                                                 <div id="selectF" class="col-sm-8">
                                                                     <select style="width: 75%" id="searchFValue"
@@ -241,11 +241,16 @@
                                                                 <div class="col-sm-2">
                                                                     <label class="col-sm-12 control-label">*预选课程（可以多选，也可不选）:</label>
                                                                 </div>
-                                                                <div class="col-sm-8">
-                                                                    <select style="width: 100%" id="searchCValue"
+                                                                <div id="selectC" class="col-sm-8">
+                                                                    <select style="width: 75%" id="searchCValue"
                                                                             class="js-example-basic-multiple"
                                                                             name="states[]" multiple="multiple">
                                                                     </select>
+                                                                    <button style="float: right; width: 20%;" class="btn btn-danger cancel course">取消</button>
+                                                                </div>
+                                                                <div id="course" class="col-sm-8">
+                                                                    <h4 style="width: 50%; padding-top: 0;  float: left" id="preCourseInfo"></h4>
+                                                                    <button id="updateC" class="btn btn-primary" style=" width: 50%; margin-top: 0.5%;">更新预选课程</button>
                                                                 </div>
                                                             </div>
 

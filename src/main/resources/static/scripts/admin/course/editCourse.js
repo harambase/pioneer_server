@@ -235,8 +235,12 @@ function getCourse(crn){
             $("#year-semester").val(course.info);
             $("#classroom").val(course.classroom);
             $("#comment").val(course.comment);
+
             $("#selectF").css({display: "none"});
             $("#facultyInfo").text(course.faculty + "  ID: " + course.facultyid);
+
+            $("#selectC").css({display: "none"});
+            $("#courseInfo").text(course.faculty + "  ID: " + course.facultyid);
             // var precrn = course.precrn.split("/");
             // $("#searchCValue").val(precrn);
             //教师列表

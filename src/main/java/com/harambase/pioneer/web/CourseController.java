@@ -46,6 +46,11 @@ public class CourseController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/list/precourse", method = RequestMethod.GET)
+    public ResponseEntity preCourseList(@RequestParam("crn") String crn){
+        HaramMessage haramMessage = courseService.preCourseList(crn);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
     @RequestMapping(value = "/remove", method = RequestMethod.DELETE)
     public ResponseEntity removeCourse(@RequestParam(value = "crn") String crn){
         HaramMessage haramMessage = courseService.remove(crn);

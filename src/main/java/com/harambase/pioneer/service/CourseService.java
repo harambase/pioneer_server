@@ -32,4 +32,6 @@ public interface CourseService {
     HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String crn);
 
     HaramMessage countActiveCourse();
+
+    HaramMessage preCourseList(String crn);
 }

@@ -530,5 +530,27 @@ public class CourseServiceImpl implements CourseService {
         message.setData(c);
         return message;
     }
-    
+
+    @Override
+    public HaramMessage preCourseList(String crn) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Course course = courseMapper.selectByPrimaryKey(crn);
+            String[] precrn = course.getPrecrn().split("/");
+            List<Course> preCourses = new ArrayList<>();
+
+            for(int i = 0; i<precrn.length; i++){
+                if(StringUtils.isNotEmpty(precrn[i]))
+                    preCourses.add(courseMapper.selectByPrimaryKey(precrn[i]));
+            }
+            haramMessage.setData(preCourses);
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        }
+        return haramMessage;
+    }
+
 }
