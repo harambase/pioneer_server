@@ -212,37 +212,47 @@ $(function(){
             }
         })
     });
-    function getCourse(crn){
-        $.ajax({
-            url : basePath+"/course/list/search?search="+crn,
-            type : "GET",
-            success: function (result) {
-                var course = result.data[0];
-                $("#crn").val(course.crn);
-                $("#name").val(course.name);
-                $("#credits").val(course.credits);
-                $("#coulev").val(course.coulev);
-                $("#cousec").val(course.cousec);
-                $("#startdate").val(course.startdate);
-                $("#enddate").val(course.starttime);
-                $("#starttime").val(course.starttime);
-                $("#endtime").val(course.endtime);
-                $("#capa").val(course.capa);
-                $("#year-semester").val(course.info);
-                $("#classroom").val(course.classroom);
-                $("#comment").val(course.comment);
-                $("#searchFValue").val(course.facultyid);
-                var precrn = course.precrn.split("/");
-                $("#searchCValue").val(precrn);
-            }
-        });
-    }
+
 });
+function getCourse(crn){
 
 
+    $.ajax({
+        url : basePath+"/course/list/search?search="+crn,
+        type : "GET",
+        success: function (result) {
+            var course = result.data[0];
+            $("#crn").val(course.crn);
+            $("#name").val(course.name);
+            $("#credits").val(course.credits);
+            $("#coulev").val(course.coulev);
+            $("#cousec").val(course.cousec);
+            $("#startdate").val(course.startdate);
+            $("#enddate").val(course.starttime);
+            $("#starttime").val(course.starttime);
+            $("#endtime").val(course.endtime);
+            $("#capa").val(course.capa);
+            $("#year-semester").val(course.info);
+            $("#classroom").val(course.classroom);
+            $("#comment").val(course.comment);
+            $("#selectF").css({display: "none"});
+            $("#facultyInfo").text(course.faculty + "  ID: " + course.facultyid);
+            // var precrn = course.precrn.split("/");
+            // $("#searchCValue").val(precrn);
+            //教师列表
 
-//教师列表
-$(".js-example-basic-single").select2({
+        }
+    });
+}
+$("#update").click(function(){
+    $("#selectF").css({display: "block"});
+    $("#faculty").css({display: "none"});
+});
+$(".cancel").click(function(){
+    $("#selectF").css({display: "none"});
+    $("#faculty").css({display: "block"});
+});
+$("#searchFValue").select2({
     ajax: {
         url: basePath + "/admin/list/faculty",
         type: "GET",
@@ -271,7 +281,6 @@ $(".js-example-basic-single").select2({
         },
         cache: true
     },
-    placeholder: '请分配所属集群',//默认文字提示
     language: "zh-CN",
     tags: false,//允许手动添加
     allowClear: true,//允许清空
@@ -282,8 +291,7 @@ $(".js-example-basic-single").select2({
     templateResult: formatRepo,
     templateSelection: formatRepoSelection
 });
-//课程列表
-$('.js-example-basic-multiple').select2({
+$("#searchCValue").select2({
     ajax: {
         url: basePath + "/course/list/search",
         type: "GET",
@@ -304,6 +312,7 @@ $('.js-example-basic-multiple').select2({
                 };
                 itemList.push(item);
             }
+            console.log(itemList);
             return {
                 results: itemList
             };
@@ -320,6 +329,7 @@ $('.js-example-basic-multiple').select2({
     templateResult: formatRepo,
     templateSelection: formatRepoSelection
 });
+
 
 $("#registerBtn").click(function (){
     if(createCourseForm.form()) {

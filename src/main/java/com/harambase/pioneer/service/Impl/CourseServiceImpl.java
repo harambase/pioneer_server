@@ -292,27 +292,8 @@ public class CourseServiceImpl implements CourseService {
                 param.put("search", null);
 
             List<CourseView> results = courseMapper.getCourseBySearch(param);
-            List<CourseView> courses = new ArrayList<>();
-            int index = 0;
 
-            if(results.size() > 1) {
-                for(CourseView c: results){
-                    if (c.getStatus().equals("1"))
-                        courses.add(c);
-                    index++;
-                    if(index == 5) break;
-                }
-            }else if(results.size() == 1){
-                CourseView cv = results.get(0);
-//                if(cv.getStatus().equals("0")){
-//                    message.setCode(FlagDict.COURSE_FINISHED.getV());
-//                    message.setMsg(FlagDict.COURSE_FINISHED.getM());
-//                    return message;
-//                }
-                courses.add(cv);
-                message.setData(courses);
-            }
-            message.setData(courses);
+            message.setData(results);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
