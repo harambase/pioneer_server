@@ -1,13 +1,21 @@
 package com.harambase.pioneer.service.Impl;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
+import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
+import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.dto.StudentView;
 import com.harambase.pioneer.service.StudentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by linsh on 7/12/2017.
@@ -57,6 +65,73 @@ public class StudentServiceImpl implements StudentService {
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage studentList(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                    String type, String status) {
+        HaramMessage message = new HaramMessage();
+
+        switch (Integer.parseInt(orderColumn)) {
+            case 0:
+                orderColumn = "studentid";
+                break;
+            case 1:
+                orderColumn = "firstname";
+                break;
+            case 2:
+                orderColumn = "lastname";
+                break;
+            case 3:
+                orderColumn = "max_credits";
+                break;
+            case 4:
+                orderColumn = "complete";
+                break;
+            case 5:
+                orderColumn = "progress";
+                break;
+            case 6:
+                orderColumn = "incomplete";
+                break;
+        }
+        long totalSize = 0;
+        try {
+            Map<String, Object> param = new HashMap<>();
+            param.put("search", search);
+            param.put("type", type);
+            param.put("status", status);
+
+            if(StringUtils.isEmpty(search))
+                param.put("search", null);
+
+            totalSize = studentMapper.getStudentCountByMapPageSearchOrdered(param); //startTime, endTime);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            param.put("currentIndex", page.getCurrentIndex());
+            param.put("pageSize",  page.getPageSize());
+            param.put("order",  order);
+            param.put("orderColumn",  orderColumn);
+
+            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+            List<Person> msgs = studentMapper.getStudentByMapPageSearchOrdered(param);
+
+            message.setData(msgs);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+            return message;
+
+        }catch (Exception e) {
+            e.printStackTrace();
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return message;
         }
     }
 }

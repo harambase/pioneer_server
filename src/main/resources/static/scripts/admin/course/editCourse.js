@@ -43,6 +43,7 @@ var uri = location.search.split("&");
 var crn = uri[0].split("=")[1];
 $(function(){
     getCourse(crn);
+    getPreCourse(crn);
     var curStuTable = $("#studentTable").DataTable({
 
         "language": {
@@ -73,27 +74,29 @@ $(function(){
         serverSide: true,
 
         ajax: {
-            url: basePath + "/admin/user/list",
+            url: basePath + "/student/list",
 
             data: function (d) {
-                d.type = "s";
                 d.status = "1";
             }
         },
         columns: [
-            {"data": "userid", "title": "学生ID"},
+            {"data": "studentid", "title": "学生ID"},
             {"data": "lastname", "title": "姓"},
             {"data": "firstname", "title": "名"},
-
+            {"data": "max_credits", "title": "学分上限"},
+            {"data": "complete", "title": "已完成"},
+            {"data": "progress", "title": "进行中"},
+            {"data": "incomplete", "title": "未完成"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info">添加</button>');
+                $(nTd).html('<button style="width: 100%" class="btn btn-info">添加</button>');
             }, "width": "100px"
             }
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [3]
+            targets: [7]
         }, {
             "defaultContent": "",
             "targets": "_all"
@@ -214,6 +217,25 @@ $(function(){
     });
 
 });
+function getPreCourse(crn){
+    $.ajax({
+        url : basePath+"/course/list/precourse?crn="+crn,
+        type : "GET",
+        success: function (result) {
+            var preCourseList = result.data;
+            $("#selectC").css({display: "none"});
+            console.log(preCourseList.length);
+            if(preCourseList.length > 0) {
+                var preCourseListStr = "";
+                for(var i = 0; i<preCourseList.length; i++)
+                    preCourseListStr += preCourseList[i].name + ",";
+                $("#preCourseInfo").text(preCourseListStr);
+                //教师列表
+            }else
+                $("#preCourseInfo").text("当前无预选课程");
+        }
+    });
+}
 function getCourse(crn){
 
 
@@ -255,6 +277,14 @@ $("#update").click(function(){
 $(".cancel").click(function(){
     $("#selectF").css({display: "none"});
     $("#faculty").css({display: "block"});
+});
+$("#updateC").click(function(){
+    $("#selectC").css({display: "block"});
+    $("#course").css({display: "none"});
+});
+$("#cancel").click(function(){
+    $("#selectC").css({display: "none"});
+    $("#course").css({display: "block"});
 });
 $("#searchFValue").select2({
     ajax: {

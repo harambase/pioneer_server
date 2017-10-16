@@ -246,7 +246,7 @@
                                                                             class="js-example-basic-multiple"
                                                                             name="states[]" multiple="multiple">
                                                                     </select>
-                                                                    <button style="float: right; width: 20%;" class="btn btn-danger cancel course">取消</button>
+                                                                    <button style="float: right; width: 20%;" class="btn btn-danger" id="cancel">取消</button>
                                                                 </div>
                                                                 <div id="course" class="col-sm-8">
                                                                     <h4 style="width: 50%; padding-top: 0;  float: left" id="preCourseInfo"></h4>
@@ -329,8 +329,32 @@
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse">
                                         <div class="panel-body">
+                                            <div class="col-md-8 col-sm-4">
                                             <table style="width:100%" id="studentTable"
                                                    class="table table-striped table-bordered table-hover"></table>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <div id="assignSDiv" class="group-form-input">
+                                                    <h4 class="status" style="margin-top: 0px;">添加选项: </h4>
+                                                    <table style="font-size: 11px">
+                                                        <tr>
+                                                            <td style="color: red;font-weight: 900;margin-bottom: -5px"><input type="checkbox" name="pre" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                                添加此学生，即使未完成预选课程
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="time" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                                添加此学生，即使有时间冲突
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="capa" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                                添加此学生，即使已经达到课程人数上限
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

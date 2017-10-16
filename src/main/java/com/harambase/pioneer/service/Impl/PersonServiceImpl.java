@@ -153,17 +153,14 @@ public class PersonServiceImpl implements PersonService {
         HaramMessage message = new HaramMessage();
         if(StringUtils.isNotEmpty(type)){
             switch (Integer.parseInt(orderColumn)) {
-                case 1:
+                case 0:
                     orderColumn = "userid";
                     break;
-                case 2:
+                case 1:
                     orderColumn = "firstname";
                     break;
-                case 3:
+                case 2:
                     orderColumn = "lastname";
-                    break;
-                default:
-                    orderColumn = "id";
                     break;
             }
         }

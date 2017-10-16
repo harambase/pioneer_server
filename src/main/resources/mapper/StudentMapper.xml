@@ -69,4 +69,27 @@
     select * from StudentView where studentid = #{studentid,jdbcType=VARCHAR}
   </select>
 
+  <select id="getStudentCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from StudentView <where> 1 = 1  and status = '1'
+    <if test="search != null">
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      lastname like '%' #{search,jdbcType=VARCHAR} '%' or
+      firstname like  '%' #{search,jdbcType=VARCHAR} '%' or
+      max_credits like  '%' #{search,jdbcType=VARCHAR} '%' or
+      complete like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if>
+  </where>
+  </select>
+  <select id="getStudentByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.StudentView">
+    select * from StudentView <where> 1 = 1 and status = #{status,jdbcType=VARCHAR}
+    <if test="search != null" >
+      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      lastname like '%' #{search,jdbcType=VARCHAR} '%' or
+      firstname like  '%' #{search,jdbcType=VARCHAR} '%' or
+      max_credits like  '%' #{search,jdbcType=VARCHAR} '%' or
+      complete like  '%' #{search,jdbcType=VARCHAR} '%')
+    </if></where>
+    order by ${orderColumn} ${order}
+    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
 </mapper>

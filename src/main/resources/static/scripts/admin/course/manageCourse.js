@@ -30,8 +30,8 @@ $("#confirm").click(function (){
     })
 });
 
-$("#courseTable").on("click", ".btn.btn-edit", function () {
-    crn = $(this).parents("tr").find("td").eq(1).html();
+$("#courseTable").on("click", ".btn.btn-info", function () {
+    crn = $(this).parents("tr").find("td").eq(0).html();
     window.location.href = basePath + "/manage/course/edit?crn=" + crn;
 });
 
@@ -69,7 +69,7 @@ var logTable = $("#courseTable").DataTable({
         url: basePath + "/course/list"
     },
     columns: [
-        {"data": "id", "title": "序号", "width" : "30px"},
+        // {"data": "id", "title": "序号", "width" : "30px"},
         {"data": "crn", "title": "编号"},
         {"data": "name", "title": "课程名"},
         {"data": "coulev", "title": "等级"},
@@ -78,7 +78,7 @@ var logTable = $("#courseTable").DataTable({
         {"data": "remain", "title": "剩余"},
         {"data": "status", "title": "状态", "createdCell": function (nTd, rowData) {
             if(rowData === "1")
-                $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:black; ">未开始</p>');
+                $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:blue; ">未开始</p>');
             else if(rowData === "0")
                 $(nTd).html('<p style="line-height: 1.42857143; padding-top: 0; color:green; ">进行中</p>');
             else if(rowData === "-1")
@@ -89,18 +89,17 @@ var logTable = $("#courseTable").DataTable({
         {"data": "time", "title": "上课时间"},
         {"data": "day", "title": "星期"},
         {"data": "faculty", "title": "授课老师"},
-        {"data": "updatetime", "title": "更新时间"},
+        // {"data": "updatetime", "title": "更新时间"},
         {
             "data": null, "title": "操作", "createdCell": function (nTd) {
-            $(nTd).html('<button class="btn btn-info">删除</button>' +
-                '<button class="btn btn-edit">详情</button>' +
-                '<button class="btn btn-list">学生列表</button>');
+            $(nTd).html('<button style="width: 50%" class="btn btn-danger">删除课程</button>' +
+                '<button style="width: 50%" class="btn btn-info">查看详情</button>');
         }
         }
     ],
     "columnDefs": [{
         orderable: false,
-        targets: [13]
+        targets: [11]
     }, {
         "defaultContent": "",
         "targets": "_all"
@@ -108,8 +107,8 @@ var logTable = $("#courseTable").DataTable({
 });
 
 //移除课程
-$("#courseTable").on("click", ".btn.btn-info", function() {
-    crn = $(this).parents("tr").find("td").eq(1).html();
+$("#courseTable").on("click", ".btn.btn-danger", function() {
+    crn = $(this).parents("tr").find("td").eq(0).html();
     Showbo.Msg.confirm("确认删除该课程？",function(){
         if($(".btnfocus").val() !== "取消"){
             /*删除操作*/
