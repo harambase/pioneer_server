@@ -170,7 +170,7 @@ public class CourseServiceImpl implements CourseService {
             Course course = courseMapper.selectByPrimaryKey(crn);
             String status = courseMapper.getStatus(crn);
             //检查课程状态
-            if (status.equals("0")) {
+            if (status.equals("-1")) {
                 haramMessage.setMsg(FlagDict.COURSE_DISABLED.getM());
                 haramMessage.setCode(FlagDict.COURSE_DISABLED.getV());
                 return haramMessage;
@@ -189,7 +189,7 @@ public class CourseServiceImpl implements CourseService {
                 return haramMessage;
             }
             transcript.setAssigntime(DateUtil.DateToStr(new Date()));
-            transcript.setComplete("In Progress");
+            transcript.setComplete("0");
             transcript.setGrade("*");
             transcript.setCrn(crn);
             transcript.setStudentid(studentid);
@@ -197,7 +197,7 @@ public class CourseServiceImpl implements CourseService {
             String precrn = course.getPrecrn();
             if (StringUtils.isNotEmpty(precrn)) {
                 Transcript preTranscript = new Transcript();
-                preTranscript.setComplete("Complete");
+                preTranscript.setComplete("1");
                 preTranscript.setStudentid(studentid);
                 preTranscript.setCrn(precrn);
                 int ret = transcriptMapper.count(preTranscript);

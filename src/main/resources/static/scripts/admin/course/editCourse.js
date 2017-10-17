@@ -5,6 +5,8 @@ var m = false; var t = false; var w = false;
 var tr = false; var f = false; var sa = false;
 var s = false; var yes = false;
 
+
+
 $('#yes-div').click(function(){
   $("#yes").prop("checked", !yes);
   yes = !yes;
@@ -124,8 +126,8 @@ $(function(){
             }
         },
         "lengthMenu": [
-            [5],
-            [5]
+            [5,10,15],
+            [5,10,15]
         ],
         pageLength: 5,
         processing: true,
@@ -166,11 +168,11 @@ $(function(){
     });
 
     //移除学生
-    $("#studentList").on("click", ".btn.btn-info", function () {
-        var studentid = $(this).parents("tr").find("td").eq(1).html();
+    $("#studentList").on("click", ".btn.btn-danger", function () {
+        var studentid = $(this).parents("tr").find("td").eq(0).html();
         Showbo.Msg.confirm("确认删除该学生？",function(){
             if($(".btnfocus").val() !== "取消"){
-                var data = removeStuFromCourse(studentid, crn);
+                removeStuFromCourse(studentid, crn);
                 $("#student").css({display: "block"});
                 stuListTable.draw();
             }
@@ -179,7 +181,7 @@ $(function(){
 
     //添加学生
     $("#studentTable").on("click", ".btn.btn-info", function () {
-        var studentid = $(this).parents("tr").find("td").eq(1).html();
+        var studentid = $(this).parents("tr").find("td").eq(0).html();
         var pre = false;
         var time = false;
         var capacity = false;
@@ -208,7 +210,7 @@ $(function(){
             success: function (data) {
                 if (data.code === 2001)
                     Showbo.Msg.alert("添加成功!", function () {
-                        logTable.draw();
+                        curStuTable.draw();
                     });
                 else
                     Showbo.Msg.alert(data.msg, function () {});
@@ -217,6 +219,8 @@ $(function(){
     });
 
 });
+var credits;
+
 function getPreCourse(crn){
     $.ajax({
         url : basePath+"/course/list/precourse?crn="+crn,
@@ -237,8 +241,6 @@ function getPreCourse(crn){
     });
 }
 function getCourse(crn){
-
-
     $.ajax({
         url : basePath+"/course/list/search?search="+crn,
         type : "GET",
@@ -250,7 +252,7 @@ function getCourse(crn){
             $("#coulev").val(course.coulev);
             $("#cousec").val(course.cousec);
             $("#startdate").val(course.startdate);
-            $("#enddate").val(course.starttime);
+            $("#enddate").val(course.enddate);
             $("#starttime").val(course.starttime);
             $("#endtime").val(course.endtime);
             $("#capa").val(course.capa);
@@ -261,15 +263,12 @@ function getCourse(crn){
             $("#selectF").css({display: "none"});
             $("#facultyInfo").text(course.faculty + "  ID: " + course.facultyid);
 
-            $("#selectC").css({display: "none"});
-            $("#courseInfo").text(course.faculty + "  ID: " + course.facultyid);
-            // var precrn = course.precrn.split("/");
-            // $("#searchCValue").val(precrn);
-            //教师列表
 
+            credits = course.credits;
         }
     });
 }
+
 $("#update").click(function(){
     $("#selectF").css({display: "block"});
     $("#faculty").css({display: "none"});
@@ -437,3 +436,13 @@ function formatRepo(repo) {
     return repo.text
 }
 
+$("#transcript").css({"display": "none"});
+
+$("#studentList").on("click", ".btn.btn-success", function(){
+    $("#transcript").css({"display": "block"});
+    $("#sid").val($(this).parents("tr").find("td").eq(0).html());
+    $("#crn2").val(crn);
+    $("#credits2").val(credits);
+    $("#grade").val($(this).parents("tr").find("td").eq(2).html());
+
+});
