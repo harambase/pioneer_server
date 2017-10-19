@@ -328,7 +328,7 @@
                                                     学生成绩详情
                                                 </div>
                                                  <div class="panel-body">
-
+                                                     <div class="form-group">
                                                      <div class="col-sm-3">
                                                          <label for="sid"
                                                                 class="col-sm-12 control-label">学生ID:</label>
@@ -367,6 +367,24 @@
                                                            <input id="process"   type="radio" name="complete" value="In Progress">正在进行
                                                            <input id="nComplete" type="radio" name="complete" value="Not Complete">未完成
                                                       </div>
+                                                     </div>
+                                                     <div class="col-sm-3" style="margin-top:10px;">
+                                                         <label for="tPassword"
+                                                                class="col-sm-12 control-label">*管理员操作密码:</label>
+                                                     </div>
+                                                     <div class="col-sm-9" style="margin-top:10px;">
+                                                         <input type="password" id="tPassword"
+                                                                class="form-control" minlength="6"
+                                                                maxlength="16" checkOpPwd="true" required/>
+                                                     </div>
+                                                     <div class="col-sm-6" style="margin-top:10px;">
+                                                         <button class="col-sm-12 btn btn-primary btn-sucess" id="tUpdate">更新</button>
+                                                     </div>
+
+
+                                                     <div class="col-sm-6" style="margin-top:10px;">
+                                                         <button id="cancel2" class="col-sm-12 btn btn-primary btn-danger">取消</button>
+                                                     </div>
                                                  </div>
                                             </div>
                                         </div>
@@ -390,19 +408,22 @@
                                                     <h4 class="status" style="margin-top: 0px;">添加选项: </h4>
                                                     <table style="font-size: 11px">
                                                         <tr>
-                                                            <td style="color: red;font-weight: 900;margin-bottom: -5px"><input type="checkbox" name="pre" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                            <td style="color: red;font-weight: 900;margin-bottom: -5px">
+                                                                <input type="checkbox" name="pre" style="height: 14px; font-size:15px; margin: 10px 4px 10px 0; width: 12px;">
                                                                 添加此学生，即使未完成预选课程
-                                                            
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="time" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                            <td style="color: red;font-weight: 900;">
+                                                                <input type="checkbox" name="time" style="height: 14px; font-size:15px;margin: 10px 4px 10px 0; width: 12px;">
                                                                 添加此学生，即使有时间冲突
-                                                            
+                                                            </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="color: red;font-weight: 900;"><input type="checkbox" name="capa" style="height: 14px;margin: 10px 4px 10px 0; width: 12px;"/>
+                                                            <td style="color: red;font-weight: 900;">
+                                                                <input type="checkbox" name="capa" style="height: 14px; font-size:15px;margin: 10px 4px 10px 0; width: 12px;">
                                                                 添加此学生，即使已经达到课程人数上限
-                                                            
+                                                            </td>
                                                         </tr>
                                                     </table>
                                                 </div>
