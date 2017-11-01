@@ -49,7 +49,18 @@ public class WebController {
 
     //faculty
     //course
-
+    @RequestMapping("/faculty/course/create")
+    public String fCreateCourse(){
+        return "release/faculty/course/createCourse";
+    }
+    @RequestMapping("/faculty/course/view")
+    public String fViewCourse(){
+        return "release/faculty/course/viewCourse";
+    }
+    @RequestMapping("/faculty/course/edit")
+    public String fEditCourse(){
+        return "release/faculty/course/editCourse";
+    }
     //manage
     //course
     @RequestMapping("/manage/course/create")
