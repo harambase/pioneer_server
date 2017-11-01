@@ -33,10 +33,10 @@ public class WebController {
         return "release/web/reg";
     }
     
-    //system index
+    //index
     @RequestMapping("/welcomeStudent")
     public String welcomeStudent(){
-        return "student/welcomeStudent";
+        return "release/student/index";
     }
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
@@ -44,9 +44,12 @@ public class WebController {
     }
     @RequestMapping("/welcomeFaculty")
     public String welcomeFaculty(){
-        return "page/faculty/welcomeFaculty";
+        return "release/faculty/index";
     }
-    
+
+    //faculty
+    //course
+
     //manage
     //course
     @RequestMapping("/manage/course/create")
