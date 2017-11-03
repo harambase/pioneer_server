@@ -3,6 +3,7 @@ package com.harambase.pioneer.web;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.StudentService;
@@ -88,10 +89,15 @@ public class CourseController {
                                     @RequestParam(value = "search[value]") String search,
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
+                                    @RequestParam(value = "mode", required = false) String mode,
                                     HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
-            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+            String facultyid = "";
+            if(mode != null && mode.equals("faculty"))
+                facultyid = ((Person)session.getAttribute("user")).getUserid();
+
+            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyid);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());

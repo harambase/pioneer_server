@@ -334,6 +334,9 @@
   </select>
   <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from CourseView <where> 1 = 1
+    <if test="facultyid!=null">
+      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like  '%' #{search,jdbcType=VARCHAR} '%' or
@@ -353,6 +356,9 @@
   </select>
   <select id="getCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.CourseView">
     select * from CourseView <where> 1 = 1
+    <if test="facultyid!=null">
+      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    </if>
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like  '%' #{search,jdbcType=VARCHAR} '%' or

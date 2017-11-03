@@ -140,9 +140,12 @@ public class AdminController {
                                        @RequestParam(value = "order[0][column]") String orderCol,
                                        @RequestParam(value = "studentid", required = false) String studentid,
                                        @RequestParam(value = "facultyid", required = false) String facultyid,
+                                       @RequestParam(value = "mode", required = false) String mode,
                                        HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
+            if(mode != null && mode.equals("faculty"))
+                facultyid = ((Person)session.getAttribute("user")).getUserid();
             HaramMessage message = personService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search,
                     order, orderCol, studentid, facultyid);
             map.put("draw", draw);

@@ -66,7 +66,10 @@ var logTable = $("#courseTable").DataTable({
     serverSide: true,
 
     ajax: {
-        url: basePath + "/course/list"
+        url: basePath + "/course/list",
+        data: function (d) {
+            d.mode = "faculty";
+        }
     },
     columns: [
         // {"data": "id", "title": "序号", "width" : "30px"},
@@ -92,8 +95,7 @@ var logTable = $("#courseTable").DataTable({
         // {"data": "updatetime", "title": "更新时间"},
         {
             "data": null, "title": "操作", "createdCell": function (nTd) {
-            $(nTd).html('<button style="width: 50%" class="btn btn-danger">删除课程</button>' +
-                '<button style="width: 50%" class="btn btn-info">查看详情</button>');
+            $(nTd).html('<button style="width: 100%" class="btn btn-info">查看详情</button>');
         }
         }
     ],
