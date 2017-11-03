@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/admin/common/header :: commonHeader('选课设置',false, true)"></head>
+<head th:include="/release/faculty/common/header :: commonHeader('选课设置',false, true)"></head>
 <body>
 <div id="wrapper">
     <!--/. NAV TOP  -->
-    <div th:include="/release/admin/common/navtop :: navtop" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navtop :: navtop" class="sidebar-collapse"></div>
 
     <!-- /. NAV SIDE  -->
-    <div th:include="/release/admin/common/navbar :: nav" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navbar :: nav" class="sidebar-collapse"></div>
 
     <div id="page-wrapper">
         <div class="header">
@@ -17,7 +17,7 @@
                 <small>创建新课程</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/welcomeAdmin">主页</a></li>
+                <li><a href="/welcomeFaculty">主页</a></li>
                 <li><a href="#">教务管理</a></li>
                 <li class="active">创建新课程</li>
             </ol>
@@ -246,7 +246,7 @@
 
                         </div>
                         <div class="panel-footer" id = footerPlaceholder">
-                            <div th:include="/release/admin/common/footer :: copy" id="copyright"></div>
+                            <div th:include="/release/faculty/common/footer :: copy" id="copyright"></div>
                         </div>
                     </div>
                 </div>
@@ -257,9 +257,9 @@
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/admin/common/js :: load_js(false , false, true)"></div>
+<div th:include="/release/faculty/common/js :: load_js(false , false, true)"></div>
 
-<script src="/static/scripts/admin/course/createCourse.js"></script>
+<script src="/static/scripts/faculty/course/createCourse.js"></script>
 
 <script>
     //执行一个laydate实例

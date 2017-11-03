@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('成绩单查看',true, false)"></head>
+<head th:include="/release/faculty/common/header :: commonHeader('成绩单查看',true, false)"></head>
 <body>
 <div id="wrapper">
     <!--/. NAV TOP  -->
-    <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navtop :: navtop" class="sidebar-collapse"></div>
 
     <!-- /. NAV SIDE  -->
-    <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navbar :: nav" class="sidebar-collapse"></div>
 
     <div id="page-wrapper">
         <div class="header">
@@ -17,7 +17,7 @@
                 <small>成绩单查看</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/welcomeAdmin">主页</a></li>
+                <li><a href="/welcomeFaculty">主页</a></li>
                 <li><a href="#">教务管理</a></li>
                 <li class="active">成绩单查看</li>
             </ol>
@@ -93,7 +93,7 @@
 
         </div>
         <div id=footerPlaceholder">
-            <div th:include="/release/common/footer :: copy" id="copyright"></div>
+            <div th:include="/release/faculty/common/footer :: copy" id="copyright"></div>
         </div>
     </div>
     <!-- /. PAGE INNER  -->
@@ -101,8 +101,8 @@
 <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
-<div th:include="/release/common/js :: load_js(true , false, false)"></div>
+<div th:include="/release/faculty/common/js :: load_js(true , false, false)"></div>
 
-<script src="/static/scripts/admin/course/manageTranscript.js"></script>
+<script src="/static/scripts/faculty/course/manageTranscript.js"></script>
 </body>
 </html>

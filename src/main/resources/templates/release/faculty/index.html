@@ -1,17 +1,15 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
-
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:include="/release/common/header :: commonHeader('先锋OA系统',false,false)"></head>
+<head th:include="/release/faculty/common/header :: commonHeader('先锋OA系统',false,false)"></head>
 <body>
 <div id="wrapper">
 
     <!--/. NAV TOP  -->
-    <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navtop :: navtop" class="sidebar-collapse"></div>
 
     <!-- /. NAV SIDE  -->
-    <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
+    <div th:include="/release/faculty/common/navbar :: nav" class="sidebar-collapse"></div>
 
     <div id="page-wrapper">
         <div class="header">
@@ -111,7 +109,7 @@
             </div>
             <div class="row">
                 <div id = footerPlaceholder">
-                    <div th:include="/release/common/footer :: copy" id="copyright"></div>
+                    <div th:include="/release/faculty/common/footer :: copy" id="copyright"></div>
                 </div>
             </div>
 
@@ -121,7 +119,7 @@
     <!-- /. PAGE WRAPPER  -->
 </div><!-- /. WRAPPER  -->
 </body>
-<div th:include="/release/common/js :: load_js(true,true,false)"></div>
+<div th:include="/release/faculty/common/js :: load_js(true,true,false)"></div>
 
 <script src="/static/scripts/admin/welcomeAdmin.js"></script>
 

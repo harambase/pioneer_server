@@ -61,6 +61,7 @@ public class WebController {
     public String fEditCourse(){
         return "release/faculty/course/editCourse";
     }
+
     //manage
     //course
     @RequestMapping("/manage/course/create")
