@@ -406,7 +406,7 @@ public class PersonServiceImpl implements PersonService {
                 orderColumn = "operator";
                 break;
             default:
-                orderColumn = "id";
+                orderColumn = "updateTime";
                 break;
         }
         long totalSize = 0;
@@ -455,6 +455,7 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage updateAdvise(Advise advise) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             int ret = adviseMapper.updateByPrimaryKeySelective(advise);
             if(ret == 1) {
                 haramMessage.setData(advise);

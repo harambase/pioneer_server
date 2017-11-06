@@ -128,27 +128,7 @@ $(function () {
         $("#searchFValue2").data("name", $(this).data("name"));
         $(".w_selected3").css({display: "none"});
     });
-    $("#addf-button2").click(function () {
-        facultyid = $("#searchFValue2").data("userid");
-        var formdata = {
-            id :  id,
-            facultyid : facultyid
-        };
-        $.ajax({
-            url:basePath+"/admin/advise/update",
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(formdata),
-            success: function (data) {
-                if (data.code === 2001)
-                    Showbo.Msg.alert("更新成功!", function () {
-                        adviseTable.draw();
-                    });
-                else
-                    Showbo.Msg.alert(data.msg, function () {});
-            }
-        })
-    });
+
 
 });
 
@@ -312,11 +292,11 @@ var adviseTable = $("#transTable").DataTable({
         {"data": "oname", "title": "操作人"},
         {
             "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
-            var htmlStr =  '<button class="btn btn-info" style="width:50%" onclick="deleteAdvise(\'' +rowData.id+ '\')">删除</button>';
+            var htmlStr =  '<button class="btn btn-info" style="width:50%" onclick="deleteAdvise(\'' +rowData.id+ '\')">删除辅导关系</button>';
             if(rowData.status === "0")
-                htmlStr += '<button class="btn btn-edit" style="width :50%">启用</button>';
+                htmlStr += '<button class="btn btn-success" style="width:50%" onclick="updateStatus(\'' +rowData.id+'\',\'' + "1" + '\')">启用辅导关系</button>';
             else
-                htmlStr += '<button class="btn btn-edit" style="width :50%">停止</button>';
+                htmlStr += '<button class="btn btn-danger " style="width:50%" onclick="updateStatus(\'' +rowData.id+'\',\'' + "0" + '\')">停止辅导关系</button>';
             $(nTd).html(htmlStr);
 
         }, "width": "200px"
@@ -348,6 +328,26 @@ function deleteAdvise(id) {
                         Showbo.Msg.alert(data.msg, function () {});
                 }
             });
+        }
+    });
+}
+function updateStatus(id, status){
+    var formdata = {
+        id :  id,
+        status : status
+    };
+    $.ajax({
+        url:basePath+"/admin/advise/update",
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(formdata),
+        success: function (data) {
+            if (data.code === 2001)
+                Showbo.Msg.alert("更新成功!", function () {
+                    adviseTable.draw();
+                });
+            else
+                Showbo.Msg.alert(data.msg, function () {});
         }
     });
 }

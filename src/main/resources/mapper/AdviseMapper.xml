@@ -70,13 +70,13 @@
         #{facultyid,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status,
+        #{status,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
-        updateTime,
+        #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        operator,
+        #{operator,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -90,13 +90,13 @@
         facultyid = #{facultyid,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        status,
+        status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null" >
-        updateTime,
+        updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
-        operator,
+        operator = #{operator,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
