@@ -175,13 +175,6 @@
 <div th:include="/release/admin/common/js :: load_js(true , false, false)"></div>
 
 <script src="/static/scripts/admin/course/manageTranscript.js"></script>
-<script>
-    $(document).on("show.bs.modal", ".modal", function(){
-        $(this).draggable({
-            handle: ".panel-heading"   // 只能点击头部拖动
-        });
-        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
-    });
-</script>
+
 </body>
 </html>
