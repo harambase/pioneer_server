@@ -15,6 +15,16 @@ public class Transcript implements Serializable{
 
     private String assigntime;
 
+    private String operator;
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
     public Integer getId() {
         return id;
     }

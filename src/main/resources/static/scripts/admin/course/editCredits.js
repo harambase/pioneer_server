@@ -1,14 +1,14 @@
-//更新学分
-$("#student-table").on("click", "#enable", function(){
-    $("#max").removeAttr("disabled");
-    $("#enable").css({display: "none"});
-    $("#update").css({display: "block"});
-});
-$("#student-table").on("click", "#update", function(){
-    var newMax = $("#max").val();
+function edit(sid, sname, max_credits) {
+    $("#editCredits").modal('show');
+    $("#sid").val(sid);
+    $("#sname").val(sname);
+    $("#credits").val(max_credits);
+}
+
+$("#confirm").click(function(){
     var formdata = {
-        studentid: studentid,
-        maxCredits: newMax
+        studentid: $("#sid").val(),
+        maxCredits: $("#credits").val()
     };
     $.ajax({
         url: basePath + "/student/update",
@@ -17,17 +17,17 @@ $("#student-table").on("click", "#update", function(){
         data: JSON.stringify(formdata),
         success: function (data) {
             if (data.code === 2001)
-                Showbo.Msg.alert("更新成功!", function () {});
+                Showbo.Msg.alert("更新成功!", function () {
+                    $("#editCredits").modal('hide');
+                    curStuTable.draw();
+                });
             else
                 Showbo.Msg.alert(data.msg, function () {});
         }
     });
-    $("#max").attr("disabled","disabled");
-    $("#update").css({display: "none"});
-    $("#enable").css({display: "block"});
 });
 
-var userTable = $("#userTable").DataTable({
+var curStuTable = $("#studentTable").DataTable({
 
     "language": {
         "aria": {
@@ -50,32 +50,39 @@ var userTable = $("#userTable").DataTable({
     },
     "pagingType":   "full_numbers",
     "lengthMenu": [
-        [5],
-        [5]
+        [10,20,50],
+        [10,20,50]
     ],
-    pageLength: 5,
+    pageLength: 10,
     processing: true,
     serverSide: true,
 
     ajax: {
-        url: basePath + "/admin/user/list",
+        url: basePath + "/student/list",
+
         data: function (d) {
-            d.type = userType;
+            d.status = "1";
         }
     },
     columns: [
-        {"data": "userid", "title": "学生ID"},
+        {"data": "studentid", "title": "学生ID"},
         {"data": "lastname", "title": "姓"},
         {"data": "firstname", "title": "名"},
+        {"data": "max_credits", "title": "学分上限"},
+        {"data": "complete", "title": "已完成"},
+        {"data": "progress", "title": "进行中"},
+        {"data": "incomplete", "title": "未完成"},
         {
-            "data": null, "title": "操作", "createdCell": function (nTd) {
-            $(nTd).html('<button class="btn btn-info" style="width:100%">选择</button>');
+            "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
+                var sname = rowData.lastname+", "+ rowData.firstname;
+            $(nTd).html('<button style="width: 100%" class="btn btn-info" ' +
+                'onclick="edit(\'' + rowData.studentid + '\',\'' + sname + '\',\'' + rowData.max_credits + '\')">修改上限</button>');
         }, "width": "100px"
         }
     ],
     "columnDefs": [{
         orderable: false,
-        targets: [3]
+        targets: [7]
     }, {
         "defaultContent": "",
         "targets": "_all"

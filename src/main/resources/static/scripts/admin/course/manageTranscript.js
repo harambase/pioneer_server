@@ -5,6 +5,7 @@ var complete = false;
 var inProgress = false;
 var nComplete = false;
 
+var editTranscriptForm = $("#editTranscriptForm").validate({});
 
 function edit(sid, crn, sname, cname, credits, grade, isComplete){
     $("#editTranscript").modal('show');
@@ -65,32 +66,35 @@ $("#classTable").on("click", ".btn.btn-info", function () {
 
 //更新成绩
 $("#confirm").click(function(){
-    var valueOfComplete = "0";
-    $('input[name="complete"]:checked').each(function(){
-        valueOfComplete = $(this).val();
-    });
-    var formdata = {
-        studentid: $("#sid").val(),
-        crn: $("#crn").val(),
-        grade: $("#grade").val(),
-        complete: valueOfComplete
-    };
-    $.ajax({
-        url: basePath + "/course/transcript/update",
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(formdata),
-        success: function (data) {
-            if (data.code === 2001)
-                Showbo.Msg.alert("更新成功!", function () {
-                    studentid = crn = null;
-                    transTable.draw();
-                    $("#editTranscript").modal('hide');
-                });
-            else
-                Showbo.Msg.alert(data.msg, function () {});
-        }
-    })
+    if(editTranscriptForm.form()) {
+        var valueOfComplete = "0";
+        $('input[name="complete"]:checked').each(function () {
+            valueOfComplete = $(this).val();
+        });
+        var formdata = {
+            studentid: $("#sid").val(),
+            crn: $("#crn").val(),
+            grade: $("#grade").val(),
+            complete: valueOfComplete
+        };
+        $.ajax({
+            url: basePath + "/course/transcript/update",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(formdata),
+            success: function (data) {
+                if (data.code === 2001)
+                    Showbo.Msg.alert("更新成功!", function () {
+                        studentid = crn = null;
+                        transTable.draw();
+                        $("#editTranscript").modal('hide');
+                    });
+                else
+                    Showbo.Msg.alert(data.msg, function () {
+                    });
+            }
+        })
+    }
 });
 
 var userTable = $("#userTable").DataTable({

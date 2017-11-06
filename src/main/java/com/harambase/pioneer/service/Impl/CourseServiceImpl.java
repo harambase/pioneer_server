@@ -23,6 +23,8 @@ import java.util.*;
  */
 @Service
 public class CourseServiceImpl implements CourseService {
+    private static final String ROOT = "9201701000";
+
     private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
 
@@ -209,6 +211,7 @@ public class CourseServiceImpl implements CourseService {
             }
             //检查复选
             if (transcriptMapper.count(transcript) == 0) {
+                transcript.setOperator(ROOT);
                 int ret = transcriptMapper.insert(transcript);
                 if (ret == 1) {
                     haramMessage.setMsg(FlagDict.SUCCESS.getM());

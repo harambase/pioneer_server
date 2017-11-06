@@ -139,7 +139,8 @@ public class CourseController {
     }
 
     @RequestMapping(value = "/transcript/update", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity updateTranscript(@RequestBody Transcript transcript){
+    public ResponseEntity updateTranscript(@RequestBody Transcript transcript, HttpSession session){
+        transcript.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage haramMessage = courseService.updateGrade(transcript);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
