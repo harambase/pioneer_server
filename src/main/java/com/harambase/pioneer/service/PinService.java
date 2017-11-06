@@ -10,4 +10,6 @@ public interface PinService {
     HaramMessage generate(String startTime, String endTime, int role, String info, String remark);
     
     HaramMessage clearAll(Person user);
+    
+    HaramMessage listByInfo(String info);
 }

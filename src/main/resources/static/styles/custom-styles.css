@@ -878,6 +878,9 @@ label.error:after {
     border-right: 3px solid transparent;
     border-top: 3px solid #f95f7a;
 }
+.active > i > .fa.down:before {
+    content: "\f106";
+}
 /*.modal.dataCenterModal .modal-body {*/
     /*padding: 50px 80px;*/
 /*}*/

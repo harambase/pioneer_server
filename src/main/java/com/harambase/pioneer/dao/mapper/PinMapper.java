@@ -4,6 +4,7 @@ import com.harambase.pioneer.pojo.Pin;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -24,4 +25,6 @@ public interface PinMapper {
     int updateByPrimaryKey(Pin record);
     
     int countByInfo(Map<String, Object> param);
+    
+    List<String> listByInfo(Map<String, Object> param);
 }

@@ -45,9 +45,17 @@ public class PinController {
     }
     
     @RequestMapping(value = "/clear/all", method = RequestMethod.GET)
-    public ResponseEntity clearAll(HttpSession session){
+    public ResponseEntity clearAll(@RequestParam(value = "info") String info,
+                                   HttpSession session){
         Person user = (Person)session.getAttribute("user");
         HaramMessage haramMessage = pinService.clearAll(user);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/list/info", method = RequestMethod.GET)
+    public ResponseEntity listByInfo(@RequestParam(value = "info") String info,
+                                     HttpSession session){
+        HaramMessage haramMessage = pinService.listByInfo(info);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 }

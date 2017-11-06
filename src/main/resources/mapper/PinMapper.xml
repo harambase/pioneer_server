@@ -171,4 +171,7 @@
   <select id="countByInfo" parameterType="java.util.Map" resultType="java.lang.Integer">
     select count(*) from pin where role = #{role, jdbcType=INTEGER} group by info
   </select>
+  <select id="listByInfo" parameterType="java.util.Map" resultType="java.util.List">
+    select * from pin where info like '%' #{info,jdbcType=VARCHAR}  '%'
+  </select>
 </mapper>

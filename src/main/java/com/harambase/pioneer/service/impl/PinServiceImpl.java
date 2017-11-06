@@ -90,4 +90,22 @@ public class PinServiceImpl implements PinService{
     public HaramMessage clearAll(Person user) {
         return null;
     }
+    
+    @Override
+    public HaramMessage listByInfo(String info) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Map<String, Object> param = new HashMap<>();
+            param.put("info", info);
+            List<String> pinInfoList = pinMapper.listByInfo(param);
+            haramMessage.setData(pinInfoList);
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            e.printStackTrace();
+        }
+        haramMessage.setCode(FlagDict.SUCCESS.getV());
+        haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        return haramMessage;
+    }
 }
