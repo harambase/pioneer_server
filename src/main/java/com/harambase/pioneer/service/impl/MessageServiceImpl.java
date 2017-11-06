@@ -1,12 +1,10 @@
-package com.harambase.pioneer.service.Impl;
+package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
-import com.harambase.pioneer.pojo.Message;
-import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.pojo.dto.MessageView;
 import com.harambase.pioneer.service.MessageService;
 import org.apache.commons.lang3.StringUtils;

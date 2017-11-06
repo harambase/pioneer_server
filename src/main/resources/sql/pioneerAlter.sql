@@ -1,12 +1,11 @@
-alter table `pioneer_2.0`.`TempUser` 
-   add column `status` varchar(20) NULL after `userid`, 
-   add column `createtime` varchar(50) NULL after `user_json`, 
-   add column `updatetime` varchar(50) NULL after `createtime`,
-   add column `operator` varchar(20) NULL after `updatetime`;
-
-alter table `pioneer_2.0`.`TempCourse`
-   add column `status` varchar(20) NULL after `crn`,
-   add column `createtime` varchar(50) NULL after `course_json`,
-   add column `updatetime` varchar(50) NULL after `createtime`,
-   change `json` `course_json` text NOT NULL,
-   add column `operator` varchar(20) NULL after `updatetime`;
+create table `pioneer_2.0`.`PIN`(
+   `id` int(11) NOT NULL AUTO_INCREMENT , 
+   `pin` int(11) NOT NULL , 
+   `facultyid` varchar(11) , 
+   `studentid` varchar(20) , 
+   `role` int(11) NOT NULL COMMENT '1：选课，2：成绩', 
+   `startTime` varchar(20) NOT NULL , 
+   `endTime` varchar(20) NOT NULL , 
+   `createTime` varchar(20) , 
+   PRIMARY KEY (`id`)
+ )

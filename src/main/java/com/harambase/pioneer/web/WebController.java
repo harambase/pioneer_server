@@ -81,10 +81,6 @@ public class WebController {
     public String editCourse(){
         return "release/admin/course/editCourse";
     }
-    @RequestMapping("/manage/course/time")
-    public String setTime(){
-        return "release/admin/course/setTime";
-    }
     @RequestMapping("/manage/transcript/view")
     public String viewTranscript(){
         return "release/admin/course/viewTranscript";
@@ -103,6 +99,10 @@ public class WebController {
     }
     
     //administration
+    @RequestMapping("/manage/pin")
+    public String setTime(){
+        return "release/admin/administration/pin";
+    }
     @RequestMapping("/manage/leave")
     public String viewLeave(){
         return "release/admin/administration/viewLeave";

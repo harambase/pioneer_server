@@ -1,4 +1,4 @@
-package com.harambase.pioneer.service.Impl;
+package com.harambase.pioneer.service.impl;
 
 import com.harambase.pioneer.service.FacultyService;
 import org.springframework.stereotype.Service;

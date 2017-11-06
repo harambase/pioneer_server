@@ -3,16 +3,11 @@ package com.harambase.pioneer.security;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.security.service.ShiroService;
 import com.harambase.pioneer.security.service.impl.ShiroServiceImpl;
-import com.harambase.pioneer.service.Impl.PersonServiceImpl;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
