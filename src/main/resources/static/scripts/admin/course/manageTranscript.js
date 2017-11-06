@@ -168,7 +168,8 @@ var classTable = $("#classTable").DataTable({
         }
     },
     "lengthMenu": [
-        [5], [5]
+        [5],
+        [5]
     ],
     pageLength: 5,
     processing: true,
@@ -228,9 +229,10 @@ var transTable = $("#transTable").DataTable({
             "first": "首页"
         }
     },
+    "pagingType":   "full_numbers",
     "lengthMenu": [
-        [10],
-        [10]
+        [10,20,50],
+        [10,20,50]
     ],
     pageLength: 10,
     processing: true,
@@ -275,17 +277,4 @@ var transTable = $("#transTable").DataTable({
         "defaultContent": "",
         "targets": "_all"
     }]
-});
-
-//移除记录
-$("#transTable").on("click", ".btn.btn-info", function() {
-    var studentid = $(this).parents("tr").find("td").eq(1).html();
-    var crn       = $(this).parents("tr").find("td").eq(4).html();
-    Showbo.Msg.confirm("确认删除该记录？",function(){
-        if($(".btnfocus").val() !== "取消"){
-            /*删除操作*/
-            removeStuFromCourse(studentid, crn);
-            transTable.draw();
-        }
-    });
 });

@@ -57,6 +57,7 @@ var logTable = $("#courseTable").DataTable({
             "first": "首页"
         }
     },
+    "pagingType":   "full_numbers",
     "lengthMenu": [
         [5,10,15,20],
         [5,10,15,20]

@@ -48,6 +48,7 @@ var userTable = $("#userTable").DataTable({
             "first": "首页"
         }
     },
+    "pagingType":   "full_numbers",
     "lengthMenu": [
         [5],
         [5]

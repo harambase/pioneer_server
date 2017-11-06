@@ -21,6 +21,7 @@ $(function () {
                 "first": "首页"
             }
         },
+        "pagingType":   "full_numbers",
         "lengthMenu": [
             [10],
             [10]

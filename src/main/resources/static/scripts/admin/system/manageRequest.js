@@ -61,6 +61,7 @@ $(function(){
                 "first": "首页"
             }
         },
+        "pagingType":   "full_numbers",
         "lengthMenu": [
             [5,10],
             [5,10]
