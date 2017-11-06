@@ -857,7 +857,27 @@ ul.dropdown-menu.dropdown-messages li a div {
     background: rgba(255, 255, 255, 0.85);
 }
 
-
+label.error {
+    position: absolute;
+    top: -22px;
+    right: 0;
+    padding: 0px 5px;
+    color: #fff;
+    white-space: nowrap;
+    font-weight: normal;
+    background: #f95f7a;
+    font-size: 13px;
+    border-radius: 3px;
+}
+label.error:after {
+    position: absolute;
+    bottom: -3px;
+    left: 15%;
+    content: "";
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 3px solid #f95f7a;
+}
 /*.modal.dataCenterModal .modal-body {*/
     /*padding: 50px 80px;*/
 /*}*/
