@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.7.17-log : Database - pioneer_2.0
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -16,30 +17,30 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`pioneer_2.0` /*!40100 DEFAULT CHARACTER
 
 USE `pioneer_2.0`;
 
-/*Table structure for table `advise` */
+/*Table structure for table `Advise` */
 
-DROP TABLE IF EXISTS `advise`;
+DROP TABLE IF EXISTS `Advise`;
 
-CREATE TABLE `advise` (
+CREATE TABLE `Advise` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Studentid` varchar(20) NOT NULL COMMENT '学生编号',
   `facultyid` varchar(20) NOT NULL COMMENT '教师编号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-/*Data for the table `advise` */
+/*Data for the table `Advise` */
 
-LOCK TABLES `advise` WRITE;
+LOCK TABLES `Advise` WRITE;
 
-insert  into `advise`(`id`,`Studentid`,`facultyid`) values (1,'9201701103','9201701102'),(2,'9201701942','9201701100'),(4,'9201701309','9201701100'),(5,'9201701310','9201701100'),(6,'9201701101','9201701100'),(7,'9201701103','9201701100'),(8,'9201701310','9201701102'),(9,'9201701784','9201701102');
+insert  into `Advise`(`id`,`Studentid`,`facultyid`) values (1,'9201701103','9201701102'),(2,'9201701942','9201701100'),(4,'9201701309','9201701100'),(5,'9201701310','9201701100'),(6,'9201701101','9201701100'),(7,'9201701103','9201701100'),(8,'9201701310','9201701102'),(9,'9201701784','9201701102');
 
 UNLOCK TABLES;
 
-/*Table structure for table `course` */
+/*Table structure for table `Course` */
 
-DROP TABLE IF EXISTS `course`;
+DROP TABLE IF EXISTS `Course`;
 
-CREATE TABLE `course` (
+CREATE TABLE `Course` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `crn` varchar(20) NOT NULL COMMENT '课程编号',
   `name` varchar(100) NOT NULL COMMENT '课程名',
@@ -62,19 +63,19 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
-/*Data for the table `course` */
+/*Data for the table `Course` */
 
-LOCK TABLES `course` WRITE;
+LOCK TABLES `Course` WRITE;
 
-insert  into `course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`classroom`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`facultyid`,`info`,`createtime`,`updatetime`,`comment`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2017-09-03 00:00:12','qwerq2'),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701100','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe'),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52',''),(9,'120170189','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201702937','2017-01','2017-10-09 10:59:04','2017-10-09 10:59:04',NULL);
+insert  into `Course`(`id`,`crn`,`name`,`credits`,`precrn`,`couLev`,`couSec`,`classroom`,`startDate`,`endDate`,`day`,`startTime`,`endTime`,`capa`,`facultyid`,`info`,`createtime`,`updatetime`,`comment`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2017-09-03 00:00:12','qwerq2'),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701100','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701100','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe'),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52',''),(9,'120170189','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201702937','2017-01','2017-10-09 10:59:04','2017-10-09 10:59:04',NULL);
 
 UNLOCK TABLES;
 
-/*Table structure for table `message` */
+/*Table structure for table `Message` */
 
-DROP TABLE IF EXISTS `message`;
+DROP TABLE IF EXISTS `Message`;
 
-CREATE TABLE `message` (
+CREATE TABLE `Message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `senderid` varchar(50) NOT NULL COMMENT '发送者ID',
   `receiverid` varchar(50) DEFAULT NULL COMMENT '接收者ID',
@@ -90,19 +91,19 @@ CREATE TABLE `message` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
-/*Data for the table `message` */
+/*Data for the table `Message` */
 
-LOCK TABLES `message` WRITE;
+LOCK TABLES `Message` WRITE;
 
-insert  into `message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`pic`,`attachment`,`tag`,`labels`) values (49,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','UNREAD','2017-09-20 13:37:44',NULL,NULL,'work','inbox/important/'),(50,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','UNREAD','2017-09-20 13:39:29',NULL,NULL,'work','inbox/important/'),(54,'9000000000','9201702937',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-22 16:58:04',NULL,NULL,'work','[\'inbox\',\'important\']'),(55,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702574的请求注册信息','UNREAD','2017-09-25 17:05:47',NULL,NULL,'work','inbox/important/'),(56,'9000000000','9201703122',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:45',NULL,NULL,'work','[\'inbox\',\'important\']'),(57,'9000000000','9201702574',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:58',NULL,NULL,'work','[\'inbox\',\'important\']'),(58,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702884的请求注册信息','UNREAD','2017-09-25 17:09:52',NULL,NULL,'work','inbox/important/'),(59,'9000000000','9201702884',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:10:21',NULL,NULL,'work','[\'inbox\',\'important\']'),(60,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702887的请求注册信息','UNREAD','2017-09-30 10:19:10',NULL,NULL,'work','inbox/important/'),(61,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:22:02',NULL,NULL,'work','[\'inbox\',\'important\']'),(62,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:26:52',NULL,NULL,'work','[\'inbox\',\'important\']'),(63,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702745的请求注册信息','UNREAD','2017-09-30 11:40:30',NULL,NULL,'work','inbox/important/'),(64,'9000000000','9201702745',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:42:36',NULL,NULL,'work','[\'inbox\',\'important\']'),(65,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:49:34',NULL,NULL,'work','[\'inbox\',\'important\']'),(66,'9000000000','9201702544',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:51:45',NULL,NULL,'work','[\'inbox\',\'important\']'),(67,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702226的请求注册信息','UNREAD','2017-09-30 13:54:41',NULL,NULL,'work','inbox/important/'),(68,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702370的请求注册信息','UNREAD','2017-10-11 15:53:59',NULL,NULL,'work','inbox/important/'),(69,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702201的请求注册信息','UNREAD','2017-10-11 15:57:59',NULL,NULL,'work','inbox/important/'),(70,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702622的请求注册信息','UNREAD','2017-10-11 15:59:21',NULL,NULL,'work','inbox/important/');
+insert  into `Message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`pic`,`attachment`,`tag`,`labels`) values (49,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','UNREAD','2017-09-20 13:37:44',NULL,NULL,'work','inbox/important/'),(50,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','UNREAD','2017-09-20 13:39:29',NULL,NULL,'work','inbox/important/'),(54,'9000000000','9201702937',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-22 16:58:04',NULL,NULL,'work','[\'inbox\',\'important\']'),(55,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702574的请求注册信息','UNREAD','2017-09-25 17:05:47',NULL,NULL,'work','inbox/important/'),(56,'9000000000','9201703122',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:45',NULL,NULL,'work','[\'inbox\',\'important\']'),(57,'9000000000','9201702574',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:58',NULL,NULL,'work','[\'inbox\',\'important\']'),(58,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702884的请求注册信息','UNREAD','2017-09-25 17:09:52',NULL,NULL,'work','inbox/important/'),(59,'9000000000','9201702884',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:10:21',NULL,NULL,'work','[\'inbox\',\'important\']'),(60,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702887的请求注册信息','UNREAD','2017-09-30 10:19:10',NULL,NULL,'work','inbox/important/'),(61,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:22:02',NULL,NULL,'work','[\'inbox\',\'important\']'),(62,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:26:52',NULL,NULL,'work','[\'inbox\',\'important\']'),(63,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702745的请求注册信息','UNREAD','2017-09-30 11:40:30',NULL,NULL,'work','inbox/important/'),(64,'9000000000','9201702745',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:42:36',NULL,NULL,'work','[\'inbox\',\'important\']'),(65,'9000000000','9201702887',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:49:34',NULL,NULL,'work','[\'inbox\',\'important\']'),(66,'9000000000','9201702544',NULL,'账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:51:45',NULL,NULL,'work','[\'inbox\',\'important\']'),(67,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702226的请求注册信息','UNREAD','2017-09-30 13:54:41',NULL,NULL,'work','inbox/important/'),(68,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702370的请求注册信息','UNREAD','2017-10-11 15:53:59',NULL,NULL,'work','inbox/important/'),(69,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702201的请求注册信息','UNREAD','2017-10-11 15:57:59',NULL,NULL,'work','inbox/important/'),(70,'9000000000','9000000000','用户注册','注册信息','注意!接收到来自9201702622的请求注册信息','UNREAD','2017-10-11 15:59:21',NULL,NULL,'work','inbox/important/');
 
 UNLOCK TABLES;
 
-/*Table structure for table `person` */
+/*Table structure for table `Person` */
 
-DROP TABLE IF EXISTS `person`;
+DROP TABLE IF EXISTS `Person`;
 
-CREATE TABLE `person` (
+CREATE TABLE `Person` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `userid` varchar(20) NOT NULL COMMENT '主编号',
   `username` varchar(100) NOT NULL COMMENT '用户名',
@@ -125,58 +126,58 @@ CREATE TABLE `person` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
-/*Data for the table `person` */
+/*Data for the table `Person` */
 
-LOCK TABLES `person` WRITE;
+LOCK TABLES `Person` WRITE;
 
-insert  into `person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`) values (1,'9201701000','admin','administrator','system','e10adc3949ba59abbe56e057f20f883e','2017-01','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2017-10-09 17:50:50','1','s/f/a/','请勿删除'),(2,'9201701687','admLShilei','Shilei','Lin','c810ec29fed33d8e79ccee3b2589d115','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28','1','a/',NULL),(3,'9201701100','testTeacher','first','last','65b89c6cbb58ae07b15c9d001ef768e0','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-09-25 16:17:43','1','f/',NULL),(4,'9201701101','testStudent','first1','last1','39957c100f046dadeeda60c077f87add','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47','1','s/',NULL),(5,'9201701102','testTeacher2','first','last2','fa2c5ff0989f481f02ea54c6368382bc','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45','1','f/a/',NULL),(6,'9201701103','testStudent','first','last3','f0d4a0759284a87b7e7031091f230727','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:41','1','s/',NULL),(7,'9201701942','Tdisable','disable','Test','e5485a9d0622cdf031da25286337d6dd','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38','1','s/',NULL),(8,'9201701309','ttestStu3','testStu3','test','804a8c28891c3211b3075baeb800c504','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34','1','s/',NULL),(9,'9201701310','rick','KOKIA','ERI','487ef5eeb53eb03654198edfd545a513','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31','1','s/',NULL),(10,'9201701784','zhengsan784','三','张','a8156a924c4a701ca465bc5e9cd46484','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28','1','s/',NULL),(11,'9201701840','lili840','四','李','492d18d57e97001bd9bffa45911c55de','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25','0','f/a/','first'),(12,'9201701261','meimeili261','梅梅','李','16ea29c07c4a343f1aa569d147936d81','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21','1','s/','new Student'),(13,'9201701848','ww184','五','王','f11f5d8566cccdef4e9cfa29d80a4223','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18','1','f/','新老师'),(14,'9201701876','ew876','二','王','dff9c3e4686c4faceb0e7f9175b6defc','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15','1','s/',''),(15,'9201702937','DoeJon937','Doe','Jon','7d66eb52a44ad4dc575674396a78203d','2017-02','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11','1','f/a/',''),(17,'9201702574','ew574','二','王','8052d26a6da25a6e69d4bb6ac3bb1280','2017-02','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58','1','s/f/',''),(18,'9201702884','sw884','三','王','f5bb0c8de146c67b44babbf4e6584cc0','2017-02','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21','1','s/',''),(19,'9201702887','asdfsadf887','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02','1','s/',''),(21,'9201702745','asdfasdfasdfsad745','asdfasdf','asdfsad','533e37ee96dfcd0ed7639d69fc590095','2017-02','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36','1','a/',''),(23,'9201702544','asdfsadf544','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45','1','f/','');
+insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`) values (1,'9201701000','admin','administrator','system','e10adc3949ba59abbe56e057f20f883e','2017-01','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2017-10-09 17:50:50','1','s/f/a/','请勿删除'),(2,'9201701687','admLShilei','Shilei','Lin','c810ec29fed33d8e79ccee3b2589d115','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28','1','a/',NULL),(3,'9201701100','testTeacher','first','last','65b89c6cbb58ae07b15c9d001ef768e0','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-09-25 16:17:43','1','f/',NULL),(4,'9201701101','testStudent','first1','last1','39957c100f046dadeeda60c077f87add','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47','1','s/',NULL),(5,'9201701102','testTeacher2','first','last2','fa2c5ff0989f481f02ea54c6368382bc','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45','1','f/a/',NULL),(6,'9201701103','testStudent','first','last3','f0d4a0759284a87b7e7031091f230727','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:41','1','s/',NULL),(7,'9201701942','Tdisable','disable','Test','e5485a9d0622cdf031da25286337d6dd','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38','1','s/',NULL),(8,'9201701309','ttestStu3','testStu3','test','804a8c28891c3211b3075baeb800c504','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34','1','s/',NULL),(9,'9201701310','rick','KOKIA','ERI','487ef5eeb53eb03654198edfd545a513','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31','1','s/',NULL),(10,'9201701784','zhengsan784','三','张','a8156a924c4a701ca465bc5e9cd46484','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28','1','s/',NULL),(11,'9201701840','lili840','四','李','492d18d57e97001bd9bffa45911c55de','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25','0','f/a/','first'),(12,'9201701261','meimeili261','梅梅','李','16ea29c07c4a343f1aa569d147936d81','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21','1','s/','new Student'),(13,'9201701848','ww184','五','王','f11f5d8566cccdef4e9cfa29d80a4223','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18','1','f/','新老师'),(14,'9201701876','ew876','二','王','dff9c3e4686c4faceb0e7f9175b6defc','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15','1','s/',''),(15,'9201702937','DoeJon937','Doe','Jon','7d66eb52a44ad4dc575674396a78203d','2017-02','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11','1','f/a/',''),(17,'9201702574','ew574','二','王','8052d26a6da25a6e69d4bb6ac3bb1280','2017-02','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58','1','s/f/',''),(18,'9201702884','sw884','三','王','f5bb0c8de146c67b44babbf4e6584cc0','2017-02','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21','1','s/',''),(19,'9201702887','asdfsadf887','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02','1','s/',''),(21,'9201702745','asdfasdfasdfsad745','asdfasdf','asdfsad','533e37ee96dfcd0ed7639d69fc590095','2017-02','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36','1','a/',''),(23,'9201702544','asdfsadf544','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45','1','f/','');
 
 UNLOCK TABLES;
 
-/*Table structure for table `role` */
+/*Table structure for table `Role` */
 
-DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `Role`;
 
-CREATE TABLE `role` (
+CREATE TABLE `Role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userid` varchar(20) NOT NULL,
-  `role` varchar(50) NOT NULL,
+  `Role` varchar(50) NOT NULL,
   `role_name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-/*Data for the table `role` */
+/*Data for the table `Role` */
 
-LOCK TABLES `role` WRITE;
+LOCK TABLES `Role` WRITE;
 
-insert  into `role`(`id`,`userid`,`role`,`role_name`) values (2,'9000000000','1','系统管理员');
+insert  into `Role`(`id`,`userid`,`Role`,`role_name`) values (2,'9000000000','1','系统管理员');
 
 UNLOCK TABLES;
 
-/*Table structure for table `student` */
+/*Table structure for table `Student` */
 
-DROP TABLE IF EXISTS `student`;
+DROP TABLE IF EXISTS `Student`;
 
-CREATE TABLE `student` (
+CREATE TABLE `Student` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `Studentid` varchar(100) NOT NULL,
   `max_credits` int(20) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
-/*Data for the table `student` */
+/*Data for the table `Student` */
 
-LOCK TABLES `student` WRITE;
+LOCK TABLES `Student` WRITE;
 
-insert  into `student`(`id`,`Studentid`,`max_credits`) values (1,'9201701101',18),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18),(5,'9201701310',18),(6,'9201701784',18),(7,'9201701261',18),(8,'9201701876',12),(9,'9201703122',12),(10,'9201702574',12),(11,'9201702884',12),(12,'9201702887',12),(13,'9201702887',12);
+insert  into `Student`(`id`,`Studentid`,`max_credits`) values (1,'9201701101',18),(2,'9201701103',18),(3,'9201701942',18),(4,'9201701309',18),(5,'9201701310',18),(6,'9201701784',18),(7,'9201701261',18),(8,'9201701876',12),(9,'9201703122',12),(10,'9201702574',12),(11,'9201702884',12),(12,'9201702887',12),(13,'9201702887',12);
 
 UNLOCK TABLES;
 
-/*Table structure for table `tempcourse` */
+/*Table structure for table `TempCourse` */
 
-DROP TABLE IF EXISTS `tempcourse`;
+DROP TABLE IF EXISTS `TempCourse`;
 
-CREATE TABLE `tempcourse` (
+CREATE TABLE `TempCourse` (
   `id` int(11) NOT NULL,
   `crn` varchar(20) NOT NULL,
   `status` varchar(20) DEFAULT NULL,
@@ -187,17 +188,17 @@ CREATE TABLE `tempcourse` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/*Data for the table `tempcourse` */
+/*Data for the table `TempCourse` */
 
-LOCK TABLES `tempcourse` WRITE;
+LOCK TABLES `TempCourse` WRITE;
 
 UNLOCK TABLES;
 
-/*Table structure for table `tempuser` */
+/*Table structure for table `TempUser` */
 
-DROP TABLE IF EXISTS `tempuser`;
+DROP TABLE IF EXISTS `TempUser`;
 
-CREATE TABLE `tempuser` (
+CREATE TABLE `TempUser` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `userid` varchar(20) NOT NULL,
   `status` varchar(20) DEFAULT NULL COMMENT '0（处理中）,1（通过）,-1(拒绝)',
@@ -208,19 +209,19 @@ CREATE TABLE `tempuser` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
-/*Data for the table `tempuser` */
+/*Data for the table `TempUser` */
 
-LOCK TABLES `tempuser` WRITE;
+LOCK TABLES `TempUser` WRITE;
 
-insert  into `tempuser`(`id`,`userid`,`status`,`user_json`,`createtime`,`updatetime`,`operator`) values (10,'9201702887','0','{\"qq\":\"123213324\",\"birthday\":\"2017-09-07\",\"firstname\":\"asdf\",\"password\":\"79f9f338abd398d724e15a17e2c6ee62\",\"gender\":\"male\",\"tel\":\"23141234123\",\"email\":\"asdfasfasdfasdf@qq.com\",\"info\":\"2017-02\",\"lastname\":\"sadf\"}','2017-09-30 10:27:38','2017-09-30 11:51:45','9000000000'),(11,'9201702745','1','{\"qq\":\"456498784784\",\"birthday\":\"2017-09-07\",\"firstname\":\"asdfasdf\",\"password\":\"533e37ee96dfcd0ed7639d69fc590095\",\"gender\":\"female\",\"tel\":\"21316584798\",\"email\":\"adsfa@qq.com\",\"info\":\"2017-02\",\"lastname\":\"asdfsad\"}','2017-09-30 11:40:30','2017-09-30 11:42:36','9000000000'),(12,'9201702226','-1','{\"qq\":\"78545678786545\",\"birthday\":\"2017-09-12\",\"firstname\":\"asdf\",\"password\":\"8e580c77b8d2fc2cdde5163039c07b4a\",\"gender\":\"female\",\"tel\":\"54657847543\",\"email\":\"asdf@qq.com\",\"info\":\"2017-02\",\"lastname\":\"asdfsad\"}','2017-09-30 13:54:41','2017-09-30 13:55:00','9000000000'),(13,'9201702370','0','{\"qq\":\"258476\",\"birthday\":\"2017-10-12\",\"firstname\":\"wang\",\"password\":\"e10adc3949ba59abbe56e057f20f883e\",\"gender\":\"female\",\"tel\":\"125635874\",\"email\":\"adminn@admin.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:53:59','2017-10-11 15:53:59',NULL),(14,'9201702201','0','{\"qq\":\"5546844\",\"birthday\":\"2017-10-03\",\"firstname\":\"wang\",\"password\":\"e10adc3949ba59abbe56e057f20f883e\",\"gender\":\"female\",\"tel\":\"8648486\",\"email\":\"admin1@ad.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:57:59','2017-10-11 15:57:59',NULL),(15,'9201702622','0','{\"qq\":\"5546844\",\"birthday\":\"2017-10-03\",\"firstname\":\"wang\",\"password\":\"d41d8cd98f00b204e9800998ecf8427e\",\"gender\":\"female\",\"tel\":\"8648486\",\"email\":\"admin1@ad.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:59:21','2017-10-11 15:59:21',NULL);
+insert  into `TempUser`(`id`,`userid`,`status`,`user_json`,`createtime`,`updatetime`,`operator`) values (10,'9201702887','0','{\"qq\":\"123213324\",\"birthday\":\"2017-09-07\",\"firstname\":\"asdf\",\"password\":\"79f9f338abd398d724e15a17e2c6ee62\",\"gender\":\"male\",\"tel\":\"23141234123\",\"email\":\"asdfasfasdfasdf@qq.com\",\"info\":\"2017-02\",\"lastname\":\"sadf\"}','2017-09-30 10:27:38','2017-09-30 11:51:45','9000000000'),(11,'9201702745','1','{\"qq\":\"456498784784\",\"birthday\":\"2017-09-07\",\"firstname\":\"asdfasdf\",\"password\":\"533e37ee96dfcd0ed7639d69fc590095\",\"gender\":\"female\",\"tel\":\"21316584798\",\"email\":\"adsfa@qq.com\",\"info\":\"2017-02\",\"lastname\":\"asdfsad\"}','2017-09-30 11:40:30','2017-09-30 11:42:36','9000000000'),(12,'9201702226','-1','{\"qq\":\"78545678786545\",\"birthday\":\"2017-09-12\",\"firstname\":\"asdf\",\"password\":\"8e580c77b8d2fc2cdde5163039c07b4a\",\"gender\":\"female\",\"tel\":\"54657847543\",\"email\":\"asdf@qq.com\",\"info\":\"2017-02\",\"lastname\":\"asdfsad\"}','2017-09-30 13:54:41','2017-09-30 13:55:00','9000000000'),(13,'9201702370','0','{\"qq\":\"258476\",\"birthday\":\"2017-10-12\",\"firstname\":\"wang\",\"password\":\"e10adc3949ba59abbe56e057f20f883e\",\"gender\":\"female\",\"tel\":\"125635874\",\"email\":\"adminn@admin.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:53:59','2017-10-11 15:53:59',NULL),(14,'9201702201','0','{\"qq\":\"5546844\",\"birthday\":\"2017-10-03\",\"firstname\":\"wang\",\"password\":\"e10adc3949ba59abbe56e057f20f883e\",\"gender\":\"female\",\"tel\":\"8648486\",\"email\":\"admin1@ad.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:57:59','2017-10-11 15:57:59',NULL),(15,'9201702622','0','{\"qq\":\"5546844\",\"birthday\":\"2017-10-03\",\"firstname\":\"wang\",\"password\":\"d41d8cd98f00b204e9800998ecf8427e\",\"gender\":\"female\",\"tel\":\"8648486\",\"email\":\"admin1@ad.com\",\"info\":\"2017-02\",\"lastname\":\"shit\"}','2017-10-11 15:59:21','2017-10-11 15:59:21',NULL);
 
 UNLOCK TABLES;
 
-/*Table structure for table `transcript` */
+/*Table structure for table `Transcript` */
 
-DROP TABLE IF EXISTS `transcript`;
+DROP TABLE IF EXISTS `Transcript`;
 
-CREATE TABLE `transcript` (
+CREATE TABLE `Transcript` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `Studentid` varchar(20) NOT NULL COMMENT '学生ID',
   `crn` varchar(20) NOT NULL COMMENT '课程ID',
@@ -230,11 +231,11 @@ CREATE TABLE `transcript` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
-/*Data for the table `transcript` */
+/*Data for the table `Transcript` */
 
-LOCK TABLES `transcript` WRITE;
+LOCK TABLES `Transcript` WRITE;
 
-insert  into `transcript`(`id`,`Studentid`,`crn`,`grade`,`complete`,`assigntime`) values (15,'9201701101','120170164','B','0','2017-08-25 16:03:22'),(16,'9201701103','120170164','A','0','2017-08-24 09:34:40'),(17,'9201701942','120170164','*','0','2017-08-23 17:47:54'),(18,'9201701309','120170164','B','1','2017-08-24 09:35:14'),(19,'9201701310','120170164','*','0','2017-09-01 20:10:41'),(20,'9201701942','120170123','*','0','2017-09-02 14:46:23'),(21,'9201701103','120170123','*','0','2017-09-02 14:46:24'),(22,'9201701101','120170123','*','0','2017-09-02 14:46:27'),(23,'9201701101','120170125','*','0','2017-09-03 14:07:15'),(24,'9201701876','120170125','F','-1','2017-09-03 14:07:27'),(26,'9201701784','120170164','*','0','2017-10-16 20:58:45');
+insert  into `Transcript`(`id`,`Studentid`,`crn`,`grade`,`complete`,`assigntime`) values (15,'9201701101','120170164','B','0','2017-08-25 16:03:22'),(16,'9201701103','120170164','A','0','2017-08-24 09:34:40'),(17,'9201701942','120170164','*','0','2017-08-23 17:47:54'),(18,'9201701309','120170164','B','1','2017-08-24 09:35:14'),(19,'9201701310','120170164','*','0','2017-09-01 20:10:41'),(20,'9201701942','120170123','*','0','2017-09-02 14:46:23'),(21,'9201701103','120170123','*','0','2017-09-02 14:46:24'),(22,'9201701101','120170123','*','0','2017-09-02 14:46:27'),(23,'9201701101','120170125','*','0','2017-09-03 14:07:15'),(24,'9201701876','120170125','F','-1','2017-09-03 14:07:27'),(26,'9201701784','120170164','*','0','2017-10-16 20:58:45');
 
 UNLOCK TABLES;
 
@@ -404,14 +405,14 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/*Table structure for table `adviseview` */
+/*Table structure for table `AdviseView` */
 
-DROP TABLE IF EXISTS `adviseview`;
+DROP TABLE IF EXISTS `AdviseView`;
 
-/*!50001 DROP VIEW IF EXISTS `adviseview` */;
-/*!50001 DROP TABLE IF EXISTS `adviseview` */;
+/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
+/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
 
-/*!50001 CREATE TABLE  `adviseview`(
+/*!50001 CREATE TABLE  `AdviseView`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sfirst` varchar(100) NOT NULL ,
@@ -421,14 +422,14 @@ DROP TABLE IF EXISTS `adviseview`;
  `flast` varchar(100) NOT NULL 
 )*/;
 
-/*Table structure for table `courseview` */
+/*Table structure for table `CourseView` */
 
-DROP TABLE IF EXISTS `courseview`;
+DROP TABLE IF EXISTS `CourseView`;
 
-/*!50001 DROP VIEW IF EXISTS `courseview` */;
-/*!50001 DROP TABLE IF EXISTS `courseview` */;
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
 
-/*!50001 CREATE TABLE  `courseview`(
+/*!50001 CREATE TABLE  `CourseView`(
  `id` int(11) NOT NULL  default '0' ,
  `crn` varchar(20) NOT NULL ,
  `name` varchar(100) NOT NULL ,
@@ -446,14 +447,14 @@ DROP TABLE IF EXISTS `courseview`;
  `updatetime` varchar(20) NULL 
 )*/;
 
-/*Table structure for table `messageview` */
+/*Table structure for table `MessageView` */
 
-DROP TABLE IF EXISTS `messageview`;
+DROP TABLE IF EXISTS `MessageView`;
 
-/*!50001 DROP VIEW IF EXISTS `messageview` */;
-/*!50001 DROP TABLE IF EXISTS `messageview` */;
+/*!50001 DROP VIEW IF EXISTS `MessageView` */;
+/*!50001 DROP TABLE IF EXISTS `MessageView` */;
 
-/*!50001 CREATE TABLE  `messageview`(
+/*!50001 CREATE TABLE  `MessageView`(
  `id` int(11) NOT NULL  default '0' ,
  `senderid` varchar(50) NOT NULL ,
  `receiverid` varchar(50) NULL ,
@@ -475,14 +476,14 @@ DROP TABLE IF EXISTS `messageview`;
  `plast` varchar(100) NOT NULL 
 )*/;
 
-/*Table structure for table `studentview` */
+/*Table structure for table `StudentView` */
 
-DROP TABLE IF EXISTS `studentview`;
+DROP TABLE IF EXISTS `StudentView`;
 
-/*!50001 DROP VIEW IF EXISTS `studentview` */;
-/*!50001 DROP TABLE IF EXISTS `studentview` */;
+/*!50001 DROP VIEW IF EXISTS `StudentView` */;
+/*!50001 DROP TABLE IF EXISTS `StudentView` */;
 
-/*!50001 CREATE TABLE  `studentview`(
+/*!50001 CREATE TABLE  `StudentView`(
  `id` int(11) unsigned NOT NULL  default '0' ,
  `Studentid` varchar(100) NOT NULL ,
  `max_credits` int(20) unsigned NOT NULL ,
@@ -494,14 +495,14 @@ DROP TABLE IF EXISTS `studentview`;
  `incomplete` int(11) NULL 
 )*/;
 
-/*Table structure for table `transcriptview` */
+/*Table structure for table `TranscriptView` */
 
-DROP TABLE IF EXISTS `transcriptview`;
+DROP TABLE IF EXISTS `TranscriptView`;
 
-/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
-/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
+/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
+/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE TABLE  `transcriptview`(
+/*!50001 CREATE TABLE  `TranscriptView`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sfirst` varchar(100) NOT NULL ,
@@ -522,40 +523,40 @@ DROP TABLE IF EXISTS `transcriptview`;
  `assigntime` varchar(20) NOT NULL 
 )*/;
 
-/*View structure for view adviseview */
+/*View structure for view AdviseView */
 
-/*!50001 DROP TABLE IF EXISTS `adviseview` */;
-/*!50001 DROP VIEW IF EXISTS `adviseview` */;
+/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
+/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `adviseview` AS select `a`.`id` AS `id`,`a`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`a`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast` from ((`advise` `a` join `person` `p1`) join `person` `p2`) where ((`p1`.`userid` = `a`.`Studentid`) and (`p2`.`userid` = `a`.`facultyid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `AdviseView` AS select `a`.`id` AS `id`,`a`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`a`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast` from ((`Advise` `a` join `Person` `p1`) join `Person` `p2`) where ((`p1`.`userid` = `a`.`Studentid`) and (`p2`.`userid` = `a`.`facultyid`)) */;
 
-/*View structure for view courseview */
+/*View structure for view CourseView */
 
-/*!50001 DROP TABLE IF EXISTS `courseview` */;
-/*!50001 DROP VIEW IF EXISTS `courseview` */;
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
 
-/*View structure for view messageview */
+/*View structure for view MessageView */
 
-/*!50001 DROP TABLE IF EXISTS `messageview` */;
-/*!50001 DROP VIEW IF EXISTS `messageview` */;
+/*!50001 DROP TABLE IF EXISTS `MessageView` */;
+/*!50001 DROP VIEW IF EXISTS `MessageView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`m`.`pic` AS `pic`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`r`.`role_name` AS `role_name`,`s`.`email` AS `semail`,`s`.`firstname` AS `sfirst`,`s`.`lastname` AS `slast`,`p`.`email` AS `pemail`,`p`.`firstname` AS `pfirst`,`p`.`lastname` AS `plast` from (((`message` `m` join `role` `r`) join `person` `p`) join `person` `s`) where ((`m`.`senderid` = convert(`r`.`userid` using utf8)) and (`m`.`receiverid` = `p`.`userid`) and (`m`.`senderid` = `s`.`userid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `MessageView` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`m`.`pic` AS `pic`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`r`.`role_name` AS `role_name`,`s`.`email` AS `semail`,`s`.`firstname` AS `sfirst`,`s`.`lastname` AS `slast`,`p`.`email` AS `pemail`,`p`.`firstname` AS `pfirst`,`p`.`lastname` AS `plast` from (((`Message` `m` join `Role` `r`) join `Person` `p`) join `Person` `s`) where ((`m`.`senderid` = convert(`r`.`userid` using utf8)) and (`m`.`receiverid` = `p`.`userid`) and (`m`.`senderid` = `s`.`userid`)) */;
 
-/*View structure for view studentview */
+/*View structure for view StudentView */
 
-/*!50001 DROP TABLE IF EXISTS `studentview` */;
-/*!50001 DROP VIEW IF EXISTS `studentview` */;
+/*!50001 DROP TABLE IF EXISTS `StudentView` */;
+/*!50001 DROP VIEW IF EXISTS `StudentView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`student` `s` join `person` `p`) where (`p`.`userid` = `s`.`Studentid`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`Student` `s` join `Person` `p`) where (`p`.`userid` = `s`.`Studentid`) */;
 
-/*View structure for view transcriptview */
+/*View structure for view TranscriptView */
 
-/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
-/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
+/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
+/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
