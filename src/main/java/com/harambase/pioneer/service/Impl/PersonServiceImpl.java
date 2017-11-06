@@ -479,6 +479,7 @@ public class PersonServiceImpl implements PersonService {
     public HaramMessage assignMentor(Advise advise) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             Advise a = adviseMapper.selectByPrimaryKey(advise);
             if(a != null){
                 haramMessage.setCode(FlagDict.ADVISE_DUPLICATE.getV());
