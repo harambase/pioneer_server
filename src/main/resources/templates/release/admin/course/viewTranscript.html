@@ -92,6 +92,7 @@
             </div>
 
         </div>
+
         <div id=footerPlaceholder">
             <div th:include="/release/admin/common/footer :: copy" id="copyright"></div>
         </div>
@@ -103,6 +104,31 @@
 <!-- /. WRAPPER  -->
 <div th:include="/release/admin/common/js :: load_js(true , false, false)"></div>
 
+<script>
+
+</script>
 <script src="/static/scripts/admin/course/manageTranscript.js"></script>
+<script>
+layer.open({
+    type: 1
+    ,title: '修改成绩' //不显示标题栏
+    ,closeBtn: true
+    ,area: '600px;'
+    ,shade: 0.8
+    ,id: 'LAY_layuipro' //设定一个id,防止重复弹出
+    ,resize: false
+    ,btn: ['保存', '取消']
+    ,btnAlign: 'c'
+    ,moveType: 1 //拖拽模式,0或者1
+    ,content: content
+    ,success: function(layero){
+        var btn = layero.find('.layui-layer-btn');
+        btn.find('.layui-layer-btn0').attr({
+            href: 'http://www.layui.com/'
+            ,target: '_blank'
+        });
+    }
+});
+</script>
 </body>
 </html>

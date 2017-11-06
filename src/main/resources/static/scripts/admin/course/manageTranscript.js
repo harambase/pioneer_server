@@ -22,54 +22,6 @@ $(function () {
         studentid = $(this).parents("tr").find("td").eq(0).html();
         transTable.draw();
     });
-    // function writingProperty(studentid){
-    //     $.ajax({
-    //         url: basePath + "/student/transcript/info?studentid="+studentid,
-    //         type: "GET",
-    //         success: function (data) {
-    //             if (data.code === 2001)
-    //                 writingTranscriptProperty(data.data);
-    //             else if (data.code === 2005)
-    //                 Showbo.Msg.alert("系统异常!", function () {});
-    //             else
-    //                 Showbo.Msg.alert(data.msg, function () {});
-    //         }
-    //     })
-    // }
-    // function writingTranscriptProperty(studentView){
-    //     $("#h1").html(studentView.lastname+", "+studentView.firstname + " 成绩单");
-    //     var $studentTable = $("#student-table");
-    //     var detail = [];
-    //     $("#h2").html(studentView.lastname+", "+studentView.firstname+"/"+studentView.studentid+" 的成绩单");
-    //     detail.push(setRow("", "学分上限: ",
-    //         '<input style="width: 34px;height: 27px;margin-top: 10px;float: left" id = "max" disabled minlength="1" maxlength="2" value=' +
-    //         studentView.max_credits +'>' +
-    //         '<button class="btn btn-edit" style="display: block; margin-top: 8px;"id="enable">修改</button>' +
-    //         '<button class="btn btn-edit" style="display: none;margin-top: 8px;" id="update">确认更新</button>'));
-    //     detail.push(setRow("", "未完成学分数:    ", studentView.incomplete));
-    //     detail.push(setRow("", "正在进行的学分数:   ", studentView.progress));
-    //     detail.push(setRow("", "已完成学分数:      ", studentView.complete));
-    //
-    //     writeTableResourceDetail($studentTable,detail);
-    //     transTable.draw();
-    //
-    // }
-    // function writeTableResourceDetail(tableId, list) {
-    //     var str = '<tr>';
-    //     for (var i = 0; i < list.length; i++) {
-    //         str += '<td style="padding: 0 10px 0 0;"><b>' + list[i].text + '</b></td>' +
-    //             '<td style="padding: 0 30px 0 0;">' + list[i].value + '</td>';
-    //     }
-    //     str += '</tr>';
-    //     tableId.html(str);
-    // }
-    // function setRow(name, text, value) {
-    //     return {
-    //         name: name,
-    //         text: text,
-    //         value: value
-    //     }
-    // }
 
     $("#overall").click(function(){
         studentid = null;
@@ -275,7 +227,7 @@ $(function () {
             }},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-info" style="width:100%">选择</button>');
+                $(nTd).html('<button class="btn btn-info layui-layer-btn" style="width:100%">选择</button>');
             }, "width": "60px"
             }
         ],
@@ -342,7 +294,7 @@ $(function () {
             {"data": "assigntime", "title": "提交时间"},
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button class="btn btn-edit"style="width: 100%">修改</button>');
+                $(nTd).html('<button class="btn btn-edit" style="width: 100%">修改</button>');
                 }, "width": "100px"
             }
         ],
@@ -369,4 +321,50 @@ $(function () {
     });
 
 });
+
+var content =
+    '      <div style="padding: 30px; line-height: 22px;">' +
+    '<form id="editTranscript" class="form-group" method="post" onsubmit="return false">' +
+    '         <div class="form-group">' +
+    '             <div class="col-sm-3">' +
+    '                <label for="sid" class="col-sm-12 control-label">学生ID:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9">' +
+    '                 <input id="sid" value="" class="form-control" disabled >' +
+    '              </div>' +
+    '              <div class="col-sm-3" style="margin-top:10px;">' +
+    '                 <label for="crn" class="col-sm-12 control-label">*课程CRN:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9" style="margin-top:10px;">' +
+    '                  <input id="crn2" class="form-control" required disabled/>' +
+    '              </div>' +
+    '              <div class="col-sm-3" style="margin-top:10px;">' +
+    '                 <label for="crn" class="col-sm-12 control-label">*课程学分:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9" style="margin-top:10px;">' +
+    '                 <input id="credits2" class="form-control" required disabled/>' +
+    '              </div>' +
+    '              <div class="col-sm-3" style="margin-top:10px;">' +
+    '                  <label for="crn" class="col-sm-12 control-label">*成绩:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9" style="margin-top:10px;">' +
+    '                  <input placeholder="可使用Letter Grade或百分制" id="grade" name="grade" value="" class="form-control" minlength="1" required >' +
+    '              </div>' +
+    '              <div class="col-sm-3" style="margin-top:10px;">' +
+    '                  <label for="crn" class="col-sm-12 control-label">*完成情况:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9" style="margin-top:10px;">' +
+    '                        <input id="complete"  style="width: 33%" type="radio" name="complete" value="Complete">完成课程' +
+    '                        <input id="process"   style="width: 33%" type="radio" name="complete" value="In Progress">正在进行' +
+    '                        <input id="nComplete" style="width: 33%" type="radio" name="complete" value="Not Complete">未完成（挂科）' +
+    '              </div>' +
+    '              <div class="col-sm-3" style="margin-top:10px;">' +
+    '                  <label for="tPassword" class="col-sm-12 control-label">*操作密码:</label>' +
+    '              </div>' +
+    '              <div class="col-sm-9" style="margin-top:10px;">' +
+    '                  <input type="password" id="tPassword" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>' +
+    '              </div>' +
+    '          </div>' +
+    '     </div>' +
+    '</form>';
 
