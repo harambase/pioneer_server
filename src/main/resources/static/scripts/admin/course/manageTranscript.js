@@ -322,6 +322,11 @@ $(function () {
 
 });
 
+$("#transTable").on("click", ".btn.btn-edit", function(){
+    $("#editTranscript").modal('show');
+    $("#formBody").html(content);
+});
+
 var content =
     '      <div style="padding: 30px; line-height: 22px;">' +
     '<form id="editTranscript" class="form-group" method="post" onsubmit="return false">' +
@@ -366,5 +371,6 @@ var content =
     '              </div>' +
     '          </div>' +
     '     </div>' +
-    '</form>';
+    '</form>'+
+    '</div>';
 

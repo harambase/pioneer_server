@@ -90,45 +90,106 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
+        <!-- /. PAGE INNER  -->
+        <div id="editTranscript" class="modal fade modalDiy" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="panel panel-success" style="background: rgba(255, 255, 255, 1);">
+                    <div class="panel-heading">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">更新成绩</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form id="editTranscriptForm" class="form-group" method="post" onsubmit="return false">
+                                 <div class="col-sm-3">
+                                    <label for="sid" class="col-sm-12 control-label">学生ID:</label>
+                                  </div>
+                                  <div class="col-sm-9">
+                                     <input id="sid" value="" class="form-control" disabled >
+                                  </div>
+                                  <div class="col-sm-3" style="margin-top:10px;">
+                                     <label for="sid" class="col-sm-12 control-label">*课程CRN:</label>
+                                  </div>
+                                  <div class="col-sm-9" style="margin-top:10px;">
+                                      <input id="sid2" class="form-control" required disabled/>
+                                  </div>
+                                  <div class="col-sm-3" style="margin-top:10px;">
+                                     <label for="sid" class="col-sm-12 control-label">*课程学分:</label>
+                                  </div>
+                                  <div class="col-sm-9" style="margin-top:10px;">
+                                     <input id="credits2" class="form-control" required disabled/>
+                                  </div>
+                                  <div class="col-sm-3" style="margin-top:10px;">
+                                      <label for="sid" class="col-sm-12 control-label">*成绩:</label>
+                                  </div>
+                                  <div class="col-sm-9" style="margin-top:10px;">
+                                      <input placeholder="可使用Letter Grade或百分制" id="grade" name="grade" value="" class="form-control" minlength="1" required >
+                                  </div>
+                                  <div class="col-sm-3" style="margin-top:10px;">
+                                      <label for="sid" class="col-sm-12 control-label">*完成情况:</label>
+                                  </div>
+                                  <div class="col-sm-9" style="margin-top:10px;">
+                                            <input id="complete"  style="width: 33%" type="radio" name="complete" value="Complete">完成课程
+                                            <input id="process"   style="width: 33%" type="radio" name="complete" value="In Progress">正在进行
+                                            <input id="nComplete" style="width: 33%" type="radio" name="complete" value="Not Complete">未完成（挂科）
+                                  </div>
+                                  <div class="col-sm-3" style="margin-top:10px;">
+                                      <label for="tPassword" class="col-sm-12 control-label">*操作密码:</label>
+                                  </div>
+                                  <div class="col-sm-9" style="margin-top:10px;">
+                                      <input type="password" id="tPassword" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>
+                                  </div>
+                                  <div class="col-sm-6" style="margin-top:10px;">
+                                        <button id="save" style="width: 100%" class="btn btn-danger btn-primary">更新</button>
+                                  </div>
+                                  <div class="col-sm-6" style="margin-top:10px;">
+                                        <button id="cancel" style="width: 100%" class="btn btn-info btn-primary" data-dismiss="modal" aria-label="Close">取消</button>
+                                  </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id=footerPlaceholder">
             <div th:include="/release/admin/common/footer :: copy" id="copyright"></div>
         </div>
     </div>
-    <!-- /. PAGE INNER  -->
-</div>
-<!-- /. PAGE WRAPPER  -->
+    <!-- /. PAGE WRAPPER  -->
 </div>
 <!-- /. WRAPPER  -->
 <div th:include="/release/admin/common/js :: load_js(true , false, false)"></div>
 
-<script>
-
-</script>
 <script src="/static/scripts/admin/course/manageTranscript.js"></script>
 <script>
-layer.open({
-    type: 1
-    ,title: '修改成绩' //不显示标题栏
-    ,closeBtn: true
-    ,area: '600px;'
-    ,shade: 0.8
-    ,id: 'LAY_layuipro' //设定一个id,防止重复弹出
-    ,resize: false
-    ,btn: ['保存', '取消']
-    ,btnAlign: 'c'
-    ,moveType: 1 //拖拽模式,0或者1
-    ,content: content
-    ,success: function(layero){
-        var btn = layero.find('.layui-layer-btn');
-        btn.find('.layui-layer-btn0').attr({
-            href: 'http://www.layui.com/'
-            ,target: '_blank'
+    $(document).on("show.bs.modal", ".modal", function(){
+        $(this).draggable({
+            handle: ".panel-heading"   // 只能点击头部拖动
         });
-    }
-});
+        $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
+    });
 </script>
+<!--<script>-->
+<!--layer.open({-->
+    <!--type: 1-->
+    <!--,title: '修改成绩' //不显示标题栏-->
+    <!--,closeBtn: true-->
+    <!--,area: '600px;'-->
+    <!--,shade: 0.8-->
+    <!--,id: 'LAY_layuipro' //设定一个id,防止重复弹出-->
+    <!--,resize: false-->
+    <!--,btn: ['保存', '取消']-->
+    <!--,btnAlign: 'c'-->
+    <!--,moveType: 1 //拖拽模式,0或者1-->
+    <!--,content: content-->
+    <!--,success: function(layero){-->
+        <!--var btn = layero.find('.layui-layer-btn');-->
+        <!--btn.find('.layui-layer-btn0').attr({-->
+            <!--href: 'http://www.layui.com/'-->
+            <!--,target: '_blank'-->
+        <!--});-->
+    <!--}-->
+<!--});-->
+<!--</script>-->
 </body>
 </html>
