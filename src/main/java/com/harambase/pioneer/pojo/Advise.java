@@ -9,6 +9,12 @@ public class Advise implements Serializable {
 
     private String facultyid;
 
+    private String updateTime;
+
+    private String status;
+
+    private String operator;
+
     public Integer getId() {
         return id;
     }
@@ -31,5 +37,29 @@ public class Advise implements Serializable {
 
     public void setFacultyid(String facultyid) {
         this.facultyid = facultyid == null ? null : facultyid.trim();
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

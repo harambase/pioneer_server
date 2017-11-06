@@ -390,23 +390,20 @@ public class PersonServiceImpl implements PersonService {
                                      String studentid, String facultyid) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
+            case 0:
+                orderColumn = "sname";
+                break;
             case 1:
-                orderColumn = "studentid";
+                orderColumn = "fname";
                 break;
             case 2:
-                orderColumn = "sfirst";
+                orderColumn = "status";
                 break;
             case 3:
-                orderColumn = "slast";
+                orderColumn = "updateTime";
                 break;
             case 4:
-                orderColumn = "facultyid";
-                break;
-            case 5:
-                orderColumn = "ffirst";
-                break;
-            case 6:
-                orderColumn = "flast";
+                orderColumn = "operator";
                 break;
             default:
                 orderColumn = "id";

@@ -1,69 +1,35 @@
 package com.harambase.pioneer.pojo.dto;
 
+import com.harambase.pioneer.pojo.Advise;
+
 import java.io.Serializable;
 
-public class AdviseView implements Serializable {
-    private int id;
-    private String studentid;
-    private String sfirst;
-    private String slast;
-    private String facultyid;
-    private String ffirst;
-    private String flast;
+public class AdviseView extends Advise implements Serializable {
+    private String sname;
+    private String fname;
+    private String oname;
 
-    public int getId() {
-        return id;
+    public String getOname() {
+        return oname;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOname(String oname) {
+        this.oname = oname;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getFname() {
+        return fname;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
+    public void setFname(String fname) {
+        this.fname = fname;
     }
 
-    public String getSfirst() {
-        return sfirst;
+    public String getSname() {
+        return sname;
     }
 
-    public void setSfirst(String sfirst) {
-        this.sfirst = sfirst;
-    }
-
-    public String getSlast() {
-        return slast;
-    }
-
-    public void setSlast(String slast) {
-        this.slast = slast;
-    }
-
-    public String getFacultyid() {
-        return facultyid;
-    }
-
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid;
-    }
-
-    public String getFfirst() {
-        return ffirst;
-    }
-
-    public void setFfirst(String ffirst) {
-        this.ffirst = ffirst;
-    }
-
-    public String getFlast() {
-        return flast;
-    }
-
-    public void setFlast(String flast) {
-        this.flast = flast;
+    public void setSname(String sname) {
+        this.sname = sname;
     }
 }

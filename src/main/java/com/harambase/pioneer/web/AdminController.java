@@ -91,15 +91,21 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value ="/advise/assign", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity assignMentor(@RequestBody Advise advise){
-        HaramMessage message = personService.assignMentor(advise);
+    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
+    public ResponseEntity removeUser(@RequestParam("userid") String userid){
+        HaramMessage message = personService.removeUser(userid);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
-    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id ) {
-        HaramMessage message = personService.removeMentor(id);
+    @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
+        HaramMessage message = personService.listFaculties(search);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list/student", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
+        HaramMessage message = personService.listStudents(search);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -111,8 +117,7 @@ public class AdminController {
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
                                     @RequestParam(value = "type", required = false) String type,
-                                    @RequestParam(value = "status", required = false) String status,
-                                    HttpSession session) {
+                                    @RequestParam(value = "status", required = false) String status) {
         Map<String, Object> map = new HashMap<>();
         try {
             HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search,
@@ -129,6 +134,20 @@ public class AdminController {
             map.put("recordsFiltered", 0);
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value ="/advise/assign", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity assignMentor(@RequestBody Advise advise, HttpSession session){
+        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
+        HaramMessage message = personService.assignMentor(advise);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
+    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id ) {
+        HaramMessage message = personService.removeMentor(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/advise/list", produces = "application/json", method = RequestMethod.GET)
@@ -162,20 +181,10 @@ public class AdminController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
-        HaramMessage message = personService.listFaculties(search);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/list/student", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
-        HaramMessage message = personService.listStudents(search);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
 
     @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity adviseUpdate(@RequestBody Advise advise){
+    public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
+        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = personService.updateAdvise(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -198,12 +207,6 @@ public class AdminController {
         message.setData(data);
         return new ResponseEntity<>(message, HttpStatus.OK);
 
-    }
-
-    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
-    public ResponseEntity removeUser(@RequestParam("userid") String userid){
-        HaramMessage message = personService.removeUser(userid);
-        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
 }
