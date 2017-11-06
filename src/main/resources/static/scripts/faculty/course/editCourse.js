@@ -97,7 +97,7 @@ $(function(){
             },
             {
                 "data": null, "title": "操作", "createdCell": function (nTd) {
-                $(nTd).html('<button style="width: 50%" class="btn btn-success">修改成绩</button><button style="width: 50%" class="btn btn-danger">移除</button>');
+                $(nTd).html('<button style="width: 100%" class="btn btn-success">修改成绩</button>');
             }, "width": "10px"
             }
         ],

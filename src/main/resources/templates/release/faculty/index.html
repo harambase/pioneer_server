@@ -14,11 +14,11 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                先锋管理系统
-                <small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname}"></small>
+                先锋教学系统
+                <small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname} + ' 老师'"></small>
             </h1>
             <ol class="breadcrumb">
-                <li class="active"><a href="/welcomeAdmin">主页</a></li>
+                <li class="active"><a href="/welcomeFaculty">主页</a></li>
             </ol>
 
         </div>
@@ -121,6 +121,6 @@
 </body>
 <div th:include="/release/faculty/common/js :: load_js(true,true,false)"></div>
 
-<script src="/static/scripts/admin/welcomeAdmin.js"></script>
+<script src="/static/scripts/admin/welcome.js"></script>
 
 </html>

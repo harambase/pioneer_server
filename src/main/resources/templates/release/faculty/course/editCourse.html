@@ -18,7 +18,7 @@
             </h1>
             <ol class="breadcrumb">
                 <li><a href="/welcomeFaculty">主页</a></li>
-                <li><a href="/manage/course/view">课程查看</a></li>
+                <li><a href="/faculty/course/view">课程查看</a></li>
                 <li class="active">课程详情</li>
             </ol>
 
@@ -35,7 +35,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <span style="cursor: pointer" data-toggle="collapse" data-parent="#accordion"
-                                              href="#collapseOne">课程信息详情</span>
+                                              href="#collapseOne">课程详情</span>
                                     </div>
                                     <div id="collapseOne" class="panel-collapse in" style="height: auto;">
                                         <div class="panel-body">
@@ -212,6 +212,35 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12 col-sm-4">
+                                                    <div class="panel panel-success">
+                                                        <div class="panel-heading">
+                                                            教师与预选课分配
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-2">
+                                                                    <label class="col-sm-12 control-label">*分配教师:</label>
+                                                                </div>
+                                                                <div id="faculty" class="col-sm-8">
+                                                                    <h4 style="width: 50%; padding-top: 0;  float: left" id="facultyInfo"></h4>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-2">
+                                                                    <label class="col-sm-12 control-label">*预选课程（可以多选，也可不选）:</label>
+                                                                </div>
+                                                                <div id="course" class="col-sm-8">
+                                                                    <h4 style="width: 50%; padding-top: 0;  float: left" id="preCourseInfo">无</h4>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="panel-footer">
+                                                            注意：教师为必填
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </form>
 
                                         </div>
@@ -220,7 +249,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <span style="cursor: pointer" data-toggle="collapse" data-parent="#accordion"
-                                              href="#collapseTwo" class="collapsed">课程学生详情</span>
+                                              href="#collapseTwo" class="collapsed">课程中的学生</span>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse">
                                         <div class="panel-body">
@@ -288,7 +317,6 @@
                                                          <button class="col-sm-12 btn btn-primary btn-sucess" id="tUpdate">更新</button>
                                                      </div>
 
-
                                                      <div class="col-sm-6" style="margin-top:10px;">
                                                          <button id="cancel2" class="col-sm-12 btn btn-primary btn-danger">取消</button>
                                                      </div>
@@ -314,32 +342,5 @@
 
 <script src="/static/scripts/faculty/course/editCourse.js"></script>
 
-<script>
-    //执行一个laydate实例
-    laydate.render({
-        elem: '#startdate',
-        theme: '#393D49', showBottom: false//指定元素
-    });
-    laydate.render({
-        elem: '#enddate',
-        theme: '#393D49', showBottom: false//指定元素
-    });
-    laydate.render({
-        elem: '#starttime',
-        theme: '#393D49'
-        , type: 'time'
-        , min: '06:00:00'
-        , max: '22:00:00'
-        , btns: ['clear', 'confirm']
-    });
-    laydate.render({
-        elem: '#endtime',
-        theme: '#393D49',
-        type: 'time'
-        , min: '06:00:00'
-        , max: '22:00:00'
-        , btns: ['clear', 'confirm']
-    });
-</script>
 </body>
 </html>
