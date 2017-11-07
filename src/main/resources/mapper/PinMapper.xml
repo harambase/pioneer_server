@@ -26,15 +26,15 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from pin
+    from Pin
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from pin
+    delete from Pin
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Pin" >
-    insert into pin (id, pin, info, 
+    insert into Pin (id, pin, info, 
       facultyid, studentid, role, 
       startTime, endTime, createTime, 
       remark)
@@ -44,7 +44,7 @@
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Pin" >
-    insert into pin
+    insert into Pin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -111,7 +111,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Pin" >
-    update pin
+    update Pin
     <set >
       <if test="pin != null" >
         pin = #{pin,jdbcType=INTEGER},
@@ -144,7 +144,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Pin" >
-    update pin
+    update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
       facultyid = #{facultyid,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Pin" >
-    update pin
+    update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
       facultyid = #{facultyid,jdbcType=VARCHAR},
@@ -168,10 +168,13 @@
       createTime = #{createtime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="countByInfo" parameterType="java.util.Map" resultType="java.lang.Integer">
-    select count(*) from pin where role = #{role, jdbcType=INTEGER} group by info
+  <select id="countByInfo" parameterType="java.util.Map" resultType="java.lang.Object">
+    select count(*) from Pin where role = #{role, jdbcType=INTEGER} group by info
   </select>
   <select id="listByInfo" parameterType="java.util.Map" resultType="java.util.List">
-    select * from pin where info like '%' #{info,jdbcType=VARCHAR}  '%'
+    select * from Pin where info like '%' #{info,jdbcType=VARCHAR}  '%'
+  </select>
+  <select id="listByInfo" parameterType="java.util.Map" resultType="java.util.List">
+    select * from Pin where pin = #{pin,jdbcType=INTEGER}  '%'
   </select>
 </mapper>

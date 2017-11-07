@@ -8,6 +8,7 @@ import com.harambase.pioneer.dao.mapper.PinMapper;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.service.PinService;
+import javafx.beans.binding.ObjectExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,7 +53,12 @@ public class PinServiceImpl implements PinService{
                     break;
             }
             param.put("role", role);
-            count = pinMapper.countByInfo(param);
+
+            Object intObject = pinMapper.countByInfo(param);
+            count = 0;
+            if(intObject != null)
+                count = (Integer) intObject;
+
             if(count > 0){
                 haramMessage.setCode(FlagDict.PIN_EXISTS.getV());
                 haramMessage.setMsg(FlagDict.PIN_EXISTS.getM());
@@ -60,26 +66,42 @@ public class PinServiceImpl implements PinService{
             }
             
             List<Person> personList = personMapper.getUsersBySearch(param);
-            
+
+
             for(Person person : personList){
-                pinNum = (int)(Math.random() * (999999 - 100000 + 1) + 100000);
+                do{
+                    pinNum = (int)(Math.random() * (999999 - 100000 + 1) + 100000);
+                    param.put("pin", pin);
+                    count = pinMapper.countByPin(pinNum);
+                }while(count != 0);
+
                 pin.setPin(pinNum);
                 pin.setStarttime(startTime);
                 pin.setEndtime(endTime);
                 pin.setCreatetime(DateUtil.DateToStr(new Date()));
-                pin.setStudentid(person.getUserid());
                 pin.setRole(role);
                 pin.setInfo(info);
                 pin.setRemark(remark);
+
+                switch (role){
+                    case 1:
+                        pin.setStudentid(person.getUserid());
+                        break;
+                    case 2:
+                        pin.setFacultyid(person.getUserid());
+                        break;
+                }
+
                 int ret = pinMapper.insert(pin);
                 if(ret != 1)
                     throw new RuntimeException("插入失败");
             }
             
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            e.printStackTrace();
+            return haramMessage;
         }
         haramMessage.setCode(FlagDict.SUCCESS.getV());
         haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -100,9 +122,10 @@ public class PinServiceImpl implements PinService{
             List<String> pinInfoList = pinMapper.listByInfo(param);
             haramMessage.setData(pinInfoList);
         }catch (Exception e){
+            e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            e.printStackTrace();
+            return haramMessage;
         }
         haramMessage.setCode(FlagDict.SUCCESS.getV());
         haramMessage.setMsg(FlagDict.SUCCESS.getM());

@@ -23,8 +23,10 @@ public interface PinMapper {
     int updateByPrimaryKeyWithBLOBs(Pin record);
 
     int updateByPrimaryKey(Pin record);
-    
-    int countByInfo(Map<String, Object> param);
+
+    Object countByInfo(Map<String, Object> param);
     
     List<String> listByInfo(Map<String, Object> param);
+
+    int countByPin(int pinNum);
 }

@@ -33,7 +33,7 @@ $("#generate").click(function(){
                type: "GET",
                success: function (data) {
                    if (data.code === 2001)
-                       Showbo.Msg.alert("更新成功!", function () {
+                       Showbo.Msg.alert(data.msg, function () {
                            window.location.reload();
                        });
                    else
