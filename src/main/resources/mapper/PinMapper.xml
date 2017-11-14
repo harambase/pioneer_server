@@ -174,7 +174,7 @@
   <select id="listByInfo" parameterType="java.util.Map" resultType="java.util.List">
     select * from Pin where info like '%' #{info,jdbcType=VARCHAR}  '%'
   </select>
-  <select id="listByInfo" parameterType="java.util.Map" resultType="java.util.List">
-    select * from Pin where pin = #{pin,jdbcType=INTEGER}  '%'
+  <select id="countByPin" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select * from Pin where pin = #{pin,jdbcType=INTEGER}
   </select>
 </mapper>
