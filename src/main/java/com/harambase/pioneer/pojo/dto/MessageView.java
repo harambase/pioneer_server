@@ -6,67 +6,33 @@ import java.io.Serializable;
 
 public class MessageView extends MessageWithBLOBs implements Serializable {
 
-    private String semail;
-    private String sfirst;
-    private String slast;
-    private String pemail;
-    private String pfirst;
-    private String plast;
-    private String role_name;
+    private String pic;
 
-    public String getSemail() {
-        return semail;
+    private String sender;
+
+    private String receiver;
+
+    public String getSender() {
+        return sender;
     }
 
-    public void setSemail(String semail) {
-        this.semail = semail;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public String getSfirst() {
-        return sfirst;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setSfirst(String sfirst) {
-        this.sfirst = sfirst;
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 
-    public String getSlast() {
-        return slast;
+    public String getPic() {
+        return pic;
     }
 
-    public void setSlast(String slast) {
-        this.slast = slast;
-    }
-
-    public String getPemail() {
-        return pemail;
-    }
-
-    public void setPemail(String pemail) {
-        this.pemail = pemail;
-    }
-
-    public String getPfirst() {
-        return pfirst;
-    }
-
-    public void setPfirst(String pfirst) {
-        this.pfirst = pfirst;
-    }
-
-    public String getPlast() {
-        return plast;
-    }
-
-    public void setPlast(String plast) {
-        this.plast = plast;
-    }
-
-    public String getRole_name() {
-        return role_name;
-    }
-
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setPic(String pic) {
+        this.pic = pic == null ? null : pic.trim();
     }
 }

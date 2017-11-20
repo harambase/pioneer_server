@@ -21,39 +21,53 @@ $(function(){
                 "first": "首页"
             }
         },
+        "pagingType":   "full_numbers",
         "lengthMenu": [
-            [5,10],
-            [5,10]
+            [5, 10, 25, 50],
+            [5, 10, 25, 50]
         ],
-        pageLength: 10,
         processing: true,
         serverSide: true,
+        searching: false,
+        lengthChange: false,
 
         ajax: {
-            url: basePath + "/message/list",
+            url: basePath + "/message/list"
         },
         columns: [
-            {"data": "id", "title": "序列号", "width" : "45px"},
-            {"data": "semail", "title": "发件人邮件"},
-            {"data": "slast", "title": "发件人姓"},
-            {"data": "sfirst", "title": "发件人名"},
-            {"data": "subject", "title": "主题"},
+            {"data": "null", "title":"选择", "createdCell": function(nTd, rowData){
+                var htmlStr =
+                   '<div class="check-td mail-checkbox">'+
+                   '     <label class="checkbox-inline custom-checkbox nowrap">' +
+                   '       <input type="checkbox">' +
+                   '       <span></span>' +
+                   '     </label>' +
+                   '</div>';
+                $(nTd).html(htmlStr);
+            }},
+            {"data": null, "title": "发件人", "createdCell": function(nTd, rowData){
+                var htmlStr = '<div style="float: left">' +
+                    '<img style="border-radius: 23px; margin: 7px 0 7px 7px;" class="photo-td little-human little-human-picture" ' +
+                    '   src="'+ rowData.pic + '">' +
+                    '</div>';
+                htmlStr +=
+                    '<div class="name-container" style="float: right">' +
+                    '   <div>' +
+                    '       <span class="name">'+ rowData.sender +'</span>' +
+                    '   </div>' +
+                    '   <div>' +
+                    '       <span class="tag label label-primary family">' + rowData.tag +'</span>' +
+                    '   </div>' +
+                    '</div>';
+                $(nTd).html(htmlStr);
+            }},
             {"data": "title", "title": "标题"},
             {"data": "body", "title": "内容"},
-            {"data": "status", "title": "状态"},
-            {"data": "date", "title": "发送时间"},
-            {
-                "data": null, "title": "操作", "createdCell": function (nTd, rowData) {
-                var htmlStr = '<button  class="btn btn-edit btn-warning">删除消息</button>';
-                htmlStr += '<button  class="btn btn-edit">标记已读</button>';
-                $(nTd).html(htmlStr);
-
-            }, "width": "300px"
-            }
+            {"data": "date", "title": "发送时间"}
         ],
         "columnDefs": [{
             orderable: false,
-            targets: [9]
+            targets: [4]
         }, {
             "defaultContent": "",
             "targets": "_all"
