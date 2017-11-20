@@ -31,4 +31,6 @@ public interface AdviseMapper {
     List<Advise> getAllAdvise();
 
     int deleteByUserID(String userid);
+
+    String selectFacultyByStudent(String studentid);
 }

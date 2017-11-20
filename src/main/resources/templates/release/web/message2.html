@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/release/faculty/common/header :: commonHeader('消息中心',true, false)"></head>
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+
+    <!-- /. NAV SIDE  -->
+    <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                消息中心
+                <small>先锋消息通知</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="">主页</a></li>
+                <li class="active">消息中心</li>
+            </ol>
+
+        </div>
+        <div id="page-inner">
+            <div id=footerPlaceholder">
+                <div th:include="/release/faculty/common/footer :: copy" id="copyright"></div>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div th:include="/release/faculty/common/js :: load_js(true , false, false)"></div>
+</body>
+</html>

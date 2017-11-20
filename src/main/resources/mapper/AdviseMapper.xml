@@ -18,6 +18,12 @@
     from Advise where studentid = #{studentid,jdbcType=VARCHAR} and facultyid = #{facultyid,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectFacultyByStudent" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from Advise where studentid = #{arg0,jdbcType=VARCHAR}
+  </select>
+
   <select id="getAllAdvise" resultMap="BaseResultMap">
     select * from Advise 
   </select>

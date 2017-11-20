@@ -12,4 +12,8 @@ public interface PinService {
     HaramMessage clearAll(Person user);
     
     HaramMessage listByInfo(String info);
+
+    HaramMessage sendAdvisorPin(String info, String senderId);
+
+    HaramMessage sendFacultyPin(String info, String senderId);
 }

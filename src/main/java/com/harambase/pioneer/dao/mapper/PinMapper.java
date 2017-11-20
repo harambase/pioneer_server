@@ -26,7 +26,7 @@ public interface PinMapper {
 
     Object countByInfo(Map<String, Object> param);
     
-    List<String> listByInfo(Map<String, Object> param);
+    List<Pin> listByInfo(Map<String, Object> param);
 
     int countByPin(int pinNum);
 }

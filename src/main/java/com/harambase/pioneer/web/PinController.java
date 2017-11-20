@@ -39,23 +39,30 @@ public class PinController {
                                    @RequestParam(value = "role") int role,
                                    @RequestParam(value = "info") String info,
                                    @RequestParam(value = "remark") String remark){
-//        Person user = (Person)session.getAttribute("user");
         HaramMessage haramMessage = pinService.generate(startTime, endTime, role, info, remark);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/clear/all", method = RequestMethod.GET)
-    public ResponseEntity clearAll(@RequestParam(value = "info") String info,
-                                   HttpSession session){
+    public ResponseEntity clearAll(@RequestParam(value = "info") String info, HttpSession session){
         Person user = (Person)session.getAttribute("user");
         HaramMessage haramMessage = pinService.clearAll(user);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/list/info", method = RequestMethod.GET)
-    public ResponseEntity listByInfo(@RequestParam(value = "info") String info,
-                                     HttpSession session){
-        HaramMessage haramMessage = pinService.listByInfo(info);
+    @RequestMapping(value = "/send/faculty/pin", method = RequestMethod.GET)
+    public ResponseEntity sendFacultyPin(@RequestParam(value = "info") String info, HttpSession session){
+        Person user = (Person)session.getAttribute("user");
+        HaramMessage haramMessage = pinService.sendFacultyPin(info, user.getUserid());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/send/advisor/pin", method = RequestMethod.GET)
+    public ResponseEntity sendAdvisorPin(@RequestParam(value = "info") String info, HttpSession session){
+        Person user = (Person)session.getAttribute("user");
+        HaramMessage haramMessage = pinService.sendAdvisorPin(info, user.getUserid());
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+
 }

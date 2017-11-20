@@ -139,11 +139,11 @@ public class WebController {
     }
     
     //web
-    @RequestMapping("/manage/message")
+    @RequestMapping("/message")
     public String message(){
         return "release/web/message";
     }
-    @RequestMapping("/manage/profile")
+    @RequestMapping("/profile")
     public String profile() {
         return "release/web/profile";
     }

@@ -3,12 +3,14 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.mapper.AdviseMapper;
+import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.PinMapper;
-import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.Pin;
+import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.service.PinService;
 import javafx.beans.binding.ObjectExpression;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +22,18 @@ import java.util.Map;
 
 @Service
 public class PinServiceImpl implements PinService{
-    private final PersonMapper personMapper;
     private final PinMapper pinMapper;
+    private final PersonMapper personMapper;
+    private final MessageMapper messageMapper;
+    private final AdviseMapper adviseMapper;
     
     @Autowired
-    public PinServiceImpl(PersonMapper personMapper, PinMapper pinMapper){
+    public PinServiceImpl(PersonMapper personMapper, PinMapper pinMapper,
+                          MessageMapper messageMapper, AdviseMapper adviseMapper){
         this.personMapper = personMapper;
         this.pinMapper = pinMapper;
+        this.messageMapper = messageMapper;
+        this.adviseMapper = adviseMapper;
     }
     @Override
     public HaramMessage validate(Integer pin, Person user) {
@@ -119,8 +126,107 @@ public class PinServiceImpl implements PinService{
         try{
             Map<String, Object> param = new HashMap<>();
             param.put("info", info);
-            List<String> pinInfoList = pinMapper.listByInfo(param);
+            List<Pin> pinInfoList = pinMapper.listByInfo(param);
             haramMessage.setData(pinInfoList);
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+        haramMessage.setCode(FlagDict.SUCCESS.getV());
+        haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        return haramMessage;
+    }
+
+    @Transactional
+    @Override
+    public HaramMessage sendFacultyPin(String info, String senderId){
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Map<String, Object> param = new HashMap<>();
+            param.put("info", info);
+            List<Pin> pinInfoList = pinMapper.listByInfo(param);
+
+            String date = DateUtil.DateToStr(new Date());
+            MessageWithBLOBs message = new MessageWithBLOBs();
+            message.setDate(date);
+            message.setStatus("UNREAD");
+            message.setTitle("PIN的信息");
+            message.setSenderid(senderId);
+            message.setAttachment(null);
+            message.setLabels("inbox/important/");
+            message.setTag("work");
+            String body;
+            String facultyId;
+            for(Pin pin : pinInfoList){
+                if(pin.getRole() == 2){
+                    facultyId = pin.getFacultyid();
+                    body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
+                            + pin.getStarttime() + "至" + pin.getEndtime();
+                    message.setReceiverid(facultyId);
+                    message.setBody(body);
+                    int ret = messageMapper.insert(message);
+                    if(ret != 1)
+                        throw new RuntimeException("插入失败!");
+                }
+            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+        haramMessage.setCode(FlagDict.SUCCESS.getV());
+        haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        return haramMessage;
+    }
+
+    @Transactional
+    @Override
+    public HaramMessage sendAdvisorPin(String info, String senderId){
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Map<String, Object> param = new HashMap<>();
+            param.put("info", info);
+            List<Pin> pinInfoList = pinMapper.listByInfo(param);
+
+            String date = DateUtil.DateToStr(new Date());
+            MessageWithBLOBs message = new MessageWithBLOBs();
+            message.setDate(date);
+            message.setStatus("UNREAD");
+            message.setTitle("您的辅导学生的PIN的信息");
+            message.setSenderid(senderId);
+            message.setAttachment(null);
+            message.setLabels("inbox/important/");
+            message.setTag("work");
+
+            String body;
+            String facultyId;
+            String studentId;
+            String studentName;
+            Person student;
+
+            for(Pin pin : pinInfoList){
+                if(pin.getRole() == 1){
+                    studentId = pin.getStudentid();
+                    facultyId = adviseMapper.selectFacultyByStudent(studentId);
+                    student = personMapper.selectByPrimaryKey(studentId);
+                    studentName = student.getLastname() + ", " + student.getFirstname();
+
+                    body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
+                            + pin.getStarttime() + "至" + pin.getEndtime() + "请及时告知，谢谢！";
+                    message.setReceiverid(facultyId);
+                    message.setBody(body);
+                    int ret = messageMapper.insert(message);
+                    if(ret != 1)
+                        throw new RuntimeException("插入失败!");
+                }
+            }
+
+
         }catch (Exception e){
             e.printStackTrace();
             haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());

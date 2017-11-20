@@ -15,13 +15,12 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.MessageWithBLOBs" extends="BaseResultMap" >
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
-    <result column="pic" property="pic" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, senderid, receiverid, subject, title, status, date, attachment, tag, labels
   </sql>
   <sql id="Blob_Column_List" >
-    body, pic
+    body
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -39,12 +38,12 @@
     insert into Message (id, senderid, receiverid, 
       subject, title, status, 
       date, attachment, tag, 
-      labels, body, pic
+      labels, body
       )
     values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=VARCHAR}, 
       #{subject,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{date,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
-      #{labels,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}, #{pic,jdbcType=LONGVARCHAR}
+      #{labels,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.MessageWithBLOBs" >
@@ -83,9 +82,6 @@
       <if test="body != null" >
         body,
       </if>
-      <if test="pic != null" >
-        pic,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,9 +116,6 @@
       </if>
       <if test="body != null" >
         #{body,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="pic != null" >
-        #{pic,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -159,9 +152,6 @@
       <if test="body != null" >
         body = #{body,jdbcType=LONGVARCHAR},
       </if>
-      <if test="pic != null" >
-        pic = #{pic,jdbcType=LONGVARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -176,8 +166,7 @@
       attachment = #{attachment,jdbcType=VARCHAR},
       tag = #{tag,jdbcType=VARCHAR},
       labels = #{labels,jdbcType=VARCHAR},
-      body = #{body,jdbcType=LONGVARCHAR},
-      pic = #{pic,jdbcType=LONGVARCHAR}
+      body = #{body,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message" >

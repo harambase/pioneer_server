@@ -41,6 +41,16 @@ public class Person implements Serializable {
 
     private String comment;
 
+    private String profile;
+
+    public String getProfile(){
+        return profile;
+    }
+
+    public void setProfile(String profile){
+        this.profile = profile == null ? null : profile.trim();
+    }
+
     public Integer getId() {
         return id;
     }
