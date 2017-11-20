@@ -67,6 +67,7 @@ public class MessageController {
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/show/img")
     public Object getImg(HttpServletRequest request, HttpServletResponse response, @PathVariable("sender") String sender){
 

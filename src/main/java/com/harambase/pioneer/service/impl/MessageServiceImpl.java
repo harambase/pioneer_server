@@ -29,32 +29,20 @@ public class MessageServiceImpl implements MessageService {
     public HaramMessage list(String currentPage, String pageSize, String search, String order, String orderColumn,String receiverid) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
+            case 0:
+                orderColumn = "sender";
+                break;
             case 1:
-                orderColumn = "semail";
-                break;
-            case 2:
-                orderColumn = "slast";
-                break;
-            case 3:
-                orderColumn = "sfirst";
-                break;
-            case 4:
-                orderColumn = "subject";
-                break;
-            case 5:
                 orderColumn = "title";
                 break;
-            case 6:
+            case 2:
                 orderColumn = "body";
                 break;
-            case 7:
+            case 3:
                 orderColumn = "status";
                 break;
-            case 8:
-                orderColumn = "date";
-                break;
             default:
-                orderColumn = "id";
+                orderColumn = "date";
                 break;
         }
         long totalSize = 0;

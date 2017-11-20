@@ -29,431 +29,158 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default xmedium-panel mail-panel animated zoomIn">
-                            <div class="panel-body" ng-transclude="">
-                                <div class="letter-layout ng-scope">
-                                    <div class="mail-navigation-container">
-                                        <div class="text-center">
-                                            <button type="button" class="btn btn-default compose-button">
-                                                写信息
-                                            </button>
-                                        </div><!-- ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="mail-navigation active"
-                                             href="#/components/mail/inbox">
-                                            收件箱
-                                        </div>
-                                            <!--收件箱<span class="new-mails ng-binding">7</span></div>-->
-                                        <!-- end ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="mail-navigation"
-                                             href="#/components/mail/sent">
-                                            已发送
-                                        </div>
-                                        <!-- end ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="mail-navigation"
-                                             href="#/components/mail/important">
-                                            重要信息
-                                        </div>
-                                        <!-- end ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="mail-navigation"
-                                             href="#/components/mail/draft">
-                                            草稿箱
-                                        </div>
-                                        <!-- end ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="mail-navigation"
-                                             href="#/components/mail/trash">
-                                            垃圾箱
-                                        </div>
-                                        <!-- end ngRepeat: t in tabCtrl.tabs -->
-                                        <div class="labels">
-                                            <div class="labels-title"></div>
-                                            <div class="labels-container">
-                                                <div class="label-item">
-                                                    <span class="tag label work">Work</span>
-                                                </div>
-                                                <div class="label-item">
-                                                    <span class="tag label family">Family</span>
-                                                </div>
-                                                <div class="label-item">
-                                                    <span class="tag label friend">Friend</span>
-                                                </div>
-                                                <div class="label-item">
-                                                    <span class="tag label study">Study</span>
-                                                </div>
+                        <div class="panel-body">
+                            <div class="letter-layout ng-scope">
+                                <div class="mail-navigation-container">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-default compose-button">
+                                            写信息
+                                        </button>
+                                    </div><!-- ngRepeat: t in tabCtrl.tabs -->
+                                    <div class="mail-navigation active"
+                                         href="#/components/mail/inbox">
+                                        收件箱
+                                    </div>
+                                    <!--收件箱<span class="new-mails ng-binding">7</span></div>-->
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/sent">
+                                        已发送
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/important">
+                                        重要信息
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/draft">
+                                        草稿箱
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/trash">
+                                        垃圾箱
+                                    </div>
+                                    <div class="labels">
+                                        <div class="labels-title"></div>
+                                        <div class="labels-container">
+                                            <div class="label-item">
+                                                <span class="tag label friend">紧急</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label work">重要</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label family">一般</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label study">完结</span>
                                             </div>
                                         </div>
-                                        <div class="add-label-container">
-                                            <i class="fa fa-plus-circle"></i>
-                                            <span class="label-input-stub">创建标签</span>
+                                    </div>
+                                </div><!-- uiView: -->
+                                <ui-view id="table" class="ng-scope">
+                                    <div class="side-message-navigation ng-scope expanded">
+                                        <div class="mail-messages-control side-message-navigation-item">
+                                            <div class="toggle-navigation-container">
+                                                <a class="collapse-navigation-link ion-navicon"></a>
+                                            </div>
+                                            <label class="checkbox-inline custom-checkbox nowrap">
+                                                <input type="checkbox" id="inlineCheckbox01" value="option1">
+                                                <span class="select-all-label">全选</span>
+                                            </label>
+                                            <button type="button" class="btn btn-icon refresh-button">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
                                         </div>
-                                    </div><!-- uiView: -->
-                                    <ui-view class="ng-scope">
-                                        <div class="side-message-navigation ng-scope expanded">
-                                            <div class="mail-messages-control side-message-navigation-item">
-                                                <div class="toggle-navigation-container">
+                                        <table class="table table-striped table-bordered table-hover" id="messageTable"></table>
+                                    </div>
+                                </ui-view>
+                                <ui-view id="detail" class="ng-scope">
+                                    <div class="message-container expanded">
+                                        <div class="message">
+                                            <div class="row">
+                                                <div class="toggle-navigation-container detail-page">
                                                     <a class="collapse-navigation-link ion-navicon"></a>
                                                 </div>
-                                                <label class="checkbox-inline custom-checkbox nowrap">
-                                                    <input type="checkbox" id="inlineCheckbox01" value="option1">
-                                                    <span class="select-all-label">全选</span>
-                                                </label>
-                                                <button type="button" class="btn btn-icon refresh-button">
-                                                    <i class="fa fa-refresh"></i>
+                                                <button id="back" type="button" class="back-button btn btn-default btn-with-icon">
+                                                    <i class="fa fa-align-left"></i>Back
                                                 </button>
                                             </div>
-                                            <div class="messages">
-                                                <table class="table table-striped table-bordered table-hover" id="messageTable"></table>
-                                                <!--<table>&ndash;&gt;-->
-                                                <!--<tbody id="messageTableBody">-->
-                                                <!--<tr class="side-message-navigation-item little-human">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox">-->
-                                                <!--<label class="checkbox-inline custom-checkbox nowrap">-->
-                                                <!--<input type="checkbox">-->
-                                                <!--<span></span>-->
-                                                <!--</label>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td" href="#/components/mail/inbox/2334uudsa">-->
-                                                <!--<img class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Kostya.png">-->
-                                                <!--</td>-->
-                                                <!--<td href="#/components/mail/inbox/2334uudsa">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div>-->
-                                                <!--<span class="name">Kostya Danovsky</span>-->
-                                                <!--</div>-->
-                                                <!--<div>-->
-                                                <!--<span class="tag label label-primary family">family</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td href="#/components/mail/inbox/2334uudsa">-->
-                                                <!--<div class="additional-info">-->
-                                                <!--<span class="subject ng-binding">Street Art</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td href="#/components/mail/inbox/2334uudsa">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Aliquam eu facilisis eros, quis varius-->
-                                                <!--est.Consectetur adipiscing elit. Aliquam sodales-->
-                                                <!--sem in nibh pellentesque, ac dignissim mi-->
-                                                <!--dapibus.Lorem ipsum dolor sit amet! Nullam-->
-                                                <!--imperdiet justo a ipsum laoreet euismod.Cras-->
-                                                <!--tincidunt fermentum lectus, quis scelerisque-->
-                                                <!--lorem volutpat sed.Sed quis orci sed nisl-->
-                                                <!--sagittis viverra id at mauris. Nam venenatis mi-->
-                                                <!--nibh. Sed fringilla mattis vehic-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date">-->
-                                                <!--<span>Nov 22 10:05</span>-->
-                                                <!--</td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover study">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563fdfvd"><img-->
-                                                <!--ng-src="assets/img/app/profile/Nasta.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Nasta.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563fdfvd">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span-->
-                                                <!--class="name ng-binding">Nasta Linnie</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span-->
-                                                <!--class="tag label label-primary study">study</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563fdfvd">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">Lores ipsum</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563fdfvd">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Lorem ipsum dolor sit amet, consectetur-->
-                                                <!--adipiscing elit. Mauris ex mauris, ultrices vel-->
-                                                <!--lectus quis, scelerisque hendrerit ipsum.-->
-                                                <!--Suspendisse ullamcorper turpis neque, eget-->
-                                                <!--dapibus magna placerat ac. Suspendisse rhoncus-->
-                                                <!--ligula ac mi tempus varius ut sed lacus. Sed et-->
-                                                <!--commodo nulla, et placerat leo. Nam rhoncus-->
-                                                <!--vulputate sem non pharetra. Praesent fringilla-->
-                                                <!--massa in laoreet convallis. Aliquam lobortis dui-->
-                                                <!--a congue facilisis. Aenean dapibus semper-->
-                                                <!--semper. Quisque aliquam, nibh dapibus interdum-->
-                                                <!--condimentum, ex velit tempor tortor, at-->
-                                                <!--vestibulum magna leo quis leo. Morbi pulvinar-->
-                                                <!--varius erat ac rutrum. Vestibulum ante ipsum-->
-                                                <!--primis in faucibus orci luctus et ultrices-->
-                                                <!--posuere cubilia Curae; In hac habitasse platea-->
-                                                <!--dictumst.Cras rhoncus quam ipsum, vel dignissim-->
-                                                <!--nisl egestas sed. Aliquam erat volutpat. Integer-->
-                                                <!--eu nisl elit. Donec malesuada diam vitae tellus-->
-                                                <!--luctus tincidunt. Donec tempus blandit neque,-->
-                                                <!--rutrum egestas ipsum sagittis tempor. Curabitur-->
-                                                <!--volutpat ligula enim, nec vehicula purus-->
-                                                <!--molestie at. Sed a facilisis enim, nec molestie-->
-                                                <!--magna. Donec in augue non est viverra dapibus-->
-                                                <!--vel tempus risus. Nam porttitor purus sit amet-->
-                                                <!--hendrerit ullamcorper. Class aptent taciti-->
-                                                <!--sociosqu ad litora torquent per conubia nostra,-->
-                                                <!--per inceptos himenaeos.-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">Nov 19 03:30</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover work">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955asewf"><img-->
-                                                <!--ng-src="assets/img/app/profile/Nick.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Nick.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955asewf">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span-->
-                                                <!--class="name ng-binding">Nick Cat</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span class="tag label label-primary work">work</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955asewf">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">Some news</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955asewf">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Integer eu nisl elit. Donec malesuada diam vitae-->
-                                                <!--tellus luctus tincidunt. Donec tempus blandit-->
-                                                <!--neque, rutrum egestas ipsum sagittis tempor.-->
-                                                <!--Curabitur volutpat ligula enim, nec vehicula-->
-                                                <!--purus molestie at. Sed a facilisis enim, nec-->
-                                                <!--molestie magna. Donec in augue non est viverra-->
-                                                <!--dapibus vel tempus risus. Nam porttitor purus-->
-                                                <!--sit amet hendrerit ullamcorper. Class aptent-->
-                                                <!--taciti sociosqu ad litora torquent per conubia-->
-                                                <!--nostra, per inceptos himenaeos.-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">Sep 23 03:04</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover friend">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563faass"><img-->
-                                                <!--ng-src="assets/img/app/profile/Nasta.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Nasta.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563faass">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span-->
-                                                <!--class="name ng-binding">Nasta Linnie</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span-->
-                                                <!--class="tag label label-primary friend">friend</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563faass">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">Great text</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/4563faass">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Check out this cool text.-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">Aug 28 07:57</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover study">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sdfcc"><img-->
-                                                <!--ng-src="assets/img/app/profile/Nick.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Nick.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sdfcc">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span-->
-                                                <!--class="name ng-binding">Nick Cat</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span-->
-                                                <!--class="tag label label-primary study">study</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sdfcc">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">Gift card</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sdfcc">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Consectetur adipiscing elit, Lorem ipsum dolor-->
-                                                <!--sit amet-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">Jul 18 10:19</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover family">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/2334aefvv"><img-->
-                                                <!--ng-src="assets/img/app/profile/Kostya.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Kostya.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/2334aefvv">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span class="name ng-binding">Kostya Danovsky</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span-->
-                                                <!--class="tag label label-primary family">family</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/2334aefvv">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">New product</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/2334aefvv">-->
-                                                <!--<div class="mail-body-part ng-binding">Hello John,-->
-                                                <!--Lorem ipsum dolor sit amet!Consectetur-->
-                                                <!--adipiscing elit. Aliquam sodales sem in nibh-->
-                                                <!--pellentesque, ac dignissim mi dapibus.Aliquam eu-->
-                                                <!--facilisis eros, quis varius est. Nullam-->
-                                                <!--imperdiet justo a ipsum laoreet euismod.Nulla-->
-                                                <!--facilisi. Nulla congue, arcu eget blandit-->
-                                                <!--lacinia, leo ante ullamcorper lectus, vel-->
-                                                <!--pulvinar justo ipsum vitae justo.Cras tincidunt-->
-                                                <!--fermentum lectus, quis scelerisque lorem-->
-                                                <!--volutpat sed. Sed quis orci sed nisl sagittis-->
-                                                <!--viverra id at mauris. Nam venenatis mi nibh. Sed-->
-                                                <!--fringilla mattis vehic-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">Jun 22 06:26</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
-                                                <!--class="side-message-navigation-item little-human shineHover work">-->
-                                                <!--<td class="check-td">-->
-                                                <!--<div class="mail-checkbox"><label-->
-                                                <!--class="checkbox-inline custom-checkbox nowrap"><input-->
-                                                <!--type="checkbox"> <span></span></label></div>-->
-                                                <!--</td>-->
-                                                <!--<td class="photo-td"-->
-                                                <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sddf"><img-->
-                                                <!--ng-src="assets/img/app/profile/Nick.png"-->
-                                                <!--class="little-human-picture"-->
-                                                <!--src="./Blur Admin_files/Nick.png"></td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sddf">-->
-                                                <!--<div class="name-container">-->
-                                                <!--<div><span-->
-                                                <!--class="name ng-binding">Nick Cat</span>-->
-                                                <!--</div>-->
-                                                <!--<div><span class="tag label label-primary work">work</span>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sddf">-->
-                                                <!--<div class="additional-info"><span-->
-                                                <!--class="subject ng-binding">New Design</span>-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
-                                                <!--href="#/components/mail/inbox/8955sddf">-->
-                                                <!--<div class="mail-body-part ng-binding">Hey John,-->
-                                                <!--Consectetur adipiscing elitCras rhoncus quam-->
-                                                <!--ipsum, vel dignissim nisl egestas sed. Aliquam-->
-                                                <!--erat volutpat. Integer eu nisl elit. Donec-->
-                                                <!--malesuada diam vitae tellus luctus tincidunt.-->
-                                                <!--Donec tempus blandit neque, rutrum egestas ipsum-->
-                                                <!--sagittis tempor. Curabitur volutpat ligula enim,-->
-                                                <!--nec vehicula purus molestie at. Sed a facilisis-->
-                                                <!--enim, nec molestie magna. Donec in augue non est-->
-                                                <!--viverra dapibus vel tempus risus. Nam porttitor-->
-                                                <!--purus sit amet hendrerit ullamcorper. Class-->
-                                                <!--aptent taciti sociosqu ad litora torquent per-->
-                                                <!--conubia nostra, per inceptos himenaeos.-->
-                                                <!--</div>-->
-                                                <!--</td>-->
-                                                <!--<td class="date"><span-->
-                                                <!--class="ng-binding">May 5 12:59</span></td>-->
-                                                <!--</tr>-->
-                                                <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
-                                                <!--</tbody>-->
-                                                <!--</table>
-                                                <!---->
+                                            <div class="person-info row">
+                                                <div class="col-lg-4 col-md-12 no-padding">
+                                                    <img class="human-picture"
+                                                         src="./Blur Admin_files/Kostya.png">
+                                                    <div class="name"><h2 class="name-h ng-binding">
+                                                        Kostya</h2>
+                                                        <h2 class="name-h second-name ng-binding">
+                                                            Danovsky</h2>
+                                                        <div><span
+                                                                class="mail-tag tag label family">family</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-xs-12 no-padding">
+                                                    <div class="contact-info phone-email">
+                                                        <div><i class="ion-iphone"></i> <span class="phone">777-777-7777</span>
+                                                        </div>
+                                                        <div><i class="ion-email"></i> <span
+                                                                class="email ng-binding">schwart@mail.com</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-6 col-xs-12 no-padding">
+                                                    <div class="contact-info position-address">
+                                                        <div><span class="position ng-binding">Technical Chef</span>
+                                                        </div>
+                                                        <div><span class="address">12 Nezavisimosti st. Vilnius, Lithuania</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row"></div>
+                                            <div class="line"></div>
+                                            <div class="message-details"><span class="subject ng-binding">Street Art</span>
+                                                <span class="date ng-binding">• 10:05 AM November 22 </span>
+                                            </div>
+                                            <div class="line"></div>
+                                            <div ng-bind-html="detailCtrl.mail.body"
+                                                 class="message-body ng-binding"><p>Hey John, </p>
+                                                <p>Aliquam eu facilisis eros, quis varius est.</p>
+                                                <p>Consectetur adipiscing elit. Aliquam sodales sem in nibh
+                                                    pellentesque, ac dignissim mi dapibus.</p>
+                                                <p>Lorem ipsum dolor sit amet! Nullam imperdiet justo a
+                                                    ipsum laoreet euismod.</p><br>
+                                                <p>Cras tincidunt fermentum lectus, quis scelerisque lorem
+                                                    volutpat sed.Sed quis orci sed nisl sagittis viverra id
+                                                    at mauris. Nam venenatis mi nibh. Sed fringilla mattis
+                                                    vehic</p></div>
+                                            <div class="line"></div>
+                                            <div class="attachment" ng-show="detailCtrl.mail.attachment">
+                                                        <span class="file-links">1 Attachment - <a
+                                                                href="http://akveo.com/blur-admin/">View</a> | <a
+                                                                href="http://akveo.com/blur-admin/">Download</a></span>
+                                                <div><i class="file-icon ion-document"></i> <span
+                                                        class="file-name ng-binding">file.doc</span></div>
+                                            </div>
+                                            <div class="line" ng-show="detailCtrl.mail.attachment"></div>
+                                            <div class="answer-container">
+                                                <button type="button" class="btn btn-with-icon">
+                                                    <i class="ion-reply"></i>回复
+                                                </button>
+                                                <button type="button" class="btn btn-with-icon">
+                                                    <i class="ion-forward"></i>转发
+                                                </button>
+                                                <button type="button" class="btn btn-with-icon"><i
+                                                        class="ion-printer"></i>打印
+                                                </button>
+                                                <button type="button" class="btn btn-with-icon"><i
+                                                        class="ion-android-delete"></i>删除
+                                                </button>
                                             </div>
                                         </div>
-                                    </ui-view>
-                                </div>
+                                    </div>
+                                </ui-view>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
             <div id=footerPlaceholder">
@@ -461,6 +188,142 @@
             </div>
         </div>
         <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE INNER  -->
+    <div id="writeMail" class="modal-dialog modal-compose">
+        <div class="modal-content" uib-modal-transclude="">
+            <div class="compose-header ng-scope"><span>New message</span> <span class="header-controls"><i
+                    class="ion-minus-round"></i> <i class="ion-arrow-resize"></i> <i ng-click="$dismiss()"
+                                                                                     class="ion-close-round"></i></span>
+            </div>
+            <div class="ng-scope"><input type="text"
+                                         class="form-control compose-input default-color ng-pristine ng-untouched ng-valid ng-not-empty"
+                                         placeholder="To" ng-model="boxCtrl.to" style=""> <input type="text"
+                                                                                                 class="form-control compose-input default-color ng-pristine ng-untouched ng-valid ng-not-empty"
+                                                                                                 placeholder="Subject"
+                                                                                                 ng-model="boxCtrl.subject"
+                                                                                                 style="">
+                <div class="compose-container">
+                    <text-angular-toolbar ta-toolbar-class="toolbarMain" name="toolbarMain"
+                                          ta-toolbar="[['h1','h2','h3','bold','italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull']]"
+                                          class="ng-isolate-scope ta-toolbar toolbarMain">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default ng-scope" name="h1" ta-button="ta-button"
+                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                    ng-class="displayActiveToolClass(active)" title="Heading 1" unselectable="on"
+                                    disabled="disabled">H1
+                            </button>
+                            <button type="button" class="btn btn-default ng-scope" name="h2" ta-button="ta-button"
+                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                    ng-class="displayActiveToolClass(active)" title="Heading 2" unselectable="on"
+                                    disabled="disabled">H2
+                            </button>
+                            <button type="button" class="btn btn-default ng-scope" name="h3" ta-button="ta-button"
+                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                    ng-class="displayActiveToolClass(active)" title="Heading 3" unselectable="on"
+                                    disabled="disabled">H3
+                            </button>
+                            <button type="button" class="btn btn-default ng-scope" name="bold" ta-button="ta-button"
+                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                    ng-class="displayActiveToolClass(active)" title="Bold" unselectable="on"
+                                    disabled="disabled"><i class="fa fa-bold"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="italics"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Italic" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-italic"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="underline"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Underline" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-underline"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="justifyLeft"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Align text left" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-align-left"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="justifyCenter"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Center" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-align-center"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="justifyRight"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Align text right" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-align-right"></i></button>
+                            <button type="button" class="btn btn-default ng-scope" name="justifyFull"
+                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                    title="Justify text" unselectable="on" disabled="disabled"><i
+                                    class="fa fa-align-justify"></i></button>
+                        </div>
+                    </text-angular-toolbar>
+                    <text-angular name="htmlcontent" ta-target-toolbars="toolbarMain,toolbarFooter"
+                                  ng-model="boxCtrl.text"
+                                  class="ng-pristine ng-untouched ng-valid ng-isolate-scope ta-root ng-empty"
+                                  style="">
+                        <div class="ta-scroll-window ng-scope ta-text ta-editor form-control" ng-hide="showHtml">
+                            <div class="popover fade bottom" style="max-width: none; width: 305px;">
+                                <div class="arrow"></div>
+                                <div class="popover-content"></div>
+                            </div>
+                            <div class="ta-resizer-handle-overlay">
+                                <div class="ta-resizer-handle-background"></div>
+                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-tl"></div>
+                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-tr"></div>
+                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-bl"></div>
+                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-br"></div>
+                                <div class="ta-resizer-handle-info"></div>
+                            </div>
+                            <div id="taTextElement2321239607926928" contenteditable="true" ta-bind="ta-bind"
+                                 ng-model="html" class="ng-pristine ng-untouched ng-valid ta-bind ng-empty"
+                                 style=""><p><br></p></div>
+                        </div>
+                        <textarea id="taHtmlElement2321239607926928" ng-show="showHtml" ta-bind="ta-bind"
+                                  ng-model="html"
+                                  class="ng-pristine ng-untouched ng-valid ng-scope ta-bind ta-html ta-editor form-control ng-empty ng-hide"
+                                  style=""></textarea><input type="hidden" tabindex="-1" style="display: none;"
+                                                             name="htmlcontent" value=""></text-angular>
+                </div>
+            </div>
+            <div class="compose-footer clearfix ng-scope">
+                <button type="button" ng-click="$dismiss()" class="btn btn-send">Send</button>
+                <text-angular-toolbar ta-toolbar-class="toolbarFooter" name="toolbarFooter"
+                                      ta-toolbar="[['insertLink', 'insertImage', 'html', 'quote','insertVideo']]"
+                                      class="ng-isolate-scope ta-toolbar toolbarFooter">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default ng-scope" name="insertLink"
+                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                title="Insert / edit link" unselectable="on" disabled="disabled"><i
+                                class="fa fa-link"></i></button>
+                        <button type="button" class="btn btn-default ng-scope" name="insertImage"
+                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                title="Insert image" unselectable="on" disabled="disabled"><i
+                                class="fa fa-picture-o"></i></button>
+                        <button type="button" class="btn btn-default ng-scope" name="html" ta-button="ta-button"
+                                ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                ng-class="displayActiveToolClass(active)" title="Toggle html / Rich Text"
+                                unselectable="on" disabled="disabled"><i class="fa fa-code"></i></button>
+                        <button type="button" class="btn btn-default ng-scope" name="quote" ta-button="ta-button"
+                                ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
+                                ng-class="displayActiveToolClass(active)"
+                                title="Quote/unquote selection or paragraph" unselectable="on" disabled="disabled">
+                            <i class="fa fa-quote-right"></i></button>
+                        <button type="button" class="btn btn-default ng-scope" name="insertVideo"
+                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
+                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
+                                title="Insert video" unselectable="on" disabled="disabled"><i
+                                class="fa fa-youtube-play"></i></button>
+                    </div>
+                </text-angular-toolbar>
+                <div class="footer-controls"><i
+                        class="footer-control-first compose-footer-icon ion-arrow-down-b"></i> <i
+                        ng-click="$dismiss()" class="compose-footer-icon ion-android-delete"></i></div>
+            </div>
+        </div>
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>

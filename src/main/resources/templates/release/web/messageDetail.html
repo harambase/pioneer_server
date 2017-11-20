@@ -1,0 +1,460 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="/release/faculty/common/header :: commonHeader('消息中心',true, false)"></head>
+
+<body>
+<div id="wrapper">
+    <!--/. NAV TOP  -->
+    <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+
+    <!-- /. NAV SIDE  -->
+    <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                消息中心
+                <small>先锋消息通知</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="">主页</a></li>
+                <li class="active">消息中心</li>
+            </ol>
+
+        </div>
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default xmedium-panel mail-panel animated zoomIn">
+                        <div class="panel-body">
+                            <div class="letter-layout ng-scope">
+                                <div class="mail-navigation-container">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-default compose-button">
+                                            写信息
+                                        </button>
+                                    </div><!-- ngRepeat: t in tabCtrl.tabs -->
+                                    <div class="mail-navigation active"
+                                         href="#/components/mail/inbox">
+                                        收件箱
+                                    </div>
+                                    <!--收件箱<span class="new-mails ng-binding">7</span></div>-->
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/sent">
+                                        已发送
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/important">
+                                        重要信息
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/draft">
+                                        草稿箱
+                                    </div>
+                                    <div class="mail-navigation"
+                                         href="#/components/mail/trash">
+                                        垃圾箱
+                                    </div>
+                                    <div class="labels">
+                                        <div class="labels-title"></div>
+                                        <div class="labels-container">
+                                            <div class="label-item">
+                                                <span class="tag label friend">紧急</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label work">重要</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label family">一般</span>
+                                            </div>
+                                            <div class="label-item">
+                                                <span class="tag label study">完结</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- uiView: -->
+                                <ui-view class="ng-scope">
+                                    <div class="side-message-navigation ng-scope expanded">
+                                        <div class="mail-messages-control side-message-navigation-item">
+                                            <div class="toggle-navigation-container">
+                                                <a class="collapse-navigation-link ion-navicon"></a>
+                                            </div>
+                                            <label class="checkbox-inline custom-checkbox nowrap">
+                                                <input type="checkbox" id="inlineCheckbox01" value="option1">
+                                                <span class="select-all-label">全选</span>
+                                            </label>
+                                            <button id="refresh" type="button" class="btn btn-icon refresh-button">
+                                                <i class="fa fa-refresh"></i>
+                                            </button>
+                                        </div>
+                                        <div class="messages">
+                                            <table class="table table-striped table-bordered table-hover" id="messageTable"></table>
+                                            <!--<table>&ndash;&gt;-->
+                                            <!--<tbody id="messageTableBody">-->
+                                            <!--<tr class="side-message-navigation-item little-human">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox">-->
+                                            <!--<label class="checkbox-inline custom-checkbox nowrap">-->
+                                            <!--<input type="checkbox">-->
+                                            <!--<span></span>-->
+                                            <!--</label>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td" href="#/components/mail/inbox/2334uudsa">-->
+                                            <!--<img class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Kostya.png">-->
+                                            <!--</td>-->
+                                            <!--<td href="#/components/mail/inbox/2334uudsa">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div>-->
+                                            <!--<span class="name">Kostya Danovsky</span>-->
+                                            <!--</div>-->
+                                            <!--<div>-->
+                                            <!--<span class="tag label label-primary family">family</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td href="#/components/mail/inbox/2334uudsa">-->
+                                            <!--<div class="additional-info">-->
+                                            <!--<span class="subject ng-binding">Street Art</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td href="#/components/mail/inbox/2334uudsa">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Aliquam eu facilisis eros, quis varius-->
+                                            <!--est.Consectetur adipiscing elit. Aliquam sodales-->
+                                            <!--sem in nibh pellentesque, ac dignissim mi-->
+                                            <!--dapibus.Lorem ipsum dolor sit amet! Nullam-->
+                                            <!--imperdiet justo a ipsum laoreet euismod.Cras-->
+                                            <!--tincidunt fermentum lectus, quis scelerisque-->
+                                            <!--lorem volutpat sed.Sed quis orci sed nisl-->
+                                            <!--sagittis viverra id at mauris. Nam venenatis mi-->
+                                            <!--nibh. Sed fringilla mattis vehic-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date">-->
+                                            <!--<span>Nov 22 10:05</span>-->
+                                            <!--</td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover study">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563fdfvd"><img-->
+                                            <!--ng-src="assets/img/app/profile/Nasta.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Nasta.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563fdfvd">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span-->
+                                            <!--class="name ng-binding">Nasta Linnie</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span-->
+                                            <!--class="tag label label-primary study">study</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563fdfvd">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">Lores ipsum</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563fdfvd">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Lorem ipsum dolor sit amet, consectetur-->
+                                            <!--adipiscing elit. Mauris ex mauris, ultrices vel-->
+                                            <!--lectus quis, scelerisque hendrerit ipsum.-->
+                                            <!--Suspendisse ullamcorper turpis neque, eget-->
+                                            <!--dapibus magna placerat ac. Suspendisse rhoncus-->
+                                            <!--ligula ac mi tempus varius ut sed lacus. Sed et-->
+                                            <!--commodo nulla, et placerat leo. Nam rhoncus-->
+                                            <!--vulputate sem non pharetra. Praesent fringilla-->
+                                            <!--massa in laoreet convallis. Aliquam lobortis dui-->
+                                            <!--a congue facilisis. Aenean dapibus semper-->
+                                            <!--semper. Quisque aliquam, nibh dapibus interdum-->
+                                            <!--condimentum, ex velit tempor tortor, at-->
+                                            <!--vestibulum magna leo quis leo. Morbi pulvinar-->
+                                            <!--varius erat ac rutrum. Vestibulum ante ipsum-->
+                                            <!--primis in faucibus orci luctus et ultrices-->
+                                            <!--posuere cubilia Curae; In hac habitasse platea-->
+                                            <!--dictumst.Cras rhoncus quam ipsum, vel dignissim-->
+                                            <!--nisl egestas sed. Aliquam erat volutpat. Integer-->
+                                            <!--eu nisl elit. Donec malesuada diam vitae tellus-->
+                                            <!--luctus tincidunt. Donec tempus blandit neque,-->
+                                            <!--rutrum egestas ipsum sagittis tempor. Curabitur-->
+                                            <!--volutpat ligula enim, nec vehicula purus-->
+                                            <!--molestie at. Sed a facilisis enim, nec molestie-->
+                                            <!--magna. Donec in augue non est viverra dapibus-->
+                                            <!--vel tempus risus. Nam porttitor purus sit amet-->
+                                            <!--hendrerit ullamcorper. Class aptent taciti-->
+                                            <!--sociosqu ad litora torquent per conubia nostra,-->
+                                            <!--per inceptos himenaeos.-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">Nov 19 03:30</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover work">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955asewf"><img-->
+                                            <!--ng-src="assets/img/app/profile/Nick.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Nick.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955asewf">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span-->
+                                            <!--class="name ng-binding">Nick Cat</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span class="tag label label-primary work">work</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955asewf">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">Some news</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955asewf">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Integer eu nisl elit. Donec malesuada diam vitae-->
+                                            <!--tellus luctus tincidunt. Donec tempus blandit-->
+                                            <!--neque, rutrum egestas ipsum sagittis tempor.-->
+                                            <!--Curabitur volutpat ligula enim, nec vehicula-->
+                                            <!--purus molestie at. Sed a facilisis enim, nec-->
+                                            <!--molestie magna. Donec in augue non est viverra-->
+                                            <!--dapibus vel tempus risus. Nam porttitor purus-->
+                                            <!--sit amet hendrerit ullamcorper. Class aptent-->
+                                            <!--taciti sociosqu ad litora torquent per conubia-->
+                                            <!--nostra, per inceptos himenaeos.-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">Sep 23 03:04</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover friend">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563faass"><img-->
+                                            <!--ng-src="assets/img/app/profile/Nasta.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Nasta.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563faass">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span-->
+                                            <!--class="name ng-binding">Nasta Linnie</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span-->
+                                            <!--class="tag label label-primary friend">friend</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563faass">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">Great text</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/4563faass">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Check out this cool text.-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">Aug 28 07:57</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover study">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sdfcc"><img-->
+                                            <!--ng-src="assets/img/app/profile/Nick.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Nick.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sdfcc">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span-->
+                                            <!--class="name ng-binding">Nick Cat</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span-->
+                                            <!--class="tag label label-primary study">study</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sdfcc">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">Gift card</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sdfcc">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Consectetur adipiscing elit, Lorem ipsum dolor-->
+                                            <!--sit amet-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">Jul 18 10:19</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover family">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/2334aefvv"><img-->
+                                            <!--ng-src="assets/img/app/profile/Kostya.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Kostya.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/2334aefvv">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span class="name ng-binding">Kostya Danovsky</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span-->
+                                            <!--class="tag label label-primary family">family</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/2334aefvv">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">New product</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/2334aefvv">-->
+                                            <!--<div class="mail-body-part ng-binding">Hello John,-->
+                                            <!--Lorem ipsum dolor sit amet!Consectetur-->
+                                            <!--adipiscing elit. Aliquam sodales sem in nibh-->
+                                            <!--pellentesque, ac dignissim mi dapibus.Aliquam eu-->
+                                            <!--facilisis eros, quis varius est. Nullam-->
+                                            <!--imperdiet justo a ipsum laoreet euismod.Nulla-->
+                                            <!--facilisi. Nulla congue, arcu eget blandit-->
+                                            <!--lacinia, leo ante ullamcorper lectus, vel-->
+                                            <!--pulvinar justo ipsum vitae justo.Cras tincidunt-->
+                                            <!--fermentum lectus, quis scelerisque lorem-->
+                                            <!--volutpat sed. Sed quis orci sed nisl sagittis-->
+                                            <!--viverra id at mauris. Nam venenatis mi nibh. Sed-->
+                                            <!--fringilla mattis vehic-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">Jun 22 06:26</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--<tr ng-repeat="m in listCtrl.messages track by m.id | orderBy:&#39;-date&#39;"-->
+                                            <!--class="side-message-navigation-item little-human shineHover work">-->
+                                            <!--<td class="check-td">-->
+                                            <!--<div class="mail-checkbox"><label-->
+                                            <!--class="checkbox-inline custom-checkbox nowrap"><input-->
+                                            <!--type="checkbox"> <span></span></label></div>-->
+                                            <!--</td>-->
+                                            <!--<td class="photo-td"-->
+                                            <!--ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sddf"><img-->
+                                            <!--ng-src="assets/img/app/profile/Nick.png"-->
+                                            <!--class="little-human-picture"-->
+                                            <!--src="./Blur Admin_files/Nick.png"></td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sddf">-->
+                                            <!--<div class="name-container">-->
+                                            <!--<div><span-->
+                                            <!--class="name ng-binding">Nick Cat</span>-->
+                                            <!--</div>-->
+                                            <!--<div><span class="tag label label-primary work">work</span>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sddf">-->
+                                            <!--<div class="additional-info"><span-->
+                                            <!--class="subject ng-binding">New Design</span>-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td ui-sref="components.mail.detail({id: m.id, label: listCtrl.label})"-->
+                                            <!--href="#/components/mail/inbox/8955sddf">-->
+                                            <!--<div class="mail-body-part ng-binding">Hey John,-->
+                                            <!--Consectetur adipiscing elitCras rhoncus quam-->
+                                            <!--ipsum, vel dignissim nisl egestas sed. Aliquam-->
+                                            <!--erat volutpat. Integer eu nisl elit. Donec-->
+                                            <!--malesuada diam vitae tellus luctus tincidunt.-->
+                                            <!--Donec tempus blandit neque, rutrum egestas ipsum-->
+                                            <!--sagittis tempor. Curabitur volutpat ligula enim,-->
+                                            <!--nec vehicula purus molestie at. Sed a facilisis-->
+                                            <!--enim, nec molestie magna. Donec in augue non est-->
+                                            <!--viverra dapibus vel tempus risus. Nam porttitor-->
+                                            <!--purus sit amet hendrerit ullamcorper. Class-->
+                                            <!--aptent taciti sociosqu ad litora torquent per-->
+                                            <!--conubia nostra, per inceptos himenaeos.-->
+                                            <!--</div>-->
+                                            <!--</td>-->
+                                            <!--<td class="date"><span-->
+                                            <!--class="ng-binding">May 5 12:59</span></td>-->
+                                            <!--</tr>-->
+                                            <!--&lt;!&ndash; end ngRepeat: m in listCtrl.messages track by m.id | orderBy:'-date' &ndash;&gt;-->
+                                            <!--</tbody>-->
+                                            <!--</table>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                </ui-view>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id=footerPlaceholder">
+                <div th:include="/release/faculty/common/footer :: copy" id="copyright"></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<div th:include="/release/faculty/common/js :: load_js(true , false, false)"></div>
+</body>
+</html>
