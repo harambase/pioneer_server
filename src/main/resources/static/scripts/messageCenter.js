@@ -194,8 +194,9 @@ $(function(){
 });
 
 function init(){
-    // initUnread();
-    // initSent();
+    initUnread();
+    initDraft();
+    initTrash();
 }
 
 function initUnread(){
@@ -204,7 +205,7 @@ function initUnread(){
         type: "GET",
         success: function (data) {
             if (data.code === 2001){
-
+                $("#inboxCount").text(data.data);
             }
             else
                 Showbo.Msg.alert("消息获取失败", function () {});
@@ -212,13 +213,28 @@ function initUnread(){
     });
 }
 
-function initSent(){
+
+function initDraft(){
     $.ajax({
-        url: basePath + "/message/count?status=unread&label=box",
+        url: basePath + "/message/count?status=&label=draft",
         type: "GET",
         success: function (data) {
             if (data.code === 2001){
+                $("#draftCount").text(data.data);
+            }
+            else
+                Showbo.Msg.alert("消息获取失败", function () {});
+        }
+    });
+}
 
+function initTrash(){
+    $.ajax({
+        url: basePath + "/message/count?status=&label=trash",
+        type: "GET",
+        success: function (data) {
+            if (data.code === 2001){
+                $("#draftCount").text(data.data);
             }
             else
                 Showbo.Msg.alert("消息获取失败", function () {});
