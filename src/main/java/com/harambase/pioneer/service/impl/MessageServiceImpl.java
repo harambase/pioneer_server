@@ -83,4 +83,21 @@ public class MessageServiceImpl implements MessageService {
             return message;
         }
     }
+
+    @Override
+    public HaramMessage getMessageView(String id) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            MessageView messageView = messageMapper.selectViewByPrimaryKey(Integer.parseInt(id));
+            haramMessage.setData(messageView);
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
+    }
 }

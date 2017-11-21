@@ -3,6 +3,11 @@ $("#writeMail").css({display:"none"});
 $("#refresh").click(function(){
     messageTable.draw();
 });
+$("#back").click(function(){
+    $("#detail").css({display:"none"});
+    $("#table").css({display:"block"});
+    messageTable.draw();
+});
 
 var messageTable = $("#messageTable").DataTable({
 
@@ -70,10 +75,10 @@ var messageTable = $("#messageTable").DataTable({
         {"data": "body", "title": "内容"},
         {"data": "date", "title": "发送时间"},
         {
-            "data": null, "title": "操作", "createdCell": function (nTd) {
+            "data": "id", "title": "操作", "createdCell": function (nTd, rowData) {
             $(nTd).html('' +
-                '<button class="btn btn-primary btn-info" style="width: 50%">查看消息</button>' +
-                '<button class="btn btn-primary btn-edit" style="width: 50%">标记已读</button>');
+                '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData + '\')">查看消息</button>' +
+                '<button class="btn btn-primary btn-edit" style="width: 50%" onclick="markAsRead(\'' + rowData + '\')">标记已读</button>');
         }, "width": "300px"}
     ],
     "columnDefs": [{
@@ -84,6 +89,64 @@ var messageTable = $("#messageTable").DataTable({
     }]
 });
 
-$(function(){
+function viewDetail(id){
+    $.ajax({
+        url: basePath + "/message/view?id=" + id,
+        type: "GET",
+        success: function (data) {
+            if (data.code === 2001){
+                var message = data.data;
+                $("#detail").css({display:"block"});
+                $("#table").css({display:"none"});
+                var senderInfo =
+                    '<img class="human-picture" src="'+ message.pic +'">'+
+                    '   <div class="name"><h2 class="name-h ng-binding">' + message.sender + '</h2>' +
+                    '       <div>' +
+                    '           <span class="mail-tag tag label family">'+message.tag+'</span>' +
+                    '       </div>' +
+                    '   </div>';
+                $("#senderInfo").html(senderInfo);
 
-});
+                var contactInfo =
+                    '<div class="contact-info phone-email">' +
+                    '    <div>' +
+                    '       <i class="fa fa-phone-square fa-2x"></i> ' +
+                    '       <span class="phone"> '+ message.tel +'</span>' +
+                    '    </div>' +
+                    '    <div>' +
+                    '       <i class="fa fa-envelope-square fa-2x"></i> ' +
+                    '       <span class="email"> '+ message.email +'</span>' +
+                    '    </div>' +
+                    '</div>';
+                $("#contactInfo").html(contactInfo);
+
+                var roleInfo =
+                    '<div class="contact-info position-address">' +
+                    '   <div>' +
+                    '       <i class="fa fa-user-circle fa-2x"></i>' +
+                    '       <span class="position">Technical Chef</span>' +
+                    '   </div>' +
+                    '   <div>' +
+                    '       <i class="fa fa-address-card fa-2x"></i>' +
+                    '       <span class="address">12 Nezavisimosti st. Vilnius, Lithuania</span>' +
+                    '   </div>' +
+                    '</div>';
+                $("#roleInfo").html(roleInfo);
+                
+                var subject = 
+                    '<span class="subject ng-binding">'+ message.subject +'</span>' +
+                    '<span class="date ng-binding">• '+ message.date +' </span>'
+                $("#subject").html(subject);
+
+                var body = '<p>'+ message.body + '</p>';
+                $("#body").html(body);
+            }
+            else
+                Showbo.Msg.alert("消息获取失败", function () {});
+        }
+    });
+}
+
+function markAsRead(id){
+
+}

@@ -30,6 +30,11 @@
     from Message
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectViewByPrimaryKey" resultType="com.harambase.pioneer.pojo.dto.MessageView" parameterType="java.lang.Integer" >
+    select * from MessageView where id = #{id,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Message
     where id = #{id,jdbcType=INTEGER}
@@ -192,11 +197,11 @@
       and receiverid = #{receiverid,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and (semail like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (email like '%' #{search,jdbcType=VARCHAR} '%' or
       subject like '%' #{search,jdbcType=VARCHAR} '%' or
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
-      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      sender like  '%' #{search,jdbcType=VARCHAR} '%' or
+      title like  '%' #{search,jdbcType=VARCHAR} '%' or
       date like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
@@ -207,11 +212,11 @@
       and receiverid = #{receiverid,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and (semail like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (email like '%' #{search,jdbcType=VARCHAR} '%' or
       subject like '%' #{search,jdbcType=VARCHAR} '%' or
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
-      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+      sender like  '%' #{search,jdbcType=VARCHAR} '%' or
+      title like  '%' #{search,jdbcType=VARCHAR} '%' or
       date like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
     </where>

@@ -31,4 +31,6 @@ public interface MessageMapper {
     long getMessageCountByMapPageSearchOrdered(Map<String, Object> param);
 
     List<MessageView> getMessageByMapPageSearchOrdered(Map<String, Object> param);
+
+    MessageView selectViewByPrimaryKey(int i);
 }

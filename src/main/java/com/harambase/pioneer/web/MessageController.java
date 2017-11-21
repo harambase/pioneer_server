@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +36,13 @@ public class MessageController {
         this.personService = personService;
     }
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public ResponseEntity getMessageView(@RequestParam(value = "id") String id){
+        HaramMessage haramMessage = messageService.getMessageView(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,
                                     @RequestParam(value = "draw") Integer draw,
