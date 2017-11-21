@@ -37,26 +37,21 @@
                                             写信息
                                         </button>
                                     </div><!-- ngRepeat: t in tabCtrl.tabs -->
-                                    <div class="mail-navigation active"
-                                         href="#/components/mail/inbox">
-                                        收件箱
+                                    <div id="inbox" class="mail-navigation active">
+                                        <i class="fa fa-inbox">收件箱 <span id="inboxCount" class="new-mails">0</span></i>
                                     </div>
                                     <!--收件箱<span class="new-mails ng-binding">7</span></div>-->
-                                    <div class="mail-navigation"
-                                         href="#/components/mail/sent">
+                                    <div id="sent" class="mail-navigation">
                                         已发送
                                     </div>
-                                    <div class="mail-navigation"
-                                         href="#/components/mail/important">
-                                        重要信息
+                                    <div id="important" class="mail-navigation">
+                                        重要信息 <span id="importantCount" class="new-mails">0</span>
                                     </div>
-                                    <div class="mail-navigation"
-                                         href="#/components/mail/draft">
-                                        草稿箱
+                                    <div id="draft" class="mail-navigation">
+                                        草稿箱 <span id="draftCount" class="new-mails">0</span>
                                     </div>
-                                    <div class="mail-navigation"
-                                         href="#/components/mail/trash">
-                                        垃圾箱
+                                    <div id="trash" class="mail-navigation">
+                                        垃圾箱 <span id="trashCount" class="new-mails">0</span>
                                     </div>
                                     <div class="labels">
                                         <div class="labels-title"></div>

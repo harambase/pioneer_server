@@ -196,6 +196,12 @@
     <if test="receiverid != null">
       and receiverid = #{receiverid,jdbcType=VARCHAR}
     </if>
+    <if test="sendid != null">
+      and sendid = #{senderid,jdbcType=VARCHAR}
+    </if>
+    <if test="label != null">
+      and labels like '%' #{label,jdbcType=VARCHAR} '%'
+    </if>
     <if test="search != null">
       and (email like '%' #{search,jdbcType=VARCHAR} '%' or
       subject like '%' #{search,jdbcType=VARCHAR} '%' or
@@ -211,6 +217,12 @@
     <if test="receiverid != null">
       and receiverid = #{receiverid,jdbcType=VARCHAR}
     </if>
+    <if test="sendid != null">
+      and sendid = #{senderid,jdbcType=VARCHAR}
+    </if>
+    <if test="label != null">
+      and labels like '%' #{label,jdbcType=VARCHAR} '%'
+    </if>
     <if test="search != null">
       and (email like '%' #{search,jdbcType=VARCHAR} '%' or
       subject like '%' #{search,jdbcType=VARCHAR} '%' or
@@ -223,4 +235,8 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
+
+  <select id="countMessageByStatus" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from MessageView where status = #{arg0,,jdbcType=VARCHAR}
+</select>
 </mapper>

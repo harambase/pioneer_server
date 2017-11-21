@@ -26,7 +26,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage list(String currentPage, String pageSize, String search, String order, String orderColumn,String receiverid) {
+    public HaramMessage list(String currentPage, String pageSize, String search, String order, String orderColumn,
+                             String receiverid, String senderid, String label) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -48,12 +49,18 @@ public class MessageServiceImpl implements MessageService {
         long totalSize = 0;
         try {
             Map<String, Object> param = new HashMap<>();
+
             param.put("search", search);
             param.put("receiverid", receiverid);
+            param.put("senderid", senderid);
+            param.put("label", label);
+
             if(StringUtils.isEmpty(receiverid))
                 param.put("receiverid", null);
-            if(StringUtils.isEmpty(search))
+            if(StringUtils.isEmpty(senderid))
                 param.put("search", null);
+            if(StringUtils.isEmpty(label))
+                param.put("label", null);
 
             totalSize = messageMapper.getMessageCountByMapPageSearchOrdered(param); //startTime, endTime);
 
@@ -90,6 +97,23 @@ public class MessageServiceImpl implements MessageService {
         try{
             MessageView messageView = messageMapper.selectViewByPrimaryKey(Integer.parseInt(id));
             haramMessage.setData(messageView);
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage countMessageByStatus(String status) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            int count = messageMapper.countMessageByStatus(status);
+            haramMessage.setData(count);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());
             return haramMessage;

@@ -1,3 +1,6 @@
+var label = "";
+var box = "inbox";
+
 $("#detail").css({display:"none"});
 $("#writeMail").css({display:"none"});
 $("#refresh").click(function(){
@@ -8,6 +11,37 @@ $("#back").click(function(){
     $("#table").css({display:"block"});
     messageTable.draw();
 });
+
+$("#inbox").click(function(){
+    label = "inbox";
+    box = "inbox";
+    messageTable.draw();
+});
+
+$("#sent").click(function(){
+    label = "inbox";
+    box = "sent";
+    messageTable.draw();
+});
+
+$("#draft").click(function(){
+    label = "draft";
+    box = "inbox";
+    messageTable.draw();
+});
+
+$("#important").click(function(){
+    label = "important";
+    box = "inbox";
+    messageTable.draw();
+});
+
+$("#trash").click(function(){
+    label = "trash";
+    box = "inbox";
+    messageTable.draw();
+});
+
 
 var messageTable = $("#messageTable").DataTable({
 
@@ -41,10 +75,14 @@ var messageTable = $("#messageTable").DataTable({
     lengthChange: false,
 
     ajax: {
-        url: basePath + "/message/list"
+        url: basePath + "/message/list",
+        data:{
+            label: label,
+            box: box
+        }
     },
     columns: [
-        {"data": "null", "title":"选择", "createdCell": function(nTd, rowData){
+        {"data": null, "title":"选择", "createdCell": function(nTd){
             var htmlStr =
                 '<div class="check-td mail-checkbox">'+
                 '     <label class="checkbox-inline custom-checkbox nowrap">' +
@@ -74,12 +112,12 @@ var messageTable = $("#messageTable").DataTable({
         {"data": "title", "title": "标题"},
         {"data": "body", "title": "内容"},
         {"data": "date", "title": "发送时间"},
-        {
-            "data": "id", "title": "操作", "createdCell": function (nTd, rowData) {
+        {"data": "id", "title": "操作", "createdCell": function (nTd, rowData) {
             $(nTd).html('' +
                 '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData + '\')">查看消息</button>' +
                 '<button class="btn btn-primary btn-edit" style="width: 50%" onclick="markAsRead(\'' + rowData + '\')">标记已读</button>');
-        }, "width": "300px"}
+            }, "width": "300px"
+        }
     ],
     "columnDefs": [{
         orderable: false
@@ -135,7 +173,7 @@ function viewDetail(id){
                 
                 var subject = 
                     '<span class="subject ng-binding">'+ message.subject +'</span>' +
-                    '<span class="date ng-binding">• '+ message.date +' </span>'
+                    '<span class="date ng-binding">• '+ message.date +' </span>';
                 $("#subject").html(subject);
 
                 var body = '<p>'+ message.body + '</p>';
@@ -150,3 +188,42 @@ function viewDetail(id){
 function markAsRead(id){
 
 }
+
+$(function(){
+  init();
+});
+
+function init(){
+    // initUnread();
+    // initSent();
+}
+
+function initUnread(){
+    $.ajax({
+        url: basePath + "/message/count?status=unread&box=inbox",
+        type: "GET",
+        success: function (data) {
+            if (data.code === 2001){
+
+            }
+            else
+                Showbo.Msg.alert("消息获取失败", function () {});
+        }
+    });
+}
+
+function initSent(){
+    $.ajax({
+        url: basePath + "/message/count?status=unread",
+        type: "GET",
+        success: function (data) {
+            if (data.code === 2001){
+
+            }
+            else
+                Showbo.Msg.alert("消息获取失败", function () {});
+        }
+    });
+}
+
+
