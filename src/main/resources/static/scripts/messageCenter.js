@@ -214,7 +214,7 @@ function initUnread(){
 
 function initSent(){
     $.ajax({
-        url: basePath + "/message/count?status=unread",
+        url: basePath + "/message/count?status=unread&label=box",
         type: "GET",
         success: function (data) {
             if (data.code === 2001){
