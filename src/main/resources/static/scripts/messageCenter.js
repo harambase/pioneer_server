@@ -15,30 +15,35 @@ $("#back").click(function(){
 $("#inbox").click(function(){
     label = "inbox";
     box = "inbox";
+    $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#sent").click(function(){
-    label = "inbox";
+    label = "sent";
     box = "sent";
+    $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#draft").click(function(){
     label = "draft";
     box = "inbox";
+    $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#important").click(function(){
     label = "important";
     box = "inbox";
+    $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#trash").click(function(){
     label = "trash";
     box = "inbox";
+    $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
@@ -51,7 +56,7 @@ var messageTable = $("#messageTable").DataTable({
             "sortDescending": ": activate to sort column descending"
         },
         "emptyTable": "没有数据！",
-        "info": "",
+        "info": "显示 _START_ 至 _END_ 条 ，总共_TOTAL_ 条数据",
         "infoEmpty": "没有发现记录！",
         "infoFiltered": "(从_MAX_条记录中搜索)",
         "lengthMenu": "显示: _MENU_",
@@ -76,9 +81,9 @@ var messageTable = $("#messageTable").DataTable({
 
     ajax: {
         url: basePath + "/message/list",
-        data:{
-            label: label,
-            box: box
+        data: function (d) {
+            d.label = label;
+            d.box = box;
         }
     },
     columns: [
@@ -190,19 +195,30 @@ function markAsRead(id){
 }
 
 $(function(){
-  init();
-});
-
-function init(){
     initUnread();
     initDraft();
     initTrash();
+    initImportant();
+});
+function initImportant(){
+    $.ajax({
+        url: basePath + "/message/count?status=unread&label=important",
+        type: "GET",
+        async: false,
+        success: function (data) {
+            if (data.code === 2001){
+                $("#importantCount").text(data.data);
+            }
+            else
+                Showbo.Msg.alert("消息获取失败", function () {});
+        }
+    });
 }
-
 function initUnread(){
     $.ajax({
-        url: basePath + "/message/count?status=unread&box=inbox",
+        url: basePath + "/message/count?status=unread&label=inbox",
         type: "GET",
+        async: false,
         success: function (data) {
             if (data.code === 2001){
                 $("#inboxCount").text(data.data);
@@ -216,8 +232,9 @@ function initUnread(){
 
 function initDraft(){
     $.ajax({
-        url: basePath + "/message/count?status=&label=draft",
+        url: basePath + "/message/count?status=saved&label=draft",
         type: "GET",
+        async: false,
         success: function (data) {
             if (data.code === 2001){
                 $("#draftCount").text(data.data);
@@ -230,11 +247,12 @@ function initDraft(){
 
 function initTrash(){
     $.ajax({
-        url: basePath + "/message/count?status=&label=trash",
+        url: basePath + "/message/count?status=trashed&label=trash",
         type: "GET",
+        async: false,
         success: function (data) {
             if (data.code === 2001){
-                $("#draftCount").text(data.data);
+                $("#trashCount").text(data.data);
             }
             else
                 Showbo.Msg.alert("消息获取失败", function () {});

@@ -43,8 +43,23 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
-    public ResponseEntity countByStatus(@RequestParam(value = "status") String status){
-        HaramMessage haramMessage = messageService.countMessageByStatus(status);
+    public ResponseEntity countByStatus(@RequestParam(value = "status") String status,
+                                        @RequestParam(value = "label") String label,
+                                        HttpSession session){
+        Person user = (Person)session.getAttribute("user");
+        String receiverid = null;
+        String senderid = null;
+        
+        if(label.contains("inbox") || label.contains("important"))
+            receiverid = user.getUserid();
+        if(label.contains("sent") || label.contains("draft"))
+            senderid = user.getUserid();
+        if(label.contains("trash")) {
+            receiverid = user.getUserid();
+            senderid = user.getUserid();
+        }
+       
+        HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, label.toLowerCase(), status.toLowerCase());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -64,7 +79,7 @@ public class MessageController {
         String senderid = null;
         if(box.equals("inbox"))
             receiverid = user.getUserid();
-        if(box.equals("senderid"))
+        if(box.equals("sent"))
             senderid = user.getUserid();
 
         Map<String, Object> map = new HashMap<>();
@@ -85,25 +100,4 @@ public class MessageController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/show/img")
-    public Object getImg(HttpServletRequest request, HttpServletResponse response, @PathVariable("sender") String sender){
-
-        Person image = (Person)personService.getUser(sender).getData();
-        response.setContentType("image/png");
-        OutputStream output ;
-        try {
-            output = response.getOutputStream();
-            ByteArrayInputStream in = new ByteArrayInputStream(image.getProfile().getBytes());//获取实体类对应Byte
-            int len;
-            byte[] buf = new byte[1024];
-            while ((len = in.read(buf)) != -1) {
-                output.write(buf, 0, len);
-            }
-            output.flush();
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

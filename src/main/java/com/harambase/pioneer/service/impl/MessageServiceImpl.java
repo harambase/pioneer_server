@@ -4,6 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.MessageDao;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.pojo.dto.MessageView;
 import com.harambase.pioneer.service.MessageService;
@@ -19,10 +20,13 @@ import java.util.Map;
 public class MessageServiceImpl implements MessageService {
 
     private final MessageMapper messageMapper;
+    private final MessageDao messageDao;
 
     @Autowired
-    public MessageServiceImpl(MessageMapper messageMapper){
+    public MessageServiceImpl(MessageMapper messageMapper,
+                              MessageDao messageDao){
         this.messageMapper = messageMapper;
+        this.messageDao = messageDao;
     }
 
     @Override
@@ -107,12 +111,12 @@ public class MessageServiceImpl implements MessageService {
             return haramMessage;
         }
     }
-
+    
     @Override
-    public HaramMessage countMessageByStatus(String status) {
+    public HaramMessage countMessageByStatus(String receiverid, String senderid, String label, String status) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            int count = messageMapper.countMessageByStatus(status);
+            int count = messageDao.countMessageByStatus(receiverid, senderid, label, status);
             haramMessage.setData(count);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());
@@ -124,4 +128,5 @@ public class MessageServiceImpl implements MessageService {
             return haramMessage;
         }
     }
+
 }

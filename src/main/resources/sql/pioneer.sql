@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.7.18 : Database - pioneer_2.0
+MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
 *********************************************************************
 */
 
@@ -61,7 +61,7 @@ CREATE TABLE `Course` (
   `info` varchar(20) NOT NULL,
   `createtime` varchar(20) DEFAULT NULL,
   `updatetime` varchar(20) DEFAULT NULL,
-  `comment` text COMMENT '备注',
+  `comment` text DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -83,7 +83,7 @@ CREATE TABLE `Message` (
   `receiverid` varchar(50) DEFAULT NULL COMMENT '接收者ID',
   `subject` varchar(20) DEFAULT NULL COMMENT '类型',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `body` text COMMENT '内容',
+  `body` text DEFAULT NULL COMMENT '内容',
   `status` varchar(10) DEFAULT NULL COMMENT '已读、未读、草稿',
   `date` varchar(50) DEFAULT NULL COMMENT '创建时间',
   `attachment` varchar(50) DEFAULT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE `Message` (
 
 LOCK TABLES `Message` WRITE;
 
-insert  into `Message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`attachment`,`tag`,`labels`) values (49,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','UNREAD','2017-09-20 13:37:44',NULL,'重要','inbox/important/'),(50,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','UNREAD','2017-09-20 13:39:29',NULL,'紧急','inbox/important/'),(54,'9201701000','9201702937','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-22 16:58:04',NULL,'紧急','inbox/important/'),(55,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702574的请求注册信息','UNREAD','2017-09-25 17:05:47',NULL,'紧急','inbox/important/'),(56,'9201701000','9201703122','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:45',NULL,'紧急','inbox/important/'),(57,'9201701000','9201702574','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:07:58',NULL,'紧急','inbox/important/'),(58,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702884的请求注册信息','UNREAD','2017-09-25 17:09:52',NULL,'紧急','inbox/important/'),(59,'9201701000','9201702884','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-25 17:10:21',NULL,'紧急','inbox/important/'),(60,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702887的请求注册信息','UNREAD','2017-09-30 10:19:10',NULL,'紧急','inbox/important/'),(61,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:22:02',NULL,'紧急','inbox/important/'),(62,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 10:26:52',NULL,'紧急','inbox/important/'),(63,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702745的请求注册信息','UNREAD','2017-09-30 11:40:30',NULL,'紧急','inbox/important/'),(64,'9201701000','9201702745','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:42:36',NULL,'紧急','inbox/important/'),(65,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:49:34',NULL,'紧急','inbox/important/'),(66,'9201701000','9201702544','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','UNREAD','2017-09-30 11:51:45',NULL,'紧急','inbox/important/'),(67,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702226的请求注册信息','UNREAD','2017-09-30 13:54:41',NULL,'紧急','inbox/important/'),(68,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702370的请求注册信息','UNREAD','2017-10-11 15:53:59',NULL,'紧急','inbox/important/'),(69,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702201的请求注册信息','UNREAD','2017-10-11 15:57:59',NULL,'紧急','trash/'),(70,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702622的请求注册信息','UNREAD','2017-10-11 15:59:21',NULL,'紧急','draft/');
+insert  into `Message`(`id`,`senderid`,`receiverid`,`subject`,`title`,`body`,`status`,`date`,`attachment`,`tag`,`labels`) values (49,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702937的请求注册信息','unread','2017-09-20 13:37:44',NULL,'重要','inbox/important/'),(50,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201703122的请求注册信息','unread','2017-09-20 13:39:29',NULL,'紧急','inbox/important/'),(54,'9201701000','9201702937','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-22 16:58:04',NULL,'紧急','inbox/'),(55,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702574的请求注册信息','unread','2017-09-25 17:05:47',NULL,'紧急','inbox/'),(56,'9201701000','9201703122','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:45',NULL,'紧急','inbox/important/'),(57,'9201701000','9201702574','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:58',NULL,'紧急','inbox/important/'),(58,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702884的请求注册信息','unread','2017-09-25 17:09:52',NULL,'紧急','inbox/important/'),(59,'9201701000','9201702884','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:10:21',NULL,'紧急','inbox/important/'),(60,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702887的请求注册信息','unread','2017-09-30 10:19:10',NULL,'紧急','inbox/important/'),(61,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:22:02',NULL,'紧急','inbox/important/'),(62,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:26:52',NULL,'紧急','inbox/important/'),(63,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702745的请求注册信息','saved','2017-09-30 11:40:30',NULL,'紧急','draft/'),(64,'9201701000','9201702745','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:42:36',NULL,'紧急','draft/'),(65,'9201701000','9201702887','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:49:34',NULL,'紧急','draft/'),(66,'9201701000','9201702544','用户注册','账户信息','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 11:51:45',NULL,'紧急','inbox/important/'),(67,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702226的请求注册信息','unread','2017-09-30 13:54:41',NULL,'紧急','inbox/important/'),(68,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702370的请求注册信息','sent','2017-10-11 15:53:59',NULL,'紧急','sent/'),(69,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702201的请求注册信息','trashed','2017-10-11 15:57:59',NULL,'紧急','trash/'),(70,'9201701000','9201701000','用户注册','注册信息','注意!接收到来自9201702622的请求注册信息','saved','2017-10-11 15:59:21',NULL,'紧急','draft/');
 
 UNLOCK TABLES;
 
@@ -123,8 +123,8 @@ CREATE TABLE `Person` (
   `updateTime` varchar(100) NOT NULL COMMENT '修改时间',
   `status` varchar(20) NOT NULL COMMENT '状态',
   `type` varchar(20) NOT NULL COMMENT '属性',
-  `comment` text COMMENT '备注',
-  `profile` blob COMMENT '头像',
+  `comment` text DEFAULT NULL COMMENT '备注',
+  `profile` blob DEFAULT NULL COMMENT '头像',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
@@ -150,7 +150,7 @@ CREATE TABLE `Pin` (
   `startTime` varchar(20) NOT NULL,
   `endTime` varchar(20) NOT NULL,
   `createTime` varchar(20) DEFAULT NULL,
-  `remark` text,
+  `remark` text DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
@@ -434,14 +434,14 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/*Table structure for table `AdviseView` */
+/*Table structure for table `adviseview` */
 
-DROP TABLE IF EXISTS `AdviseView`;
+DROP TABLE IF EXISTS `adviseview`;
 
-/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
-/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
+/*!50001 DROP VIEW IF EXISTS `adviseview` */;
+/*!50001 DROP TABLE IF EXISTS `adviseview` */;
 
-/*!50001 CREATE TABLE  `AdviseView`(
+/*!50001 CREATE TABLE  `adviseview`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sname` varchar(100) NULL ,
@@ -453,14 +453,14 @@ DROP TABLE IF EXISTS `AdviseView`;
  `oname` varchar(100) NULL 
 )*/;
 
-/*Table structure for table `CourseView` */
+/*Table structure for table `courseview` */
 
-DROP TABLE IF EXISTS `CourseView`;
+DROP TABLE IF EXISTS `courseview`;
 
-/*!50001 DROP VIEW IF EXISTS `CourseView` */;
-/*!50001 DROP TABLE IF EXISTS `CourseView` */;
+/*!50001 DROP VIEW IF EXISTS `courseview` */;
+/*!50001 DROP TABLE IF EXISTS `courseview` */;
 
-/*!50001 CREATE TABLE  `CourseView`(
+/*!50001 CREATE TABLE  `courseview`(
  `id` int(11) NOT NULL  default '0' ,
  `crn` varchar(20) NOT NULL ,
  `name` varchar(100) NOT NULL ,
@@ -478,14 +478,14 @@ DROP TABLE IF EXISTS `CourseView`;
  `updatetime` varchar(20) NULL 
 )*/;
 
-/*Table structure for table `MessageView` */
+/*Table structure for table `messageview` */
 
-DROP TABLE IF EXISTS `MessageView`;
+DROP TABLE IF EXISTS `messageview`;
 
-/*!50001 DROP VIEW IF EXISTS `MessageView` */;
-/*!50001 DROP TABLE IF EXISTS `MessageView` */;
+/*!50001 DROP VIEW IF EXISTS `messageview` */;
+/*!50001 DROP TABLE IF EXISTS `messageview` */;
 
-/*!50001 CREATE TABLE  `MessageView`(
+/*!50001 CREATE TABLE  `messageview`(
  `id` int(11) NOT NULL  default '0' ,
  `senderid` varchar(50) NOT NULL ,
  `receiverid` varchar(50) NULL ,
@@ -504,14 +504,14 @@ DROP TABLE IF EXISTS `MessageView`;
  `receiver` varchar(100) NULL 
 )*/;
 
-/*Table structure for table `StudentView` */
+/*Table structure for table `studentview` */
 
-DROP TABLE IF EXISTS `StudentView`;
+DROP TABLE IF EXISTS `studentview`;
 
-/*!50001 DROP VIEW IF EXISTS `StudentView` */;
-/*!50001 DROP TABLE IF EXISTS `StudentView` */;
+/*!50001 DROP VIEW IF EXISTS `studentview` */;
+/*!50001 DROP TABLE IF EXISTS `studentview` */;
 
-/*!50001 CREATE TABLE  `StudentView`(
+/*!50001 CREATE TABLE  `studentview`(
  `id` int(11) unsigned NOT NULL  default '0' ,
  `Studentid` varchar(100) NOT NULL ,
  `max_credits` int(20) unsigned NOT NULL ,
@@ -523,14 +523,14 @@ DROP TABLE IF EXISTS `StudentView`;
  `incomplete` int(11) NULL 
 )*/;
 
-/*Table structure for table `TranscriptView` */
+/*Table structure for table `transcriptview` */
 
-DROP TABLE IF EXISTS `TranscriptView`;
+DROP TABLE IF EXISTS `transcriptview`;
 
-/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
-/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
+/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
+/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
 
-/*!50001 CREATE TABLE  `TranscriptView`(
+/*!50001 CREATE TABLE  `transcriptview`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sfirst` varchar(100) NOT NULL ,
@@ -553,40 +553,40 @@ DROP TABLE IF EXISTS `TranscriptView`;
  `oname` varchar(100) NULL 
 )*/;
 
-/*View structure for view AdviseView */
+/*View structure for view adviseview */
 
-/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
-/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
+/*!50001 DROP TABLE IF EXISTS `adviseview` */;
+/*!50001 DROP VIEW IF EXISTS `adviseview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `AdviseView` AS select `a`.`id` AS `id`,`a`.`studentid` AS `Studentid`,`Get_Name`(`a`.`studentid`) AS `sname`,`a`.`facultyid` AS `facultyid`,`Get_Name`(`a`.`facultyid`) AS `fname`,`a`.`status` AS `status`,`a`.`updateTime` AS `updateTime`,`a`.`operator` AS `operator`,`Get_Name`(`a`.`operator`) AS `oname` from `Advise` `a` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `adviseview` AS select `a`.`id` AS `id`,`a`.`studentid` AS `Studentid`,`Get_Name`(`a`.`studentid`) AS `sname`,`a`.`facultyid` AS `facultyid`,`Get_Name`(`a`.`facultyid`) AS `fname`,`a`.`status` AS `status`,`a`.`updateTime` AS `updateTime`,`a`.`operator` AS `operator`,`Get_Name`(`a`.`operator`) AS `oname` from `advise` `a` */;
 
-/*View structure for view CourseView */
+/*View structure for view courseview */
 
-/*!50001 DROP TABLE IF EXISTS `CourseView` */;
-/*!50001 DROP VIEW IF EXISTS `CourseView` */;
+/*!50001 DROP TABLE IF EXISTS `courseview` */;
+/*!50001 DROP VIEW IF EXISTS `courseview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `course` `c` */;
 
-/*View structure for view MessageView */
+/*View structure for view messageview */
 
-/*!50001 DROP TABLE IF EXISTS `MessageView` */;
-/*!50001 DROP VIEW IF EXISTS `MessageView` */;
+/*!50001 DROP TABLE IF EXISTS `messageview` */;
+/*!50001 DROP VIEW IF EXISTS `messageview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `MessageView` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`Get_Name`(`m`.`senderid`) AS `sender`,`Get_Name`(`m`.`receiverid`) AS `receiver` from (`Message` `m` join `Person` `s`) where (`s`.`userid` = `m`.`senderid`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`Get_Name`(`m`.`senderid`) AS `sender`,`Get_Name`(`m`.`receiverid`) AS `receiver` from (`message` `m` join `person` `s`) where `s`.`userid` = `m`.`senderid` */;
 
-/*View structure for view StudentView */
+/*View structure for view studentview */
 
-/*!50001 DROP TABLE IF EXISTS `StudentView` */;
-/*!50001 DROP VIEW IF EXISTS `StudentView` */;
+/*!50001 DROP TABLE IF EXISTS `studentview` */;
+/*!50001 DROP VIEW IF EXISTS `studentview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`Student` `s` join `Person` `p`) where (`p`.`userid` = `s`.`Studentid`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`student` `s` join `person` `p`) where `p`.`userid` = `s`.`Studentid` */;
 
-/*View structure for view TranscriptView */
+/*View structure for view transcriptview */
 
-/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
-/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
+/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
+/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`userid` = `t`.`Studentid` and `p2`.`userid` = `c`.`facultyid` */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

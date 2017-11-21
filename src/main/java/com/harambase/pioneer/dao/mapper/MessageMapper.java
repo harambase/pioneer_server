@@ -33,6 +33,6 @@ public interface MessageMapper {
     List<MessageView> getMessageByMapPageSearchOrdered(Map<String, Object> param);
 
     MessageView selectViewByPrimaryKey(int i);
-
-    int countMessageByStatus(String status);
+    
+    int countMessageByStatus(Map<String, Object> param);
 }
