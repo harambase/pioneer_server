@@ -159,18 +159,15 @@
         <div class="modal-content" uib-modal-transclude="">
             <div class="compose-header ng-scope"><span>写新信息</span>
                 <span class="header-controls">
-                    <i class="ion-minus-round"></i>
-                    <i class="ion-arrow-resize"></i>
-                    <i class="ion-close-round"></i>
+                    <i id="close" class="fa fa-close"></i>
                 </span>
             </div>
-            <div class="ng-scope">
+            <div>
                 <select style="width: 100%" id="searchUser" class="js-example-basic-multiple form-control compose-input" name="states[]"  multiple="multiple">
                 </select>
-                <input id="subject" class="form-control compose-input" placeholder="主题">
+                <input id="write-subject" class="form-control compose-input" placeholder="主题">
                 <div class="compose-container">
-                   <textarea id="body" class=" form-control" style="height: 300px; background-color: white;"></textarea>
-                   <input type="hidden" tabindex="-1" style="display: none;" name="htmlcontent" value="">
+                   <textarea id="write-body" class=" form-control" style="height: 300px; background-color: white;"></textarea>
                 </div>
             </div>
             <div class="compose-footer clearfix ng-scope">
@@ -185,6 +182,6 @@
 <!--load_js(table,chart,select2)-->
 <div th:include="/release/faculty/common/js :: load_js(true , false, true)"></div>
 <script src="/static/scripts/message/messageCenter.js"></script>
-<script src="/static/scripts/message/sendMessage.js"></script>
+<script src="/static/scripts/message/writeMessage.js"></script>
 </body>
 </html>

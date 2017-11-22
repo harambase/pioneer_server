@@ -1,5 +1,6 @@
 package com.harambase.pioneer.service.impl;
 
+import com.harambase.common.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
@@ -13,6 +14,7 @@ import com.harambase.pioneer.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,16 +35,16 @@ public class MessageServiceImpl implements MessageService {
                              String receiverid, String senderid, String box) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
-            case 0:
+            case 1:
                 orderColumn = "sender";
                 break;
-            case 1:
+            case 2:
                 orderColumn = "title";
                 break;
-            case 2:
+            case 3:
                 orderColumn = "body";
                 break;
-            case 3:
+            case 4:
                 orderColumn = "status";
                 break;
             default:
@@ -123,6 +125,27 @@ public class MessageServiceImpl implements MessageService {
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());
             return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
+    }
+    
+    @Override
+    public HaramMessage createMessage(MessageWithBLOBs message) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            message.setDate(DateUtil.DateToStr(new Date()));
+            int ret = messageMapper.insert(message);
+            if(ret != 1)
+                throw new RuntimeException("插入失败");
+        
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+            
         }catch (Exception e){
             e.printStackTrace();
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());

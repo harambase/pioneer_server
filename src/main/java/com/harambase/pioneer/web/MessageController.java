@@ -2,6 +2,7 @@ package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;
 import com.harambase.pioneer.service.PersonService;
@@ -36,6 +37,14 @@ public class MessageController {
         this.personService = personService;
     }
 
+    @RequestMapping(value = "/create", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity createMessage(@RequestBody MessageWithBLOBs message, HttpSession session){
+        Person user = (Person)session.getAttribute("user");
+        message.setSenderid(user.getUserid());
+        HaramMessage haramMessage = messageService.createMessage(message);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+    
     @RequestMapping(value = "/view", method = RequestMethod.GET)
     public ResponseEntity getMessageView(@RequestParam(value = "id") String id){
         HaramMessage haramMessage = messageService.getMessageView(id);
