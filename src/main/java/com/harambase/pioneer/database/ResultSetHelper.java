@@ -51,6 +51,7 @@ public class ResultSetHelper {
                         Field field = fields[j];
                         String filedName = field.getName();
                         String colName;
+
                         Column dbAnn = field.getAnnotation(Column.class);
 
                         if (dbAnn == null) {
@@ -67,8 +68,7 @@ public class ResultSetHelper {
                                 writeMethod.invoke(ret, value);
                             }
                         } catch (SQLException e) {
-                            if ("S0022".equals(e.getSQLState())) {
-                            }
+                            e.printStackTrace();
                         }
                     }
                 }

@@ -4,21 +4,18 @@ import com.github.pagehelper.StringUtil;
 import com.harambase.pioneer.database.DataServiceConnection;
 import com.harambase.pioneer.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.dto.MessageView;
-import com.mysql.jdbc.ResultSetImpl;
-import com.mysql.jdbc.StringUtils;
 import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class MessageDao {
-    
+
     public int countMessageByStatus(String receiverid, String senderid,
-                                           String label, String status)throws Exception{
+                                    String label, String status)throws Exception{
         ResultSet rs = null;
         Connection connection = null;
         try{
@@ -30,19 +27,7 @@ public class MessageDao {
             
             String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "'";
 
-            if(!label.equals("trash")) {
-                if(receiverid != null)
-                    queryString += " AND receiverid =  '" + receiverid + "'";
-                if(senderid != null)
-                    queryString +=  " AND senderid = '" + senderid + "'";
-                if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
-                    queryString += " AND labels LIKE '%" + label + "%'";
-            }
-            else{
-                queryString+= " AND (receiverid = '" + receiverid + "'" +
-                        " OR senderid = '" + senderid + "'" +
-                        " )AND labels LIKE '%trash%'";
-            }
+            queryString += whereBuilderByLabel(receiverid, senderid, label);
 
             rs = stmt.executeQuery(queryString);
             int ret = 0;
@@ -73,19 +58,8 @@ public class MessageDao {
 
             String queryString = "select count(*) as count from MessageView where 1 = 1";
 
-            if(!label.equals("trash")) {
-                if(receiverid != null)
-                    queryString += " AND receiverid =  '" + receiverid + "'";
-                if(senderid != null)
-                    queryString +=  " AND senderid = '" + senderid + "'";
-                if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
-                    queryString += " AND labels LIKE '%" + label + "%'";
-            }
-            else{
-                queryString+= " AND (receiverid = '" + receiverid + "'" +
-                        " OR senderid = '" + senderid + "'" +
-                        " )AND labels LIKE '%trash%'";
-            }
+            queryString += whereBuilderByLabel(receiverid, senderid, label);
+
             if(StringUtil.isNotEmpty(search)){
                 queryString += "" +
                         "and(email like  '%"+search+"%' or" +
@@ -124,20 +98,7 @@ public class MessageDao {
             Statement stmt = connection.createStatement();
 
             String queryString = "select * from MessageView where 1 = 1";
-
-            if(!label.equals("trash")) {
-                if(receiverid != null)
-                    queryString += " AND receiverid =  '" + receiverid + "'";
-                if(senderid != null)
-                    queryString +=  " AND senderid = '" + senderid + "'";
-                if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
-                    queryString += " AND labels LIKE '%" + label + "%'";
-            }
-            else{
-                queryString+= " AND (receiverid = '" + receiverid + "'" +
-                        " OR senderid = '" + senderid + "'" +
-                        " )AND labels LIKE '%trash%'";
-            }
+            queryString += whereBuilderByLabel(receiverid, senderid, label);
 
             if(StringUtil.isNotEmpty(search)){
                 queryString += "" +
@@ -163,31 +124,21 @@ public class MessageDao {
         }
     }
 
-    /*
-  <select id="getMessageByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.MessageView">
-    select * from MessageView  <where>  1 = 1
-    <if test="receiverid != null">
-      and receiverid = #{receiverid,jdbcType=VARCHAR}
-    </if>
-    <if test="senderid != null">
-      and senderid = #{senderid,jdbcType=VARCHAR}
-    </if>
-    <if test="label != null">
-      and labels like '%' #{label,jdbcType=VARCHAR} '%'
-    </if>
-    <if test="search != null">
-      and (email like '%' #{search,jdbcType=VARCHAR} '%' or
-      subject like '%' #{search,jdbcType=VARCHAR} '%' or
-      status like  '%' #{search,jdbcType=VARCHAR} '%' or
-      sender like  '%' #{search,jdbcType=VARCHAR} '%' or
-      title like  '%' #{search,jdbcType=VARCHAR} '%' or
-      date like  '%' #{search,jdbcType=VARCHAR} '%')
-    </if>
-    </where>
-    order by ${orderColumn} ${order}
-    limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
-  </select>
-
-     */
-    
+    private String whereBuilderByLabel(String receiverid, String senderid, String label){
+        String queryString = "";
+        if(!label.equals("trash")) {
+            if(receiverid != null)
+                queryString += " AND receiverid =  '" + receiverid + "'";
+            if(senderid != null)
+                queryString +=  " AND senderid = '" + senderid + "'";
+            if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
+                queryString += " AND labels LIKE '%" + label + "%'";
+        }
+        else{
+            queryString+= " AND (receiverid = '" + receiverid + "'" +
+                    " OR senderid = '" + senderid + "'" +
+                    " )AND labels LIKE '%trash%'";
+        }
+        return queryString;
+    }
 }
