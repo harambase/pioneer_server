@@ -1,5 +1,4 @@
-var label = "";
-var box = "inbox";
+var label = "inbox";
 
 $("#detail").css({display:"none"});
 $("#writeMail").css({display:"none"});
@@ -14,35 +13,30 @@ $("#back").click(function(){
 
 $("#inbox").click(function(){
     label = "inbox";
-    box = "inbox";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#sent").click(function(){
     label = "sent";
-    box = "sent";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#draft").click(function(){
     label = "draft";
-    box = "inbox";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#important").click(function(){
     label = "important";
-    box = "inbox";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#trash").click(function(){
     label = "trash";
-    box = "inbox";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
@@ -83,7 +77,6 @@ var messageTable = $("#messageTable").DataTable({
         url: basePath + "/message/list",
         data: function (d) {
             d.label = label;
-            d.box = box;
         }
     },
     columns: [
@@ -191,14 +184,31 @@ function viewDetail(id){
 }
 
 function markAsRead(id){
+    $.ajax({
+        url: basePath + "/message/update/status?id="+id+"&status=read",
+        type: "PUT",
+        success: function (data) {
+            if (data.code === 2001){
+                Showbo.Msg.alert("消息更新成功!", function () {
+                    init();
+                });
 
+            }
+            else
+                Showbo.Msg.alert("消息更新失败!", function () {});
+        }
+    });
 }
 
-$(function(){
+function init(){
     initUnread();
     initDraft();
     initTrash();
     initImportant();
+}
+
+$(function(){
+    init();
 });
 function initImportant(){
     $.ajax({

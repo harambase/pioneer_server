@@ -42,6 +42,12 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public ResponseEntity updateStatus(@RequestParam(value = "id") String id){
+        HaramMessage haramMessage = messageService.getMessageView(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity countByStatus(@RequestParam(value = "status") String status,
                                         @RequestParam(value = "label") String label,
@@ -71,7 +77,6 @@ public class MessageController {
                                     @RequestParam(value = "order[0][dir]") String order,
                                     @RequestParam(value = "order[0][column]") String orderCol,
                                     @RequestParam(value = "label") String label,
-                                    @RequestParam(value = "box") String box,
                                     HttpSession session) {
 
         Person user = (Person)session.getAttribute("user");

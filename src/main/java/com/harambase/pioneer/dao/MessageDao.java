@@ -30,6 +30,7 @@ public class MessageDao {
             queryString += whereBuilderByLabel(receiverid, senderid, label);
 
             rs = stmt.executeQuery(queryString);
+
             int ret = 0;
             if (rs.next()) {
                 ret = rs.getInt("count");
