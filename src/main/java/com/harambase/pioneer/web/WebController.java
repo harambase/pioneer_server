@@ -66,6 +66,21 @@ public class WebController {
     public String fViewAdvising(){
         return "release/faculty/administration/viewAdvising";
     }
+    
+    //student
+    //course
+    @RequestMapping("/student/course/view")
+    public String sViewCourse(){
+        return "release/student/course/viewCourse";
+    }
+    @RequestMapping("/student/course/choose")
+    public String sCourseChoose(){
+        return "release/student/course/courseChoose";
+    }
+    @RequestMapping("/student/transcript/view")
+    public String sViewTranscript(){
+        return "release/student/course/viewTranscript";
+    }
 
     //manage
     //course
