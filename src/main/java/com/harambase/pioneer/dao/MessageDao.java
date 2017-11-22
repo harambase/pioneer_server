@@ -29,21 +29,21 @@ public class MessageDao {
             Statement stmt = connection.createStatement();
             
             String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "'";
-            
+
             if(!label.equals("trash")) {
                 if(receiverid != null)
-                    queryString+= " AND receiverid =  '" + receiverid + "'" +
-                                  " AND labels LIKE '%" + label + "%'";
+                    queryString += " AND receiverid =  '" + receiverid + "'";
                 if(senderid != null)
-                    queryString+=  " AND senderid = '" + senderid + "'" +
-                            " AND labels LIKE '%" + label + "%'";
-                   
+                    queryString +=  " AND senderid = '" + senderid + "'";
+                if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
+                    queryString += " AND labels LIKE '%" + label + "%'";
             }
             else{
                 queryString+= " AND (receiverid = '" + receiverid + "'" +
                         " OR senderid = '" + senderid + "'" +
-                        " )AND labels LIKE '%" + label + "%'";
+                        " )AND labels LIKE '%trash%'";
             }
+
             rs = stmt.executeQuery(queryString);
             int ret = 0;
             if (rs.next()) {
@@ -138,6 +138,7 @@ public class MessageDao {
                         " OR senderid = '" + senderid + "'" +
                         " )AND labels LIKE '%trash%'";
             }
+
             if(StringUtil.isNotEmpty(search)){
                 queryString += "" +
                         "and(email like  '%"+search+"%' or" +
@@ -152,12 +153,8 @@ public class MessageDao {
                     " limit " + currentIndex + "," + pageSize;
 
             rs = stmt.executeQuery(queryString);
-
-            if(rs.next())
-                messageViewList = ResultSetHelper.getObjectFor(rs, MessageView.class);
-
+            messageViewList = ResultSetHelper.getObjectFor(rs, MessageView.class);
             return messageViewList;
-
         } finally {
             if(rs != null)
                 rs.close();

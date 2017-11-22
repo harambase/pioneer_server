@@ -77,10 +77,15 @@ public class MessageController {
         Person user = (Person)session.getAttribute("user");
         String receiverid = null;
         String senderid = null;
-        if(box.equals("inbox"))
+
+        if(label.contains("inbox") || label.contains("important"))
             receiverid = user.getUserid();
-        if(box.equals("sent"))
+        if(label.contains("sent") || label.contains("draft"))
             senderid = user.getUserid();
+        if(label.contains("trash")) {
+            receiverid = user.getUserid();
+            senderid = user.getUserid();
+        }
 
         Map<String, Object> map = new HashMap<>();
         try {

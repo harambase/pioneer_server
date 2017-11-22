@@ -23,7 +23,7 @@
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Person" extends="BaseResultMap" >
     <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
-    <result column="profile" property="profile" jdbcType="BLOB" />
+    <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
