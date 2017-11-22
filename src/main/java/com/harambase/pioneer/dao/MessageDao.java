@@ -137,15 +137,15 @@ public class MessageDao {
         String queryString = "";
         
         if(box.equals("inbox")) 
-            queryString += " AND receiverid = '" + receiverid + "' AND status LIKE '%read%'";
+            queryString += " AND receiverid LIKE '%" + receiverid + "%' AND status LIKE '%read%'";
         if(box.equals("important"))
-            queryString+= "  AND receiverid = '" + receiverid + "' AND status LIKE '%read%' AND labels LIKE '%important%'";
+            queryString+= "  AND receiverid LIKE '%" + receiverid + "%' AND status LIKE '%read%' AND labels LIKE '%important%'";
         if(box.equals("sent"))
             queryString += " AND senderid =   '" + senderid   + "' AND status LIKE '%read%'";
         if(box.equals("draft"))
             queryString += " AND senderid =   '" + senderid   + "' AND status = 'saved'";
         if(box.equals("trash"))
-            queryString+= "  AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
+            queryString+= "  AND (receiverid LIKE '%"+ receiverid + "%' OR senderid = '" + senderid + "') AND status = 'trashed'";
         
         return queryString;
     }

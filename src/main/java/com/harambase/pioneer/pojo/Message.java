@@ -4,9 +4,7 @@ public class Message {
     private Integer id;
 
     private String senderid;
-
-    private String receiverid;
-
+    
     private String subject;
 
     private String title;
@@ -35,14 +33,6 @@ public class Message {
 
     public void setSenderid(String senderid) {
         this.senderid = senderid == null ? null : senderid.trim();
-    }
-
-    public String getReceiverid() {
-        return receiverid;
-    }
-
-    public void setReceiverid(String receiverid) {
-        this.receiverid = receiverid == null ? null : receiverid.trim();
     }
 
     public String getSubject() {

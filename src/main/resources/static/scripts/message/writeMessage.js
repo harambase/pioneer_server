@@ -1,3 +1,4 @@
+//发送
 $("#send").click(function(){
 
     var receiverList = $("#searchUser").val();
@@ -29,7 +30,37 @@ $("#send").click(function(){
         });
     }
 });
+//保存
+$("#save").click(function(){
+    var receiverList = $("#searchUser").val();
+    var body = $("#write-body").val();
+    var subject = $("#write-subject").val();
 
+    for(var i = 0; i<receiverList.length; i++){
+        var message = {
+            receiverid : receiverList[i],
+            body: body,
+            subject: subject,
+            title: subject,
+            tag: "重要",
+            status : "unread"
+        };
+        $.ajax({
+            url: basePath + "/message/create",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(message),
+            success: function (data) {
+                if (data.code === 2001) {
+                    messageTable.draw();
+                    resetWrite();
+                }
+                else
+                    Showbo.Msg.alert("发送失败", function () {});
+            }
+        });
+    }
+});
 $("#close").click(function(){
    resetWrite();
 });
