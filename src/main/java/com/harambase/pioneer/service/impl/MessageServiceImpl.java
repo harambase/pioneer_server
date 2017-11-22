@@ -6,15 +6,14 @@ import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.MessageDao;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
+import com.harambase.pioneer.pojo.Message;
+import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.dto.MessageView;
 import com.harambase.pioneer.service.MessageService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -109,5 +108,27 @@ public class MessageServiceImpl implements MessageService {
             return haramMessage;
         }
     }
-
+    
+    @Override
+    public HaramMessage updateStatus(String id, String status) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            MessageWithBLOBs message = new MessageWithBLOBs();
+            message.setId(Integer.parseInt(id));
+            message.setStatus(status.toLowerCase());
+            int ret = messageMapper.updateByPrimaryKeySelective(message);
+            if(ret != 1)
+                throw new RuntimeException("更新失败");
+            
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
+    }
+    
 }

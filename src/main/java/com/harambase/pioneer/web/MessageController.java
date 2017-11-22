@@ -42,9 +42,10 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public ResponseEntity updateStatus(@RequestParam(value = "id") String id){
-        HaramMessage haramMessage = messageService.getMessageView(id);
+    @RequestMapping(value = "/update/status", method = RequestMethod.PUT)
+    public ResponseEntity updateStatus(@RequestParam(value = "id") String id,
+                                       @RequestParam(value = "status") String status){
+        HaramMessage haramMessage = messageService.updateStatus(id, status);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -70,14 +71,14 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
-                                    @RequestParam(value = "length") Integer length,
-                                    @RequestParam(value = "draw") Integer draw,
-                                    @RequestParam(value = "search[value]") String search,
-                                    @RequestParam(value = "order[0][dir]") String order,
-                                    @RequestParam(value = "order[0][column]") String orderCol,
-                                    @RequestParam(value = "label") String label,
-                                    HttpSession session) {
+    public ResponseEntity list(@RequestParam(value = "start") Integer start,
+                               @RequestParam(value = "length") Integer length,
+                               @RequestParam(value = "draw") Integer draw,
+                               @RequestParam(value = "search[value]") String search,
+                               @RequestParam(value = "order[0][dir]") String order,
+                               @RequestParam(value = "order[0][column]") String orderCol,
+                               @RequestParam(value = "label") String label,
+                               HttpSession session) {
 
         Person user = (Person)session.getAttribute("user");
         String receiverid = null;

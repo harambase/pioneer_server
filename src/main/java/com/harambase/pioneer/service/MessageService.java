@@ -9,4 +9,6 @@ public interface MessageService {
     HaramMessage getMessageView(String id);
     
     HaramMessage countMessageByStatus(String receiverid, String senderid, String label, String status);
+    
+    HaramMessage updateStatus(String id, String status);
 }

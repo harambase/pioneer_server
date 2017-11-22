@@ -15,9 +15,7 @@ public interface PersonService {
 
     HaramMessage update(Person person);
 
-    HaramMessage listFaculties(String search);
-
-    HaramMessage listStudents(String serach);
+    HaramMessage listUsers(String search, String type, String status);
 
     HaramMessage userChart();
 

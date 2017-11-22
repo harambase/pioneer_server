@@ -29,3 +29,10 @@ $(document).on("show.bs.modal", ".modal", function(){
     $(this).css("overflow", "hidden"); // 防止出现滚动条，出现的话，你会把滚动条一起拖着走的
 });
 
+function formatRepoSelection(repo) {
+    return repo.id
+}
+
+function formatRepo(repo) {
+    return repo.text
+}

@@ -3,6 +3,7 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.charts.StaticGexfGraph;
+import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.pojo.dto.AdviseView;
@@ -25,17 +26,21 @@ public class PersonServiceImpl implements PersonService {
     private final TranscriptMapper transcriptMapper;
     private final AdviseMapper adviseMapper;
     private final MessageMapper messageMapper;
+    
+    private final PersonDao personDao;
 
     @Autowired
     public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
                              CourseMapper courseMapper, TranscriptMapper transcriptMapper,
-                             AdviseMapper adviseMapper, MessageMapper messageMapper){
+                             AdviseMapper adviseMapper, MessageMapper messageMapper,
+                             PersonDao personDao){
         this.personMapper = personMapper;
         this.studentMapper = studentMapper;
         this.courseMapper = courseMapper;
         this.transcriptMapper = transcriptMapper;
         this.adviseMapper = adviseMapper;
         this.messageMapper = messageMapper;
+        this.personDao = personDao;
     }
 
     @Override
@@ -282,19 +287,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage listFaculties(String search) {
+    public HaramMessage listUsers(String search, String type, String status) {
         HaramMessage message = new HaramMessage();
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("type", "f");
-            param.put("status", "1");
-
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-
-            List<Person> users = personMapper.getUsersBySearch(param);
-
+            List<Person> users = personDao.getPersonBySearch(search, type, status);
+            
             message.setData(users);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
@@ -308,34 +305,7 @@ public class PersonServiceImpl implements PersonService {
             return message;
         }
     }
-
-    @Override
-    public HaramMessage listStudents(String search) {
-        HaramMessage message = new HaramMessage();
-        try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("type", "s");
-            param.put("status", "1");
-
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-
-            List<Person> users = personMapper.getUsersBySearch(param);
-
-            message.setData(users);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
-            return message;
-
-        }catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
-        }
-    }
-
+    
     @Override
     public HaramMessage userChart() {
         HaramMessage message = new HaramMessage();

@@ -349,16 +349,7 @@
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
-  <select id="getUsersBySearch" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
-    select * from Person where type like '%' #{type,jdbcType=VARCHAR} '%' and status = #{status,jdbcType=VARCHAR}
-    <if test="search != null" >
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
-      username like '%' #{search,jdbcType=VARCHAR} '%' or
-      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-      lastname like '%'  #{search,jdbcType=VARCHAR} '%')
-    </if>
-    limit 0,4
-  </select>
+
 
   <select id="getAllUsers" resultMap="ResultMapWithBLOBs">
     select * from Person

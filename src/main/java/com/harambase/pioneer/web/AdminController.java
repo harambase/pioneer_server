@@ -99,16 +99,21 @@ public class AdminController {
 
     @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
-        HaramMessage message = personService.listFaculties(search);
+        HaramMessage message = personService.listUsers(search,"f", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/list/student", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
-        HaramMessage message = personService.listStudents(search);
+        HaramMessage message = personService.listUsers(search, "s", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
+    
+    @RequestMapping(value = "/list/active/user", method = RequestMethod.GET)
+    public ResponseEntity listActiveUsers(@RequestParam(value = "search") String search){
+        HaramMessage message = personService.listUsers(search, "", "1");
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,

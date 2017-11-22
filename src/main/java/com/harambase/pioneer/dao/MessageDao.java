@@ -132,7 +132,7 @@ public class MessageDao {
                 queryString += " AND receiverid =  '" + receiverid + "'";
             if(senderid != null)
                 queryString +=  " AND senderid = '" + senderid + "'";
-            if("important/draft/trash".contains(label) && StringUtil.isNotEmpty(label))
+            if("inbox/important/draft/sent".contains(label) && StringUtil.isNotEmpty(label))
                 queryString += " AND labels LIKE '%" + label + "%'";
         }
         else{

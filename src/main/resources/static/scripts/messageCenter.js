@@ -1,5 +1,8 @@
 var label = "inbox";
+$("#write").click(function(){
+   $("#writeMail").css({display:"block"});
 
+});
 $("#detail").css({display:"none"});
 $("#writeMail").css({display:"none"});
 $("#refresh").click(function(){
@@ -107,13 +110,33 @@ var messageTable = $("#messageTable").DataTable({
             $(nTd).html(htmlStr);
         }, "width":"250px"},
         {"data": "subject", "title": "主题"},
-        {"data": "title", "title": "标题"},
         {"data": "body", "title": "内容"},
         {"data": "date", "title": "发送时间"},
-        {"data": "id", "title": "操作", "createdCell": function (nTd, rowData) {
-            $(nTd).html('' +
-                '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData + '\')">查看消息</button>' +
-                '<button class="btn btn-primary btn-edit" style="width: 50%" onclick="markAsRead(\'' + rowData + '\')">标记已读</button>');
+        {"data": null, "title": "操作", "createdCell": function (nTd, rowData) {
+            if(rowData.status.toLowerCase() === "unread"){
+                $(nTd).html('' +
+                    '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData.id + '\')">查看消息</button>' +
+                    '<button class="btn btn-primary btn-danger" style="width: 50%" onclick="markAsRead(\'' + rowData.id + '\')">标为已读</button>');
+            }
+            if(rowData.status.toLowerCase() === "read"){
+                $(nTd).html('' +
+                    '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData.id + '\')">查看消息</button>' +
+                    '<button class="btn btn-primary btn-edit" style="width: 50%" onclick="markAsUnread(\'' + rowData.id + '\')">标为未读</button>');
+            }
+            if(rowData.status.toLowerCase() === "saved"){
+                $(nTd).html('' +
+                    '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDraft(\'' + rowData.id + '\')">查看消息</button>');
+            }
+            if(rowData.status.toLowerCase() === "trashed"){
+                $(nTd).html('' +
+                    '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData.id + '\')">查看消息</button>' +
+                    '<button class="btn btn-primary btn-danger" style="width: 50%" onclick="markAsRead(\'' + rowData.id + '\')">永久删除</button>');
+            }
+            if(rowData.status.toLowerCase() === "sent"){
+                $(nTd).html('' +
+                    '<button class="btn btn-primary btn-info" style="width: 50%" onclick="viewDetail(\'' + rowData.id + '\')">查看消息</button>');
+            }
+
             }, "width": "300px"
         }
     ],
@@ -124,8 +147,52 @@ var messageTable = $("#messageTable").DataTable({
         "targets": "_all"
     }]
 });
+$("#searchUser").select2({
+    ajax: {
+        url: basePath + "/admin/list/active/user",
+        type: "GET",
+        delay: 250,
+        data: function (params) {
+            return {
+                search: params.term, // search term 请求参数 ， 请求框中输入的参数
+                page: params.page
+            };
+        },
+        processResults: function (data, params) {
+            //var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
+            var itemList = [];
+            var item;
+            for (var i = 0; i < data.data.length; i++) {
+                item = {
+                    id: data.data[i].userid,
+                    text: data.data[i].lastname +", "+ data.data[i].firstname
+                };
+                itemList.push(item);
+            }
+            // console.log(itemList);
+            return {
+                results: itemList//itemList
+            };
+        },
+        cache: true
+    },
+    language: "zh-CN",
+    tags: false,//允许手动添加
+    allowClear: true,//允许清空
+    escapeMarkup: function (markup) {
+        return markup;
+    }, // 自定义格式化防止xss注入
+    minimumInputLength: 1,//最少输入多少个字符后开始查询
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection
+});
+
+function viewDraft(id){
+
+}
 
 function viewDetail(id){
+    markAsRead(id);
     $.ajax({
         url: basePath + "/message/view?id=" + id,
         type: "GET",
@@ -136,7 +203,7 @@ function viewDetail(id){
                 $("#table").css({display:"none"});
                 var senderInfo =
                     '<img class="human-picture" src="'+ message.pic +'">'+
-                    '   <div class="name"><h2 class="name-h ng-binding">' + message.sender + '</h2>' +
+                    '   <div class="name"><h2 class="name-h ng-binding">发件人：' + message.sender + '</h2>' +
                     '       <div>' +
                     '           <span class="mail-tag tag label family">'+message.tag+'</span>' +
                     '       </div>' +
@@ -183,17 +250,22 @@ function viewDetail(id){
     });
 }
 
+function markAsUnread(id){
+    var status = "unread";
+    sendStatusUpdateAjax(id, status);
+}
 function markAsRead(id){
+    var status = "read";
+    sendStatusUpdateAjax(id, status);
+}
+function sendStatusUpdateAjax(id, status){
     $.ajax({
-        url: basePath + "/message/update/status?id="+id+"&status=read",
+        url: basePath + "/message/update/status?id="+id+"&status="+status,
         type: "PUT",
         success: function (data) {
             if (data.code === 2001){
-                Showbo.Msg.alert("消息更新成功!", function () {
-                    init();
-                });
-
-            }
+                init();
+                messageTable.draw();            }
             else
                 Showbo.Msg.alert("消息更新失败!", function () {});
         }
@@ -238,8 +310,6 @@ function initUnread(){
         }
     });
 }
-
-
 function initDraft(){
     $.ajax({
         url: basePath + "/message/count?status=saved&label=draft",
@@ -254,7 +324,6 @@ function initDraft(){
         }
     });
 }
-
 function initTrash(){
     $.ajax({
         url: basePath + "/message/count?status=trashed&label=trash",

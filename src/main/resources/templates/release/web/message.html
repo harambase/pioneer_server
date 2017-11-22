@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="/release/web/common/header :: commonHeader('消息中心',false, false)"></head>
+<head th:include="/release/web/common/header :: commonHeader('消息中心',false, true)"></head>
 <head>
     <link rel="stylesheet" href="/static/plugins/blur-admin/vendor-2cae343ef1.css">
     <link rel="stylesheet" href="/static/plugins/blur-admin/app-bce21c2366.css">
@@ -33,7 +33,7 @@
                             <div class="letter-layout ng-scope">
                                 <div class="mail-navigation-container">
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-default compose-button">
+                                        <button id="write" type="button" class="btn btn-default compose-button">
                                             写信息
                                         </button>
                                     </div><!-- ngRepeat: t in tabCtrl.tabs -->
@@ -116,7 +116,7 @@
                                             <div id="body" class="message-body ng-binding"></div>
                                             <div class="line"></div>
 
-                                            <div id="attachment" class="attachment">
+                                            <!--<div id="attachment" class="attachment">
                                                  <span class="file-links">1 Attachment -
                                                      <a href="http://akveo.com/blur-admin/">查看</a> |
                                                      <a href="http://akveo.com/blur-admin/">下载</a></span>
@@ -124,7 +124,7 @@
                                                     <i class="file-icon ion-document"></i>
                                                     <span class="file-name ng-binding">file.doc</span>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <div class="line" ng-show="detailCtrl.mail.attachment"></div>
                                             <div class="answer-container">
                                                 <button type="button" class="btn btn-with-icon">
@@ -157,143 +157,33 @@
     <!-- /. PAGE INNER  -->
     <div id="writeMail" class="modal-dialog modal-compose">
         <div class="modal-content" uib-modal-transclude="">
-            <div class="compose-header ng-scope"><span>New message</span> <span class="header-controls"><i
-                    class="ion-minus-round"></i> <i class="ion-arrow-resize"></i> <i ng-click="$dismiss()"
-                                                                                     class="ion-close-round"></i></span>
+            <div class="compose-header ng-scope"><span>写新信息</span>
+                <span class="header-controls">
+                    <i class="ion-minus-round"></i>
+                    <i class="ion-arrow-resize"></i>
+                    <i class="ion-close-round"></i>
+                </span>
             </div>
-            <div class="ng-scope"><input type="text"
-                                         class="form-control compose-input default-color ng-pristine ng-untouched ng-valid ng-not-empty"
-                                         placeholder="To" ng-model="boxCtrl.to" style=""> <input type="text"
-                                                                                                 class="form-control compose-input default-color ng-pristine ng-untouched ng-valid ng-not-empty"
-                                                                                                 placeholder="Subject"
-                                                                                                 ng-model="boxCtrl.subject"
-                                                                                                 style="">
+            <div class="ng-scope">
+                <select style="width: 100%" id="searchUser" class="js-example-basic-multiple form-control compose-input" name="states[]">
+                </select>
+                <input class="form-control compose-input" placeholder="主题">
                 <div class="compose-container">
-                    <text-angular-toolbar ta-toolbar-class="toolbarMain" name="toolbarMain"
-                                          ta-toolbar="[['h1','h2','h3','bold','italics', 'underline', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull']]"
-                                          class="ng-isolate-scope ta-toolbar toolbarMain">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default ng-scope" name="h1" ta-button="ta-button"
-                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                    ng-class="displayActiveToolClass(active)" title="Heading 1" unselectable="on"
-                                    disabled="disabled">H1
-                            </button>
-                            <button type="button" class="btn btn-default ng-scope" name="h2" ta-button="ta-button"
-                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                    ng-class="displayActiveToolClass(active)" title="Heading 2" unselectable="on"
-                                    disabled="disabled">H2
-                            </button>
-                            <button type="button" class="btn btn-default ng-scope" name="h3" ta-button="ta-button"
-                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                    ng-class="displayActiveToolClass(active)" title="Heading 3" unselectable="on"
-                                    disabled="disabled">H3
-                            </button>
-                            <button type="button" class="btn btn-default ng-scope" name="bold" ta-button="ta-button"
-                                    ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                    ng-class="displayActiveToolClass(active)" title="Bold" unselectable="on"
-                                    disabled="disabled"><i class="fa fa-bold"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="italics"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Italic" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-italic"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="underline"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Underline" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-underline"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="justifyLeft"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Align text left" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-align-left"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="justifyCenter"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Center" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-align-center"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="justifyRight"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Align text right" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-align-right"></i></button>
-                            <button type="button" class="btn btn-default ng-scope" name="justifyFull"
-                                    ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                    ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                    title="Justify text" unselectable="on" disabled="disabled"><i
-                                    class="fa fa-align-justify"></i></button>
-                        </div>
-                    </text-angular-toolbar>
-                    <text-angular name="htmlcontent" ta-target-toolbars="toolbarMain,toolbarFooter"
-                                  ng-model="boxCtrl.text"
-                                  class="ng-pristine ng-untouched ng-valid ng-isolate-scope ta-root ng-empty"
-                                  style="">
-                        <div class="ta-scroll-window ng-scope ta-text ta-editor form-control" ng-hide="showHtml">
-                            <div class="popover fade bottom" style="max-width: none; width: 305px;">
-                                <div class="arrow"></div>
-                                <div class="popover-content"></div>
-                            </div>
-                            <div class="ta-resizer-handle-overlay">
-                                <div class="ta-resizer-handle-background"></div>
-                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-tl"></div>
-                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-tr"></div>
-                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-bl"></div>
-                                <div class="ta-resizer-handle-corner ta-resizer-handle-corner-br"></div>
-                                <div class="ta-resizer-handle-info"></div>
-                            </div>
-                            <div id="taTextElement2321239607926928" contenteditable="true" ta-bind="ta-bind"
-                                 ng-model="html" class="ng-pristine ng-untouched ng-valid ta-bind ng-empty"
-                                 style=""><p><br></p></div>
-                        </div>
-                        <textarea id="taHtmlElement2321239607926928" ng-show="showHtml" ta-bind="ta-bind"
-                                  ng-model="html"
-                                  class="ng-pristine ng-untouched ng-valid ng-scope ta-bind ta-html ta-editor form-control ng-empty ng-hide"
-                                  style=""></textarea><input type="hidden" tabindex="-1" style="display: none;"
-                                                             name="htmlcontent" value=""></text-angular>
+                   <textarea id="body" class=" form-control" style="height: 300px; background-color: white;"></textarea>
+                   <input type="hidden" tabindex="-1" style="display: none;" name="htmlcontent" value="">
                 </div>
             </div>
             <div class="compose-footer clearfix ng-scope">
-                <button type="button" ng-click="$dismiss()" class="btn btn-send">Send</button>
-                <text-angular-toolbar ta-toolbar-class="toolbarFooter" name="toolbarFooter"
-                                      ta-toolbar="[['insertLink', 'insertImage', 'html', 'quote','insertVideo']]"
-                                      class="ng-isolate-scope ta-toolbar toolbarFooter">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default ng-scope" name="insertLink"
-                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                title="Insert / edit link" unselectable="on" disabled="disabled"><i
-                                class="fa fa-link"></i></button>
-                        <button type="button" class="btn btn-default ng-scope" name="insertImage"
-                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                title="Insert image" unselectable="on" disabled="disabled"><i
-                                class="fa fa-picture-o"></i></button>
-                        <button type="button" class="btn btn-default ng-scope" name="html" ta-button="ta-button"
-                                ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                ng-class="displayActiveToolClass(active)" title="Toggle html / Rich Text"
-                                unselectable="on" disabled="disabled"><i class="fa fa-code"></i></button>
-                        <button type="button" class="btn btn-default ng-scope" name="quote" ta-button="ta-button"
-                                ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()"
-                                ng-class="displayActiveToolClass(active)"
-                                title="Quote/unquote selection or paragraph" unselectable="on" disabled="disabled">
-                            <i class="fa fa-quote-right"></i></button>
-                        <button type="button" class="btn btn-default ng-scope" name="insertVideo"
-                                ta-button="ta-button" ng-disabled="isDisabled()" tabindex="-1"
-                                ng-click="executeAction()" ng-class="displayActiveToolClass(active)"
-                                title="Insert video" unselectable="on" disabled="disabled"><i
-                                class="fa fa-youtube-play"></i></button>
-                    </div>
-                </text-angular-toolbar>
-                <div class="footer-controls"><i
-                        class="footer-control-first compose-footer-icon ion-arrow-down-b"></i> <i
-                        ng-click="$dismiss()" class="compose-footer-icon ion-android-delete"></i></div>
+                <button type="button" class="btn btn-send">发送</button>
+                <button type="button" class="btn btn-send">保存为草稿</button>
+                <button type="button" class="btn btn-send">取消</button>
             </div>
         </div>
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
 <!--load_js(table,chart,select2)-->
-<div th:include="/release/faculty/common/js :: load_js(true , false, false)"></div>
+<div th:include="/release/faculty/common/js :: load_js(true , false, true)"></div>
 <script src="/static/scripts/messageCenter.js"></script>
 </body>
 </html>

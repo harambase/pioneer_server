@@ -430,13 +430,7 @@ $("#registerBtn").click(function (){
     }
 });
 
-function formatRepoSelection(repo) {
-    return repo.id
-}
 
-function formatRepo(repo) {
-    return repo.text
-}
 
 $("#transcript").css({"display": "none"});
 
