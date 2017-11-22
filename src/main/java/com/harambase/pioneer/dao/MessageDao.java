@@ -15,7 +15,7 @@ import java.util.List;
 public class MessageDao {
 
     public int countMessageByStatus(String receiverid, String senderid,
-                                    String label, String status)throws Exception{
+                                    String box, String status)throws Exception{
         ResultSet rs = null;
         Connection connection = null;
         try{
@@ -26,8 +26,17 @@ public class MessageDao {
             Statement stmt = connection.createStatement();
             
             String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "'";
-
-            queryString += whereBuilderByLabel(receiverid, senderid, label);
+    
+            if(box.equals("inbox"))
+                queryString += " AND receiverid = '" + receiverid + "'";
+            if(box.equals("important"))
+                queryString+= "  AND receiverid = '" + receiverid + "' AND labels LIKE '%important%'";
+            if(box.equals("sent"))
+                queryString += " AND senderid =   '" + senderid + "'";
+            if(box.equals("draft"))
+                queryString += " AND senderid =   '" + senderid + "'";
+            if(box.equals("trash"))
+                queryString+= "  AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
 
             rs = stmt.executeQuery(queryString);
 
@@ -47,7 +56,7 @@ public class MessageDao {
     }
 
     public long getMessageCountByMapPageSearchOrdered(String receiverid, String senderid,
-                                                      String label, String search) throws Exception{
+                                                      String box, String search) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
         try{
@@ -59,16 +68,16 @@ public class MessageDao {
 
             String queryString = "select count(*) as count from MessageView where 1 = 1";
 
-            queryString += whereBuilderByLabel(receiverid, senderid, label);
+            queryString += whereBuilderByLabel(receiverid, senderid, box);
 
             if(StringUtil.isNotEmpty(search)){
                 queryString += "" +
-                        "and(email like  '%"+search+"%' or" +
-                        "   subject like '%"+search+"%' or" +
-                        "   status like  '%"+search+"%' or" +
-                        "   sender like  '%"+search+"%' or" +
-                        "   title like   '%"+search+"%' or" +
-                        "   date like    '%"+search+"%')";
+                        "and(email LIKE  '%"+search+"%' or" +
+                        "   subject LIKE '%"+search+"%' or" +
+                        "   status LIKE  '%"+search+"%' or" +
+                        "   sender LIKE  '%"+search+"%' or" +
+                        "   title LIKE   '%"+search+"%' or" +
+                        "   date LIKE    '%"+search+"%')";
             }
             rs = stmt.executeQuery(queryString);
             int ret = 0;
@@ -85,8 +94,7 @@ public class MessageDao {
         }
     }
 
-    public List<MessageView> getMessageByMapPageSearchOrdered(String receiverid, String senderid,
-                                                              String label, String search, int currentIndex,
+    public List<MessageView> getMessageByMapPageSearchOrdered(String receiverid, String senderid, String box, String search, int currentIndex,
                                                               int pageSize, String order, String orderColumn) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
@@ -99,16 +107,16 @@ public class MessageDao {
             Statement stmt = connection.createStatement();
 
             String queryString = "select * from MessageView where 1 = 1";
-            queryString += whereBuilderByLabel(receiverid, senderid, label);
+            queryString += whereBuilderByLabel(receiverid, senderid, box);
 
             if(StringUtil.isNotEmpty(search)){
                 queryString += "" +
-                        "and(email like  '%"+search+"%' or" +
-                        "   subject like '%"+search+"%' or" +
-                        "   status like  '%"+search+"%' or" +
-                        "   sender like  '%"+search+"%' or" +
-                        "   title like   '%"+search+"%' or" +
-                        "   date like    '%"+search+"%') ";
+                        "and(email LIKE  '%"+search+"%' or" +
+                        "   subject LIKE '%"+search+"%' or" +
+                        "   status LIKE  '%"+search+"%' or" +
+                        "   sender LIKE  '%"+search+"%' or" +
+                        "   title LIKE   '%"+search+"%' or" +
+                        "   date LIKE    '%"+search+"%') ";
             }
             queryString += "" +
                     " order by " + orderColumn + " " + order + " " +
@@ -125,21 +133,20 @@ public class MessageDao {
         }
     }
 
-    private String whereBuilderByLabel(String receiverid, String senderid, String label){
+    private String whereBuilderByLabel(String receiverid, String senderid, String box){
         String queryString = "";
-        if(!label.equals("trash")) {
-            if(receiverid != null)
-                queryString += " AND receiverid =  '" + receiverid + "'";
-            if(senderid != null)
-                queryString +=  " AND senderid = '" + senderid + "'";
-            if("inbox/important/draft/sent".contains(label) && StringUtil.isNotEmpty(label))
-                queryString += " AND labels LIKE '%" + label + "%'";
-        }
-        else{
-            queryString+= " AND (receiverid = '" + receiverid + "'" +
-                    " OR senderid = '" + senderid + "'" +
-                    " )AND labels LIKE '%trash%'";
-        }
+        
+        if(box.equals("inbox")) 
+            queryString += " AND receiverid = '" + receiverid + "' AND status LIKE '%read%'";
+        if(box.equals("important"))
+            queryString+= "  AND receiverid = '" + receiverid + "' AND status LIKE '%read%' AND labels LIKE '%important%'";
+        if(box.equals("sent"))
+            queryString += " AND senderid =   '" + senderid   + "' AND status LIKE '%read%'";
+        if(box.equals("draft"))
+            queryString += " AND senderid =   '" + senderid   + "' AND status = 'saved'";
+        if(box.equals("trash"))
+            queryString+= "  AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
+        
         return queryString;
     }
 }

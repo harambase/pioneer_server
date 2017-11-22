@@ -51,22 +51,22 @@ public class MessageController {
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity countByStatus(@RequestParam(value = "status") String status,
-                                        @RequestParam(value = "label") String label,
+                                        @RequestParam(value = "box") String box,
                                         HttpSession session){
         Person user = (Person)session.getAttribute("user");
         String receiverid = null;
         String senderid = null;
-        
-        if(label.contains("inbox") || label.contains("important"))
+    
+        if(box.contains("inbox") || box.contains("important"))
             receiverid = user.getUserid();
-        if(label.contains("sent") || label.contains("draft"))
+        if(box.contains("sent") || box.contains("draft"))
             senderid = user.getUserid();
-        if(label.contains("trash")) {
+        if(box.contains("trash")) {
             receiverid = user.getUserid();
             senderid = user.getUserid();
         }
        
-        HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, label.toLowerCase(), status.toLowerCase());
+        HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, box.toLowerCase(), status.toLowerCase());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -77,18 +77,18 @@ public class MessageController {
                                @RequestParam(value = "search[value]") String search,
                                @RequestParam(value = "order[0][dir]") String order,
                                @RequestParam(value = "order[0][column]") String orderCol,
-                               @RequestParam(value = "label") String label,
+                               @RequestParam(value = "box") String box,
                                HttpSession session) {
 
         Person user = (Person)session.getAttribute("user");
         String receiverid = null;
         String senderid = null;
 
-        if(label.contains("inbox") || label.contains("important"))
+        if(box.contains("inbox") || box.contains("important"))
             receiverid = user.getUserid();
-        if(label.contains("sent") || label.contains("draft"))
+        if(box.contains("sent") || box.contains("draft"))
             senderid = user.getUserid();
-        if(label.contains("trash")) {
+        if(box.contains("trash")) {
             receiverid = user.getUserid();
             senderid = user.getUserid();
         }
@@ -96,7 +96,7 @@ public class MessageController {
         Map<String, Object> map = new HashMap<>();
         try {
             HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search,
-                    order, orderCol, receiverid, senderid, label);
+                    order, orderCol, receiverid, senderid, box);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());

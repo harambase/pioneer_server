@@ -1,8 +1,9 @@
-var label = "inbox";
+var box = "inbox";
+
 $("#write").click(function(){
    $("#writeMail").css({display:"block"});
-
 });
+
 $("#detail").css({display:"none"});
 $("#writeMail").css({display:"none"});
 $("#refresh").click(function(){
@@ -15,31 +16,31 @@ $("#back").click(function(){
 });
 
 $("#inbox").click(function(){
-    label = "inbox";
+    box = "inbox";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#sent").click(function(){
-    label = "sent";
+    box = "sent";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#draft").click(function(){
-    label = "draft";
+    box = "draft";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#important").click(function(){
-    label = "important";
+    box = "important";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
 
 $("#trash").click(function(){
-    label = "trash";
+    box = "trash";
     $(this).addClass("active").siblings().removeClass("active");
     messageTable.draw();
 });
@@ -79,7 +80,7 @@ var messageTable = $("#messageTable").DataTable({
     ajax: {
         url: basePath + "/message/list",
         data: function (d) {
-            d.label = label;
+            d.box = box;
         }
     },
     columns: [
@@ -169,7 +170,7 @@ $("#searchUser").select2({
                 };
                 itemList.push(item);
             }
-            // console.log(itemList);
+
             return {
                 results: itemList//itemList
             };
@@ -284,7 +285,7 @@ $(function(){
 });
 function initImportant(){
     $.ajax({
-        url: basePath + "/message/count?status=unread&label=important",
+        url: basePath + "/message/count?status=unread&box=important",
         type: "GET",
         async: false,
         success: function (data) {
@@ -298,7 +299,7 @@ function initImportant(){
 }
 function initUnread(){
     $.ajax({
-        url: basePath + "/message/count?status=unread&label=inbox",
+        url: basePath + "/message/count?status=unread&box=inbox",
         type: "GET",
         async: false,
         success: function (data) {
@@ -312,7 +313,7 @@ function initUnread(){
 }
 function initDraft(){
     $.ajax({
-        url: basePath + "/message/count?status=saved&label=draft",
+        url: basePath + "/message/count?status=saved&box=draft",
         type: "GET",
         async: false,
         success: function (data) {
@@ -326,7 +327,7 @@ function initDraft(){
 }
 function initTrash(){
     $.ajax({
-        url: basePath + "/message/count?status=trashed&label=trash",
+        url: basePath + "/message/count?status=trashed&box=trash",
         type: "GET",
         async: false,
         success: function (data) {

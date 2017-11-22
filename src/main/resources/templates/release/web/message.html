@@ -165,18 +165,18 @@
                 </span>
             </div>
             <div class="ng-scope">
-                <select style="width: 100%" id="searchUser" class="js-example-basic-multiple form-control compose-input" name="states[]">
+                <select style="width: 100%" id="searchUser" class="js-example-basic-multiple form-control compose-input" name="states[]"  multiple="multiple">
                 </select>
-                <input class="form-control compose-input" placeholder="主题">
+                <input id="subject" class="form-control compose-input" placeholder="主题">
                 <div class="compose-container">
                    <textarea id="body" class=" form-control" style="height: 300px; background-color: white;"></textarea>
                    <input type="hidden" tabindex="-1" style="display: none;" name="htmlcontent" value="">
                 </div>
             </div>
             <div class="compose-footer clearfix ng-scope">
-                <button type="button" class="btn btn-send">发送</button>
-                <button type="button" class="btn btn-send">保存为草稿</button>
-                <button type="button" class="btn btn-send">取消</button>
+                <button style="width: 30%" id="send" type="button" class="btn btn-send">发送</button>
+                <button style="width: 30%" id="save" type="button" class="btn btn-send">保存为草稿</button>
+                <button style="width: 30%" id="quit" type="button" class="btn btn-send">取消</button>
             </div>
         </div>
     </div>
@@ -184,6 +184,7 @@
 </div>
 <!--load_js(table,chart,select2)-->
 <div th:include="/release/faculty/common/js :: load_js(true , false, true)"></div>
-<script src="/static/scripts/messageCenter.js"></script>
+<script src="/static/scripts/message/messageCenter.js"></script>
+<script src="/static/scripts/message/sendMessage.js"></script>
 </body>
 </html>

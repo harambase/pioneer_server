@@ -30,7 +30,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public HaramMessage list(String currentPage, String pageSize, String search, String order, String orderColumn,
-                             String receiverid, String senderid, String label) {
+                             String receiverid, String senderid, String box) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -51,14 +51,14 @@ public class MessageServiceImpl implements MessageService {
         }
         long totalSize = 0;
         try {
-            totalSize = messageDao.getMessageCountByMapPageSearchOrdered(receiverid, senderid, label, search); //startTime, endTime);
+            totalSize = messageDao.getMessageCountByMapPageSearchOrdered(receiverid, senderid, box, search); //startTime, endTime);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, label, search,
+            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
                     page.getCurrentIndex(),page.getPageSize(),order,orderColumn);
 
             message.setData(msgs);
@@ -93,10 +93,10 @@ public class MessageServiceImpl implements MessageService {
     }
     
     @Override
-    public HaramMessage countMessageByStatus(String receiverid, String senderid, String label, String status) {
+    public HaramMessage countMessageByStatus(String receiverid, String senderid, String box, String status) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            int count = messageDao.countMessageByStatus(receiverid, senderid, label, status);
+            int count = messageDao.countMessageByStatus(receiverid, senderid, box, status);
             haramMessage.setData(count);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());

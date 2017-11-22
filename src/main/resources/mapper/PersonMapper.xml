@@ -350,7 +350,6 @@
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
 
-
   <select id="getAllUsers" resultMap="ResultMapWithBLOBs">
     select * from Person
   </select>

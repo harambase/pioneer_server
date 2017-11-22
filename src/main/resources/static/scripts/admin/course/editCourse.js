@@ -347,7 +347,6 @@ $("#searchCValue").select2({
                 };
                 itemList.push(item);
             }
-            console.log(itemList);
             return {
                 results: itemList
             };
