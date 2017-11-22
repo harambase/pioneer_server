@@ -26,13 +26,6 @@ public interface MessageMapper {
 
     int updateByPrimaryKey(Message record);
 
-    List<Message> list(String userid);
-
-    long getMessageCountByMapPageSearchOrdered(Map<String, Object> param);
-
-    List<MessageView> getMessageByMapPageSearchOrdered(Map<String, Object> param);
-
     MessageView selectViewByPrimaryKey(int i);
-    
-    int countMessageByStatus(Map<String, Object> param);
+
 }

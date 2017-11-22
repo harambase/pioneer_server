@@ -52,34 +52,15 @@ public class MessageServiceImpl implements MessageService {
         }
         long totalSize = 0;
         try {
-            Map<String, Object> param = new HashMap<>();
-
-            param.put("search", search);
-            param.put("receiverid", receiverid);
-            param.put("senderid", senderid);
-            param.put("label", label);
-
-            if(StringUtils.isEmpty(receiverid))
-                param.put("receiverid", null);
-            if(StringUtils.isEmpty(senderid))
-                param.put("search", null);
-            if(StringUtils.isEmpty(label))
-                param.put("label", null);
-
-            totalSize = messageMapper.getMessageCountByMapPageSearchOrdered(param); //startTime, endTime);
+            totalSize = messageDao.getMessageCountByMapPageSearchOrdered(receiverid, senderid, label, search); //startTime, endTime);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            param.put("currentIndex", page.getCurrentIndex());
-            param.put("pageSize",  page.getPageSize());
-            param.put("order",  order);
-            param.put("orderColumn",  orderColumn);
-
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<MessageView> msgs = messageMapper.getMessageByMapPageSearchOrdered(param);
+            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, label, search,
+                    page.getCurrentIndex(),page.getPageSize(),order,orderColumn);
 
             message.setData(msgs);
             message.put("page", page);
