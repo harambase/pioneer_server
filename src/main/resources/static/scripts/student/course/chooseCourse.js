@@ -224,7 +224,7 @@ function removeFromWorkSheet(crn, credits){
 
 $("#reset").click(function(){
     $("#worksheet").html("");
-    initStudent(studentid);
+    initStudentInfo();
 });
 
 
@@ -258,6 +258,7 @@ function sendChoiceListAjax(choiceList){
             if(failList.length === 0)
                 Showbo.Msg.alert("全部注册成功!", function () {
                     $("#worksheet").html("");
+                    initStudentInfo();
                 });
             else {
                 var html = '<table style="text-align: left">';
@@ -268,6 +269,7 @@ function sendChoiceListAjax(choiceList){
                 Showbo.Msg.show({
                     buttons: {yes: '确定'}, msg: input, title: '注意', fn: function () {
                         $("#worksheet").html("");
+                        initStudentInfo();
                     }
                 });
             }
