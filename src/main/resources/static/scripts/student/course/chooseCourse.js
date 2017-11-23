@@ -213,6 +213,9 @@ function removeFromWorkSheet(crn, credits){
 }
 $("#reset").click(function(){
    $("#worksheet").html("");
+    use_credits = 0;
+    ava_credits = tol_credits;
+    setCredits();
 });
 function setCredits(){
     $("#tol_credits").val(tol_credits);
