@@ -59,19 +59,25 @@ var ava_credits = 0;
 
 function initStudent(studentid){
     $.ajax({
-        url: basePath + "/student/transcript/info?studentid="+studentid,
+        url: basePath + "/student/available/credit?studentid="+studentid,
         type: "GET",
         success: function (data) {
             if(data.code === 2001){
-                tol_credits = data.data.max_credits;
-                ava_credits = data.data.max_credits;
-                $("#tol_credits").val(tol_credits);
-                $("#ava_credits").val(tol_credits);
+                tol_credits = data.data.tol_credits;
+                use_credits = data.data.use_credits ;
+                ava_credits = data.data.ava_credits;
+                setCredits();
             }
             else
                 Showbo.Msg.alert("获取学生信息失败!", function () {});
         }
     });
+}
+
+function setCredits(){
+    $("#tol_credits").val(tol_credits);
+    $("#ava_credits").val(ava_credits);
+    $("#use_credits").val(use_credits);
 }
 
 var courseTable = $("#newCourseTable").DataTable({
@@ -218,15 +224,9 @@ function removeFromWorkSheet(crn, credits){
 
 $("#reset").click(function(){
     $("#worksheet").html("");
-    use_credits = 0;
-    ava_credits = tol_credits;
-    setCredits();
+    initStudent(studentid);
 });
-function setCredits(){
-    $("#tol_credits").val(tol_credits);
-    $("#ava_credits").val(ava_credits);
-    $("#use_credits").val(use_credits);
-}
+
 
 
 $("#submit").click(function(){

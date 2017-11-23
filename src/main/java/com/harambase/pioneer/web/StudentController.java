@@ -2,6 +2,7 @@ package com.harambase.pioneer.web;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,21 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/transcript/info", method = RequestMethod.GET)
-    public ResponseEntity getTranscriptDetail(@RequestParam(value = "studentid") String studentid,
-                                              HttpSession session){
+    public ResponseEntity getTranscriptDetail(@RequestParam(value = "studentid") String studentid){
         HaramMessage haramMessage = studentService.transcriptDetail(studentid);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/available/credit", method = RequestMethod.GET)
+    public ResponseEntity getAvaliableCredit(@RequestParam(value = "studentid") String studentid,
+                                             HttpSession session){
+        Pin pin = (Pin)session.getAttribute("pin");
+        HaramMessage haramMessage = studentService.getAvaliableCredit(studentid, pin.getInfo());
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public ResponseEntity update(@RequestBody Student student,
-                                              HttpSession session){
+    public ResponseEntity update(@RequestBody Student student){
         HaramMessage haramMessage = studentService.update(student);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

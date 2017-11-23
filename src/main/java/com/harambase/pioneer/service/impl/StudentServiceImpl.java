@@ -5,6 +5,8 @@ import com.harambase.common.Page;
 import com.harambase.common.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
+import com.harambase.pioneer.dao.mapper.TranscriptMapper;
+import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.dto.StudentView;
@@ -22,10 +24,14 @@ import java.util.Map;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+
     private final StudentMapper studentMapper;
+    private final TranscriptMapper transcriptMapper;
+
 
     @Autowired
-    public StudentServiceImpl(StudentMapper studentMapper){
+    public StudentServiceImpl(StudentMapper studentMapper, TranscriptMapper transcriptMapper){
+        this.transcriptMapper = transcriptMapper;
         this.studentMapper = studentMapper;
     }
 
@@ -132,6 +138,36 @@ public class StudentServiceImpl implements StudentService {
             message.setMsg(FlagDict.SYSTEM_ERROR.getM());
             message.setCode(FlagDict.SYSTEM_ERROR.getV());
             return message;
+        }
+    }
+
+    @Override
+    public HaramMessage getAvaliableCredit(String studentid, String info) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Map<String, Integer> creditInfo = new HashMap<>();
+            List<Course> courseList = transcriptMapper.studentCourse(studentid);
+            StudentView sv = studentMapper.transcriptDetail(studentid);
+            int use_credits = 0;
+            int ava_credits = 0;
+            int tol_credits = sv.getMax_credits();
+            for(Course course:courseList){
+                if(course.getInfo().equals(info))
+                    use_credits += course.getCredits();
+            }
+            ava_credits = tol_credits - use_credits;
+            creditInfo.put("tol_credits", tol_credits);
+            creditInfo.put("ava_credits", ava_credits);
+            creditInfo.put("use_credits", use_credits);
+
+            haramMessage.setData(creditInfo);
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+        }catch(Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
         }
     }
 }
