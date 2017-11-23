@@ -177,4 +177,7 @@
   <select id="countByPin" parameterType="java.util.Map" resultType="java.lang.Integer">
     select * from Pin where pin = #{pin,jdbcType=INTEGER}
   </select>
+  <select id="selectByPin" parameterType="java.lang.Integer" resultType="com.harambase.pioneer.pojo.Pin">
+    select * from Pin where pin = #{arg0,jdbcType=INTEGER}
+  </select>
 </mapper>

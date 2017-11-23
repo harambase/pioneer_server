@@ -17,9 +17,9 @@
                 <small>创建新课程</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="/welcomeAdmin">主页</a></li>
-                <li><a href="#">教务管理</a></li>
-                <li class="active">创建新课程</li>
+                <li><a href="/welcomeStudent">主页</a></li>
+                <li><a href="#">教学系统</a></li>
+                <li class="active">选课课程表单</li>
             </ol>
 
         </div>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" id="createCourseForm" onclick="return false;">
+                            <form class="form-horizontal" id="pinNumForm" onclick="return false;">
                                 <div class="col-md-12 col-sm-4">
                                     <div class="panel panel-danger">
                                         <div class="panel-heading">
@@ -45,6 +45,8 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <input id="pin" class="form-control" minlength="6" maxlength="6" required/>
+                                            </div>
+                                            <div class="col-sm-3">
                                                 <button style="width:150px;" class="btn btn-success" id="pinValidate">验证</button>
                                             </div>
                                         </div>
@@ -53,6 +55,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            </form>
+                            <form class="form-horizontal" id="courseChooseForm" onclick="return false;">
                                 <div class="col-md-12 col-sm-4">
 
                                     <div class="col-md-5">
@@ -94,12 +98,12 @@
                                                     </div>
 
                                                     <div class="col-sm-8">
-                                                        <textarea style="resize: none;" class="form-control" id="comments" rows="3"></textarea>
+                                                        <textarea style="resize: none;" class="form-control" id="credits" rows="3"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-2">
-                                                        <label for="password"
+                                                        <label for="comments"
                                                                class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
                                                     </div>
                                                     <div class="col-sm-3">
@@ -130,34 +134,34 @@
                                         <div class="panel-body">
                                             <div class="form-group">
                                                 <div class="col-sm-2">
-                                                    <label for="password" class="col-sm-12 control-label">备注信息:</label>
+                                                    <label for="comments" class="col-sm-12 control-label">备注信息:</label>
                                                 </div>
 
                                                 <div class="col-sm-8">
                                                     <textarea style="resize: none;" class="form-control" id="comments" rows="3"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <label for="password"
-                                                           class="col-sm-12 control-label">*请确认上述信息正确无误:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">
-                                                        <input type="checkbox" id="yes" name="confirm" required><label for="yes">确认</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <label for="password" class="col-sm-12 control-label">*管理员操作密码:</label>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="password" id="password" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>
-                                                </div>
-                                                <button style="width:150px;" class="btn btn-primary" id="registerBtn">创建</button>
-                                            </div>
-                                            <div class="panel-footer">
-                                                注意：操作密码不是登录密码
-                                            </div>
+                                            <!--<div class="form-group">-->
+                                                <!--<div class="col-sm-2">-->
+                                                    <!--<label for="password"-->
+                                                           <!--class="col-sm-12 control-label">*请确认上述信息正确无误:</label>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-sm-3">-->
+                                                    <!--<div id="yes-div" class="checkbox3 checkbox-danger checkbox-inline checkbox-check  checkbox-circle checkbox-light">-->
+                                                        <!--<input type="checkbox" id="yes" name="confirm" required><label for="yes">确认</label>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-sm-2">-->
+                                                    <!--<label for="password" class="col-sm-12 control-label">*管理员操作密码:</label>-->
+                                                <!--</div>-->
+                                                <!--<div class="col-sm-3">-->
+                                                    <!--<input type="password" id="password" class="form-control" minlength="6" maxlength="16" checkOpPwd="true" required/>-->
+                                                <!--</div>-->
+                                                <!--<button style="width:150px;" class="btn btn-primary" id="registerBtn">创建</button>-->
+                                            <!--</div>-->
+                                            <!--<div class="panel-footer">-->
+                                                <!--注意：操作密码不是登录密码-->
+                                            <!--</div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -178,7 +182,7 @@
 <!-- /. WRAPPER  -->
 <div th:include="/release/admin/common/js :: load_js(false , false, true)"></div>
 
-<script src="/static/scripts/admin/course/createCourse.js"></script>
+<script src="/static/scripts/student/course/chooseCourse.js"></script>
 
 <script>
     //执行一个laydate实例

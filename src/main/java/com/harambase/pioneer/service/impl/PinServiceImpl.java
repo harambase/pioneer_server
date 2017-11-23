@@ -7,6 +7,7 @@ import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.PinMapper;
+import com.harambase.pioneer.helper.CheckTime;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.service.PinService;
 import javafx.beans.binding.ObjectExpression;
@@ -36,8 +37,25 @@ public class PinServiceImpl implements PinService{
         this.adviseMapper = adviseMapper;
     }
     @Override
-    public HaramMessage validate(Integer pin, Person user) {
-        return null;
+    public HaramMessage validate(Integer pinNum, Person user) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Pin pin = pinMapper.selectByPin(pinNum);
+            if(pin != null && CheckTime.isPinValidate(pin)){
+                haramMessage.setCode(FlagDict.SUCCESS.getV());
+                haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                return haramMessage;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+        haramMessage.setCode(FlagDict.FAIL.getV());
+        haramMessage.setMsg(FlagDict.FAIL.getM());
+        return haramMessage;
     }
     
     @Override

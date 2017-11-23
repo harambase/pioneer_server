@@ -29,4 +29,6 @@ public interface PinMapper {
     List<Pin> listByInfo(Map<String, Object> param);
 
     int countByPin(int pinNum);
+
+    Pin selectByPin(int pinNum);
 }

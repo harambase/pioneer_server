@@ -5,6 +5,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.Pin;
 
 import java.util.*;
 
@@ -62,5 +63,14 @@ public class CheckTime {
             result.add(split[i]);
         }
         return result;
+    }
+
+    public static boolean isPinValidate(Pin pin) {
+
+        Date startTime = DateUtil.StrToDate(pin.getStarttime());
+        Date endTime   = DateUtil.StrToDate(pin.getEndtime());
+        Date nowTime   = DateUtil.StrToDate(DateUtil.DateToStr(new Date()));
+
+        return startTime.compareTo(nowTime) <= 0 && endTime.compareTo(nowTime) >= 0;
     }
 }
