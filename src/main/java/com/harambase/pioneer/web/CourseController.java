@@ -101,7 +101,8 @@ public class CourseController {
             if(mode != null && mode.equals("choose"))
                 info = ((Pin)session.getAttribute("pin")).getInfo();
 
-            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyid);
+            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length),
+                    search, order, orderCol, facultyid, info);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());

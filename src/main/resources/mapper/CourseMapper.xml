@@ -337,6 +337,9 @@
     <if test="facultyid!=null">
       and facultyid = #{facultyid,jdbcType=VARCHAR}
     </if>
+    <if test="info!=null">
+      and info = #{info,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or
       name like  '%' #{search,jdbcType=VARCHAR} '%' or
@@ -358,6 +361,9 @@
     select * from CourseView <where> 1 = 1
     <if test="facultyid!=null">
       and facultyid = #{facultyid,jdbcType=VARCHAR}
+    </if>
+    <if test="info!=null">
+      and info = #{info,jdbcType=VARCHAR}
     </if>
     <if test="search != null" >
       and (crn like '%' #{search,jdbcType=VARCHAR} '%' or

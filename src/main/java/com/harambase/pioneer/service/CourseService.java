@@ -25,7 +25,7 @@ public interface CourseService {
 
     HaramMessage listBySearch(String search);
 
-    HaramMessage courseList(String s, String s1, String search, String order, String orderCol, String facultyid);
+    HaramMessage courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
 
     HaramMessage transcriptList(String s, String s1, String search, String order, String orderCol, String studentid, String crn);
 

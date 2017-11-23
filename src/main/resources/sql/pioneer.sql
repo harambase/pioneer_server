@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
+MySQL - 5.7.18 : Database - pioneer_2.0
 *********************************************************************
 */
 
@@ -61,7 +61,7 @@ CREATE TABLE `Course` (
   `info` varchar(20) NOT NULL,
   `createtime` varchar(20) DEFAULT NULL,
   `updatetime` varchar(20) DEFAULT NULL,
-  `comment` text DEFAULT NULL COMMENT '备注',
+  `comment` text COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -80,10 +80,10 @@ DROP TABLE IF EXISTS `Message`;
 CREATE TABLE `Message` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `senderid` varchar(50) NOT NULL COMMENT '发送者ID',
-  `receiverid` text DEFAULT NULL COMMENT '接收者ID',
+  `receiverid` text COMMENT '接收者ID',
   `subject` varchar(20) DEFAULT NULL COMMENT '类型',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `body` text DEFAULT NULL COMMENT '内容',
+  `body` text COMMENT '内容',
   `status` varchar(10) DEFAULT NULL COMMENT '已读、未读、草稿',
   `date` varchar(50) DEFAULT NULL COMMENT '创建时间',
   `attachment` varchar(50) DEFAULT NULL,
@@ -123,8 +123,8 @@ CREATE TABLE `Person` (
   `updateTime` varchar(100) NOT NULL COMMENT '修改时间',
   `status` varchar(20) NOT NULL COMMENT '状态',
   `type` varchar(20) NOT NULL COMMENT '属性',
-  `comment` text DEFAULT NULL COMMENT '备注',
-  `profile` text DEFAULT NULL COMMENT '头像',
+  `comment` text COMMENT '备注',
+  `profile` text COMMENT '头像',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
@@ -150,7 +150,7 @@ CREATE TABLE `Pin` (
   `startTime` varchar(20) NOT NULL,
   `endTime` varchar(20) NOT NULL,
   `createTime` varchar(20) DEFAULT NULL,
-  `remark` text DEFAULT NULL,
+  `remark` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
@@ -434,14 +434,14 @@ BEGIN
     END */$$
 DELIMITER ;
 
-/*Table structure for table `adviseview` */
+/*Table structure for table `AdviseView` */
 
-DROP TABLE IF EXISTS `adviseview`;
+DROP TABLE IF EXISTS `AdviseView`;
 
-/*!50001 DROP VIEW IF EXISTS `adviseview` */;
-/*!50001 DROP TABLE IF EXISTS `adviseview` */;
+/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
+/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
 
-/*!50001 CREATE TABLE  `adviseview`(
+/*!50001 CREATE TABLE  `AdviseView`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sname` varchar(100) NULL ,
@@ -453,20 +453,21 @@ DROP TABLE IF EXISTS `adviseview`;
  `oname` varchar(100) NULL 
 )*/;
 
-/*Table structure for table `courseview` */
+/*Table structure for table `CourseView` */
 
-DROP TABLE IF EXISTS `courseview`;
+DROP TABLE IF EXISTS `CourseView`;
 
-/*!50001 DROP VIEW IF EXISTS `courseview` */;
-/*!50001 DROP TABLE IF EXISTS `courseview` */;
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
 
-/*!50001 CREATE TABLE  `courseview`(
+/*!50001 CREATE TABLE  `CourseView`(
  `id` int(11) NOT NULL  default '0' ,
  `crn` varchar(20) NOT NULL ,
  `name` varchar(100) NOT NULL ,
  `credits` int(11) NULL ,
  `couLev` varchar(11) NULL ,
  `couSec` varchar(11) NULL ,
+ `info` varchar(20) NOT NULL ,
  `capa` int(11) NULL ,
  `remain` int(11) NULL ,
  `facultyid` varchar(20) NOT NULL ,
@@ -478,14 +479,14 @@ DROP TABLE IF EXISTS `courseview`;
  `updatetime` varchar(20) NULL 
 )*/;
 
-/*Table structure for table `messageview` */
+/*Table structure for table `MessageView` */
 
-DROP TABLE IF EXISTS `messageview`;
+DROP TABLE IF EXISTS `MessageView`;
 
-/*!50001 DROP VIEW IF EXISTS `messageview` */;
-/*!50001 DROP TABLE IF EXISTS `messageview` */;
+/*!50001 DROP VIEW IF EXISTS `MessageView` */;
+/*!50001 DROP TABLE IF EXISTS `MessageView` */;
 
-/*!50001 CREATE TABLE  `messageview`(
+/*!50001 CREATE TABLE  `MessageView`(
  `id` int(20) NOT NULL  default '0' ,
  `senderid` varchar(50) NOT NULL ,
  `receiverid` text NULL ,
@@ -504,14 +505,14 @@ DROP TABLE IF EXISTS `messageview`;
  `receiver` varchar(100) NULL 
 )*/;
 
-/*Table structure for table `studentview` */
+/*Table structure for table `StudentView` */
 
-DROP TABLE IF EXISTS `studentview`;
+DROP TABLE IF EXISTS `StudentView`;
 
-/*!50001 DROP VIEW IF EXISTS `studentview` */;
-/*!50001 DROP TABLE IF EXISTS `studentview` */;
+/*!50001 DROP VIEW IF EXISTS `StudentView` */;
+/*!50001 DROP TABLE IF EXISTS `StudentView` */;
 
-/*!50001 CREATE TABLE  `studentview`(
+/*!50001 CREATE TABLE  `StudentView`(
  `id` int(11) unsigned NOT NULL  default '0' ,
  `Studentid` varchar(100) NOT NULL ,
  `max_credits` int(20) unsigned NOT NULL ,
@@ -523,14 +524,14 @@ DROP TABLE IF EXISTS `studentview`;
  `incomplete` int(11) NULL 
 )*/;
 
-/*Table structure for table `transcriptview` */
+/*Table structure for table `TranscriptView` */
 
-DROP TABLE IF EXISTS `transcriptview`;
+DROP TABLE IF EXISTS `TranscriptView`;
 
-/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
-/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
+/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
+/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE TABLE  `transcriptview`(
+/*!50001 CREATE TABLE  `TranscriptView`(
  `id` int(11) NOT NULL  default '0' ,
  `Studentid` varchar(20) NOT NULL ,
  `sfirst` varchar(100) NOT NULL ,
@@ -553,40 +554,40 @@ DROP TABLE IF EXISTS `transcriptview`;
  `oname` varchar(100) NULL 
 )*/;
 
-/*View structure for view adviseview */
+/*View structure for view AdviseView */
 
-/*!50001 DROP TABLE IF EXISTS `adviseview` */;
-/*!50001 DROP VIEW IF EXISTS `adviseview` */;
+/*!50001 DROP TABLE IF EXISTS `AdviseView` */;
+/*!50001 DROP VIEW IF EXISTS `AdviseView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `adviseview` AS select `a`.`id` AS `id`,`a`.`studentid` AS `Studentid`,`Get_Name`(`a`.`studentid`) AS `sname`,`a`.`facultyid` AS `facultyid`,`Get_Name`(`a`.`facultyid`) AS `fname`,`a`.`status` AS `status`,`a`.`updateTime` AS `updateTime`,`a`.`operator` AS `operator`,`Get_Name`(`a`.`operator`) AS `oname` from `advise` `a` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `AdviseView` AS select `a`.`id` AS `id`,`a`.`studentid` AS `Studentid`,`Get_Name`(`a`.`studentid`) AS `sname`,`a`.`facultyid` AS `facultyid`,`Get_Name`(`a`.`facultyid`) AS `fname`,`a`.`status` AS `status`,`a`.`updateTime` AS `updateTime`,`a`.`operator` AS `operator`,`Get_Name`(`a`.`operator`) AS `oname` from `Advise` `a` */;
 
-/*View structure for view courseview */
+/*View structure for view CourseView */
 
-/*!50001 DROP TABLE IF EXISTS `courseview` */;
-/*!50001 DROP VIEW IF EXISTS `courseview` */;
+/*!50001 DROP TABLE IF EXISTS `CourseView` */;
+/*!50001 DROP VIEW IF EXISTS `CourseView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `CourseView` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`couLev` AS `couLev`,`c`.`couSec` AS `couSec`,`c`.`info` AS `info`,`c`.`capa` AS `capa`,`Get_Remain_Capa`(`c`.`crn`) AS `remain`,`c`.`facultyid` AS `facultyid`,`Get_Name`(`c`.`facultyid`) AS `faculty`,`Get_Course_Date`(`c`.`crn`) AS `date`,`Get_Course_Time`(`c`.`crn`) AS `Time`,`Get_Course_Status`(`c`.`crn`) AS `status`,`c`.`day` AS `day`,`c`.`updatetime` AS `updatetime` from `Course` `c` */;
 
-/*View structure for view messageview */
+/*View structure for view MessageView */
 
-/*!50001 DROP TABLE IF EXISTS `messageview` */;
-/*!50001 DROP VIEW IF EXISTS `messageview` */;
+/*!50001 DROP TABLE IF EXISTS `MessageView` */;
+/*!50001 DROP VIEW IF EXISTS `MessageView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`Get_Name`(`m`.`senderid`) AS `sender`,`Get_Name`(`m`.`receiverid`) AS `receiver` from (`message` `m` join `person` `s`) where `s`.`userid` = `m`.`senderid` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `MessageView` AS select `m`.`id` AS `id`,`m`.`senderid` AS `senderid`,`m`.`receiverid` AS `receiverid`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`Get_Name`(`m`.`senderid`) AS `sender`,`Get_Name`(`m`.`receiverid`) AS `receiver` from (`Message` `m` join `Person` `s`) where (`s`.`userid` = `m`.`senderid`) */;
 
-/*View structure for view studentview */
+/*View structure for view StudentView */
 
-/*!50001 DROP TABLE IF EXISTS `studentview` */;
-/*!50001 DROP VIEW IF EXISTS `studentview` */;
+/*!50001 DROP TABLE IF EXISTS `StudentView` */;
+/*!50001 DROP VIEW IF EXISTS `StudentView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`student` `s` join `person` `p`) where `p`.`userid` = `s`.`Studentid` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `StudentView` AS select `s`.`id` AS `id`,`s`.`Studentid` AS `Studentid`,`s`.`max_credits` AS `max_credits`,`p`.`lastname` AS `lastname`,`p`.`firstname` AS `firstname`,`p`.`status` AS `status`,`Get_Complete_Credits`(`s`.`Studentid`) AS `complete`,`Get_In_Progress_Credits`(`s`.`Studentid`) AS `progress`,`Get_Not_Complete_Credits`(`s`.`Studentid`) AS `incomplete` from (`Student` `s` join `Person` `p`) where (`p`.`userid` = `s`.`Studentid`) */;
 
-/*View structure for view transcriptview */
+/*View structure for view TranscriptView */
 
-/*!50001 DROP TABLE IF EXISTS `transcriptview` */;
-/*!50001 DROP VIEW IF EXISTS `transcriptview` */;
+/*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
+/*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`userid` = `t`.`Studentid` and `p2`.`userid` = `c`.`facultyid` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

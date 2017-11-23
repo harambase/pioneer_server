@@ -310,7 +310,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage courseList(String currentPage, String pageSize, String search, String order, String orderColumn, String facultyid) {
+    public HaramMessage courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                   String facultyid, String info) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -358,11 +359,14 @@ public class CourseServiceImpl implements CourseService {
             Map<String, Object> param = new HashMap<>();
             param.put("search", search);
             param.put("facultyid", facultyid);
+            param.put("info", info);
 
             if(search.equals(""))
                 param.put("search", null);
             if(facultyid.equals(""))
                 param.put("facultyid", null);
+            if(info.equals(""))
+                param.put("info", null);
 
 
             totalSize = courseMapper.getCourseCountByMapPageSearchOrdered(param); //startTime, endTime);

@@ -3,6 +3,7 @@ package com.harambase.pioneer.web;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.service.PinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,18 @@ public class PinController {
     public PinController(PinService pinService){
         this.pinService = pinService;
     }
-    
+
+    @RequestMapping(value = "/session/verify", method = RequestMethod.GET)
+    public ResponseEntity verify(HttpSession session) {
+        Person user = (Person)session.getAttribute("user");
+        Pin pin = (Pin)session.getAttribute("pin");
+        HaramMessage haramMessage = pinService.validate(pin.getPin(), user);
+        if(haramMessage.getCode() == FlagDict.SUCCESS.getV())
+            session.setAttribute("pin", haramMessage.getData());
+
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/validate", method = RequestMethod.GET)
     public ResponseEntity validate(@RequestParam(value = "pin") Integer pin,
                                     HttpSession session) {
