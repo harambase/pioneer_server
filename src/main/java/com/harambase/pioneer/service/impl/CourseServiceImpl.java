@@ -563,4 +563,84 @@ public class CourseServiceImpl implements CourseService {
         return haramMessage;
     }
 
+    @Override
+    @Transactional
+    public HaramMessage reg2Course(String studentid, String[] choices) {
+        HaramMessage haramMessage = new HaramMessage();
+        Map<String, Object> result = new HashMap<>();
+        List<String> failList = new ArrayList<>();
+        try{
+            for(int i = 0; i<choices.length; i++){
+                Transcript transcript = new Transcript();
+                String crn = choices[i];
+                Course course = courseMapper.selectByPrimaryKey(crn);
+                String status = courseMapper.getStatus(crn);
+                String courseInfo = "CRN：" + crn + ", 课程名：" + course.getName() + "，失败原因:";
+                //检查课程状态
+                if (status.equals("-1")) {
+                    failList.add(courseInfo + FlagDict.COURSE_DISABLED.getM());
+                    continue;
+                }
+                //检查时间冲突
+                if (CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
+                    failList.add(courseInfo + FlagDict.TIMECONFLICT.getM());
+                    continue;
+                }
+                //检查课程容量
+                int remain = courseMapper.getRemain(crn);
+                if (remain <= 0) {
+                    failList.add(courseInfo + FlagDict.MAX_CAPACITY.getM());
+                    continue;
+                }
+                transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+                transcript.setComplete("0");
+                transcript.setGrade("*");
+                transcript.setCrn(crn);
+                transcript.setStudentid(studentid);
+                //检查预选
+                String[] precrn = course.getPrecrn().split("/");
+                Transcript preTranscript = new Transcript();
+                boolean pre = true;
+                for(int j = 0; j < precrn.length; j++){
+                    preTranscript.setComplete("1");
+                    preTranscript.setStudentid(studentid);
+                    preTranscript.setCrn(precrn[j]);
+                    int ret = transcriptMapper.count(preTranscript);
+                    if (ret != 1) {
+                        failList.add(courseInfo + FlagDict.UNMET_PREREQ.getM());
+                        pre = false;
+                        break;
+                    }
+                }
+                if(!pre)
+                    continue;
+
+                //检查复选
+                if (transcriptMapper.count(transcript) == 0) {
+                    transcript.setOperator(ROOT);
+                    int ret = transcriptMapper.insert(transcript);
+                    if (ret != 1){
+                        haramMessage.setMsg(FlagDict.FAIL.getM());
+                        haramMessage.setCode(FlagDict.FAIL.getV());
+                        failList.add(courseInfo + FlagDict.FAIL.getM());
+                    }
+                } else {
+                    haramMessage.setMsg(FlagDict.REPEAT.getM());
+                    haramMessage.setCode(FlagDict.REPEAT.getV());
+                    failList.add(courseInfo + FlagDict.REPEAT.getM());
+                }
+            }
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            result.put("failList", failList);
+            haramMessage.setData(result);
+            return haramMessage;
+
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+    }
+
 }

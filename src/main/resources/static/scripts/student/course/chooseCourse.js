@@ -157,7 +157,7 @@ var courseTable = $("#newCourseTable").DataTable({
 
 var crn = "";
 var counter = 0;
-
+var crnList = [];
 
 function showInfo(crn) {
     window.location.href = basePath + "/student/course/view?crn=" + crn;
@@ -183,23 +183,27 @@ function addToWorkSheet(crn, credits) {
         return;
     }
     counter ++;
+    crnList.push(crn);
 
-    var worksheet = $("#worksheet").html() + '<div id="form_'+crn+'" class="form-group">' +
-        '<div class="col-sm-1">' +
-        '    <i id="remove_'+crn+'" class="fa fa-minus-circle fa-3x" style="color: red; cursor: pointer; margin-top: 3px;" ' +
-        '       onclick="removeFromWorkSheet(\''+crn + '\',\''+ credits +'\')"></i>' +
-        '</div>' +
-        '<div class="col-sm-4">' +
-        '    <label for="input_'+ crn +'" class="control-label" style="width:100%;">已选课程:</label>' +
-        '</div>' +
-        '<div class="col-sm-6" style="width: 58%;">' +
-        '     <input name="course_choose" id="input_'+ crn +'" class="form-control" minlength="6" maxlength="6" value="'+crn+'" required disabled/>' +
-        '</div></div>';
+    var worksheet = $("#worksheet").html() +
+        '<div id="form_'+crn+'" class="form-group">' +
+        '   <div class="col-sm-1">' +
+        '       <i id="remove_'+crn+'" class="fa fa-minus-circle fa-3x" style="color: red; cursor: pointer; margin-top: 3px;" ' +
+        '          onclick="removeFromWorkSheet(\''+crn + '\',\''+ credits +'\')"></i>' +
+        '   </div>' +
+        '   <div class="col-sm-4">' +
+        '       <label for="input_'+ crn +'" class="control-label" style="width:100%;">已选课程:</label>' +
+        '   </div>' +
+        '   <div class="col-sm-6" style="width: 58%;">' +
+        '        <input name="course_choose" id="input_'+ crn +'" class="form-control" minlength="6" maxlength="6" value="'+crn+'" required disabled/>' +
+        '   </div>' +
+        '</div>';
 
 
     use_credits += parseInt(credits);
     ava_credits = tol_credits - use_credits;
     setCredits();
+
 
     $("#worksheet").html(worksheet);
 }
@@ -211,8 +215,9 @@ function removeFromWorkSheet(crn, credits){
     ava_credits = tol_credits - use_credits;
     setCredits();
 }
+
 $("#reset").click(function(){
-   $("#worksheet").html("");
+    $("#worksheet").html("");
     use_credits = 0;
     ava_credits = tol_credits;
     setCredits();
@@ -221,4 +226,51 @@ function setCredits(){
     $("#tol_credits").val(tol_credits);
     $("#ava_credits").val(ava_credits);
     $("#use_credits").val(use_credits);
+}
+
+
+$("#submit").click(function(){
+    var choiceList = [];
+    if(crnList.length === 0) {
+        Showbo.Msg.alert("没有选择任何课程!", function () {
+        });
+        return;
+    }
+   for(var i = 0; i < crnList.length; i++){
+       var newId = "input_"+crnList[i];
+       var input = document.getElementById(newId);
+       if(input !== null){
+           choiceList.push(crnList[i]);
+       }
+   }
+   sendChoiceListAjax(choiceList);
+});
+
+function sendChoiceListAjax(choiceList){
+    $.ajax({
+        url: basePath + "/course/choose",
+        type: "POST",
+        data: {
+            "choiceList": choiceList
+        },
+        success: function (data) {
+            var failList = data.data.failList;
+            if(failList.length === 0)
+                Showbo.Msg.alert("全部注册成功!", function () {
+                    $("#worksheet").html("");
+                });
+            else {
+                var html = '<table style="text-align: left">';
+                for(var i = 0; i<failList.length; i++){
+                    html += '<tr><td>'+ failList[i] +'</td></tr>';
+                }
+                var input = '<p style="color: red">课程注册失败详情</p>' + html + '</table>';
+                Showbo.Msg.show({
+                    buttons: {yes: '确定'}, msg: input, title: '注意', fn: function () {
+                        $("#worksheet").html("");
+                    }
+                });
+            }
+        }
+    });
 }

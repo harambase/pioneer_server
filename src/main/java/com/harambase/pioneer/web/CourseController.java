@@ -175,4 +175,11 @@ public class CourseController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/choose", method = RequestMethod.POST)
+    public ResponseEntity courseChoice(@RequestParam(value = "choiceList[]")String[] choices, HttpSession session){
+        Person person =  (Person)session.getAttribute("user");
+        HaramMessage message = courseService.reg2Course(person.getUserid(), choices);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
 }

@@ -34,4 +34,6 @@ public interface CourseService {
     HaramMessage countActiveCourse();
 
     HaramMessage preCourseList(String crn);
+
+    HaramMessage reg2Course(String userid, String[] choices);
 }
