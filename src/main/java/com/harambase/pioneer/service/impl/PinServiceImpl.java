@@ -44,6 +44,7 @@ public class PinServiceImpl implements PinService{
             if(pin != null && CheckTime.isPinValidate(pin)){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
+                haramMessage.setData(pin);
                 return haramMessage;
             }
 

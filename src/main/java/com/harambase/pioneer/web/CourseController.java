@@ -4,6 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.StudentService;
@@ -94,8 +95,11 @@ public class CourseController {
         Map<String, Object> map = new HashMap<>();
         try {
             String facultyid = "";
+            String info = "";
             if(mode != null && mode.equals("faculty"))
                 facultyid = ((Person)session.getAttribute("user")).getUserid();
+            if(mode != null && mode.equals("choose"))
+                info = ((Pin)session.getAttribute("pin")).getInfo();
 
             HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyid);
             map.put("draw", draw);
