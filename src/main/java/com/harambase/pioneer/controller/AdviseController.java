@@ -1,4 +1,4 @@
-package com.harambase.pioneer.web;
+package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
@@ -41,6 +41,13 @@ public class AdviseController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
+        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
+        HaramMessage message = adviseService.updateAdvise(advise);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/advise/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity advisingList(@RequestParam(value = "start") Integer start,
                                        @RequestParam(value = "length") Integer length,
@@ -72,11 +79,4 @@ public class AdviseController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
-        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
-        HaramMessage message = adviseService.updateAdvise(advise);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
 }

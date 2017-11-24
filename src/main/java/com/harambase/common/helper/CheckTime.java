@@ -1,9 +1,6 @@
-package com.harambase.pioneer.helper;
+package com.harambase.common.helper;
 
-import com.harambase.common.DateUtil;
-import com.harambase.common.HaramMessage;
-import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.mapper.CourseMapper;
+import com.harambase.common.util.DateUtil;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Pin;
 

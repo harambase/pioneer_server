@@ -1,4 +1,4 @@
-package com.harambase.common;
+package com.harambase.common.util;
 
 import java.util.Calendar;
 import java.util.Date;

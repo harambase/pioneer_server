@@ -2,7 +2,7 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.common.PageUtil;
+import com.harambase.common.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;

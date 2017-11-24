@@ -1,11 +1,11 @@
-package com.harambase.pioneer.web;
+package com.harambase.pioneer.controller.application;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Controller
-public class StaticController extends WebMvcConfigurerAdapter {
+public class ResourceController extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){

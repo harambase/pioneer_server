@@ -1,4 +1,4 @@
-package com.harambase.pioneer.charts.examples;
+package com.harambase.common.charts.examples;
 
 import it.uniroma1.dis.wsngroup.gexf4j.core.Edge;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;

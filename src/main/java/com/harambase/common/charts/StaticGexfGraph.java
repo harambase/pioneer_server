@@ -1,8 +1,7 @@
-package com.harambase.pioneer.charts;
+package com.harambase.common.charts;
 
 import com.harambase.common.constant.Type;
 import com.harambase.pioneer.pojo.Advise;
-import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.CourseView;

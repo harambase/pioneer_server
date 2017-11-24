@@ -2,11 +2,14 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.charts.StaticGexfGraph;
+import com.harambase.common.util.DateUtil;
+import com.harambase.common.util.IDUtil;
+import com.harambase.common.util.PageUtil;
+import com.harambase.common.util.Pinyin4jUtil;
+import com.harambase.common.charts.StaticGexfGraph;
 import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
-import com.harambase.pioneer.pojo.dto.AdviseView;
 import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
@@ -126,7 +129,7 @@ public class PersonServiceImpl implements PersonService {
             MessageWithBLOBs message = new MessageWithBLOBs();
             message.setDate(DateUtil.DateToStr(new Date()));
             message.setReceiverid(userid);
-            message.setSenderid("9000000000");
+            message.setSenderid(IDUtil.ROOT);
             message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
             message.setTitle("账户信息");
             message.setStatus("UNREAD");
@@ -380,8 +383,9 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public HaramMessage removeUser(String userid) {
         HaramMessage message = new HaramMessage();
+        
         try {
-            if(!userid.equals("9000000000")) {
+            if(!userid.equals(IDUtil.ROOT)) {
                 Person p = personMapper.selectByPrimaryKey(userid);
                 if (p != null) {
                     String type = p.getType();
@@ -394,7 +398,7 @@ public class PersonServiceImpl implements PersonService {
                             String facultyid = c.getFacultyid();
                             if (facultyid.equals(userid)) {
                                 String opTime = DateUtil.DateToStr(new Date());
-                                c.setFacultyid("9000000000");
+                                c.setFacultyid(IDUtil.ROOT);
                                 c.setComment(c.getFaculty() + "老师被删除, 删除时间：" + opTime);
                                 c.setUpdatetime(DateUtil.DateToStr(new Date()));
                                 courseMapper.updateByPrimaryKeySelective(c);

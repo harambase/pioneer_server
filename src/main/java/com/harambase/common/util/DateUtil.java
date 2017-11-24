@@ -1,4 +1,4 @@
-package com.harambase.common;
+package com.harambase.common.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;

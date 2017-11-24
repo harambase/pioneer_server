@@ -1,4 +1,4 @@
-package com.harambase.common;
+package com.harambase.common.util;
 
 /**
  * Created by Administrator on 2017/4/1.

@@ -1,9 +1,5 @@
-package com.harambase.pioneer.charts.examples;
+package com.harambase.common.charts.examples;
 
-import com.harambase.common.constant.Type;
-import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.Transcript;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Graph;
@@ -16,7 +12,6 @@ import it.uniroma1.dis.wsngroup.gexf4j.core.data.AttributeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.impl.GexfImpl;
 import it.uniroma1.dis.wsngroup.gexf4j.core.impl.StaxGraphWriter;
 import it.uniroma1.dis.wsngroup.gexf4j.core.impl.data.AttributeListImpl;
-import it.uniroma1.dis.wsngroup.gexf4j.core.impl.viz.ColorImpl;
 import it.uniroma1.dis.wsngroup.gexf4j.core.impl.viz.PositionImpl;
 import it.uniroma1.dis.wsngroup.gexf4j.core.viz.NodeShape;
 import it.uniroma1.dis.wsngroup.gexf4j.core.viz.Position;

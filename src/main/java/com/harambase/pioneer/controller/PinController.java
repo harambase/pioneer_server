@@ -1,4 +1,4 @@
-package com.harambase.pioneer.web;
+package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;

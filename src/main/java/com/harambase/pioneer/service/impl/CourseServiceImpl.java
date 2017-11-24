@@ -2,9 +2,12 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.common.util.DateUtil;
+import com.harambase.common.util.IDUtil;
+import com.harambase.common.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.helper.CheckTime;
+import com.harambase.common.helper.CheckTime;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
@@ -23,7 +26,7 @@ import java.util.*;
  */
 @Service
 public class CourseServiceImpl implements CourseService {
-    private static final String ROOT = "9201701000";
+
 
     private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
@@ -211,7 +214,7 @@ public class CourseServiceImpl implements CourseService {
             }
             //检查复选
             if (transcriptMapper.count(transcript) == 0) {
-                transcript.setOperator(ROOT);
+                transcript.setOperator(IDUtil.ROOT);
                 int ret = transcriptMapper.insert(transcript);
                 if (ret == 1) {
                     haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -617,7 +620,7 @@ public class CourseServiceImpl implements CourseService {
 
                 //检查复选
                 if (transcriptMapper.count(transcript) == 0) {
-                    transcript.setOperator(ROOT);
+                    transcript.setOperator(IDUtil.ROOT);
                     int ret = transcriptMapper.insert(transcript);
                     if (ret != 1){
                         haramMessage.setMsg(FlagDict.FAIL.getM());

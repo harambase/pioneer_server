@@ -1,14 +1,11 @@
-package com.harambase.pioneer.web;
+package com.harambase.pioneer.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
-import com.harambase.pioneer.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,16 +35,22 @@ public class AdminController {
         this.personService = personService;
     }
 
-    @RequestMapping(value = "/student/count", method = RequestMethod.GET)
-    public ResponseEntity getStudentCount(){
-        HaramMessage haramMessage = personService.userChart();
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+    public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
+        HaramMessage message = personService.addUser(person);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/relation/chart", method = RequestMethod.GET)
-    public ResponseEntity getRelationChart(){
-        HaramMessage haramMessage = personService.getRelationChart();
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
+    public ResponseEntity removeUser(@RequestParam("userid") String userid){
+        HaramMessage message = personService.removeUser(userid);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/user/update", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity updateUser(@RequestBody Person person){
+        HaramMessage message = personService.update(person);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -78,31 +81,13 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
-        HaramMessage message = personService.addUser(person);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public ResponseEntity updateUser(@RequestBody Person person){
-        HaramMessage message = personService.update(person);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
-    public ResponseEntity removeUser(@RequestParam("userid") String userid){
-        HaramMessage message = personService.removeUser(userid);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/list/faculty", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/faculty",method = RequestMethod.GET)
     public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listUsers(search,"f", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/list/student", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/list/student", method = RequestMethod.GET)
     public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listUsers(search, "s", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -114,7 +99,7 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,
                                     @RequestParam(value = "draw") Integer draw,
@@ -160,5 +145,18 @@ public class AdminController {
         return new ResponseEntity<>(message, HttpStatus.OK);
 
     }
+
+    @RequestMapping(value = "/relation/chart", method = RequestMethod.GET)
+    public ResponseEntity getRelationChart(){
+        HaramMessage haramMessage = personService.getRelationChart();
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/student/count", method = RequestMethod.GET)
+    public ResponseEntity getStudentCount(){
+        HaramMessage haramMessage = personService.userChart();
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
 
 }
