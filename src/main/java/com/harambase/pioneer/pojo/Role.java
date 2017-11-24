@@ -1,15 +1,19 @@
 package com.harambase.pioneer.pojo;
 
-import java.io.Serializable;
-
-public class Role implements Serializable {
+public class Role {
     private Integer id;
 
-    private String userid;
+    private Integer num;
 
-    private String role;
+    private Integer pid;
 
-    private String roleName;
+    private String name;
+
+    private Integer deptid;
+
+    private String tips;
+
+    private Integer version;
 
     public Integer getId() {
         return id;
@@ -19,27 +23,51 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getUserid() {
-        return userid;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
-    public String getRole() {
-        return role;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getName() {
+        return name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName == null ? null : roleName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public Integer getDeptid() {
+        return deptid;
+    }
+
+    public void setDeptid(Integer deptid) {
+        this.deptid = deptid;
+    }
+
+    public String getTips() {
+        return tips;
+    }
+
+    public void setTips(String tips) {
+        this.tips = tips == null ? null : tips.trim();
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

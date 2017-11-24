@@ -33,7 +33,7 @@ public class LoginController {
 
         if(message.getCode() == 2001) {
             person = (Person)message.getData();
-            UsernamePasswordToken token = new UsernamePasswordToken(person.getUsername(),person.getPassword().toCharArray()) ;
+            UsernamePasswordToken token = new UsernamePasswordToken(person.getUserid(),person.getPassword().toCharArray()) ;
             Subject subject = SecurityUtils.getSubject();
             subject.login(token); //完成登录
             session.setAttribute("user", person);

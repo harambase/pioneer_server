@@ -1,24 +1,23 @@
 package com.harambase.pioneer.security;
 
+import java.util.*;
+
+import com.harambase.pioneer.security.ShiroDbRealm;
 import com.harambase.pioneer.security.properties.ShiroSessionListener;
+//import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-
-
 @Configuration
-public class ShiroConfig {
+public class ShiroConfig{
+
 
     /**
      * ShiroFilterFactoryBean 处理拦截资源文件问题。
@@ -69,13 +68,17 @@ public class ShiroConfig {
     /**
      * 项目自定义的Realm
      */
-
+    @Bean
+    public ShiroDbRealm shiroDbRealm() {
+        return new ShiroDbRealm();
+    }
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         ShiroDbRealm myRealm = new ShiroDbRealm();
         securityManager.setRealm(myRealm);
         securityManager.setSessionManager(sessionManager());
+//        securityManager.setCacheManager(ehCacheManager());
         return securityManager;
     }
 

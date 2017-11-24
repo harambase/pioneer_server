@@ -1,43 +1,85 @@
 package com.harambase.pioneer.security;
 
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.security.service.ShiroService;
-import com.harambase.pioneer.security.service.impl.ShiroServiceImpl;
+import com.harambase.pioneer.security.entity.ShiroUser;
+import com.harambase.pioneer.security.factory.ShiroService;
+import com.harambase.pioneer.security.factory.ShiroServiceImpl;
+import com.harambase.pioneer.security.helper.ShiroKit;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
-public class ShiroDbRealm extends AuthorizingRealm {
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+
+public class ShiroDbRealm extends AuthorizingRealm {
 
     /**
      * 登录认证
      */
     @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-//        config.debug("登录验证后进行权限认证....");
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
+            throws AuthenticationException {
+        ShiroService shiroService = ShiroServiceImpl.me();
+        UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+        Person user = shiroService.user(token.getUsername());
+       // ShiroUser shiroUser = shiroService.shiroUser(user);
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),getName());
+        //SimpleAuthenticationInfo info = shiroService.info(shiroUser, user, super.getName());
         return info;
     }
 
+    /**
+     * 权限认证
+     */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-//        config.debug("登录操作进行登录认证......");
-        System.out.println("登录操作进行登录认证......");
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         ShiroService shiroService = ShiroServiceImpl.me();
-        UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
+        ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+        List<Integer> roleList = shiroUser.getRoleList();
 
-        Person user = shiroService.user(token.getUsername());
-        if (user == null) {
-            // 没找到帐号
-            throw new UnknownAccountException("没有在本系统中找到对应的用户信息。");
+        Set<String> permissionSet = new HashSet<>();
+        Set<String> roleNameSet = new HashSet<>();
+
+        for (Integer roleId : roleList) {
+            List<String> permissions = null;
+            try {
+                permissions = shiroService.findPermissionsByRoleId(roleId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (permissions != null) {
+                for (String permission : permissions) {
+                    if (StringUtils.isNotEmpty(permission)) {
+                        permissionSet.add(permission);
+                    }
+                }
+            }
+            String roleName = shiroService.findRoleNameByRoleId(roleId);
+            roleNameSet.add(roleName);
         }
-        //简单验证
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(
-                user.getUsername(),user.getPassword(),getName());
 
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addStringPermissions(permissionSet);
+        info.addRoles(roleNameSet);
         return info;
+    }
+
+    /**
+     * 设置认证加密方式
+     */
+    @Override
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        HashedCredentialsMatcher md5CredentialsMatcher = new HashedCredentialsMatcher();
+        md5CredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
+        md5CredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
+        super.setCredentialsMatcher(md5CredentialsMatcher);
     }
 }
