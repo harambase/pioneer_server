@@ -5,6 +5,7 @@ import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 
 public interface PersonService {
+
     HaramMessage login(Person person);
 
     HaramMessage addUser(Person person);
@@ -20,14 +21,6 @@ public interface PersonService {
     HaramMessage userChart();
 
     HaramMessage getRelationChart();
-
-    HaramMessage advisingList(String s, String s1, String search, String order, String orderCol, String studentid, String facultyid);
-
-    HaramMessage updateAdvise(Advise advise);
-
-    HaramMessage assignMentor(Advise advise);
-
-    HaramMessage removeMentor(Integer id);
 
     HaramMessage countActivePerson(String type);
 

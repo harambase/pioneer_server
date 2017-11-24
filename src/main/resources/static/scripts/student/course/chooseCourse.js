@@ -227,8 +227,6 @@ $("#reset").click(function(){
     initStudentInfo();
 });
 
-
-
 $("#submit").click(function(){
     var choiceList = [];
     if(crnList.length === 0) {

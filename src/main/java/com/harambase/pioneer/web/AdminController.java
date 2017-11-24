@@ -62,7 +62,6 @@ public class AdminController {
 
         try {
             Person p = (Person) session.getAttribute("user");
-
             if (p != null) {
                 message.setData(p);
                 message.setCode(FlagDict.SUCCESS.getV());
@@ -114,6 +113,7 @@ public class AdminController {
         HaramMessage message = personService.listUsers(search, "", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,
@@ -139,59 +139,6 @@ public class AdminController {
             map.put("recordsFiltered", 0);
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value ="/advise/assign", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity assignMentor(@RequestBody Advise advise, HttpSession session){
-        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
-        HaramMessage message = personService.assignMentor(advise);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
-    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id ) {
-        HaramMessage message = personService.removeMentor(id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/advise/list", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity advisingList(@RequestParam(value = "start") Integer start,
-                                       @RequestParam(value = "length") Integer length,
-                                       @RequestParam(value = "draw") Integer draw,
-                                       @RequestParam(value = "search[value]") String search,
-                                       @RequestParam(value = "order[0][dir]") String order,
-                                       @RequestParam(value = "order[0][column]") String orderCol,
-                                       @RequestParam(value = "studentid", required = false) String studentid,
-                                       @RequestParam(value = "facultyid", required = false) String facultyid,
-                                       @RequestParam(value = "mode", required = false) String mode,
-                                       HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
-        try {
-            if(mode != null && mode.equals("faculty"))
-                facultyid = ((Person)session.getAttribute("user")).getUserid();
-            HaramMessage message = personService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search,
-                    order, orderCol, studentid, facultyid);
-            map.put("draw", draw);
-            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
-            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
-            map.put("data", message.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("draw", 1);
-            map.put("data", new ArrayList<>());
-            map.put("recordsTotal", 0);
-            map.put("recordsFiltered", 0);
-        }
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
-
-    @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
-        advise.setOperator(((Person)session.getAttribute("user")).getUserid());
-        HaramMessage message = personService.updateAdvise(advise);
-        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/system/info", produces = "application/json")
