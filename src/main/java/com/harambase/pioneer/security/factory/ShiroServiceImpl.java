@@ -97,7 +97,7 @@ public class ShiroServiceImpl implements ShiroService {
         // 密码加盐处理
         String source = user.getPassword();
         //ByteSource credentialsSalt = new Md5Hash(source);
-        return new SimpleAuthenticationInfo(credentials,source,realmName);
+        return new SimpleAuthenticationInfo(shiroUser,source,realmName);
     }
 
 }

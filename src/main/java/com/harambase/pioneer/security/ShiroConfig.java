@@ -165,6 +165,7 @@ public class ShiroConfig {
         hashMap.put("/static/images/**", "anon");
         hashMap.put("/static/fonts/**", "anon");
         hashMap.put("/index", "anon");
+        hashMap.put("/403", "anon");
         hashMap.put("/", "anon");
         hashMap.put("/admin/login", "anon");
         hashMap.put("/request/user/register", "anon");
