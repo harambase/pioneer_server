@@ -1,13 +1,8 @@
 package com.harambase.pioneer.dao;
 
-import com.alibaba.fastjson.JSONObject;
-
-import com.github.pagehelper.StringUtil;
 import com.harambase.pioneer.database.DataServiceConnection;
-import com.harambase.pioneer.database.ResultSetHelper;
-import com.harambase.pioneer.pojo.Menu;
-import com.harambase.pioneer.pojo.Person;
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -18,6 +13,8 @@ import java.util.List;
 
 @Component
 public class MenuDao {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public List<String> getResUrlsByRoleId(Integer roleId) throws Exception{
         ResultSet rs = null;
         Connection connection = null;

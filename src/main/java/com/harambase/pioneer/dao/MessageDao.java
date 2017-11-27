@@ -4,6 +4,8 @@ import com.github.pagehelper.StringUtil;
 import com.harambase.pioneer.database.DataServiceConnection;
 import com.harambase.pioneer.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.dto.MessageView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @Component
 public class MessageDao {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public int countMessageByStatus(String receiverid, String senderid,
                                     String box, String status)throws Exception{

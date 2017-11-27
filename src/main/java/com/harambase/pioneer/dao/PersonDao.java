@@ -5,6 +5,8 @@ import com.harambase.pioneer.database.DataServiceConnection;
 import com.harambase.pioneer.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.Person;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -15,6 +17,8 @@ import java.util.List;
 
 @Component
 public class PersonDao {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public List<Person> getPersonBySearch(String search, String type, String status) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
