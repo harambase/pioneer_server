@@ -66,15 +66,15 @@ public class ShiroServiceImpl implements ShiroService {
         shiroUser.setDeptName(roleDao.getDeptName(user.getDeptId()));// 部门名称
         shiroUser.setUsername(user.getUsername());// 用户名
 
-//        Integer[] roleArray = CollectionKit.toIntArray(",", user.getRoleId());// 角色集
+        Integer[] roleArray = CollectionKit.toIntArray(",", user.getRoleId());// 角色集
 
         List<Integer> roleList = new ArrayList<>();
         List<String> roleNameList = new ArrayList<>();
 
-//        for (int roleId : roleArray) {
-//            roleList.add(roleId);
-//            roleNameList.add(roleDao.getSingleRoleName(roleId));
-//        }
+        for (int roleId : roleArray) {
+            roleList.add(roleId);
+            roleNameList.add(roleDao.getSingleRoleName(roleId));
+        }
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
 

@@ -1,9 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Menu;
-import org.springframework.stereotype.Component;
 
-@Component
 public interface MenuMapper {
     int deleteByPrimaryKey(Integer id);
 

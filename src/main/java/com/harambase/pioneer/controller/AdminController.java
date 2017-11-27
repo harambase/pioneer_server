@@ -6,6 +6,7 @@ import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,14 @@ public class AdminController {
         this.personService = personService;
     }
 
+    @RequiresPermissions("user:admin")
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.addUser(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @RequiresPermissions("user:admin")
     @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
     public ResponseEntity removeUser(@RequestParam("userid") String userid){
         HaramMessage message = personService.removeUser(userid);

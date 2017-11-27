@@ -7,7 +7,6 @@
     <result column="pcode" property="pcode" jdbcType="VARCHAR" />
     <result column="pcodes" property="pcodes" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="icon" property="icon" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="INTEGER" />
     <result column="levels" property="levels" jdbcType="INTEGER" />
@@ -17,7 +16,7 @@
     <result column="isopen" property="isopen" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, code, pcode, pcodes, name, icon, url, num, levels, ismenu, tips, status, isopen
+    id, code, pcode, pcodes, name, url, num, levels, ismenu, tips, status, isopen
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Menu" >
     insert into Menu (id, code, pcode, 
-      pcodes, name, icon, 
-      url, num, levels, ismenu, 
+      pcodes, name, url, 
+      num, levels, ismenu, 
       tips, status, isopen
       )
     values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{pcode,jdbcType=VARCHAR}, 
-      #{pcodes,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{num,jdbcType=INTEGER}, #{levels,jdbcType=INTEGER}, #{ismenu,jdbcType=INTEGER}, 
+      #{pcodes,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{num,jdbcType=INTEGER}, #{levels,jdbcType=INTEGER}, #{ismenu,jdbcType=INTEGER}, 
       #{tips,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{isopen,jdbcType=INTEGER}
       )
   </insert>
@@ -58,9 +57,6 @@
       </if>
       <if test="name != null" >
         name,
-      </if>
-      <if test="icon != null" >
-        icon,
       </if>
       <if test="url != null" >
         url,
@@ -100,9 +96,6 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="icon != null" >
-        #{icon,jdbcType=VARCHAR},
-      </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
       </if>
@@ -141,9 +134,6 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="icon != null" >
-        icon = #{icon,jdbcType=VARCHAR},
-      </if>
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
@@ -174,7 +164,6 @@
       pcode = #{pcode,jdbcType=VARCHAR},
       pcodes = #{pcodes,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       num = #{num,jdbcType=INTEGER},
       levels = #{levels,jdbcType=INTEGER},

@@ -1,19 +1,13 @@
 package com.harambase.pioneer.pojo;
 
-public class Role {
+import java.io.Serializable;
+
+public class Role implements Serializable {
     private Integer id;
 
-    private Integer num;
+    private Integer roleid;
 
-    private Integer pid;
-
-    private String name;
-
-    private Integer deptid;
-
-    private String tips;
-
-    private Integer version;
+    private String deptname;
 
     public Integer getId() {
         return id;
@@ -23,51 +17,19 @@ public class Role {
         this.id = id;
     }
 
-    public Integer getNum() {
-        return num;
+    public Integer getRoleid() {
+        return roleid;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 
-    public Integer getPid() {
-        return pid;
+    public String getDeptname() {
+        return deptname;
     }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
-    public Integer getDeptid() {
-        return deptid;
-    }
-
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
-    }
-
-    public String getTips() {
-        return tips;
-    }
-
-    public void setTips(String tips) {
-        this.tips = tips == null ? null : tips.trim();
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
+    public void setDeptname(String deptname) {
+        this.deptname = deptname == null ? null : deptname.trim();
     }
 }

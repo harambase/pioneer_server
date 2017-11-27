@@ -3,15 +3,11 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="num" property="num" jdbcType="INTEGER" />
-    <result column="pid" property="pid" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="deptid" property="deptid" jdbcType="INTEGER" />
-    <result column="tips" property="tips" jdbcType="VARCHAR" />
-    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="roleid" property="roleid" jdbcType="INTEGER" />
+    <result column="deptname" property="deptname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, num, pid, name, deptid, tips, version
+    id, roleid, deptname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -24,12 +20,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Role" >
-    insert into Role (id, num, pid, 
-      name, deptid, tips, 
-      version)
-    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
-      #{name,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, #{tips,jdbcType=VARCHAR}, 
-      #{version,jdbcType=INTEGER})
+    insert into Role (id, roleid, deptname
+      )
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{deptname,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Role" >
     insert into Role
@@ -37,81 +31,41 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="num != null" >
-        num,
+      <if test="roleid != null" >
+        roleid,
       </if>
-      <if test="pid != null" >
-        pid,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="deptid != null" >
-        deptid,
-      </if>
-      <if test="tips != null" >
-        tips,
-      </if>
-      <if test="version != null" >
-        version,
+      <if test="deptname != null" >
+        deptname,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="num != null" >
-        #{num,jdbcType=INTEGER},
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
       </if>
-      <if test="pid != null" >
-        #{pid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="deptid != null" >
-        #{deptid,jdbcType=INTEGER},
-      </if>
-      <if test="tips != null" >
-        #{tips,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null" >
-        #{version,jdbcType=INTEGER},
+      <if test="deptname != null" >
+        #{deptname,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Role" >
     update Role
     <set >
-      <if test="num != null" >
-        num = #{num,jdbcType=INTEGER},
+      <if test="roleid != null" >
+        roleid = #{roleid,jdbcType=INTEGER},
       </if>
-      <if test="pid != null" >
-        pid = #{pid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="deptid != null" >
-        deptid = #{deptid,jdbcType=INTEGER},
-      </if>
-      <if test="tips != null" >
-        tips = #{tips,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null" >
-        version = #{version,jdbcType=INTEGER},
+      <if test="deptname != null" >
+        deptname = #{deptname,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Role" >
     update Role
-    set num = #{num,jdbcType=INTEGER},
-      pid = #{pid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      deptid = #{deptid,jdbcType=INTEGER},
-      tips = #{tips,jdbcType=VARCHAR},
-      version = #{version,jdbcType=INTEGER}
+    set roleid = #{roleid,jdbcType=INTEGER},
+      deptname = #{deptname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

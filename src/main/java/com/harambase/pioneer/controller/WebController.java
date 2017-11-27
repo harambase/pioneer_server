@@ -1,5 +1,6 @@
 package com.harambase.pioneer.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class WebController {
     public String welcomeStudent(){
         return "release/student/index";
     }
+    @RequiresPermissions("user:admin")
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
         return "release/admin/index";

@@ -4,11 +4,8 @@ import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.security.entity.ShiroUser;
 import com.harambase.pioneer.security.factory.ShiroService;
 import com.harambase.pioneer.security.factory.ShiroServiceImpl;
-import com.harambase.pioneer.security.helper.ShiroKit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authc.credential.CredentialsMatcher;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -21,9 +18,7 @@ import java.util.Set;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
-    /**
-     * 登录认证
-     */
+    //登录认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
@@ -32,13 +27,10 @@ public class ShiroDbRealm extends AuthorizingRealm {
         Person user = shiroService.user(token.getUsername());
         ShiroUser shiroUser = shiroService.shiroUser(user);
         //SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),getName());
-        SimpleAuthenticationInfo info = shiroService.info(shiroUser, user, super.getName());
-        return info;
+        return shiroService.info(shiroUser, user, super.getName());
     }
 
-    /**
-     * 权限认证
-     */
+    //权限认证
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         ShiroService shiroService = ShiroServiceImpl.me();

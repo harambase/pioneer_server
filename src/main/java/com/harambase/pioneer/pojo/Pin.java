@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Pin {
+import java.io.Serializable;
+
+public class Pin implements Serializable{
     private Integer id;
 
     private Integer pin;

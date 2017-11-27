@@ -20,6 +20,7 @@
     <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleId" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Person" extends="BaseResultMap" >
     <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
@@ -27,7 +28,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
-    qq, weChat, dorm, gender, createTime, updateTime, status, type
+    qq, weChat, dorm, gender, createTime, updateTime, status, type, roleId
   </sql>
   <sql id="Blob_Column_List" >
     comment, profile
@@ -49,14 +50,14 @@
       info, birthday, email, 
       tel, qq, weChat, dorm, 
       gender, createTime, updateTime, 
-      status, type, comment, profile
+      status, type, comment, profile,roleId
       )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{info,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, 
       #{gender,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{comment,jdbcType=LONGVARCHAR}, #{profile, jdbcType=BLOB}
+      #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{comment,jdbcType=LONGVARCHAR}, #{profile, jdbcType=BLOB},#{roleId, jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Person" >
@@ -122,6 +123,9 @@
       <if test="profile != null" >
         profile
       </if>
+      <if test="roleId != null" >
+        roleId
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -182,7 +186,10 @@
         #{comment,jdbcType=LONGVARCHAR},
       </if>
       <if test="profile != null" >
-        #{profile,jdbcType=BLOB}
+        #{profile,jdbcType=BLOB},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -243,6 +250,9 @@
       <if test="profile != null" >
         profile = #{profile,jdbcType=BLOB},
       </if>
+      <if test="roleId != null" >
+        roleId = #{roleId,jdbcType=VARCHAR}
+      </if>
     </set>
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
@@ -266,7 +276,8 @@
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       comment = #{comment,jdbcType=LONGVARCHAR},
-      profile = #{profile,jdbcType=BLOB}
+      profile = #{profile,jdbcType=BLOB},
+      roleId = #{roleId,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
   <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.Person" resultMap="ResultMapWithBLOBs">
@@ -296,6 +307,7 @@
       updateTime = #{updatetime,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
+      roleId = #{roleId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">

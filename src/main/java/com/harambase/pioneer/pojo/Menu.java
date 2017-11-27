@@ -1,6 +1,8 @@
 package com.harambase.pioneer.pojo;
 
-public class Menu {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
     private Integer id;
 
     private String code;
@@ -10,8 +12,6 @@ public class Menu {
     private String pcodes;
 
     private String name;
-
-    private String icon;
 
     private String url;
 
@@ -65,14 +65,6 @@ public class Menu {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon == null ? null : icon.trim();
     }
 
     public String getUrl() {
