@@ -30,9 +30,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
         ShiroService shiroService = ShiroServiceImpl.me();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         Person user = shiroService.user(token.getUsername());
-       // ShiroUser shiroUser = shiroService.shiroUser(user);
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),getName());
-        //SimpleAuthenticationInfo info = shiroService.info(shiroUser, user, super.getName());
+        ShiroUser shiroUser = shiroService.shiroUser(user);
+        //SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),user.getPassword(),getName());
+        SimpleAuthenticationInfo info = shiroService.info(shiroUser, user, super.getName());
         return info;
     }
 
@@ -72,14 +72,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
         return info;
     }
 
-    /**
-     * 设置认证加密方式
-     */
-    @Override
-    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
-        HashedCredentialsMatcher md5CredentialsMatcher = new HashedCredentialsMatcher();
-        md5CredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
-        md5CredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
-        super.setCredentialsMatcher(md5CredentialsMatcher);
-    }
+//    /**
+//     * 设置认证加密方式
+//     */
+//    @Override
+//    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+//        HashedCredentialsMatcher md5CredentialsMatcher = new HashedCredentialsMatcher();
+//        md5CredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
+//        md5CredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
+//        super.setCredentialsMatcher(md5CredentialsMatcher);
+//    }
 }

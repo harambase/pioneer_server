@@ -95,18 +95,9 @@ public class ShiroServiceImpl implements ShiroService {
     public SimpleAuthenticationInfo info(ShiroUser shiroUser, Person user, String realmName) {
         String credentials = user.getPassword();
         // 密码加盐处理
-        String source = user.getUserid();
-        ByteSource credentialsSalt = new Md5Hash(source);
-        return new SimpleAuthenticationInfo(credentials, credentialsSalt, realmName);
+        String source = user.getPassword();
+        //ByteSource credentialsSalt = new Md5Hash(source);
+        return new SimpleAuthenticationInfo(credentials,source,realmName);
     }
-//
-//    @Override
-//    public SimpleAuthenticationInfo info(ShiroUser shiroUser, Person user, String realmName) {
-//        String credentials = user.getPassword();
-//        // 密码加盐处理
-//        String source = user.getUserid();
-//        ByteSource credentialsSalt = new Md5Hash(source);
-//        return new SimpleAuthenticationInfo(credentials, credentialsSalt, realmName);
-//    }
 
 }
