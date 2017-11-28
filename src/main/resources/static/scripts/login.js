@@ -1,5 +1,16 @@
+var loginForm = $("#loginForm").validate({});
 $("#btnLogin").click(function(){
-    var loginForm = $("#loginForm").validate({});
+    login();
+});
+
+$(function(){
+    var event = arguments.callee.caller.arguments[0] || window.event;
+    if(event.keyCode === 13){//判断是否按了回车，enter的keycode代码是13，想看其他代码请猛戳这里。
+        login();
+    }
+});
+
+function login(){
     if(loginForm.form()) {
         var userid = $("#userid").val();
         var password = hex_md5($("#password").val());
@@ -20,4 +31,4 @@ $("#btnLogin").click(function(){
             }
         });
     }
-});
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=10.000">
@@ -29,12 +30,10 @@
                         <form method="post" id="loginForm">
                             <div id="formsAuthenticationArea">
                                 <div id="userNameArea">
-                                    <input id="userid" name="userid" value="" minlength="1"
-                                           class="text fullWidth" spellcheck="false" isDigits="true" placeholder="用户ID" required>
+                                    <input id="userid"   class="text fullWidth" placeholder="用户ID" minlength="10" maxlength="10" isDigits="true" required>
                                 </div>
                                 <div id="passwordArea">
-                                    <input id="password" name="Password" type="password" minlength="1"
-                                           class="text fullWidth" placeholder="密码" required>
+                                    <input id="password" class="text fullWidth" placeholder="密码" type="password"  minlength="6" required>
                                 </div>
                                 <div id="submissionArea" class="submitMargin">
                                     <span id="btnLogin" class="submit">登录</span>
