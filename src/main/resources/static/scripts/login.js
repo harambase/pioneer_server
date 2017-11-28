@@ -14,7 +14,7 @@ $("#btnLogin").click(function(){
             data: JSON.stringify(person),
             success: function (data) {
                 if (data.code === 2001)
-                    window.location.href = basePath + "/welcome";
+                    window.location.href = basePath + "/index";
                 else
                     Showbo.Msg.alert("登录失败", function () {});
             }

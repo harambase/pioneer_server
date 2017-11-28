@@ -81,7 +81,6 @@ public class ShiroServiceImpl implements ShiroService {
         return shiroUser;
     }
 
-
     @Override
     public String findRoleNameByRoleId(Integer roleId) {
         return roleDao.getSingleRoleName(roleId);
@@ -89,7 +88,7 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Override
     public SimpleAuthenticationInfo info(ShiroUser shiroUser, Person user, String realmName) {
-        String credentials = user.getPassword();
+        //String credentials = user.getPassword();
         // 密码加盐处理
         String source = user.getPassword();
         //ByteSource credentialsSalt = new Md5Hash(source);

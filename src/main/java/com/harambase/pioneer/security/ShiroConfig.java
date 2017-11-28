@@ -141,11 +141,11 @@ public class ShiroConfig {
         /**
          * 默认的登陆访问url
          */
-        shiroFilter.setLoginUrl("/index");
+        shiroFilter.setLoginUrl("/");
         /**
          * 登陆成功后跳转的url
          */
-        shiroFilter.setSuccessUrl("/welcome");
+        shiroFilter.setSuccessUrl("/index");
         /**
          * 没有权限跳转的url
          */
@@ -158,19 +158,20 @@ public class ShiroConfig {
          * user  验证通过或RememberMe登录的都可以
          *
          */
+
         Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("/static/styles/**", "anon");
-        hashMap.put("/static/scripts/**", "anon");
-        hashMap.put("/static/plugins/**", "anon");
-        hashMap.put("/static/images/**", "anon");
-        hashMap.put("/static/fonts/**", "anon");
-        hashMap.put("/index", "anon");
-        hashMap.put("/403", "anon");
-        hashMap.put("/", "anon");
-        hashMap.put("/admin/login", "anon");
+        hashMap.put("/static/**", "anon");
         hashMap.put("/request/user/register", "anon");
+        hashMap.put("/release/common/**", "anon");
+        hashMap.put("/403", "anon");
+        hashMap.put("/404", "anon");
         hashMap.put("/reg", "anon");
+        hashMap.put("/login", "anon");
+        hashMap.put("/admin/login", "anon");
+        hashMap.put("/", "anon");
         hashMap.put("/**", "authc");
+        hashMap.put("/index", "authc");
+
         shiroFilter.setFilterChainDefinitionMap(hashMap);
 
         return shiroFilter;

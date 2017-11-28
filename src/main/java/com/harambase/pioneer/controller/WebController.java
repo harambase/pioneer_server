@@ -13,39 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @CrossOrigin
 public class WebController {
     
-    //before login
-    @RequestMapping("")
-    public String login(){
-        return "release/index";
+    //不需要login
+    @RequestMapping("/")
+    public String login1(){
+        return "release/login";
     }
-    @RequestMapping("/index")
-    public String index(){
-        return "release/index";
-    }
-    @RequestMapping("/welcome")
-    public String welcome(){
-        return "release/welcome";
+    @RequestMapping("/login")
+    public String login2(){
+        return "release/login";
     }
     @RequestMapping("/reg")
     public String signUp(){
         return "release/web/reg";
     }
-    
-    //index
-    @RequestMapping("/welcomeStudent")
-    public String welcomeStudent(){
-        return "release/student/index";
+
+    //index,统一入口
+    @RequiresPermissions("user")
+    @RequestMapping("/index")
+    public String welcome(){
+        return "release/index";
     }
 
-    @RequiresPermissions("admin")
-    @RequestMapping("/welcomeAdmin")
-    public String welcomeAdmin(){
-        return "release/admin/index";
-    }
-    @RequestMapping("/welcomeFaculty")
-    public String welcomeFaculty(){
-        return "release/faculty/index";
-    }
 
     //faculty
     //course
