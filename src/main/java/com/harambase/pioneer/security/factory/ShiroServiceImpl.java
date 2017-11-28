@@ -26,7 +26,6 @@ import java.util.List;
 public class ShiroServiceImpl implements ShiroService {
 
     private final PersonMapper personMapper;
-    private final MenuDao menuDao;
     private final RoleDao roleDao;
 
     public static ShiroService me() {
@@ -34,9 +33,8 @@ public class ShiroServiceImpl implements ShiroService {
     }
 
     @Autowired
-    public ShiroServiceImpl(PersonMapper personMapper, MenuDao menuDao, RoleDao roleDao){
+    public ShiroServiceImpl(PersonMapper personMapper, RoleDao roleDao){
         this.personMapper = personMapper;
-        this.menuDao = menuDao;
         this.roleDao = roleDao;
     }
     
@@ -62,33 +60,31 @@ public class ShiroServiceImpl implements ShiroService {
         ShiroUser shiroUser = new ShiroUser();
 
         shiroUser.setUserId(user.getUserid());    // 用户id
-        shiroUser.setDeptId(user.getDeptId());    // 部门id
-        shiroUser.setDeptName(roleDao.getDeptName(user.getDeptId()));// 部门名称
         shiroUser.setUsername(user.getUsername());// 用户名
 
-        Integer[] roleArray = CollectionKit.toIntArray(",", user.getRoleId());// 角色集
+        Integer[] roleArray = CollectionKit.toIntArray("/", user.getRoleId());// 角色集
 
         List<Integer> roleList = new ArrayList<>();
         List<String> roleNameList = new ArrayList<>();
+        List<String> roleCodeList = new ArrayList<>();
 
         for (int roleId : roleArray) {
             roleList.add(roleId);
             roleNameList.add(roleDao.getSingleRoleName(roleId));
+            roleCodeList.add(roleDao.getSingleRoleCode(roleId));
         }
+
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
+        shiroUser.setRoleCodes(roleCodeList);
 
         return shiroUser;
     }
 
-    @Override
-    public List<String> findPermissionsByRoleId(Integer roleId) throws Exception{
-        return  menuDao.getResUrlsByRoleId(roleId);
-    }
 
     @Override
     public String findRoleNameByRoleId(Integer roleId) {
-        return roleDao.getSingleRoleTip(roleId);
+        return roleDao.getSingleRoleName(roleId);
     }
 
     @Override

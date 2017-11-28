@@ -5,12 +5,19 @@ import java.util.List;
 
 public class ShiroUser implements Serializable {
 
-    public String userId;
     public String username;
-    public Integer deptId;
-    public List<Integer> roleList;
-    public String deptName;
-    public List<String> roleNames;
+    private String userId;
+    private List<Integer> roleList;
+    private List<String> roleNames;
+    private List<String> roleCodes;
+
+    public List<String> getRoleCodes() {
+        return roleCodes;
+    }
+
+    public void setRoleCodes(List<String> roleCodes) {
+        this.roleCodes = roleCodes;
+    }
 
     public String getUserId() {
         return userId;
@@ -28,28 +35,12 @@ public class ShiroUser implements Serializable {
         this.username = username;
     }
 
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
     public List<Integer> getRoleList() {
         return roleList;
     }
 
     public void setRoleList(List<Integer> roleList) {
         this.roleList = roleList;
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
     }
 
     public List<String> getRoleNames() {

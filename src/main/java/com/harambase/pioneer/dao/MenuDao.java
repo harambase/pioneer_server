@@ -26,7 +26,7 @@ public class MenuDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT url as url FROM Relation rel INNER JOIN menu m ON rel.menuid = m.id where rel.roleid = "+ roleId;
+            String queryString = "SELECT url as url FROM Relation rel INNER JOIN Menu m ON rel.menuid = m.id where rel.roleid = "+ roleId;
 
             rs = stmt.executeQuery(queryString);
             while(rs.next()){

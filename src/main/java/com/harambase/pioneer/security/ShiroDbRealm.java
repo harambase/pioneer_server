@@ -33,29 +33,29 @@ public class ShiroDbRealm extends AuthorizingRealm {
     //权限认证
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        ShiroService shiroService = ShiroServiceImpl.me();
+
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        List<Integer> roleList = shiroUser.getRoleList();
+
+        List<String> permissions = shiroUser.getRoleCodes();
+        List<String> roles = shiroUser.getRoleNames();
 
         Set<String> permissionSet = new HashSet<>();
         Set<String> roleNameSet = new HashSet<>();
 
-        for (Integer roleId : roleList) {
-            List<String> permissions = null;
-            try {
-                permissions = shiroService.findPermissionsByRoleId(roleId);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (permissions != null) {
-                for (String permission : permissions) {
-                    if (StringUtils.isNotEmpty(permission)) {
-                        permissionSet.add(permission);
-                    }
+        if (permissions != null) {
+            for (String permission : permissions) {
+                if (StringUtils.isNotEmpty(permission)) {
+                    permissionSet.add(permission);
                 }
             }
-            String roleName = shiroService.findRoleNameByRoleId(roleId);
-            roleNameSet.add(roleName);
+        }
+
+        if(roles != null){
+            for (String role : roles){
+                if (StringUtils.isNotEmpty(role)) {
+                    roleNameSet.add(role);
+                }
+            }
         }
 
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();

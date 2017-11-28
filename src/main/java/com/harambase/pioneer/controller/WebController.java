@@ -36,7 +36,8 @@ public class WebController {
     public String welcomeStudent(){
         return "release/student/index";
     }
-    @RequiresPermissions("user:admin")
+
+    @RequiresPermissions("admin")
     @RequestMapping("/welcomeAdmin")
     public String welcomeAdmin(){
         return "release/admin/index";

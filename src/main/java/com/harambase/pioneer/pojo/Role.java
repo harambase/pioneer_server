@@ -1,13 +1,13 @@
 package com.harambase.pioneer.pojo;
 
-import java.io.Serializable;
-
-public class Role implements Serializable {
+public class Role {
     private Integer id;
 
     private Integer roleid;
 
-    private String deptname;
+    private String roleName;
+
+    private String roleCode;
 
     public Integer getId() {
         return id;
@@ -25,11 +25,19 @@ public class Role implements Serializable {
         this.roleid = roleid;
     }
 
-    public String getDeptname() {
-        return deptname;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setDeptname(String deptname) {
-        this.deptname = deptname == null ? null : deptname.trim();
+    public void setRoleName(String roleName) {
+        this.roleName = roleName == null ? null : roleName.trim();
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode == null ? null : roleCode.trim();
     }
 }

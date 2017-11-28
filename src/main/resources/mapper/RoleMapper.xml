@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Role" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="roleid" property="roleid" jdbcType="INTEGER" />
-    <result column="deptname" property="deptname" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, roleid, deptname
+    id, roleid, role_name, role_code
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -20,10 +21,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.Role" >
-    insert into Role (id, roleid, deptname
-      )
-    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{deptname,jdbcType=VARCHAR}
-      )
+    insert into Role (id, roleid, role_name, 
+      role_code)
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, 
+      #{roleCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Role" >
     insert into Role
@@ -34,8 +35,11 @@
       <if test="roleid != null" >
         roleid,
       </if>
-      <if test="deptname != null" >
-        deptname,
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -45,8 +49,11 @@
       <if test="roleid != null" >
         #{roleid,jdbcType=INTEGER},
       </if>
-      <if test="deptname != null" >
-        #{deptname,jdbcType=VARCHAR},
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -56,8 +63,11 @@
       <if test="roleid != null" >
         roleid = #{roleid,jdbcType=INTEGER},
       </if>
-      <if test="deptname != null" >
-        deptname = #{deptname,jdbcType=VARCHAR},
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        role_code = #{roleCode,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -65,7 +75,8 @@
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Role" >
     update Role
     set roleid = #{roleid,jdbcType=INTEGER},
-      deptname = #{deptname,jdbcType=VARCHAR}
+      role_name = #{roleName,jdbcType=VARCHAR},
+      role_code = #{roleCode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

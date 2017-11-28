@@ -23,9 +23,9 @@ public class CollectionKit {
             return new Integer[] {};
         }
         String[] arr = str.split(split);
-        final Integer[] ints = new Integer[arr.length];
+        Integer[] ints = new Integer[arr.length];
         for (int i = 0; i < arr.length; i++) {
-            final Integer v = Integer.parseInt(arr[i], 0);
+            Integer v = Integer.parseInt(arr[i]);
             ints[i] = v;
         }
         return ints;
