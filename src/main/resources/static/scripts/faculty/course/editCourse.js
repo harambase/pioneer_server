@@ -77,7 +77,7 @@ $(function(){
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/student/list",
+            url: basePath + "/teach/student/list",
             data: function (d) {
                 d.crn = crn;
             }
@@ -115,7 +115,7 @@ var credits;
 
 function getCourse(crn){
     $.ajax({
-        url : basePath+"/course/list/search?search="+crn,
+        url : basePath+"/teach/list/search?search="+crn,
         type : "GET",
         success: function (result) {
             var course = result.data[0];
@@ -152,11 +152,11 @@ $(".cancel").click(function(){
 });
 $("#updateC").click(function(){
     $("#selectC").css({display: "block"});
-    $("#course").css({display: "none"});
+    $("#teach").css({display: "none"});
 });
 $("#cancel").click(function(){
     $("#selectC").css({display: "none"});
-    $("#course").css({display: "block"});
+    $("#teach").css({display: "block"});
 });
 
 $("#registerBtn").click(function (){
@@ -206,14 +206,14 @@ $("#registerBtn").click(function (){
 
 
         $.ajax({
-            url: basePath + "/course/add",
+            url: basePath + "/teach/add",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(course),
             success: function (data) {
                 if (data.code === 2001) {
                     Showbo.Msg.alert("添加成功!", function () {
-                        window.location.href = basePath + "/faculty/course/view";
+                        window.location.href = basePath + "/faculty/teach/view";
                     });
                 }
                 else

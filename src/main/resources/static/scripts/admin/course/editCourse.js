@@ -136,7 +136,7 @@ $(function(){
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/student/list",
+            url: basePath + "/teach/student/list",
             data: function (d) {
                 d.crn = crn;
             }
@@ -205,7 +205,7 @@ $(function(){
             crn: crn
         };
         $.ajax({
-            url:basePath+"/course/add/student",
+            url:basePath+"/teach/add/student",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),
@@ -225,7 +225,7 @@ var credits;
 
 function getPreCourse(crn){
     $.ajax({
-        url : basePath+"/course/list/precourse?crn="+crn,
+        url : basePath+"/teach/list/precourse?crn="+crn,
         type : "GET",
         success: function (result) {
             var preCourseList = result.data;
@@ -244,7 +244,7 @@ function getPreCourse(crn){
 }
 function getCourse(crn){
     $.ajax({
-        url : basePath+"/course/list/search?search="+crn,
+        url : basePath+"/teach/list/search?search="+crn,
         type : "GET",
         success: function (result) {
             var course = result.data[0];
@@ -281,11 +281,11 @@ $(".cancel").click(function(){
 });
 $("#updateC").click(function(){
     $("#selectC").css({display: "block"});
-    $("#course").css({display: "none"});
+    $("#teach").css({display: "none"});
 });
 $("#cancel").click(function(){
     $("#selectC").css({display: "none"});
-    $("#course").css({display: "block"});
+    $("#teach").css({display: "block"});
 });
 $("#searchFValue").select2({
     ajax: {
@@ -328,7 +328,7 @@ $("#searchFValue").select2({
 });
 $("#searchCValue").select2({
     ajax: {
-        url: basePath + "/course/list/search",
+        url: basePath + "/teach/list/search",
         type: "GET",
         delay: 250,
         data: function (params) {
@@ -412,14 +412,14 @@ $("#registerBtn").click(function (){
 
 
         $.ajax({
-            url: basePath + "/course/add",
+            url: basePath + "/teach/add",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(course),
             success: function (data) {
                 if (data.code === 2001) {
                     Showbo.Msg.alert("添加成功!", function () {
-                        window.location.href = basePath + "/manage/course/view";
+                        window.location.href = basePath + "/manage/teach/view";
                     });
                 }
                 else

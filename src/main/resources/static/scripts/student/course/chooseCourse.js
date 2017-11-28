@@ -111,7 +111,7 @@ var courseTable = $("#newCourseTable").DataTable({
     serverSide: true,
 
     ajax: {
-        url: basePath + "/course/list",
+        url: basePath + "/teach/list",
         data: function (d) {
             d.mode = "choose";
         }
@@ -166,7 +166,7 @@ var counter = 0;
 var crnList = [];
 
 function showInfo(crn) {
-    window.location.href = basePath + "/student/course/view?crn=" + crn;
+    window.location.href = basePath + "/student/teach/view?crn=" + crn;
 }
 function isAvaCreditsEnough(credits){
     return (tol_credits - use_credits - credits) >= 0;//true:enough, false:not enough
@@ -246,7 +246,7 @@ $("#submit").click(function(){
 
 function sendChoiceListAjax(choiceList){
     $.ajax({
-        url: basePath + "/course/choose",
+        url: basePath + "/teach/choose",
         type: "POST",
         data: {
             "choiceList": choiceList

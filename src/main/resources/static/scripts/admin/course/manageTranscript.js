@@ -78,7 +78,7 @@ $("#confirm").click(function(){
             complete: valueOfComplete
         };
         $.ajax({
-            url: basePath + "/course/transcript/update",
+            url: basePath + "/teach/transcript/update",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),
@@ -180,7 +180,7 @@ var classTable = $("#classTable").DataTable({
     serverSide: true,
 
     ajax: {
-        url: basePath + "/course/list"
+        url: basePath + "/teach/list"
     },
 
     columns: [
@@ -243,7 +243,7 @@ var transTable = $("#transTable").DataTable({
     serverSide: true,
 
     ajax: {
-        url: basePath + "/course/transcript/list",
+        url: basePath + "/teach/transcript/list",
         data: function (d) {
             d.studentid = studentid;
             d.crn = crn;            }

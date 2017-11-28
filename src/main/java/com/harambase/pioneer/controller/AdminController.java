@@ -142,7 +142,7 @@ public class AdminController {
 
         data.put("student",student);
         data.put("faculty",faculty);
-        data.put("course", course);
+        data.put("teach", course);
 
         message.setData(data);
         return new ResponseEntity<>(message, HttpStatus.OK);

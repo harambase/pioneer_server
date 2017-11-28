@@ -5,8 +5,8 @@ var course = false;
 var createPinForm = $("#createPinForm").validate({});
 
 //种类
-$("#course-div").click(function (){
-    $("#course").prop("checked", !course);
+$("#teach-div").click(function (){
+    $("#teach").prop("checked", !course);
     course = !course;
 });
 $("#transcript-div").click(function (){

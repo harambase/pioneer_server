@@ -156,7 +156,7 @@ $(function () {
             complete: complete
         };
         $.ajax({
-            url: basePath + "/course/transcript/update",
+            url: basePath + "/teach/transcript/update",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(formdata),
@@ -255,7 +255,7 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/list"
+            url: basePath + "/teach/list"
         },
 
         columns: [
@@ -317,7 +317,7 @@ $(function () {
         serverSide: true,
 
         ajax: {
-            url: basePath + "/course/transcript/list",
+            url: basePath + "/teach/transcript/list",
             data: function (d) {
                 d.studentid = studentid;
                 d.crn = crn;            }

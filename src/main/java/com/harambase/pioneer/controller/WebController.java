@@ -14,141 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebController {
     
     //不需要login
-    @RequestMapping("/")
-    public String login1(){
-        return "release/login";
-    }
-    @RequestMapping("/login")
-    public String login2(){
+    @RequestMapping({"/","/login"})
+    public String login(){
         return "release/login";
     }
     @RequestMapping("/reg")
     public String signUp(){
-        return "release/web/reg";
-    }
-
-    //index,统一入口
-    @RequiresPermissions("user")
-    @RequestMapping("/index")
-    public String welcome(){
-        return "release/index";
-    }
-
-
-    //faculty
-    //course
-    @RequestMapping("/faculty/course/create")
-    public String fCreateCourse(){
-        return "release/faculty/course/createCourse";
-    }
-    @RequestMapping("/faculty/course/view")
-    public String fViewCourse(){
-        return "release/faculty/course/viewCourse";
-    }
-    @RequestMapping("/faculty/course/edit")
-    public String fEditCourse(){
-        return "release/faculty/course/editCourse";
-    }
-    //administration
-    @RequestMapping("/faculty/advising")
-    public String fViewAdvising(){
-        return "release/faculty/administration/viewAdvising";
-    }
-    
-    //student
-    //course
-    @RequestMapping("/student/course/view")
-    public String sViewCourse(){
-        return "release/student/course/viewCourse";
-    }
-    @RequestMapping("/student/course/choose")
-    public String sCourseChoose(){
-        return "release/student/course/courseChoose";
-    }
-    @RequestMapping("/student/transcript/view")
-    public String sViewTranscript(){
-        return "release/student/course/viewTranscript";
-    }
-
-    //manage
-    //course
-    @RequestMapping("/manage/course/create")
-    public String createCourse(){
-        return "release/admin/course/createCourse";
-    }
-    @RequestMapping("/manage/course/view")
-    public String viewCourse(){
-        return "release/admin/course/viewCourse";
-    }
-    @RequestMapping("/manage/course/edit")
-    public String editCourse(){
-        return "release/admin/course/editCourse";
-    }
-    @RequestMapping("/manage/transcript/view")
-    public String viewTranscript(){
-        return "release/admin/course/viewTranscript";
-    }
-    @RequestMapping("/manage/transcript/edit")
-    public String editTranscript(){
-        return "release/admin/course/editTranscript";
-    }
-    @RequestMapping("/manage/student/credit")
-    public String setCredit(){
-        return "release/admin/course/setCredit";
-    }
-    @RequestMapping("/manage/course/request")
-    public String viewCourseRequest(){
-        return "release/admin/course/viewCourseRequest";
-    }
-    
-    //administration
-    @RequestMapping("/manage/pin")
-    public String setTime(){
-        return "release/admin/administration/pin";
-    }
-    @RequestMapping("/manage/leave")
-    public String viewLeave(){
-        return "release/admin/administration/viewLeave";
-    }
-    @RequestMapping("/manage/dorm")
-    public String viewDorm(){
-        return "release/admin/administration/viewDorm";
-    }
-    @RequestMapping("/manage/advising")
-    public String viewAdvising(){
-        return "release/admin/administration/viewAdvising";
-    }
-    
-    //system
-    @RequestMapping("/manage/user/create")
-    public String createUser(){
-        return "release/admin/system/createUser";
-    }
-    @RequestMapping("/manage/user/view")
-    public String viewUser(){
-        return "release/admin/system/viewUser";
-    }
-    @RequestMapping("/manage/user/detail")
-    public String userDetail(){
-        return "release/admin/system/userDetail";
-    }
-    @RequestMapping("/manage/user/request")
-    public String viewRegister(){
-        return "release/admin/system/viewRegister";
-    }
-    @RequestMapping("/manage/user/request/detail")
-    public String userRegisterDetail(){
-        return "release/admin/system/userRegisterDetail";
-    }
-    
-    //web
-    @RequestMapping("/message")
-    public String message(){
-        return "release/web/message";
-    }
-    @RequestMapping("/profile")
-    public String profile() {
-        return "release/web/profile";
+        return "release/reg";
     }
     @RequestMapping("/403")
     public String authError(){
@@ -158,9 +30,113 @@ public class WebController {
     public String pageNotFound(){
         return "release/web/404";
     }
-//    @RequestMapping("/error")
-//    public String error(){
-//        return "release/web/403";
+    @RequestMapping("/error")
+    public String error(){
+        return "release/web/error";
+    }
+
+    //只需要用户权限
+    @RequiresPermissions("user")
+    @RequestMapping("/index")
+    public String welcome(){
+        return "release/index";
+    }
+    @RequiresPermissions("user")
+    @RequestMapping("/message")
+    public String message(){
+        return "release/web/message";
+    }
+    @RequiresPermissions("user")
+    @RequestMapping("/profile")
+    public String profile() {
+        return "release/web/profile";
+    }
+
+    //系统设置
+    @RequestMapping("/system/user/create")
+    public String createUser(){
+        return "release/system/createUser";
+    }
+    @RequestMapping("/system/user/view")
+    public String viewUser(){
+        return "release/system/viewUser";
+    }
+    @RequestMapping("/system/user/detail")
+    public String editUser(){
+        return "release/system/editUser";
+    }
+    @RequestMapping("/system/user/request")
+    public String viewRegister(){
+        return "release/system/viewRegister";
+    }
+    @RequestMapping("/system/user/request/detail")
+    public String userRegisterDetail(){
+        return "release/system/userRegisterDetail";
+    }
+
+    //教务系统
+    @RequestMapping("/teach/create")
+    public String createCourse(){
+        return "release/teach/createCourse";
+    }
+    @RequestMapping("/teach/view")
+    public String viewCourse(){
+        return "release/teach/viewCourse";
+    }
+    @RequestMapping("/teach/edit")
+    public String editCourse(){
+        return "release/teach/editCourse";
+    }
+    @RequestMapping("/teach/choose")
+    public String courseChoose(){
+        return "release/teach/courseChoose";
+    }
+    @RequestMapping("/teach/pin")
+    public String pinInfo(){
+        return "release/teach/pin";
+    }
+//    @RequestMapping("/teach/advise")
+//    public String fViewAdvising(){
+//        return "release/administration/viewAdvising";
 //    }
+
+
+    @RequestMapping("/student/course/view")
+    public String sViewCourse(){
+        return "release/student/teach/viewCourse";
+    }
+    @RequestMapping("/student/transcript/view")
+    public String sViewTranscript(){
+        return "release/student/teach/viewTranscript";
+    }
+    @RequestMapping("/manage/transcript/view")
+    public String viewTranscript(){
+        return "release/admin/teach/viewTranscript";
+    }
+    @RequestMapping("/manage/transcript/edit")
+    public String editTranscript(){
+        return "release/admin/teach/editTranscript";
+    }
+    @RequestMapping("/manage/student/credit")
+    public String setCredit(){
+        return "release/admin/teach/setCredit";
+    }
+    @RequestMapping("/manage/course/request")
+    public String viewCourseRequest(){
+        return "release/admin/teach/viewCourseRequest";
+    }
+
+    //后勤管理
+    @RequestMapping("/logistic/leave")
+    public String viewLeave(){
+        return "release/logistic/viewLeave";
+    }
+    @RequestMapping("/logistic/dorm")
+    public String viewDorm(){
+        return "release/logistic/viewDorm";
+    }
+
+
+
 
 }

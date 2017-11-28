@@ -83,7 +83,7 @@ $(".js-example-basic-single").select2({
 //课程列表
 $('.js-example-basic-multiple').select2({
     ajax: {
-        url: basePath + "/course/list/search",
+        url: basePath + "/teach/list/search",
         type: "GET",
         delay: 250,
         data: function (params) {
@@ -166,14 +166,14 @@ $("#registerBtn").click(function (){
 
 
         $.ajax({
-            url: basePath + "/course/add",
+            url: basePath + "/teach/add",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(course),
             success: function (data) {
                 if (data.code === 2001) {
                     Showbo.Msg.alert("添加成功!", function () {
-                        window.location.href = basePath + "/faculty/course/view";
+                        window.location.href = basePath + "/faculty/teach/view";
                     });
                 }
                 else

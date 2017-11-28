@@ -8,19 +8,19 @@ import java.util.*;
 
 public class CheckTime {
 
-//    public static boolean isTimeConflict(CourseMapper courseMapper, Course course) {
-//        String time = course.getStarttime() + "-" + course.getEndtime();
-//        String date = course.getStartdate() + " to " + course.getEnddate();
-//        String[] dayArray = course.getDay().split("/");
+//    public static boolean isTimeConflict(CourseMapper courseMapper, Course teach) {
+//        String time = teach.getStarttime() + "-" + teach.getEndtime();
+//        String date = teach.getStartdate() + " to " + teach.getEnddate();
+//        String[] dayArray = teach.getDay().split("/");
 //        String day = "";
 //        for(int i = 0; i<dayArray.length; i++)
 //            day += dayArray[i]+"%";
 //        Map<String, String> param = new HashMap<>();
-//        param.put("facultyid", course.getFacultyid());
+//        param.put("facultyid", teach.getFacultyid());
 //        param.put("time", time);
 //        param.put("date", date);
 //        param.put("day", day);
-//        param.put("crn", course.getCrn());
+//        param.put("crn", teach.getCrn());
 //        int count = courseMapper.facultyTime(param);
 //
 //        return count != 0;

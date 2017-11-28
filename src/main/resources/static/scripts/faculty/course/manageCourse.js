@@ -15,7 +15,7 @@ $("#confirm").click(function (){
         comment : $("#comment2").val()
     };
     $.ajax({
-        url:basePath+"/course/update",
+        url:basePath+"/teach/update",
         type: "POST",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(formdata),
@@ -32,7 +32,7 @@ $("#confirm").click(function (){
 
 $("#courseTable").on("click", ".btn.btn-info", function () {
     crn = $(this).parents("tr").find("td").eq(0).html();
-    window.location.href = basePath + "/faculty/course/edit?crn=" + crn;
+    window.location.href = basePath + "/faculty/teach/edit?crn=" + crn;
 });
 
 //列表
@@ -67,7 +67,7 @@ var logTable = $("#courseTable").DataTable({
     serverSide: true,
 
     ajax: {
-        url: basePath + "/course/list",
+        url: basePath + "/teach/list",
         data: function (d) {
             d.mode = "faculty";
         }
@@ -116,7 +116,7 @@ $("#courseTable").on("click", ".btn.btn-danger", function() {
         if($(".btnfocus").val() !== "取消"){
             /*删除操作*/
             $.ajax({
-                url: basePath + "/course/remove?crn="+crn,
+                url: basePath + "/teach/remove?crn="+crn,
                 type: "DELETE",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {

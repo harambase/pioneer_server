@@ -46,7 +46,7 @@ $(function(){
 
 function getCourse(crn){
     $.ajax({
-        url : basePath+"/course/list/search?search="+crn,
+        url : basePath+"/teach/list/search?search="+crn,
         type : "GET",
         success: function (result) {
             var course = result.data[0];

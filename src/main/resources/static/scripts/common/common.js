@@ -1,6 +1,6 @@
 function removeStuFromCourse(studentid, crn){
     $.ajax({
-        url: basePath + "/course/student/remove?studentid="+studentid+"&crn="+crn,
+        url: basePath + "/teach/student/remove?studentid="+studentid+"&crn="+crn,
         type: "DELETE",
         async:false,
         contentType: "application/json; charset=utf-8",
