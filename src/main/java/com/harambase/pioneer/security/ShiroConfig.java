@@ -1,5 +1,6 @@
 package com.harambase.pioneer.security;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.harambase.pioneer.security.properties.PioneerProperties;
 import com.harambase.pioneer.security.properties.ShiroSessionListener;
 import org.apache.shiro.cache.CacheManager;
@@ -211,5 +212,10 @@ public class ShiroConfig {
                 new AuthorizationAttributeSourceAdvisor();
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
+    }
+
+    @Bean(name = "shiroDialect")
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
     }
 }
