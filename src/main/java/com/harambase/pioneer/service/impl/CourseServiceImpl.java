@@ -134,20 +134,20 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage assignFac2Cou(Course course) {
+    public HaramMessage assignFac2Cou(String crn, String facultyId) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            String newFacultyid = course.getFacultyid();
-            Course c = courseMapper.selectByPrimaryKey(course.getCrn());
+            Course course = courseMapper.selectByPrimaryKey(crn);
             //检查时间冲突
-            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(newFacultyid), c)){
+            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(facultyId), course)){
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
             }
-
+            
             course.setUpdatetime(DateUtil.DateToStr(new Date()));
             int ret = courseMapper.updateByPrimaryKeySelective(course);
+            
             if (ret == 1) {
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -166,12 +166,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage addStu2Cou(Option option) {
+    public HaramMessage addStu2Cou(String crn, String studentId, Option option) {
         HaramMessage haramMessage = new HaramMessage();
         try {
             Transcript transcript = new Transcript();
-            String crn = option.getCrn();
-            String studentid = option.getStudentid();
             Course course = courseMapper.selectByPrimaryKey(crn);
             String status = courseMapper.getStatus(crn);
             //检查课程状态
@@ -181,7 +179,7 @@ public class CourseServiceImpl implements CourseService {
                 return haramMessage;
             }
             //检查时间冲突
-            if (!option.isTime() && CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
+            if (!option.isTime() && CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentId), course)) {
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
@@ -197,13 +195,13 @@ public class CourseServiceImpl implements CourseService {
             transcript.setComplete("0");
             transcript.setGrade("*");
             transcript.setCrn(crn);
-            transcript.setStudentid(studentid);
+            transcript.setStudentid(studentId);
             //检查预选
             String precrn = course.getPrecrn();
             if (StringUtils.isNotEmpty(precrn)) {
                 Transcript preTranscript = new Transcript();
                 preTranscript.setComplete("1");
-                preTranscript.setStudentid(studentid);
+                preTranscript.setStudentid(studentId);
                 preTranscript.setCrn(precrn);
                 int ret = transcriptMapper.count(preTranscript);
                 if (ret != 1 && !option.isPrereq()) {
@@ -645,5 +643,20 @@ public class CourseServiceImpl implements CourseService {
             return haramMessage;
         }
     }
-
+    
+    @Override
+    public HaramMessage getCourseByCrn(String crn) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            Course course = courseMapper.selectByPrimaryKey(crn);
+            haramMessage.setData(course);
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        }catch (Exception e){
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        }
+        return haramMessage;
+    }
+    
 }

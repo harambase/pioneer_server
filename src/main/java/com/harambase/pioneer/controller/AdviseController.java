@@ -5,6 +5,7 @@ import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.AdviseService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@Controller
 @CrossOrigin
 @RequestMapping(value = "/advise")
-@Controller
 public class AdviseController {
 
     private AdviseService adviseService;
@@ -28,27 +29,39 @@ public class AdviseController {
         this.adviseService = adviseService;
     }
     
-    @RequestMapping(value ="/advise/assign", produces = "application/json", method = RequestMethod.POST)
+    @RequiresPermissions({"admin", "teach"})
+    @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity assignMentor(@RequestBody Advise advise, HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value ="/advise/remove", produces = "application/json", method = RequestMethod.DELETE)
-    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id ) {
+    
+    @RequiresPermissions({"admin", "teach"})
+    @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id) {
         HaramMessage message = adviseService.removeMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/advise/update", produces = "application/json", method = RequestMethod.POST)
+    
+    @RequiresPermissions({"admin", "teach"})
+    @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = adviseService.updateAdvise(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/advise/list", produces = "application/json", method = RequestMethod.GET)
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value ="/{id}", method = RequestMethod.GET)
+    public ResponseEntity getMentor(@RequestParam(value = "id") Integer id) {
+        //HaramMessage message = adviseService.getMentor(id);
+        //return new ResponseEntity<>(message, HttpStatus.OK);
+        return null;
+    }
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/get", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity advisingList(@RequestParam(value = "start") Integer start,
                                        @RequestParam(value = "length") Integer length,
                                        @RequestParam(value = "draw") Integer draw,

@@ -23,49 +23,48 @@ import java.util.Map;
  */
 @Controller
 @CrossOrigin
-@RequestMapping(value = "/admin")
-public class AdminController {
-
-    private final CourseService courseService;
+@RequestMapping(value = "/user")
+public class PersonController {
+    
     private final PersonService personService;
 
     @Autowired
-    public AdminController(CourseService courseService,
-                           PersonService personService){
-        this.courseService = courseService;
+    public PersonController(PersonService personService){
         this.personService = personService;
     }
-
-    @RequiresPermissions("user:admin")
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestBody Person person, HttpSession session){
+    
+    @RequiresPermissions({"admin", "system"})
+    @RequestMapping(produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity addUser(@RequestBody Person person){
         HaramMessage message = personService.addUser(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequiresPermissions("user:admin")
-    @RequestMapping(value = "/remove/user", method = RequestMethod.DELETE)
-    public ResponseEntity removeUser(@RequestParam("userid") String userid){
+    
+    @RequiresPermissions({"admin", "system"})
+    @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
+    public ResponseEntity removeUser(@RequestParam("userId") String userid){
         HaramMessage message = personService.removeUser(userid);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/user/update", produces = "application/json", method = RequestMethod.POST)
+    
+    @RequiresPermissions({"admin", "system"})
+    @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateUser(@RequestBody Person person){
         HaramMessage message = personService.update(person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ResponseEntity getUser(@RequestParam(value = "userid") String userid){
-        HaramMessage haramMessage = personService.getUser(userid);
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    public ResponseEntity getUser(@PathVariable(value = "userId") String userId){
+        HaramMessage haramMessage = personService.getUser(userId);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/get/current", method = RequestMethod.GET)
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
     public ResponseEntity getCurrentUser(HttpSession session){
         HaramMessage message = new HaramMessage();
-
         try {
             Person p = (Person) session.getAttribute("user");
             if (p != null) {
@@ -83,25 +82,29 @@ public class AdminController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/list/faculty",method = RequestMethod.GET)
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/faculty",method = RequestMethod.GET)
     public ResponseEntity searchFaculty(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listUsers(search,"f", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/list/student", method = RequestMethod.GET)
+    
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/student", method = RequestMethod.GET)
     public ResponseEntity searchStudent(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listUsers(search, "s", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/list/active/user", method = RequestMethod.GET)
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/active", method = RequestMethod.GET)
     public ResponseEntity listActiveUsers(@RequestParam(value = "search") String search){
         HaramMessage message = personService.listUsers(search, "", "1");
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
+    
+    @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,
@@ -128,38 +131,5 @@ public class AdminController {
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-    @RequestMapping(value = "/system/info", produces = "application/json")
-    public ResponseEntity getSystemInfo(){
-        HaramMessage message = new HaramMessage();
-
-        Map<String, Integer> data = new HashMap<>();
-        int course, student, faculty;
-
-        student = (Integer) personService.countActivePerson("s").getData();
-        faculty = (Integer) personService.countActivePerson("f").getData();
-        course  = (Integer) courseService.countActiveCourse().getData();
-
-        data.put("student",student);
-        data.put("faculty",faculty);
-        data.put("teach", course);
-
-        message.setData(data);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-
-    }
-
-    @RequestMapping(value = "/relation/chart", method = RequestMethod.GET)
-    public ResponseEntity getRelationChart(){
-        HaramMessage haramMessage = personService.getRelationChart();
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/student/count", method = RequestMethod.GET)
-    public ResponseEntity getStudentCount(){
-        HaramMessage haramMessage = personService.userChart();
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
-    }
-
-
+    
 }

@@ -15,11 +15,11 @@ public interface CourseService {
 
     HaramMessage updateCourse(Course course);
 
-    HaramMessage assignFac2Cou(Course course);
+    HaramMessage assignFac2Cou(String crn, String facultyId);
 
-    HaramMessage addStu2Cou(Option option);
+    HaramMessage addStu2Cou(String crn, String studentId, Option option);
 
-    HaramMessage removeStuFromCou(String studentid, String courseid);
+    HaramMessage removeStuFromCou(String crn, String studentId);
 
     HaramMessage updateGrade(Transcript transcript);
 
@@ -36,4 +36,6 @@ public interface CourseService {
     HaramMessage preCourseList(String crn);
 
     HaramMessage reg2Course(String userid, String[] choices);
+    
+    HaramMessage getCourseByCrn(String crn);
 }
