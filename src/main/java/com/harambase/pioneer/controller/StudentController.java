@@ -5,6 +5,7 @@ import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +32,14 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @RequiresPermissions({"admin", "student"})
     @RequestMapping(value = "/transcript/info", method = RequestMethod.GET)
     public ResponseEntity getTranscriptDetail(@RequestParam(value = "studentid") String studentid){
         HaramMessage haramMessage = studentService.transcriptDetail(studentid);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequiresPermissions({"admin", "student", "teach"})
     @RequestMapping(value = "/available/credit", method = RequestMethod.GET)
     public ResponseEntity getAvaliableCredit(@RequestParam(value = "studentid") String studentid,
                                              HttpSession session){
@@ -45,12 +48,14 @@ public class StudentController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @RequiresPermissions({"admin", "student"})
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Student student){
         HaramMessage haramMessage = studentService.update(student);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequiresPermissions({"admin", "teach", "system"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
                                     @RequestParam(value = "length") Integer length,

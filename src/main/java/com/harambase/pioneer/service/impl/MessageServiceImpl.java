@@ -152,5 +152,10 @@ public class MessageServiceImpl implements MessageService {
             return haramMessage;
         }
     }
-    
+
+    @Override
+    public HaramMessage delete(String id) {
+        return null;
+    }
+
 }

@@ -5,7 +5,6 @@ import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Pin;
-import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -20,9 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by linsh on 7/12/2017.
- */
+
 @Controller
 @CrossOrigin
 @RequestMapping(value = "/course")
@@ -37,21 +34,21 @@ public class CourseController {
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity createdCourse(@RequestBody Course course){
-        HaramMessage haramMessage = courseService.add(course);
+        HaramMessage haramMessage = courseService.create(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{crn}", method = RequestMethod.DELETE)
     public ResponseEntity removeCourse(@PathVariable(value = "crn") String crn){
-        HaramMessage haramMessage = courseService.remove(crn);
+        HaramMessage haramMessage = courseService.delete(crn);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateCourse(@RequestBody Course course){
-        HaramMessage haramMessage = courseService.updateCourse(course);
+        HaramMessage haramMessage = courseService.update(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
     
@@ -65,16 +62,18 @@ public class CourseController {
     @RequiresPermissions("user")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity listBySearch(@RequestParam("search") String search){
-        HaramMessage haramMessage = courseService.listBySearch(search);
+        HaramMessage haramMessage = courseService.getCourseBySearch(search);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    
+
+    @RequiresPermissions("user")
     @RequestMapping(value = "/get/precourse/{crn}", method = RequestMethod.GET)
     public ResponseEntity preCourseList(@PathVariable("crn") String crn){
         HaramMessage haramMessage = courseService.preCourseList(crn);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    
+
+    @RequiresPermissions("user")
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public ResponseEntity listCourses(@RequestParam(value = "start") Integer start,
                                       @RequestParam(value = "length") Integer length,
@@ -133,10 +132,8 @@ public class CourseController {
         HaramMessage haramMessage = courseService.assignFac2Cou(crn, facultyId);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    
-    
-   
 
+    @RequiresPermissions({"admin", "student"})
     @RequestMapping(value = "/choose", method = RequestMethod.POST)
     public ResponseEntity courseChoice(@RequestParam(value = "choiceList[]")String[] choices, HttpSession session){
         Person person =  (Person)session.getAttribute("user");

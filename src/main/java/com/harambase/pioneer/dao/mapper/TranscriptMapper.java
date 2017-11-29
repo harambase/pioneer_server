@@ -32,16 +32,9 @@ public interface TranscriptMapper {
 
     List<Course> studentCourse(String studentid);
 
-    long getStudentInCourseCountByMapPageSearchOrdered(Map<String, Object> param);
-
-    List<Person> getStudentInCourseByMapPageSearchOrdered(Map<String, Object> param);
+    List<Transcript> getAllTranscripts();
 
     int deleteByCRN(String crn);
 
-    List<Transcript> getTranscriptBySearch(Map<String, Object> param);
-
-    List<Transcript> getAllTranscripts();
-
-    void deleteByStudentid(String userid);
-    
+    int deleteByStudentid(String userid);
 }

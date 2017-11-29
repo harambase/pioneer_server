@@ -35,7 +35,7 @@ public class PinServiceImpl implements PinService{
         this.adviseMapper = adviseMapper;
     }
     @Override
-    public HaramMessage validate(Integer pinNum, Person user) {
+    public HaramMessage validate(Integer pinNum) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             Pin pin = pinMapper.selectByPin(pinNum);
@@ -133,7 +133,7 @@ public class PinServiceImpl implements PinService{
     }
     
     @Override
-    public HaramMessage clearAll(Person user) {
+    public HaramMessage clearAll(String info) {
         return null;
     }
     
@@ -199,6 +199,11 @@ public class PinServiceImpl implements PinService{
         haramMessage.setCode(FlagDict.SUCCESS.getV());
         haramMessage.setMsg(FlagDict.SUCCESS.getM());
         return haramMessage;
+    }
+
+    @Override
+    public HaramMessage delete(String pin) {
+        return null;
     }
 
     @Transactional

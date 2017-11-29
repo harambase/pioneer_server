@@ -15,4 +15,6 @@ public interface MessageService {
     HaramMessage updateStatus(String id, String status);
     
     HaramMessage createMessage(MessageWithBLOBs message);
+
+    HaramMessage delete(String id);
 }

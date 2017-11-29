@@ -6,6 +6,7 @@ import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;
 import com.harambase.pioneer.service.PersonService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,36 +24,45 @@ import java.util.Map;
 public class MessageController {
 
     private final MessageService messageService;
-    private final PersonService personService;
 
 
     @Autowired
-    public MessageController(MessageService messageService, PersonService personService){
+    public MessageController(MessageService messageService){
         this.messageService = messageService;
-        this.personService = personService;
     }
 
-    @RequestMapping(value = "/create", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity createMessage(@RequestBody MessageWithBLOBs message, HttpSession session){
+    @RequiresPermissions("user")
+    @RequestMapping(produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity create(@RequestBody MessageWithBLOBs message, HttpSession session){
         Person user = (Person)session.getAttribute("user");
         message.setSenderid(user.getUserid());
         HaramMessage haramMessage = messageService.createMessage(message);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public ResponseEntity getMessageView(@RequestParam(value = "id") String id){
-        HaramMessage haramMessage = messageService.getMessageView(id);
+
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable(value = "id") String id) {
+        HaramMessage haramMessage = messageService.delete(id);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update/status", method = RequestMethod.PUT)
-    public ResponseEntity updateStatus(@RequestParam(value = "id") String id,
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateStatus(@PathVariable(value = "id") String id,
                                        @RequestParam(value = "status") String status){
         HaramMessage haramMessage = messageService.updateStatus(id, status);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity get(@RequestParam(value = "id") String id){
+        HaramMessage haramMessage = messageService.getMessageView(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @RequiresPermissions("user")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity countByStatus(@RequestParam(value = "status") String status,
                                         @RequestParam(value = "box") String box,
@@ -60,7 +70,7 @@ public class MessageController {
         Person user = (Person)session.getAttribute("user");
         String receiverid = null;
         String senderid = null;
-    
+
         if(box.contains("inbox") || box.contains("important"))
             receiverid = user.getUserid();
         if(box.contains("sent") || box.contains("draft"))
@@ -69,11 +79,12 @@ public class MessageController {
             receiverid = user.getUserid();
             senderid = user.getUserid();
         }
-       
+
         HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, box.toLowerCase(), status.toLowerCase());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,

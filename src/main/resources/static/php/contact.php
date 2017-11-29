@@ -52,7 +52,7 @@ $e_subject = 'You have been contacted by ' . $name . '.';
 
 // Configuration option.
 // You can change this if you feel that you need to.
-// Developers, you may wish to add more fields to the form, in which case you must be sure to add them here.
+// Developers, you may wish to create more fields to the form, in which case you must be sure to create them here.
 
 $e_body = "You have been contacted by $name. Their additional message is as follows." . PHP_EOL . PHP_EOL;
 $e_content = "\"$comments\"" . PHP_EOL . PHP_EOL;

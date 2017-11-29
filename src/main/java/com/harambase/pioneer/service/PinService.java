@@ -5,15 +5,17 @@ import com.harambase.pioneer.pojo.Person;
 
 public interface PinService {
     
-    HaramMessage validate(Integer pin, Person user);
+    HaramMessage validate(Integer pin);
     
     HaramMessage generate(String startTime, String endTime, int role, String info, String remark);
     
-    HaramMessage clearAll(Person user);
+    HaramMessage clearAll(String info);
     
     HaramMessage listByInfo(String info);
 
     HaramMessage sendAdvisorPin(String info, String senderId);
 
     HaramMessage sendFacultyPin(String info, String senderId);
+
+    HaramMessage delete(String pin);
 }
