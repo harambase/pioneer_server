@@ -9,7 +9,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +22,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/student")
-public class StudentController {
+public class StudentController implements StudentApi {
 
     private final StudentService studentService;
 
@@ -32,22 +31,25 @@ public class StudentController {
         this.studentService = studentService;
     }
 
+    @Override
     @RequiresPermissions({"admin", "student"})
-    @RequestMapping(value = "/transcript/info", method = RequestMethod.GET)
-    public ResponseEntity getTranscriptDetail(@RequestParam(value = "studentid") String studentid){
+    @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
+    public ResponseEntity getTranscriptDetail(@PathVariable(value = "studentId") String studentid) {
         HaramMessage haramMessage = studentService.transcriptDetail(studentid);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @Override
     @RequiresPermissions({"admin", "student", "teach"})
-    @RequestMapping(value = "/available/credit", method = RequestMethod.GET)
-    public ResponseEntity getAvaliableCredit(@RequestParam(value = "studentid") String studentid,
+    @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
+    public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentid,
                                              HttpSession session){
         Pin pin = (Pin)session.getAttribute("pin");
-        HaramMessage haramMessage = studentService.getAvaliableCredit(studentid, pin.getInfo());
+        HaramMessage haramMessage = studentService.getAvailableCredit(studentid, pin.getInfo());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @Override
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Student student){
@@ -55,16 +57,17 @@ public class StudentController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @Override
     @RequiresPermissions({"admin", "teach", "system"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity listUsers(@RequestParam(value = "start") Integer start,
-                                    @RequestParam(value = "length") Integer length,
-                                    @RequestParam(value = "draw") Integer draw,
-                                    @RequestParam(value = "search[value]") String search,
-                                    @RequestParam(value = "order[0][dir]") String order,
-                                    @RequestParam(value = "order[0][column]") String orderCol,
-                                    @RequestParam(value = "type", required = false) String type,
-                                    @RequestParam(value = "status", required = false) String status) {
+    public ResponseEntity list(@RequestParam(value = "start") Integer start,
+                               @RequestParam(value = "length") Integer length,
+                               @RequestParam(value = "draw") Integer draw,
+                               @RequestParam(value = "search[value]") String search,
+                               @RequestParam(value = "order[0][dir]") String order,
+                               @RequestParam(value = "order[0][column]") String orderCol,
+                               @RequestParam(value = "type", required = false) String type,
+                               @RequestParam(value = "status", required = false) String status) {
         Map<String, Object> map = new HashMap<>();
         try {
             HaramMessage message = studentService.studentList(String.valueOf(start / length + 1), String.valueOf(length), search,
@@ -82,9 +85,5 @@ public class StudentController {
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
-
-
-
 
 }

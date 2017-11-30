@@ -142,7 +142,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage getAvaliableCredit(String studentid, String info) {
+    public HaramMessage getAvailableCredit(String studentid, String info) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             Map<String, Integer> creditInfo = new HashMap<>();
