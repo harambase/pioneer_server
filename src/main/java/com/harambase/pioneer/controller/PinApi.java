@@ -1,50 +1,46 @@
 package com.harambase.pioneer.controller;
 
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.Person;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-@Api(value = "/user", description = "用户系统管理接口")
+@Api(value = "/pin", description = "识别码管理接口")
 public interface PinApi {
 
-    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "新生成识别码", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    ResponseEntity create(@ApiParam(value = "用户", required = true) Person user);
+    ResponseEntity create(@ApiParam(value = "生效时间") String startTime,
+                          @ApiParam(value = "失效时间") String endTime,
+                          @ApiParam(value = "类型(1:S,2:F)") int role,
+                          @ApiParam(value = "年份-学期") String info,
+                          @ApiParam(value = "备注") String remark);
 
-    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "删除一个识别码", notes = "删除一个用户", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    ResponseEntity delete(@ApiParam(value = "用户ID", required = true) String userId);
+    ResponseEntity delete(@ApiParam(value = "识别码", required = true) String pin);
 
-    @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "删除一个识别码", notes = "删除一个用户", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    ResponseEntity update(@ApiParam(value = "用户", required = true) Person user);
+    ResponseEntity deleteAll(@ApiParam(value = "年份-学期") String info);
 
-    @ApiOperation(value = "获取用户信息", notes = "获取一个用户信息", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "验证PIN信息", notes = "权限：用户", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    ResponseEntity get(@ApiParam(value = "用户ID", required = true) String userId);
+    ResponseEntity validate(@ApiParam(value = "识别码", required = true) Integer pin,
+                            HttpSession httpSession);
 
-    @ApiOperation(value = "获取当前登录的用户信息", notes = "获取一个用户信息", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "当前用户的PIN信息", notes = "权限：用户", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    ResponseEntity getCurrentUser(HttpSession session);
+    ResponseEntity sessionValidate(HttpSession session);
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
-    ResponseEntity list(@ApiParam(value = "start") Integer start,
-                        @ApiParam(value = "length") Integer length,
-                        @ApiParam(value = "draw") Integer draw,
-                        @ApiParam(value = "搜索关键字") String search,
-                        @ApiParam(value = "排序方式") String order,
-                        @ApiParam(value = "排序列") String orderCol,
-                        @ApiParam(value = "用户类型") String type,
-                        @ApiParam(value = "用户状态") String status);
+    @ApiOperation(value = "向教师发送识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    ResponseEntity sendFacultyPin(@ApiParam(value = "年份-学期") String info, HttpSession session);
 
-
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
-    ResponseEntity searcUser(@ApiParam(value = "search") String search,
-                             @ApiParam(value = "type") String type,
-                             @ApiParam(value = "status") String status);
+    @ApiOperation(value = "向导师发送识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    ResponseEntity sendAdvisorPin(@ApiParam(value = "年份-学期") String info, HttpSession session);
 
 }

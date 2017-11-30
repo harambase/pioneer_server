@@ -11,27 +11,27 @@ import java.util.Map;
 @Api(value = "/user", description = "用户系统管理接口")
 public interface PersonApi {
 
-    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "新增用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity create(@ApiParam(value = "用户", required = true) Person user);
 
-    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "删除一个用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity delete(@ApiParam(value = "用户ID", required = true) String userId);
 
-    @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "更新用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity update(@ApiParam(value = "用户", required = true) Person user);
 
-    @ApiOperation(value = "获取用户信息", notes = "获取一个用户信息", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "获取用户信息", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity get(@ApiParam(value = "用户ID", required = true) String userId);
 
-    @ApiOperation(value = "获取当前登录的用户信息", notes = "获取一个用户信息", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "获取当前登录的用户信息", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity getCurrentUser(HttpSession session);
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "用户列表", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     ResponseEntity list(@ApiParam(value = "start") Integer start,
                         @ApiParam(value = "length") Integer length,
                         @ApiParam(value = "draw") Integer draw,
@@ -42,7 +42,7 @@ public interface PersonApi {
                         @ApiParam(value = "用户状态") String status);
 
 
-    @ApiOperation(value = "搜索用户", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "搜索用户", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     ResponseEntity search(@ApiParam(value = "search") String search,
                           @ApiParam(value = "type") String type,
                           @ApiParam(value = "status") String status);
