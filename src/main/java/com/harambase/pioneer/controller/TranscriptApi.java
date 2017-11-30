@@ -1,7 +1,6 @@
 package com.harambase.pioneer.controller;
 
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
