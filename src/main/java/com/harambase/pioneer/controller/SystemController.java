@@ -12,7 +12,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/system")
-public class SystemController {
+public class SystemController implements SystemApi{
     private final CourseService courseService;
     private final PersonService personService;
     
@@ -33,6 +32,7 @@ public class SystemController {
         this.personService = personService;
     }
 
+    @Override
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
@@ -47,6 +47,7 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @Override
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(HttpSession session){
         HaramMessage message = new HaramMessage();
@@ -57,9 +58,10 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/Info", method = RequestMethod.GET)
-    public ResponseEntity getSystemInfo(){
+    public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
         
         Map<String, Integer> data = new HashMap<>();
@@ -77,17 +79,19 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
         
     }
-    
+
+    @Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
-    public ResponseEntity getRelationChart(){
+    public ResponseEntity relationChart(){
         HaramMessage haramMessage = personService.getRelationChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-    
+
+    @Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
-    public ResponseEntity getUserCount(){
+    public ResponseEntity userCount(){
         HaramMessage haramMessage = personService.userChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

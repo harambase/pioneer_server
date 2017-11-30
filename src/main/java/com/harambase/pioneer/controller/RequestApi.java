@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-@Api(value = "/user", description = "用户系统管理接口")
+@Api(value = "/request", description = "申请管理接口")
 public interface RequestApi {
 
     @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PERSON})

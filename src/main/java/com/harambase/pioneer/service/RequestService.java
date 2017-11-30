@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.pioneer.pojo.TempUser;
 
-public interface RequestSerivce {
+public interface RequestService {
 
     HaramMessage deleteTempUserById(Integer id);
 

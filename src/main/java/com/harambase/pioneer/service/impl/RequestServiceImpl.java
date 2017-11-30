@@ -12,7 +12,7 @@ import com.harambase.pioneer.dao.mapper.TempUserMapper;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.pojo.dto.AdviseView;
-import com.harambase.pioneer.service.RequestSerivce;
+import com.harambase.pioneer.service.RequestService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class RequestServiceImpl implements RequestSerivce{
+public class RequestServiceImpl implements RequestService {
 
     private final TempUserMapper tempUserMapper;
     private final TempCourseMapper tempCourseMapper;

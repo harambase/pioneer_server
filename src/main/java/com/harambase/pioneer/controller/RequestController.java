@@ -5,13 +5,10 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.TempUser;
-import com.harambase.pioneer.service.CourseService;
-import com.harambase.pioneer.service.PersonService;
-import com.harambase.pioneer.service.RequestSerivce;
+import com.harambase.pioneer.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -20,31 +17,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/request")
-public class RequestController {
+public class RequestController{
 
-    private final CourseService courseService;
-    private final PersonService personService;
-    private final RequestSerivce requestSerivce;
+    private final RequestService requestService;
 
     @Autowired
-    public RequestController(CourseService courseService, PersonService personService, RequestSerivce requestSerivce){
-        this.courseService = courseService;
-        this.personService = personService;
-        this.requestSerivce = requestSerivce;
+    public RequestController(RequestService requestService){
+        this.requestService = requestService;
     }
 
     @RequestMapping(value = "/update/user", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){
         Person person = (Person) session.getAttribute("user");
         tempUser.setOperator(person.getUserid());
-        HaramMessage message = requestSerivce.updateTempUser(tempUser);
+        HaramMessage message = requestService.updateTempUser(tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody JSONObject jsonObject){
-        HaramMessage haramMessage = requestSerivce.register(jsonObject);
+        HaramMessage haramMessage = requestService.register(jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -58,7 +52,7 @@ public class RequestController {
                                    @RequestParam(value = "viewStatus") String viewStatus){
         Map<String, Object> map = new HashMap<>();
         try {
-            HaramMessage message = requestSerivce.tempUserList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, viewStatus);
+            HaramMessage message = requestService.tempUserList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, viewStatus);
             map.put("draw", draw);
             map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
             map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
