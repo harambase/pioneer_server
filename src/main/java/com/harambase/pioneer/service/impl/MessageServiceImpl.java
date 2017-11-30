@@ -77,10 +77,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage getMessageView(String id) {
+    public HaramMessage getMessageView(Integer id) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            MessageView messageView = messageMapper.selectViewByPrimaryKey(Integer.parseInt(id));
+            MessageView messageView = messageMapper.selectViewByPrimaryKey(id);
             haramMessage.setData(messageView);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());
@@ -111,12 +111,10 @@ public class MessageServiceImpl implements MessageService {
     }
     
     @Override
-    public HaramMessage updateStatus(String id, String status) {
+    public HaramMessage update(Integer id, MessageWithBLOBs message) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            MessageWithBLOBs message = new MessageWithBLOBs();
-            message.setId(Integer.parseInt(id));
-            message.setStatus(status.toLowerCase());
+            message.setId(id);
             int ret = messageMapper.updateByPrimaryKeySelective(message);
             if(ret != 1)
                 throw new RuntimeException("更新失败");
@@ -154,8 +152,23 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage delete(String id) {
-        return null;
+    public HaramMessage delete(Integer id) {
+        HaramMessage haramMessage = new HaramMessage();
+        try{
+            int ret =  messageMapper.deleteByPrimaryKey(id);
+            if(ret != 1)
+                throw new RuntimeException("插入失败");
+
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            return haramMessage;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            return haramMessage;
+        }
     }
 
 }
