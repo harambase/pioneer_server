@@ -36,7 +36,7 @@ public class SystemController {
         this.personService = personService;
     }
 
-    @RequestMapping(value = "/system/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
 
@@ -50,7 +50,7 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/system/logout", method = RequestMethod.POST)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(HttpSession session){
         HaramMessage message = new HaramMessage();
         session.invalidate();
