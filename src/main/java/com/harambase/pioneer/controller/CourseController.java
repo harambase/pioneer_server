@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/course")
 public class CourseController {

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/message")
 public class MessageController {

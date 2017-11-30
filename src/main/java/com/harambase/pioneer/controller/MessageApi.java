@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Api(value = "/user", description = "用户系统管理接口")
-public interface PersonApi {
+public interface MessageApi {
 
     @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})

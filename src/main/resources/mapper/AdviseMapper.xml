@@ -12,8 +12,14 @@
   <sql id="Base_Column_List" >
     id, studentid, facultyid
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
+    <include refid="Base_Column_List" />
+    from Advise where id = #{arg0, jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByAdvise" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.Advise" >
+    select
     <include refid="Base_Column_List" />
     from Advise where studentid = #{studentid,jdbcType=VARCHAR} and facultyid = #{facultyid,jdbcType=VARCHAR}
   </select>

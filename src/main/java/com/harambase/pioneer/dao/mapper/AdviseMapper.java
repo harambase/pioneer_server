@@ -18,7 +18,7 @@ public interface AdviseMapper {
 
     int insertSelective(Advise record);
 
-    Advise selectByPrimaryKey(Advise advise);
+    Advise selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Advise record);
 
@@ -33,4 +33,6 @@ public interface AdviseMapper {
     int deleteByUserID(String userid);
 
     String selectFacultyByStudent(String studentid);
+
+    Advise selectByAdvise(Advise advise);
 }

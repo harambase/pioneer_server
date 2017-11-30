@@ -1,10 +1,10 @@
 package com.harambase.pioneer.service.impl;
 
-import com.harambase.common.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.common.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.common.util.DateUtil;
+import com.harambase.common.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.dto.AdviseView;
@@ -123,7 +123,7 @@ public class AdviseServiceImpl implements AdviseService{
         HaramMessage haramMessage = new HaramMessage();
         try {
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
-            Advise a = adviseMapper.selectByPrimaryKey(advise);
+            Advise a = adviseMapper.selectByAdvise(advise);
             if(a != null){
                 haramMessage.setCode(FlagDict.ADVISE_DUPLICATE.getV());
                 haramMessage.setMsg(FlagDict.ADVISE_DUPLICATE.getM());
@@ -161,6 +161,23 @@ public class AdviseServiceImpl implements AdviseService{
                 haramMessage.setCode(FlagDict.FAIL.getV());
                 haramMessage.setMsg(FlagDict.FAIL.getM());
             }
+            return haramMessage;
+        }catch (Exception e){
+            e.printStackTrace();
+            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
+            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return haramMessage;
+        }
+    }
+
+    @Override
+    public HaramMessage getMentor(Integer id) {
+        HaramMessage haramMessage = new HaramMessage();
+        try {
+            Advise advise = adviseMapper.selectByPrimaryKey(id);
+            haramMessage.setData(advise);
+            haramMessage.setCode(FlagDict.SUCCESS.getV());
+            haramMessage.setMsg(FlagDict.SUCCESS.getM());
             return haramMessage;
         }catch (Exception e){
             e.printStackTrace();

@@ -5,6 +5,7 @@ import com.harambase.common.Page;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.AdviseService;
+import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/advise")
-public class AdviseController {
+public class AdviseController implements AdviseApi{
 
     private AdviseService adviseService;
     
@@ -28,41 +29,48 @@ public class AdviseController {
     public  AdviseController(AdviseService adviseService){
         this.adviseService = adviseService;
     }
-    
+
+    @Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity assignMentor(@RequestBody Advise advise, HttpSession session){
+    public ResponseEntity create(@RequestBody Advise advise, HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
+
+    @Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity removeMentor(@RequestParam(value = "id") Integer id) {
+    public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
         HaramMessage message = adviseService.removeMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
+
+    @Override
     @RequiresPermissions({"admin", "teach"})
-    @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity adviseUpdate(@RequestBody Advise advise, HttpSession session){
+    @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable Integer id,
+                                 @RequestBody Advise advise,
+                                 HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
+        advise.setId(id);
         HaramMessage message = adviseService.updateAdvise(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
-    @RequiresPermissions("user")
+
+    @Override
+    @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
-    public ResponseEntity getMentor(@RequestParam(value = "id") Integer id) {
-        //HaramMessage message = adviseService.getMentor(id);
-        //return new ResponseEntity<>(message, HttpStatus.OK);
-        return null;
+    public ResponseEntity get(@RequestParam(value = "id") Integer id) {
+        HaramMessage message = adviseService.getMentor(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
-    @RequiresPermissions("user")
-    @RequestMapping(value = "/get", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity advisingList(@RequestParam(value = "start") Integer start,
+
+    @Override
+    @RequiresPermissions({"admin", "teach", "student", "faculty"})
+    @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                        @RequestParam(value = "length") Integer length,
                                        @RequestParam(value = "draw") Integer draw,
                                        @RequestParam(value = "search[value]") String search,

@@ -12,4 +12,6 @@ public interface AdviseService {
     HaramMessage assignMentor(Advise advise);
 
     HaramMessage removeMentor(Integer id);
+
+    HaramMessage getMentor(Integer id);
 }

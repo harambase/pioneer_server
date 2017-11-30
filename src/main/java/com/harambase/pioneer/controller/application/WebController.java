@@ -1,4 +1,4 @@
-package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller.application;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;

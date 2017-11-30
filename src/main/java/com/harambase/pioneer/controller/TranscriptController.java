@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/transcript")
 public class TranscriptController {

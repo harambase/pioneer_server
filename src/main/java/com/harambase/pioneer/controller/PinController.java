@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/pin")
 public class PinController {

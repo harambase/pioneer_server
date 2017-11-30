@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Created by linsh on 7/12/2017.
  */
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(value = "/student")
 public class StudentController {
