@@ -2,6 +2,7 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.controller.api.MessageApi;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;

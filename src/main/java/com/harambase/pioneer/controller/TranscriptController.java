@@ -2,6 +2,7 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.controller.api.TranscriptApi;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.TranscriptService;
@@ -9,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @CrossOrigin
 @RequestMapping(value = "/transcript")
 public class TranscriptController implements TranscriptApi {
@@ -64,5 +66,10 @@ public class TranscriptController implements TranscriptApi {
         }
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
-
+    
+//    @RequiresPermissions({"admin", "teach", "advisor", "student"})
+//    @RequestMapping(value = "/{studentId}/report", method = RequestMethod.GET)
+//    public void getStudentReport(@PathVariable(value = "studentId") String studentId, HttpServletResponse httpServletResponse){
+//
+//    }
 }

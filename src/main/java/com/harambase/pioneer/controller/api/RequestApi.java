@@ -1,4 +1,4 @@
-package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller.api;
 
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.Tags;
@@ -13,16 +13,16 @@ import java.util.Map;
 @Api(value = "/request", description = "申请管理接口")
 public interface RequestApi {
 
-    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity updateRequest(@ApiParam(value = "用户", required = true) TempUser user,
                                  HttpSession session);
 
-    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity register(@ApiParam(value = "用户ID", required = true) JSONObject jsonObject);
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
+    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.REQUEST})
     ResponseEntity userList(@ApiParam(value = "start") Integer start,
                             @ApiParam(value = "length") Integer length,
                             @ApiParam(value = "draw") Integer draw,

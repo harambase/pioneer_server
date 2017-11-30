@@ -1,4 +1,4 @@
-package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller.api;
 
 import com.harambase.common.Tags;
 import com.harambase.pioneer.pojo.Transcript;

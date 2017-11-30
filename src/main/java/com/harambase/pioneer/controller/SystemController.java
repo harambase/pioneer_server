@@ -2,6 +2,7 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.controller.api.SystemApi;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
@@ -21,7 +22,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/system")
-public class SystemController implements SystemApi{
+public class SystemController implements SystemApi {
     private final CourseService courseService;
     private final PersonService personService;
     
@@ -33,7 +34,7 @@ public class SystemController implements SystemApi{
     }
 
     @Override
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
 
@@ -59,8 +60,8 @@ public class SystemController implements SystemApi{
     }
 
     @Override
-    @RequiresPermissions("user")
     @RequestMapping(value = "/Info", method = RequestMethod.GET)
+    @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
         
@@ -81,16 +82,16 @@ public class SystemController implements SystemApi{
     }
 
     @Override
-    @RequiresPermissions("user")
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
+    @RequiresPermissions("user")
     public ResponseEntity relationChart(){
         HaramMessage haramMessage = personService.getRelationChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     @Override
-    @RequiresPermissions("user")
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
+    @RequiresPermissions("user")
     public ResponseEntity userCount(){
         HaramMessage haramMessage = personService.userChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);

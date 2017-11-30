@@ -1,4 +1,4 @@
-package com.harambase.pioneer.controller.application;
+package com.harambase.pioneer.application;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

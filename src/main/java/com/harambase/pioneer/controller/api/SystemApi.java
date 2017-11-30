@@ -1,16 +1,18 @@
-package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller.api;
 
 import com.harambase.common.Tags;
 import com.harambase.pioneer.pojo.Person;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Api(value = "/system", description = "系统管理接口")
 public interface SystemApi {
-
+    
     @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     ResponseEntity login(@ApiParam(value = "用户", required = true) Person person, HttpSession session);

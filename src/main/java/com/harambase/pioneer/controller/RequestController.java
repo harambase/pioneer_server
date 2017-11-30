@@ -3,6 +3,7 @@ package com.harambase.pioneer.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.controller.api.RequestApi;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.service.RequestService;
@@ -19,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/request")
-public class RequestController implements RequestApi{
+public class RequestController implements RequestApi {
 
     private final RequestService requestService;
 
@@ -27,7 +28,7 @@ public class RequestController implements RequestApi{
     public RequestController(RequestService requestService){
         this.requestService = requestService;
     }
-
+    
     @Override
     @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){

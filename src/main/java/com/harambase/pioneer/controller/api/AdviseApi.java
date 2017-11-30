@@ -1,9 +1,10 @@
-package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller.api;
 
 import com.harambase.common.Tags;
 import com.harambase.pioneer.pojo.Advise;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;

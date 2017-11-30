@@ -2,15 +2,14 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.controller.api.AdviseApi;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.AdviseService;
-import io.swagger.models.auth.In;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/advise")
-public class AdviseController implements AdviseApi{
+public class AdviseController implements AdviseApi {
 
     private AdviseService adviseService;
     

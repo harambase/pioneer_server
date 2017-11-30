@@ -1,9 +1,10 @@
-package com.harambase.pioneer.controller.application;
+package com.harambase.pioneer.application;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -30,6 +31,10 @@ public class WebController {
     public String pageNotFound(){
         return "release/web/404";
     }
+//    @RequestMapping("/swagger")
+//    public String swagger(){
+//        return "release/web/404";
+//    }
 //    @RequestMapping("/error")
 //    public String error(){
 //        return "release/web/error";

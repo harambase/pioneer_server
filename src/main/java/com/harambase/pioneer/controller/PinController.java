@@ -2,6 +2,7 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.controller.api.PinApi;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.service.PinService;
