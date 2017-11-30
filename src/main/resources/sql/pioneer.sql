@@ -83,7 +83,6 @@ CREATE TABLE `Menu` (
   `pcode` varchar(255) DEFAULT NULL COMMENT '菜单父编号',
   `pcodes` varchar(255) DEFAULT NULL COMMENT '当前菜单的所有父菜单编号',
   `name` varchar(255) DEFAULT NULL COMMENT '菜单名称',
-  `icon` varchar(255) DEFAULT NULL COMMENT '菜单图标',
   `url` varchar(255) DEFAULT NULL COMMENT 'url地址',
   `num` int(65) DEFAULT NULL COMMENT '菜单排序号',
   `levels` int(65) DEFAULT NULL COMMENT '菜单层级',
@@ -138,7 +137,10 @@ CREATE TABLE `Person` (
   `firstname` varchar(100) NOT NULL COMMENT '名',
   `lastname` varchar(100) NOT NULL COMMENT '姓',
   `password` varchar(100) NOT NULL COMMENT '密码',
+  `status` varchar(20) NOT NULL COMMENT '状态',
   `info` varchar(100) NOT NULL COMMENT '信息',
+  `type` varchar(20) NOT NULL COMMENT '属性',
+  `roleId` varchar(50) DEFAULT NULL,
   `birthday` varchar(100) DEFAULT NULL COMMENT '生日',
   `email` varchar(100) DEFAULT NULL COMMENT '电子邮件',
   `tel` varchar(100) DEFAULT NULL COMMENT '电话号',
@@ -148,14 +150,9 @@ CREATE TABLE `Person` (
   `gender` varchar(20) NOT NULL COMMENT '性别',
   `createTime` varchar(100) NOT NULL COMMENT '创建时间',
   `updateTime` varchar(100) NOT NULL COMMENT '修改时间',
-  `status` varchar(20) NOT NULL COMMENT '状态',
-  `type` varchar(20) NOT NULL COMMENT '属性',
+  `base_info` text,
   `comment` text COMMENT '备注',
   `profile` text COMMENT '头像',
-  `base_info` text,
-  `deptId` varchar(20) DEFAULT NULL,
-  `deptName` varchar(50) DEFAULT NULL,
-  `roleId` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
@@ -163,7 +160,7 @@ CREATE TABLE `Person` (
 
 LOCK TABLES `Person` WRITE;
 
-insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`info`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`status`,`type`,`comment`,`profile`,`base_info`,`deptId`,`deptName`,`roleId`) values (1,'9201701000','admin','admin','system','e10adc3949ba59abbe56e057f20f883e','2017-01','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2017-10-09 17:50:50','1','s/f/a/','请勿删除','/static/profiles/9201701000.png',NULL,NULL,NULL,NULL),(2,'9201701687','admLShilei','Shilei','Lin','c810ec29fed33d8e79ccee3b2589d115','2017-01','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28','1','a/',NULL,NULL,NULL,NULL,NULL,NULL),(3,'9201701100','testTeacher','first','last','65b89c6cbb58ae07b15c9d001ef768e0','2017-01','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-09-25 16:17:43','1','f/',NULL,NULL,NULL,NULL,NULL,NULL),(4,'9201701101','testStudent','first1','last1','39957c100f046dadeeda60c077f87add','2017-01','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(5,'9201701102','testTeacher2','first','last2','fa2c5ff0989f481f02ea54c6368382bc','2017-01','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45','1','f/a/',NULL,NULL,NULL,NULL,NULL,NULL),(6,'9201701103','testStudent','first','last3','f0d4a0759284a87b7e7031091f230727','2017-01','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:41','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(7,'9201701942','Tdisable','disable','Test','e5485a9d0622cdf031da25286337d6dd','2017-01','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(8,'9201701309','ttestStu3','testStu3','test','804a8c28891c3211b3075baeb800c504','2017-01','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(9,'9201701310','rick','KOKIA','ERI','487ef5eeb53eb03654198edfd545a513','2017-01','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(10,'9201701784','zhengsan784','三','张','a8156a924c4a701ca465bc5e9cd46484','2017-01','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28','1','s/',NULL,NULL,NULL,NULL,NULL,NULL),(11,'9201701840','lili840','四','李','492d18d57e97001bd9bffa45911c55de','2017-01','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25','0','f/a/','first',NULL,NULL,NULL,NULL,NULL),(12,'9201701261','meimeili261','梅梅','李','16ea29c07c4a343f1aa569d147936d81','2017-01','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21','1','s/','new Student',NULL,NULL,NULL,NULL,NULL),(13,'9201701848','ww184','五','王','f11f5d8566cccdef4e9cfa29d80a4223','2017-01','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18','1','f/','新老师',NULL,NULL,NULL,NULL,NULL),(14,'9201701876','ew876','二','王','dff9c3e4686c4faceb0e7f9175b6defc','2017-01','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15','1','s/','',NULL,NULL,NULL,NULL,NULL),(15,'9201702937','DoeJon937','Doe','Jon','7d66eb52a44ad4dc575674396a78203d','2017-02','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11','1','f/a/','',NULL,NULL,NULL,NULL,NULL),(17,'9201702574','ew574','二','王','8052d26a6da25a6e69d4bb6ac3bb1280','2017-02','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58','1','s/f/','',NULL,NULL,NULL,NULL,NULL),(18,'9201702884','sw884','三','王','f5bb0c8de146c67b44babbf4e6584cc0','2017-02','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21','1','s/','',NULL,NULL,NULL,NULL,NULL),(19,'9201702887','asdfsadf887','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02','1','s/','',NULL,NULL,NULL,NULL,NULL),(21,'9201702745','asdfasdfasdfsad745','asdfasdf','asdfsad','533e37ee96dfcd0ed7639d69fc590095','2017-02','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36','1','a/','',NULL,NULL,NULL,NULL,NULL),(23,'9201702544','asdfsadf544','asdf','sadf','79f9f338abd398d724e15a17e2c6ee62','2017-02','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45','1','f/','',NULL,NULL,NULL,NULL,NULL);
+insert  into `Person`(`id`,`userid`,`username`,`firstname`,`lastname`,`password`,`status`,`info`,`type`,`roleId`,`birthday`,`email`,`tel`,`qq`,`weChat`,`dorm`,`gender`,`createTime`,`updateTime`,`base_info`,`comment`,`profile`) values (1,'9201701000','root','admin','system','e10adc3949ba59abbe56e057f20f883e','1','2017-01','s/f/a/','0/1/','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2017-10-09 17:50:50',NULL,'请勿删除','/static/profiles/9201701000.png'),(2,'9201701687','admin2','admin2','system','c810ec29fed33d8e79ccee3b2589d115','1','2017-01','a/','0/1/','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28',NULL,NULL,NULL),(3,'9201701100','teacher1','teacher','1','65b89c6cbb58ae07b15c9d001ef768e0','1','2017-01','f/','0/2/','1980-01-01','testTeacher@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:23','2017-09-25 16:17:43',NULL,NULL,NULL),(4,'9201701101','student','student','0','39957c100f046dadeeda60c077f87add','1','2017-01','s/','0/5/','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47',NULL,NULL,NULL),(5,'9201701102','teacher3','teacher','3','fa2c5ff0989f481f02ea54c6368382bc','1','2017-01','f/a/','0/1/','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45',NULL,NULL,NULL),(6,'9201701103','student1','student','1','f0d4a0759284a87b7e7031091f230727','1','2017-01','s/','0/','1997-01-01','testStudent@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:41',NULL,NULL,NULL),(7,'9201701942','student2','student','2','e5485a9d0622cdf031da25286337d6dd','1','2017-01','s/','0/','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38',NULL,NULL,NULL),(8,'9201701309','student3','student','3','804a8c28891c3211b3075baeb800c504','1','2017-01','s/','0/','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34',NULL,NULL,NULL),(9,'9201701310','student4','student','4','d41d8cd98f00b204e9800998ecf8427e','1','2017-01','s/','0/','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31',NULL,NULL,NULL),(10,'9201701784','student5','student','5','a8156a924c4a701ca465bc5e9cd46484','1','2017-01','s/','0/','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28',NULL,NULL,NULL),(11,'9201701840','adminTeacher1','admin','teacher1','492d18d57e97001bd9bffa45911c55de','0','2017-01','f/a/','0/','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25',NULL,'first',NULL),(12,'9201701261','student6','student','6','16ea29c07c4a343f1aa569d147936d81','1','2017-01','s/','0/','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21',NULL,'new Student',NULL),(13,'9201701848','teacher4','teacher','4','f11f5d8566cccdef4e9cfa29d80a4223','1','2017-01','f/','0/','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18',NULL,'新老师',NULL),(14,'9201701876','student6','student','6','dff9c3e4686c4faceb0e7f9175b6defc','1','2017-01','s/','0/','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15',NULL,'',NULL),(15,'9201702937','adminTeacher2','admin','teacher2','7d66eb52a44ad4dc575674396a78203d','1','2017-02','f/a/','0/','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11',NULL,'',NULL),(17,'9201702574','studentTeacher1','student','teacher1','8052d26a6da25a6e69d4bb6ac3bb1280','1','2017-02','s/f/','0/','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58',NULL,'',NULL),(18,'9201702884','student7','student','7','f5bb0c8de146c67b44babbf4e6584cc0','1','2017-02','s/','0/','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21',NULL,'',NULL),(19,'9201702887','student8','student','8','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','s/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02',NULL,'',NULL),(21,'9201702745','admin3','admin','3','533e37ee96dfcd0ed7639d69fc590095','1','2017-02','a/','0/','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36',NULL,'',NULL),(23,'9201702544','teacher4','teacher','4','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','f/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45',NULL,'',NULL);
 
 UNLOCK TABLES;
 
@@ -202,11 +199,13 @@ CREATE TABLE `Relation` (
   `menuid` int(11) DEFAULT NULL COMMENT '菜单id',
   `roleid` int(11) DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6050 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 
 /*Data for the table `Relation` */
 
 LOCK TABLES `Relation` WRITE;
+
+insert  into `Relation`(`id`,`menuid`,`roleid`) values (1,1,1);
 
 UNLOCK TABLES;
 
@@ -216,18 +215,17 @@ DROP TABLE IF EXISTS `Role`;
 
 CREATE TABLE `Role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `num` int(11) DEFAULT NULL COMMENT '序号',
-  `pid` int(11) DEFAULT NULL COMMENT '父角色id',
-  `name` varchar(255) DEFAULT NULL COMMENT '角色名称',
-  `deptid` int(11) DEFAULT NULL COMMENT '部门名称',
-  `tips` varchar(255) DEFAULT NULL COMMENT '提示',
-  `version` int(11) DEFAULT NULL COMMENT '保留字段(暂时没用）',
+  `roleid` int(11) DEFAULT NULL COMMENT '序号',
+  `role_name` varchar(255) DEFAULT NULL COMMENT '管理名称',
+  `role_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 /*Data for the table `Role` */
 
 LOCK TABLES `Role` WRITE;
+
+insert  into `Role`(`id`,`roleid`,`role_name`,`role_code`) values (8,0,'用户','user'),(9,1,'管理员','admin'),(10,2,'教务','teach'),(11,3,'后勤','logistic'),(12,4,'系统','system'),(13,5,'学生','student'),(14,6,'教师','faculty'),(15,7,'导师','advisor');
 
 UNLOCK TABLES;
 
