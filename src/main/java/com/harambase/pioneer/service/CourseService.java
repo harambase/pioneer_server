@@ -21,7 +21,7 @@ public interface CourseService {
 
     HaramMessage removeStuFromCou(String crn, String studentId);
 
-    HaramMessage getCourseBySearch(String search);
+    HaramMessage getCourseBySearch(String search, String status);
 
     HaramMessage courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
 

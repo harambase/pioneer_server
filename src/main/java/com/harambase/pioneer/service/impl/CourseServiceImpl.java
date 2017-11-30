@@ -148,14 +148,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage getCourseBySearch(String search) {
+    public HaramMessage getCourseBySearch(String search, String status) {
         HaramMessage message = new HaramMessage();
         try {
             Map<String, Object> param = new HashMap<>();
             param.put("search", search);
+            param.put("status", status);
 
             if (search.equals(""))
                 param.put("search", null);
+            if (status.equals(""))
+                param.put("status", null);
 
             List<CourseView> results = courseMapper.getCourseBySearch(param);
 

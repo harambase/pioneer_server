@@ -215,8 +215,8 @@ public class ShiroConfig {
         return authorizationAttributeSourceAdvisor;
     }
 
-    @Bean(name = "shiroDialect")
-    public ShiroDialect shiroDialect() {
-        return new ShiroDialect();
-    }
+//    @Bean(name = "shiroDialect")
+//    public ShiroDialect shiroDialect() {
+//        return new ShiroDialect();
+//    }
 }

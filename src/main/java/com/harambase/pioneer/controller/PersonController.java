@@ -90,7 +90,7 @@ public class PersonController implements PersonApi {
     @Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity searcUser(@RequestParam(value = "search") String search, @RequestParam(value = "type") String type, String status) {
+    public ResponseEntity search(@RequestParam(value = "search") String search, @RequestParam(value = "type") String type, String status) {
         HaramMessage message = personService.listUsers(search, type, status);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

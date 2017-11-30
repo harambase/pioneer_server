@@ -42,9 +42,9 @@ public interface PersonApi {
                         @ApiParam(value = "用户状态") String status);
 
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
-    ResponseEntity searcUser(@ApiParam(value = "search") String search,
-                             @ApiParam(value = "type") String type,
-                             @ApiParam(value = "status") String status);
+    @ApiOperation(value = "搜索用户", notes = "only登录用户", response = Map.class, tags = {Tags.PERSON})
+    ResponseEntity search(@ApiParam(value = "search") String search,
+                          @ApiParam(value = "type") String type,
+                          @ApiParam(value = "status") String status);
 
 }
