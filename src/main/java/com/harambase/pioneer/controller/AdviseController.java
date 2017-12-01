@@ -3,7 +3,6 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.pioneer.controller.api.AdviseApi;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.AdviseService;
@@ -38,25 +37,28 @@ public class AdviseController {//implements AdviseApi {
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    public ResponseEntity create(@ApiParam(value = "导师关系", required = true)@RequestBody Advise advise, HttpSession session){
+    public ResponseEntity create(@ApiParam(value = "导师关系", required = true) @RequestBody Advise advise,
+                                 HttpSession session) {
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
+    @ApiOperation(value = "删除导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    public ResponseEntity delete(@ApiParam(value = "关系ID", required = true) @PathVariable(value = "id") Integer id) {
         HaramMessage message = adviseService.removeMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    
+    @ApiOperation(value = "更新导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable Integer id,
-                                 @RequestBody Advise advise,
+    public ResponseEntity update(@ApiParam(value = "关系ID", required = true) @PathVariable Integer id,
+                                 @ApiParam(value = "导师关系", required = true) @RequestBody Advise advise,
                                  HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         advise.setId(id);
@@ -64,27 +66,29 @@ public class AdviseController {//implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    
+    @ApiOperation(value = "获取导师关系信息", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
-    public ResponseEntity get(@RequestParam(value = "id") Integer id) {
+    public ResponseEntity get(@ApiParam(value = "关系ID", required = true) @RequestParam(value = "id") Integer id) {
         HaramMessage message = adviseService.getMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    
+    @ApiOperation(value = "导师关系列表", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
-    public ResponseEntity list(@RequestParam(value = "start") Integer start,
-                                       @RequestParam(value = "length") Integer length,
-                                       @RequestParam(value = "draw") Integer draw,
-                                       @RequestParam(value = "search[value]") String search,
-                                       @RequestParam(value = "order[0][dir]") String order,
-                                       @RequestParam(value = "order[0][column]") String orderCol,
-                                       @RequestParam(value = "studentid", required = false) String studentid,
-                                       @RequestParam(value = "facultyid", required = false) String facultyid,
-                                       @RequestParam(value = "mode", required = false) String mode,
-                                       HttpSession session) {
+    public ResponseEntity list(@ApiParam(value = "start") @RequestParam(value = "start") Integer start,
+                               @ApiParam(value = "lengt") @RequestParam(value = "length") Integer length,
+                               @ApiParam(value = "draw") @RequestParam(value = "draw") Integer draw,
+                               @ApiParam(value = "搜索关键字") @RequestParam(value = "search[value]") String search,
+                               @ApiParam(value = "排序方式") @RequestParam(value = "order[0][dir]") String order,
+                               @ApiParam(value = "排序列") @RequestParam(value = "order[0][column]") String orderCol,
+                               @ApiParam(value = "用户类型") @RequestParam(value = "studentid", required = false) String studentid,
+                               @ApiParam(value = "用户状态") @RequestParam(value = "facultyid", required = false) String facultyid,
+                               @ApiParam(value = "展示类型") @RequestParam(value = "mode", required = false) String mode,
+                               HttpSession session) {
         Map<String, Object> map = new HashMap<>();
         try {
             if(mode != null && mode.equals("faculty"))
