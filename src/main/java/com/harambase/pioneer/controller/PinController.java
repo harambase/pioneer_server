@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/pin")
-public class PinController implements PinApi {
+public class PinController {//implements PinApi {
 
     private final PinService pinService;
     
@@ -26,7 +26,7 @@ public class PinController implements PinApi {
         this.pinService = pinService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity create(@RequestParam(value = "startTime") String startTime,
@@ -38,7 +38,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{pin}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "pin") String pin) {
@@ -46,7 +46,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll(@RequestParam(value = "info") String info) {
@@ -54,7 +54,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{pin}", method = RequestMethod.GET)
     public ResponseEntity validate(@PathVariable(value = "pin") Integer pin, HttpSession session) {
@@ -64,7 +64,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/session", method = RequestMethod.GET)
     public ResponseEntity sessionValidate(HttpSession session) {
@@ -75,7 +75,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/send/faculty/{info}", method = RequestMethod.GET)
     public ResponseEntity sendFacultyPin(@PathVariable(value = "info") String info, HttpSession session){
@@ -84,7 +84,7 @@ public class PinController implements PinApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/send/advisor/{info}", method = RequestMethod.GET)
     public ResponseEntity sendAdvisorPin(@PathVariable(value = "info") String info, HttpSession session){

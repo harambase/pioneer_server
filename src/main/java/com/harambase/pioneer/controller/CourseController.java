@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/course")
-public class CourseController implements CourseApi {
+public class CourseController {//implements CourseApi {
     private final CourseService courseService;
 
     @Autowired
@@ -30,7 +30,7 @@ public class CourseController implements CourseApi {
         this.courseService = courseService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Course course) {
@@ -38,7 +38,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{crn}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "crn") String crn) {
@@ -46,7 +46,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Course course) {
@@ -54,7 +54,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{crn}", method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable("crn") String crn) {
@@ -62,7 +62,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -98,7 +98,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity search(@RequestParam("search") String search,
@@ -107,7 +107,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{crn}/precourse", method = RequestMethod.GET)
     public ResponseEntity preCourseList(@PathVariable("crn") String crn) {
@@ -115,7 +115,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{crn}/student/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity removeStuFromCourse(@PathVariable(value = "crn") String crn,
@@ -124,7 +124,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{crn}/student/{userId}", method = RequestMethod.PUT)
     public ResponseEntity assignStu2Course(@PathVariable(value = "crn") String crn,
@@ -134,7 +134,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{crn}/faculty/{userId}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity assignFac2Course(@PathVariable(value = "crn") String crn,
@@ -143,7 +143,7 @@ public class CourseController implements CourseApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(value = "/choose", method = RequestMethod.POST)
     public ResponseEntity courseChoice(@RequestParam(value = "choiceList[]")String[] choices, HttpSession session){

@@ -23,7 +23,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/student")
-public class StudentController implements StudentApi {
+public class StudentController {//implements StudentApi {
 
     private final StudentService studentService;
 
@@ -32,7 +32,7 @@ public class StudentController implements StudentApi {
         this.studentService = studentService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
     public ResponseEntity getTranscriptDetail(@PathVariable(value = "studentId") String studentid) {
@@ -40,7 +40,7 @@ public class StudentController implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "student", "teach"})
     @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
     public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentid,
@@ -50,7 +50,7 @@ public class StudentController implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Student student){
@@ -58,7 +58,7 @@ public class StudentController implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach", "system"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

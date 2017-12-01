@@ -23,7 +23,7 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/user")
-public class PersonController implements PersonApi {
+public class PersonController {//implements PersonApi {
     
     private final PersonService personService;
 
@@ -32,7 +32,7 @@ public class PersonController implements PersonApi {
         this.personService = personService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "system"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Person person) {
@@ -40,7 +40,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "system"})
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@RequestParam("userId") String userid) {
@@ -48,7 +48,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "system"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Person person) {
@@ -56,7 +56,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable(value = "userId") String userId) {
@@ -64,7 +64,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/current", method = RequestMethod.GET)
     public ResponseEntity getCurrentUser(HttpSession session){
@@ -87,7 +87,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity search(@RequestParam(value = "search") String search, @RequestParam(value = "type") String type, String status) {
@@ -95,7 +95,7 @@ public class PersonController implements PersonApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

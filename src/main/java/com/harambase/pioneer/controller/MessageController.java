@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/message")
-public class MessageController implements MessageApi {
+public class MessageController {//implements MessageApi {
 
     private final MessageService messageService;
 
@@ -29,7 +29,7 @@ public class MessageController implements MessageApi {
         this.messageService = messageService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody MessageWithBLOBs message, HttpSession session){
@@ -39,7 +39,7 @@ public class MessageController implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
@@ -47,7 +47,7 @@ public class MessageController implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
@@ -63,7 +63,7 @@ public class MessageController implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity count(@RequestParam(value = "status") String status,
@@ -86,7 +86,7 @@ public class MessageController implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

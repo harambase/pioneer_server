@@ -21,7 +21,7 @@ import java.util.Map;
 @Controller
 @CrossOrigin
 @RequestMapping(value = "/transcript")
-public class TranscriptController implements TranscriptApi {
+public class TranscriptController {//implements TranscriptApi {
     
     private final TranscriptService transcriptService;
     
@@ -30,7 +30,7 @@ public class TranscriptController implements TranscriptApi {
         this.transcriptService = transcriptService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Transcript transcript, HttpSession session) {
@@ -39,7 +39,7 @@ public class TranscriptController implements TranscriptApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value = {"/{studentId}/course","/{crn}/student"}, produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

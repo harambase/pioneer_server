@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/request")
-public class RequestController implements RequestApi {
+public class RequestController {//implements RequestApi {
 
     private final RequestService requestService;
 
@@ -29,7 +29,7 @@ public class RequestController implements RequestApi {
         this.requestService = requestService;
     }
     
-    @Override
+    //@Override
     @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){
         Person person = (Person) session.getAttribute("user");
@@ -38,14 +38,14 @@ public class RequestController implements RequestApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody JSONObject jsonObject){
         HaramMessage haramMessage = requestService.register(jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity userList(@RequestParam(value = "start") Integer start,
                                    @RequestParam(value = "length") Integer length,

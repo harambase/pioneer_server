@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/system")
-public class SystemController implements SystemApi {
+public class SystemController {//implements SystemApi {
     private final CourseService courseService;
     private final PersonService personService;
     
@@ -33,8 +33,8 @@ public class SystemController implements SystemApi {
         this.personService = personService;
     }
 
-    @Override
-    
+    //@Override
+
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
 
@@ -48,7 +48,7 @@ public class SystemController implements SystemApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(HttpSession session){
         HaramMessage message = new HaramMessage();
@@ -59,29 +59,29 @@ public class SystemController implements SystemApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/Info", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
-        
+
         Map<String, Integer> data = new HashMap<>();
         int course, student, faculty;
-        
+
         student = (Integer) personService.countActivePerson("s").getData();
         faculty = (Integer) personService.countActivePerson("f").getData();
         course  = (Integer) courseService.countActiveCourse().getData();
-        
+
         data.put("student",student);
         data.put("faculty",faculty);
         data.put("teach", course);
-        
+
         message.setData(data);
         return new ResponseEntity<>(message, HttpStatus.OK);
-        
+
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity relationChart(){
@@ -89,7 +89,7 @@ public class SystemController implements SystemApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity userCount(){

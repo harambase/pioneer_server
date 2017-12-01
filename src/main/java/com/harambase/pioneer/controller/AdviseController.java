@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/advise")
-public class AdviseController implements AdviseApi {
+public class AdviseController {//implements AdviseApi {
 
     private AdviseService adviseService;
     
@@ -29,7 +29,7 @@ public class AdviseController implements AdviseApi {
         this.adviseService = adviseService;
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Advise advise, HttpSession session){
@@ -38,7 +38,7 @@ public class AdviseController implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
@@ -46,7 +46,7 @@ public class AdviseController implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable Integer id,
@@ -58,7 +58,7 @@ public class AdviseController implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
@@ -66,7 +66,7 @@ public class AdviseController implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @Override
+    //@Override
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
