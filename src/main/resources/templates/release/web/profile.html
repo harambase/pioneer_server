@@ -1,58 +1,37 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta content="" name="description" />
-    <meta content="webthemez" name="author" />
-    <title>个人信息</title>
+<html xmlns:th="http://www.thymeleaf.org">
 
-    <link href="/static/styles/custom-styles.css" rel="stylesheet"/>
-    <link href="/static/plugins/checkbox3/checkbox3.min.css" rel="stylesheet">
-
-    <link href="/static/plugins/bootstrap/css/bootstrap.css" rel="stylesheet"/>
-    <link href="/static/plugins/font/font.css" rel="stylesheet"/>
-    <link href="/static/plugins/font-awesome-4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-
-</head>
+<head th:include="/release/common/header :: commonHeader('个人信息',false,false)"></head>
 <body>
-    <div id="wrapper">
-        <!--/. NAV TOP  -->
-        <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+<div id="wrapper">
 
-        <!-- /. NAV SIDE  -->
-        <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
+    <!--/. NAV TOP  -->
+    <div th:include="/release/common/navtop :: navtop" class="sidebar-collapse"></div>
+
+    <!-- /. NAV SIDE  -->
+    <div th:include="/release/common/navbar :: nav" class="sidebar-collapse"></div>
 
         <div id="page-wrapper">
-		  <div class="header"> 
-                        <h1 class="page-header">
-                            Empty Page <small>Create new page.</small>
-                        </h1>
-						<ol class="breadcrumb">
-					  <li><a href="#">Home</a></li>
-					  <li><a href="#">Empty</a></li>
-					  <li class="active">Data</li>
-					</ol> 
-									
-		</div>
-            <div id="page-inner"> 
-				 <footer><p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://www.cssmoban.com/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p></footer>
-				</div>
-             <!-- /. PAGE INNER  -->
+            <div class="header">
+                <h1 class="page-header">
+                    个人信息
+                    <small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname}"></small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li class="active"><a href="/index">主页</a></li>
+                </ol>
             </div>
-         <!-- /. PAGE WRAPPER  -->
+		</div>
+        <div id="page-inner">
+            <div class="row">
+                <div id = footerPlaceholder">
+                    <div th:include="/release/common/footer :: copy" id="copyright"></div>
+                </div>
+            </div>
         </div>
-     <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
-    <script src="../../../static/js/jquery-1.10.2.js"></script>
-      <!-- Bootstrap Js -->
-    <script src="../../../static/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Js -->
-    <script src="../../../static/js/jquery.metisMenu.js"></script>
-      <!-- Custom Js -->
-    <script src="../../../static/js/custom-scripts.js"></script>
-    
-   
+    </div>
 </body>
+
+<div th:include="/release/common/js :: load_js(false,false,false)"></div>
+<script src="/static/scripts/admin/welcome.js"></script>
 </html>

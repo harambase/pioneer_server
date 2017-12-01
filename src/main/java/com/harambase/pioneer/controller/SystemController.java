@@ -34,7 +34,7 @@ public class SystemController {//implements SystemApi {
     }
 
     //@Override
-
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
 
@@ -60,7 +60,7 @@ public class SystemController {//implements SystemApi {
     }
 
     //@Override
-    @RequestMapping(value = "/Info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
@@ -74,7 +74,7 @@ public class SystemController {//implements SystemApi {
 
         data.put("student",student);
         data.put("faculty",faculty);
-        data.put("teach", course);
+        data.put("course", course);
 
         message.setData(data);
         return new ResponseEntity<>(message, HttpStatus.OK);

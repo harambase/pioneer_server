@@ -1,5 +1,6 @@
 package com.harambase.pioneer.swagger;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -10,6 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Controller
 
 public class ApiDocController {
+	@RequiresPermissions("admin")
 	@RequestMapping(value = "/swagger")
 	public String apiDoc() {
 		return "redirect:swagger-ui.html";

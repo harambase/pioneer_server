@@ -11,6 +11,37 @@
     <name>harambase Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <profiles>
+        <profile>
+            <id>devTest</id>
+            <properties>
+                <database.ip>2.0.068.30.225</database.ip>
+                <database.port>3307</database.port>
+                <database.username>root</database.username>
+                <database.password>123456</database.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <database.ip>localhost</database.ip>
+                <database.port>3306</database.port>
+                <database.username>root</database.username>
+                <database.password>123456</database.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <database.ip>localhost</database.ip>
+                <database.port>3306</database.port>
+                <database.username>root</database.username>
+                <database.password>1qaz@WSX</database.password>
+            </properties>
+        </profile>
+
+    </profiles>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -84,7 +115,7 @@
         <dependency>
             <groupId>com.github.theborakompanioni</groupId>
             <artifactId>thymeleaf-extras-shiro</artifactId>
-            <version>1.2.1</version>
+            <version>2.0.0</version>
         </dependency>
 
         <!-- 导入Mysql数据库链接jar包 -->

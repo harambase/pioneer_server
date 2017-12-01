@@ -2,10 +2,15 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.common.Tags;
 import com.harambase.pioneer.controller.api.AdviseApi;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.AdviseService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,16 +34,17 @@ public class AdviseController {//implements AdviseApi {
         this.adviseService = adviseService;
     }
 
-    //@Override
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody Advise advise, HttpSession session){
+    @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    public ResponseEntity create(@ApiParam(value = "导师关系", required = true)@RequestBody Advise advise, HttpSession session){
         advise.setOperator(((Person)session.getAttribute("user")).getUserid());
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
@@ -46,7 +52,7 @@ public class AdviseController {//implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable Integer id,
@@ -58,7 +64,7 @@ public class AdviseController {//implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value ="/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
@@ -66,7 +72,7 @@ public class AdviseController {//implements AdviseApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    
     @RequiresPermissions({"admin", "teach", "student", "faculty"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

@@ -1,3 +1,44 @@
+$(function(){
+    initUserChart();
+    initRelationChart();
+    initCounts();
+});
+
+function initUserChart(){
+    /*调用echarts*/
+    $.ajax({
+        type: "GET",
+        url: basePath + "/system/user/count",
+        success: function (result) {
+            var dataBeast = result.dataBeast;
+            var xAxisData = result.xAxisData;
+            exampleUserTop("exampleChart", dataBeast, xAxisData);
+        }
+    });
+}
+
+function initRelationChart(){
+    $.ajax({
+        type: "GET",
+        url: basePath + "/system/relation",
+        success: function (data) {
+            relation(data.data,"relationChart")
+        }
+    });
+}
+
+function initCounts(){
+    $.ajax({
+        type: "GET",
+        url: basePath + "/system/info",
+        success: function (data) {
+            var result = data.data;
+            $("#studentNum").html(result.student);
+            $("#facultyNum").html(result.faculty);
+            $("#courseNum").html(result.course);
+        }
+    });
+}
 
 function exampleUserTop(divUrl,data1,data2) {
     var myChart = echarts.init(document.getElementById(divUrl));

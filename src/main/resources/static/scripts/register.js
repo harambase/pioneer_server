@@ -35,7 +35,7 @@ $(function(){
                 qq : $("#qq").val(),
                 tel : $("#tel").val(),
                 birthday : $("#birthday").val(),
-                gender : $("#gender").val(),
+                gender : $("#gender").val()
             };
 
             $.ajax({
@@ -46,7 +46,7 @@ $(function(){
                 success: function (data) {
                     if (data.code === 2001)
                         Showbo.Msg.alert("成功！请等待管理员审核。", function () {
-                            window.location.href = basePath + "/auth";
+                            window.location.href = basePath + "/login";
                         });
                     else
                         Showbo.Msg.alert(data.msg, function () {});
