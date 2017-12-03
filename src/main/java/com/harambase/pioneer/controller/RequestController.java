@@ -3,10 +3,15 @@ package com.harambase.pioneer.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.pioneer.controller.api.RequestApi;
+import com.harambase.common.Tags;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.service.RequestService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +25,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/request")
-public class RequestController {//implements RequestApi {
+@Api(value = "/request", description = "申请管理接口")
+public class RequestController {
 
     private final RequestService requestService;
 
@@ -28,8 +34,9 @@ public class RequestController {//implements RequestApi {
     public RequestController(RequestService requestService){
         this.requestService = requestService;
     }
-    
-    //@Override
+
+    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){
         Person person = (Person) session.getAttribute("user");
@@ -38,14 +45,17 @@ public class RequestController {//implements RequestApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody JSONObject jsonObject){
         HaramMessage haramMessage = requestService.register(jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequiresPermissions({"admin", "system"})
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity userList(@RequestParam(value = "start") Integer start,
                                    @RequestParam(value = "length") Integer length,

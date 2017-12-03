@@ -2,10 +2,14 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.pioneer.controller.api.StudentApi;
+import com.harambase.common.Tags;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +27,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/student")
-public class StudentController {//implements StudentApi {
+@Api(value = "/student", description = "学生管理接口")
+public class StudentController {
 
     private final StudentService studentService;
 
@@ -32,7 +37,8 @@ public class StudentController {//implements StudentApi {
         this.studentService = studentService;
     }
 
-    //@Override
+    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
     public ResponseEntity getTranscriptDetail(@PathVariable(value = "studentId") String studentid) {
@@ -40,7 +46,8 @@ public class StudentController {//implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "student", "teach"})
     @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
     public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentid,
@@ -50,7 +57,8 @@ public class StudentController {//implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "student"})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Student student){
@@ -58,7 +66,7 @@ public class StudentController {//implements StudentApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.STUDENT})
     @RequiresPermissions({"admin", "teach", "system"})
     @RequestMapping(value = "/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,

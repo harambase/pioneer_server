@@ -2,10 +2,15 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.pioneer.controller.api.MessageApi;
+import com.harambase.common.Tags;
+import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +25,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/message")
+@Api(value = "/message", description = "消息中心接口")
 public class MessageController {//implements MessageApi {
 
     private final MessageService messageService;
@@ -29,17 +35,18 @@ public class MessageController {//implements MessageApi {
         this.messageService = messageService;
     }
 
-    //@Override
+    @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody MessageWithBLOBs message, HttpSession session){
-        Person user = (Person)session.getAttribute("user");
-        message.setSenderid(user.getUserid());
+    public ResponseEntity create(@RequestBody MessageWithBLOBs message){
+        message.setSenderid(SessionUtil.getUserId());
         HaramMessage haramMessage = messageService.createMessage(message);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
@@ -47,7 +54,8 @@ public class MessageController {//implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
@@ -56,6 +64,8 @@ public class MessageController {//implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
@@ -63,30 +73,31 @@ public class MessageController {//implements MessageApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity count(@RequestParam(value = "status") String status,
-                                @RequestParam(value = "box") String box,
-                                HttpSession session){
-        Person user = (Person)session.getAttribute("user");
+                                @RequestParam(value = "box") String box){
+        String userid = SessionUtil.getUserId();
         String receiverid = null;
         String senderid = null;
 
         if(box.contains("inbox") || box.contains("important"))
-            receiverid = user.getUserid();
+            receiverid = userid;
         if(box.contains("sent") || box.contains("draft"))
-            senderid = user.getUserid();
+            senderid = userid;
         if(box.contains("trash")) {
-            receiverid = user.getUserid();
-            senderid = user.getUserid();
+            receiverid =userid;
+            senderid = userid;
         }
 
         HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, box.toLowerCase(), status.toLowerCase());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -98,17 +109,17 @@ public class MessageController {//implements MessageApi {
                                @RequestParam(value = "box") String box,
                                HttpSession session) {
 
-        Person user = (Person)session.getAttribute("user");
+        String userid = SessionUtil.getUserId();
         String receiverid = null;
         String senderid = null;
 
         if(box.contains("inbox") || box.contains("important"))
-            receiverid = user.getUserid();
+            receiverid = userid;
         if(box.contains("sent") || box.contains("draft"))
-            senderid = user.getUserid();
+            senderid = userid;
         if(box.contains("trash")) {
-            receiverid = user.getUserid();
-            senderid = user.getUserid();
+            receiverid =userid;
+            senderid = userid;
         }
 
         Map<String, Object> map = new HashMap<>();

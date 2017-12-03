@@ -1,11 +1,15 @@
 package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
+import com.harambase.common.Tags;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.controller.api.SystemApi;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -22,7 +26,8 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/system")
-public class SystemController {//implements SystemApi {
+@Api(value = "/system", description = "系统管理接口")
+public class SystemController {
     private final CourseService courseService;
     private final PersonService personService;
     
@@ -33,7 +38,8 @@ public class SystemController {//implements SystemApi {
         this.personService = personService;
     }
 
-    //@Override
+    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person, HttpSession session){
         HaramMessage message = personService.login(person);
@@ -48,7 +54,8 @@ public class SystemController {//implements SystemApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "登出", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(HttpSession session){
         HaramMessage message = new HaramMessage();
@@ -59,7 +66,8 @@ public class SystemController {//implements SystemApi {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
@@ -81,7 +89,8 @@ public class SystemController {//implements SystemApi {
 
     }
 
-    //@Override
+    @ApiOperation(value = "关系图表", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity relationChart(){
@@ -89,7 +98,8 @@ public class SystemController {//implements SystemApi {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    //@Override
+    @ApiOperation(value = "系统用户计数", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
     @RequiresPermissions("user")
     public ResponseEntity userCount(){
