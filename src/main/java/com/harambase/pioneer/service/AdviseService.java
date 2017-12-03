@@ -7,7 +7,7 @@ public interface AdviseService {
 
     HaramMessage advisingList(String s, String s1, String search, String order, String orderCol, String studentid, String facultyid);
 
-    HaramMessage updateAdvise(Advise advise);
+    HaramMessage updateAdvise(Integer id, String studentId, String facultyId);
 
     HaramMessage assignMentor(Advise advise);
 

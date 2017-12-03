@@ -5,6 +5,7 @@ import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.common.util.DateUtil;
 import com.harambase.common.util.PageUtil;
+import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.dto.AdviseView;
@@ -95,9 +96,14 @@ public class AdviseServiceImpl implements AdviseService{
     }
 
     @Override
-    public HaramMessage updateAdvise(Advise advise) {
+    public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            Advise advise = new Advise();
+            advise.setId(id);
+            advise.setOperator(SessionUtil.getUserId());
+            advise.setStudentid(studentId);
+            advise.setFacultyid(facultyId);
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             int ret = adviseMapper.updateByPrimaryKeySelective(advise);
             if(ret == 1) {
@@ -122,6 +128,7 @@ public class AdviseServiceImpl implements AdviseService{
     public HaramMessage assignMentor(Advise advise) {
         HaramMessage haramMessage = new HaramMessage();
         try {
+            advise.setOperator(SessionUtil.getUserId());
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             Advise a = adviseMapper.selectByAdvise(advise);
             if(a != null){
