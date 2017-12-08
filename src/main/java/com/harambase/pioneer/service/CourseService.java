@@ -32,4 +32,6 @@ public interface CourseService {
     HaramMessage reg2Course(String userid, String[] choices);
     
     HaramMessage getCourseByCrn(String crn);
+
+    HaramMessage courseTreeList(String facultyid, String info);
 }

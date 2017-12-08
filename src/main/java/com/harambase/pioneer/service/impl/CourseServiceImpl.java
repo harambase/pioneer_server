@@ -1,5 +1,6 @@
 package com.harambase.pioneer.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.common.util.DateUtil;
@@ -145,6 +146,64 @@ public class CourseServiceImpl implements CourseService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
         }
         return haramMessage;
+    }
+
+    @Override
+    public HaramMessage courseTreeList(String facultyid, String info) {
+        HaramMessage message = new HaramMessage();
+        try{
+            try {
+                Map<String, Object> param = new HashMap<>();
+
+                param.put("facultyid", facultyid);
+                param.put("info", info);
+
+                if(facultyid.equals(""))
+                    param.put("facultyid", null);
+                if(info.equals(""))
+                    param.put("info", null);
+
+                param.put("search", null);
+                param.put("currentIndex", 0);
+                param.put("pageSize", Integer.MAX_VALUE);
+                param.put("order", "desc");
+                param.put("orderColumn", "crn");
+
+                List<Map<String, String>> infoList = new ArrayList<>();
+                Set<String> infoSet = new HashSet<>();
+                Map<String, String> infoMap;
+                List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
+                for (Course course: courses){
+                    infoSet.add(course.getInfo());
+                }
+                for (String i : infoSet){
+                    infoMap = new HashMap<>();
+                    infoMap.put("node", "true");
+                    infoMap.put("info", i);
+
+                    infoList.add(infoMap);
+                }
+
+                List<Object> treeList = new ArrayList<>();
+                treeList.addAll(infoList);
+                treeList.addAll(courses);
+
+                message.setData(treeList);
+                message.setMsg(FlagDict.SUCCESS.getM());
+                message.setCode(FlagDict.SUCCESS.getV());
+                return message;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+                message.setCode(FlagDict.SYSTEM_ERROR.getV());
+                return message;
+            }
+        }catch (Exception e){
+            message.setCode(FlagDict.SYSTEM_ERROR.getV());
+            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        }
+        return message;
     }
 
     @Override

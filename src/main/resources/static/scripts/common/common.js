@@ -36,3 +36,18 @@ function formatRepoSelection(repo) {
 function formatRepo(repo) {
     return repo.text
 }
+
+$(function () {
+    /*导航*/
+    sliderActive(window.sliderFirstNav);//,window.sliderSecondNav);
+});
+
+function sliderActive(first,second) {
+    $("#openNav>li").eq(first).addClass('active-menu');
+    $("#closeNav>li").eq(first).addClass('active-menu');
+    // if(second){
+    //     $("#openNav>li").eq(first).find('i.fa').prop("class","fa fa-angle-down");
+    //     $("#openNav>li").eq(first).find(".subMenu>li").eq(second).addClass('active');
+    // }
+}
+

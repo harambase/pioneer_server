@@ -33,21 +33,23 @@ public class WebController {
     }
 
     //只需要用户权限
-    @RequiresPermissions("user")
     @RequestMapping("/index")
     public String welcome(){
         return "release/index";
     }
-    @RequiresPermissions("user")
     @RequestMapping("/message")
     public String message(){
         return "release/web/message";
     }
-    @RequiresPermissions("user")
     @RequestMapping("/profile")
     public String profile() {
         return "release/web/profile";
     }
+    @RequestMapping("/myCourse")
+    public String myCourse() {
+        return "release/teach/myCourse";
+    }
+
 
     //系统设置
     @RequestMapping("/system/user/create")

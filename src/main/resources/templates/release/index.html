@@ -119,8 +119,12 @@
     <!-- /. PAGE WRAPPER  -->
 </div><!-- /. WRAPPER  -->
 </body>
-<div th:include="/release/common/js :: load_js(true,true,false)"></div>
+<script>
+    window.sliderFirstNav = "0";
+//    window.sliderSecondNav = "1";
+</script>
 
+<div th:include="/release/common/js :: load_js(true,true,false)"></div>
 <script src="/static/scripts/index.js"></script>
 
 </html>

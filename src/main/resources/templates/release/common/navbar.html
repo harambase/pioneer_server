@@ -2,16 +2,16 @@
     <nav class="navbar-default navbar-side" role="navigation">
         <ul class="nav" id="main-menu">
             <li><a href="/index" class="active-menu"><i class="fa fa-dashboard"></i> 主页</a></li>
-            <li shiro:hasAnyPermissions ="admin, student"><a href="/student/course/view"><i class="fa fa-book"></i>我的课程</a></li>
-            <li shiro:hasAnyPermissions ="admin, faculty, teach"><a href="/faculty/course/view"><i class="fa fa-book"></i>我的课程</a></li>
+            <li shiro:hasAnyPermissions ="admin, student"><a href="/myCourse"><i class="fa fa-book"></i>我的课程</a></li>
+            <li shiro:hasAnyPermissions ="admin, faculty, teach"><a href="/myCourseew"><i class="fa fa-book"></i>我的课程</a></li>
             <li><a href="#"><i class="fa fa-desktop"></i>教务系统<span class="fa arrow"></span></a>
 
                 <ul class="nav nav-second-level">
                     <li shiro:hasAnyPermissions ="user"><a href="/student/course/view">查看所有课程</a></li>
                     <li shiro:hasAnyPermissions ="admin, faculty"><a href="#">新课程申请<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
-                            <li><a href="/course/create">新课程申请</a></li>
-                            <li><a href="/course/request">新课程申请查看</a></li>
+                            <li><a href="/teach/create">新课程申请</a></li>
+                            <li><a href="/teach/request">新课程申请查看</a></li>
                         </ul>
                     </li>
                     <li shiro:hasAnyPermissions ="admin, teach"><a href="#">课程管理<span class="fa arrow"></span></a>

@@ -107,6 +107,24 @@ public class CourseController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "课程Ztree列表", notes = "权限：用户", response = Map.class, tags = {Tags.COURSE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequiresPermissions("user")
+    @RequestMapping(value = "/zTree/list", method = RequestMethod.GET)
+    public ResponseEntity zTreeList(@RequestParam(value = "mode", required = false) String mode,
+                               HttpSession session) {
+        String facultyid = "";
+        String info = "";
+        if (mode != null && mode.equals("faculty"))
+            facultyid = ((Person) session.getAttribute("user")).getUserid();
+        if (mode != null && mode.equals("choose"))
+            info = ((Pin) session.getAttribute("pin")).getInfo();
+
+        HaramMessage message = courseService.courseTreeList(facultyid, info);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "搜索课程", notes = "权限：用户", response = Map.class, tags = {Tags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
