@@ -3,6 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
+import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
@@ -16,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,10 +50,8 @@ public class StudentController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "student", "teach"})
     @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
-    public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentid,
-                                             HttpSession session){
-        Pin pin = (Pin)session.getAttribute("pin");
-        HaramMessage haramMessage = studentService.getAvailableCredit(studentid, pin.getInfo());
+    public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentId){
+        HaramMessage haramMessage = studentService.getAvailableCredit(studentId, SessionUtil.getPin().getInfo());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

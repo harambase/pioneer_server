@@ -3,6 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
+import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.TranscriptService;
@@ -16,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +38,8 @@ public class TranscriptController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Transcript transcript, HttpSession session) {
-        transcript.setOperator(((Person) session.getAttribute("user")).getUserid());
+    public ResponseEntity update(@RequestBody Transcript transcript) {
+        transcript.setOperator(SessionUtil.getUserId());
         HaramMessage haramMessage = transcriptService.updateGrade(transcript);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

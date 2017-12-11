@@ -41,15 +41,13 @@ public class SystemController {
     @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody Person person, HttpSession session){
+    public ResponseEntity login(@RequestBody Person person){
         HaramMessage message = personService.login(person);
-
         if(message.getCode() == 2001) {
             person = (Person)message.getData();
             UsernamePasswordToken token = new UsernamePasswordToken(person.getUserid(),person.getPassword().toCharArray()) ;
             Subject subject = SecurityUtils.getSubject();
             subject.login(token); //完成登录
-            session.setAttribute("user", person);
         }
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -57,9 +55,8 @@ public class SystemController {
     @ApiOperation(value = "登出", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public ResponseEntity logout(HttpSession session){
+    public ResponseEntity logout(){
         HaramMessage message = new HaramMessage();
-        session.invalidate();
         SecurityUtils.getSubject().logout();
         message.setCode(FlagDict.SUCCESS.getV());
         message.setMsg(FlagDict.SUCCESS.getM());

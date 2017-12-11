@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @RestController
@@ -67,10 +66,10 @@ public class PinController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/{pin}", method = RequestMethod.GET)
-    public ResponseEntity validate(@PathVariable(value = "pin") Integer pin, HttpSession session) {
+    public ResponseEntity validate(@PathVariable(value = "pin") Integer pin) {
         HaramMessage haramMessage = pinService.validate(pin);
         if(haramMessage.getCode() == FlagDict.SUCCESS.getV())
-            session.setAttribute("pin", haramMessage.getData());
+            SessionUtil.setPin(haramMessage.getData());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -78,11 +77,10 @@ public class PinController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/session", method = RequestMethod.GET)
-    public ResponseEntity sessionValidate(HttpSession session) {
-        Pin pin = (Pin)session.getAttribute("pin");
-        HaramMessage haramMessage = pinService.validate(pin.getPin());
+    public ResponseEntity sessionValidate() {
+        HaramMessage haramMessage = pinService.validate(SessionUtil.getPin().getPin());
         if(haramMessage.getCode() == FlagDict.SUCCESS.getV())
-            session.setAttribute("pin", haramMessage.getData());
+            SessionUtil.setPin(haramMessage.getData());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

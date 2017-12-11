@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
+import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.service.RequestService;
@@ -17,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +38,8 @@ public class RequestController {
     @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity updateRequest(@RequestBody TempUser tempUser, HttpSession session){
-        Person person = (Person) session.getAttribute("user");
+    public ResponseEntity updateRequest(@RequestBody TempUser tempUser){
+        Person person = SessionUtil.getUser();
         tempUser.setOperator(person.getUserid());
         HaramMessage message = requestService.updateTempUser(tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);

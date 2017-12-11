@@ -5,19 +5,17 @@ import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Pin;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import io.swagger.annotations.*;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,16 +78,15 @@ public class CourseController {
                                @RequestParam(value = "search[value]") String search,
                                @RequestParam(value = "order[0][dir]") String order,
                                @RequestParam(value = "order[0][column]") String orderCol,
-                               @RequestParam(value = "mode", required = false) String mode,
-                               HttpSession session) {
+                               @RequestParam(value = "mode", required = false) String mode) {
         Map<String, Object> map = new HashMap<>();
         try {
             String facultyid = "";
             String info = "";
             if (mode != null && mode.equals("faculty"))
-                facultyid = ((Person) session.getAttribute("user")).getUserid();
+                facultyid = SessionUtil.getUserId();
             if (mode != null && mode.equals("choose"))
-                info = ((Pin) session.getAttribute("pin")).getInfo();
+                info = SessionUtil.getPin().getInfo();
 
             HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length),
                     search, order, orderCol, facultyid, info);
@@ -111,14 +108,14 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions("user")
     @RequestMapping(value = "/zTree/list", method = RequestMethod.GET)
-    public ResponseEntity zTreeList(@RequestParam(value = "mode", required = false) String mode,
-                               HttpSession session) {
+    public ResponseEntity zTreeList(@RequestParam(value = "mode", required = false) String mode) {
+
         String facultyid = "";
         String info = "";
         if (mode != null && mode.equals("faculty"))
-            facultyid = ((Person) session.getAttribute("user")).getUserid();
+            facultyid = SessionUtil.getUserId();
         if (mode != null && mode.equals("choose"))
-            info = ((Pin) session.getAttribute("pin")).getInfo();
+            info = SessionUtil.getPin().getInfo();
 
         HaramMessage message = courseService.courseTreeList(facultyid, info);
         return new ResponseEntity<>(message, HttpStatus.OK);

@@ -5,7 +5,6 @@ import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.pojo.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +24,7 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping(value = "/message")
 @Api(value = "/message", description = "消息中心接口")
-public class MessageController {//implements MessageApi {
+public class MessageController {
 
     private final MessageService messageService;
 
@@ -106,8 +104,7 @@ public class MessageController {//implements MessageApi {
                                @RequestParam(value = "search[value]") String search,
                                @RequestParam(value = "order[0][dir]") String order,
                                @RequestParam(value = "order[0][column]") String orderCol,
-                               @RequestParam(value = "box") String box,
-                               HttpSession session) {
+                               @RequestParam(value = "box") String box) {
 
         String userid = SessionUtil.getUserId();
         String receiverid = null;
