@@ -1,6 +1,5 @@
 package com.harambase.pioneer.service.impl;
 
-import com.alibaba.fastjson.JSONArray;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.common.util.DateUtil;
@@ -10,7 +9,6 @@ import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.common.helper.CheckTime;
 import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.CourseView;
 import com.harambase.pioneer.pojo.dto.Option;
@@ -155,7 +153,8 @@ public class CourseServiceImpl implements CourseService {
             try {
                 Map<String, Object> param = new HashMap<>();
 
-                param.put("facultyid", facultyid);
+//                param.put("facultyid", facultyid);
+                param.put("facultyid", null);
                 param.put("info", info);
 
                 if(facultyid.equals(""))

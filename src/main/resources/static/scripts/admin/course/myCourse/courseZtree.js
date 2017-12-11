@@ -1,12 +1,12 @@
 var coursePath;
 var courseZtreeObj;
-var courseZtreeRootNodes = [{id: 1, pId: 0, name: "课程列表", isParent: true, path: "", info: "/", createTime: ""}];
+var courseZtreeRootNodes = [{id: 0, name: "课程列表", info:"", isParent: true, createTime: ""}];
 var courseZtreeSetting = {
     async: {
         enable: true,
         type: "get",
         url: "/course/zTree/list",
-        // autoParam: ["info"],
+        autoParam: ["info"],
         dataFilter: courseZtreeFilter
     },
     edit: {
@@ -14,9 +14,9 @@ var courseZtreeSetting = {
         showRemoveBtn: false,
         showRenameBtn: false
     },
-    // callback: {
-    //     onClick: courseZtreeOnClick
-    // },
+    callback: {
+        onClick: courseZtreeOnClick
+    },
     data: {
         keep: {
             parent: true,
@@ -28,34 +28,38 @@ var courseZtreeSetting = {
     }
 };
 var clickNode;
-// function courseZtreeOnClick(event, treeId, treeNode) {
-//     clickNode = treeNode;
-//     courseZtreeObj.expandNode(treeNode, true, false, true);//展开当前节点
-//     if (clickNode.isdir === "1") {
-//         var uri = "";
-//         if (treeNode.path === "" && treeNode.name === "root") {
-//             uri = "/";
-//         } else {
-//             uri = buildUri(treeNode.path, treeNode.name);
-//         }
-//         coursePath = uri;
-//     }
-// }
+function courseZtreeOnClick(event, treeId, treeNode) {
+    clickNode = treeNode;
+    courseZtreeObj.expandNode(treeNode, true, false, true);//展开当前节点
+    showCourseInfo(clickNode.crn);
+}
 
 function courseZtreeFilter(treeId, parentNode, childNodes) {
-    childNodes = childNodes.data;
+    var retChildNodes = [];
+    var childLists = childNodes.data;
+    var childNode;
     console.log(childNodes);
-    console.log(parentNode);
-    // var retChildNodes = [];
-    // if (!childNodes) return null;
-    // var length = childNodes.length;
-    // for (var i = 0;i < length; i++) {
-    //     var uri = buildUri(childNodes[i].path, childNodes[i].name);
-    //     if (childNodes[i].isdir === "1") {
-    //         childNodes[i].isParent = true;
-    //         childNodes[i].uri = uri;
-    //         retChildNodes.push(childNodes[i]);
-    //     }
-    // }
-    // return retChildNodes;
+
+    if (!childNodes) return null;
+    var length = childLists.length;
+    for (var i = 0;i < length; i++) {
+
+        if (childLists[i].node === "true") {
+            childNode = {
+                isParent : true,
+                id : childLists[i].info,
+                name : childLists[i].info,
+                pId : 0
+            };
+        }else{
+            childNode = {
+                isParent : false,
+                name : childLists[i].name,
+                pId : childLists[i].info,
+                crn : childLists[i].crn
+            };
+        }
+        retChildNodes.push(childNode);
+    }
+    return retChildNodes;
 }
