@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-
-        File workingDirectory = new File("D:" + File.separator + "Invoices");
+        File projectDirectory = new File("");
+        File workingDirectory = new File(projectDirectory.getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "tex");
 
         File template = new File(workingDirectory.getAbsolutePath() + File.separator + "invoiceTemplate.tex");
 
@@ -83,10 +83,10 @@ public class Main {
 
             JLRGenerator pdfGen = new JLRGenerator();
 
-            pdfGen.generate(invoice1, desktop, workingDirectory);
+            pdfGen.generate(invoice1, desktop, tempDir);
             File pdf1 = pdfGen.getPDF();
 
-            pdfGen.generate(invoice2, desktop, workingDirectory);
+            pdfGen.generate(invoice2, desktop, tempDir);
             File pdf2 = pdfGen.getPDF();
 
             JLROpener.open(pdf1);
