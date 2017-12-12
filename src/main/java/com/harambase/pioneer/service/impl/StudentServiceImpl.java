@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
     public HaramMessage transcriptDetail(String studentid) {
        HaramMessage haramMessage = new HaramMessage();
        try{
-           StudentView sv = studentMapper.transcriptDetail(studentid);
+           StudentView sv = studentMapper.creditsDetail(studentid);
            haramMessage.setData(sv);
            haramMessage.setCode(FlagDict.SUCCESS.getV());
            haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -147,7 +147,7 @@ public class StudentServiceImpl implements StudentService {
         try{
             Map<String, Integer> creditInfo = new HashMap<>();
             List<Course> courseList = transcriptMapper.studentCourse(studentid);
-            StudentView sv = studentMapper.transcriptDetail(studentid);
+            StudentView sv = studentMapper.creditsDetail(studentid);
             int use_credits = 0;
             int ava_credits = 0;
             int tol_credits = sv.getMax_credits();

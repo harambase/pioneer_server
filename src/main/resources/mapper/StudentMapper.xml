@@ -65,7 +65,7 @@
     update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentid = #{studentid,jdbcType=VARCHAR}
   </update>
 
-  <select id="transcriptDetail" resultType="com.harambase.pioneer.pojo.dto.StudentView" parameterType="java.lang.String" >
+  <select id="creditsDetail" resultType="com.harambase.pioneer.pojo.dto.StudentView" parameterType="java.lang.String" >
     select * from StudentView where studentid = #{studentid,jdbcType=VARCHAR}
   </select>
 

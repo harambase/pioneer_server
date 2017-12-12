@@ -46,4 +46,6 @@ public interface PersonMapper {
     List<Person> getAllUsers();
     
     List<Person> getAllUsersWithInfo(String info);
+
+    Person selectByUserId(String studentid);
 }

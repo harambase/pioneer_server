@@ -1,81 +1,121 @@
-//package com.harambase.pioneer.controller;
+package com.harambase.pioneer.controller;
+
+import com.harambase.common.HaramMessage;
+import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.service.ReportService;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
+import io.swagger.annotations.Api;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.*;
+import java.util.Date;
+
+@RestController
+@RequestMapping(value = "/report")
+@CrossOrigin
+@Api(value = "/report", description = "报告服务接口")
+public class ReportController {
+
+    private final ReportService reportService;
+
+    @Autowired
+    public ReportController(ReportService reportService){
+        this.reportService = reportService;
+    }
+
+    @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
+    public void studentTranscriptReport(@PathVariable(value = "studentId") String studentId, HttpServletResponse response){
+        HaramMessage haramMessage = reportService.studentTranscriptReport(studentId);
+        ReportControllerInner.download(studentId + "_transcript_report.csv", haramMessage, response);
+    }
+
+    private static class ReportControllerInner{
+        private static void download(String fileName, HaramMessage haramMessage, HttpServletResponse response){
+            String filePath = (String) haramMessage.getData();
+            File file = null;
+            if (StringUtils.isNotEmpty(filePath)) {
+                file = new File(filePath);
+            }
+            if (haramMessage.getCode() != FlagDict.SUCCESS.getV()) {
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json; charset=utf-8");
+                PrintWriter out = null;
+                try {
+                    out = response.getWriter();
+                    out.append("下载失败");
+
+
+                } catch (IOException e2) {
+                    e2.printStackTrace();
+                } finally {
+                    if (out != null) {
+                        out.close();
+                    }
+                    if (file.exists())
+                        file.delete();
+                    return;
+                }
+            }
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName);//uri.substring(uri.lastIndexOf("/"), uri.length()) + ".csv\"");
+            response.setContentType("application/octet-stream;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            OutputStream outputStream = null;
+            try {
+//                Document document = new Document();
+//                PdfWriter pdfWriter =
+//                        PdfWriter.getInstance(document, new FileOutputStream("FourthTuto.pdf"));
 //
-//import com.harambase.common.HaramMessage;
-//import com.harambase.common.constant.FlagDict;
-//import com.harambase.pioneer.service.ReportService;
-//import org.apache.commons.lang3.StringUtils;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
+//                // Properties
+//                document.addAuthor("Celinio");
+//                document.addCreator("Celinio");
+//                document.addSubject("iText with Maven");
+//                document.addTitle("Fourth tutorial");
+//                document.addKeywords("iText, Maven, Java");
 //
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.*;
+//                document.open();
 //
-//@Controller
-//@RequestMapping(value = "/report")
-//public class ReportController {
+//                Chunk chunk = new Chunk("Fourth tutorial");
+//                Font font = new Font(Font.COURIER);
+//                font.setStyle(Font.UNDERLINE);
+//                font.setStyle(Font.ITALIC);
+//                chunk.setFont(font);
+//                chunk.setBackground(Color.CYAN);
+//                document.add(chunk);
 //
-//    private final ReportService reportService;
+//                document.add(new Paragraph("Testing with Maven."));
+//                document.add(new Paragraph("Another paragraph."));
+//                document.add(new Paragraph(new Date().toString()));
 //
-//    @Autowired
-//    public ReportController(ReportService reportService){
-//        this.reportService = reportService;
-//    }
-//
-//    @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
-//    public void studentTranscriptReport(@RequestParam(value = "studentId") String studentId, HttpServletResponse response){
-//        HaramMessage haramMessage = reportService.studentTranscriptReport(studentId);
-//        String filePath = (String) haramMessage.getData();
-//        File file = null;
-//        if (StringUtils.isNotEmpty(filePath)) {
-//            file = new File(filePath);
-//        }
-//        if (haramMessage.getCode() != FlagDict.SUCCESS.getV()) {
-//            response.setCharacterEncoding("UTF-8");
-//            response.setContentType("application/json; charset=utf-8");
-//            PrintWriter out = null;
-//            try {
-//                out = response.getWriter();
-//                out.append("下载失败");
-//
-//            } catch (IOException e2) {
-//                e2.printStackTrace();
-//            } finally {
-//                if (out != null) {
-//                    out.close();
-//                }
-//                if (file.exists())
-//                    file.delete();
-//                return;
-//            }
-//        }
-//        response.reset();
-//        response.setHeader("Content-Disposition", "attachment; filename=\"" + studentId + "_transcript_report.csv");//uri.substring(uri.lastIndexOf("/"), uri.length()) + ".csv\"");
-//        response.setContentType("application/octet-stream;charset=UTF-8");
-//        response.setCharacterEncoding("UTF-8");
-//        OutputStream outputStream = null;
-//        try {
-//            FileInputStream fileInputStream = new FileInputStream(filePath);
-//            outputStream = new BufferedOutputStream(response.getOutputStream());
-//            byte[] bytes = new byte[2048];
-//            int length;
-//            while ((length = fileInputStream.read(bytes)) > 0) {
-//                outputStream.write(bytes, 0, length);
-//            }
-//            fileInputStream.close();
-//            outputStream.flush();
-//            outputStream.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//
-//        } finally {
-//            if (file.exists())
-//                file.delete();
-//        }
-//
-//    }
+//                document.close();
+                FileInputStream fileInputStream = new FileInputStream(filePath);
+                outputStream = new BufferedOutputStream(response.getOutputStream());
+                byte[] bytes = new byte[2048];
+                int length;
+                while ((length = fileInputStream.read(bytes)) > 0) {
+                    outputStream.write(bytes, 0, length);
+                }
+                fileInputStream.close();
+                outputStream.flush();
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+
+            } finally {
+                if (file.exists())
+                    file.delete();
+            }
+
+        }
+    }
 //    public void formPersonCourseSchedule(String id, String semeBelong){
 //        try {
 //            String seme = "";
@@ -546,4 +586,4 @@
 //            e.printStackTrace();
 //        }
 //    }
-//}
+}

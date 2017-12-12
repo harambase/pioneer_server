@@ -173,7 +173,15 @@
   </select>
 
   <select id="studentCourse" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">
-    SELECT * FROM Course c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.studentid = #{arg0,jdbcType=VARCHAR});
+    SELECT * FROM Course c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.studentid = #{arg0,jdbcType=VARCHAR})
+  </select>
+
+  <select id="studentTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
+    SELECT * FROM TranscriptView WHERE studentid = #{arg0, jdbcType=VARCHAR}
+  </select>
+
+  <select id="courseTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
+    SELECT * FROM TranscriptView WHERE crn = #{arg0, jdbcType=VARCHAR}
   </select>
 
   <select id="getAllTranscripts" resultMap="BaseResultMap">
@@ -183,10 +191,10 @@
   <select id="getTranscriptBySearch" parameterType="java.util.Map" resultMap="BaseResultMap">
     select * from Transcript <where>
     <if test="search != null" >
-      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
-      crn like '%' #{search,jdbcType=VARCHAR} '%' or
-      coursename like '%'  #{search,jdbcType=VARCHAR} '%' or
-      faculyid like '%'  #{search,jdbcType=VARCHAR} '%')
+      and ( studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+            crn like '%' #{search,jdbcType=VARCHAR} '%' or
+            coursename like '%'  #{search,jdbcType=VARCHAR} '%' or
+            faculyid like '%'  #{search,jdbcType=VARCHAR} '%')
     </if></where>
   </select>
 

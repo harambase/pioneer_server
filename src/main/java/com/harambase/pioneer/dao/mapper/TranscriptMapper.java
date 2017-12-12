@@ -3,6 +3,7 @@ package com.harambase.pioneer.dao.mapper;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.dto.TranscriptView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -37,4 +38,6 @@ public interface TranscriptMapper {
     int deleteByCRN(String crn);
 
     int deleteByStudentid(String userid);
+
+    List<TranscriptView> studentTranscripts(String studentid);
 }

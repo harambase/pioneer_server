@@ -24,7 +24,7 @@ public interface StudentMapper {
 
     int updateByPrimaryKey(Student record);
 
-    StudentView transcriptDetail(String studentid);
+    StudentView creditsDetail(String studentid);
 
     long getStudentCountByMapPageSearchOrdered(Map<String, Object> param);
 

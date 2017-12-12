@@ -21,7 +21,17 @@ public class TranscriptView extends Transcript implements Serializable {
     private String sname;
     
     private String fname;
-    
+
+    private String info;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public String getSname() {
         return sname;
     }

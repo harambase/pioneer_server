@@ -91,7 +91,7 @@ CREATE TABLE `Menu` (
   `status` int(65) DEFAULT NULL COMMENT '菜单状态 :  1:启用   0:不启用',
   `isopen` int(11) DEFAULT NULL COMMENT '是否打开:    1:打开   0:不打开',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 /*Data for the table `Menu` */
 
@@ -589,6 +589,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
  `grade` varchar(20) NOT NULL ,
  `complete` varchar(20) NOT NULL ,
  `facultyid` varchar(20) NOT NULL ,
+ `info` varchar(20) NOT NULL ,
  `ffirst` varchar(100) NOT NULL ,
  `flast` varchar(100) NOT NULL ,
  `sname` varchar(100) NULL ,
@@ -634,7 +635,7 @@ DROP TABLE IF EXISTS `TranscriptView`;
 /*!50001 DROP TABLE IF EXISTS `TranscriptView` */;
 /*!50001 DROP VIEW IF EXISTS `TranscriptView` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `TranscriptView` AS select `t`.`id` AS `id`,`t`.`Studentid` AS `Studentid`,`p1`.`firstname` AS `sfirst`,`p1`.`lastname` AS `slast`,`t`.`crn` AS `crn`,`c`.`name` AS `Coursename`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`facultyid` AS `facultyid`,`c`.`info` AS `info`,`p2`.`firstname` AS `ffirst`,`p2`.`lastname` AS `flast`,`Get_Name`(`p1`.`userid`) AS `sname`,`Get_Name`(`p2`.`userid`) AS `fname`,`Get_Course_Date`(`t`.`crn`) AS `date`,`Get_Course_Time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assigntime` AS `assigntime`,`t`.`operator` AS `operator`,`Get_Name`(`t`.`operator`) AS `oname` from (((`Transcript` `t` join `Course` `c`) join `Person` `p1`) join `Person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`userid` = `t`.`Studentid`) and (`p2`.`userid` = `c`.`facultyid`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

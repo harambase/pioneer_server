@@ -169,8 +169,8 @@ public class ShiroConfig {
         hashMap.put("/reg", "anon");
         hashMap.put("/login", "anon");
         hashMap.put("/system/login", "anon");
-        hashMap.put("/swagger-ui.html", "authc");
-        hashMap.put("/swagger", "authc");
+        hashMap.put("/swagger-ui.html", "anon");
+        hashMap.put("/swagger", "anon");
         hashMap.put("/", "anon");
         hashMap.put("/**", "anon");
         hashMap.put("/index", "authc");
