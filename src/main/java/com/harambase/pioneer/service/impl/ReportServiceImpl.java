@@ -7,7 +7,11 @@ import com.harambase.common.util.DateUtil;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.pojo.Course;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.dto.StudentView;
 import com.harambase.pioneer.pojo.dto.TranscriptView;
@@ -15,10 +19,12 @@ import com.harambase.pioneer.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -38,10 +44,11 @@ public class ReportServiceImpl implements ReportService {
     public HaramMessage studentTranscriptReport(String studentid){
 
         FileOutputStream fos = null;
-        String csvPath = Config.TEMP_FILE_PATH + studentid + ".csv";
+        Document document = null;
+        String filePath = Config.TEMP_FILE_PATH + studentid + ".pdf";
         try {
 
-            fos = new FileOutputStream(new File(csvPath), true);
+
             StringBuilder exportInfoSb = new StringBuilder();
 
             List<TranscriptView> transcriptViewList = transcriptMapper.studentTranscripts(studentid);
@@ -66,9 +73,9 @@ public class ReportServiceImpl implements ReportService {
                 String semeterInfo = "";
                 for (String info : infoSet) {
                     usedTranscript = new ArrayList<>();
-                    semeterInfo += "学期：" + info + "/n";
-                    semeterInfo += "学生状态：";
-                    semeterInfo += "课程,课程名,教师,成绩,学分,总学时/n";
+                    semeterInfo += "学期：" + info + "\n";
+                    semeterInfo += "学生状态：\n";
+                    semeterInfo += "课程,课程名,教师,成绩,学分,总学时\n";
 
                     for(TranscriptView transcriptView: transcriptViewList){
                         if(transcriptView.getInfo().equals(info)){
@@ -86,7 +93,36 @@ public class ReportServiceImpl implements ReportService {
                     transcriptViewList.removeAll(usedTranscript);
                 }
                 exportInfoSb.append(semeterInfo);
-                fos.write(exportInfoSb.toString().getBytes("UTF-8"));
+//                fos.write(exportInfoSb.toString().getBytes("UTF-8"));
+                fos = new FileOutputStream(new File(filePath), true);
+                document = new Document();
+                PdfWriter pdfWriter =
+                        PdfWriter.getInstance(document, fos);
+
+                // Properties
+                document.addAuthor("Pioneer");
+                document.addCreator("Pioneer");
+                document.addSubject("iText with Maven");
+                document.addTitle("Fourth tutorial");
+                document.addKeywords("iText, Maven, Java");
+
+                document.open();
+
+                Chunk chunk = new Chunk("Fourth tutorial");
+                Font font = new Font(Font.COURIER);
+                font.setStyle(Font.UNDERLINE);
+                font.setStyle(Font.ITALIC);
+                chunk.setFont(font);
+                chunk.setBackground(Color.CYAN);
+                document.add(chunk);
+
+                document.add(new Paragraph("Testing with Maven."));
+                document.add(new Paragraph("Another paragraph."));
+                document.add(new Paragraph(new Date().toString()));
+                document.add(new Paragraph(exportInfoSb.toString()));
+
+                document.close();
+
             }
 
         } catch (Exception e) {
@@ -105,7 +141,7 @@ public class ReportServiceImpl implements ReportService {
         }
         HaramMessage restMessage = new HaramMessage();
         restMessage.setCode(FlagDict.SUCCESS.getV());
-        restMessage.setData(csvPath);
+        restMessage.setData(filePath);
         return restMessage;
     }
 }

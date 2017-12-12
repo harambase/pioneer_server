@@ -1,4 +1,4 @@
-package com.harambase.common.charts;
+package com.harambase.common.helper;
 
 import com.harambase.common.constant.Type;
 import com.harambase.pioneer.pojo.Advise;

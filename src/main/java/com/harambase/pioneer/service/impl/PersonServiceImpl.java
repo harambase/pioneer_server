@@ -6,7 +6,7 @@ import com.harambase.common.util.DateUtil;
 import com.harambase.common.util.IDUtil;
 import com.harambase.common.util.PageUtil;
 import com.harambase.common.util.Pinyin4jUtil;
-import com.harambase.common.charts.StaticGexfGraph;
+import com.harambase.common.helper.StaticGexfGraph;
 import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;

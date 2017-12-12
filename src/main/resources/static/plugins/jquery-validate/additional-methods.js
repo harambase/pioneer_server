@@ -432,7 +432,7 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
  * Validates currencies with any given symbols by @jameslouiz
  * Symbols can be optional or required. Symbols required by default
  *
- * Usage examples:
+ * Usage example:
  *  currency: ["£", false] - Use false for soft currency validation
  *  currency: ["$", false]
  *  currency: ["RM", false] - also works with text based symbols such as "RM" - Malaysia Ringgit etc
@@ -1026,7 +1026,7 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  *
  * Note: "States" always includes DC (District of Colombia)
  *
- * Usage examples:
+ * Usage example:
  *
  *  This is the default - case insensitive, no territories, no military zones
  *  stateInput: {

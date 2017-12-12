@@ -3,11 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.service.ReportService;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
+
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +30,7 @@ public class ReportController {
     @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
     public void studentTranscriptReport(@PathVariable(value = "studentId") String studentId, HttpServletResponse response){
         HaramMessage haramMessage = reportService.studentTranscriptReport(studentId);
-        ReportControllerInner.download(studentId + "_transcript_report.csv", haramMessage, response);
+        ReportControllerInner.download(studentId + "_transcript_report.pdf", haramMessage, response);
     }
 
     private static class ReportControllerInner{
@@ -70,32 +66,7 @@ public class ReportController {
             response.setCharacterEncoding("UTF-8");
             OutputStream outputStream = null;
             try {
-//                Document document = new Document();
-//                PdfWriter pdfWriter =
-//                        PdfWriter.getInstance(document, new FileOutputStream("FourthTuto.pdf"));
-//
-//                // Properties
-//                document.addAuthor("Celinio");
-//                document.addCreator("Celinio");
-//                document.addSubject("iText with Maven");
-//                document.addTitle("Fourth tutorial");
-//                document.addKeywords("iText, Maven, Java");
-//
-//                document.open();
-//
-//                Chunk chunk = new Chunk("Fourth tutorial");
-//                Font font = new Font(Font.COURIER);
-//                font.setStyle(Font.UNDERLINE);
-//                font.setStyle(Font.ITALIC);
-//                chunk.setFont(font);
-//                chunk.setBackground(Color.CYAN);
-//                document.add(chunk);
-//
-//                document.add(new Paragraph("Testing with Maven."));
-//                document.add(new Paragraph("Another paragraph."));
-//                document.add(new Paragraph(new Date().toString()));
-//
-//                document.close();
+
                 FileInputStream fileInputStream = new FileInputStream(filePath);
                 outputStream = new BufferedOutputStream(response.getOutputStream());
                 byte[] bytes = new byte[2048];
