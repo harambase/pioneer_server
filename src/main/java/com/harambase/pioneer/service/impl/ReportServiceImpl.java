@@ -7,11 +7,6 @@ import com.harambase.common.util.DateUtil;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.lowagie.text.Chunk;
-import com.lowagie.text.Document;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.PdfWriter;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.dto.StudentView;
 import com.harambase.pioneer.pojo.dto.TranscriptView;
@@ -44,7 +39,6 @@ public class ReportServiceImpl implements ReportService {
     public HaramMessage studentTranscriptReport(String studentid){
 
         FileOutputStream fos = null;
-        Document document = null;
         String filePath = Config.TEMP_FILE_PATH + studentid + ".pdf";
         try {
 
@@ -95,33 +89,6 @@ public class ReportServiceImpl implements ReportService {
                 exportInfoSb.append(semeterInfo);
 //                fos.write(exportInfoSb.toString().getBytes("UTF-8"));
                 fos = new FileOutputStream(new File(filePath), true);
-                document = new Document();
-                PdfWriter pdfWriter =
-                        PdfWriter.getInstance(document, fos);
-
-                // Properties
-                document.addAuthor("Pioneer");
-                document.addCreator("Pioneer");
-                document.addSubject("iText with Maven");
-                document.addTitle("Fourth tutorial");
-                document.addKeywords("iText, Maven, Java");
-
-                document.open();
-
-                Chunk chunk = new Chunk("Fourth tutorial");
-                Font font = new Font(Font.COURIER);
-                font.setStyle(Font.UNDERLINE);
-                font.setStyle(Font.ITALIC);
-                chunk.setFont(font);
-                chunk.setBackground(Color.CYAN);
-                document.add(chunk);
-
-                document.add(new Paragraph("Testing with Maven."));
-                document.add(new Paragraph("Another paragraph."));
-                document.add(new Paragraph(new Date().toString()));
-                document.add(new Paragraph(exportInfoSb.toString()));
-
-                document.close();
 
             }
 
