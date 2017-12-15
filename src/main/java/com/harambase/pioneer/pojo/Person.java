@@ -1,10 +1,13 @@
 package com.harambase.pioneer.pojo;
 
+import org.springframework.data.annotation.Id;
+
 import java.io.Serializable;
 
 public class Person implements Serializable {
     private Integer id;
 
+    @Id
     private String userid;
 
     private String username;

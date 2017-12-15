@@ -11,6 +11,7 @@ import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.pojo.dto.CourseView;
+import com.harambase.pioneer.repository.PersonRepository;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class PersonServiceImpl implements PersonService {
     private final PersonDao personDao;
 
     @Autowired
+    public PersonRepository personRepository;
+
+    @Autowired
     public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
                              CourseMapper courseMapper, TranscriptMapper transcriptMapper,
                              AdviseMapper adviseMapper, MessageMapper messageMapper,
@@ -48,6 +52,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage login(Person person) {
+        personRepository.findOne()
         HaramMessage haramMessage = new HaramMessage();
         try {
             Person user = personMapper.selectByPerson(person);

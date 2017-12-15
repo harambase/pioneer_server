@@ -9,6 +9,7 @@ import com.harambase.common.util.SessionUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.pojo.dto.AdviseView;
+import com.harambase.pioneer.repository.PersonRepository;
 import com.harambase.pioneer.service.AdviseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class AdviseServiceImpl implements AdviseService{
     public AdviseServiceImpl(AdviseMapper adviseMapper){
         this.adviseMapper = adviseMapper;
     }
+
 
     @Override
     public HaramMessage advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
@@ -97,6 +99,7 @@ public class AdviseServiceImpl implements AdviseService{
 
     @Override
     public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
+
         HaramMessage haramMessage = new HaramMessage();
         try {
             Advise advise = new Advise();
