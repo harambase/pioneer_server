@@ -115,7 +115,7 @@ $('.js-example-basic-multiple').select2({
     }, // 自定义格式化防止xss注入
     minimumInputLength: 1,//最少输入多少个字符后开始查询
     templateResult: formatRepo,
-    templateSelection: formatRepoSelection
+    templateSelection: formatRepo
 });
 
 $("#registerBtn").click(function (){
