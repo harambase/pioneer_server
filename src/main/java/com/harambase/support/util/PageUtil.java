@@ -1,8 +1,5 @@
 package com.harambase.support.util;
 
-/**
- * Created by Administrator on 2017/4/1.
- */
 public class PageUtil {
 
     public static int getcPg(String currentPage){

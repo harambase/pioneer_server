@@ -10,10 +10,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,31 +33,6 @@ public class SystemController {
                             PersonService personService){
         this.courseService = courseService;
         this.personService = personService;
-    }
-
-    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity login(@RequestBody Person person){
-        HaramMessage message = personService.login(person);
-        if(message.getCode() == 2001) {
-            person = (Person)message.getData();
-            UsernamePasswordToken token = new UsernamePasswordToken(person.getUserid(),person.getPassword().toCharArray()) ;
-            Subject subject = SecurityUtils.getSubject();
-            subject.login(token); //完成登录
-        }
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "登出", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public ResponseEntity logout(){
-        HaramMessage message = new HaramMessage();
-        SecurityUtils.getSubject().logout();
-        message.setCode(FlagDict.SUCCESS.getV());
-        message.setMsg(FlagDict.SUCCESS.getM());
-        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})

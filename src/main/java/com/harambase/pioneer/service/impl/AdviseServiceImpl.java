@@ -5,7 +5,6 @@ import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
-import com.harambase.support.util.SessionUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.pojo.base.AdviseBase;
 import com.harambase.pioneer.pojo.Advise;
@@ -103,7 +102,7 @@ public class AdviseServiceImpl implements AdviseService{
         try {
             AdviseBase advise = new AdviseBase();
             advise.setId(id);
-            advise.setOperator(SessionUtil.getUserId());
+//            advise.setOperator(SessionUtil.getUserId());
             advise.setStudentid(studentId);
             advise.setFacultyid(facultyId);
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -130,7 +129,7 @@ public class AdviseServiceImpl implements AdviseService{
     public HaramMessage assignMentor(AdviseBase advise) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            advise.setOperator(SessionUtil.getUserId());
+//            advise.setOperator(SessionUtil.getUserId());
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             AdviseBase a = adviseMapper.selectByAdvise(advise);
             if(a != null){

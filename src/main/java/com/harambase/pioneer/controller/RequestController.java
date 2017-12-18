@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.support.util.SessionUtil;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.TempUser;
 import com.harambase.pioneer.service.RequestService;
@@ -12,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +33,10 @@ public class RequestController {
         this.requestService = requestService;
     }
 
-    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.REQUEST})
+    @ApiOperation(value = "更新临时用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateRequest(@RequestBody TempUser tempUser){
-        Person person = SessionUtil.getUser();
-        tempUser.setOperator(person.getUserid());
         HaramMessage message = requestService.updateTempUser(tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -53,9 +49,8 @@ public class RequestController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.REQUEST})
+    @ApiOperation(value = "临时用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions({"admin", "system"})
     @RequestMapping(value = "/user/list", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity userList(@RequestParam(value = "start") Integer start,
                                    @RequestParam(value = "length") Integer length,

@@ -3,14 +3,12 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.support.util.SessionUtil;
 import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
 import com.harambase.pioneer.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,17 +33,14 @@ public class MessageController {
 
     @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody MessageWithBLOBs message){
-        message.setSenderid(SessionUtil.getUserId());
         HaramMessage haramMessage = messageService.createMessage(message);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
         HaramMessage haramMessage = messageService.delete(id);
@@ -54,7 +49,6 @@ public class MessageController {
 
     @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
                                  @RequestBody MessageWithBLOBs message) {
@@ -64,7 +58,6 @@ public class MessageController {
 
     @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
         HaramMessage haramMessage = messageService.getMessageView(id);
@@ -73,21 +66,21 @@ public class MessageController {
 
     @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity count(@RequestParam(value = "status") String status,
-                                @RequestParam(value = "box") String box){
-        String userid = SessionUtil.getUserId();
+                                @RequestParam(value = "box") String box,
+                                @RequestParam(value = "userId") String userId){
+
         String receiverid = null;
         String senderid = null;
 
         if(box.contains("inbox") || box.contains("important"))
-            receiverid = userid;
+            receiverid = userId;
         if(box.contains("sent") || box.contains("draft"))
-            senderid = userid;
+            senderid = userId;
         if(box.contains("trash")) {
-            receiverid =userid;
-            senderid = userid;
+            receiverid =userId;
+            senderid = userId;
         }
 
         HaramMessage haramMessage = messageService.countMessageByStatus(receiverid, senderid, box.toLowerCase(), status.toLowerCase());
@@ -96,7 +89,6 @@ public class MessageController {
 
     @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequiresPermissions("user")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
@@ -104,19 +96,19 @@ public class MessageController {
                                @RequestParam(value = "search[value]") String search,
                                @RequestParam(value = "order[0][dir]") String order,
                                @RequestParam(value = "order[0][column]") String orderCol,
-                               @RequestParam(value = "box") String box) {
+                               @RequestParam(value = "box") String box,
+                               @RequestParam(value = "userId") String userId) {
 
-        String userid = SessionUtil.getUserId();
         String receiverid = null;
         String senderid = null;
 
         if(box.contains("inbox") || box.contains("important"))
-            receiverid = userid;
+            receiverid = userId;
         if(box.contains("sent") || box.contains("draft"))
-            senderid = userid;
+            senderid = userId;
         if(box.contains("trash")) {
-            receiverid =userid;
-            senderid = userid;
+            receiverid = userId;
+            senderid = userId;
         }
 
         Map<String, Object> map = new HashMap<>();
