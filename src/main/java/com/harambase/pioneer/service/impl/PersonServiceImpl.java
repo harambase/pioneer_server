@@ -52,10 +52,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage login(Person person) {
-        personRepository.findOne()
+
         HaramMessage haramMessage = new HaramMessage();
         try {
-            Person user = personMapper.selectByPerson(person);
+            Person user = personRepository.findByUserid(person.getUserid());
             if(user != null && user.getStatus().equals("1")) {
                 haramMessage.setData(user);
                 haramMessage.setCode(FlagDict.SUCCESS.getV());

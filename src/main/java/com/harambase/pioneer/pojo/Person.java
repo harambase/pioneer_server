@@ -1,13 +1,21 @@
 package com.harambase.pioneer.pojo;
 
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.DynamicUpdate;
 
+import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.io.Serializable;
 
+@Entity
+@DynamicUpdate
 public class Person implements Serializable {
-    private Integer id;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     private String userid;
 
     private String username;
