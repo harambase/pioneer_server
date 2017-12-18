@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "course")
-public class Course extends BaseDomain{
+public class CourseBase extends BaseDomain{
 
     private String crn;
 

@@ -1,8 +1,8 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.base.Message;
+import com.harambase.pioneer.pojo.base.MessageBase;
 import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.MessageView;
+import com.harambase.pioneer.pojo.Message;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -21,8 +21,8 @@ public interface MessageMapper {
 
     int updateByPrimaryKeyWithBLOBs(MessageWithBLOBs record);
 
-    int updateByPrimaryKey(Message record);
+    int updateByPrimaryKey(MessageBase record);
 
-    MessageView selectViewByPrimaryKey(int i);
+    Message selectViewByPrimaryKey(int i);
 
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "advise")
-public class Advise extends BaseDomain{
+public class AdviseBase extends BaseDomain{
 
     private String studentid;
 

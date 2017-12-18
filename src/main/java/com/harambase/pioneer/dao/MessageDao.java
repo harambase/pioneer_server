@@ -3,7 +3,7 @@ package com.harambase.pioneer.dao;
 import com.github.pagehelper.StringUtil;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
-import com.harambase.pioneer.pojo.MessageView;
+import com.harambase.pioneer.pojo.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -97,11 +97,11 @@ public class MessageDao {
         }
     }
 
-    public List<MessageView> getMessageByMapPageSearchOrdered(String receiverid, String senderid, String box, String search, int currentIndex,
-                                                              int pageSize, String order, String orderColumn) throws Exception{
+    public List<Message> getMessageByMapPageSearchOrdered(String receiverid, String senderid, String box, String search, int currentIndex,
+                                                          int pageSize, String order, String orderColumn) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
-        List<MessageView> messageViewList = new ArrayList<>();
+        List<Message> messageViewList = new ArrayList<>();
         try{
             connection = DataServiceConnection.openDBConnection();
             if(connection == null)
@@ -126,7 +126,7 @@ public class MessageDao {
                     " limit " + currentIndex + "," + pageSize;
 
             rs = stmt.executeQuery(queryString);
-            messageViewList = ResultSetHelper.getObjectFor(rs, MessageView.class);
+            messageViewList = ResultSetHelper.getObjectFor(rs, Message.class);
             return messageViewList;
         } finally {
             if(rs != null)

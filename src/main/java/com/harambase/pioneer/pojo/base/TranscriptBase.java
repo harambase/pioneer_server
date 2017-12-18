@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "transcript")
-public class Transcript extends BaseDomain{
+public class TranscriptBase extends BaseDomain{
 
     private String studentid;
 

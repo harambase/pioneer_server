@@ -1,14 +1,14 @@
 package com.harambase.common.helper;
 
+import com.harambase.pioneer.pojo.base.CourseBase;
 import com.harambase.support.util.DateUtil;
-import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.Pin;
 
 import java.util.*;
 
 public class TimeValidate {
 
-//    public static boolean isTimeConflict(CourseMapper courseMapper, Course teach) {
+//    public static boolean isTimeConflict(CourseMapper courseMapper, CourseBase teach) {
 //        String time = teach.getStarttime() + "-" + teach.getEndtime();
 //        String date = teach.getStartdate() + " to " + teach.getEnddate();
 //        String[] dayArray = teach.getDay().split("/");
@@ -26,8 +26,8 @@ public class TimeValidate {
 //        return count != 0;
 //    }
 
-    public static boolean isTimeConflict(List<Course> courseList, Course c2){
-        for(Course c1: courseList){
+    public static boolean isTimeConflict(List<CourseBase> courseList, CourseBase c2){
+        for(CourseBase c1: courseList){
             Date c1_start = DateUtil.StrToDateOnly(c1.getStartdate());
             Date c1_end   = DateUtil.StrToDateOnly(c1.getEnddate());
             Date c2_start = DateUtil.StrToDateOnly(c2.getStartdate());

@@ -8,7 +8,7 @@ import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.MessageDao;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.MessageView;
+import com.harambase.pioneer.pojo.Message;
 import com.harambase.pioneer.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class MessageServiceImpl implements MessageService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
+            List<Message> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
                     page.getCurrentIndex(),page.getPageSize(),order,orderColumn);
 
             message.setData(msgs);
@@ -80,7 +80,7 @@ public class MessageServiceImpl implements MessageService {
     public HaramMessage getMessageView(Integer id) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            MessageView messageView = messageMapper.selectViewByPrimaryKey(id);
+            Message messageView = messageMapper.selectViewByPrimaryKey(id);
             haramMessage.setData(messageView);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());

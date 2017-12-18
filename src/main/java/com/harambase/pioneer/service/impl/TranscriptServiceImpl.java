@@ -3,12 +3,12 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.base.Transcript;
 import com.harambase.pioneer.service.TranscriptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class TranscriptServiceImpl implements TranscriptService{
     }
 
     @Override
-    public HaramMessage updateGrade(Transcript transcript) {
+    public HaramMessage updateGrade(TranscriptBase transcript) {
         HaramMessage message = new HaramMessage();
         try {
             transcript.setAssigntime(DateUtil.DateToStr(new Date()));

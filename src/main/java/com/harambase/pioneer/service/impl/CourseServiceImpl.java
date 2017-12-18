@@ -2,15 +2,15 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.CourseBase;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.common.helper.TimeValidate;
-import com.harambase.pioneer.pojo.base.Course;
-import com.harambase.pioneer.pojo.base.Transcript;
-import com.harambase.pioneer.pojo.CourseView;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +37,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage create(Course course) {
+    public HaramMessage create(CourseBase course) {
         HaramMessage haramMessage = new HaramMessage();
         try {
             course.setCreatetime(DateUtil.DateToStr(new Date()));
@@ -45,10 +45,10 @@ public class CourseServiceImpl implements CourseService {
             String facultyid = course.getFacultyid();
             //生成CRN
             String info = course.getInfo();
-            List<Course> courses = courseMapper.getAllCoursesWithInfo(info);
+            List<CourseBase> courses = courseMapper.getAllCoursesWithInfo(info);
             String crn = IDUtil.genCRN(info);
             for(int i = 0; i<courses.size(); i++){
-                Course c = courses.get(i);
+                CourseBase c = courses.get(i);
                 if(crn.equals(c.getCrn())){
                     crn = IDUtil.genCRN(info);
                     i = 0;
@@ -109,7 +109,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage update(Course course) {
+    public HaramMessage update(CourseBase course) {
         HaramMessage haramMessage = new HaramMessage();
         try {
             course.setUpdatetime(DateUtil.DateToStr(new Date()));
@@ -135,7 +135,7 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage getCourseByCrn(String crn) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            Course course = courseMapper.selectByPrimaryKey(crn);
+            CourseBase course = courseMapper.selectByPrimaryKey(crn);
             haramMessage.setData(course);
             haramMessage.setCode(FlagDict.SUCCESS.getV());
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -171,8 +171,8 @@ public class CourseServiceImpl implements CourseService {
                 List<Map<String, String>> infoList = new ArrayList<>();
                 Set<String> infoSet = new HashSet<>();
                 Map<String, String> infoMap;
-                List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
-                for (Course course: courses){
+                List<CourseBase> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
+                for (CourseBase course: courses){
                     infoSet.add(course.getInfo());
                 }
                 for (String i : infoSet){
@@ -218,7 +218,7 @@ public class CourseServiceImpl implements CourseService {
             if (status.equals(""))
                 param.put("status", null);
 
-            List<CourseView> results = courseMapper.getCourseBySearch(param);
+            List<Course> results = courseMapper.getCourseBySearch(param);
 
             message.setData(results);
             message.setMsg(FlagDict.SUCCESS.getM());
@@ -237,7 +237,7 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage assignFac2Cou(String crn, String facultyId) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            Course course = courseMapper.selectByPrimaryKey(crn);
+            CourseBase course = courseMapper.selectByPrimaryKey(crn);
             //检查时间冲突
             if (TimeValidate.isTimeConflict(courseMapper.facultyCourse(facultyId), course)){
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
@@ -269,8 +269,8 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage addStu2Cou(String crn, String studentId, Option option) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            Transcript transcript = new Transcript();
-            Course course = courseMapper.selectByPrimaryKey(crn);
+            TranscriptBase transcript = new TranscriptBase();
+            CourseBase course = courseMapper.selectByPrimaryKey(crn);
             String status = courseMapper.getStatus(crn);
             //检查课程状态
             if (status.equals("-1")) {
@@ -299,7 +299,7 @@ public class CourseServiceImpl implements CourseService {
             //检查预选
             String precrn = course.getPrecrn();
             if (StringUtils.isNotEmpty(precrn)) {
-                Transcript preTranscript = new Transcript();
+                TranscriptBase preTranscript = new TranscriptBase();
                 preTranscript.setComplete("1");
                 preTranscript.setStudentid(studentId);
                 preTranscript.setCrn(precrn);
@@ -434,7 +434,7 @@ public class CourseServiceImpl implements CourseService {
             param.put("order", order);
             param.put("orderColumn", orderColumn);
 
-            List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
+            List<CourseBase> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
 
             message.setData(courses);
             message.put("page", page);
@@ -462,9 +462,9 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage preCourseList(String crn) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            Course course = courseMapper.selectByPrimaryKey(crn);
+            CourseBase course = courseMapper.selectByPrimaryKey(crn);
             String[] precrns = course.getPrecrn().split("/");
-            List<Course> preCourses = new ArrayList<>();
+            List<CourseBase> preCourses = new ArrayList<>();
 
             for(String precrn: precrns){
                 if(StringUtils.isNotEmpty(precrn))
@@ -489,8 +489,8 @@ public class CourseServiceImpl implements CourseService {
         List<String> failList = new ArrayList<>();
         try{
             for(String crn: choices){
-                Transcript transcript = new Transcript();
-                Course course = courseMapper.selectByPrimaryKey(crn);
+                TranscriptBase transcript = new TranscriptBase();
+                CourseBase course = courseMapper.selectByPrimaryKey(crn);
                 String status = courseMapper.getStatus(crn);
                 String courseInfo = "CRN：" + crn + ", 课程名：" + course.getName() + "，失败原因:";
                 //检查课程状态
@@ -516,7 +516,7 @@ public class CourseServiceImpl implements CourseService {
                 transcript.setStudentid(studentid);
                 //检查预选
                 String[] precrns = course.getPrecrn().split("/");
-                Transcript preTranscript = new Transcript();
+                TranscriptBase preTranscript = new TranscriptBase();
                 boolean pre = true;
                 for(String precrn: precrns){
                     preTranscript.setComplete("1");

@@ -7,8 +7,8 @@ import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.SessionUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
-import com.harambase.pioneer.pojo.base.Advise;
-import com.harambase.pioneer.pojo.AdviseView;
+import com.harambase.pioneer.pojo.base.AdviseBase;
+import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.service.AdviseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +80,7 @@ public class AdviseServiceImpl implements AdviseService{
             param.put("orderColumn",  orderColumn);
 
             //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<AdviseView> msgs = adviseMapper.getAdvisingByMapPageSearchOrdered(param);
+            List<Advise> msgs = adviseMapper.getAdvisingByMapPageSearchOrdered(param);
 
             message.setData(msgs);
             message.put("page", page);
@@ -101,7 +101,7 @@ public class AdviseServiceImpl implements AdviseService{
 
         HaramMessage haramMessage = new HaramMessage();
         try {
-            Advise advise = new Advise();
+            AdviseBase advise = new AdviseBase();
             advise.setId(id);
             advise.setOperator(SessionUtil.getUserId());
             advise.setStudentid(studentId);
@@ -127,12 +127,12 @@ public class AdviseServiceImpl implements AdviseService{
     }
 
     @Override
-    public HaramMessage assignMentor(Advise advise) {
+    public HaramMessage assignMentor(AdviseBase advise) {
         HaramMessage haramMessage = new HaramMessage();
         try {
             advise.setOperator(SessionUtil.getUserId());
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
-            Advise a = adviseMapper.selectByAdvise(advise);
+            AdviseBase a = adviseMapper.selectByAdvise(advise);
             if(a != null){
                 haramMessage.setCode(FlagDict.ADVISE_DUPLICATE.getV());
                 haramMessage.setMsg(FlagDict.ADVISE_DUPLICATE.getM());
@@ -183,7 +183,7 @@ public class AdviseServiceImpl implements AdviseService{
     public HaramMessage getMentor(Integer id) {
         HaramMessage haramMessage = new HaramMessage();
         try {
-            Advise advise = adviseMapper.selectByPrimaryKey(id);
+            AdviseBase advise = adviseMapper.selectByPrimaryKey(id);
             haramMessage.setData(advise);
             haramMessage.setCode(FlagDict.SUCCESS.getV());
             haramMessage.setMsg(FlagDict.SUCCESS.getM());

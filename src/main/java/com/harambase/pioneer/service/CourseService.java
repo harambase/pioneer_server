@@ -1,18 +1,18 @@
 package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.pioneer.pojo.base.Course;
+import com.harambase.pioneer.pojo.base.CourseBase;
 import com.harambase.pioneer.pojo.dto.Option;
 
 /**
  * Created by linsh on 7/12/2017.
  */
 public interface CourseService {
-    HaramMessage create(Course course);
+    HaramMessage create(CourseBase course);
 
     HaramMessage delete(String crn);
 
-    HaramMessage update(Course course);
+    HaramMessage update(CourseBase course);
 
     HaramMessage assignFac2Cou(String crn, String facultyId);
 

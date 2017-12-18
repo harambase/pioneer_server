@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.base.Advise;
+import com.harambase.pioneer.pojo.base.AdviseBase;
 import com.harambase.pioneer.service.AdviseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,7 +36,7 @@ public class AdviseController {
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    public ResponseEntity create(@ApiParam(value = "导师关系", required = true) @RequestBody Advise advise) {
+    public ResponseEntity create(@ApiParam(value = "导师关系", required = true) @RequestBody AdviseBase advise) {
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

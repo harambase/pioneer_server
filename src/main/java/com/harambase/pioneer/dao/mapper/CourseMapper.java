@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.base.Course;
-import com.harambase.pioneer.pojo.CourseView;
+import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.CourseBase;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -13,31 +13,31 @@ import java.util.Map;
 public interface CourseMapper {
     int deleteByPrimaryKey(String crn);
 
-    int insert(Course record);
+    int insert(CourseBase record);
 
-    int insertSelective(Course record);
+    int insertSelective(CourseBase record);
 
-    Course selectByPrimaryKey(String crn);
+    CourseBase selectByPrimaryKey(String crn);
 
-    int updateByPrimaryKeySelective(Course record);
+    int updateByPrimaryKeySelective(CourseBase record);
 
-    int updateByPrimaryKey(Course record);
+    int updateByPrimaryKey(CourseBase record);
 
-    List<CourseView> getCourseBySearch(Map<String, Object> param);
+    List<Course> getCourseBySearch(Map<String, Object> param);
 
     long getCourseCountByMapPageSearchOrdered(Map<String, Object> param);
 
-    List<Course> getCourseByMapPageSearchOrdered(Map<String, Object> param);
+    List<CourseBase> getCourseByMapPageSearchOrdered(Map<String, Object> param);
 
     int getRemain(String crn);
 
-    List<Course> facultyCourse(String facultyid);
+    List<CourseBase> facultyCourse(String facultyid);
 
-    List<CourseView> getAllActiveCourses();
+    List<Course> getAllActiveCourses();
 
     int countActiveCourse();
     
-    List<Course> getAllCoursesWithInfo(String info);
+    List<CourseBase> getAllCoursesWithInfo(String info);
 
     String getStatus(String crn);
 }

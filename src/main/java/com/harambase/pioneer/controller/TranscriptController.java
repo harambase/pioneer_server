@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 import com.harambase.pioneer.service.TranscriptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public class TranscriptController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Transcript transcript) {
+    public ResponseEntity update(@RequestBody TranscriptBase transcript) {
         transcript.setOperator(SessionUtil.getUserId());
         HaramMessage haramMessage = transcriptService.updateGrade(transcript);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);

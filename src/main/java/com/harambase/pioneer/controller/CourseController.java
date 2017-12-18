@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.base.Course;
+import com.harambase.pioneer.pojo.base.CourseBase;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import io.swagger.annotations.*;
@@ -34,7 +34,7 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity create(@ApiParam(value = "课程", required = true) @RequestBody Course course) {
+    public ResponseEntity create(@ApiParam(value = "课程", required = true) @RequestBody CourseBase course) {
         HaramMessage haramMessage = courseService.create(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
@@ -52,7 +52,7 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequiresPermissions({"admin", "teach"})
     @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Course course) {
+    public ResponseEntity update(@RequestBody CourseBase course) {
         HaramMessage haramMessage = courseService.update(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

@@ -1,7 +1,7 @@
 package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.pioneer.pojo.base.Advise;
+import com.harambase.pioneer.pojo.base.AdviseBase;
 
 public interface AdviseService {
 
@@ -9,7 +9,7 @@ public interface AdviseService {
 
     HaramMessage updateAdvise(Integer id, String studentId, String facultyId);
 
-    HaramMessage assignMentor(Advise advise);
+    HaramMessage assignMentor(AdviseBase advise);
 
     HaramMessage removeMentor(Integer id);
 

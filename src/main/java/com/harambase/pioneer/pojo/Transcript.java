@@ -1,10 +1,10 @@
 package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 
 import java.io.Serializable;
 
-public class TranscriptView extends Transcript implements Serializable {
+public class Transcript extends TranscriptBase implements Serializable {
     
     private String coursename;
 

@@ -1,10 +1,10 @@
 package com.harambase.support.charts;
 
 import com.harambase.common.constant.Type;
-import com.harambase.pioneer.pojo.base.Advise;
+import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.AdviseBase;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.base.Transcript;
-import com.harambase.pioneer.pojo.CourseView;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Graph;
@@ -28,9 +28,9 @@ import java.util.List;
 
 public class StaticGexfGraph {
 	public static String graphGenerator(List<Person> personList,
-									  List<CourseView> courseList,
-									  List<Transcript> transcriptList,
-									  List<Advise> adviseList){
+									  List<Course> courseList,
+									  List<TranscriptBase> transcriptList,
+									  List<AdviseBase> adviseList){
 		Gexf gexf = new GexfImpl();
 		Calendar date = Calendar.getInstance();
 
@@ -84,7 +84,7 @@ public class StaticGexfGraph {
 			index++;
 		}
 		//设置course Node
-		for(CourseView c: courseList){
+		for(Course c: courseList){
 			Node cNode = graph.createNode(c.getCrn());
 			int value = c.getCapa()-c.getRemain();
 			cNode.setLabel(c.getName()).setSize(10 + value*5);
@@ -105,7 +105,7 @@ public class StaticGexfGraph {
 			String type = p.getType();
 			Node pNode = graph.getNode(userid);
 			if(type.contains("s")) {
-				for (Transcript t : transcriptList) {
+				for (TranscriptBase t : transcriptList) {
 					if (t.getStudentid().equals(userid)) {
 						Node cNode = graph.getNode(t.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);
@@ -113,7 +113,7 @@ public class StaticGexfGraph {
 					}
 				}
 			}else if(type.contains("f")) {
-				for(CourseView c: courseList){
+				for(Course c: courseList){
 					if(c.getFacultyid().equals(userid)){
 						Node cNode = graph.getNode(c.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);
@@ -124,7 +124,7 @@ public class StaticGexfGraph {
 		}
 		
 		//设置FACULTY_STUDENT_CONNECTION
-		for(Advise a: adviseList){
+		for(AdviseBase a: adviseList){
 			Node sNode = graph.getNode(a.getStudentid());
 			Node fNode = graph.getNode(a.getFacultyid());
 			sNode.connectTo(String.valueOf(index), fNode);

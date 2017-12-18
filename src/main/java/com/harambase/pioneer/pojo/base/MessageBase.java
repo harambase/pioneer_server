@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "message")
-public class Message extends BaseDomain{
+public class MessageBase extends BaseDomain{
 
     private String senderid;
     

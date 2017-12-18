@@ -4,7 +4,7 @@ import com.harambase.pioneer.pojo.Person;
 
 import java.io.Serializable;
 
-public class StudentView extends Person implements Serializable{
+public class Student extends Person implements Serializable{
 
     private String studentid;
     private int max_credits;

@@ -2,10 +2,10 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.base.Advise;
+import com.harambase.pioneer.pojo.base.AdviseBase;
 import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.base.Student;
-import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.base.StudentBase;
+import com.harambase.pioneer.pojo.base.TranscriptBase;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
@@ -14,7 +14,7 @@ import com.harambase.support.charts.StaticGexfGraph;
 import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
-import com.harambase.pioneer.pojo.CourseView;
+import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.dao.repository.PersonRepository;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
@@ -125,7 +125,7 @@ public class PersonServiceImpl implements PersonService {
             person.setStatus("1");
 
             if(person.getType().contains("s")){
-                Student student = new Student();
+                StudentBase student = new StudentBase();
                 student.setStudentid(userid);
                 student.setMaxCredits(12);
                 studentMapper.insert(student);
@@ -337,7 +337,7 @@ public class PersonServiceImpl implements PersonService {
         int f = personMapper.countFaculty(param);
         int a = personMapper.countAdmin();
 
-        data1.add(MapParam.pieChartValue(String.valueOf(s), "Student"));
+        data1.add(MapParam.pieChartValue(String.valueOf(s), "StudentBase"));
         data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
         data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
 
@@ -362,9 +362,9 @@ public class PersonServiceImpl implements PersonService {
         try {
 
             List<Person> personList = personMapper.getAllUsers();
-            List<CourseView> courseList = courseMapper.getAllActiveCourses();
-            List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
-            List<Advise> adviseList = adviseMapper.getAllAdvise();
+            List<Course> courseList = courseMapper.getAllActiveCourses();
+            List<TranscriptBase> transcriptList = transcriptMapper.getAllTranscripts();
+            List<AdviseBase> adviseList = adviseMapper.getAllAdvise();
 
             String xml = StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
             message.setData(xml);
@@ -409,8 +409,8 @@ public class PersonServiceImpl implements PersonService {
                         studentMapper.deleteByPrimaryKey(userid);
                         transcriptMapper.deleteByStudentid(userid);
                     } else if (type.contains("f")) {
-                        List<CourseView> courseViewList = courseMapper.getAllActiveCourses();
-                        for (CourseView c : courseViewList) {
+                        List<Course> courseViewList = courseMapper.getAllActiveCourses();
+                        for (Course c : courseViewList) {
                             String facultyid = c.getFacultyid();
                             if (facultyid.equals(userid)) {
                                 String opTime = DateUtil.DateToStr(new Date());

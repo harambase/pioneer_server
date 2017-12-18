@@ -4,12 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "student")
-public class Student extends BaseDomain{
+public class StudentBase extends BaseDomain{
 
     private String studentid;
 
     private Integer maxCredits;
-
 
     public String getStudentid() {
         return studentid;

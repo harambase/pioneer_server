@@ -2,14 +2,14 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.pioneer.pojo.base.CourseBase;
+import com.harambase.pioneer.pojo.base.StudentBase;
 import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.base.Student;
-import com.harambase.pioneer.pojo.StudentView;
+import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
     public HaramMessage transcriptDetail(String studentid) {
        HaramMessage haramMessage = new HaramMessage();
        try{
-           StudentView sv = studentMapper.creditsDetail(studentid);
+           Student sv = studentMapper.creditsDetail(studentid);
            haramMessage.setData(sv);
            haramMessage.setCode(FlagDict.SUCCESS.getV());
            haramMessage.setMsg(FlagDict.SUCCESS.getM());
@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage update(Student student) {
+    public HaramMessage update(StudentBase student) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             int ret = studentMapper.updateByPrimaryKey(student);
@@ -146,12 +146,12 @@ public class StudentServiceImpl implements StudentService {
         HaramMessage haramMessage = new HaramMessage();
         try{
             Map<String, Integer> creditInfo = new HashMap<>();
-            List<Course> courseList = transcriptMapper.studentCourse(studentid);
-            StudentView sv = studentMapper.creditsDetail(studentid);
+            List<CourseBase> courseList = transcriptMapper.studentCourse(studentid);
+            Student sv = studentMapper.creditsDetail(studentid);
             int use_credits = 0;
             int ava_credits = 0;
             int tol_credits = sv.getMax_credits();
-            for(Course course:courseList){
+            for(CourseBase course:courseList){
                 if(course.getInfo().equals(info))
                     use_credits += course.getCredits();
             }

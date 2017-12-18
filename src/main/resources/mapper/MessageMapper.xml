@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.MessageMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Message" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.MessageBase" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="senderid" property="senderid" jdbcType="VARCHAR" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
@@ -31,7 +31,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectViewByPrimaryKey" resultType="com.harambase.pioneer.pojo.MessageView" parameterType="java.lang.Integer" >
+  <select id="selectViewByPrimaryKey" resultType="com.harambase.pioneer.pojo.Message" parameterType="java.lang.Integer" >
     select * from MessageView where id = #{id,jdbcType=INTEGER}
   </select>
 
@@ -174,7 +174,7 @@
       body = #{body,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Message" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.MessageBase" >
     update Message
     set senderid = #{senderid,jdbcType=VARCHAR},
       receiverid = #{receiverid,jdbcType=LONGVARCHAR},

@@ -1,8 +1,8 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.base.Student;
-import com.harambase.pioneer.pojo.StudentView;
+import com.harambase.pioneer.pojo.base.StudentBase;
+import com.harambase.pioneer.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -14,17 +14,17 @@ import java.util.Map;
 public interface StudentMapper {
     int deleteByPrimaryKey(String userid);
 
-    int insert(Student record);
+    int insert(StudentBase record);
 
-    int insertSelective(Student record);
+    int insertSelective(StudentBase record);
 
-    Student selectByPrimaryKey(Integer id);
+    StudentBase selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Student record);
+    int updateByPrimaryKeySelective(StudentBase record);
 
-    int updateByPrimaryKey(Student record);
+    int updateByPrimaryKey(StudentBase record);
 
-    StudentView creditsDetail(String studentid);
+    Student creditsDetail(String studentid);
 
     long getStudentCountByMapPageSearchOrdered(Map<String, Object> param);
 
