@@ -2,12 +2,12 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.common.util.DateUtil;
-import com.harambase.common.util.IDUtil;
-import com.harambase.common.util.PageUtil;
+import com.harambase.support.util.DateUtil;
+import com.harambase.support.util.IDUtil;
+import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.common.helper.CheckTime;
+import com.harambase.common.helper.TimeValidate;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.pojo.dto.CourseView;
@@ -56,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
             }
             course.setCrn(crn);
             //检查时间冲突
-            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(facultyid), course)) {
+            if (TimeValidate.isTimeConflict(courseMapper.facultyCourse(facultyid), course)) {
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
@@ -239,7 +239,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             Course course = courseMapper.selectByPrimaryKey(crn);
             //检查时间冲突
-            if (CheckTime.isTimeConflict(courseMapper.facultyCourse(facultyId), course)){
+            if (TimeValidate.isTimeConflict(courseMapper.facultyCourse(facultyId), course)){
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
@@ -279,7 +279,7 @@ public class CourseServiceImpl implements CourseService {
                 return haramMessage;
             }
             //检查时间冲突
-            if (!option.isTime() && CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentId), course)) {
+            if (!option.isTime() && TimeValidate.isTimeConflict(transcriptMapper.studentCourse(studentId), course)) {
                 haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
                 haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
                 return haramMessage;
@@ -499,7 +499,7 @@ public class CourseServiceImpl implements CourseService {
                     continue;
                 }
                 //检查时间冲突
-                if (CheckTime.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
+                if (TimeValidate.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
                     failList.add(courseInfo + FlagDict.TIMECONFLICT.getM());
                     continue;
                 }

@@ -1,13 +1,13 @@
 package com.harambase.pioneer.service.impl;
 
-import com.harambase.common.util.DateUtil;
+import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.PinMapper;
-import com.harambase.common.helper.CheckTime;
+import com.harambase.common.helper.TimeValidate;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.service.PinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class PinServiceImpl implements PinService{
         HaramMessage haramMessage = new HaramMessage();
         try{
             Pin pin = pinMapper.selectByPin(pinNum);
-            if(pin != null && CheckTime.isPinValidate(pin)){
+            if(pin != null && TimeValidate.isPinValidate(pin)){
                 haramMessage.setCode(FlagDict.SUCCESS.getV());
                 haramMessage.setMsg(FlagDict.SUCCESS.getM());
                 haramMessage.setData(pin);

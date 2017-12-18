@@ -1,5 +1,6 @@
 package com.harambase.support.database;
 
+
 import com.harambase.common.annotation.Column;
 
 import java.beans.IntrospectionException;

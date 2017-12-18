@@ -1,9 +1,9 @@
 package com.harambase.pioneer.service.impl;
 
-import com.harambase.common.util.DateUtil;
+import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.common.util.PageUtil;
+import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.MessageDao;
 import com.harambase.pioneer.dao.mapper.MessageMapper;

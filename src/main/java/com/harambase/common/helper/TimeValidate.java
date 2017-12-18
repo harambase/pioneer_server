@@ -1,12 +1,12 @@
 package com.harambase.common.helper;
 
-import com.harambase.common.util.DateUtil;
+import com.harambase.support.util.DateUtil;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.Pin;
 
 import java.util.*;
 
-public class CheckTime {
+public class TimeValidate {
 
 //    public static boolean isTimeConflict(CourseMapper courseMapper, Course teach) {
 //        String time = teach.getStarttime() + "-" + teach.getEndtime();
