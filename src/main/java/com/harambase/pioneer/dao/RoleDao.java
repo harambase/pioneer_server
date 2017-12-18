@@ -15,9 +15,7 @@ import java.util.List;
 @Deprecated
 @Component
 public class RoleDao {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Deprecated
     public String getSingleRoleName(int roleId) {
 
         ResultSet rs = null;
@@ -46,7 +44,6 @@ public class RoleDao {
         return roleNameList.get(0);
     }
 
-    @Deprecated
     public String getSingleRoleCode(int roleId) {
 
         ResultSet rs = null;

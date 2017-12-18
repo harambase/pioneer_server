@@ -1,8 +1,14 @@
 package com.harambase.pioneer.pojo;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "advise")
 public class Advise implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String studentid;

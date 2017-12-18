@@ -1,8 +1,16 @@
 package com.harambase.pioneer.pojo;
 
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "transcript")
 public class Transcript implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String studentid;

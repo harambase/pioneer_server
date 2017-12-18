@@ -1,12 +1,9 @@
 package com.harambase.pioneer.pojo;
 
-import org.hibernate.annotations.DynamicUpdate;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@DynamicUpdate
 @Table(name = "person")
 public class Person implements Serializable {
 

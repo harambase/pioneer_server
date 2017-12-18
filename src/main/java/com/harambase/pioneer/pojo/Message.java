@@ -1,6 +1,13 @@
 package com.harambase.pioneer.pojo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "message")
 public class Message {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String senderid;

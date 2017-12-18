@@ -1,8 +1,14 @@
 package com.harambase.pioneer.pojo;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "tempcourse")
 public class TempCourse implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String crn;
