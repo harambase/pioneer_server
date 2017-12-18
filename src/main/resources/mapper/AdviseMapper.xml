@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.AdviseMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Advise" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Advise" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentid" property="studentid" jdbcType="VARCHAR" />
     <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     from Advise where id = #{arg0, jdbcType=INTEGER}
   </select>
 
-  <select id="selectByAdvise" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <select id="selectByAdvise" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     select
     <include refid="Base_Column_List" />
     from Advise where studentid = #{studentid,jdbcType=VARCHAR} and facultyid = #{facultyid,jdbcType=VARCHAR}
@@ -40,7 +40,7 @@
   <delete id="deleteByUserID" parameterType="java.lang.String" >
     delete from Advise where studentid = #{studentid,jdbcType=INTEGER} or facultyid = #{studentid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     insert into Advise (id, studentid, facultyid, status, updateTime, operator
       )
     values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR},
@@ -49,7 +49,7 @@
     #{operator,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     insert into Advise
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -92,7 +92,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     update Advise
     <set >
       <if test="studentid != null" >
@@ -113,7 +113,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Advise" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     update Advise
     set studentid = #{studentid,jdbcType=VARCHAR},
         facultyid = #{facultyid,jdbcType=VARCHAR},
@@ -140,7 +140,7 @@
     </if>
   </where>
   </select>
-  <select id="getAdvisingByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.AdviseView">
+  <select id="getAdvisingByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.AdviseView">
     select * from AdviseView <where> 1 = 1
     <if test="studentid != null">
       and studentid = #{studentid,jdbcType=VARCHAR}

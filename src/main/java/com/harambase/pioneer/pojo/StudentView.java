@@ -1,4 +1,4 @@
-package com.harambase.pioneer.pojo.dto;
+package com.harambase.pioneer.pojo;
 
 import com.harambase.pioneer.pojo.Person;
 

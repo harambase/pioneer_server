@@ -1,9 +1,9 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.Transcript;
-import com.harambase.pioneer.pojo.dto.TranscriptView;
+import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.TranscriptView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

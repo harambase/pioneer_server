@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.TempUser;
-import com.harambase.pioneer.pojo.dto.AdviseView;
+import com.harambase.pioneer.pojo.AdviseView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

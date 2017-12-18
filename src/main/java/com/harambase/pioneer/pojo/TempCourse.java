@@ -1,15 +1,13 @@
 package com.harambase.pioneer.pojo;
 
+import com.harambase.pioneer.pojo.base.BaseDomain;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "tempcourse")
-public class TempCourse implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class TempCourse extends BaseDomain {
 
     private String crn;
 
@@ -22,14 +20,6 @@ public class TempCourse implements Serializable{
     private String operator;
 
     private String courseJson;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCrn() {
         return crn;
@@ -78,4 +68,5 @@ public class TempCourse implements Serializable{
     public void setCourseJson(String courseJson) {
         this.courseJson = courseJson == null ? null : courseJson.trim();
     }
+
 }

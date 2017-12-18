@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.MessageMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Message" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Message" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="senderid" property="senderid" jdbcType="VARCHAR" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
     <result column="tag" property="tag" jdbcType="VARCHAR" />
     <result column="labels" property="labels" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.MessageWithBLOBs" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.MessageWithBLOBs" extends="BaseResultMap" >
     <result column="receiverid" property="receiverid" jdbcType="LONGVARCHAR" />
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
   </resultMap>
@@ -31,7 +31,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectViewByPrimaryKey" resultType="com.harambase.pioneer.pojo.dto.MessageView" parameterType="java.lang.Integer" >
+  <select id="selectViewByPrimaryKey" resultType="com.harambase.pioneer.pojo.MessageView" parameterType="java.lang.Integer" >
     select * from MessageView where id = #{id,jdbcType=INTEGER}
   </select>
 
@@ -39,7 +39,7 @@
     delete from Message
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.MessageWithBLOBs" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.MessageWithBLOBs" >
     insert into Message (id, senderid, receiverid, 
       subject, title, status, 
       date, attachment, tag, 
@@ -51,7 +51,7 @@
       #{labels,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.MessageWithBLOBs" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.MessageWithBLOBs" >
     insert into Message
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -124,7 +124,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.MessageWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.MessageWithBLOBs" >
     update Message
     <set >
       <if test="senderid != null" >
@@ -160,7 +160,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.MessageWithBLOBs" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.MessageWithBLOBs" >
     update Message
     set senderid = #{senderid,jdbcType=VARCHAR},
       receiverid = #{receiverid,jdbcType=LONGVARCHAR},
@@ -174,7 +174,7 @@
       body = #{body,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Message" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Message" >
     update Message
     set senderid = #{senderid,jdbcType=VARCHAR},
       receiverid = #{receiverid,jdbcType=LONGVARCHAR},

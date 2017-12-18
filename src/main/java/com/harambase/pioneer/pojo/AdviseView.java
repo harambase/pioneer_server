@@ -1,10 +1,9 @@
-package com.harambase.pioneer.pojo.dto;
+package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.Advise;
+import com.harambase.pioneer.pojo.base.Advise;
 
-import java.io.Serializable;
+public class AdviseView extends Advise{
 
-public class AdviseView extends Advise implements Serializable {
     private String sname;
     private String fname;
     private String oname;

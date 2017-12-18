@@ -1,6 +1,6 @@
-package com.harambase.pioneer.pojo.dto;
+package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.base.Transcript;
 
 import java.io.Serializable;
 

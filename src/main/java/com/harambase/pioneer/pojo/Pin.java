@@ -108,4 +108,20 @@ public class Pin implements Serializable{
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Pin{" +
+                "id=" + id +
+                ", pin=" + pin +
+                ", info='" + info + '\'' +
+                ", facultyid='" + facultyid + '\'' +
+                ", studentid='" + studentid + '\'' +
+                ", role=" + role +
+                ", starttime='" + starttime + '\'' +
+                ", endtime='" + endtime + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

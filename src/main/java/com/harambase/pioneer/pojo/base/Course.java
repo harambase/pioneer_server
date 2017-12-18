@@ -1,15 +1,10 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "course")
-public class Course implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class Course extends BaseDomain{
 
     private String crn;
 
@@ -46,14 +41,6 @@ public class Course implements Serializable{
     private String updatetime;
 
     private String comment;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCrn() {
         return crn;
@@ -198,4 +185,6 @@ public class Course implements Serializable{
     public void setComment(String comment) {
         this.comment = comment == null ? null : comment.trim();
     }
+
+
 }

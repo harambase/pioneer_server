@@ -48,4 +48,14 @@ public class Role implements Serializable{
     public void setRoleCode(String roleCode) {
         this.roleCode = roleCode == null ? null : roleCode.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleid=" + roleid +
+                ", roleName='" + roleName + '\'' +
+                ", roleCode='" + roleCode + '\'' +
+                '}';
+    }
 }

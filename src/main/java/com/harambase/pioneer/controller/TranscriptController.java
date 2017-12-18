@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.base.Transcript;
 import com.harambase.pioneer.service.TranscriptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

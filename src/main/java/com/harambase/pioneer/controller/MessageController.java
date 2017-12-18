@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
 import com.harambase.pioneer.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

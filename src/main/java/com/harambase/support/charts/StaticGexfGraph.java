@@ -1,10 +1,10 @@
 package com.harambase.support.charts;
 
 import com.harambase.common.constant.Type;
-import com.harambase.pioneer.pojo.Advise;
+import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.pioneer.pojo.Transcript;
-import com.harambase.pioneer.pojo.dto.CourseView;
+import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.CourseView;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Graph;

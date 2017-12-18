@@ -1,17 +1,11 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.base;
 
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "transcript")
-public class Transcript implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class Transcript extends BaseDomain{
 
     private String studentid;
 
@@ -31,14 +25,6 @@ public class Transcript implements Serializable{
 
     public void setOperator(String operator) {
         this.operator = operator;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getStudentid() {
@@ -80,4 +66,5 @@ public class Transcript implements Serializable{
     public void setAssigntime(String assigntime) {
         this.assigntime = assigntime == null ? null : assigntime.trim();
     }
+
 }

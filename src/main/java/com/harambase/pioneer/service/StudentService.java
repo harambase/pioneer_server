@@ -1,8 +1,9 @@
 package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.pioneer.pojo.Student;
-import com.harambase.pioneer.pojo.dto.Option; /**
+import com.harambase.pioneer.pojo.base.Student;
+
+/**
  * Created by linsh on 7/12/2017.
  */
 public interface StudentService {

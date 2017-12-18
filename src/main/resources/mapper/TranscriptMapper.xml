@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.TranscriptMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Transcript" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Transcript" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentid" property="studentid" jdbcType="VARCHAR" />
     <result column="crn" property="crn" jdbcType="VARCHAR" />
@@ -31,7 +31,7 @@
   </delete>
 
 
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Transcript" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     insert into Transcript (id, studentid, crn, 
       grade, complete, assigntime, operator
       )
@@ -39,7 +39,7 @@
       #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assigntime,jdbcType=VARCHAR},#{operator,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     insert into Transcript
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -88,7 +88,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Transcript" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     update Transcript
     <set >
       <if test="studentid != null" >
@@ -112,7 +112,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Transcript" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     update Transcript
     set grade = #{grade,jdbcType=VARCHAR},
       complete = #{complete,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
     </if>
   </where>
   </select>
-  <select id="getTranscriptByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
+  <select id="getTranscriptByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.TranscriptView">
     select * from TranscriptView <where> 1 = 1
     <if test="studentid != null">
       and studentid = #{studentid,jdbcType=VARCHAR}
@@ -168,19 +168,19 @@
     select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR}
   </select>
 
-  <select id="count" parameterType="com.harambase.pioneer.pojo.Transcript" resultType="java.lang.Integer">
+  <select id="count" parameterType="com.harambase.pioneer.pojo.base.Transcript" resultType="java.lang.Integer">
     select count(*) as count from Transcript where crn = #{crn,jdbcType=VARCHAR} and studentid = #{studentid,jdbcType=VARCHAR} and complete = #{complete, jdbcType=VARCHAR}
   </select>
 
-  <select id="studentCourse" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.Course">
+  <select id="studentCourse" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.base.Course">
     SELECT * FROM Course c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.studentid = #{arg0,jdbcType=VARCHAR})
   </select>
 
-  <select id="studentTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
+  <select id="studentTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.TranscriptView">
     SELECT * FROM TranscriptView WHERE studentid = #{arg0, jdbcType=VARCHAR}
   </select>
 
-  <select id="courseTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.dto.TranscriptView">
+  <select id="courseTranscripts" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.TranscriptView">
     SELECT * FROM TranscriptView WHERE crn = #{arg0, jdbcType=VARCHAR}
   </select>
 

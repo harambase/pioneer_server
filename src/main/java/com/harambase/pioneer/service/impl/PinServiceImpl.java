@@ -1,5 +1,6 @@
 package com.harambase.pioneer.service.impl;
 
+import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
 import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;

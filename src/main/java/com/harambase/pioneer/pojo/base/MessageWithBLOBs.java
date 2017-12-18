@@ -1,4 +1,4 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.base;
 
 public class MessageWithBLOBs extends Message {
     private String body;
@@ -21,5 +21,11 @@ public class MessageWithBLOBs extends Message {
         this.receiverid = receiverid == null ? null : receiverid.trim();
     }
 
-
+    @Override
+    public String toString() {
+        return "MessageWithBLOBs{" +
+                "body='" + body + '\'' +
+                ", receiverid='" + receiverid + '\'' +
+                "} " + super.toString();
+    }
 }

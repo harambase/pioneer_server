@@ -228,4 +228,32 @@ public class Person implements Serializable {
     public void setComment(String comment) {
         this.comment = comment == null ? null : comment.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", userid='" + userid + '\'' +
+                ", username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                ", info='" + info + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", email='" + email + '\'' +
+                ", tel='" + tel + '\'' +
+                ", qq='" + qq + '\'' +
+                ", wechat='" + wechat + '\'' +
+                ", dorm='" + dorm + '\'' +
+                ", gender='" + gender + '\'' +
+                ", createtime='" + createtime + '\'' +
+                ", updatetime='" + updatetime + '\'' +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", comment='" + comment + '\'' +
+                ", profile='" + profile + '\'' +
+                ", roleId='" + roleId + '\'' +
+                ", userInfo='" + userInfo + '\'' +
+                '}';
+    }
 }

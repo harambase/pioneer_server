@@ -1,8 +1,7 @@
 package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.dto.Option;
 
 /**

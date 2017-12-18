@@ -1,10 +1,10 @@
-package com.harambase.pioneer.pojo.dto;
+package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
 
 import java.io.Serializable;
 
-public class MessageView extends MessageWithBLOBs implements Serializable {
+public class MessageView extends MessageWithBLOBs {
 
     private String pic;
 

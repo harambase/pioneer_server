@@ -1,26 +1,15 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "student")
-public class Student {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class Student extends BaseDomain{
 
     private String studentid;
 
     private Integer maxCredits;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getStudentid() {
         return studentid;
@@ -37,4 +26,5 @@ public class Student {
     public void setMaxCredits(Integer maxCredits) {
         this.maxCredits = maxCredits;
     }
+
 }

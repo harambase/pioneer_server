@@ -1,14 +1,10 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "message")
-public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+public class Message extends BaseDomain{
 
     private String senderid;
     
@@ -25,14 +21,6 @@ public class Message {
     private String tag;
 
     private String labels;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getSenderid() {
         return senderid;
@@ -97,4 +85,5 @@ public class Message {
     public void setLabels(String labels) {
         this.labels = labels == null ? null : labels.trim();
     }
+
 }

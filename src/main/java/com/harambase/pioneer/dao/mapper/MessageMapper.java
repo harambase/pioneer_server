@@ -1,13 +1,10 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.Message;
-import com.harambase.pioneer.pojo.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.dto.MessageView;
+import com.harambase.pioneer.pojo.base.Message;
+import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.MessageView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 @Mapper
 @Component

@@ -1,10 +1,10 @@
-package com.harambase.pioneer.pojo.dto;
+package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.Course;
 
 import java.io.Serializable;
 
-public class CourseView extends Course implements Serializable {
+public class CourseView extends Course {
     
     private Integer remain;
     private String faculty;

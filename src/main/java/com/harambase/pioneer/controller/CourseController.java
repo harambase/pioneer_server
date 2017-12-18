@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
 import com.harambase.support.util.SessionUtil;
-import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.dto.Option;
 import com.harambase.pioneer.service.CourseService;
 import io.swagger.annotations.*;
