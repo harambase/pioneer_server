@@ -1,12 +1,19 @@
 package com.harambase.pioneer.pojo;
 
-import com.harambase.pioneer.pojo.base.BaseDomain;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tempuser")
-public class TempUser extends BaseDomain {
+public class TempUser implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
 
     private String userid;
 

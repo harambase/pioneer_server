@@ -1,10 +1,23 @@
 package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "student")
-public class StudentBase extends BaseDomain{
+public class StudentBase implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     private String studentid;
 
