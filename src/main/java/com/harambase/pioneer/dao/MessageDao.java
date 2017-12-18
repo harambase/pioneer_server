@@ -1,9 +1,9 @@
 package com.harambase.pioneer.dao;
 
-import com.github.pagehelper.StringUtil;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.Message;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -73,7 +73,7 @@ public class MessageDao {
 
             queryString += whereBuilderByLabel(receiverid, senderid, box);
 
-            if(StringUtil.isNotEmpty(search)){
+            if(StringUtils.isNotEmpty(search)){
                 queryString += "" +
                         "and(email LIKE  '%"+search+"%' or" +
                         "   subject LIKE '%"+search+"%' or" +
@@ -112,7 +112,7 @@ public class MessageDao {
             String queryString = "select * from MessageView where 1 = 1";
             queryString += whereBuilderByLabel(receiverid, senderid, box);
 
-            if(StringUtil.isNotEmpty(search)){
+            if(StringUtils.isNotEmpty(search)){
                 queryString += "" +
                         "and(email LIKE  '%"+search+"%' or" +
                         "   subject LIKE '%"+search+"%' or" +

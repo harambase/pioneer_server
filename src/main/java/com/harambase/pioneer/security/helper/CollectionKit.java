@@ -1,6 +1,6 @@
-package com.harambase.support.security.helper;
+package com.harambase.pioneer.security.helper;
 
-import com.github.pagehelper.StringUtil;
+import org.apache.commons.lang3.StringUtils;
 
 public class CollectionKit {
 
@@ -19,7 +19,7 @@ public class CollectionKit {
     }
 
     public static Integer[] toIntArray(String split, String str) {
-        if (StringUtil.isEmpty(str)) {
+        if (StringUtils.isEmpty(str)) {
             return new Integer[] {};
         }
         String[] arr = str.split(split);

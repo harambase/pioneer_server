@@ -19,15 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by linsh on 7/12/2017.
- */
 @Service
 public class StudentServiceImpl implements StudentService {
 
     private final StudentMapper studentMapper;
     private final TranscriptMapper transcriptMapper;
-
 
     @Autowired
     public StudentServiceImpl(StudentMapper studentMapper, TranscriptMapper transcriptMapper){
@@ -49,7 +45,6 @@ public class StudentServiceImpl implements StudentService {
             haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
             return haramMessage;
        }
-
     }
 
     @Override

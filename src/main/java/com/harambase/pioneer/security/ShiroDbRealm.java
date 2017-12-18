@@ -1,9 +1,9 @@
-package com.harambase.support.security;
+package com.harambase.pioneer.security;
 
 import com.harambase.pioneer.pojo.Person;
-import com.harambase.support.security.entity.ShiroUser;
-import com.harambase.support.security.factory.ShiroService;
-import com.harambase.support.security.factory.ShiroServiceImpl;
+import com.harambase.pioneer.security.entity.ShiroUser;
+import com.harambase.pioneer.security.factory.ShiroService;
+import com.harambase.pioneer.security.factory.ShiroServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

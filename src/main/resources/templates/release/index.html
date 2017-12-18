@@ -15,7 +15,7 @@
         <div class="header">
             <h1 class="page-header">
                 先锋OA系统
-                <small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname}"></small>
+                <!--<small id="name" th:text="'欢迎回来'+${session.user.lastname}+', '+${session.user.firstname}"></small>-->
             </h1>
             <ol class="breadcrumb">
                 <li class="active"><a href="/index">主页</a></li>
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="row">
-                <div id = footerPlaceholder">
+                <div id=footerPlaceholder">
                     <div th:include="/release/common/footer :: copy" id="copyright"></div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
 </body>
 <script>
     window.sliderFirstNav = "0";
-//    window.sliderSecondNav = "1";
+    //    window.sliderSecondNav = "1";
 </script>
 
 <div th:include="/release/common/js :: load_js(true,true,false)"></div>

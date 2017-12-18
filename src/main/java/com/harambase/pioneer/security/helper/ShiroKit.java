@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.harambase.support.security.helper;
+package com.harambase.pioneer.security.helper;
 
-import com.harambase.support.security.entity.ShiroUser;
+import com.harambase.pioneer.security.entity.ShiroUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;

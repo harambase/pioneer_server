@@ -1,4 +1,4 @@
-package com.harambase.support.security;
+package com.harambase.pioneer.security;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -1,6 +1,5 @@
 package com.harambase.pioneer.dao;
 
-import com.github.pagehelper.StringUtil;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.Person;
@@ -36,7 +35,7 @@ public class PersonDao {
     
             queryString +="AND status = '"+ status +" '";
             
-            if(StringUtil.isNotEmpty(search)){
+            if(StringUtils.isNotEmpty(search)){
                 queryString += "" +
                         "AND (userid like  '%"+search+"%' or" +
                         "   username like  '%"+search+"%' or" +

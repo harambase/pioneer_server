@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.harambase.support.security.waf;
+package com.harambase.pioneer.security.waf;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

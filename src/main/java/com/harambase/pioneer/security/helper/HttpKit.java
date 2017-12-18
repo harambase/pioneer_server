@@ -1,6 +1,6 @@
-package com.harambase.support.security.helper;
+package com.harambase.pioneer.security.helper;
 
-import com.harambase.support.security.waf.WafRequestWrapper;
+import com.harambase.pioneer.security.waf.WafRequestWrapper;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

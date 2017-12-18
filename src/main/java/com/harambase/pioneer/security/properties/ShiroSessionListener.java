@@ -1,4 +1,4 @@
-package com.harambase.support.security.properties;
+package com.harambase.pioneer.security.properties;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

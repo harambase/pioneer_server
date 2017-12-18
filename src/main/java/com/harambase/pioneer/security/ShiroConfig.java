@@ -1,8 +1,11 @@
-package com.harambase.support.security;
+package com.harambase.pioneer.security;
 
-import com.harambase.support.security.properties.ShiroSessionListener;
+import com.harambase.pioneer.security.properties.ShiroSessionListener;
+import org.apache.shiro.cache.CacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.SessionListener;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -14,6 +17,7 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -39,7 +43,6 @@ public class ShiroConfig {
 //        securityManager.setSessionManager(sessionManager());
 //        return securityManager;
 //    }
-
     @Bean
     public SessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
@@ -80,16 +83,39 @@ public class ShiroConfig {
 //        return sessionManager;
 //    }
 
-//    /**
-//     * 缓存管理器 使用Ehcache实现
-//     */
+    /**
+     * 缓存管理器 使用Ehcache实现
+     */
+    @Bean
+    public EhCacheManager getEhCacheManager() {
+        EhCacheManager em = new EhCacheManager();
+        em.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
+        return em;
+    }
+
+    @Bean
+    public Realm getShiroRealm() {
+        ShiroDbRealm realm = new ShiroDbRealm();
+        realm.setCacheManager(getEhCacheManager());
+        return realm;
+    }
+
 //    @Bean
-//    @Qualifier(value="cacheShiroManager")
-//    public CacheManager getCacheShiroManager(final EhCacheManagerFactoryBean ehcache) {
-//        EhCacheManager ehCacheManager = new EhCacheManager();
-//        ehCacheManager.setCacheManager(ehcache.getObject());
-//        return ehCacheManager;
+//    public DefaultWebSecurityManager getDefaultWebSecurityManager(ShiroDbRealm realm, SessionManager sessionManager) {
+//        DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
+//        dwsm.setRealm(realm);
+////        <!-- 用户授权/认证信息Cache, 采用EhCache 缓存 -->
+//        dwsm.setCacheManager(getEhCacheManager());
+//        dwsm.setSessionManager(sessionManager);
+//        return dwsm;
 //    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor aasa = new AuthorizationAttributeSourceAdvisor();
+        aasa.setSecurityManager(securityManager);
+        return aasa;
+    }
 
 
     /**
@@ -152,9 +178,11 @@ public class ShiroConfig {
          */
 
         Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("/**", "anon");
         hashMap.put("/static/**", "anon");
         hashMap.put("/request/user/register", "anon");
         hashMap.put("/release/common/**", "anon");
+        hashMap.put("/stystem/**", "anon");
         hashMap.put("/403", "anon");
         hashMap.put("/404", "anon");
         hashMap.put("/reg", "anon");
@@ -163,7 +191,6 @@ public class ShiroConfig {
         hashMap.put("/swagger-ui.html", "anon");
         hashMap.put("/swagger", "anon");
         hashMap.put("/", "anon");
-        hashMap.put("/**", "anon");
         hashMap.put("/index", "authc");
 
         shiroFilter.setFilterChainDefinitionMap(hashMap);
