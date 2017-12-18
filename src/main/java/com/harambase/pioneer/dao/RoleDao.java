@@ -1,6 +1,6 @@
 package com.harambase.pioneer.dao;
 
-import com.harambase.pioneer.database.DataServiceConnection;
+import com.harambase.support.database.DataServiceConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -12,10 +12,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 @Component
 public class RoleDao {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Deprecated
     public String getSingleRoleName(int roleId) {
 
         ResultSet rs = null;
@@ -44,6 +46,7 @@ public class RoleDao {
         return roleNameList.get(0);
     }
 
+    @Deprecated
     public String getSingleRoleCode(int roleId) {
 
         ResultSet rs = null;

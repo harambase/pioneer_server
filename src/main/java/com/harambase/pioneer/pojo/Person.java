@@ -2,14 +2,12 @@ package com.harambase.pioneer.pojo;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @DynamicUpdate
+@Table(name = "person")
 public class Person implements Serializable {
 
     @Id
@@ -54,10 +52,6 @@ public class Person implements Serializable {
 
     private String profile;
 
-    private Integer deptId;
-
-    private String deptName;
-
     private String roleId;
 
     private String userInfo;
@@ -76,22 +70,6 @@ public class Person implements Serializable {
 
     public void setRoleId(String roleId) {
         this.roleId = roleId;
-    }
-
-    public Integer getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getDeptName() {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName) {
-        this.deptName = deptName;
     }
 
     public String getProfile(){

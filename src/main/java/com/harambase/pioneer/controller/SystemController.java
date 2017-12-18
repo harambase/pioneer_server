@@ -26,8 +26,9 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/system")
-@Api(value = "/system", description = "系统管理接口")
+//@Api(value = "/system", description = "系统管理接口")
 public class SystemController {
+
     private final CourseService courseService;
     private final PersonService personService;
     
@@ -38,8 +39,8 @@ public class SystemController {
         this.personService = personService;
     }
 
-    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+//    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
+//    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person){
         HaramMessage message = personService.login(person);
@@ -52,8 +53,8 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "登出", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+//    @ApiOperation(value = "登出", notes = "权限：所有人", response = Map.class, tags = {Tags.SYSTEM})
+//    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity logout(){
         HaramMessage message = new HaramMessage();
@@ -63,10 +64,10 @@ public class SystemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+//    @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+//    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @RequiresPermissions("user")
+//    @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
 
@@ -86,19 +87,19 @@ public class SystemController {
 
     }
 
-    @ApiOperation(value = "关系图表", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+//    @ApiOperation(value = "关系图表", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+//    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
-    @RequiresPermissions("user")
+//    @RequiresPermissions("user")
     public ResponseEntity relationChart(){
         HaramMessage haramMessage = personService.getRelationChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
-
-    @ApiOperation(value = "系统用户计数", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+//
+//    @ApiOperation(value = "系统用户计数", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
+//    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
-    @RequiresPermissions("user")
+//    @RequiresPermissions("user")
     public ResponseEntity userCount(){
         HaramMessage haramMessage = personService.userChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);

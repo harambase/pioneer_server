@@ -1,8 +1,8 @@
 package com.harambase.pioneer.dao;
 
 import com.github.pagehelper.StringUtil;
-import com.harambase.pioneer.database.DataServiceConnection;
-import com.harambase.pioneer.database.ResultSetHelper;
+import com.harambase.support.database.DataServiceConnection;
+import com.harambase.support.database.ResultSetHelper;
 import com.harambase.pioneer.pojo.dto.MessageView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

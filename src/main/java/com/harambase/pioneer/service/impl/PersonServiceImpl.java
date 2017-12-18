@@ -6,15 +6,18 @@ import com.harambase.common.util.DateUtil;
 import com.harambase.common.util.IDUtil;
 import com.harambase.common.util.PageUtil;
 import com.harambase.common.util.Pinyin4jUtil;
-import com.harambase.common.helper.StaticGexfGraph;
+import com.harambase.support.charts.StaticGexfGraph;
 import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.pojo.dto.CourseView;
-import com.harambase.pioneer.repository.PersonRepository;
+import com.harambase.pioneer.dao.repository.PersonRepository;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +25,7 @@ import java.util.*;
 
 
 @Service
+@Transactional
 public class PersonServiceImpl implements PersonService {
 
     private final PersonMapper personMapper;
@@ -86,7 +90,7 @@ public class PersonServiceImpl implements PersonService {
             String userid, password;
 
             String info = person.getInfo();
-            List<Person> people = personMapper.getAllUsersWithInfo(info);
+            List<Person> people = personRepository.findByInfo(info);
 
             if(person.getUserid() == null)
                 userid = IDUtil.genUserID(info);
@@ -210,30 +214,33 @@ public class PersonServiceImpl implements PersonService {
         }
         long totalSize = 0;
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("type", type);
-            param.put("status", status);
+//            Map<String, Object> param = new HashMap<>();
+//            param.put("search", search);
+//            param.put("type", type);
+//            param.put("status", status);
+//
+//            if(StringUtils.isEmpty(search))
+//                param.put("search", null);
 
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-
-            totalSize = personMapper.getCountByMapPageSearchOrdered(param); //startTime, endTime);
+//            totalSize = personMapper.getCountByMapPageSearchOrdered(param); //startTime, endTime);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            param.put("currentIndex", page.getCurrentIndex());
-            param.put("pageSize",  page.getPageSize());
-            param.put("order",  order);
-            param.put("orderColumn",  orderColumn);
+//            param.put("currentIndex", page.getCurrentIndex());
+//            param.put("pageSize",  page.getPageSize());
+//            param.put("order",  order);
+//            param.put("orderColumn",  orderColumn);
 
             //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<Person> msgs = personMapper.getByMapPageSearchOrdered(param);
+//            List<Person> msgs = personMapper.getByMapPageSearchOrdered(param);
 
-            message.setData(msgs);
+            Sort sort = new Sort(Sort.Direction.DESC, orderColumn);
+            Pageable pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), sort);
+            List<Person> personList = personRepository.findAll(pageable).getContent();
+            message.setData(personList);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
