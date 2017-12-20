@@ -2,7 +2,7 @@ package com.harambase.support.charts;
 
 import com.harambase.common.constant.Type;
 import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.pojo.base.AdviseBase;
+import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.pojo.base.TranscriptBase;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
@@ -30,7 +30,7 @@ public class StaticGexfGraph {
 	public static String graphGenerator(List<Person> personList,
 									  List<Course> courseList,
 									  List<TranscriptBase> transcriptList,
-									  List<AdviseBase> adviseList){
+									  List<Advise> adviseList){
 		Gexf gexf = new GexfImpl();
 		Calendar date = Calendar.getInstance();
 
@@ -124,7 +124,7 @@ public class StaticGexfGraph {
 		}
 		
 		//设置FACULTY_STUDENT_CONNECTION
-		for(AdviseBase a: adviseList){
+		for(Advise a: adviseList){
 			Node sNode = graph.getNode(a.getStudentid());
 			Node fNode = graph.getNode(a.getFacultyid());
 			sNode.connectTo(String.valueOf(index), fNode);

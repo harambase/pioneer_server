@@ -1,11 +1,9 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.base.AdviseBase;
-import com.harambase.pioneer.pojo.Advise;
+import com.harambase.pioneer.pojo.base.Advise;
+import com.harambase.pioneer.pojo.AdviseView;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -16,25 +14,25 @@ public interface AdviseMapper{
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(AdviseBase record);
+    int insert(Advise record);
 
-    int insertSelective(AdviseBase record);
+    int insertSelective(Advise record);
 
-    AdviseBase selectByPrimaryKey(Integer id);
+    Advise selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(AdviseBase record);
+    int updateByPrimaryKeySelective(Advise record);
 
-    int updateByPrimaryKey(AdviseBase record);
+    int updateByPrimaryKey(Advise record);
 
     long getAdvisingCountByMapPageSearchOrdered(Map<String, Object> param);
 
-    List<Advise> getAdvisingByMapPageSearchOrdered(Map<String, Object> param);
+    List<AdviseView> getAdvisingByMapPageSearchOrdered(Map<String, Object> param);
 
-    List<AdviseBase> getAllAdvise();
+    List<Advise> getAllAdvise();
 
     int deleteByUserID(String userid);
 
     String selectFacultyByStudent(String studentid);
 
-    AdviseBase selectByAdvise(AdviseBase advise);
+    Advise selectByAdvise(Advise advise);
 }

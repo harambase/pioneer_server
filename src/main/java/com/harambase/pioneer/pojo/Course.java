@@ -17,7 +17,6 @@ public class Course extends CourseBase {
 
     private String time;
 
-
     public String getDate() {
         return date;
     }

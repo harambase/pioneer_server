@@ -1,20 +1,21 @@
-package com.harambase.pioneer.dao.repository;
+package com.harambase.pioneer.dao.repository.view;
 
+import com.harambase.pioneer.pojo.AdviseView;
 import com.harambase.pioneer.pojo.base.Advise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdviseRepository extends JpaRepository<Advise, Integer> {
+public interface AdviseViewRepository extends JpaRepository<AdviseView, Integer> {
 
     int countByFacultyidAndStudentid(String facultyId, String studentId);
 
 //     "FUNCTION('get_name' , a.studentid) AS sname, a.facultyid AS facultyid, " +
 //             "FUNCTION('get_name' , a.facultyid) AS fname, a.status AS status, a.update_time AS update_time, a.operator " +
 //             "AS operator, FUNCTION('get_name', a.operator) AS oname
-    @Query("SELECT a FROM Advise a where a.id = ?1")
-    Advise findOne(Integer id);
+    @Query("SELECT a FROM AdviseView a where a.id = ?1")
+    AdviseView findOne(Integer id);
 
 //    @Query("select AdviseView from adviseview where (studentid like ?1 or facultyid like ?1 or sname like  ?1 or operator like  ?1 or fname like  ?1)")
 //    Page<AdviseView> findAllBySearch(String search, Pageable pageable);

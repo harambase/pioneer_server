@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.TempUser;
-import com.harambase.pioneer.pojo.Advise;
+import com.harambase.pioneer.pojo.AdviseView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +27,5 @@ public interface TempUserMapper {
 
     long getTempUserCountByMapPageSearchOrdered(Map<String, Object> param);
 
-    List<Advise> getTempUserByMapPageSearchOrdered(Map<String, Object> param);
+    List<AdviseView> getTempUserByMapPageSearchOrdered(Map<String, Object> param);
 }

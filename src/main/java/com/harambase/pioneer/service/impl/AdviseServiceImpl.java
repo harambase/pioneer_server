@@ -4,10 +4,12 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.repository.AdviseRepository;
+import com.harambase.pioneer.dao.repository.view.AdviseViewRepository;
+import com.harambase.pioneer.pojo.AdviseView;
+import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.AdviseMapper;
-import com.harambase.pioneer.pojo.Advise;
 import com.harambase.pioneer.service.AdviseService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -28,11 +27,13 @@ public class AdviseServiceImpl implements AdviseService{
 
     private final AdviseMapper adviseMapper;
     private final AdviseRepository adviseRepository;
+    private final AdviseViewRepository adviseViewRepository;
 
     @Autowired
-    public AdviseServiceImpl(AdviseMapper adviseMapper, AdviseRepository adviseRepository){
+    public AdviseServiceImpl(AdviseMapper adviseMapper, AdviseRepository adviseRepository, AdviseViewRepository adviseViewRepository){
         this.adviseMapper = adviseMapper;
         this.adviseRepository = adviseRepository;
+        this.adviseViewRepository = adviseViewRepository;
     }
 
 
@@ -60,45 +61,28 @@ public class AdviseServiceImpl implements AdviseService{
                 orderColumn = "updateTime";
                 break;
         }
-        long totalSize = 0;
+
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("studentid", studentid);
-            param.put("facultyid", facultyid);
-            if(StringUtils.isEmpty(studentid))
-                param.put("studentid", null);
-            if(StringUtils.isEmpty(facultyid))
-                param.put("facultyid", null);
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-
-//            totalSize = adviseMapper.getAdvisingCountByMapPageSearchOrdered(param); //startTime, endTime);
-
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
-            page.setTotalRows(totalSize);
-
-//            param.put("currentIndex", page.getCurrentIndex());
-//            param.put("pageSize",  page.getPageSize());
-//            param.put("order",  order);
-//            param.put("orderColumn",  orderColumn);
-
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-//            List<Advise> msgs = adviseMapper.getAdvisingByMapPageSearchOrdered(param);
 
             Pageable pageable;
+
             if(StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")){
                 pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
             }else{
-//                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
-                pageable = new PageRequest(0, 15, Sort.Direction.ASC, orderColumn);
+                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
             }
-            List<Advise> msgs = adviseRepository.findAll(pageable).getContent();
-
-
-            message.setData(msgs);
+            List<Advise> adviseList = new ArrayList<>();
+//            if(StringUtils.isEmpty(studentid))
+////                adviseList = adviseRepository.findAllByStudentidAndLikeStudentIdOrFacultyidOrSnameOrOperatorOrFname(studentid, search, pageable).getContent();
+//            if(StringUtils.isEmpty(facultyid))
+//                adviseList = adviseRepository.findAllByFacultyidAndLikeStudentIdOrFacultyidOrSnameOrOperatorOrFname(facultyid, search, pageable).getContent();
+//            if(StringUtils.isNotEmpty(search))
+            adviseList = adviseRepository.findAll(pageable).getContent();
+            page.setTotalRows(adviseList.size());
+            message.setData(adviseList);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
@@ -112,34 +96,6 @@ public class AdviseServiceImpl implements AdviseService{
         }
     }
 
-    @Override
-    public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
-
-        HaramMessage haramMessage = new HaramMessage();
-        try {
-            Advise advise = new Advise();
-            advise.setId(id);
-            advise.setStudentid(studentId);
-            advise.setFacultyid(facultyId);
-            advise.setUpdateTime(DateUtil.DateToStr(new Date()));
-            Advise newAdvise = adviseRepository.save(advise);
-            if(newAdvise != null) {
-                haramMessage.setData(newAdvise);
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            }
-            else{
-                haramMessage.setCode(FlagDict.FAIL.getV());
-                haramMessage.setMsg(FlagDict.FAIL.getM());
-            }
-            return haramMessage;
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
-        }
-    }
 
     @Override
     public HaramMessage assignMentor(Advise advise) {
@@ -181,9 +137,25 @@ public class AdviseServiceImpl implements AdviseService{
     }
 
     @Override
+    public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
+
+        HaramMessage haramMessage = new HaramMessage();
+
+        Advise advise = new Advise();
+        advise.setId(id);
+        advise.setStudentid(studentId);
+        advise.setFacultyid(facultyId);
+        advise.setUpdateTime(DateUtil.DateToStr(new Date()));
+        Advise newAdvise = adviseRepository.save(advise);
+
+        haramMessage.setData(newAdvise);
+        return haramMessage;
+    }
+
+    @Override
     public HaramMessage getMentor(Integer id) {
         HaramMessage haramMessage = new HaramMessage();
-        Advise advise = adviseRepository.findOne(id);
+        AdviseView advise = adviseViewRepository.findOne(id);
         haramMessage.setData(advise);
         haramMessage.setCode(FlagDict.SUCCESS.getV());
         haramMessage.setMsg(FlagDict.SUCCESS.getM());

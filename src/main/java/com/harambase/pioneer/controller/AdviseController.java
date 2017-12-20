@@ -3,7 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.Advise;
+import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.service.AdviseService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

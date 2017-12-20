@@ -2,7 +2,7 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.base.AdviseBase;
+import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
 import com.harambase.pioneer.pojo.base.StudentBase;
 import com.harambase.pioneer.pojo.base.TranscriptBase;
@@ -364,7 +364,7 @@ public class PersonServiceImpl implements PersonService {
             List<Person> personList = personMapper.getAllUsers();
             List<Course> courseList = courseMapper.getAllActiveCourses();
             List<TranscriptBase> transcriptList = transcriptMapper.getAllTranscripts();
-            List<AdviseBase> adviseList = adviseMapper.getAllAdvise();
+            List<Advise> adviseList = adviseMapper.getAllAdvise();
 
             String xml = StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
             message.setData(xml);

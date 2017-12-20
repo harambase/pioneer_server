@@ -1,11 +1,10 @@
-package com.harambase.pioneer.pojo.base;
+package com.harambase.pioneer.pojo;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name = "advise")
-public class AdviseBase implements Serializable {
+@Table(name = "adviseview")
+public class AdviseView {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,18 +22,17 @@ public class AdviseBase implements Serializable {
 
     private String facultyid;
 
+    @Column(name = "updateTime")
     private String updateTime;
 
     private String status;
-
-    private String operator;
 
     public String getStudentid() {
         return studentid;
     }
 
     public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+        this.studentid = studentid;
     }
 
     public String getFacultyid() {
@@ -42,15 +40,7 @@ public class AdviseBase implements Serializable {
     }
 
     public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid == null ? null : facultyid.trim();
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
+        this.facultyid = facultyid;
     }
 
     public String getUpdateTime() {
@@ -69,4 +59,41 @@ public class AdviseBase implements Serializable {
         this.status = status;
     }
 
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    private String operator;
+
+    private String sname;
+    private String fname;
+    private String oname;
+
+    public String getOname() {
+        return oname;
+    }
+
+    public void setOname(String oname) {
+        this.oname = oname;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
 }
