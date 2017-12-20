@@ -2,8 +2,11 @@ package com.harambase.pioneer.pojo;
 
 import com.harambase.pioneer.pojo.base.TranscriptBase;
 
+
+import javax.persistence.Entity;
 import java.io.Serializable;
 
+@Entity
 public class Transcript extends TranscriptBase implements Serializable {
     
     private String coursename;

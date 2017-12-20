@@ -1,7 +1,9 @@
 package com.harambase.pioneer.pojo;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 
+@Entity
 public class Student extends Person implements Serializable{
 
     private String studentid;
