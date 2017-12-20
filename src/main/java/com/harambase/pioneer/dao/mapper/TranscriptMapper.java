@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.base.CourseBase;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.TranscriptBase;
 import com.harambase.pioneer.pojo.Transcript;
 import org.apache.ibatis.annotations.Mapper;

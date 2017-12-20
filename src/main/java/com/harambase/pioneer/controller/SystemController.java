@@ -2,8 +2,6 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Tags;
-import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.Person;
 import com.harambase.pioneer.service.CourseService;
 import com.harambase.pioneer.service.PersonService;
 import io.swagger.annotations.Api;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.mapper;
 
 import com.harambase.pioneer.pojo.base.Advise;
-import com.harambase.pioneer.pojo.AdviseView;
+import com.harambase.pioneer.pojo.view.AdviseView;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +10,7 @@ import java.util.Map;
 
 @Mapper
 @Component
+@Deprecated
 public interface AdviseMapper{
 
     int deleteByPrimaryKey(Integer id);

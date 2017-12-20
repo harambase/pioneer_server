@@ -3,7 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.service.PersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

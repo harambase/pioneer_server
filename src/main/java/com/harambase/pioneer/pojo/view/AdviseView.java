@@ -1,4 +1,4 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.view;
 
 import javax.persistence.*;
 

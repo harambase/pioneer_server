@@ -3,9 +3,9 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.repository.AdviseRepository;
+import com.harambase.pioneer.dao.repository.base.AdviseRepository;
 import com.harambase.pioneer.dao.repository.view.AdviseViewRepository;
-import com.harambase.pioneer.pojo.AdviseView;
+import com.harambase.pioneer.pojo.view.AdviseView;
 import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
@@ -74,13 +74,19 @@ public class AdviseServiceImpl implements AdviseService{
             }else{
                 pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
             }
-            List<Advise> adviseList = new ArrayList<>();
-//            if(StringUtils.isEmpty(studentid))
-////                adviseList = adviseRepository.findAllByStudentidAndLikeStudentIdOrFacultyidOrSnameOrOperatorOrFname(studentid, search, pageable).getContent();
-//            if(StringUtils.isEmpty(facultyid))
-//                adviseList = adviseRepository.findAllByFacultyidAndLikeStudentIdOrFacultyidOrSnameOrOperatorOrFname(facultyid, search, pageable).getContent();
-//            if(StringUtils.isNotEmpty(search))
-            adviseList = adviseRepository.findAll(pageable).getContent();
+            List<AdviseView> adviseList;
+            if(StringUtils.isNotEmpty(studentid)) {
+                adviseList = adviseViewRepository.findWithStudentId(search, search, search, search, studentid, pageable).getContent();
+            }
+            else if(StringUtils.isNotEmpty(facultyid)) {
+                adviseList = adviseViewRepository.findWithFacultyId(search, search, search, search, facultyid, pageable).getContent();
+            }
+            else if(StringUtils.isNotEmpty(search)) {
+                adviseList = adviseViewRepository.findSearchOnly(search, search, search, search, pageable).getContent();
+            }
+            else {
+                adviseList = adviseViewRepository.findAll(pageable).getContent();
+            }
             page.setTotalRows(adviseList.size());
             message.setData(adviseList);
             message.put("page", page);
@@ -102,7 +108,7 @@ public class AdviseServiceImpl implements AdviseService{
         HaramMessage haramMessage = new HaramMessage();
         try {
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
-            int count = adviseRepository.countByFacultyidAndStudentid(advise.getFacultyid(), advise.getStudentid());
+            int count = adviseViewRepository.countByFacultyidAndStudentid(advise.getFacultyid(), advise.getStudentid());
             if(count != 0){
                 haramMessage.setCode(FlagDict.ADVISE_DUPLICATE.getV());
                 haramMessage.setMsg(FlagDict.ADVISE_DUPLICATE.getM());

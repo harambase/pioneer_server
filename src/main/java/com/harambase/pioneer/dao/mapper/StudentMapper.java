@@ -1,6 +1,6 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.StudentBase;
 import com.harambase.pioneer.pojo.Student;
 import org.apache.ibatis.annotations.Mapper;

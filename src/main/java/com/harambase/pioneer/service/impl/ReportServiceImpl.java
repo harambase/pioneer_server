@@ -7,7 +7,7 @@ import com.harambase.support.util.DateUtil;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.ReportService;

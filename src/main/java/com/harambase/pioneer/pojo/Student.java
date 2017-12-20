@@ -1,5 +1,7 @@
 package com.harambase.pioneer.pojo;
 
+import com.harambase.pioneer.pojo.base.Person;
+
 import javax.persistence.Entity;
 import java.io.Serializable;
 

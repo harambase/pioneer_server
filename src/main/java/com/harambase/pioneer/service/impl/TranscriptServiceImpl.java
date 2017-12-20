@@ -8,7 +8,7 @@ import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.service.TranscriptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.harambase.support.charts;
 import com.harambase.common.constant.Type;
 import com.harambase.pioneer.pojo.Course;
 import com.harambase.pioneer.pojo.base.Advise;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.TranscriptBase;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;

@@ -3,7 +3,7 @@ package com.harambase.pioneer.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.AdviseView;
+import com.harambase.pioneer.pojo.view.AdviseView;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;

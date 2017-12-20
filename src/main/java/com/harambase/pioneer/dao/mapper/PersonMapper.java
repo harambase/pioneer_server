@@ -1,6 +1,6 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

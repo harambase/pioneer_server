@@ -8,7 +8,7 @@ import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.pioneer.pojo.Person;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.Student;
 import com.harambase.pioneer.service.StudentService;
 import org.apache.commons.lang3.StringUtils;
