@@ -2,7 +2,7 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.pioneer.pojo.base.CourseBase;
+import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.base.StudentBase;
 import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
@@ -141,12 +141,12 @@ public class StudentServiceImpl implements StudentService {
         HaramMessage haramMessage = new HaramMessage();
         try{
             Map<String, Integer> creditInfo = new HashMap<>();
-            List<CourseBase> courseList = transcriptMapper.studentCourse(studentid);
+            List<Course> courseList = transcriptMapper.studentCourse(studentid);
             Student sv = studentMapper.creditsDetail(studentid);
             int use_credits = 0;
             int ava_credits = 0;
             int tol_credits = sv.getMax_credits();
-            for(CourseBase course:courseList){
+            for(Course course:courseList){
                 if(course.getInfo().equals(info))
                     use_credits += course.getCredits();
             }

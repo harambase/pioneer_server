@@ -3,13 +3,13 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.Config;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.pojo.view.TranscriptView;
 import com.harambase.support.util.DateUtil;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.StudentMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.Student;
-import com.harambase.pioneer.pojo.Transcript;
 import com.harambase.pioneer.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class ReportServiceImpl implements ReportService {
 
             StringBuilder exportInfoSb = new StringBuilder();
 
-            List<Transcript> transcriptViewList = transcriptMapper.studentTranscripts(studentid);
+            List<TranscriptView> transcriptViewList = transcriptMapper.studentTranscripts(studentid);
             Person student = personMapper.selectByUserId(studentid);
             Student studentView = studentMapper.creditsDetail(studentid);
 
@@ -59,8 +59,8 @@ public class ReportServiceImpl implements ReportService {
                             .append("成绩信息");
 
                 Set<String> infoSet = new HashSet<>();
-                List<Transcript> usedTranscript;
-                for (Transcript transcriptView: transcriptViewList){
+                List<TranscriptView> usedTranscript;
+                for (TranscriptView transcriptView: transcriptViewList){
                     infoSet.add(transcriptView.getInfo());
                 }
                 String semeterInfo = "";
@@ -70,7 +70,7 @@ public class ReportServiceImpl implements ReportService {
                     semeterInfo += "学生状态：\n";
                     semeterInfo += "课程,课程名,教师,成绩,学分,总学时\n";
 
-                    for(Transcript transcriptView: transcriptViewList){
+                    for(TranscriptView transcriptView: transcriptViewList){
                         if(transcriptView.getInfo().equals(info)){
                             semeterInfo += transcriptView.getCrn() + ","
                                     + transcriptView.getCoursename() + ","

@@ -1,10 +1,10 @@
 package com.harambase.support.charts;
 
 import com.harambase.common.constant.Type;
-import com.harambase.pioneer.pojo.Course;
+import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.base.Person;
-import com.harambase.pioneer.pojo.base.TranscriptBase;
+import com.harambase.pioneer.pojo.base.Transcript;
 import it.uniroma1.dis.wsngroup.gexf4j.core.EdgeType;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Gexf;
 import it.uniroma1.dis.wsngroup.gexf4j.core.Graph;
@@ -28,8 +28,8 @@ import java.util.List;
 
 public class StaticGexfGraph {
 	public static String graphGenerator(List<Person> personList,
-									  List<Course> courseList,
-									  List<TranscriptBase> transcriptList,
+									  List<CourseView> courseViewList,
+									  List<Transcript> transcriptList,
 									  List<Advise> adviseList){
 		Gexf gexf = new GexfImpl();
 		Calendar date = Calendar.getInstance();
@@ -84,7 +84,7 @@ public class StaticGexfGraph {
 			index++;
 		}
 		//设置course Node
-		for(Course c: courseList){
+		for(CourseView c: courseViewList){
 			Node cNode = graph.createNode(c.getCrn());
 			int value = c.getCapa()-c.getRemain();
 			cNode.setLabel(c.getName()).setSize(10 + value*5);
@@ -105,7 +105,7 @@ public class StaticGexfGraph {
 			String type = p.getType();
 			Node pNode = graph.getNode(userid);
 			if(type.contains("s")) {
-				for (TranscriptBase t : transcriptList) {
+				for (Transcript t : transcriptList) {
 					if (t.getStudentid().equals(userid)) {
 						Node cNode = graph.getNode(t.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);
@@ -113,7 +113,7 @@ public class StaticGexfGraph {
 					}
 				}
 			}else if(type.contains("f")) {
-				for(Course c: courseList){
+				for(CourseView c: courseViewList){
 					if(c.getFacultyid().equals(userid)){
 						Node cNode = graph.getNode(c.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);

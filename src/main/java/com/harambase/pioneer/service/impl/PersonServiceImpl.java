@@ -3,6 +3,7 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.pojo.base.*;
+import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
@@ -10,8 +11,7 @@ import com.harambase.support.util.Pinyin4jUtil;
 import com.harambase.support.charts.StaticGexfGraph;
 import com.harambase.pioneer.dao.PersonDao;
 import com.harambase.pioneer.dao.mapper.*;
-import com.harambase.pioneer.pojo.Course;
-import com.harambase.pioneer.dao.repository.PersonRepository;
+import com.harambase.pioneer.dao.repository.base.PersonRepository;
 import com.harambase.pioneer.service.PersonService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -358,11 +358,11 @@ public class PersonServiceImpl implements PersonService {
         try {
 
             List<Person> personList = personMapper.getAllUsers();
-            List<Course> courseList = courseMapper.getAllActiveCourses();
-            List<TranscriptBase> transcriptList = transcriptMapper.getAllTranscripts();
+            List<CourseView> courseViewList = courseMapper.getAllActiveCourses();
+            List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
             List<Advise> adviseList = adviseMapper.getAllAdvise();
 
-            String xml = StaticGexfGraph.graphGenerator(personList, courseList, transcriptList, adviseList);
+            String xml = StaticGexfGraph.graphGenerator(personList, courseViewList, transcriptList, adviseList);
             message.setData(xml);
         }catch (Exception e){
             e.printStackTrace();
@@ -405,8 +405,8 @@ public class PersonServiceImpl implements PersonService {
                         studentMapper.deleteByPrimaryKey(userid);
                         transcriptMapper.deleteByStudentid(userid);
                     } else if (type.contains("f")) {
-                        List<Course> courseViewList = courseMapper.getAllActiveCourses();
-                        for (Course c : courseViewList) {
+                        List<CourseView> courseViewViewList = courseMapper.getAllActiveCourses();
+                        for (CourseView c : courseViewViewList) {
                             String facultyid = c.getFacultyid();
                             if (facultyid.equals(userid)) {
                                 String opTime = DateUtil.DateToStr(new Date());

@@ -72,7 +72,9 @@ public class AdviseServiceImpl implements AdviseService {
         } else {
             pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
         }
+
         List<AdviseView> adviseList;
+
         if (StringUtils.isNotEmpty(studentid)) {
             adviseList = adviseViewRepository.findWithStudentId(search, search, search, search, studentid, pageable).getContent();
         } else if (StringUtils.isNotEmpty(facultyid)) {
@@ -83,10 +85,12 @@ public class AdviseServiceImpl implements AdviseService {
             adviseList = adviseViewRepository.findAll(pageable).getContent();
         }
         page.setTotalRows(adviseList.size());
+
         message.setData(adviseList);
         message.put("page", page);
         message.setMsg(FlagDict.SUCCESS.getM());
         message.setCode(FlagDict.SUCCESS.getV());
+
         return message;
 
     }
@@ -115,11 +119,13 @@ public class AdviseServiceImpl implements AdviseService {
     public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
 
         Advise advise = adviseRepository.findOne(id);
+
         advise.setId(id);
         advise.setStudentid(studentId);
         advise.setFacultyid(facultyId);
         advise.setUpdateTime(DateUtil.DateToStr(new Date()));
         Advise newAdvise = adviseRepository.save(advise);
+
         return ReturnMsgUtil.success(newAdvise);
     }
 

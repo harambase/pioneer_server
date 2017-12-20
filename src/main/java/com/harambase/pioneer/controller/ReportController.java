@@ -118,13 +118,13 @@ public class ReportController {
 //                info[0] = "StudentBase ID,StudentBase Name,StudentBase Earned Credits";
 //                info[1] = id + "," + stu.getName() + "," + stu.getCredits();
 //                info[2] = "Inquire For " + semeInfo + " courses schedule.";
-//                info[3] = "CourseBase crn,CourseBase Name,CourseBase Credits,CourseBase Grade,CourseBase Start Date, CourseBase End Date, CourseBase Start Time, CourseBase End Time, "
+//                info[3] = "Course crn,Course Name,Course Credits,Course Grade,Course Start Date, Course End Date, Course Start Time, Course End Time, "
 //                        + "CourseBase schedule,instructor,Notification";
 //                while(stuCouList.listIterator(index).hasNext()){
 //                    String crn = stuCouList.get(index).getCrn();
 //                    String semeCou = crn.substring(0, 6);
 //                    if(semeCou.equals(semeBelong)){
-//                        Transcript tran = SRSFunctions.makeATranscript(id, crn);
+//                        TranscriptView tran = SRSFunctions.makeATranscript(id, crn);
 //                        CourseBase cou = stuCouList.get(index);
 //                        if(tran.getGrade().equals("W")){
 //                            info[i] = crn + "," + cou.getName() + "," + cou.getCredits() + "," + tran.getGrade()
@@ -165,7 +165,7 @@ public class ReportController {
 //                info[0] = "Professor ID,Professor Name";
 //                info[1] = id + "," + pro.getName();
 //                info[2] = "Inquire For " + semeInfo + " courses schedule.";
-//                info[3] = "CourseBase crn,CourseBase Name,CourseBase Credits,CourseBase Grade,CourseBase Start Date, CourseBase End Date, CourseBase Start Time, CourseBase End Time, "
+//                info[3] = "Course crn,Course Name,Course Credits,Course Grade,Course Start Date, Course End Date, Course Start Time, Course End Time, "
 //                        + "CourseBase schedule,instructor,Notification";
 //                while(stuCouList.listIterator(index).hasNext()){
 //                    String crn = stuCouList.get(index).getCrn();
@@ -208,7 +208,7 @@ public class ReportController {
 //
 //        while(couStuList.listIterator(index).hasNext()){
 //            StudentBase stu = couStuList.get(index);
-//            Transcript tran = SRSFunctions.makeATranscript(stu.getId(), crn);
+//            TranscriptView tran = SRSFunctions.makeATranscript(stu.getId(), crn);
 //            if(tran.getGrade().equals("W")){
 //                info[i] = stu.getId() + "," + stu.getName() + "," + tran.getGrade() + "," + tran.getComplete() + ","
 //                        + "Notice: This student has dropped this course! Not included in the total.";
@@ -231,7 +231,7 @@ public class ReportController {
 //            passRate = (pass/total);
 //            failRate = (notPass/total);
 //        }
-//        info[3] = "CourseBase crn, CourseBase credit, CourseBase Capacity, CourseBase Total registered students";
+//        info[3] = "Course crn, Course credit, Course Capacity, Course Total registered students";
 //        info[4] = crn +"," + cou.getCredits() + "," + cou.getCapa() + "," + total;
 //        info[i] = "General Grading about this CourseBase:," + "Passed StudentBase Amount = " + pass + ", Failed StudentBase Amount = "
 //                + notPass + ", Dropped StudentBase = " + drop + ", Pass Rate = " + passRate + ", Failed Rate = " + failRate;
@@ -269,7 +269,7 @@ public class ReportController {
 //            String semeOld = "", semeBelong;
 //            while(stuCouList.listIterator(index).hasNext()){
 //                String crn = stuCouList.get(index).getCrn();
-//                Transcript tran = SRSFunctions.makeATranscript(id, crn);
+//                TranscriptView tran = SRSFunctions.makeATranscript(id, crn);
 //                semeBelong = crn.substring(0,6).toString();
 //                if(semeBelong.equals(semeOld)){
 //                    if(tran.getGrade().equals("W")){
@@ -353,7 +353,7 @@ public class ReportController {
 //                            + semeBelong.substring(0,4) + " " + seme + " semester)";
 //                    info[i] = "Inquire For " + semeInfo + " courses grade.";
 //                    i++;
-//                    info[i] = "Data Format: ,CourseBase crn,CourseBase Name,CourseBase Credits,CourseBase Grade,CourseBase Completion,Notification";
+//                    info[i] = "Data Format: ,Course crn,Course Name,Course Credits,Course Grade,Course Completion,Notification";
 //                    i++;
 //                }
 //                else if(!semeBelong.isEmpty()){
@@ -373,7 +373,7 @@ public class ReportController {
 //                            + semeBelong.substring(0,4) + " " + seme + " semester)";
 //                    info[i] = "Inquire For " + semeInfo + " courses grade.";
 //                    i++;
-//                    info[i] = "Data Format: ,CourseBase crn,CourseBase Name,CourseBase Credits,CourseBase Grade,CourseBase Completion,Notification";
+//                    info[i] = "Data Format: ,Course crn,Course Name,Course Credits,Course Grade,Course Completion,Notification";
 //                    i++;
 //                }
 //            }

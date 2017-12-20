@@ -1,7 +1,7 @@
 package com.harambase.pioneer.dao.repository.view;
 
 import com.harambase.pioneer.pojo.view.AdviseView;
-import io.swagger.models.auth.In;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

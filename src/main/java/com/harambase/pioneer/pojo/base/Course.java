@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "course")
-public class CourseBase implements Serializable {
+public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

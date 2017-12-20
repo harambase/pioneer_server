@@ -1,9 +1,9 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.base.CourseBase;
+import com.harambase.pioneer.pojo.view.TranscriptView;
+import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.base.Person;
-import com.harambase.pioneer.pojo.base.TranscriptBase;
-import com.harambase.pioneer.pojo.Transcript;
+import com.harambase.pioneer.pojo.base.Transcript;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -15,29 +15,29 @@ import java.util.Map;
 public interface TranscriptMapper {
     int deleteByPrimaryKey(Map<String, Object> param);
 
-    int insert(TranscriptBase record);
+    int insert(Transcript record);
 
-    int insertSelective(TranscriptBase record);
+    int insertSelective(Transcript record);
 
-    TranscriptBase selectByPrimaryKey(Integer id);
+    Transcript selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(TranscriptBase record);
+    int updateByPrimaryKeySelective(Transcript record);
 
-    int updateByPrimaryKey(TranscriptBase record);
+    int updateByPrimaryKey(Transcript record);
 
     long getTranscriptCountByMapPageSearchOrdered(Map<String, Object> param);
 
     List<Person> getTranscriptByMapPageSearchOrdered(Map<String, Object> param);
 
-    int count(TranscriptBase transcript);
+    int count(Transcript transcript);
 
-    List<CourseBase> studentCourse(String studentid);
+    List<Course> studentCourse(String studentid);
 
-    List<TranscriptBase> getAllTranscripts();
+    List<Transcript> getAllTranscripts();
 
     int deleteByCRN(String crn);
 
     int deleteByStudentid(String userid);
 
-    List<Transcript> studentTranscripts(String studentid);
+    List<TranscriptView> studentTranscripts(String studentid);
 }

@@ -3,16 +3,20 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.pojo.base.TranscriptBase;
+import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
+import com.harambase.pioneer.dao.repository.view.TranscriptViewRepository;
+import com.harambase.pioneer.pojo.base.Transcript;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.CourseMapper;
 import com.harambase.pioneer.dao.mapper.TranscriptMapper;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.service.TranscriptService;
+import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -20,39 +24,27 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class TranscriptServiceImpl implements TranscriptService{
 
-    private final CourseMapper courseMapper;
     private final TranscriptMapper transcriptMapper;
+    private final TranscriptRepository transcriptRepository;
+    private final TranscriptViewRepository transcriptViewRepository;
 
     @Autowired
-    public TranscriptServiceImpl(CourseMapper courseMapper,
-                                 TranscriptMapper transcriptMapper) {
-        this.courseMapper = courseMapper;
+    public TranscriptServiceImpl(TranscriptMapper transcriptMapper, TranscriptRepository transcriptRepository, TranscriptViewRepository transcriptViewRepository) {
+        this.transcriptRepository = transcriptRepository;
+        this.transcriptViewRepository = transcriptViewRepository;
         this.transcriptMapper = transcriptMapper;
     }
 
     @Override
-    public HaramMessage updateGrade(TranscriptBase transcript) {
-        HaramMessage message = new HaramMessage();
-        try {
-            transcript.setAssigntime(DateUtil.DateToStr(new Date()));
-            int ret = transcriptMapper.updateByPrimaryKey(transcript);
-            if (ret == 1) {
-                message.setData(transcript);
-                message.setMsg(FlagDict.SUCCESS.getM());
-                message.setCode(FlagDict.SUCCESS.getV());
-            } else {
-                message.setMsg(FlagDict.FAIL.getM());
-                message.setCode(FlagDict.FAIL.getV());
-            }
-            return message;
-        } catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
-        }
+    public HaramMessage updateGrade(Transcript transcript) {
+
+        transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+        Transcript newTranscript = transcriptRepository.save(transcript);
+
+        return newTranscript != null ? ReturnMsgUtil.success(newTranscript) : ReturnMsgUtil.fail();
     }
 
 

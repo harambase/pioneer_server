@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao.repository;
+package com.harambase.pioneer.dao.repository.base;
 
 import com.harambase.pioneer.pojo.Message;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "transcript")
-public class TranscriptBase implements Serializable{
+public class Transcript implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
