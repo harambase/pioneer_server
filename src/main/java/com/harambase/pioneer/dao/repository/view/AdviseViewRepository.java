@@ -1,6 +1,7 @@
 package com.harambase.pioneer.dao.repository.view;
 
 import com.harambase.pioneer.pojo.view.AdviseView;
+import io.swagger.models.auth.In;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,5 @@ public interface AdviseViewRepository extends JpaRepository<AdviseView, Integer>
     @Query("select a from AdviseView a where facultyid = ?5 and (studentid like concat('%', ?1, '%') or facultyid like concat('%', ?2, '%') or sname like concat('%', ?3, '%') or fname like concat('%', ?4, '%'))")
     Page<AdviseView> findWithFacultyId(String var1, String var2, String var3, String var4, String facultyId, Pageable pageable);
 
+    Integer countAdviseViewById(Integer id);
 }
