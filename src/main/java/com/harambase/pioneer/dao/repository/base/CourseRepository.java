@@ -9,10 +9,7 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-    List<Course> findAllCoursesByInfo(String info);
-
-    List<Course> findCourseByFacultyid(String facultyid);
-
+    
     void deleteCourseByCrn(String crn);
 
     int countCourseByCrn(String crn);

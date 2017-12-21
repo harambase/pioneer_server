@@ -1,6 +1,6 @@
 package com.harambase.common.helper;
 
-import com.harambase.pioneer.pojo.base.Course;
+import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.support.util.DateUtil;
 import com.harambase.pioneer.pojo.Pin;
 
@@ -8,26 +8,8 @@ import java.util.*;
 
 public class TimeValidate {
 
-//    public static boolean isTimeConflict(CourseMapper courseMapper, Course teach) {
-//        String time = teach.getStarttime() + "-" + teach.getEndtime();
-//        String date = teach.getStartdate() + " to " + teach.getEnddate();
-//        String[] dayArray = teach.getDay().split("/");
-//        String day = "";
-//        for(int i = 0; i<dayArray.length; i++)
-//            day += dayArray[i]+"%";
-//        Map<String, String> param = new HashMap<>();
-//        param.put("facultyid", teach.getFacultyid());
-//        param.put("time", time);
-//        param.put("date", date);
-//        param.put("day", day);
-//        param.put("crn", teach.getCrn());
-//        int count = courseMapper.facultyTime(param);
-//
-//        return count != 0;
-//    }
-
-    public static boolean isTimeConflict(List<Course> courseList, Course c2){
-        for(Course c1: courseList){
+    public static boolean isTimeConflict(List<CourseView> courseList, CourseView c2){
+        for(CourseView c1: courseList){
             Date c1_start = DateUtil.StrToDateOnly(c1.getStartdate());
             Date c1_end   = DateUtil.StrToDateOnly(c1.getEnddate());
             Date c2_start = DateUtil.StrToDateOnly(c2.getStartdate());
@@ -56,8 +38,8 @@ public class TimeValidate {
 
     private static Set<String> getDay(String[] split) {
         Set<String> result = new HashSet<>();
-        for(int i = 0; i<split.length; i++){
-            result.add(split[i]);
+        for(String s : split){
+            result.add(s);
         }
         return result;
     }

@@ -1,46 +1,40 @@
 package com.harambase.pioneer.service.impl;
 
-import com.harambase.common.*;
+import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.common.helper.TimeValidate;
 import com.harambase.pioneer.dao.repository.base.CourseRepository;
 import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
 import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
 import com.harambase.pioneer.pojo.base.Course;
-import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.base.Transcript;
+import com.harambase.pioneer.pojo.dto.Option;
+import com.harambase.pioneer.pojo.view.CourseView;
+import com.harambase.pioneer.service.CourseService;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
-import com.harambase.pioneer.dao.mapper.CourseMapper;
-import com.harambase.pioneer.dao.mapper.TranscriptMapper;
-import com.harambase.common.helper.TimeValidate;
-import com.harambase.pioneer.pojo.dto.Option;
-import com.harambase.pioneer.service.CourseService;
 import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseMapper courseMapper;
-    private final TranscriptMapper transcriptMapper;
-
-    private final CourseRepository courseRepository;
+    final CourseRepository courseRepository;
     private final CourseViewRepository courseViewRepository;
     private final TranscriptRepository transcriptRepository;
 
 
     @Autowired
-    public CourseServiceImpl(CourseMapper courseMapper,
-                             TranscriptMapper transcriptMapper,
-                             CourseRepository courseRepository, CourseViewRepository courseViewRepository,TranscriptRepository transcriptRepository) {
-        this.courseMapper = courseMapper;
-        this.transcriptMapper = transcriptMapper;
+    public CourseServiceImpl(CourseRepository courseRepository, CourseViewRepository courseViewRepository, TranscriptRepository transcriptRepository) {
         this.transcriptRepository = transcriptRepository;
         this.courseRepository = courseRepository;
         this.courseViewRepository = courseViewRepository;
@@ -55,24 +49,26 @@ public class CourseServiceImpl implements CourseService {
 
         //生成CRN
         String info = course.getInfo();
-        List<Course> courses = courseRepository.findAllCoursesByInfo(info);
+        List<CourseView> courses = courseViewRepository.findAllCoursesViewByInfo(info);
         String crn = IDUtil.genCRN(info);
-        for(int i = 0; i<courses.size(); i++){
-            Course c = courses.get(i);
-            if(crn.equals(c.getCrn())){
+        CourseView cv;
+        for (int i = 0; i < courses.size(); i++) {
+            cv = courses.get(i);
+            if (crn.equals(cv.getCrn())) {
                 crn = IDUtil.genCRN(info);
                 i = 0;
             }
         }
         course.setCrn(crn);
+
         //检查教师时间冲突
-        if (TimeValidate.isTimeConflict(courseRepository.findCourseByFacultyid(facultyid), course)) {
+        if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyid), courseViewRepository.findByCrn(crn))) {
             return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
         }
         course.setFacultyid(facultyid);
+
         //插入课程
         Course newCourse = courseRepository.save(course);
-
         return newCourse != null ? ReturnMsgUtil.success(newCourse) : ReturnMsgUtil.fail();
 
     }
@@ -98,201 +94,212 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage courseTreeList(String facultyid, String info) {
-        HaramMessage message = new HaramMessage();
-        try{
-            try {
-                Map<String, Object> param = new HashMap<>();
-
-//                param.put("facultyid", facultyid);
-                param.put("facultyid", null);
-                param.put("info", info);
-
-                if(facultyid.equals(""))
-                    param.put("facultyid", null);
-                if(info.equals(""))
-                    param.put("info", null);
-
-                param.put("search", null);
-                param.put("currentIndex", 0);
-                param.put("pageSize", Integer.MAX_VALUE);
-                param.put("order", "desc");
-                param.put("orderColumn", "crn");
-
-                List<Map<String, String>> infoList = new ArrayList<>();
-                Set<String> infoSet = new HashSet<>();
-                Map<String, String> infoMap;
-                List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
-                for (Course course: courses){
-                    infoSet.add(course.getInfo());
-                }
-                for (String i : infoSet){
-                    infoMap = new HashMap<>();
-                    infoMap.put("node", "true");
-                    infoMap.put("info", i);
-
-                    infoList.add(infoMap);
-                }
-
-                List<Object> treeList = new ArrayList<>();
-                treeList.addAll(infoList);
-                treeList.addAll(courses);
-
-                message.setData(treeList);
-                message.setMsg(FlagDict.SUCCESS.getM());
-                message.setCode(FlagDict.SUCCESS.getV());
-                return message;
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-                message.setCode(FlagDict.SYSTEM_ERROR.getV());
-                return message;
-            }
-        }catch (Exception e){
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-        }
-        return message;
-    }
-
-    @Override
     public HaramMessage getCourseBySearch(String search, String status) {
-        HaramMessage message = new HaramMessage();
-        try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("status", status);
-
-            if (search.equals(""))
-                param.put("search", null);
-            if (status.equals(""))
-                param.put("status", null);
-
-            List<CourseView> results = courseMapper.getCourseBySearch(param);
-
-            message.setData(results);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
-            return message;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
-        }
+        List<CourseView> results = courseViewRepository.findTop5ByStatusAndSearch(search, status);
+        return ReturnMsgUtil.success(results);
     }
 
     @Override
     public HaramMessage assignFac2Cou(String crn, String facultyId) {
-        Course course = courseRepository.findByCrn(crn);
 
         //检查时间冲突
-        if (TimeValidate.isTimeConflict(courseRepository.findCourseByFacultyid(facultyId), course)){
+        if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyId), courseViewRepository.findByCrn(crn))) {
             return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
         }
 
+        Course course = courseRepository.findByCrn(crn);
+        course.setFacultyid(facultyId);
         course.setUpdatetime(DateUtil.DateToStr(new Date()));
+
         Course newCourse = courseRepository.save(course);
         return newCourse != null ? ReturnMsgUtil.success(newCourse) : ReturnMsgUtil.fail();
     }
 
     @Override
     public HaramMessage addStu2Cou(String crn, String studentId, Option option) {
-        HaramMessage haramMessage = new HaramMessage();
-        try {
-            Transcript transcript = new Transcript();
-            Course course = courseMapper.selectByPrimaryKey(crn);
-            String status = courseMapper.getStatus(crn);
+
+        CourseView courseView = courseViewRepository.findByCrn(crn);
+
+        //检查课程状态
+        String status = courseView.getStatus();
+        if (status.equals("-1")) {
+            return ReturnMsgUtil.custom(FlagDict.COURSE_DISABLED);
+        }
+
+        //检查时间冲突
+        if (!option.isTime() && TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByStudentId(studentId), courseView)) {
+            return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+        }
+
+        //检查课程容量
+        int remain = courseView.getRemain();
+        if (remain <= 0 && !option.isCapacity()) {
+            return ReturnMsgUtil.custom(FlagDict.MAX_CAPACITY);
+        }
+
+        //检查预选
+        String[] preCrns = courseView.getPrecrn().split("/");
+        for (String preCrn : preCrns) {
+            int count = transcriptRepository.countByStudentidAndCrnAndComplete(studentId, preCrn, "1");
+            if (count != 1 && !option.isPrereq()) {
+                return ReturnMsgUtil.custom(FlagDict.UNMET_PREREQ);
+            }
+        }
+
+        Transcript transcript = new Transcript();
+        transcript.setComplete("0");
+        transcript.setGrade("*");
+        transcript.setCrn(crn);
+        transcript.setStudentid(studentId);
+        transcript.setOperator(IDUtil.ROOT);
+        transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+
+        //检查复选
+        int count = transcriptRepository.countByStudentidAndCrn(studentId, crn);
+        if (count != 0) {
+            return ReturnMsgUtil.custom(FlagDict.REPEAT);
+        }
+
+        //保存
+        Transcript newTranscript = transcriptRepository.save(transcript);
+        return newTranscript != null ? ReturnMsgUtil.success(newTranscript) : ReturnMsgUtil.fail();
+    }
+
+    @Override
+    public HaramMessage removeStuFromCou(String crn, String studentid) {
+        transcriptRepository.deleteTranscriptByStudentidAndCrn(studentid, crn);
+        int count = transcriptRepository.countByStudentidAndCrn(studentid, crn);
+        return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+    }
+
+    @Override
+    public HaramMessage countActiveCourse() {
+        int count = courseViewRepository.countAllByStatus("1");
+        return ReturnMsgUtil.success(count);
+    }
+
+    @Override
+    public HaramMessage preCourseList(String crn) {
+
+        String[] precrns = courseViewRepository.findByCrn(crn).getPrecrn().split("/");
+        List<CourseView> preCourses = new ArrayList<>();
+        CourseView cv2;
+
+        for (String precrn : precrns) {
+            cv2 = courseViewRepository.findByCrn(precrn);
+            if (cv2 != null)
+                preCourses.add(cv2);
+        }
+
+        return ReturnMsgUtil.success(preCourses);
+    }
+
+    @Override
+    public HaramMessage reg2Course(String studentId, String[] choices) {
+
+        Map<String, Object> result = new HashMap<>();
+        List<String> failList = new ArrayList<>();
+
+        for (String crn : choices) {
+
+            CourseView courseView = courseViewRepository.findByCrn(crn);
+            String failInfo = "CRN：" + crn + ", 课程名：" + courseView.getName() + "，失败原因:";
+
             //检查课程状态
+            String status = courseView.getStatus();
             if (status.equals("-1")) {
-                haramMessage.setMsg(FlagDict.COURSE_DISABLED.getM());
-                haramMessage.setCode(FlagDict.COURSE_DISABLED.getV());
-                return haramMessage;
+                failList.add(failInfo + FlagDict.COURSE_DISABLED.getM());
+                continue;
             }
             //检查时间冲突
-            if (!option.isTime() && TimeValidate.isTimeConflict(transcriptMapper.studentCourse(studentId), course)) {
-                haramMessage.setMsg(FlagDict.TIMECONFLICT.getM());
-                haramMessage.setCode(FlagDict.TIMECONFLICT.getV());
-                return haramMessage;
+            if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByStudentId(studentId), courseView)) {
+                failList.add(failInfo + FlagDict.TIMECONFLICT.getM());
+                continue;
             }
             //检查课程容量
-            int remain = courseMapper.getRemain(crn);
-            if (remain <= 0 && !option.isCapacity()) {
-                haramMessage.setMsg(FlagDict.MAX_CAPACITY.getM());
-                haramMessage.setCode(FlagDict.MAX_CAPACITY.getV());
-                return haramMessage;
+            int remain = courseView.getRemain();
+            if (remain <= 0) {
+                failList.add(failInfo + FlagDict.MAX_CAPACITY.getM());
+                continue;
             }
+
+            //检查预选
+            boolean pre = true;
+            String[] preCrns = courseView.getPrecrn().split("/");
+            for (String preCrn : preCrns) {
+                int count = transcriptRepository.countByStudentidAndCrnAndComplete(studentId, preCrn, "1");
+                if (count != 1) {
+                    failList.add(failInfo + FlagDict.UNMET_PREREQ.getM());
+                    pre = false;
+                    break;
+                }
+            }
+            if (!pre)
+                continue;
+
+            //检查复选
+            int count = transcriptRepository.countByStudentidAndCrn(studentId, crn);
+            if (count != 0) {
+                failList.add(failInfo + FlagDict.REPEAT.getM());
+                continue;
+            }
+
+            Transcript transcript = new Transcript();
             transcript.setAssigntime(DateUtil.DateToStr(new Date()));
             transcript.setComplete("0");
             transcript.setGrade("*");
             transcript.setCrn(crn);
             transcript.setStudentid(studentId);
-            //检查预选
-            String precrn = course.getPrecrn();
-            if (StringUtils.isNotEmpty(precrn)) {
-                Transcript preTranscript = new Transcript();
-                preTranscript.setComplete("1");
-                preTranscript.setStudentid(studentId);
-                preTranscript.setCrn(precrn);
-                int ret = transcriptMapper.count(preTranscript);
-                if (ret != 1 && !option.isPrereq()) {
-                    haramMessage.setMsg(FlagDict.UNMET_PREREQ.getM());
-                    haramMessage.setCode(FlagDict.UNMET_PREREQ.getV());
-                    return haramMessage;
-                }
-            }
-            //检查复选
-            if (transcriptMapper.count(transcript) == 0) {
-                transcript.setOperator(IDUtil.ROOT);
-                int ret = transcriptMapper.insert(transcript);
-                if (ret == 1) {
-                    haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                    haramMessage.setCode(FlagDict.SUCCESS.getV());
-                    return haramMessage;
-                } else {
-                    haramMessage.setMsg(FlagDict.FAIL.getM());
-                    haramMessage.setCode(FlagDict.FAIL.getV());
-                }
-            } else {
-                haramMessage.setMsg(FlagDict.REPEAT.getM());
-                haramMessage.setCode(FlagDict.REPEAT.getV());
+            transcript.setOperator(IDUtil.ROOT);
+
+            //保存
+            Transcript newTranscript = transcriptRepository.save(transcript);
+            if (newTranscript == null) {
+                failList.add(failInfo + FlagDict.FAIL.getM());
             }
 
-            return haramMessage;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return haramMessage;
         }
+        result.put("failList", failList);
+        return ReturnMsgUtil.success(result);
+
     }
 
     @Override
-    public HaramMessage removeStuFromCou(String crn, String studentid) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
-            Map<String, Object> param = new HashMap<>();
-            param.put("studentid", studentid);
-            param.put("crn", crn);
-            int ret = transcriptMapper.deleteByPrimaryKey(param);
-            if(ret == 1){
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                return haramMessage;
-            }
-            haramMessage.setCode(FlagDict.FAIL.getV());
-            haramMessage.setMsg(FlagDict.FAIL.getM());
-            return haramMessage;
+    public HaramMessage courseTreeList(String facultyid, String info) {
 
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+        List<Map<String, String>> infoList = new ArrayList<>();
+        Set<String> infoSet = new HashSet<>();
+        Map<String, String> infoMap;
+        List<CourseView> courseViewList;
+        String search = "";
+        Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, Sort.Direction.DESC, "crn");
+
+        if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
+            courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, info, pageable).getContent();
+        } else if (StringUtils.isNotEmpty(info)) {
+            courseViewList = courseViewRepository.findWithInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, info, pageable).getContent();
+        } else if (StringUtils.isNotEmpty(facultyid)) {
+            courseViewList = courseViewRepository.findWithFacultyId(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, pageable).getContent();
+        } else {
+            courseViewList = courseViewRepository.findAll(pageable).getContent();
         }
+
+        for (CourseView course : courseViewList) {
+            infoSet.add(course.getInfo());
+        }
+        for (String i : infoSet) {
+            infoMap = new HashMap<>();
+            infoMap.put("node", "true");
+            infoMap.put("info", i);
+
+            infoList.add(infoMap);
+        }
+
+        List<Object> treeList = new ArrayList<>();
+        treeList.addAll(infoList);
+        treeList.addAll(courseViewList);
+
+        return ReturnMsgUtil.success(treeList);
     }
 
     @Override
@@ -340,158 +347,39 @@ public class CourseServiceImpl implements CourseService {
                 orderColumn = "updatetime";
                 break;
         }
-        long totalSize = 0;
-        try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("facultyid", facultyid);
-            param.put("info", info);
 
-            if(search.equals(""))
-                param.put("search", null);
-            if(facultyid.equals(""))
-                param.put("facultyid", null);
-            if(info.equals(""))
-                param.put("info", null);
+        Page page = new Page();
+        page.setCurrentPage(PageUtil.getcPg(currentPage));
+        page.setPageSize(PageUtil.getLimit(pageSize));
 
-
-            totalSize = courseMapper.getCourseCountByMapPageSearchOrdered(param); //startTime, endTime);
-
-            Page page = new Page();
-            page.setCurrentPage(PageUtil.getcPg(currentPage));
-            page.setPageSize(PageUtil.getLimit(pageSize));
-            page.setTotalRows(totalSize);
-
-            param.put("currentIndex", page.getCurrentIndex());
-            param.put("pageSize", page.getPageSize());
-            param.put("order", order);
-            param.put("orderColumn", orderColumn);
-
-            List<Course> courses = courseMapper.getCourseByMapPageSearchOrdered(param);
-
-            message.setData(courses);
-            message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
-            return message;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
+        Pageable pageable;
+        if (StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")) {
+            pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
+        } else {
+            pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
         }
-    }
 
-    @Override
-    public HaramMessage countActiveCourse() {
-        HaramMessage message = new HaramMessage();
-        int c = courseMapper.countActiveCourse();
-        message.setData(c);
+        List<CourseView> courseViewList;
+
+        if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
+            courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, info, pageable).getContent();
+        } else if (StringUtils.isNotEmpty(info)) {
+            courseViewList = courseViewRepository.findWithInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, info, pageable).getContent();
+        } else if (StringUtils.isNotEmpty(facultyid)) {
+            courseViewList = courseViewRepository.findWithFacultyId(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, pageable).getContent();
+        } else if (StringUtils.isNotEmpty(search)) {
+            courseViewList = courseViewRepository.findSearchOnly(search, search, search, search, search, search, search, search, search, search, search, search, search, pageable).getContent();
+        } else {
+            courseViewList = courseViewRepository.findAll(pageable).getContent();
+        }
+        page.setTotalRows(courseViewList.size());
+
+        message.setData(courseViewList);
+        message.put("page", page);
+        message.setMsg(FlagDict.SUCCESS.getM());
+        message.setCode(FlagDict.SUCCESS.getV());
         return message;
+
     }
 
-    @Override
-    public HaramMessage preCourseList(String crn) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
-            Course course = courseMapper.selectByPrimaryKey(crn);
-            String[] precrns = course.getPrecrn().split("/");
-            List<Course> preCourses = new ArrayList<>();
-
-            for(String precrn: precrns){
-                if(StringUtils.isNotEmpty(precrn))
-                    preCourses.add(courseMapper.selectByPrimaryKey(precrn));
-            }
-            haramMessage.setData(preCourses);
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-
-        }catch (Exception e){
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-        }
-        return haramMessage;
-    }
-
-    @Override
-    @Transactional
-    public HaramMessage reg2Course(String studentid, String[] choices) {
-        HaramMessage haramMessage = new HaramMessage();
-        Map<String, Object> result = new HashMap<>();
-        List<String> failList = new ArrayList<>();
-        try{
-            for(String crn: choices){
-                Transcript transcript = new Transcript();
-                Course course = courseMapper.selectByPrimaryKey(crn);
-                String status = courseMapper.getStatus(crn);
-                String courseInfo = "CRN：" + crn + ", 课程名：" + course.getName() + "，失败原因:";
-                //检查课程状态
-                if (status.equals("-1")) {
-                    failList.add(courseInfo + FlagDict.COURSE_DISABLED.getM());
-                    continue;
-                }
-                //检查时间冲突
-                if (TimeValidate.isTimeConflict(transcriptMapper.studentCourse(studentid), course)) {
-                    failList.add(courseInfo + FlagDict.TIMECONFLICT.getM());
-                    continue;
-                }
-                //检查课程容量
-                int remain = courseMapper.getRemain(crn);
-                if (remain <= 0) {
-                    failList.add(courseInfo + FlagDict.MAX_CAPACITY.getM());
-                    continue;
-                }
-                transcript.setAssigntime(DateUtil.DateToStr(new Date()));
-                transcript.setComplete("0");
-                transcript.setGrade("*");
-                transcript.setCrn(crn);
-                transcript.setStudentid(studentid);
-                //检查预选
-                String[] precrns = course.getPrecrn().split("/");
-                Transcript preTranscript = new Transcript();
-                boolean pre = true;
-                for(String precrn: precrns){
-                    preTranscript.setComplete("1");
-                    preTranscript.setStudentid(studentid);
-                    preTranscript.setCrn(precrn);
-                    int ret = transcriptMapper.count(preTranscript);
-                    if (ret != 1) {
-                        failList.add(courseInfo + FlagDict.UNMET_PREREQ.getM());
-                        pre = false;
-                        break;
-                    }
-                }
-                if(!pre)
-                    continue;
-
-                //检查复选
-                if (transcriptMapper.count(transcript) == 0) {
-                    transcript.setOperator(IDUtil.ROOT);
-                    int ret = transcriptMapper.insert(transcript);
-                    if (ret != 1){
-                        haramMessage.setMsg(FlagDict.FAIL.getM());
-                        haramMessage.setCode(FlagDict.FAIL.getV());
-                        failList.add(courseInfo + FlagDict.FAIL.getM());
-                    }
-                } else {
-                    haramMessage.setMsg(FlagDict.REPEAT.getM());
-                    haramMessage.setCode(FlagDict.REPEAT.getV());
-                    failList.add(courseInfo + FlagDict.REPEAT.getM());
-                }
-            }
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            result.put("failList", failList);
-            haramMessage.setData(result);
-            return haramMessage;
-
-        }catch (Exception e){
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
-        }
-    }
-
-    
 }
