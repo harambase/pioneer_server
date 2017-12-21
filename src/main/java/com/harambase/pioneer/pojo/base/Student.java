@@ -2,6 +2,7 @@ package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -22,11 +23,20 @@ public class Student implements Serializable {
 
     private Integer maxCredits;
 
-
-
     @OneToOne(optional=false, mappedBy="mapStudent")
     @PrimaryKeyJoinColumn
     private Person person;
+
+    @OneToOne(mappedBy="student", targetEntity = Transcript.class, fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private List<Transcript> transcriptList;
+
+    public List<Transcript> getTranscriptList() {
+        return transcriptList;
+    }
+
+    public void setTranscriptList(List<Transcript> transcriptList) {
+        this.transcriptList = transcriptList;
+    }
 
     public Person getPerson() {
         return person;

@@ -55,8 +55,7 @@ public class Person implements Serializable {
 
     private String userInfo;
 
-    @OneToOne(targetEntity = Student.class, fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL})
+    @OneToOne(targetEntity = Student.class, fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @PrimaryKeyJoinColumn
     private Student mapStudent;
 

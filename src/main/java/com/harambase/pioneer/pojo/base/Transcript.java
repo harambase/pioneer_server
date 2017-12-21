@@ -12,14 +12,6 @@ public class Transcript implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     private String studentid;
 
     private String crn;
@@ -31,6 +23,26 @@ public class Transcript implements Serializable{
     private String assigntime;
 
     private String operator;
+
+    @ManyToOne
+    @JoinColumn(name="studentid", insertable = false, updatable = false)
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getOperator() {
         return operator;
