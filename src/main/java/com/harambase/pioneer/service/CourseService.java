@@ -28,7 +28,7 @@ public interface CourseService {
 
     HaramMessage preCourseList(String crn);
 
-    HaramMessage reg2Course(String userid, String[] choices);
+    HaramMessage reg2Course(String studentId, String[] choices);
     
     HaramMessage getCourseByCrn(String crn);
 

@@ -62,51 +62,23 @@ public class CourseController {
 
     @ApiOperation(value = "课程列表", notes = "权限：用户", response = Map.class, tags = {Tags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "draw") Integer draw,
-                               @RequestParam(value = "search[value]") String search,
-                               @RequestParam(value = "order[0][dir]") String order,
-                               @RequestParam(value = "order[0][column]") String orderCol
-                               ) {
-        Map<String, Object> map = new HashMap<>();
-        try {
-            String facultyid = "";
-            String info = "";
-//            if (mode != null && mode.equals("faculty"))
-//                facultyid = SessionUtil.getUserId();
-//            if (mode != null && mode.equals("choose"))
-//                info = SessionUtil.getPin().getInfo();
-
-            HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length),
-                    search, order, orderCol, facultyid, info);
-            map.put("draw", draw);
-            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
-            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
-            map.put("data", message.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("draw", 1);
-            map.put("data", new ArrayList<>());
-            map.put("recordsTotal", 0);
-            map.put("recordsFiltered", 0);
-        }
-        return new ResponseEntity<>(map, HttpStatus.OK);
+                               @RequestParam(value = "search", required = false) String search,
+                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "facultyId", required = false) String facultyId,
+                               @RequestParam(value = "info", required = false) String info) {
+        HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyId, info);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @ApiOperation(value = "课程Ztree列表", notes = "权限：用户", response = Map.class, tags = {Tags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/zTree/list", method = RequestMethod.GET)
-    public ResponseEntity zTreeList(@RequestParam(value = "mode", required = false) String mode) {
-
-        String facultyid = "";
-        String info = "";
-//        if (mode != null && mode.equals("faculty"))
-//            facultyid = SessionUtil.getUserId();
-//        if (mode != null && mode.equals("choose"))
-//            info = SessionUtil.getPin().getInfo();
-
+    @RequestMapping(value = "/zTree", method = RequestMethod.GET)
+    public ResponseEntity zTreeList(@RequestParam(value = "facultyId", required = false) String facultyid,
+                                    @RequestParam(value = "info", required = false) String info) {
         HaramMessage message = courseService.courseTreeList(facultyid, info);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -159,10 +131,10 @@ public class CourseController {
 
     @ApiOperation(value = "学生选课", notes = "权限：用户", response = Map.class, tags = {Tags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/choose", method = RequestMethod.POST)
-    public ResponseEntity courseChoice(@RequestParam(value = "userId") String userId,
+    @RequestMapping(value = "/{studentId}/choose", method = RequestMethod.PUT)
+    public ResponseEntity courseChoice(@PathVariable(value = "studentId") String studentId,
                                        @RequestParam(value = "choiceList[]")String[] choices){
-        HaramMessage message = courseService.reg2Course(userId, choices);
+        HaramMessage message = courseService.reg2Course(studentId, choices);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

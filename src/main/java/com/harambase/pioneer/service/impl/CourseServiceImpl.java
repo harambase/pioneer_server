@@ -28,13 +28,13 @@ import java.util.*;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    final CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
     private final CourseViewRepository courseViewRepository;
     private final TranscriptRepository transcriptRepository;
 
-
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, CourseViewRepository courseViewRepository, TranscriptRepository transcriptRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, CourseViewRepository courseViewRepository,
+                             TranscriptRepository transcriptRepository) {
         this.transcriptRepository = transcriptRepository;
         this.courseRepository = courseRepository;
         this.courseViewRepository = courseViewRepository;
