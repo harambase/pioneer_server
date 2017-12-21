@@ -25,7 +25,7 @@ public class Transcript implements Serializable{
     private String operator;
 
     @ManyToOne
-    @JoinColumn(name="studentid", insertable = false, updatable = false)
+    @JoinColumn(foreignKey = @ForeignKey(name = "studentid"))
     private Student student;
 
     public Student getStudent() {

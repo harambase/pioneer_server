@@ -27,7 +27,8 @@ public class Student implements Serializable {
     @PrimaryKeyJoinColumn
     private Person person;
 
-    @OneToOne(mappedBy="student", targetEntity = Transcript.class, fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy="student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+//    @JoinColumn(foreignKey = @ForeignKey(name = "studentid"))
     private List<Transcript> transcriptList;
 
     public List<Transcript> getTranscriptList() {
