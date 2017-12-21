@@ -75,7 +75,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public HaramMessage delete(String crn) {
-        courseRepository.deleteCourseByCrn(crn);
+        Course course = courseRepository.findByCrn(crn);
+        courseRepository.delete(course);
         int count = courseRepository.countCourseByCrn(crn);
         return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
     }
@@ -95,7 +96,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public HaramMessage getCourseBySearch(String search, String status) {
-        List<CourseView> results = courseViewRepository.findTop5ByStatusAndSearch(search, status);
+        List<CourseView> results = courseViewRepository.findTop5ByStatusAndSearch(status, search);
         return ReturnMsgUtil.success(results);
     }
 

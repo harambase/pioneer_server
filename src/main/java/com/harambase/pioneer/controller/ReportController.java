@@ -103,7 +103,7 @@ public class ReportController {
 //            String semeInfo = semeBelong + " (which refers to "
 //                    + semeBelong.substring(0,4) + " " + seme + " semester)";
 //
-//            Person per = new StudentBase();
+//            Person per = new Student();
 //            per.setId(id);
 //            String type = SRSFunctions.findATypeOfAPerson(per);
 //
@@ -113,9 +113,9 @@ public class ReportController {
 //                List<CourseBase> stuCouList = SRSFunctions.makeCoursesList(id);
 //                int index = 0, i = 4, j = 0;
 //                String[] info = new String[500];
-//                StudentBase stu = SRSFunctions.makeAStudent(id);
+//                Student stu = SRSFunctions.makeAStudent(id);
 //
-//                info[0] = "StudentBase ID,StudentBase Name,StudentBase Earned Credits";
+//                info[0] = "Student ID,Student Name,Student Earned Credits";
 //                info[1] = id + "," + stu.getName() + "," + stu.getCredits();
 //                info[2] = "Inquire For " + semeInfo + " courses schedule.";
 //                info[3] = "Course crn,Course Name,Course Credits,Course Grade,Course Start Date, Course End Date, Course Start Time, Course End Time, "
@@ -192,7 +192,7 @@ public class ReportController {
 //    }
 //    public void formCourseReport(String crn){
 //        CourseBase cou = SRSFunctions.makeACourse(crn);
-//        List<StudentBase> couStuList = SRSFunctions.makeStudentsList(crn);
+//        List<Student> couStuList = SRSFunctions.makeStudentsList(crn);
 //        Professor pro = SRSFunctions.makeAProfessor(cou.getTeacherID());
 //        File fl = new File("Course_" + cou.getCrn() + "_Report.csv");
 //        double pass = 0, notPass = 0, drop = 0,total = couStuList.size();
@@ -204,10 +204,10 @@ public class ReportController {
 //        info[1] = "Instructor Id, instructor name";
 //        info[2] = pro.getId() +","+ pro.getName();
 //
-//        info[5] = "StudentBase ID, StudentBase Name, StudentBase Grade, StudentBase Completion, Notification";
+//        info[5] = "Student ID, Student Name, Student Grade, Student Completion, Notification";
 //
 //        while(couStuList.listIterator(index).hasNext()){
-//            StudentBase stu = couStuList.get(index);
+//            Student stu = couStuList.get(index);
 //            TranscriptView tran = SRSFunctions.makeATranscript(stu.getId(), crn);
 //            if(tran.getGrade().equals("W")){
 //                info[i] = stu.getId() + "," + stu.getName() + "," + tran.getGrade() + "," + tran.getComplete() + ","
@@ -233,8 +233,8 @@ public class ReportController {
 //        }
 //        info[3] = "Course crn, Course credit, Course Capacity, Course Total registered students";
 //        info[4] = crn +"," + cou.getCredits() + "," + cou.getCapa() + "," + total;
-//        info[i] = "General Grading about this CourseBase:," + "Passed StudentBase Amount = " + pass + ", Failed StudentBase Amount = "
-//                + notPass + ", Dropped StudentBase = " + drop + ", Pass Rate = " + passRate + ", Failed Rate = " + failRate;
+//        info[i] = "General Grading about this CourseBase:," + "Passed Student Amount = " + pass + ", Failed Student Amount = "
+//                + notPass + ", Dropped Student = " + drop + ", Pass Rate = " + passRate + ", Failed Rate = " + failRate;
 //        PrintWriter pw;
 //        i++;
 //        try {
@@ -257,12 +257,12 @@ public class ReportController {
 //            double passRate = 0, failRate = 0;
 //            double credits = 0;
 //            String[] info = new String[500];
-//            StudentBase stu = SRSFunctions.makeAStudent(id);
-//            info[0] = "StudentBase ID,StudentBase Name,StudentBase Earned Credits, Studeent faculty Advisor";
+//            Student stu = SRSFunctions.makeAStudent(id);
+//            info[0] = "Student ID,Student Name,Student Earned Credits, Studeent faculty Advisor";
 //            info[1] = id + "," + stu.getName() + "," + stu.getCredits() + "," + stu.getFa().getName();
-//            info[2] = "More basic Info:,StudentBase tele, StudentBase qq, StudentBase dorm";
+//            info[2] = "More basic Info:,Student tele, Student qq, Student dorm";
 //            info[3] = " ," + stu.getTele() + "," + stu.getQq() + "," + stu.getDorm();
-//            info[4] = "StudentBase Registering status: ,isActive Adding courses(AA/AD), isActive fully Dropping courses(AD/DD), is Active";
+//            info[4] = "Student Registering status: ,isActive Adding courses(AA/AD), isActive fully Dropping courses(AD/DD), is Active";
 //            info[5] = " ," + stu.getActA() + "," + stu.getActD() + "," + stu.getActive();
 //            info[6] = "Inquire for all the registered courses:";
 //
@@ -275,14 +275,14 @@ public class ReportController {
 //                    if(tran.getGrade().equals("W")){
 //                        info[i] = "," + crn + "," + stuCouList.get(index).getName()+","+stuCouList.get(index).getCredits()
 //                                + "," + tran.getGrade()
-//                                + "," + tran.getComplete() + ",The StudentBase has dropped this course. Not included in passing "
+//                                + "," + tran.getComplete() + ",The Student has dropped this course. Not included in passing "
 //                                + "rate calculation";
 //                        drop++;
 //                    }
 //                    else if (tran.getGrade().equals("F")){
 //                        info[i] = "," + crn + "," + stuCouList.get(index).getName()+","+stuCouList.get(index).getCredits()
 //                                + "," + tran.getGrade()
-//                                + "," + tran.getComplete() + ",The StudentBase has failed this course.";
+//                                + "," + tran.getComplete() + ",The Student has failed this course.";
 //                        notPass++;
 //                        total++;
 //                        credits = Double.parseDouble(stuCouList.get(index).getCredits()) + credits;
@@ -308,7 +308,7 @@ public class ReportController {
 //                                + ", Total Dropped Courses Amount = " + drop + ", Pass rate = " + passRate + "%, Failed rate = "
 //                                + failRate + "%.";
 //                        i++;
-//                        info[i] = "StudentBase Registered Credits = " + credits + "StudentBase Earned Credits = " + stu.getCredits();
+//                        info[i] = "Student Registered Credits = " + credits + "Student Earned Credits = " + stu.getCredits();
 //                        i++;
 //                        total = 0;
 //                        pass = 0;
@@ -377,7 +377,7 @@ public class ReportController {
 //                    i++;
 //                }
 //            }
-//            info[i] = "StudentBase Total Earned Credits = " + stu.getCredits();
+//            info[i] = "Student Total Earned Credits = " + stu.getCredits();
 //            i++;
 //            PrintWriter pw = new PrintWriter(fl);
 //            while(j<i){
@@ -394,25 +394,25 @@ public class ReportController {
 //        try {
 //            fl.createNewFile();
 //            Professor pro = SRSFunctions.makeAProfessor(id);
-//            List<StudentBase> stuAdvList = SRSFunctions.makeAdvisingList(id);
+//            List<Student> stuAdvList = SRSFunctions.makeAdvisingList(id);
 //            int index = 0, i = 4, j = 0 , total = stuAdvList.size();
 //            String[] info = new String[500];
 //            info[0] = "Teacher ID, Teacher Name";
 //            info[1] = pro.getId() + "," + pro.getName();
 //            info[2] = "Inquire for all Advising Students:";
-//            info[3] = "Basic Infomation:,StudentBase ID,StudentBase Name,StudentBase Earned Credits" +
-//                    ", More detail Info:,StudentBase tele, StudentBase qq, StudentBase dorm" +
-//                    ", StudentBase Registering status: ,isActive Adding courses(AA/AD), isActive fully Dropping courses(AD/DD), is Active";
+//            info[3] = "Basic Infomation:,Student ID,Student Name,Student Earned Credits" +
+//                    ", More detail Info:,Student tele, Student qq, Student dorm" +
+//                    ", Student Registering status: ,isActive Adding courses(AA/AD), isActive fully Dropping courses(AD/DD), is Active";
 //
 //            while(stuAdvList.listIterator(index).hasNext()){
-//                StudentBase stu = stuAdvList.get(index);
+//                Student stu = stuAdvList.get(index);
 //                info[i] = "," + stu.getId() + "," + stu.getName() + "," + stu.getCredits()
 //                        + "," + " ," + stu.getTele() + "," + stu.getQq() + "," + stu.getDorm()
 //                        + "," + " ," + stu.getActA() + "," + stu.getActD() + "," + stu.getActive();
 //                index++;
 //                i++;
 //            }
-//            info[i + 1] = "Total Advising StudentBase Amount: " + total + " .";
+//            info[i + 1] = "Total Advising Student Amount: " + total + " .";
 //            PrintWriter pw = new PrintWriter(fl);
 //            while(j < i){
 //                pw.println(info[j]);
@@ -464,7 +464,7 @@ public class ReportController {
 //            Scanner sc = new Scanner(fl);
 //            String[] info = new String[1000];
 //            int i = 1, j = 0, total = 0;
-//            info[0] = "Format:,StudentBase's ID, StudentBase's password, Students's name, StudentBase's Activation Status, StudentBase's Earned Credits";
+//            info[0] = "Format:,Student's ID, Student's password, Students's name, Student's Activation Status, Student's Earned Credits";
 //            while(sc.hasNext()){
 //                String line = sc.nextLine();
 //                String[] split = new String[5];

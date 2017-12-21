@@ -10,6 +10,7 @@ import java.util.Map;
 
 @Mapper
 @Component
+@Deprecated
 public interface CourseMapper {
     int deleteByPrimaryKey(String crn);
 

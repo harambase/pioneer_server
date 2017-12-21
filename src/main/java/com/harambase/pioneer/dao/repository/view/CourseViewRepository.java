@@ -20,7 +20,7 @@ public interface CourseViewRepository extends JpaRepository<CourseView, Integer>
 
     List<CourseView> findCourseViewByFacultyid(String facultyid);
 
-    @Query("select c from CourseView c where status = ?1 and (c.name like concat('%', ?2, '%') or c.comment like concat('%', ?2, '%')) order by c.id desc")
+    @Query("select c from CourseView c where status = ?1 and (c.crn like concat('%', ?2, '%') or c.name like concat('%', ?2, '%') or c.comment like concat('%', ?2, '%')) order by c.id desc")
     List<CourseView> findTop5ByStatusAndSearch(String status, String search);
 
     @Query("SELECT c FROM CourseView c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.studentid = ?1)")

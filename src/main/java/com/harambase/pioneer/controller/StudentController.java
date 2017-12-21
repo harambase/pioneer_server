@@ -3,7 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.base.StudentBase;
+import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.service.StudentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -54,7 +54,7 @@ public class StudentController {
     @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody StudentBase student){
+    public ResponseEntity update(@RequestBody Student student){
         HaramMessage haramMessage = studentService.update(student);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

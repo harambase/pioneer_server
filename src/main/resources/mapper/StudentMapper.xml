@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.StudentMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.StudentBase" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Student" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentid" property="studentid" jdbcType="VARCHAR" />
     <result column="max_credits" property="maxCredits" jdbcType="INTEGER" />
@@ -18,13 +18,13 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from Student where studentid = #{arg0,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.StudentBase" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Student" >
     insert into Student (id, studentid, max_credits
       )
     values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{maxCredits,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.StudentBase" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Student" >
     insert into Student
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -49,7 +49,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.StudentBase" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Student" >
     update Student
     <set >
       <if test="studentid != null" >
@@ -61,7 +61,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.StudentBase" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Student" >
     update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentid = #{studentid,jdbcType=VARCHAR}
   </update>
 
