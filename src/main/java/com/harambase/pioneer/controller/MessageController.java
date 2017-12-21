@@ -3,7 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.Tags;
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +34,7 @@ public class MessageController {
     @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity create(@RequestBody MessageWithBLOBs message){
+    public ResponseEntity create(@RequestBody Message message){
         HaramMessage haramMessage = messageService.createMessage(message);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
@@ -51,7 +51,7 @@ public class MessageController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
-                                 @RequestBody MessageWithBLOBs message) {
+                                 @RequestBody Message message) {
         HaramMessage haramMessage = messageService.update(id, message);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }

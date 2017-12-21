@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.TempUserMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.TempUser" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.TempUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -9,7 +9,7 @@
     <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.TempUser" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.TempUser" extends="BaseResultMap" >
     <result column="user_json" property="userJson" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -30,7 +30,7 @@
     delete from TempUser
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.TempUser" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     insert into TempUser (id, userid, status, 
       createtime, updatetime, operator, 
       user_json)
@@ -38,7 +38,7 @@
       #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
       #{userJson,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.TempUser" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     insert into TempUser
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.TempUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
     <set >
       <if test="userid != null" >
@@ -111,7 +111,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.TempUser" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
     set userid = #{userid,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
@@ -121,7 +121,7 @@
       user_json = #{userJson,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.TempUser" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
     set userid = #{userid,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},

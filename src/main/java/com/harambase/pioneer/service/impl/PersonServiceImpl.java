@@ -1,17 +1,12 @@
 package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.common.MapParam;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.PersonDao;
-import com.harambase.pioneer.dao.mapper.*;
 import com.harambase.pioneer.dao.repository.base.*;
-import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
 import com.harambase.pioneer.pojo.base.*;
-import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.service.PersonService;
-import com.harambase.support.charts.StaticGexfGraph;
 import com.harambase.support.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,41 +16,34 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import javax.persistence.EntityManager;
+import java.util.Date;
+import java.util.List;
 
 
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
 
-    private final PersonMapper personMapper;
-    private final StudentMapper studentMapper;
-    private final CourseMapper courseMapper;
-    private final TranscriptMapper transcriptMapper;
-    private final AdviseMapper adviseMapper;
-    private final MessageMapper messageMapper;
+    private final PersonRepository personRepository;
+    private final AdviseRepository adviseRepository;
+    private final MessageRepository messageRepository;
+    private final StudentRepository studentRepository;
+    private final TranscriptRepository transcriptRepository;
+    private final CourseRepository courseRepository;
 
     private final PersonDao personDao;
 
     @Autowired
-    public PersonRepository personRepository;
-    private CourseRepository courseRepository;
-    private CourseViewRepository courseViewRepository;
-    private TranscriptRepository transcriptRepository;
-    private MessageRepository messageRepository;
-    private StudentRepository studentRepository;
-
-    @Autowired
-    public PersonServiceImpl(PersonMapper personMapper, StudentMapper studentMapper,
-                             CourseMapper courseMapper, TranscriptMapper transcriptMapper,
-                             AdviseMapper adviseMapper, MessageMapper messageMapper,
-                             PersonDao personDao) {
-        this.personMapper = personMapper;
-        this.studentMapper = studentMapper;
-        this.courseMapper = courseMapper;
-        this.transcriptMapper = transcriptMapper;
-        this.adviseMapper = adviseMapper;
-        this.messageMapper = messageMapper;
+    public PersonServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
+                             TranscriptRepository transcriptRepository, MessageRepository messageRepository, StudentRepository studentRepository,
+                             PersonDao personDao, CourseRepository courseRepository) {
+        this.personRepository = personRepository;
+        this.adviseRepository = adviseRepository;
+        this.transcriptRepository = transcriptRepository;
+        this.messageRepository = messageRepository;
+        this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
         this.personDao = personDao;
     }
 
@@ -71,7 +59,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage addUser(Person person) {
-        HaramMessage haramMessage = new HaramMessage();
+
         String userid, password;
         String info = person.getInfo();
 
@@ -104,44 +92,82 @@ public class PersonServiceImpl implements PersonService {
         person.setCreatetime(DateUtil.DateToStr(new Date()));
         person.setUpdatetime(DateUtil.DateToStr(new Date()));
         person.setStatus("1");
+        Person newPerson = personRepository.save(person);
 
         if (person.getType().contains("s")) {
             Student student = new Student();
             student.setStudentid(userid);
+            student.setId(newPerson.getId());
             student.setMaxCredits(12);
             studentRepository.save(student);
         }
-        Person newPerson = personRepository.save(person);
+
         if (newPerson != null) {
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-        } else {
-            haramMessage.setCode(FlagDict.FAIL.getV());
-            haramMessage.setMsg(FlagDict.FAIL.getM());
+            Message message = new Message();
+            message.setDate(DateUtil.DateToStr(new Date()));
+            message.setReceiverid(userid);
+            message.setSenderid(IDUtil.ROOT);
+            message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
+            message.setTitle("账户信息");
+            message.setStatus("UNREAD");
+            message.setTag("work");
+            message.setLabels("['inbox','important']");
+
+            messageRepository.save(message);
+
+            return ReturnMsgUtil.success(newPerson);
+
         }
-        MessageWithBLOBs message = new MessageWithBLOBs();
-        message.setDate(DateUtil.DateToStr(new Date()));
-        message.setReceiverid(userid);
-        message.setSenderid(IDUtil.ROOT);
-        message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
-        message.setTitle("账户信息");
-        message.setStatus("UNREAD");
-        message.setTag("work");
-        message.setLabels("['inbox','important']");
-
-        int ret = messageMapper.insertSelective(message);
-        if (ret <= 0)
-            throw new RuntimeException("MessageWithBLOBs 插入失败!");
-
-        else if (ret == 1) {
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            haramMessage.setData(person);
-        }
-
-        return haramMessage;
+        return ReturnMsgUtil.fail();
 
     }
+
+    @Override
+    public HaramMessage removeUser(String userid) {
+
+        if (userid.equals(IDUtil.ROOT))
+            return ReturnMsgUtil.custom(FlagDict.DELETE_BLOCK);
+
+        Person person = personRepository.findByUserid(userid);
+        if(person == null){
+            return ReturnMsgUtil.fail();
+        }
+
+        adviseRepository.deleteByStudentidOrFacultyid(person.getUserid(), person.getUserid());
+        if(person.getType().equals("s"))
+            transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
+        else{
+            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
+            for (Course c : courseList) {
+                    String facultyid = c.getFacultyid();
+                    if (facultyid.equals(userid)) {
+                        String opTime = DateUtil.DateToStr(new Date());
+                        c.setFacultyid(IDUtil.ROOT);
+                        c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
+                        c.setUpdatetime(DateUtil.DateToStr(new Date()));
+                        courseRepository.save(c);
+                    }
+                }
+        }
+
+        //会自动删除学生表
+        personRepository.delete(person);
+        return ReturnMsgUtil.success(null);
+    }
+
+    @Override
+    public HaramMessage update(Person person) {
+        person.setUpdatetime(DateUtil.DateToStr(new Date()));
+        Person newPerson = personRepository.save(person);
+        return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+    }
+
+    @Override
+    public HaramMessage getUser(String userid) {
+        Person person = personRepository.findByUserid(userid);
+        return ReturnMsgUtil.success(person);
+    }
+
 
     @Override
     public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
@@ -232,50 +258,6 @@ public class PersonServiceImpl implements PersonService {
         }
     }
 
-    @Override
-    public HaramMessage getUser(String userid) {
-        HaramMessage haramMessage = new HaramMessage();
-        try {
-            Person user = personMapper.selectByPrimaryKey(userid);
-            if (user != null) {
-                haramMessage.setData(user);
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            } else {
-                haramMessage.setCode(FlagDict.FAIL.getV());
-                haramMessage.setMsg(FlagDict.FAIL.getM());
-            }
-            return haramMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
-        }
-    }
-
-    @Override
-    public HaramMessage update(Person person) {
-        HaramMessage haramMessage = new HaramMessage();
-        try {
-            person.setUpdatetime(DateUtil.DateToStr(new Date()));
-            int ret = personMapper.updateByPrimaryKeySelective(person);
-            if (ret == 1) {
-                haramMessage.setData(person);
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            } else {
-                haramMessage.setCode(FlagDict.FAIL.getV());
-                haramMessage.setMsg(FlagDict.FAIL.getM());
-            }
-            return haramMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
-        }
-    }
 
     @Override
     public HaramMessage listUsers(String search, String type, String status) {
@@ -298,117 +280,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage userChart() {
-        HaramMessage message = new HaramMessage();
-        //统计用户种类
-        List<Map<String, String>> data1 = new ArrayList<>();
-        Map<String, String> param = new HashMap<>();
-        param.put("status", null);
-
-        int s = personMapper.countStudent(param);
-        int f = personMapper.countFaculty(param);
-        int a = personMapper.countAdmin();
-
-        data1.add(MapParam.pieChartValue(String.valueOf(s), "Student"));
-        data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
-        data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
-
-
-        //统计性别
-        List<Map<String, String>> data2 = new ArrayList<>();
-        int male = personMapper.countMale();
-        int female = personMapper.countFemale();
-
-        data2.add(MapParam.pieChartValue(String.valueOf(male), "Male"));
-        data2.add(MapParam.pieChartValue(String.valueOf(female), "Female"));
-
-        message.put("dataBeast", data1);
-        message.put("xAxisData", data2);
-
-        return message;
-    }
-
-    @Override
-    public HaramMessage getRelationChart() {
-        HaramMessage message = new HaramMessage();
-        try {
-
-            List<Person> personList = personMapper.getAllUsers();
-            List<CourseView> courseViewList = courseMapper.getAllActiveCourses();
-            List<Transcript> transcriptList = transcriptMapper.getAllTranscripts();
-            List<Advise> adviseList = adviseMapper.getAllAdvise();
-
-            String xml = StaticGexfGraph.graphGenerator(personList, courseViewList, transcriptList, adviseList);
-            message.setData(xml);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return message;
-    }
-
-    @Override
     public HaramMessage countActivePerson(String type) {
-        HaramMessage message = new HaramMessage();
-        Map<String, String> param = new HashMap<>();
-        param.put("status", "1");
-        //统计用户种类
-        switch (type) {
-            case "s":
-                int s = personMapper.countStudent(param);
-                message.setData(s);
-                return message;
-            case "f":
-                int f = personMapper.countFaculty(param);
-                message.setData(f);
-                return message;
-        }
-
-        message.setData(0);
-        return message;
-    }
-
-    @Override
-    @Transactional
-    public HaramMessage removeUser(String userid) {
-        HaramMessage message = new HaramMessage();
-
-        try {
-            if (!userid.equals(IDUtil.ROOT)) {
-                Person p = personMapper.selectByPrimaryKey(userid);
-                if (p != null) {
-                    String type = p.getType();
-                    if (type.contains("s")) {
-                        studentMapper.deleteByPrimaryKey(userid);
-                        transcriptMapper.deleteByStudentid(userid);
-                    } else if (type.contains("f")) {
-                        List<CourseView> courseViewViewList = courseMapper.getAllActiveCourses();
-                        for (CourseView c : courseViewViewList) {
-                            String facultyid = c.getFacultyid();
-                            if (facultyid.equals(userid)) {
-                                String opTime = DateUtil.DateToStr(new Date());
-                                c.setFacultyid(IDUtil.ROOT);
-                                c.setComment(c.getFaculty() + "老师被删除, 删除时间：" + opTime);
-                                c.setUpdatetime(DateUtil.DateToStr(new Date()));
-                                courseMapper.updateByPrimaryKeySelective(c);
-                            }
-                        }
-                    }
-                    adviseMapper.deleteByUserID(userid);
-                    personMapper.deleteByPrimaryKey(userid);
-                }
-                message.setMsg(FlagDict.SUCCESS.getM());
-                message.setCode(FlagDict.SUCCESS.getV());
-            } else {
-                message.setCode(FlagDict.DELETE_BLOCK.getV());
-                message.setMsg(FlagDict.DELETE_BLOCK.getM());
-            }
-            return message;
-        } catch (Exception e) {
-            e.printStackTrace();
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-        }
-        return message;
+        int count = personRepository.countByTypeAndStatus(type, "1");
+        return ReturnMsgUtil.success(count);
     }
 
 }

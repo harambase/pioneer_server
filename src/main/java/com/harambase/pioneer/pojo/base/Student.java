@@ -8,8 +8,9 @@ import java.io.Serializable;
 public class Student implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    private String studentid;
 
     public Integer getId() {
         return id;
@@ -19,9 +20,21 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    private String studentid;
-
     private Integer maxCredits;
+
+
+
+    @OneToOne(optional=false, mappedBy="mapStudent")
+    @PrimaryKeyJoinColumn
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
     public String getStudentid() {
         return studentid;

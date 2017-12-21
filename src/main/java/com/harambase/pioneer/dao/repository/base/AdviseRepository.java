@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdviseRepository extends JpaRepository<Advise, Integer> {
 
+    void deleteByStudentidOrFacultyid(String studentId, String facultyId);
 }

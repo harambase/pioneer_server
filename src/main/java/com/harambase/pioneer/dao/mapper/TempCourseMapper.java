@@ -1,6 +1,6 @@
 package com.harambase.pioneer.dao.mapper;
 
-import com.harambase.pioneer.pojo.TempCourse;
+import com.harambase.pioneer.pojo.base.TempCourse;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

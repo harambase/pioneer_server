@@ -1,7 +1,7 @@
 package com.harambase.pioneer.service;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.Message;
 
 public interface MessageService {
 
@@ -12,9 +12,9 @@ public interface MessageService {
     
     HaramMessage countMessageByStatus(String receiverid, String senderid, String box, String status);
 
-    HaramMessage createMessage(MessageWithBLOBs message);
+    HaramMessage createMessage(Message message);
 
     HaramMessage delete(Integer id);
 
-    HaramMessage update(Integer id, MessageWithBLOBs message);
+    HaramMessage update(Integer id, Message message);
 }

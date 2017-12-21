@@ -2,7 +2,7 @@ package com.harambase.common.helper;
 
 import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.support.util.DateUtil;
-import com.harambase.pioneer.pojo.Pin;
+import com.harambase.pioneer.pojo.base.Pin;
 
 import java.util.*;
 

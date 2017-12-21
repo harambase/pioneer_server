@@ -1,6 +1,6 @@
 package com.harambase.pioneer.dao.repository.base;
 
-import com.harambase.pioneer.pojo.Pin;
+import com.harambase.pioneer.pojo.base.Pin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

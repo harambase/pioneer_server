@@ -17,10 +17,6 @@ public interface PersonService {
 
     HaramMessage listUsers(String search, String type, String status);
 
-    HaramMessage userChart();
-
-    HaramMessage getRelationChart();
-
     HaramMessage countActivePerson(String type);
 
     HaramMessage removeUser(String userid);

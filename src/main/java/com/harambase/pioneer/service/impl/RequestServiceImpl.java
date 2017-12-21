@@ -3,6 +3,7 @@ package com.harambase.pioneer.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.*;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.view.AdviseView;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
@@ -10,8 +11,7 @@ import com.harambase.support.util.PageUtil;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.TempCourseMapper;
 import com.harambase.pioneer.dao.mapper.TempUserMapper;
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.TempUser;
+import com.harambase.pioneer.pojo.base.TempUser;
 import com.harambase.pioneer.service.RequestService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +77,7 @@ public class RequestServiceImpl implements RequestService {
             if(ret <= 0)
                 throw new RuntimeException("TempUser 插入失败!");
 
-            MessageWithBLOBs message = new MessageWithBLOBs();
+            Message message = new Message();
             message.setDate(DateUtil.DateToStr(new Date()));
             message.setReceiverid("9000000000");
             message.setSenderid("9000000000");

@@ -1,12 +1,11 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.view;
 
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.Message;
 
 import javax.persistence.Entity;
-import java.io.Serializable;
 
 @Entity
-public class Message extends MessageWithBLOBs {
+public class MessageView extends Message {
 
     private String pic;
 

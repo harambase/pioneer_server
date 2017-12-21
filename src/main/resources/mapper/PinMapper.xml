@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.harambase.pioneer.dao.mapper.PinMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.Pin" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Pin" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="pin" property="pin" jdbcType="INTEGER" />
     <result column="info" property="info" jdbcType="VARCHAR" />
@@ -12,7 +12,7 @@
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
     <result column="createTime" property="createtime" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.Pin" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.Pin" extends="BaseResultMap" >
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -33,7 +33,7 @@
     delete from Pin
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.Pin" >
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     insert into Pin (id, pin, info, 
       facultyid, studentid, role, 
       startTime, endTime, createTime, 
@@ -43,7 +43,7 @@
       #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.Pin" >
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     insert into Pin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -110,7 +110,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.Pin" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     update Pin
     <set >
       <if test="pin != null" >
@@ -143,7 +143,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.Pin" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
@@ -156,7 +156,7 @@
       remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.Pin" >
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
@@ -177,7 +177,7 @@
   <select id="countByPin" parameterType="java.util.Map" resultType="java.lang.Integer">
     select * from Pin where pin = #{pin,jdbcType=INTEGER}
   </select>
-  <select id="selectByPin" parameterType="java.lang.Integer" resultType="com.harambase.pioneer.pojo.Pin">
+  <select id="selectByPin" parameterType="java.lang.Integer" resultType="com.harambase.pioneer.pojo.base.Pin">
     select * from Pin where pin = #{arg0,jdbcType=INTEGER}
   </select>
 </mapper>

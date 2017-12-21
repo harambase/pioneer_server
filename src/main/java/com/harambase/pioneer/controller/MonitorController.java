@@ -3,6 +3,7 @@ package com.harambase.pioneer.controller;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Tags;
 import com.harambase.pioneer.service.CourseService;
+import com.harambase.pioneer.service.MonitorService;
 import com.harambase.pioneer.service.PersonService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,22 +21,22 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("/system")
 @Api(value = "/system", description = "系统管理接口")
-public class SystemController {
+public class MonitorController {
 
-    private final CourseService courseService;
+    private final MonitorService monitorService;
     private final PersonService personService;
-    
+    private final CourseService courseService;
+
     @Autowired
-    public SystemController(CourseService courseService,
-                            PersonService personService){
-        this.courseService = courseService;
+    public MonitorController(MonitorService monitorService, PersonService personService, CourseService courseService){
+        this.monitorService = monitorService;
         this.personService = personService;
+        this.courseService = courseService;
     }
 
     @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)
-//    @RequiresPermissions("user")
     public ResponseEntity systemInfo(){
         HaramMessage message = new HaramMessage();
 
@@ -58,18 +59,16 @@ public class SystemController {
     @ApiOperation(value = "关系图表", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
-//    @RequiresPermissions("user")
     public ResponseEntity relationChart(){
-        HaramMessage haramMessage = personService.getRelationChart();
+        HaramMessage haramMessage = monitorService.getRelationChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     @ApiOperation(value = "系统用户计数", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/count", method = RequestMethod.GET)
-//    @RequiresPermissions("user")
     public ResponseEntity userCount(){
-        HaramMessage haramMessage = personService.userChart();
+        HaramMessage haramMessage = monitorService.userChart();
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

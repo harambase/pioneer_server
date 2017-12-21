@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "message")
-public class MessageBase implements Serializable {
+public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +34,26 @@ public class MessageBase implements Serializable {
     private String tag;
 
     private String labels;
+
+    private String body;
+
+    private String receiverid;
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body == null ? null : body.trim();
+    }
+
+    public String getReceiverid() {
+        return receiverid;
+    }
+
+    public void setReceiverid(String receiverid) {
+        this.receiverid = receiverid == null ? null : receiverid.trim();
+    }
 
     public String getSenderid() {
         return senderid;

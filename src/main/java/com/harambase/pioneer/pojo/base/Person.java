@@ -2,6 +2,8 @@ package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -53,6 +55,19 @@ public class Person implements Serializable {
 
     private String userInfo;
 
+    @OneToOne(targetEntity = Student.class, fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL})
+    @PrimaryKeyJoinColumn
+    private Student mapStudent;
+
+    public Student getStudent() {
+        return mapStudent;
+    }
+
+    public void setStudent(Student student) {
+        this.mapStudent = student;
+    }
+
     public String getUserInfo() {
         return userInfo;
     }
@@ -69,11 +84,11 @@ public class Person implements Serializable {
         this.roleId = roleId;
     }
 
-    public String getProfile(){
+    public String getProfile() {
         return profile;
     }
 
-    public void setProfile(String profile){
+    public void setProfile(String profile) {
         this.profile = profile == null ? null : profile.trim();
     }
 

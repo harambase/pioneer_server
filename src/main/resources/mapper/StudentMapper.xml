@@ -65,7 +65,7 @@
     update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentid = #{studentid,jdbcType=VARCHAR}
   </update>
 
-  <select id="creditsDetail" resultType="com.harambase.pioneer.pojo.Student" parameterType="java.lang.String" >
+  <select id="creditsDetail" resultType="com.harambase.pioneer.pojo.view.StudentView" parameterType="java.lang.String" >
     select * from StudentView where studentid = #{studentid,jdbcType=VARCHAR}
   </select>
 
@@ -80,7 +80,7 @@
     </if>
   </where>
   </select>
-  <select id="getStudentByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.Student">
+  <select id="getStudentByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.view.StudentView">
     select * from StudentView <where> 1 = 1 and status = #{status,jdbcType=VARCHAR}
     <if test="search != null" >
       and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or

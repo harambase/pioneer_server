@@ -1,19 +1,30 @@
-package com.harambase.pioneer.pojo;
+package com.harambase.pioneer.pojo.view;
 
-import com.harambase.pioneer.pojo.base.Person;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-public class Student extends Person implements Serializable{
+@Table(name = "studentview")
+public class StudentView implements Serializable{
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    @Id
+    private Integer id;
     private String studentid;
     private int max_credits;
     private int complete;
     private int progress;
     private int incomplete;
-    
+
     public String getStudentid() {
         return studentid;
     }
@@ -29,7 +40,7 @@ public class Student extends Person implements Serializable{
     public void setMax_credits(int max_credits) {
         this.max_credits = max_credits;
     }
-    
+
     public int getComplete() {
         return complete;
     }

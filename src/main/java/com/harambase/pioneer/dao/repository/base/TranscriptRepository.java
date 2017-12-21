@@ -13,4 +13,5 @@ public interface TranscriptRepository extends JpaRepository<Transcript, Integer>
 
     void deleteTranscriptByStudentidAndCrn(String studentid, String crn);
 
+    void deleteTranscriptByStudentid(String userid);
 }

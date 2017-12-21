@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Mapper
 @Component
+@Deprecated
 public interface PersonMapper {
     int deleteByPrimaryKey(String userid);
 

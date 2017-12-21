@@ -1,7 +1,8 @@
 package com.harambase.pioneer.service.impl;
 
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
+import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
+import com.harambase.pioneer.pojo.base.Pin;
 import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
@@ -10,7 +11,6 @@ import com.harambase.pioneer.dao.mapper.MessageMapper;
 import com.harambase.pioneer.dao.mapper.PersonMapper;
 import com.harambase.pioneer.dao.mapper.PinMapper;
 import com.harambase.common.helper.TimeValidate;
-import com.harambase.pioneer.pojo.*;
 import com.harambase.pioneer.service.PinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -168,7 +168,7 @@ public class PinServiceImpl implements PinService{
             List<Pin> pinInfoList = pinMapper.listByInfo(param);
 
             String date = DateUtil.DateToStr(new Date());
-            MessageWithBLOBs message = new MessageWithBLOBs();
+            Message message = new Message();
             message.setDate(date);
             message.setStatus("UNREAD");
             message.setTitle("PIN的信息");
@@ -218,7 +218,7 @@ public class PinServiceImpl implements PinService{
             List<Pin> pinInfoList = pinMapper.listByInfo(param);
 
             String date = DateUtil.DateToStr(new Date());
-            MessageWithBLOBs message = new MessageWithBLOBs();
+            Message message = new Message();
             message.setDate(date);
             message.setStatus("UNREAD");
             message.setTitle("您的辅导学生的PIN的信息");

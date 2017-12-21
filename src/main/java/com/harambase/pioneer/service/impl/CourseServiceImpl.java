@@ -61,11 +61,13 @@ public class CourseServiceImpl implements CourseService {
         }
         course.setCrn(crn);
 
-        //检查教师时间冲突
-        if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyid), courseViewRepository.findByCrn(crn))) {
-            return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+        if(!course.getFacultyid().equals(IDUtil.ROOT)) {
+            //检查教师时间冲突
+            if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyid), courseViewRepository.findByCrn(crn))) {
+                return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+            }
+            course.setFacultyid(facultyid);
         }
-        course.setFacultyid(facultyid);
 
         //插入课程
         Course newCourse = courseRepository.save(course);
@@ -103,9 +105,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage assignFac2Cou(String crn, String facultyId) {
 
-        //检查时间冲突
-        if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyId), courseViewRepository.findByCrn(crn))) {
-            return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+        if(!facultyId.equals(IDUtil.ROOT)) {
+            //检查时间冲突
+            if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyId), courseViewRepository.findByCrn(crn))) {
+                return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+            }
         }
 
         Course course = courseRepository.findByCrn(crn);

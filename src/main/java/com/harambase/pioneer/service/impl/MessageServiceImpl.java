@@ -1,5 +1,6 @@
 package com.harambase.pioneer.service.impl;
 
+import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
@@ -7,8 +8,7 @@ import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.MessageDao;
 import com.harambase.pioneer.dao.mapper.MessageMapper;
-import com.harambase.pioneer.pojo.base.MessageWithBLOBs;
-import com.harambase.pioneer.pojo.Message;
+import com.harambase.pioneer.pojo.view.MessageView;
 import com.harambase.pioneer.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class MessageServiceImpl implements MessageService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<Message> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
+            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
                     page.getCurrentIndex(),page.getPageSize(),order,orderColumn);
 
             message.setData(msgs);
@@ -80,8 +80,8 @@ public class MessageServiceImpl implements MessageService {
     public HaramMessage getMessageView(Integer id) {
         HaramMessage haramMessage = new HaramMessage();
         try{
-            Message messageView = messageMapper.selectViewByPrimaryKey(id);
-            haramMessage.setData(messageView);
+            MessageView messageViewView = messageMapper.selectViewByPrimaryKey(id);
+            haramMessage.setData(messageViewView);
             haramMessage.setMsg(FlagDict.SUCCESS.getM());
             haramMessage.setCode(FlagDict.SUCCESS.getV());
             return haramMessage;
@@ -111,7 +111,7 @@ public class MessageServiceImpl implements MessageService {
     }
     
     @Override
-    public HaramMessage update(Integer id, MessageWithBLOBs message) {
+    public HaramMessage update(Integer id, Message message) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             message.setId(id);
@@ -131,7 +131,7 @@ public class MessageServiceImpl implements MessageService {
     }
     
     @Override
-    public HaramMessage createMessage(MessageWithBLOBs message) {
+    public HaramMessage createMessage(Message message) {
         HaramMessage haramMessage = new HaramMessage();
         try{
             message.setDate(DateUtil.DateToStr(new Date()));
