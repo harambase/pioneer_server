@@ -132,7 +132,7 @@ public class PersonServiceImpl implements PersonService {
         }
 
         adviseRepository.deleteByStudentidOrFacultyid(person.getUserid(), person.getUserid());
-        if(person.getType().equals("s"))
+//        if(person.getType().equals("s"))
             transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
 //        else{
 //            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
