@@ -3,16 +3,15 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.PersonDao;
+import com.harambase.pioneer.dao.base.PersonDao;
 import com.harambase.pioneer.dao.repository.base.*;
 import com.harambase.pioneer.pojo.base.*;
 import com.harambase.pioneer.service.PersonService;
 import com.harambase.support.util.*;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +22,8 @@ import java.util.List;
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final PersonRepository personRepository;
     private final AdviseRepository adviseRepository;
@@ -127,29 +128,25 @@ public class PersonServiceImpl implements PersonService {
             return ReturnMsgUtil.custom(FlagDict.DELETE_BLOCK);
 
         Person person = personRepository.findOne(userid);
-        if(person == null){
+        if (person == null) {
             return ReturnMsgUtil.fail();
         }
 
         adviseRepository.deleteByStudentidOrFacultyid(person.getUserid(), person.getUserid());
-//        if(person.getType().equals("s"))
-            transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
-//        else{
-//            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
-//            for (Course c : courseList) {
-//                    String facultyid = c.getFacultyid();
-//                    if (facultyid.equals(userid)) {
-//                        String opTime = DateUtil.DateToStr(new Date());
-//                        c.setFacultyid(IDUtil.ROOT);
-//                        c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
-//                        c.setUpdatetime(DateUtil.DateToStr(new Date()));
-//                        courseRepository.save(c);
-//                    }
-//                }
-//        }
+        transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
 
+        List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
+
+        for (Course c : courseList) {
+            String opTime = DateUtil.DateToStr(new Date());
+            c.setFacultyid(IDUtil.ROOT);
+            c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
+            c.setUpdatetime(DateUtil.DateToStr(new Date()));
+            courseRepository.save(c);
+        }
         //会自动删除学生表
         personRepository.delete(person);
+
         return ReturnMsgUtil.success(null);
     }
 
@@ -165,7 +162,6 @@ public class PersonServiceImpl implements PersonService {
         Person person = personRepository.findOne(userid);
         return ReturnMsgUtil.success(person);
     }
-
 
     @Override
     public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
@@ -214,34 +210,18 @@ public class PersonServiceImpl implements PersonService {
                     break;
             }
         }
-        long totalSize = 0;
-        try {
-//            Map<String, Object> param = new HashMap<>();
-//            param.put("search", search);
-//            param.put("type", type);
-//            param.put("status", status);
-//
-//            if(StringUtils.isEmpty(search))
-//                param.put("search", null);
 
-//            totalSize = personMapper.getCountByMapPageSearchOrdered(param); //startTime, endTime);
+        try {
+
+            long totalSize = personDao.getCountByMapPageSearchOrdered(search, type, status);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-//            param.put("currentIndex", page.getCurrentIndex());
-//            param.put("pageSize",  page.getPageSize());
-//            param.put("order",  order);
-//            param.put("orderColumn",  orderColumn);
+            List<Person> personList = personDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, type, status);
 
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-//            List<Person> msgs = personMapper.getByMapPageSearchOrdered(param);
-
-            Sort sort = new Sort(Sort.Direction.DESC, orderColumn);
-            Pageable pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), sort);
-            List<Person> personList = personRepository.findAll(pageable).getContent();
             message.setData(personList);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
@@ -250,9 +230,8 @@ public class PersonServiceImpl implements PersonService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
+            logger.error(e.getMessage());
+            return ReturnMsgUtil.systemError();
         }
     }
 
