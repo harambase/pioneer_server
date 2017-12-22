@@ -53,20 +53,17 @@ public class ResultSetHelper {
                         String colName;
 
                         Column dbAnn = field.getAnnotation(Column.class);
+                        Object valu2e = rs.getObject("    asdf");
 
-                        try {
-                            if (dbAnn != null) {
-                                colName = dbAnn.name();
-                                int count = rs.findColumn(colName);
-                                if (rs.findColumn(colName) != 0) {
-                                    Object value = rs.getObject(colName);
-                                    PropertyDescriptor pd = new PropertyDescriptor(filedName, inkClz);
-                                    Method writeMethod = pd.getWriteMethod();
-                                    writeMethod.invoke(ret, value);
-                                }
+                        if (dbAnn != null) {
+                            colName = dbAnn.name();
+                            Object value = rs.getObject(colName);
+                            if (value != null) {
+
+                                PropertyDescriptor pd = new PropertyDescriptor(filedName, inkClz);
+                                Method writeMethod = pd.getWriteMethod();
+                                writeMethod.invoke(ret, value);
                             }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
