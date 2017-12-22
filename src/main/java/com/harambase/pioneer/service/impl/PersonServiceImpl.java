@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage login(Person person) {
-        Person user = personRepository.findByUserid(person.getUserid());
+        Person user = personRepository.findOne(person.getUserid());
         if (user != null) {
             String status = user.getStatus();
             return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(FlagDict.USER_DISABLED);
@@ -97,7 +96,6 @@ public class PersonServiceImpl implements PersonService {
         if (person.getType().contains("s")) {
             Student student = new Student();
             student.setStudentid(userid);
-            student.setId(newPerson.getId());
             student.setMaxCredits(12);
             studentRepository.save(student);
         }
@@ -128,7 +126,7 @@ public class PersonServiceImpl implements PersonService {
         if (userid.equals(IDUtil.ROOT))
             return ReturnMsgUtil.custom(FlagDict.DELETE_BLOCK);
 
-        Person person = personRepository.findByUserid(userid);
+        Person person = personRepository.findOne(userid);
         if(person == null){
             return ReturnMsgUtil.fail();
         }
@@ -136,19 +134,19 @@ public class PersonServiceImpl implements PersonService {
         adviseRepository.deleteByStudentidOrFacultyid(person.getUserid(), person.getUserid());
         if(person.getType().equals("s"))
             transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
-        else{
-            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
-            for (Course c : courseList) {
-                    String facultyid = c.getFacultyid();
-                    if (facultyid.equals(userid)) {
-                        String opTime = DateUtil.DateToStr(new Date());
-                        c.setFacultyid(IDUtil.ROOT);
-                        c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
-                        c.setUpdatetime(DateUtil.DateToStr(new Date()));
-                        courseRepository.save(c);
-                    }
-                }
-        }
+//        else{
+//            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
+//            for (Course c : courseList) {
+//                    String facultyid = c.getFacultyid();
+//                    if (facultyid.equals(userid)) {
+//                        String opTime = DateUtil.DateToStr(new Date());
+//                        c.setFacultyid(IDUtil.ROOT);
+//                        c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
+//                        c.setUpdatetime(DateUtil.DateToStr(new Date()));
+//                        courseRepository.save(c);
+//                    }
+//                }
+//        }
 
         //会自动删除学生表
         personRepository.delete(person);
@@ -164,7 +162,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage getUser(String userid) {
-        Person person = personRepository.findByUserid(userid);
+        Person person = personRepository.findOne(userid);
         return ReturnMsgUtil.success(person);
     }
 

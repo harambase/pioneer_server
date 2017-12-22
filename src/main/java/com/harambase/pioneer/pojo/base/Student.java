@@ -9,35 +9,15 @@ import java.util.List;
 public class Student implements Serializable {
 
     @Id
-    private Integer id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="studentid",length=20)
     private String studentid;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     private Integer maxCredits;
 
     @OneToOne(optional=false, mappedBy="mapStudent")
     @PrimaryKeyJoinColumn
     private Person person;
-
-    @OneToMany(mappedBy="student", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-//    @JoinColumn(foreignKey = @ForeignKey(name = "studentid"))
-    private List<Transcript> transcriptList;
-
-    public List<Transcript> getTranscriptList() {
-        return transcriptList;
-    }
-
-    public void setTranscriptList(List<Transcript> transcriptList) {
-        this.transcriptList = transcriptList;
-    }
 
     public Person getPerson() {
         return person;

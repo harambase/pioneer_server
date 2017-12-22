@@ -5,11 +5,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "transcript")
+@Table(name = "transcript_copy")
 public class Transcript implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String studentid;
@@ -23,18 +23,6 @@ public class Transcript implements Serializable{
     private String assigntime;
 
     private String operator;
-
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "studentid"))
-    private Student student;
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
 
     public Integer getId() {
         return id;

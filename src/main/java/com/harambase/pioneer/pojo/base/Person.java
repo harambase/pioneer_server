@@ -3,6 +3,7 @@ package com.harambase.pioneer.pojo.base;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -11,8 +12,6 @@ public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
     private String userid;
 
     private String username;
@@ -55,7 +54,7 @@ public class Person implements Serializable {
 
     private String userInfo;
 
-    @OneToOne(targetEntity = Student.class, fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Student mapStudent;
 
@@ -89,14 +88,6 @@ public class Person implements Serializable {
 
     public void setProfile(String profile) {
         this.profile = profile == null ? null : profile.trim();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUserid() {
@@ -243,31 +234,4 @@ public class Person implements Serializable {
         this.comment = comment == null ? null : comment.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", userid='" + userid + '\'' +
-                ", username='" + username + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", password='" + password + '\'' +
-                ", info='" + info + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", email='" + email + '\'' +
-                ", tel='" + tel + '\'' +
-                ", qq='" + qq + '\'' +
-                ", wechat='" + wechat + '\'' +
-                ", dorm='" + dorm + '\'' +
-                ", gender='" + gender + '\'' +
-                ", createtime='" + createtime + '\'' +
-                ", updatetime='" + updatetime + '\'' +
-                ", status='" + status + '\'' +
-                ", type='" + type + '\'' +
-                ", comment='" + comment + '\'' +
-                ", profile='" + profile + '\'' +
-                ", roleId='" + roleId + '\'' +
-                ", userInfo='" + userInfo + '\'' +
-                '}';
-    }
 }
