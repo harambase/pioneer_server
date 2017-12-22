@@ -111,10 +111,10 @@ public class PinServiceImpl implements PinService{
 
                 switch (role){
                     case 1:
-                        pin.setStudentid(person.getUserid());
+                        pin.setStudentid(person.getUserId());
                         break;
                     case 2:
-                        pin.setFacultyid(person.getUserid());
+                        pin.setFacultyid(person.getUserId());
                         break;
                 }
 
@@ -238,7 +238,7 @@ public class PinServiceImpl implements PinService{
                     studentId = pin.getStudentid();
                     facultyId = adviseMapper.selectFacultyByStudent(studentId);
                     student = personMapper.selectByPrimaryKey(studentId);
-                    studentName = student.getLastname() + ", " + student.getFirstname();
+                    studentName = student.getLastName() + ", " + student.getFirstName();
 
                     body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
                             + pin.getStarttime() + "至" + pin.getEndtime() + "请及时告知，谢谢！";

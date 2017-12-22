@@ -49,7 +49,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage login(Person person) {
-        Person user = personRepository.findOne(person.getUserid());
+        Person user = personRepository.findOne(person.getUserId());
         if (user != null) {
             String status = user.getStatus();
             return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(FlagDict.USER_DISABLED);
@@ -65,32 +65,32 @@ public class PersonServiceImpl implements PersonService {
 
         List<Person> people = personRepository.findByInfo(info);
 
-        if (person.getUserid() == null)
+        if (person.getUserId() == null)
             userid = IDUtil.genUserID(info);
         else
-            userid = person.getUserid();
+            userid = person.getUserId();
 
         for (int i = 0; i < people.size(); i++) {
             Person p = people.get(i);
-            if (userid.equals(p.getUserid())) {
+            if (userid.equals(p.getUserId())) {
                 userid = IDUtil.genUserID(info);
                 i = 0;
             }
         }
-        person.setUserid(userid);
+        person.setUserId(userid);
 
         if (person.getPassword() == null) {
             password = "Pioneer" + userid;
             person.setPassword(password);
         }
 
-        String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastname());
-        String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstname());
+        String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastName());
+        String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstName());
         String username = lastPY + firstPY + userid.substring(7, 10);
 
         person.setUsername(username);
-        person.setCreatetime(DateUtil.DateToStr(new Date()));
-        person.setUpdatetime(DateUtil.DateToStr(new Date()));
+        person.setCreateTime(DateUtil.DateToStr(new Date()));
+        person.setUpdateTime(DateUtil.DateToStr(new Date()));
         person.setStatus("1");
         Person newPerson = personRepository.save(person);
 
@@ -132,15 +132,15 @@ public class PersonServiceImpl implements PersonService {
             return ReturnMsgUtil.fail();
         }
 
-        adviseRepository.deleteByStudentidOrFacultyid(person.getUserid(), person.getUserid());
-        transcriptRepository.deleteTranscriptByStudentid(person.getUserid());
+        adviseRepository.deleteByStudentidOrFacultyid(person.getUserId(), person.getUserId());
+        transcriptRepository.deleteTranscriptByStudentid(person.getUserId());
 
-        List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserid());
+        List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserId());
 
         for (Course c : courseList) {
             String opTime = DateUtil.DateToStr(new Date());
             c.setFacultyid(IDUtil.ROOT);
-            c.setComment(person.getLastname() + "," + person.getFirstname() + "老师被删除, 删除时间：" + opTime);
+            c.setComment(person.getLastName() + "," + person.getFirstName() + "老师被删除, 删除时间：" + opTime);
             c.setUpdatetime(DateUtil.DateToStr(new Date()));
             courseRepository.save(c);
         }
@@ -152,7 +152,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public HaramMessage update(Person person) {
-        person.setUpdatetime(DateUtil.DateToStr(new Date()));
+        person.setUpdateTime(DateUtil.DateToStr(new Date()));
         Person newPerson = personRepository.save(person);
         return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
     }

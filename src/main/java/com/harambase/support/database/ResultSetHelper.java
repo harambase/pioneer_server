@@ -1,8 +1,7 @@
 package com.harambase.support.database;
 
 
-import com.harambase.common.annotation.Column;
-
+import javax.persistence.Column;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -55,18 +54,16 @@ public class ResultSetHelper {
 
                         Column dbAnn = field.getAnnotation(Column.class);
 
-                        if (dbAnn == null) {
-                            colName = filedName;
-                        } else {
-                            colName = dbAnn.name();
-                        }
-
                         try {
-                            Object value = rs.getObject(colName);
-                            if (value != null) {
-                                PropertyDescriptor pd = new PropertyDescriptor(filedName, inkClz);
-                                Method writeMethod = pd.getWriteMethod();
-                                writeMethod.invoke(ret, value);
+                            if (dbAnn != null) {
+                                colName = dbAnn.name();
+                                int count = rs.findColumn(colName);
+                                if (rs.findColumn(colName) != 0) {
+                                    Object value = rs.getObject(colName);
+                                    PropertyDescriptor pd = new PropertyDescriptor(filedName, inkClz);
+                                    Method writeMethod = pd.getWriteMethod();
+                                    writeMethod.invoke(ret, value);
+                                }
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();

@@ -3,21 +3,21 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.PersonMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Person" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="firstname" property="firstname" jdbcType="VARCHAR" />
-    <result column="lastname" property="lastname" jdbcType="VARCHAR" />
+    <result column="firstName" property="firstName" jdbcType="VARCHAR" />
+    <result column="lastName" property="lastName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
-    <result column="weChat" property="wechat" jdbcType="VARCHAR" />
+    <result column="weChat" property="weChat" jdbcType="VARCHAR" />
     <result column="dorm" property="dorm" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
-    <result column="updateTime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="roleId" property="roleId" jdbcType="VARCHAR" />
@@ -27,7 +27,7 @@
     <result column="profile" property="profile" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, username, firstname, lastname, password, info, birthday, email, tel, 
+    id, userId, username, firstName, lastName, password, info, birthday, email, tel,
     qq, weChat, dorm, gender, createTime, updateTime, status, type, roleId
   </sql>
   <sql id="Blob_Column_List" >
@@ -39,24 +39,24 @@
     ,
     <include refid="Blob_Column_List" />
     from Person
-    where userid = #{arg0,jdbcType=VARCHAR}
+    where userId = #{arg0,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from Person where userid = #{arg0,jdbcType=VARCHAR}
+    delete from Person where userId = #{arg0,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Person" >
-    insert into Person (id, userid, username, 
-      firstname, lastname, password, 
+    insert into Person (id, userId, username,
+      firstName, lastName, password,
       info, birthday, email, 
       tel, qq, weChat, dorm, 
       gender, createTime, updateTime, 
       status, type, comment, profile,roleId
       )
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{firstname,jdbcType=VARCHAR}, #{lastname,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+      #{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{info,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{weChat,jdbcType=VARCHAR}, #{dorm,jdbcType=VARCHAR},
+      #{gender,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR},
       #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{comment,jdbcType=LONGVARCHAR}, #{profile, jdbcType=BLOB},#{roleId, jdbcType=VARCHAR}
       )
   </insert>
@@ -66,17 +66,17 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="userid != null" >
-        userid,
+      <if test="userId != null" >
+        userId,
       </if>
       <if test="username != null" >
         username,
       </if>
-      <if test="firstname != null" >
-        firstname,
+      <if test="firstName != null" >
+        firstName,
       </if>
-      <if test="lastname != null" >
-        lastname,
+      <if test="lastName != null" >
+        lastName,
       </if>
       <if test="password != null" >
         password,
@@ -96,7 +96,7 @@
       <if test="qq != null" >
         qq,
       </if>
-      <if test="wechat != null" >
+      <if test="weChat != null" >
         weChat,
       </if>
       <if test="dorm != null" >
@@ -105,10 +105,10 @@
       <if test="gender != null" >
         gender,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
-      <if test="updatetime != null" >
+      <if test="updateTime != null" >
         updateTime,
       </if>
       <if test="status != null" >
@@ -131,17 +131,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="firstname != null" >
-        #{firstname,jdbcType=VARCHAR},
+      <if test="firstName != null" >
+        #{firstName,jdbcType=VARCHAR},
       </if>
-      <if test="lastname != null" >
-        #{lastname,jdbcType=VARCHAR},
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -161,8 +161,8 @@
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="wechat != null" >
-        #{wechat,jdbcType=VARCHAR},
+      <if test="weChat != null" >
+        #{weChat,jdbcType=VARCHAR},
       </if>
       <if test="dorm != null" >
         #{dorm,jdbcType=VARCHAR},
@@ -170,11 +170,11 @@
       <if test="gender != null" >
         #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -199,11 +199,11 @@
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="firstname != null" >
-        firstname = #{firstname,jdbcType=VARCHAR},
+      <if test="firstName != null" >
+        firstName = #{firstName,jdbcType=VARCHAR},
       </if>
-      <if test="lastname != null" >
-        lastname = #{lastname,jdbcType=VARCHAR},
+      <if test="lastName != null" >
+        lastName = #{lastName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -223,8 +223,8 @@
       <if test="qq != null" >
         qq = #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="wechat != null" >
-        weChat = #{wechat,jdbcType=VARCHAR},
+      <if test="weChat != null" >
+        weChat = #{weChat,jdbcType=VARCHAR},
       </if>
       <if test="dorm != null" >
         dorm = #{dorm,jdbcType=VARCHAR},
@@ -232,11 +232,11 @@
       <if test="gender != null" >
         gender = #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        updateTime = #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
@@ -254,34 +254,34 @@
         roleId = #{roleId,jdbcType=VARCHAR}
       </if>
     </set>
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.Person" >
     update Person
-    set userid = #{userid,jdbcType=VARCHAR},
+    set userId = #{userId,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      firstname = #{firstname,jdbcType=VARCHAR},
-      lastname = #{lastname,jdbcType=VARCHAR},
+      firstName = #{firstName,jdbcType=VARCHAR},
+      lastName = #{lastName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      weChat = #{wechat,jdbcType=VARCHAR},
+      weChat = #{weChat,jdbcType=VARCHAR},
       dorm = #{dorm,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       comment = #{comment,jdbcType=LONGVARCHAR},
       profile = #{profile,jdbcType=BLOB},
       roleId = #{roleId,jdbcType=VARCHAR}
-    where userid = #{userid,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
   </update>
   <select id="selectByPerson" parameterType="com.harambase.pioneer.pojo.base.Person" resultMap="ResultMapWithBLOBs">
-    select * from Person where userid = #{userid,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+    select * from Person where userId = #{userId,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByUsername" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
@@ -289,26 +289,26 @@
   </select>
 
   <select id="selectByUserId" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select * from Person where userid = #{arg0,jdbcType=VARCHAR}
+    select * from Person where userId = #{arg0,jdbcType=VARCHAR}
   </select>
 
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Person" >
     update Person
-    set userid = #{userid,jdbcType=VARCHAR},
+    set userId = #{userId,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
-      firstname = #{firstname,jdbcType=VARCHAR},
-      lastname = #{lastname,jdbcType=VARCHAR},
+      firstName = #{firstName,jdbcType=VARCHAR},
+      lastName = #{lastName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       tel = #{tel,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      weChat = #{wechat,jdbcType=VARCHAR},
+      weChat = #{weChat,jdbcType=VARCHAR},
       dorm = #{dorm,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       roleId = #{roleId,jdbcType=VARCHAR}
@@ -323,19 +323,19 @@
       and status = #{status,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (userId like '%' #{search,jdbcType=VARCHAR} '%' or
       username like '%' #{search,jdbcType=VARCHAR} '%' or
       type like  '%' #{search,jdbcType=VARCHAR} '%' or
       password like  '%' #{search,jdbcType=VARCHAR} '%' or
       qq like  '%' #{search,jdbcType=VARCHAR} '%' or
       weChat like  '%' #{search,jdbcType=VARCHAR} '%' or
       dorm like  '%' #{search,jdbcType=VARCHAR} '%' or
-      firstname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      lastname like  '%' #{search,jdbcType=VARCHAR} '%' or
+      firstName like  '%' #{search,jdbcType=VARCHAR} '%' or
+      lastName like  '%' #{search,jdbcType=VARCHAR} '%' or
       birthday like  '%' #{search,jdbcType=VARCHAR} '%' or
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
       createTime like  '%' #{search,jdbcType=VARCHAR} '%' or
-      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
+      updateTime like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
   </select>
@@ -348,19 +348,19 @@
       and status = #{status,jdbcType=VARCHAR}
     </if>
     <if test="search != null" >
-      and (userid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (userId like '%' #{search,jdbcType=VARCHAR} '%' or
       username like '%' #{search,jdbcType=VARCHAR} '%' or
       type     like '%'  #{search,jdbcType=VARCHAR}  '%' or
       password like '%'  #{search,jdbcType=VARCHAR} '%' or
       qq       like '%'  #{search,jdbcType=VARCHAR}  '%' or
       weChat   like '%'  #{search,jdbcType=VARCHAR} '%' or
       dorm     like '%'  #{search,jdbcType=VARCHAR} '%' or
-      firstname like '%'  #{search,jdbcType=VARCHAR} '%' or
-      lastname like '%'  #{search,jdbcType=VARCHAR} '%' or
+      firstName like '%'  #{search,jdbcType=VARCHAR} '%' or
+      lastName like '%'  #{search,jdbcType=VARCHAR} '%' or
       birthday like '%'  #{search,jdbcType=VARCHAR} '%' or
       status like '%'  #{search,jdbcType=VARCHAR} '%' or
       createTime like '%'  #{search,jdbcType=VARCHAR} '%' or
-      updatetime like '%' #{search,jdbcType=VARCHAR}  '%')
+      updateTime like '%' #{search,jdbcType=VARCHAR}  '%')
     </if></where>
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}

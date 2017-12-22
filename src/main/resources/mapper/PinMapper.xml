@@ -10,7 +10,7 @@
     <result column="role" property="role" jdbcType="INTEGER" />
     <result column="startTime" property="starttime" jdbcType="VARCHAR" />
     <result column="endTime" property="endtime" jdbcType="VARCHAR" />
-    <result column="createTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.Pin" extends="BaseResultMap" >
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
@@ -40,7 +40,7 @@
       remark)
     values (#{id,jdbcType=INTEGER}, #{pin,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, 
       #{facultyid,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
+      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Pin" >
@@ -70,7 +70,7 @@
       <if test="endtime != null" >
         endTime,
       </if>
-      <if test="createtime != null" >
+      <if test="createTime != null" >
         createTime,
       </if>
       <if test="remark != null" >
@@ -102,8 +102,8 @@
       <if test="endtime != null" >
         #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=LONGVARCHAR},
@@ -134,8 +134,8 @@
       <if test="endtime != null" >
         endTime = #{endtime,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createTime = #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=LONGVARCHAR},
@@ -152,7 +152,7 @@
       role = #{role,jdbcType=INTEGER},
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -165,7 +165,7 @@
       role = #{role,jdbcType=INTEGER},
       startTime = #{starttime,jdbcType=VARCHAR},
       endTime = #{endtime,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=VARCHAR}
+      createTime = #{createTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="countByInfo" parameterType="java.util.Map" resultType="java.lang.Object">

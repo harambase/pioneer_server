@@ -18,15 +18,15 @@
     <result column="capa" property="capa" jdbcType="INTEGER" />
     <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
-    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
-    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.Course" extends="BaseResultMap" >
     <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, crn, name, credits, precrn, couLev, couSec, classroom, startDate, endDate, day, 
-    startTime, endTime, capa, facultyid, info, createtime, updatetime
+    startTime, endTime, capa, facultyid, info, createTime, updateTime
   </sql>
   <sql id="Blob_Column_List" >
     comment
@@ -53,14 +53,14 @@
       couSec, classroom, startDate, 
       endDate, day, startTime, 
       endTime, capa, facultyid, 
-      info, createtime, updatetime, 
+      info, createTime, updateTime,
       comment)
     values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{coulev,jdbcType=VARCHAR}, 
       #{cousec,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, 
       #{enddate,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
       #{endtime,jdbcType=VARCHAR}, #{capa,jdbcType=INTEGER}, #{facultyid,jdbcType=VARCHAR}, 
-      #{info,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR},
       #{comment,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Course" >
@@ -114,11 +114,11 @@
       <if test="info != null" >
         info,
       </if>
-      <if test="createtime != null" >
-        createtime,
+      <if test="createTime != null" >
+        createTime,
       </if>
-      <if test="updatetime != null" >
-        updatetime,
+      <if test="updateTime != null" >
+        updateTime,
       </if>
       <if test="comment != null" >
         comment,
@@ -173,11 +173,11 @@
       <if test="info != null" >
         #{info,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="comment != null" >
         #{comment,jdbcType=LONGVARCHAR},
@@ -229,11 +229,11 @@
       <if test="info != null" >
         info = #{info,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="comment != null" >
         comment = #{comment,jdbcType=LONGVARCHAR},
@@ -258,8 +258,8 @@
       capa = #{capa,jdbcType=INTEGER},
       facultyid = #{facultyid,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
       comment = #{comment,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -280,8 +280,8 @@
       capa = #{capa,jdbcType=INTEGER},
       facultyid = #{facultyid,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR}
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getCourseBySearch" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.view.CourseView">
@@ -338,7 +338,7 @@
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
       faculty like  '%' #{search,jdbcType=VARCHAR} '%' or
       date like  '%' #{search,jdbcType=VARCHAR} '%' or
-      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
+      updateTime like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
   </select>
@@ -363,7 +363,7 @@
       status like  '%' #{search,jdbcType=VARCHAR} '%' or
       faculty like  '%' #{search,jdbcType=VARCHAR} '%' or
       date like  '%' #{search,jdbcType=VARCHAR} '%' or
-      updatetime like  '%' #{search,jdbcType=VARCHAR} '%')
+      updateTime like  '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     order by ${orderColumn} ${order}
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}

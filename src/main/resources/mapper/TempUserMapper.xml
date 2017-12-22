@@ -3,17 +3,17 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.TempUserMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.TempUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="createtime" property="createtime" jdbcType="VARCHAR" />
-    <result column="updatetime" property="updatetime" jdbcType="VARCHAR" />
+    <result column="createTime" property="createTime" jdbcType="VARCHAR" />
+    <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="operator" property="operator" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.TempUser" extends="BaseResultMap" >
     <result column="user_json" property="userJson" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, userid, status, createtime, updatetime, operator
+    id, userId, status, createTime, updateTime, operator
   </sql>
   <sql id="Blob_Column_List" >
     user_json
@@ -31,11 +31,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
-    insert into TempUser (id, userid, status, 
-      createtime, updatetime, operator, 
+    insert into TempUser (id, userId, status,
+      createTime, updateTime, operator,
       user_json)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR},
       #{userJson,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
@@ -44,17 +44,17 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="userid != null" >
-        userid,
+      <if test="userId != null" >
+        userId,
       </if>
       <if test="status != null" >
         status,
       </if>
-      <if test="createtime != null" >
-        createtime,
+      <if test="createTime != null" >
+        createTime,
       </if>
-      <if test="updatetime != null" >
-        updatetime,
+      <if test="updateTime != null" >
+        updateTime,
       </if>
       <if test="operator != null" >
         operator,
@@ -67,17 +67,17 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
         #{operator,jdbcType=VARCHAR},
@@ -90,17 +90,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
     <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=VARCHAR},
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=VARCHAR},
       </if>
-      <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=VARCHAR},
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
       <if test="operator != null" >
         operator = #{operator,jdbcType=VARCHAR},
@@ -113,20 +113,20 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
-    set userid = #{userid,jdbcType=VARCHAR},
+    set userId = #{userId,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR},
       user_json = #{userJson,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
     update TempUser
-    set userid = #{userid,jdbcType=VARCHAR},
+    set userId = #{userId,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=VARCHAR},
-      updatetime = #{updatetime,jdbcType=VARCHAR},
+      createTime = #{createTime,jdbcType=VARCHAR},
+      updateTime = #{updateTime,jdbcType=VARCHAR},
       operator = #{operator,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -137,7 +137,7 @@
       and status = #{status,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and userid like '%' #{search,jdbcType=VARCHAR} '%'
+      and userId like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
   </where>
   </select>
@@ -147,7 +147,7 @@
       and status = #{status,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and userid like '%' #{search,jdbcType=VARCHAR} '%'
+      and userId like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
   </where>
     order by ${orderColumn} ${order}

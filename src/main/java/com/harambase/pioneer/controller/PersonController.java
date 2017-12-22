@@ -69,20 +69,22 @@ public class PersonController {
     @ApiOperation(value = "搜索用户", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity search(@RequestParam(value = "search") String search, @RequestParam(value = "type") String type, String status) {
+    public ResponseEntity search(@RequestParam(value = "search", required = false) String search,
+                                 @RequestParam(value = "type", required = false) String type,
+                                 @RequestParam(value = "status", required = false) String status) {
         HaramMessage message = personService.listUsers(search, type, status);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户列表", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "draw") Integer draw,
-                               @RequestParam(value = "search[value]") String search,
-                               @RequestParam(value = "order[0][dir]") String order,
-                               @RequestParam(value = "order[0][column]") String orderCol,
+                               @RequestParam(value = "draw", required = false) Integer draw,
+                               @RequestParam(value = "search", required = false) String search,
+                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "userid") String orderCol,
                                @RequestParam(value = "type", required = false) String type,
                                @RequestParam(value = "status", required = false) String status) {
         Map<String, Object> map = new HashMap<>();

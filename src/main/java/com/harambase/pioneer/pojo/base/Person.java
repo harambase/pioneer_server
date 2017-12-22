@@ -2,9 +2,6 @@ package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "person")
@@ -12,47 +9,71 @@ public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String userid;
+    @Column(name = "user_id")
+    private String userId;
 
+    @Column(name = "username")
     private String username;
 
-    private String firstname;
+    @Column(name = "first_name")
+    private String firstName;
 
-    private String lastname;
+    @Column(name = "last_name")
+    private String lastName;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "info")
     private String info;
 
+    @Column(name = "birthday")
     private String birthday;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "tel")
     private String tel;
 
+    @Column(name = "qq")
     private String qq;
 
-    private String wechat;
+    @Column(name = "we_chat")
+    private String weChat;
 
+    @Column(name = "dorm")
     private String dorm;
 
+    @Column(name = "gender")
     private String gender;
 
-    private String createtime;
+    @Column(name = "create_time")
+    private String createTime;
 
-    private String updatetime;
+    @Column(name = "update_time")
+    private String updateTime;
 
+    @Column(name = "status")
     private String status;
 
+    @Column(name = "type")
     private String type;
 
+    @Column(name = "comment")
     private String comment;
 
+    @Column(name = "profile")
     private String profile;
 
+    @Column(name = "role_id")
     private String roleId;
 
+    @Column(name = "user_info")
     private String userInfo;
+
+    @Column(name = "address")
+    private String address;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
@@ -90,12 +111,12 @@ public class Person implements Serializable {
         this.profile = profile == null ? null : profile.trim();
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getUsername() {
@@ -106,20 +127,20 @@ public class Person implements Serializable {
         this.username = username == null ? null : username.trim();
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname == null ? null : firstname.trim();
+    public void setFirstName(String firstName) {
+        this.firstName = firstName == null ? null : firstName.trim();
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname == null ? null : lastname.trim();
+    public void setLastName(String lastName) {
+        this.lastName = lastName == null ? null : lastName.trim();
     }
 
     public String getPassword() {
@@ -170,12 +191,12 @@ public class Person implements Serializable {
         this.qq = qq == null ? null : qq.trim();
     }
 
-    public String getWechat() {
-        return wechat;
+    public String getWeChat() {
+        return weChat;
     }
 
-    public void setWechat(String wechat) {
-        this.wechat = wechat == null ? null : wechat.trim();
+    public void setWeChat(String weChat) {
+        this.weChat = weChat == null ? null : weChat.trim();
     }
 
     public String getDorm() {
@@ -194,20 +215,20 @@ public class Person implements Serializable {
         this.gender = gender == null ? null : gender.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
     }
 
     public String getStatus() {
@@ -234,4 +255,11 @@ public class Person implements Serializable {
         this.comment = comment == null ? null : comment.trim();
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 }

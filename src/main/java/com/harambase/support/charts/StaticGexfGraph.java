@@ -53,26 +53,26 @@ public class StaticGexfGraph {
 		int index = 0;
 		//设置person node
 		for(Person p: personList){
-			Node pNode = graph.createNode(p.getUserid());
-			pNode.setLabel(p.getLastname()+p.getFirstname()).setSize(20);
+			Node pNode = graph.createNode(p.getUserId());
+			pNode.setLabel(p.getLastName()+p.getFirstName()).setSize(20);
 			int type = 0;
 			if(p.getType().contains("s")) {
 				pNode.getAttributeValues()
-						.addValue(attID, p.getUserid())
+						.addValue(attID, p.getUserId())
 						.addValue(attType, String.valueOf(Type.STUDENT.getV()))
 						.addValue(attValue, p.getInfo());
 				type = Type.STUDENT.getV();
 			}
 			else if(p.getType().contains("f")) {
 				pNode.getAttributeValues()
-						.addValue(attID, p.getUserid())
+						.addValue(attID, p.getUserId())
 						.addValue(attType, String.valueOf(Type.FACULTY.getV()))
 						.addValue(attValue, p.getInfo());
 				type = Type.FACULTY.getV();
 			}
 			else if(p.getType().contains("a")) {
 				pNode.getAttributeValues()
-						.addValue(attID, p.getUserid())
+						.addValue(attID, p.getUserId())
 						.addValue(attType, String.valueOf(Type.ADMINISTRATOR.getV()))
 						.addValue(attValue, p.getInfo());
 				pNode.setSize(0);
@@ -101,7 +101,7 @@ public class StaticGexfGraph {
 		index = 0;
 		//设置COURSE_PERSON_connection
 		for(Person p: personList) {
-			String userid = p.getUserid();
+			String userid = p.getUserId();
 			String type = p.getType();
 			Node pNode = graph.getNode(userid);
 			if(type.contains("s")) {
