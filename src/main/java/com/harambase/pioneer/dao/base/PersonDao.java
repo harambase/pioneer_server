@@ -38,15 +38,15 @@ public class PersonDao {
 
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "" +
-                        "AND (userid    LIKE '%" + search + "%' OR" +
-                        "     username  LIKE '%" + search + "%' OR" +
-                        "     firstname LIKE '%" + search + "%' OR" +
-                        "     lastname  LIKE '%" + search + "%')";
+                        "AND (user_id    LIKE '%" + search + "%' OR" +
+                        "     username   LIKE '%" + search + "%' OR" +
+                        "     first_name LIKE '%" + search + "%' OR" +
+                        "     last_name  LIKE '%" + search + "%')";
             }
             queryString += "limit 0,4";
+            logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            logger.info(queryString);
             personList = ResultSetHelper.getObjectFor(rs, Person.class);
             return personList;
         } finally {
@@ -70,26 +70,21 @@ public class PersonDao {
 
             String queryString = "SELECT COUNT(*) AS count FROM person WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
-                queryString += "AND type LIKE '%" + type + "% '";
+                queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "userid     LIKE  '%" + search + "%' OR " +
-                        "username   LIKE  '%" + search + "%' OR " +
-                        "type       LIKE  '%" + search + "%' OR " +
-                        "password   LIKE  '%" + search + "%' OR " +
-                        "qq         LIKE  '%" + search + "%' OR " +
-                        "weChat     LIKE  '%" + search + "%' OR " +
-                        "dorm       LIKE  '%" + search + "%' OR " +
-                        "firstname  LIKE  '%" + search + "%' OR " +
-                        "lastname   LIKE  '%" + search + "%' OR " +
-                        "birthday   LIKE  '%" + search + "%' OR " +
-                        "status     LIKE  '%" + search + "%' OR " +
-                        "createTime LIKE  '%" + search + "%' OR " +
-                        "updatetime LIKE  '%" + search + "%')";
+                        "user_id     LIKE  '%" + search + "%' OR " +
+                        "username    LIKE  '%" + search + "%' OR " +
+                        "type        LIKE  '%" + search + "%' OR " +
+                        "first_name  LIKE  '%" + search + "%' OR " +
+                        "last_name   LIKE  '%" + search + "%' OR " +
+                        "status      LIKE  '%" + search + "%' OR " +
+                        "update_time LIKE  '%" + search + "%')";
             }
             rs = stmt.executeQuery(queryString);
+            logger.info(queryString);
 
             if (rs.next()) {
                 count = rs.getLong("count");
@@ -118,28 +113,23 @@ public class PersonDao {
 
             String queryString = "SELECT * FROM person WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
-                queryString += "AND type LIKE '%" + type + "% '";
+                queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "userid     LIKE  '%" + search + "%' OR " +
-                        "username   LIKE  '%" + search + "%' OR " +
-                        "type       LIKE  '%" + search + "%' OR " +
-                        "password   LIKE  '%" + search + "%' OR " +
-                        "qq         LIKE  '%" + search + "%' OR " +
-                        "weChat     LIKE  '%" + search + "%' OR " +
-                        "dorm       LIKE  '%" + search + "%' OR " +
-                        "firstname  LIKE  '%" + search + "%' OR " +
-                        "lastname   LIKE  '%" + search + "%' OR " +
-                        "birthday   LIKE  '%" + search + "%' OR " +
-                        "status     LIKE  '%" + search + "%' OR " +
-                        "createTime LIKE  '%" + search + "%' OR " +
-                        "updatetime LIKE  '%" + search + "%')";
+                        "user_id     LIKE  '%" + search + "%' OR " +
+                        "username    LIKE  '%" + search + "%' OR " +
+                        "type        LIKE  '%" + search + "%' OR " +
+                        "first_name  LIKE  '%" + search + "%' OR " +
+                        "last_name   LIKE  '%" + search + "%' OR " +
+                        "status      LIKE  '%" + search + "%' OR " +
+                        "update_time LIKE  '%" + search + "%')";
             }
 
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
+            logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
             personList = ResultSetHelper.getObjectFor(rs, Person.class);

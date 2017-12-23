@@ -24,13 +24,13 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/user")
-@Api(value = "/user", description = "用户系统管理接口")
+@Api(value = "/user", description = "用户系统接口")
 public class PersonController {
-    
+
     private final PersonService personService;
 
     @Autowired
-    public PersonController(PersonService personService){
+    public PersonController(PersonService personService) {
         this.personService = personService;
     }
 
@@ -81,28 +81,13 @@ public class PersonController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "draw", required = false) Integer draw,
                                @RequestParam(value = "search", required = false) String search,
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol", required = false, defaultValue = "userid") String orderCol,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "type", required = false) String type,
                                @RequestParam(value = "status", required = false) String status) {
-        Map<String, Object> map = new HashMap<>();
-        try {
-            HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search,
-                    order, orderCol, type, status);
-            map.put("draw", draw);
-            map.put("recordsTotal", ((Page) message.get("page")).getTotalRows());
-            map.put("recordsFiltered", ((Page) message.get("page")).getTotalRows());
-            map.put("data", message.getData());
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("draw", 1);
-            map.put("data", new ArrayList<>());
-            map.put("recordsTotal", 0);
-            map.put("recordsFiltered", 0);
-        }
-        return new ResponseEntity<>(map, HttpStatus.OK);
+        HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
-    
+
 }

@@ -11,6 +11,8 @@ import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.service.MonitorService;
 import com.harambase.support.charts.StaticGexfGraph;
 import com.harambase.support.util.ReturnMsgUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.Map;
 
 @Service
 public class MonitorServiceImpl implements MonitorService{
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final PersonRepository personRepository;
     private final AdviseRepository adviseRepository;

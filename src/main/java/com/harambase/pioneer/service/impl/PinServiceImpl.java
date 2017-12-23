@@ -1,104 +1,92 @@
 package com.harambase.pioneer.service.impl;
 
+
+import com.harambase.pioneer.dao.base.PersonDao;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.Pin;
 import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.mapper.AdviseMapper;
-import com.harambase.pioneer.dao.mapper.MessageMapper;
-import com.harambase.pioneer.dao.mapper.PersonMapper;
-import com.harambase.pioneer.dao.mapper.PinMapper;
+import com.harambase.pioneer.dao.repository.base.AdviseRepository;
+import com.harambase.pioneer.dao.repository.base.MessageRepository;
+import com.harambase.pioneer.dao.repository.base.PersonRepository;
+import com.harambase.pioneer.dao.repository.base.PinRepository;
 import com.harambase.common.helper.TimeValidate;
 import com.harambase.pioneer.service.PinService;
+import com.harambase.support.util.ReturnMsgUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
+@Transactional
 public class PinServiceImpl implements PinService{
-    private final PinMapper pinMapper;
-    private final PersonMapper personMapper;
-    private final MessageMapper messageMapper;
-    private final AdviseMapper adviseMapper;
     
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
+    private final PinRepository pinRepository;
+    private final PersonRepository personRepository;
+    private final MessageRepository messageRepository;
+    private final AdviseRepository adviseRepository;
+
+    private final PersonDao personDao;
+
     @Autowired
-    public PinServiceImpl(PersonMapper personMapper, PinMapper pinMapper,
-                          MessageMapper messageMapper, AdviseMapper adviseMapper){
-        this.personMapper = personMapper;
-        this.pinMapper = pinMapper;
-        this.messageMapper = messageMapper;
-        this.adviseMapper = adviseMapper;
+    public PinServiceImpl(PersonRepository personRepository, PinRepository pinRepository,
+                          MessageRepository messageRepository, AdviseRepository adviseRepository,
+                          PersonDao personDao){
+        this.personRepository = personRepository;
+        this.pinRepository = pinRepository;
+        this.messageRepository = messageRepository;
+        this.adviseRepository = adviseRepository;
+        this.personDao = personDao;
     }
     @Override
     public HaramMessage validate(Integer pinNum) {
-        HaramMessage haramMessage = new HaramMessage();
         try{
-            Pin pin = pinMapper.selectByPin(pinNum);
+            Pin pin = pinRepository.findByPin(pinNum);
             if(pin != null && TimeValidate.isPinValidate(pin)){
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                haramMessage.setData(pin);
-                return haramMessage;
+                return ReturnMsgUtil.success(pin);
             }
-
+            return ReturnMsgUtil.fail();
         }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        haramMessage.setCode(FlagDict.FAIL.getV());
-        haramMessage.setMsg(FlagDict.FAIL.getM());
-        return haramMessage;
     }
     
     @Override
-    @Transactional
     public HaramMessage generate(String startTime, String endTime, int role, String info, String remark) {
-        HaramMessage haramMessage = new HaramMessage();
+
         try{
-            Map<String, Object> param = new HashMap<>();
             Pin pin = new Pin();
-            int pinNum, count;
+            List<Person> personList = new ArrayList<>();
             
             switch (role){
                 case 1:
-                    param.put("type", "s");
-                    param.put("status", "1");
+                    personList = personDao.getPersonBySearch("", "s", "1");
                     break;
                 case 2:
-                    param.put("type", "f");
-                    param.put("status", "1");
+                    personList = personDao.getPersonBySearch("", "f", "1");
                     break;
             }
-            param.put("role", role);
 
-            Object intObject = pinMapper.countByInfo(param);
-            count = 0;
-            if(intObject != null)
-                count = (Integer) intObject;
-
+            int count = pinRepository.countByInfo(info);
             if(count > 0){
-                haramMessage.setCode(FlagDict.PIN_EXISTS.getV());
-                haramMessage.setMsg(FlagDict.PIN_EXISTS.getM());
-                return haramMessage;
+                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
             }
-            
-            List<Person> personList = personMapper.getUsersBySearch(param);
 
 
             for(Person person : personList){
+                int pinNum;
                 do{
                     pinNum = (int)(Math.random() * (999999 - 100000 + 1) + 100000);
-                    param.put("pin", pin);
-                    count = pinMapper.countByPin(pinNum);
+                    count = pinRepository.countByPin(pinNum);
                 }while(count != 0);
 
                 pin.setPin(pinNum);
@@ -118,56 +106,61 @@ public class PinServiceImpl implements PinService{
                         break;
                 }
 
-                int ret = pinMapper.insert(pin);
-                if(ret != 1)
-                    throw new RuntimeException("插入失败");
+                Pin newPin = pinRepository.save(pin);
+                if(newPin == null)
+                    throw new RuntimeException("PIN生成失败!");
             }
-            
+            return ReturnMsgUtil.success(null);
+
         }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        haramMessage.setCode(FlagDict.SUCCESS.getV());
-        haramMessage.setMsg(FlagDict.SUCCESS.getM());
-        return haramMessage;
+
     }
     
     @Override
-    public HaramMessage clearAll(String info) {
-        return null;
+    public HaramMessage deleteAllByInfo(String info) {
+        try {
+            pinRepository.deleteByInfo(info);
+            int count = pinRepository.countByInfo(info);
+            return count == 0 ?  ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public HaramMessage deleteSingleByPin(Integer pin) {
+        try{
+            pinRepository.deleteByPin(pin);
+            int count = pinRepository.countByPin(pin);
+            return count == 0 ?  ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
     
     @Override
     public HaramMessage listByInfo(String info) {
-        HaramMessage haramMessage = new HaramMessage();
         try{
-            Map<String, Object> param = new HashMap<>();
-            param.put("info", info);
-            List<Pin> pinInfoList = pinMapper.listByInfo(param);
-            haramMessage.setData(pinInfoList);
+            List<Pin> pinInfoList = pinRepository.findByInfo(info);
+            return ReturnMsgUtil.success(pinInfoList);
         }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        haramMessage.setCode(FlagDict.SUCCESS.getV());
-        haramMessage.setMsg(FlagDict.SUCCESS.getM());
-        return haramMessage;
     }
 
-    @Transactional
     @Override
     public HaramMessage sendFacultyPin(String info, String senderId){
-        HaramMessage haramMessage = new HaramMessage();
         try{
-            Map<String, Object> param = new HashMap<>();
-            param.put("info", info);
-            List<Pin> pinInfoList = pinMapper.listByInfo(param);
+            List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
             String date = DateUtil.DateToStr(new Date());
+
             Message message = new Message();
             message.setDate(date);
             message.setStatus("UNREAD");
@@ -176,46 +169,33 @@ public class PinServiceImpl implements PinService{
             message.setAttachment(null);
             message.setLabels("inbox/important/");
             message.setTag("work");
-            String body;
-            String facultyId;
+
             for(Pin pin : pinInfoList){
                 if(pin.getRole() == 2){
-                    facultyId = pin.getFacultyid();
-                    body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
+                    String facultyId = pin.getFacultyid();
+                    String body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
                             + pin.getStarttime() + "至" + pin.getEndtime();
                     message.setReceiverid(facultyId);
                     message.setBody(body);
-                    int ret = messageMapper.insert(message);
-                    if(ret != 1)
-                        throw new RuntimeException("插入失败!");
+                    Message newMessage = messageRepository.save(message);
+                    if(newMessage == null)
+                        throw new RuntimeException("信息插入失败!");
                 }
             }
 
-
         }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        haramMessage.setCode(FlagDict.SUCCESS.getV());
-        haramMessage.setMsg(FlagDict.SUCCESS.getM());
-        return haramMessage;
-    }
 
-    @Override
-    public HaramMessage delete(String pin) {
-        return null;
+        return ReturnMsgUtil.success(null);
     }
-
-    @Transactional
+    
     @Override
     public HaramMessage sendAdvisorPin(String info, String senderId){
         HaramMessage haramMessage = new HaramMessage();
         try{
-            Map<String, Object> param = new HashMap<>();
-            param.put("info", info);
-            List<Pin> pinInfoList = pinMapper.listByInfo(param);
+            List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
             String date = DateUtil.DateToStr(new Date());
             Message message = new Message();
@@ -227,38 +207,29 @@ public class PinServiceImpl implements PinService{
             message.setLabels("inbox/important/");
             message.setTag("work");
 
-            String body;
-            String facultyId;
-            String studentId;
-            String studentName;
-            Person student;
-
             for(Pin pin : pinInfoList){
                 if(pin.getRole() == 1){
-                    studentId = pin.getStudentid();
-                    facultyId = adviseMapper.selectFacultyByStudent(studentId);
-                    student = personMapper.selectByPrimaryKey(studentId);
-                    studentName = student.getLastName() + ", " + student.getFirstName();
+                    String studentId = pin.getStudentid();
+                    String facultyId = adviseRepository.findOneByStudentid(studentId).getFacultyid();
+                    Person student = personRepository.findOne(studentId);
+                    String studentName = student.getLastName() + ", " + student.getFirstName();
 
-                    body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
+                    String body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
                             + pin.getStarttime() + "至" + pin.getEndtime() + "请及时告知，谢谢！";
                     message.setReceiverid(facultyId);
                     message.setBody(body);
-                    int ret = messageMapper.insert(message);
-                    if(ret != 1)
-                        throw new RuntimeException("插入失败!");
+                    Message newMessage = messageRepository.save(message);
+                    if(newMessage == null)
+                        throw new RuntimeException("信息插入失败!");
                 }
             }
 
+            return ReturnMsgUtil.success(null);
 
         }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        haramMessage.setCode(FlagDict.SUCCESS.getV());
-        haramMessage.setMsg(FlagDict.SUCCESS.getM());
-        return haramMessage;
+
     }
 }

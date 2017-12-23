@@ -17,6 +17,8 @@ import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,8 @@ import java.util.*;
 
 @Service
 public class CourseServiceImpl implements CourseService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final CourseRepository courseRepository;
     private final CourseViewRepository courseViewRepository;

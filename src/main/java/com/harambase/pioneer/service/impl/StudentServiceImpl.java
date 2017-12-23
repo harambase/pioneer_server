@@ -22,6 +22,7 @@
 //@Service
 //public class StudentServiceImpl implements StudentService {
 //
+//private final Logger logger = LoggerFactory.getLogger(this.getClass());
 //    private final StudentMapper studentMapper;
 //    private final TranscriptMapper transcriptMapper;
 //

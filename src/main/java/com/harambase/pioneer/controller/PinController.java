@@ -2,7 +2,6 @@ package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Tags;
-import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.service.PinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,8 +42,8 @@ public class PinController {
     @ApiOperation(value = "删除一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{pin}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable(value = "pin") String pin) {
-        HaramMessage haramMessage = pinService.delete(pin);
+    public ResponseEntity delete(@PathVariable(value = "pin") Integer pin) {
+        HaramMessage haramMessage = pinService.deleteSingleByPin(pin);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -52,7 +51,7 @@ public class PinController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll(@RequestParam(value = "info") String info) {
-        HaramMessage haramMessage = pinService.clearAll(info);
+        HaramMessage haramMessage = pinService.deleteAllByInfo(info);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

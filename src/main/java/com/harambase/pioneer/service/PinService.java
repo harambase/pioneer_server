@@ -8,7 +8,7 @@ public interface PinService {
     
     HaramMessage generate(String startTime, String endTime, int role, String info, String remark);
     
-    HaramMessage clearAll(String info);
+    HaramMessage deleteAllByInfo(String info);
     
     HaramMessage listByInfo(String info);
 
@@ -16,5 +16,5 @@ public interface PinService {
 
     HaramMessage sendFacultyPin(String info, String senderId);
 
-    HaramMessage delete(String pin);
+    HaramMessage deleteSingleByPin(Integer pin);
 }

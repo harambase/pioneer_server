@@ -53,7 +53,6 @@ public class ResultSetHelper {
                         String colName;
 
                         Column dbAnn = field.getAnnotation(Column.class);
-                        Object valu2e = rs.getObject("    asdf");
 
                         if (dbAnn != null) {
                             colName = dbAnn.name();

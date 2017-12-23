@@ -12,6 +12,8 @@ import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,8 @@ import java.util.List;
 @Service
 @Transactional
 public class AdviseServiceImpl implements AdviseService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final AdviseRepository adviseRepository;
     private final AdviseViewRepository adviseViewRepository;

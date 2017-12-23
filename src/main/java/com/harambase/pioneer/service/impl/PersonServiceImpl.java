@@ -32,12 +32,14 @@ public class PersonServiceImpl implements PersonService {
     private final TranscriptRepository transcriptRepository;
     private final CourseRepository courseRepository;
 
+    //Only for search and paging functionality
     private final PersonDao personDao;
 
     @Autowired
     public PersonServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
-                             TranscriptRepository transcriptRepository, MessageRepository messageRepository, StudentRepository studentRepository,
-                             PersonDao personDao, CourseRepository courseRepository) {
+                             TranscriptRepository transcriptRepository, MessageRepository messageRepository, 
+                             StudentRepository studentRepository,CourseRepository courseRepository,
+                             PersonDao personDao) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;
         this.transcriptRepository = transcriptRepository;
@@ -108,6 +110,7 @@ public class PersonServiceImpl implements PersonService {
             }
 
             if (newPerson != null) {
+
                 Message message = new Message();
                 message.setDate(DateUtil.DateToStr(new Date()));
                 message.setReceiverid(userid);
@@ -124,6 +127,7 @@ public class PersonServiceImpl implements PersonService {
 
             }
             return ReturnMsgUtil.fail();
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
@@ -132,13 +136,13 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage removeUser(String userid) {
+    public HaramMessage removeUser(String userId) {
 
         try {
-            if (userid.equals(IDUtil.ROOT))
+            if (userId.equals(IDUtil.ROOT))
                 return ReturnMsgUtil.custom(FlagDict.DELETE_BLOCK);
 
-            Person person = personRepository.findOne(userid);
+            Person person = personRepository.findOne(userId);
             if (person == null) {
                 return ReturnMsgUtil.fail();
             }
@@ -196,43 +200,37 @@ public class PersonServiceImpl implements PersonService {
             if (StringUtils.isNotEmpty(type)) {
                 switch (Integer.parseInt(orderColumn)) {
                     case 0:
-                        orderColumn = "userid";
+                        orderColumn = "user_id";
                         break;
                     case 1:
-                        orderColumn = "firstname";
+                        orderColumn = "first_name";
                         break;
                     case 2:
-                        orderColumn = "lastname";
+                        orderColumn = "last_name";
                         break;
                 }
             } else {
                 switch (Integer.parseInt(orderColumn)) {
                     case 0:
-                        orderColumn = "id";
+                        orderColumn = "user_id";
                         break;
                     case 1:
-                        orderColumn = "userid";
-                        break;
-                    case 2:
                         orderColumn = "username";
                         break;
+                    case 2:
+                        orderColumn = "last_name";
+                        break;
                     case 3:
-                        orderColumn = "lastname";
+                        orderColumn = "first_name";
                         break;
                     case 4:
-                        orderColumn = "firstname";
-                        break;
-                    case 5:
-                        orderColumn = "password";
-                        break;
-                    case 6:
                         orderColumn = "type";
                         break;
-                    case 7:
+                    case 5:
                         orderColumn = "status";
                         break;
                     default:
-                        orderColumn = "updatetime";
+                        orderColumn = "update_time";
                         break;
                 }
             }
