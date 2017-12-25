@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao;
+package com.harambase.pioneer.dao.base;
 
 import com.harambase.pioneer.pojo.view.MessageView;
 import com.harambase.support.database.DataServiceConnection;
@@ -15,10 +15,10 @@ import java.util.List;
 
 @Component
 public class MessageDao {
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public int countMessageByStatus(String receiverid, String senderid,
-                                    String box, String status)throws Exception{
+    public int countMessageByStatus(String receiverid, String senderid, String box, String status)throws Exception{
         ResultSet rs = null;
         Connection connection = null;
         try{
@@ -28,19 +28,10 @@ public class MessageDao {
             
             Statement stmt = connection.createStatement();
             
-            String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "'";
-    
-            if(box.equals("inbox"))
-                queryString += " AND receiverid = '" + receiverid + "'";
-            if(box.equals("important"))
-                queryString+= "  AND receiverid = '" + receiverid + "' AND labels LIKE '%important%'";
-            if(box.equals("sent"))
-                queryString += " AND senderid =   '" + senderid + "'";
-            if(box.equals("draft"))
-                queryString += " AND senderid =   '" + senderid + "'";
-            if(box.equals("trash"))
-                queryString+= "  AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
+            String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "' "
+                    + whereBuilderByLabel(receiverid, senderid, box);
 
+            logger.info(queryString);
             rs = stmt.executeQuery(queryString);
 
             int ret = 0;
@@ -82,6 +73,7 @@ public class MessageDao {
                         "   title LIKE   '%"+search+"%' or" +
                         "   date LIKE    '%"+search+"%')";
             }
+            logger.info(queryString);
             rs = stmt.executeQuery(queryString);
             int ret = 0;
             if (rs.next()) {
@@ -124,9 +116,10 @@ public class MessageDao {
             queryString += "" +
                     " order by " + orderColumn + " " + order + " " +
                     " limit " + currentIndex + "," + pageSize;
-
+            logger.info(queryString);
             rs = stmt.executeQuery(queryString);
             messageViewViewList = ResultSetHelper.getObjectFor(rs, MessageView.class);
+
             return messageViewViewList;
         } finally {
             if(rs != null)
@@ -137,19 +130,20 @@ public class MessageDao {
     }
 
     private String whereBuilderByLabel(String receiverid, String senderid, String box){
+
         String queryString = "";
-        
-        if(box.equals("inbox")) 
-            queryString += " AND receiverid LIKE '%" + receiverid + "%' AND status LIKE '%read%'";
+
+        if(box.equals("inbox"))
+            queryString += "AND receiverid = '" + receiverid + "'";
         if(box.equals("important"))
-            queryString+= "  AND receiverid LIKE '%" + receiverid + "%' AND status LIKE '%read%' AND labels LIKE '%important%'";
+            queryString += "AND receiverid = '" + receiverid + "' AND labels LIKE '%important%'";
         if(box.equals("sent"))
-            queryString += " AND senderid =   '" + senderid   + "' AND status LIKE '%read%'";
+            queryString += "AND senderid =   '" + senderid + "'";
         if(box.equals("draft"))
-            queryString += " AND senderid =   '" + senderid   + "' AND status = 'saved'";
+            queryString += "AND senderid =   '" + senderid + "'";
         if(box.equals("trash"))
-            queryString+= "  AND (receiverid LIKE '%"+ receiverid + "%' OR senderid = '" + senderid + "') AND status = 'trashed'";
-        
+            queryString += "AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
+
         return queryString;
     }
 }

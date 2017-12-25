@@ -11,15 +11,8 @@ public class Message implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    private String senderid;
+    @Column(name = "sender_id")
+    private String senderId;
     
     private String subject;
 
@@ -37,7 +30,16 @@ public class Message implements Serializable {
 
     private String body;
 
-    private String receiverid;
+    @Column(name = "receiver_id")
+    private String receiverId;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getBody() {
         return body;
@@ -47,20 +49,20 @@ public class Message implements Serializable {
         this.body = body == null ? null : body.trim();
     }
 
-    public String getReceiverid() {
-        return receiverid;
+    public String getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiverid(String receiverid) {
-        this.receiverid = receiverid == null ? null : receiverid.trim();
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId == null ? null : receiverId.trim();
     }
 
-    public String getSenderid() {
-        return senderid;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setSenderid(String senderid) {
-        this.senderid = senderid == null ? null : senderid.trim();
+    public void setSenderId(String senderId) {
+        this.senderId = senderId == null ? null : senderId.trim();
     }
 
     public String getSubject() {

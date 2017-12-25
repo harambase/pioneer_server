@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService {
@@ -113,8 +112,8 @@ public class PersonServiceImpl implements PersonService {
 
                 Message message = new Message();
                 message.setDate(DateUtil.DateToStr(new Date()));
-                message.setReceiverid(userid);
-                message.setSenderid(IDUtil.ROOT);
+                message.setReceiverId(userid);
+                message.setSenderId(IDUtil.ROOT);
                 message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
                 message.setTitle("账户信息");
                 message.setStatus("UNREAD");

@@ -3,7 +3,7 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.MessageMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Message" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="senderid" property="senderid" jdbcType="VARCHAR" />
+    <result column="senderId" property="senderId" jdbcType="VARCHAR" />
     <result column="subject" property="subject" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
@@ -11,11 +11,11 @@
     <result column="attachment" property="attachment" jdbcType="VARCHAR" />
     <result column="tag" property="tag" jdbcType="VARCHAR" />
     <result column="labels" property="labels" jdbcType="VARCHAR" />
-    <result column="receiverid" property="receiverid" jdbcType="LONGVARCHAR" />
+    <result column="receiverId" property="receiverId" jdbcType="LONGVARCHAR" />
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, senderid, receiverid, subject, title, status, date, attachment, tag, labels, receiverid, body
+    id, senderId, receiverId, subject, title, status, date, attachment, tag, labels, receiverId, body
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
@@ -33,15 +33,15 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Message" >
-    insert into Message (id, senderid, receiverid, 
+    insert into Message (id, sender_id, receiver_id,
       subject, title, status, 
       date, attachment, tag, 
-      labels, receiverid, body
+      labels, receiver_id, body
       )
-    values (#{id,jdbcType=INTEGER}, #{senderid,jdbcType=VARCHAR}, #{receiverid,jdbcType=LONGVARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{senderId,jdbcType=VARCHAR}, #{receiverId,jdbcType=LONGVARCHAR},
       #{subject,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{date,jdbcType=VARCHAR}, #{attachment,jdbcType=VARCHAR}, #{tag,jdbcType=VARCHAR}, 
-      #{labels,jdbcType=VARCHAR}, #{receiverid,jdbcType=LONGVARCHAR}
+      #{labels,jdbcType=VARCHAR}, #{receiverId,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Message" >
@@ -50,11 +50,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="senderid != null" >
-        senderid,
+      <if test="senderId != null" >
+        senderId,
       </if>
-      <if test="receiverid != null" >
-        receiverid,
+      <if test="receiverId != null" >
+        receiverId,
       </if>
       <if test="subject != null" >
         subject,
@@ -85,11 +85,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="senderid != null" >
-        #{senderid,jdbcType=VARCHAR},
+      <if test="senderId != null" >
+        #{senderId,jdbcType=VARCHAR},
       </if>
-      <if test="receiverid != null" >
-        #{receiverid,jdbcType=LONGVARCHAR},
+      <if test="receiverId != null" >
+        #{receiverId,jdbcType=LONGVARCHAR},
       </if>
       <if test="subject != null" >
         #{subject,jdbcType=VARCHAR},
@@ -120,11 +120,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Message" >
     update Message
     <set >
-      <if test="senderid != null" >
-        senderid = #{senderid,jdbcType=VARCHAR},
+      <if test="senderId != null" >
+        senderId = #{senderId,jdbcType=VARCHAR},
       </if>
-      <if test="receiverid != null" >
-        receiverid = #{receiverid,jdbcType=LONGVARCHAR},
+      <if test="receiverId != null" >
+        receiverId = #{receiverId,jdbcType=LONGVARCHAR},
       </if>
       <if test="subject != null" >
         subject = #{subject,jdbcType=VARCHAR},
@@ -155,8 +155,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.Message" >
     update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=LONGVARCHAR},
+    set sender_id = #{senderId,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=LONGVARCHAR},
       subject = #{subject,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
@@ -169,8 +169,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Message" >
     update Message
-    set senderid = #{senderid,jdbcType=VARCHAR},
-      receiverid = #{receiverid,jdbcType=LONGVARCHAR},
+    set sender_id = #{senderId,jdbcType=VARCHAR},
+      receiver_id = #{receiverId,jdbcType=LONGVARCHAR},
       subject = #{subject,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},

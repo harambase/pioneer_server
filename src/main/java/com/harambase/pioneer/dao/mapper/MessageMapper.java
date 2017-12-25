@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
+@Deprecated
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
 

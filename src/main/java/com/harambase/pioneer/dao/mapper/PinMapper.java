@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Mapper
 @Component
+@Deprecated
 public interface PinMapper {
     int deleteByPrimaryKey(Integer id);
 

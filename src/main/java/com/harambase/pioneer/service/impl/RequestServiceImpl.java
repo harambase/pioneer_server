@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class RequestServiceImpl implements RequestService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -83,8 +84,8 @@ public class RequestServiceImpl implements RequestService {
 
             Message message = new Message();
             message.setDate(DateUtil.DateToStr(new Date()));
-            message.setReceiverid("9000000000");
-            message.setSenderid("9000000000");
+            message.setReceiverId("9000000000");
+            message.setSenderId("9000000000");
             message.setBody("注意!接收到来自" + userid + "的请求注册信息");
             message.setTitle("注册信息");
             message.setStatus("UNREAD");

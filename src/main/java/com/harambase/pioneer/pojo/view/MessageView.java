@@ -3,8 +3,10 @@ package com.harambase.pioneer.pojo.view;
 import com.harambase.pioneer.pojo.base.Message;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "messageview")
 public class MessageView extends Message {
 
     private String pic;

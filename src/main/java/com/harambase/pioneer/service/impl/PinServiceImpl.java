@@ -165,7 +165,7 @@ public class PinServiceImpl implements PinService{
             message.setDate(date);
             message.setStatus("UNREAD");
             message.setTitle("PIN的信息");
-            message.setSenderid(senderId);
+            message.setSenderId(senderId);
             message.setAttachment(null);
             message.setLabels("inbox/important/");
             message.setTag("work");
@@ -175,7 +175,7 @@ public class PinServiceImpl implements PinService{
                     String facultyId = pin.getFacultyid();
                     String body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
                             + pin.getStarttime() + "至" + pin.getEndtime();
-                    message.setReceiverid(facultyId);
+                    message.setReceiverId(facultyId);
                     message.setBody(body);
                     Message newMessage = messageRepository.save(message);
                     if(newMessage == null)
@@ -193,7 +193,7 @@ public class PinServiceImpl implements PinService{
     
     @Override
     public HaramMessage sendAdvisorPin(String info, String senderId){
-        HaramMessage haramMessage = new HaramMessage();
+
         try{
             List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
@@ -202,7 +202,7 @@ public class PinServiceImpl implements PinService{
             message.setDate(date);
             message.setStatus("UNREAD");
             message.setTitle("您的辅导学生的PIN的信息");
-            message.setSenderid(senderId);
+            message.setSenderId(senderId);
             message.setAttachment(null);
             message.setLabels("inbox/important/");
             message.setTag("work");
@@ -216,7 +216,7 @@ public class PinServiceImpl implements PinService{
 
                     String body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
                             + pin.getStarttime() + "至" + pin.getEndtime() + "请及时告知，谢谢！";
-                    message.setReceiverid(facultyId);
+                    message.setReceiverId(facultyId);
                     message.setBody(body);
                     Message newMessage = messageRepository.save(message);
                     if(newMessage == null)
