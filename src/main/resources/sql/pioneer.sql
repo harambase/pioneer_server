@@ -272,33 +272,6 @@ insert  into `transcript`(`id`,`student_id`,`crn`,`grade`,`complete`,`assign_tim
 
 UNLOCK TABLES;
 
-/*Table structure for table `transcript_copy` */
-
-DROP TABLE IF EXISTS `transcript_copy`;
-
-CREATE TABLE `transcript_copy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `studentid` varchar(20) NOT NULL COMMENT '学生ID',
-  `crn` varchar(20) NOT NULL COMMENT '课程ID',
-  `grade` varchar(20) NOT NULL COMMENT '成绩',
-  `complete` varchar(20) NOT NULL COMMENT '完成状态',
-  `assigntime` varchar(20) NOT NULL COMMENT '时间',
-  `operator` varchar(50) NOT NULL COMMENT '修改人',
-  `assign_time` varchar(255) DEFAULT NULL,
-  `operator_id` varchar(255) DEFAULT NULL,
-  `student_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FKppxva78okdceotyjdkr7vk6r5` (`studentid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
-/*Data for the table `transcript_copy` */
-
-LOCK TABLES `transcript_copy` WRITE;
-
-insert  into `transcript_copy`(`id`,`studentid`,`crn`,`grade`,`complete`,`assigntime`,`operator`,`assign_time`,`operator_id`,`student_id`) values (1,'9201701101','a','a','a','(NULL)a','a',NULL,NULL,NULL),(2,'9201701101','a','a','a','a','a',NULL,NULL,NULL),(3,'9201701101','a','a','a','a','a',NULL,NULL,NULL),(4,'9201701103','a','a','a','a','a',NULL,NULL,NULL);
-
-UNLOCK TABLES;
-
 /* Function  structure for function  `get_complete_credits` */
 
 /*!50003 DROP FUNCTION IF EXISTS `get_complete_credits` */;

@@ -1,6 +1,8 @@
 package com.harambase.pioneer.dao.repository.base;
 
 import com.harambase.pioneer.pojo.base.Pin;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +17,11 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
 
     int countByInfo(String info);
 
-    List<Pin> findByInfo(String info);
-
     void deleteByPin(Integer pin);
 
     int countByPin(Integer pin);
+
+    Page<Pin> findByInfo(String info, Pageable pageable);
+
+    List<Pin> findByInfo(String info);
 }

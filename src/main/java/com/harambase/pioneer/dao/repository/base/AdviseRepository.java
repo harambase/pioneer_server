@@ -11,4 +11,8 @@ public interface AdviseRepository extends JpaRepository<Advise, Integer> {
     void deleteByStudentIdOrFacultyId(String studentId, String facultyId);
 
     Advise findOneByStudentId(String studentId);
+
+    int countByFacultyIdAndStudentId(String facultyId, String studentId);
+
+    int countById(Integer id);
 }

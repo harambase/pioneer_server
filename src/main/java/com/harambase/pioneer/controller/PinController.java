@@ -27,16 +27,50 @@ public class PinController {
         this.pinService = pinService;
     }
 
-    @ApiOperation(value = "新生成识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiOperation(value = "批量生成识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity create(@RequestParam(value = "startTime") String startTime,
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    public ResponseEntity createAll(@RequestParam(value = "startTime") String startTime,
                                  @RequestParam(value = "endTime") String endTime,
                                  @RequestParam(value = "role") int role,
                                  @RequestParam(value = "info") String info,
                                  @RequestParam(value = "remark") String remark){
-        HaramMessage haramMessage = pinService.generate(startTime, endTime, role, info, remark);
+        HaramMessage haramMessage = pinService.generateAll(startTime, endTime, role, info, remark);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "生成一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    public ResponseEntity createOne(@RequestParam(value = "startTime") String startTime,
+                                    @RequestParam(value = "endTime") String endTime,
+                                    @RequestParam(value = "role") int role,
+                                    @RequestParam(value = "info") String info,
+                                    @RequestParam(value = "remark") String remark,
+                                    @RequestParam(value = "userId") String userId){
+        HaramMessage haramMessage = pinService.generateOne(startTime, endTime, role, info, remark, userId);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "识别一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/{pin}", method = RequestMethod.DELETE)
+    public ResponseEntity validate(@PathVariable(value = "pin") Integer pin) {
+        HaramMessage haramMessage = pinService.validate(pin);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "识别码按INFO列表", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity list(@RequestParam(value = "start") Integer start,
+                               @RequestParam(value = "length") Integer length,
+                               @RequestParam(value = "search", required = false) String search,
+                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "info", required = false) String info) {
+        HaramMessage message = pinService.listByInfo(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, info);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})

@@ -104,7 +104,7 @@ public class AdviseServiceImpl implements AdviseService {
     public HaramMessage assignMentor(Advise advise) {
 
         try {
-            int count = adviseViewRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
+            int count = adviseRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
             if (count != 0)
                 return ReturnMsgUtil.custom(FlagDict.ADVISE_DUPLICATE);
 
@@ -121,7 +121,7 @@ public class AdviseServiceImpl implements AdviseService {
     public HaramMessage removeMentor(Integer id) {
         try {
             adviseRepository.delete(id);
-            int count = adviseViewRepository.countAdviseViewById(id);
+            int count = adviseRepository.countById(id);
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

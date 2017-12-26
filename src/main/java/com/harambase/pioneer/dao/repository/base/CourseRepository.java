@@ -14,4 +14,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     int countCourseByCrn(String crn);
 
     Course findByCrn(String crn);
+
 }
