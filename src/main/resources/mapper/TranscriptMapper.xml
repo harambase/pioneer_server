@@ -130,14 +130,14 @@
     </if>
     <if test="search != null">
       and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
-      crn like '%' #{search,jdbcType=VARCHAR} '%' or
-      grade like  '%' #{search,jdbcType=VARCHAR} '%' or
-      complete like  '%' #{search,jdbcType=VARCHAR} '%' or
-      assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
-      slast like  '%' #{search,jdbcType=VARCHAR} '%' or
-      sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator like  '%' #{operator,jdbcType=VARCHAR} '%' or
-      facultyid like  '%' #{search,jdbcType=VARCHAR} '%')
+           crn like '%' #{search,jdbcType=VARCHAR} '%' or
+           grade like  '%' #{search,jdbcType=VARCHAR} '%' or
+           complete like  '%' #{search,jdbcType=VARCHAR} '%' or
+           assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
+           slast like  '%' #{search,jdbcType=VARCHAR} '%' or
+           sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
+           operator like  '%' #{operator,jdbcType=VARCHAR} '%' or
+           facultyid like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
   </select>

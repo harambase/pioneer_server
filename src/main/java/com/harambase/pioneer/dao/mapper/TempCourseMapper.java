@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
+@Deprecated
 public interface TempCourseMapper {
     int deleteByPrimaryKey(Integer id);
 

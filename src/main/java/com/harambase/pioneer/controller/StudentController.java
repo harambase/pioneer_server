@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-/**
- * Created by linsh on 7/12/2017.
- */
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/student")
@@ -57,6 +54,7 @@ public class StudentController {
     }
 
     @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,

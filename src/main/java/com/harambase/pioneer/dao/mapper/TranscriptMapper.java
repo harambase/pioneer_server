@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Mapper
 @Component
+@Deprecated
 public interface TranscriptMapper {
     int deleteByPrimaryKey(Map<String, Object> param);
 
