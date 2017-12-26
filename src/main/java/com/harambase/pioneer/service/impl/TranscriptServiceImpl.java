@@ -47,7 +47,6 @@ public class TranscriptServiceImpl implements TranscriptService {
         }
     }
 
-
     @Override
     public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, String orderColumn, String studentid, String crn) {
 
@@ -55,7 +54,7 @@ public class TranscriptServiceImpl implements TranscriptService {
 
         switch (Integer.parseInt(orderColumn)) {
             case 0:
-                orderColumn = "studentid";
+                orderColumn = "student_id";
                 break;
             case 1:
                 orderColumn = "crn";
@@ -67,13 +66,13 @@ public class TranscriptServiceImpl implements TranscriptService {
                 orderColumn = "complete";
                 break;
             case 4:
-                orderColumn = "assigntime";
+                orderColumn = "assign_time";
                 break;
             case 5:
                 orderColumn = "sname";
                 break;
             case 6:
-                orderColumn = "coursename";
+                orderColumn = "cname";
                 break;
             default:
                 orderColumn = "id";

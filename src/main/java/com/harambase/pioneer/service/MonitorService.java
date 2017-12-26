@@ -8,4 +8,5 @@ public interface MonitorService {
 
     HaramMessage userChart();
 
+    HaramMessage getSystemCount();
 }

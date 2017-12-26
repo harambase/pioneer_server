@@ -24,34 +24,17 @@ import java.util.Map;
 public class MonitorController {
 
     private final MonitorService monitorService;
-    private final PersonService personService;
-    private final CourseService courseService;
 
     @Autowired
-    public MonitorController(MonitorService monitorService, PersonService personService, CourseService courseService){
+    public MonitorController(MonitorService monitorService){
         this.monitorService = monitorService;
-        this.personService = personService;
-        this.courseService = courseService;
     }
 
     @ApiOperation(value = "系统信息", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public ResponseEntity systemInfo(){
-        HaramMessage message = new HaramMessage();
-
-        Map<String, Integer> data = new HashMap<>();
-        int course, student, faculty;
-
-        student = (Integer) personService.countActivePerson("s").getData();
-        faculty = (Integer) personService.countActivePerson("f").getData();
-        course  = (Integer) courseService.countActiveCourse().getData();
-
-        data.put("student",student);
-        data.put("faculty",faculty);
-        data.put("course", course);
-
-        message.setData(data);
+        HaramMessage message = monitorService.getSystemCount();
         return new ResponseEntity<>(message, HttpStatus.OK);
 
     }

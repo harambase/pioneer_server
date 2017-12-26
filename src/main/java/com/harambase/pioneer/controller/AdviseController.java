@@ -72,7 +72,6 @@ public class AdviseController {
                                @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "studentid", required = false) String studentid,
                                @RequestParam(value = "facultyid", required = false) String facultyid) {
-
         HaramMessage message = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentid, facultyid);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

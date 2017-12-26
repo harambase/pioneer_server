@@ -45,8 +45,8 @@ public class PersonController {
     @ApiOperation(value = "删除一个用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@RequestParam("userId") String userid) {
-        HaramMessage message = personService.removeUser(userid);
+    public ResponseEntity delete(@RequestParam("userId") String userId) {
+        HaramMessage message = personService.removeUser(userId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

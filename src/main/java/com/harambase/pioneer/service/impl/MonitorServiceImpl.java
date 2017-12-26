@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +75,21 @@ public class MonitorServiceImpl implements MonitorService{
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
+    }
+
+    @Override
+    public HaramMessage getSystemCount() {
+        Map<String, Integer> data = new HashMap<>();
+
+        int student = personRepository.countByTypeAndStatus("s", "1");
+        int faculty = personRepository.countByTypeAndStatus("f", "1");
+        int course  = courseViewRepository.countAllByStatus("1");
+
+        data.put("student",student);
+        data.put("faculty",faculty);
+        data.put("course", course);
+
+        return ReturnMsgUtil.success(data);
     }
 
     @Override
