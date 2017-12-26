@@ -18,7 +18,7 @@ import java.util.List;
 public class AdviseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    
+
     public Long getCountByMapPageSearchOrdered(String facultyId, String studentId, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
@@ -37,9 +37,9 @@ public class AdviseDao {
                 queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(student_id LIKE '%" + search + "%' OR " +
-                               "    faculty_id LIKE '%" + search + "%' OR " +
-                               "    sname      LIKE '%" + search + "%' OR " +
-                               "    fname      LIKE '%" + search + "%')";
+                        "    faculty_id LIKE '%" + search + "%' OR " +
+                        "    sname      LIKE '%" + search + "%' OR " +
+                        "    fname      LIKE '%" + search + "%')";
             }
             logger.info(queryString);
 
@@ -76,10 +76,11 @@ public class AdviseDao {
             if (StringUtils.isNotEmpty(studentId))
                 queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(search)) {
-                queryString += "AND(student_id LIKE '%" + search + "%' OR " +
-                               "    faculty_id LIKE '%" + search + "%' OR " +
-                               "    sname      LIKE '%" + search + "%' OR " +
-                               "    fname      LIKE '%" + search + "%')";
+                queryString += "AND(" +
+                        "student_id LIKE '%" + search + "%' OR " +
+                        "faculty_id LIKE '%" + search + "%' OR " +
+                        "sname      LIKE '%" + search + "%' OR " +
+                        "fname      LIKE '%" + search + "%')";
             }
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
@@ -97,7 +98,7 @@ public class AdviseDao {
         }
     }
 
-    public AdviseView findOne(Integer id) throws Exception{
+    public AdviseView findOne(Integer id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         try {

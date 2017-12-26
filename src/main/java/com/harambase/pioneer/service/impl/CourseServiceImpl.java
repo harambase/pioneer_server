@@ -335,7 +335,7 @@ public class CourseServiceImpl implements CourseService {
             Map<String, String> infoMap;
 
             List<CourseView> courseViewList =
-                    courseDao.getByMapPageSearchOrdered(facultyid,info,"",0,Integer.MAX_VALUE,"desc","crn");
+                    courseDao.getByMapPageSearchOrdered(facultyid, info, "", 0, Integer.MAX_VALUE, "desc", "crn");
 
             for (CourseView course : courseViewList) {
                 infoSet.add(course.getInfo());
