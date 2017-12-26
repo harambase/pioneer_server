@@ -10,6 +10,30 @@ public class AdviseView {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "student_id")
+    private String studentId;
+
+    @Column(name = "faculty_id")
+    private String facultyId;
+
+    @Column(name = "update_time")
+    private String updateTime;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "operator_id")
+    private String operator_id;
+
+    @Column(name = "fname")
+    private String fname;
+
+    @Column(name = "sname")
+    private String sname;
+
+    @Column(name = "oname")
+    private String oname;
+
     public Integer getId() {
         return id;
     }
@@ -18,29 +42,20 @@ public class AdviseView {
         this.id = id;
     }
 
-    private String studentid;
-
-    private String facultyid;
-
-    @Column(name = "updateTime")
-    private String updateTime;
-
-    private String status;
-
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public String getFacultyid() {
-        return facultyid;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid;
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId;
     }
 
     public String getUpdateTime() {
@@ -59,19 +74,13 @@ public class AdviseView {
         this.status = status;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperator_id() {
+        return operator_id;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperator_id(String operator_id) {
+        this.operator_id = operator_id;
     }
-
-    private String operator;
-
-    private String sname;
-    private String fname;
-    private String oname;
 
     public String getOname() {
         return oname;

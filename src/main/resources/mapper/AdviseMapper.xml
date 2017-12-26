@@ -3,14 +3,14 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.AdviseMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Advise" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
-    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
+    <result column="studentId" property="studentId" jdbcType="VARCHAR" />
+    <result column="facultyId" property="facultyId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
-    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, studentid, facultyid
+    id, studentId, facultyId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,13 +21,13 @@
   <select id="selectByAdvise" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     select
     <include refid="Base_Column_List" />
-    from Advise where studentid = #{studentid,jdbcType=VARCHAR} and facultyid = #{facultyid,jdbcType=VARCHAR}
+    from Advise where studentId = #{studentId,jdbcType=VARCHAR} and facultyId = #{facultyId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectFacultyByStudent" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
-    from Advise where studentid = #{arg0,jdbcType=VARCHAR}
+    from Advise where studentId = #{arg0,jdbcType=VARCHAR}
   </select>
 
   <select id="getAllAdvise" resultMap="BaseResultMap">
@@ -38,15 +38,15 @@
     delete from Advise where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByUserID" parameterType="java.lang.String" >
-    delete from Advise where studentid = #{studentid,jdbcType=INTEGER} or facultyid = #{studentid,jdbcType=INTEGER}
+    delete from Advise where studentId = #{studentId,jdbcType=INTEGER} or facultyId = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Advise" >
-    insert into Advise (id, studentid, facultyid, status, updateTime, operator
+    insert into Advise (id, studentId, facultyId, status, updateTime, operator_id
       )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{facultyid,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{facultyId,jdbcType=VARCHAR},
     #{status,jdbcType=VARCHAR},
     #{updateTime,jdbcType=VARCHAR},
-    #{operator,jdbcType=VARCHAR}
+    #{operator_id,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Advise" >
@@ -55,11 +55,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="studentid != null" >
-        studentid,
+      <if test="studentId != null" >
+        studentId,
       </if>
-      <if test="facultyid != null" >
-        facultyid,
+      <if test="facultyId != null" >
+        facultyId,
       </if>
       <if test="status != null" >
         status,
@@ -67,19 +67,19 @@
       <if test="updateTime != null" >
         updateTime,
       </if>
-      <if test="operator != null" >
-        operator,
+      <if test="operator_id != null" >
+        operator_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="studentid != null" >
-        #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        #{facultyid,jdbcType=VARCHAR},
+      <if test="facultyId != null" >
+        #{facultyId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -87,19 +87,19 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator != null" >
-        #{operator,jdbcType=VARCHAR},
+      <if test="operator_id != null" >
+        #{operator_id,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     update Advise
     <set >
-      <if test="studentid != null" >
-        studentid = #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        studentId = #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=VARCHAR},
+      <if test="facultyId != null" >
+        facultyId = #{facultyId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
@@ -107,52 +107,52 @@
       <if test="updateTime != null" >
         updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator != null" >
-        operator = #{operator,jdbcType=VARCHAR},
+      <if test="operator_id != null" >
+        operator_id = #{operator_id,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     update Advise
-    set studentid = #{studentid,jdbcType=VARCHAR},
-        facultyid = #{facultyid,jdbcType=VARCHAR},
+    set studentId = #{studentId,jdbcType=VARCHAR},
+        facultyId = #{facultyId,jdbcType=VARCHAR},
         status = #{status,jdbcType=VARCHAR},
         updateTime = #{updateTime,jdbcType=VARCHAR},
-        operator = #{operator,jdbcType=VARCHAR},
+        operator_id = #{operator_id,jdbcType=VARCHAR},
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <select id="getAdvisingCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from AdviseView <where> 1 = 1
-    <if test="studentid != null">
-      and studentid = #{studentid,jdbcType=VARCHAR}
+    <if test="studentId != null">
+      and studentId = #{studentId,jdbcType=VARCHAR}
     </if>
-    <if test="facultyid != null">
-      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    <if test="facultyId != null">
+      and facultyId = #{facultyId,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator like  '%' #{search,jdbcType=VARCHAR} '%' or
+      operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
   </select>
   <select id="getAdvisingByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.view.AdviseView">
     select * from AdviseView <where> 1 = 1
-    <if test="studentid != null">
-      and studentid = #{studentid,jdbcType=VARCHAR}
+    <if test="studentId != null">
+      and studentId = #{studentId,jdbcType=VARCHAR}
     </if>
-    <if test="facultyid != null">
-      and facultyid = #{facultyid,jdbcType=VARCHAR}
+    <if test="facultyId != null">
+      and facultyId = #{facultyId,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
-      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
+      facultyId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator like  '%' #{search,jdbcType=VARCHAR} '%' or
+      operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     order by ${orderColumn} ${order}

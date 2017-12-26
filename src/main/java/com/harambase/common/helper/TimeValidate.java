@@ -10,14 +10,14 @@ public class TimeValidate {
 
     public static boolean isTimeConflict(List<CourseView> courseList, CourseView c2){
         for(CourseView c1: courseList){
-            Date c1_start = DateUtil.StrToDateOnly(c1.getStartdate());
-            Date c1_end   = DateUtil.StrToDateOnly(c1.getEnddate());
-            Date c2_start = DateUtil.StrToDateOnly(c2.getStartdate());
-            Date c2_end   = DateUtil.StrToDateOnly(c2.getEnddate());
-            Date c1_t_str = DateUtil.StrToDateTimeOnly(c1.getStarttime());
-            Date c1_t_end = DateUtil.StrToDateTimeOnly(c1.getEndtime());
-            Date c2_t_str = DateUtil.StrToDateTimeOnly(c2.getStarttime());
-            Date c2_t_end = DateUtil.StrToDateTimeOnly(c2.getEndtime());
+            Date c1_start = DateUtil.StrToDateOnly(c1.getStartDate());
+            Date c1_end   = DateUtil.StrToDateOnly(c1.getEndDate());
+            Date c2_start = DateUtil.StrToDateOnly(c2.getStartDate());
+            Date c2_end   = DateUtil.StrToDateOnly(c2.getEndDate());
+            Date c1_t_str = DateUtil.StrToDateTimeOnly(c1.getStartTime());
+            Date c1_t_end = DateUtil.StrToDateTimeOnly(c1.getEndTime());
+            Date c2_t_str = DateUtil.StrToDateTimeOnly(c2.getStartTime());
+            Date c2_t_end = DateUtil.StrToDateTimeOnly(c2.getEndTime());
 
             Set<String> c1_day = getDay(c1.getDay().split("/"));
             Set<String> c2_day = getDay(c2.getDay().split("/"));

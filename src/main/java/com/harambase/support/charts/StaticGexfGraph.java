@@ -86,7 +86,7 @@ public class StaticGexfGraph {
 		//设置course Node
 		for(CourseView c: courseViewList){
 			Node cNode = graph.createNode(c.getCrn());
-			int value = c.getCapa()-c.getRemain();
+			int value = c.getCapacity()-c.getRemain();
 			cNode.setLabel(c.getName()).setSize(10 + value*5);
 			cNode.getAttributeValues()
 					.addValue(attCRN, c.getCrn())
@@ -114,7 +114,7 @@ public class StaticGexfGraph {
 				}
 			}else if(type.contains("f")) {
 				for(CourseView c: courseViewList){
-					if(c.getFacultyid().equals(userid)){
+					if(c.getFacultyId().equals(userid)){
 						Node cNode = graph.getNode(c.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);
 						index++;
@@ -125,8 +125,8 @@ public class StaticGexfGraph {
 		
 		//设置FACULTY_STUDENT_CONNECTION
 		for(Advise a: adviseList){
-			Node sNode = graph.getNode(a.getStudentid());
-			Node fNode = graph.getNode(a.getFacultyid());
+			Node sNode = graph.getNode(a.getStudentId());
+			Node fNode = graph.getNode(a.getFacultyId());
 			sNode.connectTo(String.valueOf(index), fNode);
 			index++;
 		}

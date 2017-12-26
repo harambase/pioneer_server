@@ -11,6 +11,21 @@ public class Advise implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "student_id")
+    private String studentId;
+
+    @Column(name = "faculty_id")
+    private String facultyId;
+
+    @Column(name = "update_time")
+    private String updateTime;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "operator_id")
+    private String operator_id;
+
     public Integer getId() {
         return id;
     }
@@ -19,39 +34,28 @@ public class Advise implements Serializable {
         this.id = id;
     }
 
-    private String studentid;
-
-    private String facultyid;
-
-    @Column(name = "update_time")
-    private String updateTime;
-
-    private String status;
-
-    private String operator;
-
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
 
-    public String getFacultyid() {
-        return facultyid;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid == null ? null : facultyid.trim();
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId == null ? null : facultyId.trim();
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperator_id() {
+        return operator_id;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperator_id(String operator_id) {
+        this.operator_id = operator_id;
     }
 
     public String getUpdateTime() {

@@ -147,16 +147,16 @@ public class PersonServiceImpl implements PersonService {
                 return ReturnMsgUtil.fail();
             }
 
-            adviseRepository.deleteByStudentidOrFacultyid(person.getUserId(), person.getUserId());
+            adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
             transcriptRepository.deleteTranscriptByStudentid(person.getUserId());
 
-            List<Course> courseList = courseRepository.findCourseByFacultyid(person.getUserId());
+            List<Course> courseList = courseRepository.findCourseByFacultyId(person.getUserId());
 
             for (Course c : courseList) {
                 String opTime = DateUtil.DateToStr(new Date());
-                c.setFacultyid(IDUtil.ROOT);
+                c.setFacultyId(IDUtil.ROOT);
                 c.setComment(person.getLastName() + "," + person.getFirstName() + "老师被删除, 删除时间：" + opTime);
-                c.setUpdatetime(DateUtil.DateToStr(new Date()));
+                c.setUpdateTime(DateUtil.DateToStr(new Date()));
                 courseRepository.save(c);
             }
 

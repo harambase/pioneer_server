@@ -11,6 +11,60 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(name = "crn")
+    private String crn;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "credits")
+    private Integer credits;
+
+    @Column(name = "precrn")
+    private String precrn;
+
+    @Column(name = "level")
+    private String level;
+
+    @Column(name = "section")
+    private String section;
+
+    @Column(name = "classroom")
+    private String classroom;
+
+    @Column(name = "start_date")
+    private String startDate;
+
+    @Column(name = "end_date")
+    private String endDate;
+
+    @Column(name = "day")
+    private String day;
+
+    @Column(name = "start_time")
+    private String startTime;
+
+    @Column(name = "end_time")
+    private String endTime;
+
+    @Column(name = "capacity")
+    private Integer capacity;
+
+    @Column(name = "faculty_id")
+    private String facultyId;
+
+    @Column(name = "info")
+    private String info;
+
+    @Column(name = "create_time")
+    private String createTime;
+
+    @Column(name = "update_time")
+    private String updateTime;
+
+    @Column(name = "comment")
+    private String comment;
+
     public Integer getId() {
         return id;
     }
@@ -18,42 +72,6 @@ public class Course implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    private String crn;
-
-    private String name;
-
-    private Integer credits;
-
-    private String precrn;
-
-    private String coulev;
-
-    private String cousec;
-
-    private String classroom;
-
-    private String startdate;
-
-    private String enddate;
-
-    private String day;
-
-    private String starttime;
-
-    private String endtime;
-
-    private Integer capa;
-
-    private String facultyid;
-
-    private String info;
-
-    private String createtime;
-
-    private String updatetime;
-
-    private String comment;
 
     public String getCrn() {
         return crn;
@@ -87,20 +105,20 @@ public class Course implements Serializable {
         this.precrn = precrn == null ? null : precrn.trim();
     }
 
-    public String getCoulev() {
-        return coulev;
+    public String getLevel() {
+        return level;
     }
 
-    public void setCoulev(String coulev) {
-        this.coulev = coulev == null ? null : coulev.trim();
+    public void setLevel(String level) {
+        this.level = level == null ? null : level.trim();
     }
 
-    public String getCousec() {
-        return cousec;
+    public String getSection() {
+        return section;
     }
 
-    public void setCousec(String cousec) {
-        this.cousec = cousec == null ? null : cousec.trim();
+    public void setSection(String section) {
+        this.section = section == null ? null : section.trim();
     }
 
     public String getClassroom() {
@@ -111,20 +129,20 @@ public class Course implements Serializable {
         this.classroom = classroom == null ? null : classroom.trim();
     }
 
-    public String getStartdate() {
-        return startdate;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setStartdate(String startdate) {
-        this.startdate = startdate == null ? null : startdate.trim();
+    public void setStartDate(String startDate) {
+        this.startDate = startDate == null ? null : startDate.trim();
     }
 
-    public String getEnddate() {
-        return enddate;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEnddate(String enddate) {
-        this.enddate = enddate == null ? null : enddate.trim();
+    public void setEndDate(String endDate) {
+        this.endDate = endDate == null ? null : endDate.trim();
     }
 
     public String getDay() {
@@ -135,36 +153,36 @@ public class Course implements Serializable {
         this.day = day == null ? null : day.trim();
     }
 
-    public String getStarttime() {
-        return starttime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime == null ? null : starttime.trim();
+    public void setStartTime(String startTime) {
+        this.startTime = startTime == null ? null : startTime.trim();
     }
 
-    public String getEndtime() {
-        return endtime;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime == null ? null : endtime.trim();
+    public void setEndTime(String endTime) {
+        this.endTime = endTime == null ? null : endTime.trim();
     }
 
-    public Integer getCapa() {
-        return capa;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setCapa(Integer capa) {
-        this.capa = capa;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
-    public String getFacultyid() {
-        return facultyid;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid == null ? null : facultyid.trim();
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId == null ? null : facultyId.trim();
     }
 
     public String getInfo() {
@@ -175,20 +193,20 @@ public class Course implements Serializable {
         this.info = info == null ? null : info.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
     }
 
     public String getComment() {

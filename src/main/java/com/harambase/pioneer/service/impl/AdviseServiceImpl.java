@@ -104,7 +104,7 @@ public class AdviseServiceImpl implements AdviseService {
     public HaramMessage assignMentor(Advise advise) {
 
         try {
-            int count = adviseViewRepository.countByFacultyidAndStudentid(advise.getFacultyid(), advise.getStudentid());
+            int count = adviseViewRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
             if (count != 0)
                 return ReturnMsgUtil.custom(FlagDict.ADVISE_DUPLICATE);
 
@@ -136,8 +136,8 @@ public class AdviseServiceImpl implements AdviseService {
             Advise advise = adviseRepository.findOne(id);
 
             advise.setId(id);
-            advise.setStudentid(studentId);
-            advise.setFacultyid(facultyId);
+            advise.setStudentId(studentId);
+            advise.setFacultyId(facultyId);
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             Advise newAdvise = adviseRepository.save(advise);
 

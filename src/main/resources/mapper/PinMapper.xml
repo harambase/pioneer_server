@@ -5,18 +5,18 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="pin" property="pin" jdbcType="INTEGER" />
     <result column="info" property="info" jdbcType="VARCHAR" />
-    <result column="facultyid" property="facultyid" jdbcType="VARCHAR" />
-    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+    <result column="facultyId" property="facultyId" jdbcType="VARCHAR" />
+    <result column="studentId" property="studentId" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="INTEGER" />
-    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
-    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.Pin" extends="BaseResultMap" >
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pin, info, facultyid, studentid, role, startTime, endTime, createTime
+    id, pin, info, facultyId, studentId, role, startTime, endTime, createTime
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -35,12 +35,12 @@
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     insert into Pin (id, pin, info, 
-      facultyid, studentid, role, 
+      facultyId, studentId, role,
       startTime, endTime, createTime, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{pin,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, 
-      #{facultyid,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
+      #{facultyId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER},
+      #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Pin" >
@@ -55,19 +55,19 @@
       <if test="info != null" >
         info,
       </if>
-      <if test="facultyid != null" >
-        facultyid,
+      <if test="facultyId != null" >
+        facultyId,
       </if>
-      <if test="studentid != null" >
-        studentid,
+      <if test="studentId != null" >
+        studentId,
       </if>
       <if test="role != null" >
         role,
       </if>
-      <if test="starttime != null" >
+      <if test="startTime != null" >
         startTime,
       </if>
-      <if test="endtime != null" >
+      <if test="endTime != null" >
         endTime,
       </if>
       <if test="createTime != null" >
@@ -87,20 +87,20 @@
       <if test="info != null" >
         #{info,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        #{facultyid,jdbcType=VARCHAR},
+      <if test="facultyId != null" >
+        #{facultyId,jdbcType=VARCHAR},
       </if>
-      <if test="studentid != null" >
-        #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
       </if>
       <if test="role != null" >
         #{role,jdbcType=INTEGER},
       </if>
-      <if test="starttime != null" >
-        #{starttime,jdbcType=VARCHAR},
+      <if test="startTime != null" >
+        #{startTime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null" >
-        #{endtime,jdbcType=VARCHAR},
+      <if test="endTime != null" >
+        #{endTime,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=VARCHAR},
@@ -119,20 +119,20 @@
       <if test="info != null" >
         info = #{info,jdbcType=VARCHAR},
       </if>
-      <if test="facultyid != null" >
-        facultyid = #{facultyid,jdbcType=VARCHAR},
+      <if test="facultyId != null" >
+        facultyId = #{facultyId,jdbcType=VARCHAR},
       </if>
-      <if test="studentid != null" >
-        studentid = #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        studentId = #{studentId,jdbcType=VARCHAR},
       </if>
       <if test="role != null" >
         role = #{role,jdbcType=INTEGER},
       </if>
-      <if test="starttime != null" >
-        startTime = #{starttime,jdbcType=VARCHAR},
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=VARCHAR},
       </if>
-      <if test="endtime != null" >
-        endTime = #{endtime,jdbcType=VARCHAR},
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         createTime = #{createTime,jdbcType=VARCHAR},
@@ -147,11 +147,11 @@
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
-      facultyid = #{facultyid,jdbcType=VARCHAR},
-      studentid = #{studentid,jdbcType=VARCHAR},
+      facultyId = #{facultyId,jdbcType=VARCHAR},
+      studentId = #{studentId,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
-      startTime = #{starttime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=VARCHAR},
+      endTime = #{endTime,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -160,11 +160,11 @@
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
-      facultyid = #{facultyid,jdbcType=VARCHAR},
-      studentid = #{studentid,jdbcType=VARCHAR},
+      facultyId = #{facultyId,jdbcType=VARCHAR},
+      studentId = #{studentId,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
-      startTime = #{starttime,jdbcType=VARCHAR},
-      endTime = #{endtime,jdbcType=VARCHAR},
+      startTime = #{startTime,jdbcType=VARCHAR},
+      endTime = #{endTime,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

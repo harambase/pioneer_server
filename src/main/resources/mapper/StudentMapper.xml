@@ -3,11 +3,11 @@
 <mapper namespace="com.harambase.pioneer.dao.mapper.StudentMapper" >
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Student" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="studentid" property="studentid" jdbcType="VARCHAR" />
+    <result column="studentId" property="studentId" jdbcType="VARCHAR" />
     <result column="max_credits" property="maxCredits" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, studentid, max_credits
+    id, studentId, max_credits
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -16,12 +16,12 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from Student where studentid = #{arg0,jdbcType=VARCHAR}
+    delete from Student where studentId = #{arg0,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Student" >
-    insert into Student (id, studentid, max_credits
+    insert into Student (id, studentId, max_credits
       )
-    values (#{id,jdbcType=INTEGER}, #{studentid,jdbcType=VARCHAR}, #{maxCredits,jdbcType=INTEGER}
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{maxCredits,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Student" >
@@ -30,8 +30,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="studentid != null" >
-        studentid,
+      <if test="studentId != null" >
+        studentId,
       </if>
       <if test="maxCredits != null" >
         max_credits,
@@ -41,8 +41,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="studentid != null" >
-        #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        #{studentId,jdbcType=VARCHAR},
       </if>
       <if test="maxCredits != null" >
         #{maxCredits,jdbcType=INTEGER},
@@ -52,8 +52,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.Student" >
     update Student
     <set >
-      <if test="studentid != null" >
-        studentid = #{studentid,jdbcType=VARCHAR},
+      <if test="studentId != null" >
+        studentId = #{studentId,jdbcType=VARCHAR},
       </if>
       <if test="maxCredits != null" >
         max_credits = #{maxCredits,jdbcType=INTEGER},
@@ -62,17 +62,17 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Student" >
-    update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentid = #{studentid,jdbcType=VARCHAR}
+    update Student set max_credits = #{maxCredits,jdbcType=INTEGER} where studentId = #{studentId,jdbcType=VARCHAR}
   </update>
 
   <select id="creditsDetail" resultType="com.harambase.pioneer.pojo.view.StudentView" parameterType="java.lang.String" >
-    select * from StudentView where studentid = #{studentid,jdbcType=VARCHAR}
+    select * from StudentView where studentId = #{studentId,jdbcType=VARCHAR}
   </select>
 
   <select id="getStudentCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from StudentView <where> 1 = 1  and status = '1'
     <if test="search != null">
-      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
       lastName like '%' #{search,jdbcType=VARCHAR} '%' or
       firstName like  '%' #{search,jdbcType=VARCHAR} '%' or
       max_credits like  '%' #{search,jdbcType=VARCHAR} '%' or
@@ -83,7 +83,7 @@
   <select id="getStudentByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.view.StudentView">
     select * from StudentView <where> 1 = 1 and status = #{status,jdbcType=VARCHAR}
     <if test="search != null" >
-      and (studentid like '%' #{search,jdbcType=VARCHAR} '%' or
+      and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
       lastName like '%' #{search,jdbcType=VARCHAR} '%' or
       firstName like  '%' #{search,jdbcType=VARCHAR} '%' or
       max_credits like  '%' #{search,jdbcType=VARCHAR} '%' or

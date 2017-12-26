@@ -210,7 +210,7 @@ public class PinServiceImpl implements PinService{
             for(Pin pin : pinInfoList){
                 if(pin.getRole() == 1){
                     String studentId = pin.getStudentid();
-                    String facultyId = adviseRepository.findOneByStudentid(studentId).getFacultyid();
+                    String facultyId = adviseRepository.findOneByStudentId(studentId).getFacultyId();
                     Person student = personRepository.findOne(studentId);
                     String studentName = student.getLastName() + ", " + student.getFirstName();
 

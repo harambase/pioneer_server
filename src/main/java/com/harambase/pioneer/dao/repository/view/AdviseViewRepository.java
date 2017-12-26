@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdviseViewRepository extends JpaRepository<AdviseView, Integer> {
 
-    int countByFacultyidAndStudentid(String facultyId, String studentId);
+    int countByFacultyIdAndStudentId(String facultyId, String studentId);
 
     @Query("select a from AdviseView a where (studentid like concat('%', ?1, '%') or facultyid like concat('%', ?2, '%') or sname like concat('%', ?3, '%') or fname like concat('%', ?4, '%'))")
     Page<AdviseView> findSearchOnly(String var1, String var2, String var3, String var4, Pageable pageable);

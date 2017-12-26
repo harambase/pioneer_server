@@ -50,9 +50,9 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage create(Course course) {
 
         try {
-            course.setCreatetime(DateUtil.DateToStr(new Date()));
-            course.setUpdatetime(DateUtil.DateToStr(new Date()));
-            String facultyid = course.getFacultyid();
+            course.setCreateTime(DateUtil.DateToStr(new Date()));
+            course.setUpdateTime(DateUtil.DateToStr(new Date()));
+            String facultyid = course.getFacultyId();
 
             //生成CRN
             String info = course.getInfo();
@@ -68,12 +68,12 @@ public class CourseServiceImpl implements CourseService {
             }
             course.setCrn(crn);
 
-            if(!course.getFacultyid().equals(IDUtil.ROOT)) {
+            if(!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
-                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyid), courseViewRepository.findByCrn(crn))) {
+                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyid), courseViewRepository.findByCrn(crn))) {
                     return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
                 }
-                course.setFacultyid(facultyid);
+                course.setFacultyId(facultyid);
             }
 
             //插入课程
@@ -102,7 +102,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage update(Course course) {
         try {
-            course.setUpdatetime(DateUtil.DateToStr(new Date()));
+            course.setUpdateTime(DateUtil.DateToStr(new Date()));
             Course newCourse = courseRepository.save(course);
             return newCourse != null ? ReturnMsgUtil.success(newCourse) : ReturnMsgUtil.fail();
         } catch (Exception e) {
@@ -139,14 +139,14 @@ public class CourseServiceImpl implements CourseService {
         try {
             if(!facultyId.equals(IDUtil.ROOT)) {
                 //检查时间冲突
-                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyid(facultyId), courseViewRepository.findByCrn(crn))) {
+                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyId), courseViewRepository.findByCrn(crn))) {
                     return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
                 }
             }
 
             Course course = courseRepository.findByCrn(crn);
-            course.setFacultyid(facultyId);
-            course.setUpdatetime(DateUtil.DateToStr(new Date()));
+            course.setFacultyId(facultyId);
+            course.setUpdateTime(DateUtil.DateToStr(new Date()));
 
             Course newCourse = courseRepository.save(course);
             return newCourse != null ? ReturnMsgUtil.success(newCourse) : ReturnMsgUtil.fail();
@@ -342,11 +342,11 @@ public class CourseServiceImpl implements CourseService {
             Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, Sort.Direction.DESC, "crn");
 
             if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, info, pageable).getContent();
+                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, facultyid, info, pageable).getContent();
             } else if (StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, info, pageable).getContent();
+                courseViewList = courseViewRepository.findWithInfo(search, info, pageable).getContent();
             } else if (StringUtils.isNotEmpty(facultyid)) {
-                courseViewList = courseViewRepository.findWithFacultyId(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, pageable).getContent();
+                courseViewList = courseViewRepository.findWithFacultyId(search, facultyid, pageable).getContent();
             } else {
                 courseViewList = courseViewRepository.findAll(pageable).getContent();
             }
@@ -434,13 +434,13 @@ public class CourseServiceImpl implements CourseService {
             List<CourseView> courseViewList;
 
             if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, info, pageable).getContent();
+                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, facultyid, info, pageable).getContent();
             } else if (StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithInfo(search, search, search, search, search, search, search, search, search, search, search, search, search, info, pageable).getContent();
+                courseViewList = courseViewRepository.findWithInfo(search, info, pageable).getContent();
             } else if (StringUtils.isNotEmpty(facultyid)) {
-                courseViewList = courseViewRepository.findWithFacultyId(search, search, search, search, search, search, search, search, search, search, search, search, search, facultyid, pageable).getContent();
+                courseViewList = courseViewRepository.findWithFacultyId(search, facultyid, pageable).getContent();
             } else if (StringUtils.isNotEmpty(search)) {
-                courseViewList = courseViewRepository.findSearchOnly(search, search, search, search, search, search, search, search, search, search, search, search, search, pageable).getContent();
+                courseViewList = courseViewRepository.findSearchOnly(search, pageable).getContent();
             } else {
                 courseViewList = courseViewRepository.findAll(pageable).getContent();
             }
