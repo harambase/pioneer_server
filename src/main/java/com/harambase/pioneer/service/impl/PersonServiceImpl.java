@@ -5,7 +5,10 @@ import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.PersonDao;
 import com.harambase.pioneer.dao.repository.base.*;
-import com.harambase.pioneer.pojo.base.*;
+import com.harambase.pioneer.pojo.base.Course;
+import com.harambase.pioneer.pojo.base.Message;
+import com.harambase.pioneer.pojo.base.Person;
+import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.service.PersonService;
 import com.harambase.support.util.*;
 import org.apache.commons.lang3.StringUtils;
@@ -36,8 +39,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     public PersonServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
-                             TranscriptRepository transcriptRepository, MessageRepository messageRepository, 
-                             StudentRepository studentRepository,CourseRepository courseRepository,
+                             TranscriptRepository transcriptRepository, MessageRepository messageRepository,
+                             StudentRepository studentRepository, CourseRepository courseRepository,
                              PersonDao personDao) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;

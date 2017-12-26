@@ -2,10 +2,9 @@ package com.harambase.common;
 
 import java.util.LinkedHashMap;
 
-/**
- * Created by Administrator on 2017/5/23.
- */
+
 public class Page {
+    public static int sysPageSize = 20;
     public int totalPages = 0;
     public int currentPage = -1;
     public int previousPage = 1;
@@ -13,7 +12,6 @@ public class Page {
     public long totalRows = -1L;
     public int pageSize = 20;
     public String lastList;
-    public static int sysPageSize = 20;
 
     public Page() {
     }
@@ -28,16 +26,20 @@ public class Page {
         this.currentPage = currentPage;
         this.totalRows = totalRows;
         this.pageSize = pageSize;
-        currentPage = currentPage <= 1?1:currentPage;
-        this.totalPages = totalRows % (long)pageSize == 0L?(int)(totalRows / (long)pageSize):(int)(totalRows / (long)pageSize + 1L);
-        currentPage = currentPage >= this.totalPages?this.totalPages:currentPage;
-        this.previousPage = currentPage > 1?currentPage - 1:1;
-        this.nextPage = currentPage < this.totalPages?currentPage + 1:this.totalPages;
+        currentPage = currentPage <= 1 ? 1 : currentPage;
+        this.totalPages = totalRows % (long) pageSize == 0L ? (int) (totalRows / (long) pageSize) : (int) (totalRows / (long) pageSize + 1L);
+        currentPage = currentPage >= this.totalPages ? this.totalPages : currentPage;
+        this.previousPage = currentPage > 1 ? currentPage - 1 : 1;
+        this.nextPage = currentPage < this.totalPages ? currentPage + 1 : this.totalPages;
     }
 
     public Page(int currentPage, long totalRows) {
         this.currentPage = currentPage;
         this.totalRows = totalRows;
+    }
+
+    public static int getModulePageSize(String module_name) {
+        return sysPageSize;
     }
 
     public int getPageSize() {
@@ -88,10 +90,6 @@ public class Page {
         this.totalRows = totalRows;
     }
 
-    public static int getModulePageSize(String module_name) {
-        return sysPageSize;
-    }
-
     public String getLastList() {
         return this.lastList;
     }
@@ -100,7 +98,7 @@ public class Page {
         this.lastList = lastList;
     }
 
-    public int getCurrentIndex(){
+    public int getCurrentIndex() {
         return pageSize * (currentPage - 1);
     }
 }

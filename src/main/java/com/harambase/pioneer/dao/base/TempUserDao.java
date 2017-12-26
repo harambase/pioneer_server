@@ -1,7 +1,6 @@
 package com.harambase.pioneer.dao.base;
 
 import com.harambase.pioneer.pojo.base.TempUser;
-import com.harambase.pioneer.pojo.view.StudentView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +53,7 @@ public class TempUserDao {
     }
 
     public List<TempUser> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                       String order, String orderColumn, String status) throws Exception {
+                                                    String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<TempUser> tempUsers = new ArrayList<>();

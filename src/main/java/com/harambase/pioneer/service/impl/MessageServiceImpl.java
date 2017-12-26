@@ -1,18 +1,18 @@
 package com.harambase.pioneer.service.impl;
 
+import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
+import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.base.MessageDao;
+import com.harambase.pioneer.dao.repository.base.MessageRepository;
 import com.harambase.pioneer.dao.repository.base.PersonRepository;
 import com.harambase.pioneer.dao.repository.view.MessageViewRepository;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
-import com.harambase.support.util.DateUtil;
-import com.harambase.common.HaramMessage;
-import com.harambase.common.Page;
-import com.harambase.support.util.PageUtil;
-import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.base.MessageDao;
-import com.harambase.pioneer.dao.repository.base.MessageRepository;
 import com.harambase.pioneer.pojo.view.MessageView;
 import com.harambase.pioneer.service.MessageService;
+import com.harambase.support.util.DateUtil;
+import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.ReturnMsgUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +96,7 @@ public class MessageServiceImpl implements MessageService {
             MessageView messageView = messageViewRepository.findOne(id);
             String[] receiverIds = messageView.getReceiver().split("/");
             String receiverNames = "";
-            for(String receiverId : receiverIds){
+            for (String receiverId : receiverIds) {
                 Person receiver = personRepository.findOne(receiverId);
                 receiverNames += receiver.getLastName() + ", " + receiver.getFirstName() + "/";
             }

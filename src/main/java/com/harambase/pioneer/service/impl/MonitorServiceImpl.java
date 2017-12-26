@@ -2,7 +2,9 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.MapParam;
-import com.harambase.pioneer.dao.repository.base.*;
+import com.harambase.pioneer.dao.repository.base.AdviseRepository;
+import com.harambase.pioneer.dao.repository.base.PersonRepository;
+import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
 import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
 import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.base.Person;
@@ -24,7 +26,7 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class MonitorServiceImpl implements MonitorService{
+public class MonitorServiceImpl implements MonitorService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -35,7 +37,7 @@ public class MonitorServiceImpl implements MonitorService{
 
     @Autowired
     public MonitorServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository, CourseViewRepository courseViewRepository,
-                             TranscriptRepository transcriptRepository) {
+                              TranscriptRepository transcriptRepository) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;
         this.courseViewRepository = courseViewRepository;
@@ -83,10 +85,10 @@ public class MonitorServiceImpl implements MonitorService{
 
         int student = personRepository.countByTypeAndStatus("s", "1");
         int faculty = personRepository.countByTypeAndStatus("f", "1");
-        int course  = courseViewRepository.countAllByStatus("1");
+        int course = courseViewRepository.countAllByStatus("1");
 
-        data.put("student",student);
-        data.put("faculty",faculty);
+        data.put("student", student);
+        data.put("faculty", faculty);
         data.put("course", course);
 
         return ReturnMsgUtil.success(data);

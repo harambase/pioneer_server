@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.harambase.pioneer.dao.mapper.TempCourseMapper" >
-  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.TempCourse" >
+<mapper namespace="com.harambase.pioneer.dao.mybatis.mapper.TempUserMapper" >
+  <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.TempUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="crn" property="crn" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.TempCourse" extends="BaseResultMap" >
-    <result column="course_json" property="courseJson" jdbcType="LONGVARCHAR" />
+  <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.TempUser" extends="BaseResultMap" >
+    <result column="user_json" property="userJson" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, crn, status, createTime, updateTime, operator_id
+    id, userId, status, createTime, updateTime, operator_id
   </sql>
   <sql id="Blob_Column_List" >
-    course_json
+    user_json
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from TempCourse
+    from TempUser
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from TempCourse
+    delete from TempUser
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    insert into TempCourse (id, crn, status, 
+  <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
+    insert into TempUser (id, userId, status,
       createTime, updateTime, operator_id,
-      course_json)
-    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      user_json)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
       #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{operator_id,jdbcType=VARCHAR},
-      #{courseJson,jdbcType=LONGVARCHAR})
+      #{userJson,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    insert into TempCourse
+  <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
+    insert into TempUser
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="crn != null" >
-        crn,
+      <if test="userId != null" >
+        userId,
       </if>
       <if test="status != null" >
         status,
@@ -59,16 +59,16 @@
       <if test="operator_id != null" >
         operator_id,
       </if>
-      <if test="courseJson != null" >
-        course_json,
+      <if test="userJson != null" >
+        user_json,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="crn != null" >
-        #{crn,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -82,16 +82,16 @@
       <if test="operator_id != null" >
         #{operator_id,jdbcType=VARCHAR},
       </if>
-      <if test="courseJson != null" >
-        #{courseJson,jdbcType=LONGVARCHAR},
+      <if test="userJson != null" >
+        #{userJson,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    update TempCourse
+  <update id="updateByPrimaryKeySelective" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
+    update TempUser
     <set >
-      <if test="crn != null" >
-        crn = #{crn,jdbcType=VARCHAR},
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
@@ -105,25 +105,25 @@
       <if test="operator_id != null" >
         operator_id = #{operator_id,jdbcType=VARCHAR},
       </if>
-      <if test="courseJson != null" >
-        course_json = #{courseJson,jdbcType=LONGVARCHAR},
+      <if test="userJson != null" >
+        user_json = #{userJson,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    update TempCourse
-    set crn = #{crn,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
+    update TempUser
+    set userId = #{userId,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR},
       operator_id = #{operator_id,jdbcType=VARCHAR},
-      course_json = #{courseJson,jdbcType=LONGVARCHAR}
+      user_json = #{userJson,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    update TempCourse
-    set crn = #{crn,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.TempUser" >
+    update TempUser
+    set userId = #{userId,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR},
@@ -131,17 +131,23 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getTempCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
-    select count(*) as count from TempCourse <where> 1 = 1
+  <select id="getTempUserCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
+    select count(*) as count from TempUser <where> 1 = 1
+    <if test="status != null">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
-      and crn like '%' #{search,jdbcType=VARCHAR} '%'
+      and userId like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
   </where>
   </select>
-  <select id="getTempCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.base.TempCourse">
-    select * from TempCourse <where> 1 = 1
+  <select id="getTempUserByMapPageSearchOrdered" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+    select * from TempUser <where> 1 = 1
+    <if test="status != null">
+      and status = #{status,jdbcType=VARCHAR}
+    </if>
     <if test="search != null">
-      and crn like '%' #{search,jdbcType=VARCHAR} '%'
+      and userId like '%' #{search,jdbcType=VARCHAR} '%'
     </if>
   </where>
     order by ${orderColumn} ${order}

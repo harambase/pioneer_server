@@ -22,12 +22,12 @@ public class SwaggerDocumentationConfig {
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")
                 .version("1.0.0")
-                .contact(new Contact("Harambase Development Team","http://harambase.github.io", "lin.shilei@outlook.com"))
+                .contact(new Contact("Harambase Development Team", "http://harambase.github.io", "lin.shilei@outlook.com"))
                 .build();
     }
 
     @Bean
-    public Docket customImplementation(){
+    public Docket customImplementation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.harambase.pioneer.controller"))

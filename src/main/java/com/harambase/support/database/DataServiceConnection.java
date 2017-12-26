@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DataServiceConnection {
-    
+
     public static Connection openDBConnection() {
         try {
             // Load driver and link to driver manager

@@ -13,7 +13,6 @@ import com.harambase.pioneer.dao.repository.base.PinRepository;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.Pin;
-import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.service.PinService;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;

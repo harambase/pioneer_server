@@ -14,16 +14,6 @@ import java.util.List;
 
 public class ResultSetHelper {
 
-    private static class ClassField {
-        Class<?> clz;
-        Field[] fields;
-
-        private ClassField(Class<?> c, Field[] f) {
-            this.clz = c;
-            this.fields = f;
-        }
-    }
-
     public static <T> List<T> getObjectFor(ResultSet rs, Class<T> resultObject)
             throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
         List<T> retList = new ArrayList<>();
@@ -37,17 +27,17 @@ public class ResultSetHelper {
             do {
                 cfList.add(new ClassField(tmpClz, tmpClz.getDeclaredFields()));
                 tmpClz = tmpClz.getSuperclass();
-            } while(!tmpClz.getName().equals(Object.class.getName()));
+            } while (!tmpClz.getName().equals(Object.class.getName()));
 
-            while(rs.next()) {
+            while (rs.next()) {
                 T ret = clz.newInstance();
 
-                for(int i = cfList.size() - 1; i >= 0; --i) {
+                for (int i = cfList.size() - 1; i >= 0; --i) {
                     Field[] fields = (cfList.get(i)).fields;
                     Class<?> inkClz = (cfList.get(i)).clz;
                     int length = fields.length;
 
-                    for(int j = 0; j < length; ++j) {
+                    for (int j = 0; j < length; ++j) {
                         Field field = fields[j];
                         String filedName = field.getName();
                         String colName;
@@ -71,6 +61,16 @@ public class ResultSetHelper {
             }
 
             return retList;
+        }
+    }
+
+    private static class ClassField {
+        Class<?> clz;
+        Field[] fields;
+
+        private ClassField(Class<?> c, Field[] f) {
+            this.clz = c;
+            this.fields = f;
         }
     }
 }

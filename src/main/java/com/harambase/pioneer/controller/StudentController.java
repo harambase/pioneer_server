@@ -1,7 +1,7 @@
 package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.common.Tags;
+import com.harambase.common.constant.ApiTags;
 import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.service.StudentService;
 import io.swagger.annotations.Api;
@@ -28,7 +28,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiOperation(value = "新增用户", notes = "创建一个新的用户", response = Map.class, tags = {ApiTags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
     public ResponseEntity getTranscriptDetail(@PathVariable(value = "studentId") String studentid) {
@@ -36,7 +36,7 @@ public class StudentController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiOperation(value = "删除一个用户", notes = "删除一个用户", response = Map.class, tags = {ApiTags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
     public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentId,
@@ -45,7 +45,7 @@ public class StudentController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {ApiTags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody Student student) {
@@ -53,14 +53,14 @@ public class StudentController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {Tags.STUDENT})
+    @ApiOperation(value = "用户列表", notes = "only登录用户", response = Map.class, tags = {ApiTags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
-                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search", required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "status", required = false) String status) {
         HaramMessage message = studentService.studentList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
         return new ResponseEntity<>(message, HttpStatus.OK);

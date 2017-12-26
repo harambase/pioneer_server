@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MessageViewRepository extends JpaRepository<MessageView, Integer>{
+public interface MessageViewRepository extends JpaRepository<MessageView, Integer> {
 }

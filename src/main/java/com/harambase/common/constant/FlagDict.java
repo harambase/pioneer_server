@@ -7,11 +7,11 @@ public enum FlagDict {
     /**
      * 公共flag
      */
-    SUCCESS("操作成功",2001),
-    FAIL("操作失败",2002),
-    ILLEGAL_PARAM("参数有误",2003),
-    SENSITIVE_WORD("含有非法字符",2004),
-    SYSTEM_ERROR("系统异常",2005),
+    SUCCESS("操作成功", 2001),
+    FAIL("操作失败", 2002),
+    ILLEGAL_PARAM("参数有误", 2003),
+    SENSITIVE_WORD("含有非法字符", 2004),
+    SYSTEM_ERROR("系统异常", 2005),
     DELETE_BLOCK("不可删除", 2006),
     COURSE_FINISHED("课程已结束", 2007),
     USER_DISABLED("用户已禁用", 2008),
@@ -29,7 +29,7 @@ public enum FlagDict {
     private String m;
     private int v;
 
-    FlagDict(String m , int v){
+    FlagDict(String m, int v) {
         this.m = m;
         this.v = v;
     }

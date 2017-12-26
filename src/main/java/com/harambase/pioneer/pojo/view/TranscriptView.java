@@ -12,50 +12,50 @@ public class TranscriptView implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name="student_id")
+    @Column(name = "student_id")
     private String studentId;
 
-    @Column(name="crn")
+    @Column(name = "crn")
     private String crn;
 
-    @Column(name="grade")
+    @Column(name = "grade")
     private String grade;
 
-    @Column(name="complete")
+    @Column(name = "complete")
     private String complete;
 
-    @Column(name="assign_time")
+    @Column(name = "assign_time")
     private String assignTime;
 
-    @Column(name="operator_id")
+    @Column(name = "operator_id")
     private String operator;
 
     //Extension:
-    @Column(name="cname")
+    @Column(name = "cname")
     private String cname;
 
-    @Column(name="faculty_id")
+    @Column(name = "faculty_id")
     private String facultyId;
 
-    @Column(name="credits")
+    @Column(name = "credits")
     private Integer credits;
 
-    @Column(name="day")
+    @Column(name = "day")
     private String day;
 
-    @Column(name="time")
+    @Column(name = "time")
     private String time;
 
-    @Column(name="date")
+    @Column(name = "date")
     private String date;
 
-    @Column(name="sname")
+    @Column(name = "sname")
     private String sname;
 
-    @Column(name="fname")
+    @Column(name = "fname")
     private String fname;
 
-    @Column(name="info")
+    @Column(name = "info")
     private String info;
 
     public Integer getId() {
@@ -125,19 +125,19 @@ public class TranscriptView implements Serializable {
     public String getSname() {
         return sname;
     }
-    
+
     public void setSname(String sname) {
         this.sname = sname;
     }
-    
+
     public String getFname() {
         return fname;
     }
-    
+
     public void setFname(String fname) {
         this.fname = fname;
     }
-    
+
     public String getDay() {
         return day;
     }
@@ -169,7 +169,7 @@ public class TranscriptView implements Serializable {
     public void setCredits(Integer credits) {
         this.credits = credits;
     }
-    
+
     public String getCname() {
         return cname;
     }
@@ -185,5 +185,5 @@ public class TranscriptView implements Serializable {
     public void setFacultyId(String facultyId) {
         this.facultyId = facultyId;
     }
-    
+
 }

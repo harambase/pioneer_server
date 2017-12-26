@@ -9,16 +9,16 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="student_id")
+    @Column(name = "student_id")
     private String studentId;
 
-    @Column(name="max_credits")
+    @Column(name = "max_credits")
     private Integer maxCredits;
 
-    @Column(name="update_time")
+    @Column(name = "update_time")
     private String updateTime;
 
-    @OneToOne(optional=false, mappedBy="mapStudent")
+    @OneToOne(optional = false, mappedBy = "mapStudent")
     @PrimaryKeyJoinColumn
     private Person person;
 

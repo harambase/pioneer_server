@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "pin")
-public class Pin implements Serializable{
+public class Pin implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

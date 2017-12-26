@@ -1,6 +1,6 @@
-package com.harambase.common;
+package com.harambase.common.constant;
 
-public class Tags {
+public class ApiTags {
     public final static String PERSON = "/user(用户管理)";
     public final static String ADVISE = "/advise(导师关系管理)";
     public final static String COURSE = "/course(课程管理)";

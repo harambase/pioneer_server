@@ -6,29 +6,29 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "transcript_copy")
-public class Transcript implements Serializable{
+public class Transcript implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="student_id")
+    @Column(name = "student_id")
     private String studentId;
 
-    @Column(name="crn")
+    @Column(name = "crn")
     private String crn;
 
-    @Column(name="grade")
+    @Column(name = "grade")
     private String grade;
 
-    @Column(name="complete")
+    @Column(name = "complete")
     private String complete;
 
-    @Column(name="assign_time")
+    @Column(name = "assign_time")
     private String assignTime;
 
-    @Column(name="operator_id")
+    @Column(name = "operator_id")
     private String operatorId;
 
     public Integer getId() {

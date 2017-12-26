@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "studentview")
-public class StudentView implements Serializable{
+public class StudentView implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

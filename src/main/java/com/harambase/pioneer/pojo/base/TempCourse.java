@@ -10,22 +10,16 @@ public class TempCourse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String crn;
+    private String status;
+    private String createtime;
+    private String updatetime;
+    private String operator;
+    private String courseJson;
 
     public Integer getId() {
         return id;
     }
-
-    private String crn;
-
-    private String status;
-
-    private String createtime;
-
-    private String updatetime;
-
-    private String operator;
-
-    private String courseJson;
 
     public String getCrn() {
         return crn;

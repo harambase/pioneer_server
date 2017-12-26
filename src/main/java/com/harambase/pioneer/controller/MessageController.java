@@ -1,8 +1,7 @@
 package com.harambase.pioneer.controller;
 
 import com.harambase.common.HaramMessage;
-import com.harambase.common.Page;
-import com.harambase.common.Tags;
+import com.harambase.common.constant.ApiTags;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.service.MessageService;
 import io.swagger.annotations.Api;
@@ -14,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -31,7 +28,7 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Message message) {
@@ -39,7 +36,7 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
@@ -47,7 +44,7 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
@@ -56,7 +53,7 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
@@ -64,7 +61,7 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity count(@RequestParam(value = "status") String status,
@@ -87,14 +84,14 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
+    @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
-                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search", required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "box") String box,
                                @RequestParam(value = "userId") String userId) {
         String receiverId = null;

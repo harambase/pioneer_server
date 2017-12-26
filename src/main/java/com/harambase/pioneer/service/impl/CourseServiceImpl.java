@@ -68,7 +68,7 @@ public class CourseServiceImpl implements CourseService {
             }
             course.setCrn(crn);
 
-            if(!course.getFacultyId().equals(IDUtil.ROOT)) {
+            if (!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
                 if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyid), courseViewRepository.findByCrn(crn))) {
                     return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
@@ -137,7 +137,7 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage assignFac2Cou(String crn, String facultyId) {
 
         try {
-            if(!facultyId.equals(IDUtil.ROOT)) {
+            if (!facultyId.equals(IDUtil.ROOT)) {
                 //检查时间冲突
                 if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyId), courseViewRepository.findByCrn(crn))) {
                     return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);

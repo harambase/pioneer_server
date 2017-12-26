@@ -1,4 +1,4 @@
-package com.harambase.pioneer.dao.mapper;
+package mybatis.mapper;
 
 import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.view.CourseView;

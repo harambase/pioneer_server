@@ -2,20 +2,18 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
+import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.StudentDao;
+import com.harambase.pioneer.dao.repository.base.StudentRepository;
 import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
 import com.harambase.pioneer.dao.repository.view.StudentViewRepository;
+import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.view.StudentView;
-import com.harambase.pioneer.pojo.base.Student;
+import com.harambase.pioneer.service.StudentService;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
-import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.repository.base.StudentRepository;
-import com.harambase.pioneer.pojo.base.Person;
-import com.harambase.pioneer.service.StudentService;
 import com.harambase.support.util.ReturnMsgUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +41,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentServiceImpl(StudentRepository studentRepository,
                               StudentViewRepository studentViewRepository,
                               CourseViewRepository courseViewRepository,
-                              StudentDao studentDao){
+                              StudentDao studentDao) {
         this.courseViewRepository = courseViewRepository;
         this.studentViewRepository = studentViewRepository;
         this.studentRepository = studentRepository;
@@ -52,22 +50,22 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public HaramMessage transcriptDetail(String studentid) {
-       try{
-           StudentView sv = studentViewRepository.findOne(studentid);
-           return ReturnMsgUtil.success(sv);
-       }catch(Exception e){
-           logger.error(e.getMessage(), e);
-           return ReturnMsgUtil.systemError();
-       }
+        try {
+            StudentView sv = studentViewRepository.findOne(studentid);
+            return ReturnMsgUtil.success(sv);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
     public HaramMessage update(Student student) {
-        try{
+        try {
             student.setUpdateTime(DateUtil.DateToStr(new Date()));
             Student newStudent = studentRepository.save(student);
             return newStudent != null ? ReturnMsgUtil.success(newStudent) : ReturnMsgUtil.fail();
-        }catch(Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
@@ -117,7 +115,7 @@ public class StudentServiceImpl implements StudentService {
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
@@ -126,15 +124,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public HaramMessage getAvailableCredit(String studentid, String info) {
 
-        try{
+        try {
             List<CourseView> courseList = courseViewRepository.findCourseViewByStudentId(studentid);
             StudentView sv = studentViewRepository.findOne(studentid);
 
             int use_credits = 0;
             int tol_credits = sv.getMaxCredits();
 
-            for(CourseView course : courseList){
-                if(course.getInfo().equals(info))
+            for (CourseView course : courseList) {
+                if (course.getInfo().equals(info))
                     use_credits += course.getCredits();
             }
 
@@ -147,7 +145,7 @@ public class StudentServiceImpl implements StudentService {
             creditInfo.put("use_credits", use_credits);
 
             return ReturnMsgUtil.success(creditInfo);
-        }catch(Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
