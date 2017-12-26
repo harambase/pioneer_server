@@ -42,9 +42,9 @@ public class TranscriptController {
     @RequestMapping(value = {"/{studentId}/course", "/{crn}/student"}, produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search", required = false) String search,
-                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @PathVariable(value = "studentId", required = false) String studentId,
                                @PathVariable(value = "crn", required = false) String crn) {
 

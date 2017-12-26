@@ -72,7 +72,7 @@ public class CourseView {
     @Column(name = "faculty")
     private String faculty;
 
-    @Column(name = "statis")
+    @Column(name = "status")
     private String status;
 
     @Column(name = "date")

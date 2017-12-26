@@ -81,9 +81,9 @@ public class PersonController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search", required = false) String search,
-                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "type", required = false) String type,
                                @RequestParam(value = "status", required = false) String status) {
         HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status);

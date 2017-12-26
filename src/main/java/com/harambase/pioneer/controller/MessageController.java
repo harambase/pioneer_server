@@ -72,18 +72,18 @@ public class MessageController {
                                 @RequestParam(value = "userId") String userId) {
 
         String receiverId = null;
-        String senderId = null;
+        String senderid = null;
 
         if (box.contains("inbox") || box.contains("important"))
             receiverId = userId;
         if (box.contains("sent") || box.contains("draft"))
-            senderId = userId;
+            senderid = userId;
         if (box.contains("trash")) {
             receiverId = userId;
-            senderId = userId;
+            senderid = userId;
         }
 
-        HaramMessage haramMessage = messageService.countMessageByStatus(receiverId, senderId, box.toLowerCase(), status.toLowerCase());
+        HaramMessage haramMessage = messageService.countMessageByStatus(receiverId, senderid, box.toLowerCase(), status.toLowerCase());
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -92,23 +92,23 @@ public class MessageController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search", required = false) String search,
-                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "box") String box,
                                @RequestParam(value = "userId") String userId) {
         String receiverId = null;
-        String senderId = null;
+        String senderid = null;
 
         if (box.contains("inbox") || box.contains("important"))
             receiverId = userId;
         if (box.contains("sent") || box.contains("draft"))
-            senderId = userId;
+            senderid = userId;
         if (box.contains("trash")) {
             receiverId = userId;
-            senderId = userId;
+            senderid = userId;
         }
-        HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, receiverId, senderId, box);
+        HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, receiverId, senderid, box);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

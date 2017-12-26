@@ -22,7 +22,7 @@ public class SwaggerDocumentationConfig {
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .termsOfServiceUrl("")
                 .version("1.0.0")
-                .contact(new Contact("Harambase Development Team","harambase.github.io", "lin.shilei@outlook.com"))
+                .contact(new Contact("Harambase Development Team","http://harambase.github.io", "lin.shilei@outlook.com"))
                 .build();
     }
 

@@ -67,7 +67,7 @@ public class AdviseController {
     @RequestMapping(produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search"   , required = false) String search,
+                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
                                @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "studentid", required = false) String studentid,

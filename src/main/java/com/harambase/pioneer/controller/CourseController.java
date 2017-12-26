@@ -65,9 +65,9 @@ public class CourseController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
-                               @RequestParam(value = "search", required = false) String search,
-                               @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                               @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "search"   , required = false, defaultValue = "") String search,
+                               @RequestParam(value = "order"    , required = false, defaultValue = "desc") String order,
+                               @RequestParam(value = "orderCol" , required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "facultyId", required = false) String facultyId,
                                @RequestParam(value = "info", required = false) String info) {
         HaramMessage message = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyId, info);

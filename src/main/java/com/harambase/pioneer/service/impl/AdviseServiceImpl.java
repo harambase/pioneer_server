@@ -42,60 +42,66 @@ public class AdviseServiceImpl implements AdviseService {
     @Override
     public HaramMessage advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                      String studentid, String facultyid) {
-        HaramMessage message = new HaramMessage();
+        try {
+            HaramMessage message = new HaramMessage();
 
-        switch (Integer.parseInt(orderColumn)) {
-            case 0:
-                orderColumn = "sname";
-                break;
-            case 1:
-                orderColumn = "fname";
-                break;
-            case 2:
-                orderColumn = "status";
-                break;
-            case 3:
-                orderColumn = "updateTime";
-                break;
-            case 4:
-                orderColumn = "operator";
-                break;
-            default:
-                orderColumn = "updateTime";
-                break;
+            switch (Integer.parseInt(orderColumn)) {
+                case 0:
+                    orderColumn = "sname";
+                    break;
+                case 1:
+                    orderColumn = "fname";
+                    break;
+                case 2:
+                    orderColumn = "status";
+                    break;
+                case 3:
+                    orderColumn = "updateTime";
+                    break;
+                case 4:
+                    orderColumn = "operator";
+                    break;
+                default:
+                    orderColumn = "updateTime";
+                    break;
+            }
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+
+            Pageable pageable;
+
+            if (StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")) {
+                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
+            } else {
+                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
+            }
+
+            List<AdviseView> adviseList;
+
+            if (StringUtils.isNotEmpty(studentid)) {
+                adviseList = adviseViewRepository.findWithStudentId(search, search, search, search, studentid, pageable).getContent();
+            } else if (StringUtils.isNotEmpty(facultyid)) {
+                adviseList = adviseViewRepository.findWithFacultyId(search, search, search, search, facultyid, pageable).getContent();
+            } else if (StringUtils.isNotEmpty(search)) {
+                adviseList = adviseViewRepository.findSearchOnly(search, search, search, search, pageable).getContent();
+            } else {
+                adviseList = adviseViewRepository.findAll(pageable).getContent();
+            }
+            page.setTotalRows(adviseList.size());
+
+            message.setData(adviseList);
+            message.put("page", page);
+            message.setMsg(FlagDict.SUCCESS.getM());
+            message.setCode(FlagDict.SUCCESS.getV());
+
+            return message;
+        } catch (NumberFormatException e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+
         }
-
-        Page page = new Page();
-        page.setCurrentPage(PageUtil.getcPg(currentPage));
-        page.setPageSize(PageUtil.getLimit(pageSize));
-
-        Pageable pageable;
-
-        if (StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")) {
-            pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
-        } else {
-            pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
-        }
-
-        List<AdviseView> adviseList;
-
-        if (StringUtils.isNotEmpty(studentid)) {
-            adviseList = adviseViewRepository.findWithStudentId(search, search, search, search, studentid, pageable).getContent();
-        } else if (StringUtils.isNotEmpty(facultyid)) {
-            adviseList = adviseViewRepository.findWithFacultyId(search, search, search, search, facultyid, pageable).getContent();
-        } else if (StringUtils.isNotEmpty(search)) {
-            adviseList = adviseViewRepository.findSearchOnly(search, search, search, search, pageable).getContent();
-        } else {
-            adviseList = adviseViewRepository.findAll(pageable).getContent();
-        }
-        page.setTotalRows(adviseList.size());
-
-        message.setData(adviseList);
-        message.put("page", page);
-        message.setMsg(FlagDict.SUCCESS.getM());
-        message.setCode(FlagDict.SUCCESS.getV());
-
-        return message;
 
     }
 

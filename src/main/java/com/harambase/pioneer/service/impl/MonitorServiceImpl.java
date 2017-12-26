@@ -53,7 +53,7 @@ public class MonitorServiceImpl implements MonitorService{
             int f = personRepository.countByTypeAndStatus("f", "1");
             int a = personRepository.countByTypeAndStatus("a", "1");
 
-            data1.add(MapParam.pieChartValue(String.valueOf(s), "StudentView"));
+            data1.add(MapParam.pieChartValue(String.valueOf(s), "Student"));
             data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
             data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
 

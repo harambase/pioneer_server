@@ -19,8 +19,8 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/system")
-@Api(value = "/system", description = "系统管理接口")
+@RequestMapping("/monitor")
+@Api(value = "/monitor", description = "系统监控接口")
 public class MonitorController {
 
     private final MonitorService monitorService;
