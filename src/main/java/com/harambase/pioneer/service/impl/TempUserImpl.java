@@ -4,18 +4,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.base.TempUserDao;
 import com.harambase.pioneer.dao.repository.base.MessageRepository;
-import com.harambase.pioneer.dao.repository.base.TempCourseRepository;
 import com.harambase.pioneer.dao.repository.base.TempUserRepository;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.TempUser;
-import com.harambase.pioneer.pojo.view.AdviseView;
-import com.harambase.pioneer.service.RequestService;
+import com.harambase.pioneer.service.TempUserService;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.ReturnMsgUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +21,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
-public class RequestServiceImpl implements RequestService {
+public class TempUserImpl implements TempUserService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final TempUserRepository tempUserRepository;
-    private final TempCourseRepository tempCourseRepository;
     private final MessageRepository messageRepository;
 
+    private final TempUserDao tempUserDao;
+
     @Autowired
-    public RequestServiceImpl(TempUserRepository tempUserRepository,
-                              TempCourseRepository tempCourseRepository,
-                              MessageRepository messageRepository) {
-        this.tempCourseRepository = tempCourseRepository;
+    public TempUserImpl(TempUserRepository tempUserRepository,
+                        MessageRepository messageRepository,
+                        TempUserDao tempUserDao) {
         this.tempUserRepository = tempUserRepository;
         this.messageRepository = messageRepository;
+        this.tempUserDao = tempUserDao;
     }
 
     @Override
@@ -64,7 +61,6 @@ public class RequestServiceImpl implements RequestService {
     public HaramMessage register(JSONObject jsonObject) {
 
         try {
-
             String userid = IDUtil.genUserID(jsonObject.getString("info"));
 
             TempUser tempUser = new TempUser();
@@ -116,7 +112,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String viewStatus) {
+    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 1:
@@ -129,41 +125,27 @@ public class RequestServiceImpl implements RequestService {
                 orderColumn = "id";
                 break;
         }
-//        try {
-//            Map<String, Object> param = new HashMap<>();
-//            param.put("search", search);
-//            param.put("status", viewStatus);
-//
-//            if (StringUtils.isEmpty(search))
-//                param.put("search", null);
-//            if (StringUtils.isEmpty(viewStatus))
-//                param.put("status", null);
-//
-//            long totalSize = tempUserRepository.getTempUserCountByMapPageSearchOrdered(param); //startTime, endTime);
-//
-//            Page page = new Page();
-//            page.setCurrentPage(PageUtil.getcPg(currentPage));
-//            page.setPageSize(PageUtil.getLimit(pageSize));
-//            page.setTotalRows(totalSize);
-//
-//            param.put("currentIndex", page.getCurrentIndex());
-//            param.put("pageSize", page.getPageSize());
-//            param.put("order", order);
-//            param.put("orderColumn", orderColumn);
-//
-//            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-//            List<AdviseView> msgs = tempUserRepository.getTempUserByMapPageSearchOrdered(param);
-//
-//            message.setData(msgs);
-//            message.put("page", page);
+        try {
+
+            long totalSize = tempUserDao.getCountByMapPageSearchOrdered(search, status);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            List<TempUser> tempUsers = tempUserDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
+
+            message.setData(tempUsers);
+            message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
-//        } catch (Exception e) {
-//            logger.error(e.getMessage(), e);
-//            return ReturnMsgUtil.systemError();
-//        }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
 }

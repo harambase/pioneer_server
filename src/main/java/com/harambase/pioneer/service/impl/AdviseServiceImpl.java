@@ -103,39 +103,59 @@ public class AdviseServiceImpl implements AdviseService {
     @Override
     public HaramMessage assignMentor(Advise advise) {
 
-        int count = adviseViewRepository.countByFacultyidAndStudentid(advise.getFacultyid(), advise.getStudentid());
-        if (count != 0)
-            return ReturnMsgUtil.custom(FlagDict.ADVISE_DUPLICATE);
+        try {
+            int count = adviseViewRepository.countByFacultyidAndStudentid(advise.getFacultyid(), advise.getStudentid());
+            if (count != 0)
+                return ReturnMsgUtil.custom(FlagDict.ADVISE_DUPLICATE);
 
-        Advise a = adviseRepository.save(advise);
-        return a != null ? ReturnMsgUtil.success(a) : ReturnMsgUtil.fail();
+            Advise a = adviseRepository.save(advise);
+            return a != null ? ReturnMsgUtil.success(a) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
 
     }
 
     @Override
     public HaramMessage removeMentor(Integer id) {
-        adviseRepository.delete(id);
-        int count = adviseViewRepository.countAdviseViewById(id);
-        return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+        try {
+            adviseRepository.delete(id);
+            int count = adviseViewRepository.countAdviseViewById(id);
+            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
     public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
 
-        Advise advise = adviseRepository.findOne(id);
+        try {
+            Advise advise = adviseRepository.findOne(id);
 
-        advise.setId(id);
-        advise.setStudentid(studentId);
-        advise.setFacultyid(facultyId);
-        advise.setUpdateTime(DateUtil.DateToStr(new Date()));
-        Advise newAdvise = adviseRepository.save(advise);
+            advise.setId(id);
+            advise.setStudentid(studentId);
+            advise.setFacultyid(facultyId);
+            advise.setUpdateTime(DateUtil.DateToStr(new Date()));
+            Advise newAdvise = adviseRepository.save(advise);
 
-        return ReturnMsgUtil.success(newAdvise);
+            return ReturnMsgUtil.success(newAdvise);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
     public HaramMessage getMentor(Integer id) {
-        AdviseView advise = adviseViewRepository.findOne(id);
-        return ReturnMsgUtil.success(advise);
+        try {
+            AdviseView advise = adviseViewRepository.findOne(id);
+            return ReturnMsgUtil.success(advise);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.harambase.pioneer.dao.base;
 
-import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.view.TranscriptView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;

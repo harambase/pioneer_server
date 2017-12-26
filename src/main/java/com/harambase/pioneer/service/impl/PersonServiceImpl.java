@@ -162,7 +162,7 @@ public class PersonServiceImpl implements PersonService {
 
             //会自动删除学生表
             personRepository.delete(person);
-            int count = personRepository.countByUserid(userId);
+            int count = personRepository.countByUserId(userId);
 
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
         } catch (Exception e) {

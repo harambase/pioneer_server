@@ -44,43 +44,53 @@ public class MonitorServiceImpl implements MonitorService{
     @Override
     public HaramMessage userChart() {
 
-        //统计用户种类
-        List<Map<String, String>> data1 = new ArrayList<>();
+        try {
+            //统计用户种类
+            List<Map<String, String>> data1 = new ArrayList<>();
 
-        int s = personRepository.countByTypeAndStatus("s", "1");
-        int f = personRepository.countByTypeAndStatus("f", "1");
-        int a = personRepository.countByTypeAndStatus("a", "1");
+            int s = personRepository.countByTypeAndStatus("s", "1");
+            int f = personRepository.countByTypeAndStatus("f", "1");
+            int a = personRepository.countByTypeAndStatus("a", "1");
 
-        data1.add(MapParam.pieChartValue(String.valueOf(s), "StudentView"));
-        data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
-        data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
+            data1.add(MapParam.pieChartValue(String.valueOf(s), "StudentView"));
+            data1.add(MapParam.pieChartValue(String.valueOf(f), "Faculty"));
+            data1.add(MapParam.pieChartValue(String.valueOf(a), "Administrator"));
 
 
-        //统计性别
-        List<Map<String, String>> data2 = new ArrayList<>();
-        int male = personRepository.countByGenderAndStatus("male", "1");
-        int female = personRepository.countByGenderAndStatus("female", "1");
+            //统计性别
+            List<Map<String, String>> data2 = new ArrayList<>();
+            int male = personRepository.countByGenderAndStatus("male", "1");
+            int female = personRepository.countByGenderAndStatus("female", "1");
 
-        data2.add(MapParam.pieChartValue(String.valueOf(male), "Male"));
-        data2.add(MapParam.pieChartValue(String.valueOf(female), "Female"));
+            data2.add(MapParam.pieChartValue(String.valueOf(male), "Male"));
+            data2.add(MapParam.pieChartValue(String.valueOf(female), "Female"));
 
-        HaramMessage message = new HaramMessage();
-        message.put("dataBeast", data1);
-        message.put("xAxisData", data2);
+            HaramMessage message = new HaramMessage();
+            message.put("dataBeast", data1);
+            message.put("xAxisData", data2);
 
-        return message;
+            return message;
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
     public HaramMessage getRelationChart() {
 
-        List<Person> personList = personRepository.findAll();
-        List<CourseView> courseViewList = courseViewRepository.findAll();
-        List<Transcript> transcriptList = transcriptRepository.findAll();
-        List<Advise> adviseList = adviseRepository.findAll();
+        try {
+            List<Person> personList = personRepository.findAll();
+            List<CourseView> courseViewList = courseViewRepository.findAll();
+            List<Transcript> transcriptList = transcriptRepository.findAll();
+            List<Advise> adviseList = adviseRepository.findAll();
 
-        String xml = StaticGexfGraph.graphGenerator(personList, courseViewList, transcriptList, adviseList);
+            String xml = StaticGexfGraph.graphGenerator(personList, courseViewList, transcriptList, adviseList);
 
-        return ReturnMsgUtil.success(xml);
+            return ReturnMsgUtil.success(xml);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 }
