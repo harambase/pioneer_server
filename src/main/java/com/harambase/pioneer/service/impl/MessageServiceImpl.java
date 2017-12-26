@@ -4,8 +4,8 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.MessageDao;
-import com.harambase.pioneer.dao.repository.base.MessageRepository;
-import com.harambase.pioneer.dao.repository.base.PersonRepository;
+import com.harambase.pioneer.dao.repository.MessageRepository;
+import com.harambase.pioneer.dao.repository.PersonRepository;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.view.MessageView;
@@ -64,14 +64,14 @@ public class MessageServiceImpl implements MessageService {
                     break;
             }
 
-            long totalSize = messageDao.getMessageCountByMapPageSearchOrdered(receiverid, senderid, box, search); //startTime, endTime);
+            long totalSize = messageDao.getCountByMapPageSearchOrdered(receiverid, senderid, box, search); //startTime, endTime);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<MessageView> msgs = messageDao.getMessageByMapPageSearchOrdered(receiverid, senderid, box, search,
+            List<MessageView> msgs = messageDao.getByMapPageSearchOrdered(receiverid, senderid, box, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(msgs);

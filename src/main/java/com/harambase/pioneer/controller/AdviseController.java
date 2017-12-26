@@ -30,7 +30,7 @@ public class AdviseController {
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    public ResponseEntity create(@ApiParam(value = "导师关系", required = true) @RequestBody Advise advise) {
+    public ResponseEntity create(@RequestBody Advise advise) {
         HaramMessage message = adviseService.assignMentor(advise);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -46,9 +46,9 @@ public class AdviseController {
     @ApiOperation(value = "更新导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@ApiParam(value = "关系ID", required = true) @PathVariable Integer id,
-                                 @ApiParam(value = "学生ID", required = true) @RequestParam(value = "studentId") String studentId,
-                                 @ApiParam(value = "教师ID", required = true) @RequestParam(value = "facultyId") String facultyId) {
+    public ResponseEntity update(@PathVariable Integer id,
+                                 @RequestParam(value = "studentId") String studentId,
+                                 @RequestParam(value = "facultyId") String facultyId) {
         HaramMessage message = adviseService.updateAdvise(id, studentId, facultyId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -56,7 +56,7 @@ public class AdviseController {
     @ApiOperation(value = "获取导师关系信息", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {ApiTags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity get(@ApiParam(value = "关系ID", required = true) @RequestParam(value = "id") Integer id) {
+    public ResponseEntity get(@PathVariable(value = "id") Integer id) {
         HaramMessage message = adviseService.getMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

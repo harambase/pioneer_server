@@ -22,7 +22,7 @@ public class TempUserDao {
     public Long getCountByMapPageSearchOrdered(String search, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        Long count = Long.parseLong("0");
+        Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)

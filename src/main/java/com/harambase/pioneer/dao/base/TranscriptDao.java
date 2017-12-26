@@ -22,7 +22,7 @@ public class TranscriptDao {
     public Long getCountByMapPageSearchOrdered(String search, String studentId, String crn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        Long count = Long.parseLong("0");
+        Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)

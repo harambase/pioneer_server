@@ -4,9 +4,9 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.common.helper.TimeValidate;
-import com.harambase.pioneer.dao.repository.base.CourseRepository;
-import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
-import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
+import com.harambase.pioneer.dao.base.CourseDao;
+import com.harambase.pioneer.dao.repository.CourseRepository;
+import com.harambase.pioneer.dao.repository.TranscriptRepository;
 import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.base.Transcript;
 import com.harambase.pioneer.pojo.dto.Option;
@@ -16,13 +16,9 @@ import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.support.util.ReturnMsgUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,15 +31,15 @@ public class CourseServiceImpl implements CourseService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final CourseRepository courseRepository;
-    private final CourseViewRepository courseViewRepository;
     private final TranscriptRepository transcriptRepository;
 
+    private final CourseDao courseDao;
+
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, CourseViewRepository courseViewRepository,
-                             TranscriptRepository transcriptRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, TranscriptRepository transcriptRepository, CourseDao courseDao) {
         this.transcriptRepository = transcriptRepository;
         this.courseRepository = courseRepository;
-        this.courseViewRepository = courseViewRepository;
+        this.courseDao = courseDao;
     }
 
     @Override
@@ -56,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
 
             //生成CRN
             String info = course.getInfo();
-            List<CourseView> courses = courseViewRepository.findAllCoursesViewByInfo(info);
+            List<CourseView> courses = courseDao.findAllCoursesViewByInfo(info);
             String crn = IDUtil.genCRN(info);
             CourseView cv;
             for (int i = 0; i < courses.size(); i++) {
@@ -70,8 +66,8 @@ public class CourseServiceImpl implements CourseService {
 
             if (!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
-                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyid), courseViewRepository.findByCrn(crn))) {
-                    return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyid), courseDao.findByCrn(crn))) {
+                    return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
                 }
                 course.setFacultyId(facultyid);
             }
@@ -114,7 +110,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage getCourseByCrn(String crn) {
         try {
-            CourseView courseView = courseViewRepository.findByCrn(crn);
+            CourseView courseView = courseDao.findByCrn(crn);
             return ReturnMsgUtil.success(courseView);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -125,7 +121,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage getCourseBySearch(String search, String status) {
         try {
-            List<CourseView> results = courseViewRepository.findTop5ByStatusAndSearch(status, search);
+            List<CourseView> results = courseDao.findTop5ByStatusAndSearch(search, status);
             return ReturnMsgUtil.success(results);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -139,8 +135,8 @@ public class CourseServiceImpl implements CourseService {
         try {
             if (!facultyId.equals(IDUtil.ROOT)) {
                 //检查时间冲突
-                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByFacultyId(facultyId), courseViewRepository.findByCrn(crn))) {
-                    return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyId), courseDao.findByCrn(crn))) {
+                    return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
                 }
             }
 
@@ -160,7 +156,7 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage addStu2Cou(String crn, String studentId, Option option) {
 
         try {
-            CourseView courseView = courseViewRepository.findByCrn(crn);
+            CourseView courseView = courseDao.findByCrn(crn);
 
             //检查课程状态
             String status = courseView.getStatus();
@@ -169,8 +165,8 @@ public class CourseServiceImpl implements CourseService {
             }
 
             //检查时间冲突
-            if (!option.isTime() && TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByStudentId(studentId), courseView)) {
-                return ReturnMsgUtil.custom(FlagDict.TIMECONFLICT);
+            if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId(studentId), courseView)) {
+                return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
             }
 
             //检查课程容量
@@ -226,7 +222,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage countActiveCourse() {
         try {
-            int count = courseViewRepository.countAllByStatus("1");
+            int count = courseDao.countAllByStatus("1");
             return ReturnMsgUtil.success(count);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -238,12 +234,12 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage preCourseList(String crn) {
 
         try {
-            String[] precrns = courseViewRepository.findByCrn(crn).getPrecrn().split("/");
+            String[] precrns = courseDao.findByCrn(crn).getPrecrn().split("/");
             List<CourseView> preCourses = new ArrayList<>();
             CourseView cv2;
 
             for (String precrn : precrns) {
-                cv2 = courseViewRepository.findByCrn(precrn);
+                cv2 = courseDao.findByCrn(precrn);
                 if (cv2 != null)
                     preCourses.add(cv2);
             }
@@ -264,7 +260,7 @@ public class CourseServiceImpl implements CourseService {
 
             for (String crn : choices) {
 
-                CourseView courseView = courseViewRepository.findByCrn(crn);
+                CourseView courseView = courseDao.findByCrn(crn);
                 String failInfo = "CRN：" + crn + ", 课程名：" + courseView.getName() + "，失败原因:";
 
                 //检查课程状态
@@ -274,8 +270,8 @@ public class CourseServiceImpl implements CourseService {
                     continue;
                 }
                 //检查时间冲突
-                if (TimeValidate.isTimeConflict(courseViewRepository.findCourseViewByStudentId(studentId), courseView)) {
-                    failList.add(failInfo + FlagDict.TIMECONFLICT.getM());
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId(studentId), courseView)) {
+                    failList.add(failInfo + FlagDict.TIME_CONFLICT.getM());
                     continue;
                 }
                 //检查课程容量
@@ -337,19 +333,9 @@ public class CourseServiceImpl implements CourseService {
             List<Map<String, String>> infoList = new ArrayList<>();
             Set<String> infoSet = new HashSet<>();
             Map<String, String> infoMap;
-            List<CourseView> courseViewList;
-            String search = "";
-            Pageable pageable = new PageRequest(0, Integer.MAX_VALUE, Sort.Direction.DESC, "crn");
 
-            if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, facultyid, info, pageable).getContent();
-            } else if (StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithInfo(search, info, pageable).getContent();
-            } else if (StringUtils.isNotEmpty(facultyid)) {
-                courseViewList = courseViewRepository.findWithFacultyId(search, facultyid, pageable).getContent();
-            } else {
-                courseViewList = courseViewRepository.findAll(pageable).getContent();
-            }
+            List<CourseView> courseViewList =
+                    courseDao.getByMapPageSearchOrdered(facultyid,info,"",0,Integer.MAX_VALUE,"desc","crn");
 
             for (CourseView course : courseViewList) {
                 infoSet.add(course.getInfo());
@@ -420,38 +406,23 @@ public class CourseServiceImpl implements CourseService {
                     break;
             }
 
+            long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyid, info, search);
+
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
 
-            Pageable pageable;
-            if (StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")) {
-                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
-            } else {
-                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
-            }
-
-            List<CourseView> courseViewList;
-
-            if (StringUtils.isNotEmpty(facultyid) && StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithFacultyIdAndInfo(search, facultyid, info, pageable).getContent();
-            } else if (StringUtils.isNotEmpty(info)) {
-                courseViewList = courseViewRepository.findWithInfo(search, info, pageable).getContent();
-            } else if (StringUtils.isNotEmpty(facultyid)) {
-                courseViewList = courseViewRepository.findWithFacultyId(search, facultyid, pageable).getContent();
-            } else if (StringUtils.isNotEmpty(search)) {
-                courseViewList = courseViewRepository.findSearchOnly(search, pageable).getContent();
-            } else {
-                courseViewList = courseViewRepository.findAll(pageable).getContent();
-            }
-            page.setTotalRows(courseViewList.size());
+            List<CourseView> courseViewList = courseDao.getByMapPageSearchOrdered(facultyid, info, search,
+                    page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(courseViewList);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
-        } catch (NumberFormatException e) {
+
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }

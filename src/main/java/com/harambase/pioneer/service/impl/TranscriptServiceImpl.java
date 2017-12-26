@@ -4,7 +4,7 @@ import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.TranscriptDao;
-import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
+import com.harambase.pioneer.dao.repository.TranscriptRepository;
 import com.harambase.pioneer.pojo.base.Transcript;
 import com.harambase.pioneer.pojo.view.TranscriptView;
 import com.harambase.pioneer.service.TranscriptService;

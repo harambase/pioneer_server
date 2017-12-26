@@ -52,8 +52,8 @@ public class MessageDao {
 
     }
 
-    public long getMessageCountByMapPageSearchOrdered(String receiver_id, String sender_id,
-                                                      String box, String search) throws Exception {
+    public long getCountByMapPageSearchOrdered(String receiver_id, String sender_id,
+                                               String box, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         try {
@@ -92,8 +92,8 @@ public class MessageDao {
         }
     }
 
-    public List<MessageView> getMessageByMapPageSearchOrdered(String receiver_id, String sender_id, String box, String search, int currentIndex,
-                                                              int pageSize, String order, String orderColumn) throws Exception {
+    public List<MessageView> getByMapPageSearchOrdered(String receiver_id, String sender_id, String box, String search, int currentIndex,
+                                                       int pageSize, String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<MessageView> messageViewViewList = new ArrayList<>();
@@ -132,28 +132,9 @@ public class MessageDao {
         }
     }
 
-    private String whereBuilderByLabel(String receiver_id, String sender_id, String box) {
-
-        String queryString = "";
-
-        if (box.equals("inbox"))
-            queryString += "AND receiver_id like '%" + receiver_id + "%'";
-        if (box.equals("important"))
-            queryString += "AND receiver_id like '%" + receiver_id + "%' AND labels LIKE '%important%'";
-        if (box.equals("sent"))
-            queryString += "AND sender_id = '" + sender_id + "'";
-        if (box.equals("draft"))
-            queryString += "AND sender_id = '" + sender_id + "'";
-        if (box.equals("trash"))
-            queryString += "AND (receiver_id like '%" + receiver_id + "%' OR sender_id = '" + sender_id + "') AND status = 'trashed'";
-
-        return queryString;
-    }
-
     public MessageView findOne(Integer id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        StudentView studentView;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -178,5 +159,23 @@ public class MessageDao {
             if (connection != null)
                 connection.close();
         }
+    }
+
+    private String whereBuilderByLabel(String receiver_id, String sender_id, String box) {
+
+        String queryString = "";
+
+        if (box.equals("inbox"))
+            queryString += "AND receiver_id like '%" + receiver_id + "%'";
+        if (box.equals("important"))
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND labels LIKE '%important%'";
+        if (box.equals("sent"))
+            queryString += "AND sender_id = '" + sender_id + "'";
+        if (box.equals("draft"))
+            queryString += "AND sender_id = '" + sender_id + "'";
+        if (box.equals("trash"))
+            queryString += "AND (receiver_id like '%" + receiver_id + "%' OR sender_id = '" + sender_id + "') AND status = 'trashed'";
+
+        return queryString;
     }
 }

@@ -3,9 +3,9 @@ package com.harambase.pioneer.service.impl;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.base.CourseDao;
 import com.harambase.pioneer.dao.base.StudentDao;
-import com.harambase.pioneer.dao.repository.base.StudentRepository;
-import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
+import com.harambase.pioneer.dao.repository.StudentRepository;
 import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.view.StudentView;
@@ -31,17 +31,16 @@ public class StudentServiceImpl implements StudentService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final StudentRepository studentRepository;
-    private final CourseViewRepository courseViewRepository;
 
     private final StudentDao studentDao;
+    private final CourseDao courseDao;
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository,
-                              CourseViewRepository courseViewRepository,
-                              StudentDao studentDao) {
-        this.courseViewRepository = courseViewRepository;
+                              StudentDao studentDao, CourseDao courseDao) {
         this.studentRepository = studentRepository;
         this.studentDao = studentDao;
+        this.courseDao = courseDao;
     }
 
     @Override
@@ -121,7 +120,7 @@ public class StudentServiceImpl implements StudentService {
     public HaramMessage getAvailableCredit(String studentid, String info) {
 
         try {
-            List<CourseView> courseList = courseViewRepository.findCourseViewByStudentId(studentid);
+            List<CourseView> courseList = courseDao.findCourseViewByStudentId(studentid);
             StudentView sv = studentDao.findOne(studentid);
 
             int use_credits = 0;

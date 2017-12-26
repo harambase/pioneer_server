@@ -1,6 +1,7 @@
 package com.harambase.pioneer.dao.base;
 
-import com.harambase.pioneer.pojo.view.StudentView;
+import com.harambase.pioneer.pojo.view.AdviseView;
+import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -15,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class StudentDao {
+public class AdviseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    public Long getCountByMapPageSearchOrdered(String search, String status) throws Exception {
+    
+    public Long getCountByMapPageSearchOrdered(String facultyId, String studentId, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Long count = 0L;
@@ -30,18 +31,16 @@ public class StudentDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT COUNT(*) AS count FROM studentview WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(status))
-                queryString += "AND status = '" + status + "' ";
+            String queryString = "SELECT COUNT(*) AS count FROM adviseview WHERE 1=1 ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND faculty_id = '" + facultyId + "' ";
+            if (StringUtils.isNotEmpty(studentId))
+                queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(search)) {
-                queryString += "AND(" +
-                        "studentid   LIKE  '%" + search + "%' OR " +
-                        "max_credits LIKE  '%" + search + "%' OR " +
-                        "status      LIKE  '%" + search + "%' OR " +
-                        "sname       LIKE  '%" + search + "%' OR " +
-                        "complete    LIKE  '%" + search + "%' OR " +
-                        "progress    LIKE  '%" + search + "%' OR " +
-                        "incomplete  LIKE  '%" + search + "%')";
+                queryString += "AND(student_id LIKE '%" + search + "%' OR " +
+                               "    faculty_id LIKE '%" + search + "%' OR " +
+                               "    sname      LIKE '%" + search + "%' OR " +
+                               "    fname      LIKE '%" + search + "%')";
             }
             rs = stmt.executeQuery(queryString);
             logger.info(queryString);
@@ -59,38 +58,36 @@ public class StudentDao {
         }
     }
 
-    public List<StudentView> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                       String order, String orderColumn, String status) throws Exception {
+    public List<AdviseView> getByMapPageSearchOrdered(String facultyId, String studentId, String search, int currentIndex, int pageSize,
+                                                      String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        List<StudentView> studentList = new ArrayList<>();
+        List<AdviseView> adviseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
-                return studentList;
+                return adviseViews;
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM studentview WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(status))
-                queryString += "AND status = '" + status + "' ";
+            String queryString = "SELECT * FROM adviseview WHERE 1=1 ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND faculty_id = '" + facultyId + "' ";
+            if (StringUtils.isNotEmpty(studentId))
+                queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(search)) {
-                queryString += "AND(" +
-                        "studentid   LIKE  '%" + search + "%' OR " +
-                        "max_credits LIKE  '%" + search + "%' OR " +
-                        "status      LIKE  '%" + search + "%' OR " +
-                        "sname       LIKE  '%" + search + "%' OR " +
-                        "complete    LIKE  '%" + search + "%' OR " +
-                        "progress    LIKE  '%" + search + "%' OR " +
-                        "incomplete  LIKE  '%" + search + "%')";
+                queryString += "AND(student_id LIKE '%" + search + "%' OR " +
+                               "    faculty_id LIKE '%" + search + "%' OR " +
+                               "    sname      LIKE '%" + search + "%' OR " +
+                               "    fname      LIKE '%" + search + "%')";
             }
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            studentList = ResultSetHelper.getObjectFor(rs, StudentView.class);
-            return studentList;
+            adviseViews = ResultSetHelper.getObjectFor(rs, AdviseView.class);
+            return adviseViews;
 
         } finally {
             if (rs != null)
@@ -100,10 +97,9 @@ public class StudentDao {
         }
     }
 
-    public StudentView findOne(String studentId) throws Exception {
+    public AdviseView findOne(Integer id) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
-        StudentView studentView;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -111,16 +107,16 @@ public class StudentDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM studentview WHERE student_id='" + studentId + "'";
+            String queryString = "SELECT * FROM courseview WHERE id=" + id + "";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            List<StudentView> studentList = ResultSetHelper.getObjectFor(rs, StudentView.class);
+            List<AdviseView> adviseViewList = ResultSetHelper.getObjectFor(rs, AdviseView.class);
 
-            if (studentList.isEmpty())
+            if (adviseViewList.isEmpty())
                 return null;
 
-            return studentList.get(0);
+            return adviseViewList.get(0);
 
         } finally {
             if (rs != null)

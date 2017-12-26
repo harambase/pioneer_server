@@ -18,6 +18,7 @@ import java.util.Map;
 @Api(value = "/course", description = "课程中心接口")
 @RequestMapping(value = "/course")
 public class CourseController {
+
     private final CourseService courseService;
 
     @Autowired
@@ -28,7 +29,7 @@ public class CourseController {
     @ApiOperation(value = "新增课程", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity create(@ApiParam(value = "课程", required = true) @RequestBody Course course) {
+    public ResponseEntity create(@RequestBody Course course) {
         HaramMessage haramMessage = courseService.create(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
@@ -36,7 +37,7 @@ public class CourseController {
     @ApiOperation(value = "删除一个课程", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{crn}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@ApiParam(value = "课程CRN", required = true) @PathVariable(value = "crn") String crn) {
+    public ResponseEntity delete(@PathVariable(value = "crn") String crn) {
         HaramMessage haramMessage = courseService.delete(crn);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
@@ -79,7 +80,6 @@ public class CourseController {
         HaramMessage message = courseService.courseTreeList(facultyid, info);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
-
 
     @ApiOperation(value = "搜索课程", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})

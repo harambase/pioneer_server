@@ -1,6 +1,5 @@
 package com.harambase.support.database;
 
-
 import javax.persistence.Column;
 import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;

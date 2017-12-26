@@ -2,10 +2,10 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.MapParam;
-import com.harambase.pioneer.dao.repository.base.AdviseRepository;
-import com.harambase.pioneer.dao.repository.base.PersonRepository;
-import com.harambase.pioneer.dao.repository.base.TranscriptRepository;
-import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
+import com.harambase.pioneer.dao.base.CourseDao;
+import com.harambase.pioneer.dao.repository.AdviseRepository;
+import com.harambase.pioneer.dao.repository.PersonRepository;
+import com.harambase.pioneer.dao.repository.TranscriptRepository;
 import com.harambase.pioneer.pojo.base.Advise;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.base.Transcript;
@@ -32,16 +32,17 @@ public class MonitorServiceImpl implements MonitorService {
 
     private final PersonRepository personRepository;
     private final AdviseRepository adviseRepository;
-    private final CourseViewRepository courseViewRepository;
     private final TranscriptRepository transcriptRepository;
 
+    private final CourseDao courseDao;
+
     @Autowired
-    public MonitorServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository, CourseViewRepository courseViewRepository,
-                              TranscriptRepository transcriptRepository) {
+    public MonitorServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
+                              CourseDao courseDao, TranscriptRepository transcriptRepository) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;
-        this.courseViewRepository = courseViewRepository;
         this.transcriptRepository = transcriptRepository;
+        this.courseDao = courseDao;
     }
 
     @Override
@@ -81,17 +82,24 @@ public class MonitorServiceImpl implements MonitorService {
 
     @Override
     public HaramMessage getSystemCount() {
-        Map<String, Integer> data = new HashMap<>();
 
-        int student = personRepository.countByTypeAndStatus("s", "1");
-        int faculty = personRepository.countByTypeAndStatus("f", "1");
-        int course = courseViewRepository.countAllByStatus("1");
+        try {
+            Map<String, Integer> data = new HashMap<>();
 
-        data.put("student", student);
-        data.put("faculty", faculty);
-        data.put("course", course);
+            int student = personRepository.countByTypeAndStatus("s", "1");
+            int faculty = personRepository.countByTypeAndStatus("f", "1");
+            int course = courseDao.countAllByStatus("1");
 
-        return ReturnMsgUtil.success(data);
+            data.put("student", student);
+            data.put("faculty", faculty);
+            data.put("course", course);
+
+            return ReturnMsgUtil.success(data);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
@@ -99,7 +107,7 @@ public class MonitorServiceImpl implements MonitorService {
 
         try {
             List<Person> personList = personRepository.findAll();
-            List<CourseView> courseViewList = courseViewRepository.findAll();
+            List<CourseView> courseViewList = courseDao.getByMapPageSearchOrdered("","","",0,Integer.MAX_VALUE,"desc","crn");
             List<Transcript> transcriptList = transcriptRepository.findAll();
             List<Advise> adviseList = adviseRepository.findAll();
 
@@ -111,4 +119,5 @@ public class MonitorServiceImpl implements MonitorService {
             return ReturnMsgUtil.systemError();
         }
     }
+
 }
