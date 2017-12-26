@@ -73,7 +73,7 @@ public class CourseView {
     private String faculty;
 
     @Column(name = "status")
-    private String status;
+    private Integer status;
 
     @Column(name = "date")
     private String date;
@@ -265,11 +265,11 @@ public class CourseView {
         this.faculty = faculty;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

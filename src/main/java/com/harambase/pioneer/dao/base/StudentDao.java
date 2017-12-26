@@ -43,8 +43,8 @@ public class StudentDao {
                         "progress    LIKE  '%" + search + "%' OR " +
                         "incomplete  LIKE  '%" + search + "%')";
             }
-            rs = stmt.executeQuery(queryString);
             logger.info(queryString);
+            rs = stmt.executeQuery(queryString);
 
             if (rs.next()) {
                 count = rs.getLong("count");

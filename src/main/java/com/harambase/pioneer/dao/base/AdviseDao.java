@@ -1,7 +1,6 @@
 package com.harambase.pioneer.dao.base;
 
 import com.harambase.pioneer.pojo.view.AdviseView;
-import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -42,8 +41,9 @@ public class AdviseDao {
                                "    sname      LIKE '%" + search + "%' OR " +
                                "    fname      LIKE '%" + search + "%')";
             }
-            rs = stmt.executeQuery(queryString);
             logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
 
             if (rs.next()) {
                 count = rs.getLong("count");
@@ -107,7 +107,7 @@ public class AdviseDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM courseview WHERE id=" + id + "";
+            String queryString = "SELECT * FROM adviseview WHERE id=" + id + "";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

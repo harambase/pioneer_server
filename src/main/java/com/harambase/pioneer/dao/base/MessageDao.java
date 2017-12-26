@@ -1,10 +1,8 @@
 package com.harambase.pioneer.dao.base;
 
 import com.harambase.pioneer.pojo.view.MessageView;
-import com.harambase.pioneer.pojo.view.StudentView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

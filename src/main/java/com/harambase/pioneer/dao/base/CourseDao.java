@@ -73,13 +73,13 @@ public class CourseDao {
                 queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "(c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
+                        " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
                         " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
                         " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
                         " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.updateTime LIKE '%" + search + "%')";
             }
-            rs = stmt.executeQuery(queryString);
             logger.info(queryString);
+            rs = stmt.executeQuery(queryString);
 
             if (rs.next()) {
                 count = rs.getLong("count");
@@ -98,11 +98,11 @@ public class CourseDao {
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        List<CourseView> personList = new ArrayList<>();
+        List<CourseView> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
-                return personList;
+                return courseViews;
 
             Statement stmt = connection.createStatement();
 
@@ -113,7 +113,7 @@ public class CourseDao {
                 queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "(c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
+                        " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
                         " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
                         " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
                         " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.updateTime LIKE '%" + search + "%')";
@@ -123,8 +123,8 @@ public class CourseDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            personList = ResultSetHelper.getObjectFor(rs, CourseView.class);
-            return personList;
+            courseViews = ResultSetHelper.getObjectFor(rs, CourseView.class);
+            return courseViews;
 
         } finally {
             if (rs != null)
@@ -145,7 +145,6 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
             String queryString = "select * from courseview where info= '" + info + "'";
-
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
@@ -227,7 +226,6 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
             String queryString = "SELECT * FROM CourseView c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.student_id = '" + studentId + "'";
-
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
@@ -252,7 +250,6 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
             String queryString = "SELECT count(*) AS count FROM courseview WHERE status='" + status + "'";
-
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

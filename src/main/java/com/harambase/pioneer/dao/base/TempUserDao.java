@@ -36,8 +36,8 @@ public class TempUserDao {
             if (StringUtils.isNotEmpty(search))
                 queryString += "AND userid   LIKE  '%" + search + "%' ";
 
-            rs = stmt.executeQuery(queryString);
             logger.info(queryString);
+            rs = stmt.executeQuery(queryString);
 
             if (rs.next()) {
                 count = rs.getLong("count");

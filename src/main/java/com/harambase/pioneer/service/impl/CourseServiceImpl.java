@@ -159,8 +159,8 @@ public class CourseServiceImpl implements CourseService {
             CourseView courseView = courseDao.findByCrn(crn);
 
             //检查课程状态
-            String status = courseView.getStatus();
-            if (status.equals("-1")) {
+            Integer status = courseView.getStatus();
+            if (status == -1) {
                 return ReturnMsgUtil.custom(FlagDict.COURSE_DISABLED);
             }
 
@@ -264,8 +264,8 @@ public class CourseServiceImpl implements CourseService {
                 String failInfo = "CRN：" + crn + ", 课程名：" + courseView.getName() + "，失败原因:";
 
                 //检查课程状态
-                String status = courseView.getStatus();
-                if (status.equals("-1")) {
+                Integer status = courseView.getStatus();
+                if (status == -1) {
                     failList.add(failInfo + FlagDict.COURSE_DISABLED.getM());
                     continue;
                 }
