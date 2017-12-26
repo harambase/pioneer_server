@@ -103,7 +103,7 @@ public class PersonServiceImpl implements PersonService {
 
             if (person.getType().contains("s")) {
                 Student student = new Student();
-                student.setStudentid(userid);
+                student.setStudentId(userid);
                 student.setMaxCredits(12);
                 student.setUpdateTime(DateUtil.DateToStr(new Date()));
                 studentRepository.save(student);
@@ -148,7 +148,7 @@ public class PersonServiceImpl implements PersonService {
             }
 
             adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
-            transcriptRepository.deleteTranscriptByStudentid(person.getUserId());
+            transcriptRepository.deleteTranscriptByStudentId(person.getUserId());
 
             List<Course> courseList = courseRepository.findCourseByFacultyId(person.getUserId());
 

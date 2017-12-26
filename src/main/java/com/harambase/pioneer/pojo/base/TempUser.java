@@ -9,30 +9,41 @@ public class TempUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Integer id;
+
+    @Column(name="user_id")
+    private String userId;
+
+    @Column(name="status")
+    private String status;
+
+    @Column(name="create_time")
+    private String createTime;
+
+    @Column(name="update_time")
+    private String updateTime;
+
+    @Column(name="operator_id")
+    private String operatorId;
+
+    @Column(name="user_json")
+    private String userJson;
 
     public Integer getId() {
         return id;
     }
 
-    private String userid;
-
-    private String status;
-
-    private String createtime;
-
-    private String updatetime;
-
-    private String operator;
-
-    private String userJson;
-
-    public String getUserid() {
-        return userid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     public String getStatus() {
@@ -43,28 +54,28 @@ public class TempUser implements Serializable {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
-    public String getUpdatetime() {
-        return updatetime;
+    public String getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(String updatetime) {
-        this.updatetime = updatetime == null ? null : updatetime.trim();
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime == null ? null : updateTime.trim();
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperatorId() {
+        return operatorId;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId == null ? null : operatorId.trim();
     }
 
     public String getUserJson() {

@@ -64,10 +64,10 @@ public class TempUserImpl implements TempUserService {
             String userid = IDUtil.genUserID(jsonObject.getString("info"));
 
             TempUser tempUser = new TempUser();
-            tempUser.setUserid(userid);
+            tempUser.setUserId(userid);
             tempUser.setUserJson(jsonObject.toJSONString());
-            tempUser.setCreatetime(DateUtil.DateToStr(new Date()));
-            tempUser.setUpdatetime(DateUtil.DateToStr(new Date()));
+            tempUser.setCreateTime(DateUtil.DateToStr(new Date()));
+            tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
             tempUser.setStatus("0");
 
             TempUser newTempUser = tempUserRepository.save(tempUser);
@@ -101,7 +101,7 @@ public class TempUserImpl implements TempUserService {
     @Override
     public HaramMessage updateTempUser(TempUser tempUser) {
         try {
-            tempUser.setUpdatetime(DateUtil.DateToStr(new Date()));
+            tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
             TempUser newTempUser = tempUserRepository.save(tempUser);
             return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();
         } catch (Exception e) {

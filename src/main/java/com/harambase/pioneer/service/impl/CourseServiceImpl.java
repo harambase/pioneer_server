@@ -182,7 +182,7 @@ public class CourseServiceImpl implements CourseService {
             //检查预选
             String[] preCrns = courseView.getPrecrn().split("/");
             for (String preCrn : preCrns) {
-                int count = transcriptRepository.countByStudentidAndCrnAndComplete(studentId, preCrn, "1");
+                int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
                 if (count != 1 && !option.isPrereq()) {
                     return ReturnMsgUtil.custom(FlagDict.UNMET_PREREQ);
                 }
@@ -192,12 +192,12 @@ public class CourseServiceImpl implements CourseService {
             transcript.setComplete("0");
             transcript.setGrade("*");
             transcript.setCrn(crn);
-            transcript.setStudentid(studentId);
-            transcript.setOperator(IDUtil.ROOT);
-            transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+            transcript.setStudentId(studentId);
+            transcript.setOperatorId(IDUtil.ROOT);
+            transcript.setAssignTime(DateUtil.DateToStr(new Date()));
 
             //检查复选
-            int count = transcriptRepository.countByStudentidAndCrn(studentId, crn);
+            int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
             if (count != 0) {
                 return ReturnMsgUtil.custom(FlagDict.REPEAT);
             }
@@ -214,8 +214,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage removeStuFromCou(String crn, String studentid) {
         try {
-            transcriptRepository.deleteTranscriptByStudentidAndCrn(studentid, crn);
-            int count = transcriptRepository.countByStudentidAndCrn(studentid, crn);
+            transcriptRepository.deleteTranscriptByStudentIdAndCrn(studentid, crn);
+            int count = transcriptRepository.countByStudentIdAndCrn(studentid, crn);
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -289,7 +289,7 @@ public class CourseServiceImpl implements CourseService {
                 boolean pre = true;
                 String[] preCrns = courseView.getPrecrn().split("/");
                 for (String preCrn : preCrns) {
-                    int count = transcriptRepository.countByStudentidAndCrnAndComplete(studentId, preCrn, "1");
+                    int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
                     if (count != 1) {
                         failList.add(failInfo + FlagDict.UNMET_PREREQ.getM());
                         pre = false;
@@ -300,19 +300,19 @@ public class CourseServiceImpl implements CourseService {
                     continue;
 
                 //检查复选
-                int count = transcriptRepository.countByStudentidAndCrn(studentId, crn);
+                int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
                 if (count != 0) {
                     failList.add(failInfo + FlagDict.REPEAT.getM());
                     continue;
                 }
 
                 Transcript transcript = new Transcript();
-                transcript.setAssigntime(DateUtil.DateToStr(new Date()));
+                transcript.setAssignTime(DateUtil.DateToStr(new Date()));
                 transcript.setComplete("0");
                 transcript.setGrade("*");
                 transcript.setCrn(crn);
-                transcript.setStudentid(studentId);
-                transcript.setOperator(IDUtil.ROOT);
+                transcript.setStudentId(studentId);
+                transcript.setOperatorId(IDUtil.ROOT);
 
                 //保存
                 Transcript newTranscript = transcriptRepository.save(transcript);

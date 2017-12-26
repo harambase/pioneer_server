@@ -9,24 +9,34 @@ public class Pin implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "pin")
     private Integer pin;
 
+    @Column(name = "info")
     private String info;
 
-    private String facultyid;
+    @Column(name = "faculty_id")
+    private String facultyId;
 
-    private String studentid;
+    @Column(name = "student_id")
+    private String studentId;
 
+    @Column(name = "role")
     private Integer role;
 
-    private String starttime;
+    @Column(name = "start_time")
+    private String startTime;
 
-    private String endtime;
+    @Column(name = "end_time")
+    private String endTime;
 
-    private String createtime;
+    @Column(name = "create_time")
+    private String createTime;
 
+    @Column(name = "remark")
     private String remark;
 
     public Integer getId() {
@@ -53,20 +63,20 @@ public class Pin implements Serializable{
         this.info = info == null ? null : info.trim();
     }
 
-    public String getFacultyid() {
-        return facultyid;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid == null ? null : facultyid.trim();
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId == null ? null : facultyId.trim();
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
 
     public Integer getRole() {
@@ -77,28 +87,28 @@ public class Pin implements Serializable{
         this.role = role;
     }
 
-    public String getStarttime() {
-        return starttime;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setStarttime(String starttime) {
-        this.starttime = starttime == null ? null : starttime.trim();
+    public void setStartTime(String startTime) {
+        this.startTime = startTime == null ? null : startTime.trim();
     }
 
-    public String getEndtime() {
-        return endtime;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime = endtime == null ? null : endtime.trim();
+    public void setEndTime(String endTime) {
+        this.endTime = endTime == null ? null : endTime.trim();
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime == null ? null : createtime.trim();
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime == null ? null : createTime.trim();
     }
 
     public String getRemark() {
@@ -109,19 +119,4 @@ public class Pin implements Serializable{
         this.remark = remark == null ? null : remark.trim();
     }
 
-    @Override
-    public String toString() {
-        return "Pin{" +
-                "id=" + id +
-                ", pin=" + pin +
-                ", info='" + info + '\'' +
-                ", facultyid='" + facultyid + '\'' +
-                ", studentid='" + studentid + '\'' +
-                ", role=" + role +
-                ", starttime='" + starttime + '\'' +
-                ", endtime='" + endtime + '\'' +
-                ", createtime='" + createtime + '\'' +
-                ", remark='" + remark + '\'' +
-                '}';
-    }
 }

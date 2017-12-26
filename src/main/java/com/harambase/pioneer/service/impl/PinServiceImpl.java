@@ -90,19 +90,19 @@ public class PinServiceImpl implements PinService{
                 }while(count != 0);
 
                 pin.setPin(pinNum);
-                pin.setStarttime(startTime);
-                pin.setEndtime(endTime);
-                pin.setCreatetime(DateUtil.DateToStr(new Date()));
+                pin.setStartTime(startTime);
+                pin.setEndTime(endTime);
+                pin.setCreateTime(DateUtil.DateToStr(new Date()));
                 pin.setRole(role);
                 pin.setInfo(info);
                 pin.setRemark(remark);
 
                 switch (role){
                     case 1:
-                        pin.setStudentid(person.getUserId());
+                        pin.setStudentId(person.getUserId());
                         break;
                     case 2:
-                        pin.setFacultyid(person.getUserId());
+                        pin.setFacultyId(person.getUserId());
                         break;
                 }
 
@@ -172,9 +172,9 @@ public class PinServiceImpl implements PinService{
 
             for(Pin pin : pinInfoList){
                 if(pin.getRole() == 2){
-                    String facultyId = pin.getFacultyid();
+                    String facultyId = pin.getFacultyId();
                     String body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
-                            + pin.getStarttime() + "至" + pin.getEndtime();
+                            + pin.getStartTime() + "至" + pin.getEndTime();
                     message.setReceiverId(facultyId);
                     message.setBody(body);
                     Message newMessage = messageRepository.save(message);
@@ -209,13 +209,13 @@ public class PinServiceImpl implements PinService{
 
             for(Pin pin : pinInfoList){
                 if(pin.getRole() == 1){
-                    String studentId = pin.getStudentid();
+                    String studentId = pin.getStudentId();
                     String facultyId = adviseRepository.findOneByStudentId(studentId).getFacultyId();
                     Person student = personRepository.findOne(studentId);
                     String studentName = student.getLastName() + ", " + student.getFirstName();
 
                     String body = "您的辅导学生"+ studentName +"用于选课的PIN是：" + pin.getPin() + "，有效期为："
-                            + pin.getStarttime() + "至" + pin.getEndtime() + "请及时告知，谢谢！";
+                            + pin.getStartTime() + "至" + pin.getEndTime() + "请及时告知，谢谢！";
                     message.setReceiverId(facultyId);
                     message.setBody(body);
                     Message newMessage = messageRepository.save(message);

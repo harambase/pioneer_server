@@ -10,6 +10,7 @@ public class StudentView implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private String studentid;
 
     @Column(name = "sname")

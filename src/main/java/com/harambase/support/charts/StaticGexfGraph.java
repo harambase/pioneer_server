@@ -106,7 +106,7 @@ public class StaticGexfGraph {
 			Node pNode = graph.getNode(userid);
 			if(type.contains("s")) {
 				for (Transcript t : transcriptList) {
-					if (t.getStudentid().equals(userid)) {
+					if (t.getStudentId().equals(userid)) {
 						Node cNode = graph.getNode(t.getCrn());
 						pNode.connectTo(String.valueOf(index), cNode);
 						index++;

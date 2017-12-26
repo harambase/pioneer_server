@@ -9,25 +9,34 @@ public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "sender_id")
     private String senderId;
-    
+
+    @Column(name = "subject")
     private String subject;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "status")
     private String status;
 
+    @Column(name = "date")
     private String date;
 
+    @Column(name = "attachment")
     private String attachment;
 
+    @Column(name = "tag")
     private String tag;
 
+    @Column(name = "labels")
     private String labels;
 
+    @Column(name = "body")
     private String body;
 
     @Column(name = "receiver_id")

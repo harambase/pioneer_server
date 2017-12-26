@@ -7,11 +7,11 @@
     <result column="crn" property="crn" jdbcType="VARCHAR" />
     <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="complete" property="complete" jdbcType="VARCHAR" />
-    <result column="assigntime" property="assigntime" jdbcType="VARCHAR" />
+    <result column="assignTime" property="assignTime" jdbcType="VARCHAR" />
     <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, studentId, crn, grade, complete, assigntime
+    id, studentId, crn, grade, complete, assignTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -33,10 +33,10 @@
 
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     insert into Transcript (id, studentId, crn,
-      grade, complete, assigntime, operator_id
+      grade, complete, assignTime, operator_id
       )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{crn,jdbcType=VARCHAR},
-      #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assigntime,jdbcType=VARCHAR},#{operator_id,jdbcType=VARCHAR}
+      #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assignTime,jdbcType=VARCHAR},#{operator_id,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
@@ -57,8 +57,8 @@
       <if test="complete != null" >
         complete,
       </if>
-      <if test="assigntime != null" >
-        assigntime,
+      <if test="assignTime != null" >
+        assignTime,
       </if>
       <if test="operator_id != null" >
         operator_id,
@@ -80,8 +80,8 @@
       <if test="complete != null" >
         #{complete,jdbcType=VARCHAR},
       </if>
-      <if test="assigntime != null" >
-        #{assigntime,jdbcType=VARCHAR},
+      <if test="assignTime != null" >
+        #{assignTime,jdbcType=VARCHAR},
       </if>
       <if test="operator_id != null" >
         #{operator_id,jdbcType=VARCHAR}
@@ -103,8 +103,8 @@
       <if test="complete != null" >
         complete = #{complete,jdbcType=VARCHAR},
       </if>
-      <if test="assigntime != null" >
-        assigntime = #{assigntime,jdbcType=VARCHAR},
+      <if test="assignTime != null" >
+        assignTime = #{assignTime,jdbcType=VARCHAR},
       </if>
       <if test="operator_id != null" >
         operator_id = #{operator_id,jdbcType=VARCHAR}
@@ -116,7 +116,7 @@
     update Transcript
     set grade = #{grade,jdbcType=VARCHAR},
       complete = #{complete,jdbcType=VARCHAR},
-      assigntime = #{assigntime,jdbcType=VARCHAR},
+      assignTime = #{assignTime,jdbcType=VARCHAR},
       operator_id = #{operator_id,jdbcType=VARCHAR}
     where studentId = #{studentId,jdbcType=VARCHAR} and crn = #{crn,jdbcType=VARCHAR}
   </update>
@@ -133,7 +133,7 @@
            crn like '%' #{search,jdbcType=VARCHAR} '%' or
            grade like  '%' #{search,jdbcType=VARCHAR} '%' or
            complete like  '%' #{search,jdbcType=VARCHAR} '%' or
-           assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
+           assignTime like  '%' #{search,jdbcType=VARCHAR} '%' or
            slast like  '%' #{search,jdbcType=VARCHAR} '%' or
            sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
            operator_id like  '%' #{operator_id,jdbcType=VARCHAR} '%' or
@@ -154,7 +154,7 @@
       crn like '%' #{search,jdbcType=VARCHAR} '%' or
       grade like  '%' #{search,jdbcType=VARCHAR} '%' or
       complete like  '%' #{search,jdbcType=VARCHAR} '%' or
-      assigntime like  '%' #{search,jdbcType=VARCHAR} '%' or
+      assignTime like  '%' #{search,jdbcType=VARCHAR} '%' or
       slast like  '%' #{search,jdbcType=VARCHAR} '%' or
       sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
       operator_id like  '%' #{operator_id,jdbcType=VARCHAR} '%' or
@@ -193,7 +193,7 @@
     <if test="search != null" >
       and ( studentId like '%' #{search,jdbcType=VARCHAR} '%' or
             crn like '%' #{search,jdbcType=VARCHAR} '%' or
-            coursename like '%'  #{search,jdbcType=VARCHAR} '%' or
+            cname like '%'  #{search,jdbcType=VARCHAR} '%' or
             faculyid like '%'  #{search,jdbcType=VARCHAR} '%')
     </if></where>
   </select>

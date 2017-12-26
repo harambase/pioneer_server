@@ -46,8 +46,8 @@ public class TimeValidate {
 
     public static boolean isPinValidate(Pin pin) {
 
-        Date startTime = DateUtil.StrToDate(pin.getStarttime());
-        Date endTime   = DateUtil.StrToDate(pin.getEndtime());
+        Date startTime = DateUtil.StrToDate(pin.getStartTime());
+        Date endTime   = DateUtil.StrToDate(pin.getEndTime());
         Date nowTime   = DateUtil.StrToDate(DateUtil.DateToStr(new Date()));
 
         return startTime.compareTo(nowTime) <= 0 && endTime.compareTo(nowTime) >= 0;

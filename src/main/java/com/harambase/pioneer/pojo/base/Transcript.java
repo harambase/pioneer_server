@@ -10,19 +10,26 @@ public class Transcript implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Integer id;
 
-    private String studentid;
+    @Column(name="student_id")
+    private String studentId;
 
+    @Column(name="crn")
     private String crn;
 
+    @Column(name="grade")
     private String grade;
 
+    @Column(name="complete")
     private String complete;
 
-    private String assigntime;
+    @Column(name="assign_time")
+    private String assignTime;
 
-    private String operator;
+    @Column(name="operator_id")
+    private String operatorId;
 
     public Integer getId() {
         return id;
@@ -32,20 +39,20 @@ public class Transcript implements Serializable{
         this.id = id;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperatorId() {
+        return operatorId;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
 
     public String getCrn() {
@@ -72,12 +79,12 @@ public class Transcript implements Serializable{
         this.complete = complete == null ? null : complete.trim();
     }
 
-    public String getAssigntime() {
-        return assigntime;
+    public String getAssignTime() {
+        return assignTime;
     }
 
-    public void setAssigntime(String assigntime) {
-        this.assigntime = assigntime == null ? null : assigntime.trim();
+    public void setAssignTime(String assignTime) {
+        this.assignTime = assignTime == null ? null : assignTime.trim();
     }
 
 }

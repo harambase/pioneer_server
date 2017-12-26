@@ -9,7 +9,54 @@ import java.io.Serializable;
 public class TranscriptView implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
+
+    @Column(name="student_id")
+    private String studentId;
+
+    @Column(name="crn")
+    private String crn;
+
+    @Column(name="grade")
+    private String grade;
+
+    @Column(name="complete")
+    private String complete;
+
+    @Column(name="assign_time")
+    private String assignTime;
+
+    @Column(name="operator_id")
+    private String operator;
+
+    //Extension:
+    @Column(name="cname")
+    private String cname;
+
+    @Column(name="faculty_id")
+    private String facultyId;
+
+    @Column(name="credits")
+    private Integer credits;
+
+    @Column(name="day")
+    private String day;
+
+    @Column(name="time")
+    private String time;
+
+    @Column(name="date")
+    private String date;
+
+    @Column(name="sname")
+    private String sname;
+
+    @Column(name="fname")
+    private String fname;
+
+    @Column(name="info")
+    private String info;
 
     public Integer getId() {
         return id;
@@ -19,18 +66,6 @@ public class TranscriptView implements Serializable {
         this.id = id;
     }
 
-    private String studentid;
-
-    private String crn;
-
-    private String grade;
-
-    private String complete;
-
-    private String assigntime;
-
-    private String operator;
-
     public String getOperator() {
         return operator;
     }
@@ -39,12 +74,12 @@ public class TranscriptView implements Serializable {
         this.operator = operator;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
 
     public String getCrn() {
@@ -71,30 +106,13 @@ public class TranscriptView implements Serializable {
         this.complete = complete == null ? null : complete.trim();
     }
 
-    public String getAssigntime() {
-        return assigntime;
+    public String getAssignTime() {
+        return assignTime;
     }
 
-    public void setAssigntime(String assigntime) {
-        this.assigntime = assigntime == null ? null : assigntime.trim();
+    public void setAssignTime(String assignTime) {
+        this.assignTime = assignTime == null ? null : assignTime.trim();
     }
-    private String coursename;
-
-    private String facultyid;
-
-    private Integer credits;
-    
-    private String day;
-
-    private String time;
-
-    private String date;
-    
-    private String sname;
-    
-    private String fname;
-
-    private String info;
 
     public String getInfo() {
         return info;
@@ -152,20 +170,20 @@ public class TranscriptView implements Serializable {
         this.credits = credits;
     }
     
-    public String getCoursename() {
-        return coursename;
+    public String getCname() {
+        return cname;
     }
 
-    public void setCoursename(String coursename) {
-        this.coursename = coursename;
+    public void setCname(String cname) {
+        this.cname = cname;
     }
 
-    public String getFacultyid() {
-        return facultyid;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFacultyid(String facultyid) {
-        this.facultyid = facultyid;
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId;
     }
     
 }

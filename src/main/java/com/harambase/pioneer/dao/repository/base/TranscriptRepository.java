@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TranscriptRepository extends JpaRepository<Transcript, Integer> {
 
-    int countByStudentidAndCrnAndComplete(String studentid, String crn, String complete);
+    int countByStudentIdAndCrnAndComplete(String studentId, String crn, String complete);
 
-    int countByStudentidAndCrn(String studentid, String crn);
+    int countByStudentIdAndCrn(String studentId, String crn);
 
-    void deleteTranscriptByStudentidAndCrn(String studentid, String crn);
+    void deleteTranscriptByStudentIdAndCrn(String studentId, String crn);
 
-    void deleteTranscriptByStudentid(String userid);
+    void deleteTranscriptByStudentId(String userId);
 }

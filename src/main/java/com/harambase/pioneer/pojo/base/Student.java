@@ -2,7 +2,6 @@ package com.harambase.pioneer.pojo.base;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "student")
@@ -10,11 +9,13 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="studentid",length=20)
-    private String studentid;
+    @Column(name="student_id")
+    private String studentId;
 
+    @Column(name="max_credits")
     private Integer maxCredits;
 
+    @Column(name="update_time")
     private String updateTime;
 
     @OneToOne(optional=false, mappedBy="mapStudent")
@@ -29,12 +30,12 @@ public class Student implements Serializable {
         this.person = person;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid == null ? null : studentid.trim();
+    public void setStudentId(String studentId) {
+        this.studentId = studentId == null ? null : studentId.trim();
     }
 
     public Integer getMaxCredits() {
