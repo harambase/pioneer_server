@@ -6,7 +6,6 @@ import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.StudentDao;
 import com.harambase.pioneer.dao.repository.base.StudentRepository;
 import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
-import com.harambase.pioneer.dao.repository.view.StudentViewRepository;
 import com.harambase.pioneer.pojo.base.Student;
 import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.view.StudentView;
@@ -33,25 +32,22 @@ public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
     private final CourseViewRepository courseViewRepository;
-    private final StudentViewRepository studentViewRepository;
 
     private final StudentDao studentDao;
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository,
-                              StudentViewRepository studentViewRepository,
                               CourseViewRepository courseViewRepository,
                               StudentDao studentDao) {
         this.courseViewRepository = courseViewRepository;
-        this.studentViewRepository = studentViewRepository;
         this.studentRepository = studentRepository;
         this.studentDao = studentDao;
     }
 
     @Override
-    public HaramMessage transcriptDetail(String studentid) {
+    public HaramMessage transcriptDetail(String studentId) {
         try {
-            StudentView sv = studentViewRepository.findOne(studentid);
+            StudentView sv = studentDao.findOne(studentId);
             return ReturnMsgUtil.success(sv);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -126,7 +122,7 @@ public class StudentServiceImpl implements StudentService {
 
         try {
             List<CourseView> courseList = courseViewRepository.findCourseViewByStudentId(studentid);
-            StudentView sv = studentViewRepository.findOne(studentid);
+            StudentView sv = studentDao.findOne(studentid);
 
             int use_credits = 0;
             int tol_credits = sv.getMaxCredits();

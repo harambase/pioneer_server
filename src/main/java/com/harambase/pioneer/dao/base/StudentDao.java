@@ -100,4 +100,33 @@ public class StudentDao {
         }
     }
 
+    public StudentView findOne(String studentId) throws Exception {
+        ResultSet rs = null;
+        Connection connection = null;
+        StudentView studentView;
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return null;
+
+            Statement stmt = connection.createStatement();
+
+            String queryString = "SELECT * FROM studentview WHERE student_id='" + studentId + "'";
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+            List<StudentView> studentList = ResultSetHelper.getObjectFor(rs, StudentView.class);
+
+            if (studentList.isEmpty())
+                return null;
+
+            return studentList.get(0);
+
+        } finally {
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
 }

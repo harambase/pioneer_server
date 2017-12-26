@@ -6,7 +6,6 @@ import com.harambase.common.constant.FlagDict;
 import com.harambase.pioneer.dao.base.MessageDao;
 import com.harambase.pioneer.dao.repository.base.MessageRepository;
 import com.harambase.pioneer.dao.repository.base.PersonRepository;
-import com.harambase.pioneer.dao.repository.view.MessageViewRepository;
 import com.harambase.pioneer.pojo.base.Message;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.pojo.view.MessageView;
@@ -30,17 +29,14 @@ public class MessageServiceImpl implements MessageService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final MessageRepository messageRepository;
-    private final MessageViewRepository messageViewRepository;
     private final PersonRepository personRepository;
     private final MessageDao messageDao;
 
     @Autowired
     public MessageServiceImpl(MessageRepository messageRepository,
-                              MessageViewRepository messageViewRepository,
                               PersonRepository personRepository,
                               MessageDao messageDao) {
         this.messageRepository = messageRepository;
-        this.messageViewRepository = messageViewRepository;
         this.personRepository = personRepository;
         this.messageDao = messageDao;
     }
@@ -93,7 +89,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public HaramMessage getMessageView(Integer id) {
         try {
-            MessageView messageView = messageViewRepository.findOne(id);
+            MessageView messageView = messageDao.findOne(id);
             String[] receiverIds = messageView.getReceiver().split("/");
             String receiverNames = "";
             for (String receiverId : receiverIds) {

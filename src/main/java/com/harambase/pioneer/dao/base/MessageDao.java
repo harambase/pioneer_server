@@ -1,8 +1,10 @@
 package com.harambase.pioneer.dao.base;
 
 import com.harambase.pioneer.pojo.view.MessageView;
+import com.harambase.pioneer.pojo.view.StudentView;
 import com.harambase.support.database.DataServiceConnection;
 import com.harambase.support.database.ResultSetHelper;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -146,5 +148,35 @@ public class MessageDao {
             queryString += "AND (receiver_id like '%" + receiver_id + "%' OR sender_id = '" + sender_id + "') AND status = 'trashed'";
 
         return queryString;
+    }
+
+    public MessageView findOne(Integer id) throws Exception {
+        ResultSet rs = null;
+        Connection connection = null;
+        StudentView studentView;
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return null;
+
+            Statement stmt = connection.createStatement();
+
+            String queryString = "SELECT * FROM messageview WHERE id=" + id + "";
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+            List<MessageView> messageViewList = ResultSetHelper.getObjectFor(rs, MessageView.class);
+
+            if (messageViewList.isEmpty())
+                return null;
+
+            return messageViewList.get(0);
+
+        } finally {
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
     }
 }
