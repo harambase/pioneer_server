@@ -12,7 +12,7 @@ public interface StudentService {
 
     HaramMessage update(Student student);
 
-    HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String type, String status);
+    HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String status);
 
     HaramMessage getAvailableCredit(String studentid, String info);
 }

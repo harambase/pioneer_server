@@ -1,18 +1,20 @@
 package com.harambase.pioneer.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.common.*;
+import com.harambase.common.HaramMessage;
+import com.harambase.common.Page;
 import com.harambase.common.constant.FlagDict;
+import com.harambase.pioneer.dao.repository.base.MessageRepository;
+import com.harambase.pioneer.dao.repository.base.TempCourseRepository;
+import com.harambase.pioneer.dao.repository.base.TempUserRepository;
 import com.harambase.pioneer.pojo.base.Message;
+import com.harambase.pioneer.pojo.base.TempUser;
 import com.harambase.pioneer.pojo.view.AdviseView;
+import com.harambase.pioneer.service.RequestService;
 import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.IDUtil;
 import com.harambase.support.util.PageUtil;
-import com.harambase.pioneer.dao.mapper.MessageMapper;
-import com.harambase.pioneer.dao.mapper.TempCourseMapper;
-import com.harambase.pioneer.dao.mapper.TempUserMapper;
-import com.harambase.pioneer.pojo.base.TempUser;
-import com.harambase.pioneer.service.RequestService;
+import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,43 +33,37 @@ public class RequestServiceImpl implements RequestService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final TempUserMapper tempUserMapper;
-    private final TempCourseMapper tempCourseMapper;
-    private final MessageMapper messageMapper;
+    private final TempUserRepository tempUserRepository;
+    private final TempCourseRepository tempCourseRepository;
+    private final MessageRepository messageRepository;
 
     @Autowired
-    public RequestServiceImpl(TempUserMapper tempUserMapper,
-                              TempCourseMapper tempCourseMapper,
-                              MessageMapper messageMapper){
-        this.tempCourseMapper = tempCourseMapper;
-        this.tempUserMapper = tempUserMapper;
-        this.messageMapper = messageMapper;
+    public RequestServiceImpl(TempUserRepository tempUserRepository,
+                              TempCourseRepository tempCourseRepository,
+                              MessageRepository messageRepository) {
+        this.tempCourseRepository = tempCourseRepository;
+        this.tempUserRepository = tempUserRepository;
+        this.messageRepository = messageRepository;
     }
 
     @Override
     public HaramMessage deleteTempUserById(Integer id) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
-            int ret = tempUserMapper.deleteByPrimaryKey(id);
-            if(ret < 0)
-                throw new RuntimeException("删除失败");
 
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+        try {
+            tempUserRepository.delete(id);
+            int count = tempUserRepository.countById(id);
+            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
 
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        return haramMessage;
     }
 
     @Override
-    @Transactional
     public HaramMessage register(JSONObject jsonObject) {
-        HaramMessage haramMessage = new HaramMessage();
-        try{
+
+        try {
 
             String userid = IDUtil.genUserID(jsonObject.getString("info"));
 
@@ -78,9 +74,9 @@ public class RequestServiceImpl implements RequestService {
             tempUser.setUpdatetime(DateUtil.DateToStr(new Date()));
             tempUser.setStatus("0");
 
-            int ret = tempUserMapper.insert(tempUser);
-            if(ret <= 0)
-                throw new RuntimeException("TempUser 插入失败!");
+            TempUser newTempUser = tempUserRepository.save(tempUser);
+            if (newTempUser == null)
+                return ReturnMsgUtil.fail();
 
             Message message = new Message();
             message.setDate(DateUtil.DateToStr(new Date()));
@@ -93,39 +89,30 @@ public class RequestServiceImpl implements RequestService {
             message.setTag("work");
             message.setLabels("inbox/important/");
 
-            ret = messageMapper.insertSelective(message);
-            if(ret <= 0)
-                throw new RuntimeException("MessageWithBLOBs 插入失败!");
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
+            Message newMsg = messageRepository.save(message);
+            if (newMsg == null)
+                throw new RuntimeException("Message 插入失败!");
 
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            return ReturnMsgUtil.success(newTempUser);
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        return haramMessage;
+
     }
 
     @Override
     public HaramMessage updateTempUser(TempUser tempUser) {
-        HaramMessage haramMessage = new HaramMessage();
         try {
             tempUser.setUpdatetime(DateUtil.DateToStr(new Date()));
-            int ret = tempUserMapper.updateByPrimaryKeySelective(tempUser);
-
-            if(ret <= 0)
-                throw new RuntimeException("TempUser 更新失败!");
-
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-
-        }catch (Exception e){
-            e.printStackTrace();
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
+            TempUser newTempUser = tempUserRepository.save(tempUser);
+            return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
-        return haramMessage;
+
     }
 
     @Override
@@ -142,44 +129,41 @@ public class RequestServiceImpl implements RequestService {
                 orderColumn = "id";
                 break;
         }
-        long totalSize = 0;
-        try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("status", viewStatus);
-
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-            if(StringUtils.isEmpty(viewStatus))
-                param.put("status", null);
-
-            totalSize = tempUserMapper.getTempUserCountByMapPageSearchOrdered(param); //startTime, endTime);
-
-            Page page = new Page();
-            page.setCurrentPage(PageUtil.getcPg(currentPage));
-            page.setPageSize(PageUtil.getLimit(pageSize));
-            page.setTotalRows(totalSize);
-
-            param.put("currentIndex", page.getCurrentIndex());
-            param.put("pageSize",  page.getPageSize());
-            param.put("order",  order);
-            param.put("orderColumn",  orderColumn);
-
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<AdviseView> msgs = tempUserMapper.getTempUserByMapPageSearchOrdered(param);
-
-            message.setData(msgs);
-            message.put("page", page);
+//        try {
+//            Map<String, Object> param = new HashMap<>();
+//            param.put("search", search);
+//            param.put("status", viewStatus);
+//
+//            if (StringUtils.isEmpty(search))
+//                param.put("search", null);
+//            if (StringUtils.isEmpty(viewStatus))
+//                param.put("status", null);
+//
+//            long totalSize = tempUserRepository.getTempUserCountByMapPageSearchOrdered(param); //startTime, endTime);
+//
+//            Page page = new Page();
+//            page.setCurrentPage(PageUtil.getcPg(currentPage));
+//            page.setPageSize(PageUtil.getLimit(pageSize));
+//            page.setTotalRows(totalSize);
+//
+//            param.put("currentIndex", page.getCurrentIndex());
+//            param.put("pageSize", page.getPageSize());
+//            param.put("order", order);
+//            param.put("orderColumn", orderColumn);
+//
+//            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
+//            List<AdviseView> msgs = tempUserRepository.getTempUserByMapPageSearchOrdered(param);
+//
+//            message.setData(msgs);
+//            message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
-        }catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
-        }
+//        } catch (Exception e) {
+//            logger.error(e.getMessage(), e);
+//            return ReturnMsgUtil.systemError();
+//        }
     }
 
 }

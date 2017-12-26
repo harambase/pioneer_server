@@ -2,15 +2,19 @@ package com.harambase.pioneer.service.impl;
 
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
-import com.harambase.pioneer.dao.mapper.StudentMapper;
+import com.harambase.pioneer.dao.base.StudentDao;
+import com.harambase.pioneer.dao.repository.view.CourseViewRepository;
+import com.harambase.pioneer.dao.repository.view.StudentViewRepository;
+import com.harambase.pioneer.pojo.view.CourseView;
 import com.harambase.pioneer.pojo.view.StudentView;
-import com.harambase.pioneer.pojo.base.Course;
 import com.harambase.pioneer.pojo.base.Student;
+import com.harambase.support.util.DateUtil;
 import com.harambase.support.util.PageUtil;
 import com.harambase.common.constant.FlagDict;
-import com.harambase.pioneer.dao.mapper.TranscriptMapper;
+import com.harambase.pioneer.dao.repository.base.StudentRepository;
 import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.pioneer.service.StudentService;
+import com.harambase.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,56 +32,49 @@ import java.util.Map;
 public class StudentServiceImpl implements StudentService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final StudentMapper studentMapper;
-    private final TranscriptMapper transcriptMapper;
+
+    private final StudentRepository studentRepository;
+    private final CourseViewRepository courseViewRepository;
+    private final StudentViewRepository studentViewRepository;
+
+    private final StudentDao studentDao;
 
     @Autowired
-    public StudentServiceImpl(StudentMapper studentMapper, TranscriptMapper transcriptMapper){
-        this.transcriptMapper = transcriptMapper;
-        this.studentMapper = studentMapper;
+    public StudentServiceImpl(StudentRepository studentRepository,
+                              StudentViewRepository studentViewRepository,
+                              CourseViewRepository courseViewRepository,
+                              StudentDao studentDao){
+        this.courseViewRepository = courseViewRepository;
+        this.studentViewRepository = studentViewRepository;
+        this.studentRepository = studentRepository;
+        this.studentDao = studentDao;
     }
 
     @Override
     public HaramMessage transcriptDetail(String studentid) {
-       HaramMessage haramMessage = new HaramMessage();
        try{
-           StudentView sv = studentMapper.creditsDetail(studentid);
-           haramMessage.setData(sv);
-           haramMessage.setCode(FlagDict.SUCCESS.getV());
-           haramMessage.setMsg(FlagDict.SUCCESS.getM());
-           return haramMessage;
+           StudentView sv = studentViewRepository.findOne(studentid);
+           return ReturnMsgUtil.success(sv);
        }catch(Exception e){
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+           logger.error(e.getMessage(), e);
+           return ReturnMsgUtil.systemError();
        }
     }
 
     @Override
     public HaramMessage update(Student student) {
-        HaramMessage haramMessage = new HaramMessage();
         try{
-            int ret = studentMapper.updateByPrimaryKey(student);
-            if(ret == 1) {
-                haramMessage.setData(student);
-                haramMessage.setCode(FlagDict.SUCCESS.getV());
-                haramMessage.setMsg(FlagDict.SUCCESS.getM());
-                return haramMessage;
-            }else{
-                haramMessage.setCode(FlagDict.FAIL.getV());
-                haramMessage.setMsg(FlagDict.FAIL.getM());
-                return haramMessage;
-            }
+            student.setUpdateTime(DateUtil.DateToStr(new Date()));
+            Student newStudent = studentRepository.save(student);
+            return newStudent != null ? ReturnMsgUtil.success(newStudent) : ReturnMsgUtil.fail();
         }catch(Exception e){
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
     }
 
     @Override
-    public HaramMessage studentList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                    String type, String status) {
+    public HaramMessage studentList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
         HaramMessage message = new HaramMessage();
 
         switch (Integer.parseInt(orderColumn)) {
@@ -84,13 +82,13 @@ public class StudentServiceImpl implements StudentService {
                 orderColumn = "studentid";
                 break;
             case 1:
-                orderColumn = "firstname";
+                orderColumn = "max_credits";
                 break;
             case 2:
-                orderColumn = "lastname";
+                orderColumn = "status";
                 break;
             case 3:
-                orderColumn = "max_credits";
+                orderColumn = "sname";
                 break;
             case 4:
                 orderColumn = "complete";
@@ -102,72 +100,56 @@ public class StudentServiceImpl implements StudentService {
                 orderColumn = "incomplete";
                 break;
         }
-        long totalSize = 0;
+
         try {
-            Map<String, Object> param = new HashMap<>();
-            param.put("search", search);
-            param.put("type", type);
-            param.put("status", status);
-
-            if(StringUtils.isEmpty(search))
-                param.put("search", null);
-
-            totalSize = studentMapper.getStudentCountByMapPageSearchOrdered(param); //startTime, endTime);
+            long totalSize = studentDao.getCountByMapPageSearchOrdered(search, status);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            param.put("currentIndex", page.getCurrentIndex());
-            param.put("pageSize",  page.getPageSize());
-            param.put("order",  order);
-            param.put("orderColumn",  orderColumn);
+            List<StudentView> studentViews = studentDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
 
-            //(int currentIndex, int pageSize, String search, String order, String orderColumn);
-            List<Person> msgs = studentMapper.getStudentByMapPageSearchOrdered(param);
-
-            message.setData(msgs);
+            message.setData(studentViews);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;
 
         }catch (Exception e) {
-            e.printStackTrace();
-            message.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            message.setCode(FlagDict.SYSTEM_ERROR.getV());
-            return message;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
     }
 
     @Override
     public HaramMessage getAvailableCredit(String studentid, String info) {
-        HaramMessage haramMessage = new HaramMessage();
+
         try{
-            Map<String, Integer> creditInfo = new HashMap<>();
-            List<Course> courseList = transcriptMapper.studentCourse(studentid);
-            StudentView sv = studentMapper.creditsDetail(studentid);
+            List<CourseView> courseList = courseViewRepository.findCourseViewByStudentId(studentid);
+            StudentView sv = studentViewRepository.findOne(studentid);
+
             int use_credits = 0;
-            int ava_credits = 0;
-            int tol_credits = sv.getMax_credits();
-            for(Course course:courseList){
+            int tol_credits = sv.getMaxCredits();
+
+            for(CourseView course : courseList){
                 if(course.getInfo().equals(info))
                     use_credits += course.getCredits();
             }
-            ava_credits = tol_credits - use_credits;
+
+            int ava_credits = tol_credits - use_credits;
+
+            Map<String, Integer> creditInfo = new HashMap<>();
+
             creditInfo.put("tol_credits", tol_credits);
             creditInfo.put("ava_credits", ava_credits);
             creditInfo.put("use_credits", use_credits);
 
-            haramMessage.setData(creditInfo);
-            haramMessage.setMsg(FlagDict.SUCCESS.getM());
-            haramMessage.setCode(FlagDict.SUCCESS.getV());
-            return haramMessage;
+            return ReturnMsgUtil.success(creditInfo);
         }catch(Exception e){
-            haramMessage.setCode(FlagDict.SYSTEM_ERROR.getV());
-            haramMessage.setMsg(FlagDict.SYSTEM_ERROR.getM());
-            return haramMessage;
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
         }
     }
 }

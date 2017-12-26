@@ -105,6 +105,7 @@ public class PersonServiceImpl implements PersonService {
                 Student student = new Student();
                 student.setStudentid(userid);
                 student.setMaxCredits(12);
+                student.setUpdateTime(DateUtil.DateToStr(new Date()));
                 studentRepository.save(student);
             }
 
@@ -158,10 +159,12 @@ public class PersonServiceImpl implements PersonService {
                 c.setUpdatetime(DateUtil.DateToStr(new Date()));
                 courseRepository.save(c);
             }
+
             //会自动删除学生表
             personRepository.delete(person);
+            int count = personRepository.countByUserid(userId);
 
-            return ReturnMsgUtil.success(null);
+            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

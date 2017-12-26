@@ -15,6 +15,8 @@ public class Student implements Serializable {
 
     private Integer maxCredits;
 
+    private String updateTime;
+
     @OneToOne(optional=false, mappedBy="mapStudent")
     @PrimaryKeyJoinColumn
     private Person person;
@@ -41,6 +43,14 @@ public class Student implements Serializable {
 
     public void setMaxCredits(Integer maxCredits) {
         this.maxCredits = maxCredits;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 
 }
