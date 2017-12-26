@@ -1,7 +1,9 @@
 package com.harambase.pioneer.service.impl;
 
+import com.harambase.pioneer.dao.repository.base.PersonRepository;
 import com.harambase.pioneer.dao.repository.view.MessageViewRepository;
 import com.harambase.pioneer.pojo.base.Message;
+import com.harambase.pioneer.pojo.base.Person;
 import com.harambase.support.util.DateUtil;
 import com.harambase.common.HaramMessage;
 import com.harambase.common.Page;
@@ -29,14 +31,17 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
     private final MessageViewRepository messageViewRepository;
+    private final PersonRepository personRepository;
     private final MessageDao messageDao;
 
     @Autowired
     public MessageServiceImpl(MessageRepository messageRepository,
                               MessageViewRepository messageViewRepository,
+                              PersonRepository personRepository,
                               MessageDao messageDao) {
         this.messageRepository = messageRepository;
         this.messageViewRepository = messageViewRepository;
+        this.personRepository = personRepository;
         this.messageDao = messageDao;
     }
 
@@ -88,8 +93,15 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public HaramMessage getMessageView(Integer id) {
         try {
-            MessageView messageViewView = messageViewRepository.findOne(id);
-            return ReturnMsgUtil.success(messageViewView);
+            MessageView messageView = messageViewRepository.findOne(id);
+            String[] receiverIds = messageView.getReceiver().split("/");
+            String receiverNames = "";
+            for(String receiverId : receiverIds){
+                Person receiver = personRepository.findOne(receiverId);
+                receiverNames += receiver.getLastName() + ", " + receiver.getFirstName() + "/";
+            }
+            messageView.setReceiver(receiverNames);
+            return ReturnMsgUtil.success(messageView);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

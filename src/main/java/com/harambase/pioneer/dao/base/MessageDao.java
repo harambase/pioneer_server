@@ -18,7 +18,7 @@ public class MessageDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public int countMessageByStatus(String receiverid, String senderid, String box, String status)throws Exception{
+    public int countMessageByStatus(String receiver_id, String sender_id, String box, String status)throws Exception{
         ResultSet rs = null;
         Connection connection = null;
         try{
@@ -28,8 +28,8 @@ public class MessageDao {
             
             Statement stmt = connection.createStatement();
             
-            String queryString = "SELECT count(*) as count FROM MessageView WHERE status = '" + status + "' "
-                    + whereBuilderByLabel(receiverid, senderid, box);
+            String queryString = "SELECT count(*) as count FROM messageview WHERE status = '" + status + "' "
+                    + whereBuilderByLabel(receiver_id, sender_id, box);
 
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -49,7 +49,7 @@ public class MessageDao {
         
     }
 
-    public long getMessageCountByMapPageSearchOrdered(String receiverid, String senderid,
+    public long getMessageCountByMapPageSearchOrdered(String receiver_id, String sender_id,
                                                       String box, String search) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
@@ -60,18 +60,18 @@ public class MessageDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "select count(*) as count from MessageView where 1 = 1";
+            String queryString = "select count(*) as count from messageview where 1 = 1 ";
 
-            queryString += whereBuilderByLabel(receiverid, senderid, box);
+            queryString += whereBuilderByLabel(receiver_id, sender_id, box);
 
             if(StringUtils.isNotEmpty(search)){
                 queryString += "" +
-                        "and(email LIKE  '%"+search+"%' or" +
-                        "   subject LIKE '%"+search+"%' or" +
-                        "   status LIKE  '%"+search+"%' or" +
-                        "   sender LIKE  '%"+search+"%' or" +
-                        "   title LIKE   '%"+search+"%' or" +
-                        "   date LIKE    '%"+search+"%')";
+                        "and(email   LIKE '%" + search +"%' or" +
+                        "    subject LIKE '%" + search +"%' or" +
+                        "    status  LIKE '%" + search +"%' or" +
+                        "    sender  LIKE '%" + search +"%' or" +
+                        "    title   LIKE '%" + search +"%' or" +
+                        "    date    LIKE '%" + search +"%') ";
             }
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -89,7 +89,7 @@ public class MessageDao {
         }
     }
 
-    public List<MessageView> getMessageByMapPageSearchOrdered(String receiverid, String senderid, String box, String search, int currentIndex,
+    public List<MessageView> getMessageByMapPageSearchOrdered(String receiver_id, String sender_id, String box, String search, int currentIndex,
                                                               int pageSize, String order, String orderColumn) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
@@ -101,18 +101,18 @@ public class MessageDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "select * from MessageView where 1 = 1";
-            queryString += whereBuilderByLabel(receiverid, senderid, box);
+            String queryString = "select * from messageview where 1 = 1 ";
+            queryString += whereBuilderByLabel(receiver_id, sender_id, box);
 
             if(StringUtils.isNotEmpty(search)){
                 queryString += "" +
-                        "and(email LIKE  '%"+search+"%' or" +
-                        "   subject LIKE '%"+search+"%' or" +
-                        "   status LIKE  '%"+search+"%' or" +
-                        "   sender LIKE  '%"+search+"%' or" +
-                        "   title LIKE   '%"+search+"%' or" +
-                        "   date LIKE    '%"+search+"%') ";
-            }
+                        "and(email   LIKE '%" + search +"%' or" +
+                        "    subject LIKE '%" + search +"%' or" +
+                        "    status  LIKE '%" + search +"%' or" +
+                        "    sender  LIKE '%" + search +"%' or" +
+                        "    title   LIKE '%" + search +"%' or" +
+                        "    date    LIKE '%" + search +"%') ";
+            } 
             queryString += "" +
                     " order by " + orderColumn + " " + order + " " +
                     " limit " + currentIndex + "," + pageSize;
@@ -129,20 +129,20 @@ public class MessageDao {
         }
     }
 
-    private String whereBuilderByLabel(String receiverid, String senderid, String box){
+    private String whereBuilderByLabel(String receiver_id, String sender_id, String box){
 
         String queryString = "";
 
         if(box.equals("inbox"))
-            queryString += "AND receiverid = '" + receiverid + "'";
+            queryString += "AND receiver_id like '%" + receiver_id + "%'";
         if(box.equals("important"))
-            queryString += "AND receiverid = '" + receiverid + "' AND labels LIKE '%important%'";
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND labels LIKE '%important%'";
         if(box.equals("sent"))
-            queryString += "AND senderid =   '" + senderid + "'";
+            queryString += "AND sender_id = '" + sender_id + "'";
         if(box.equals("draft"))
-            queryString += "AND senderid =   '" + senderid + "'";
+            queryString += "AND sender_id = '" + sender_id + "'";
         if(box.equals("trash"))
-            queryString += "AND (receiverid = '"+ receiverid + "' OR senderid = '" + senderid + "') AND status = 'trashed'";
+            queryString += "AND (receiver_id like '%"+ receiver_id + "%' OR sender_id = '" + sender_id + "') AND status = 'trashed'";
 
         return queryString;
     }

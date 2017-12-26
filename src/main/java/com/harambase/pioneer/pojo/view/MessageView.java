@@ -44,10 +44,10 @@ public class MessageView {
     @Column(name = "pic")
     private String pic;
 
-    @Column(name = "sender")
+    @Column(name = "sender", updatable = false)
     private String sender;
 
-    @Column(name = "receiver")
+    @Column(name = "receiver", updatable = false)
     private String receiver;
 
     @Column(name = "tel")
