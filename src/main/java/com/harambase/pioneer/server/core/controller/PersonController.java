@@ -63,6 +63,14 @@ public class PersonController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity login(@RequestBody Person person) {
+        HaramMessage haramMessage = personService.login(person);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "搜索用户", notes = "权限：用户", response = Map.class, tags = {ApiTags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/search", method = RequestMethod.GET)

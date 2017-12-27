@@ -36,7 +36,6 @@ public class MonitorController {
     public ResponseEntity systemInfo() {
         HaramMessage message = monitorService.getSystemCount();
         return new ResponseEntity<>(message, HttpStatus.OK);
-
     }
 
     @ApiOperation(value = "关系图表", notes = "权限：用户", response = Map.class, tags = {ApiTags.SYSTEM})

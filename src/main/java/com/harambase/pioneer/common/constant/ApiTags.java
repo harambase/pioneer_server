@@ -10,4 +10,5 @@ public class ApiTags {
     public final static String STUDENT = "/student(学生管理)";
     public final static String SYSTEM = "/monitor(系统管理)";
     public final static String TRANSCRIPT = "/transcript(成绩单管理)";
+    public final static String ROLE = "/role(权限管理)";
 }
