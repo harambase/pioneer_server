@@ -47,9 +47,9 @@ public class CourseController {
 
     @ApiOperation(value = "更新课程", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Course course) {
-        HaramMessage haramMessage = courseService.update(course);
+    @RequestMapping(value = "/{crn}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable String crn, @RequestBody Course course) {
+        HaramMessage haramMessage = courseService.update(crn, course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
@@ -78,9 +78,9 @@ public class CourseController {
     @ApiOperation(value = "课程Ztree列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/zTree", method = RequestMethod.GET)
-    public ResponseEntity zTreeList(@RequestParam(value = "facultyId", required = false) String facultyid,
+    public ResponseEntity zTreeList(@RequestParam(value = "facultyId", required = false) String facultyId,
                                     @RequestParam(value = "info", required = false) String info) {
-        HaramMessage message = courseService.courseTreeList(facultyid, info);
+        HaramMessage message = courseService.courseTreeList(facultyId, info);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -112,9 +112,9 @@ public class CourseController {
 
     @ApiOperation(value = "向课程添加学生", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{crn}/student/{userId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{crn}/student/{studentId}", method = RequestMethod.PUT)
     public ResponseEntity assignStu2Course(@PathVariable(value = "crn") String crn,
-                                           @PathVariable(value = "userId") String studentId,
+                                           @PathVariable(value = "studentId") String studentId,
                                            @RequestBody Option option) {
         HaramMessage haramMessage = courseService.addStu2Cou(crn, studentId, option);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
@@ -122,9 +122,9 @@ public class CourseController {
 
     @ApiOperation(value = "向课程分配老师", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{crn}/faculty/{userId}", produces = "application/json", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{crn}/faculty/{facultyId}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity assignFac2Course(@PathVariable(value = "crn") String crn,
-                                           @PathVariable(value = "userId") String facultyId) {
+                                           @PathVariable(value = "facultyId") String facultyId) {
         HaramMessage haramMessage = courseService.assignFac2Cou(crn, facultyId);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
@@ -133,7 +133,7 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/choose", method = RequestMethod.PUT)
     public ResponseEntity courseChoice(@PathVariable(value = "studentId") String studentId,
-                                       @RequestParam(value = "choiceList[]") String[] choices) {
+                                       @RequestBody String[] choices) {
         HaramMessage message = courseService.reg2Course(studentId, choices);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

@@ -96,8 +96,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage update(Course course) {
+    public HaramMessage update(String crn, Course course) {
         try {
+            course.setCrn(crn);
             course.setUpdateTime(DateUtil.DateToStr(new Date()));
             Course newCourse = courseRepository.save(course);
             return newCourse != null ? ReturnMsgUtil.success(newCourse) : ReturnMsgUtil.fail();
@@ -213,17 +214,6 @@ public class CourseServiceImpl implements CourseService {
             transcriptRepository.deleteTranscriptByStudentIdAndCrn(studentid, crn);
             int count = transcriptRepository.countByStudentIdAndCrn(studentid, crn);
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return ReturnMsgUtil.systemError();
-        }
-    }
-
-    @Override
-    public HaramMessage countActiveCourse() {
-        try {
-            int count = courseDao.countAllByStatus("1");
-            return ReturnMsgUtil.success(count);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

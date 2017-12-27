@@ -5,7 +5,6 @@ import com.harambase.pioneer.common.constant.ApiTags;
 import com.harambase.pioneer.server.core.pojo.base.Advise;
 import com.harambase.pioneer.server.core.service.AdviseService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class AdviseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ApiOperation(value = "删除导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    public ResponseEntity delete(@ApiParam(value = "关系ID", required = true) @PathVariable(value = "id") Integer id) {
+    public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
         HaramMessage message = adviseService.removeMentor(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
@@ -69,9 +68,9 @@ public class AdviseController {
                                @RequestParam(value = "search", required = false, defaultValue = "") String search,
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
-                               @RequestParam(value = "studentid", required = false) String studentid,
-                               @RequestParam(value = "facultyid", required = false) String facultyid) {
-        HaramMessage message = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentid, facultyid);
+                               @RequestParam(value = "studentId", required = false) String studentId,
+                               @RequestParam(value = "facultyId", required = false) String facultyId) {
+        HaramMessage message = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, facultyId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

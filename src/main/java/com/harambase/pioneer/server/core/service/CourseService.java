@@ -13,7 +13,7 @@ public interface CourseService {
 
     HaramMessage delete(String crn);
 
-    HaramMessage update(Course course);
+    HaramMessage update(String crn, Course course);
 
     HaramMessage assignFac2Cou(String crn, String facultyId);
 
@@ -24,8 +24,6 @@ public interface CourseService {
     HaramMessage getCourseBySearch(String search, String status);
 
     HaramMessage courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
-
-    HaramMessage countActiveCourse();
 
     HaramMessage preCourseList(String crn);
 
