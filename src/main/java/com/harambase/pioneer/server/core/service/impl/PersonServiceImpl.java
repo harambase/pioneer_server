@@ -54,7 +54,7 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public HaramMessage login(Person person) {
         try {
-            Person user = personRepository.findOne(person.getUserId());
+            Person user = personRepository.findByUserIdAndPassword(person.getUserId(), person.getPassword());
             if (user != null) {
                 String status = user.getStatus();
                 return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(FlagDict.USER_DISABLED);
@@ -150,6 +150,7 @@ public class PersonServiceImpl implements PersonService {
                 return ReturnMsgUtil.fail();
             }
 
+            studentRepository.delete(userId);
             adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
             transcriptRepository.deleteTranscriptByStudentId(person.getUserId());
 

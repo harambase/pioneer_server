@@ -75,18 +75,6 @@ public class Person implements Serializable {
     @Column(name = "address")
     private String address;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Student mapStudent;
-
-    public Student getStudent() {
-        return mapStudent;
-    }
-
-    public void setStudent(Student student) {
-        this.mapStudent = student;
-    }
-
     public String getUserInfo() {
         return userInfo;
     }

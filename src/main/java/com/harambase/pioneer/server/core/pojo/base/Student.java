@@ -18,18 +18,6 @@ public class Student implements Serializable {
     @Column(name = "update_time")
     private String updateTime;
 
-    @OneToOne(optional = false, mappedBy = "mapStudent")
-    @PrimaryKeyJoinColumn
-    private Person person;
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     public String getStudentId() {
         return studentId;
     }

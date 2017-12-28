@@ -19,4 +19,6 @@ public interface PersonRepository extends JpaRepository<Person, String> {
     int countByGenderAndStatus(String gender, String status);
 
     int countByUserId(String userId);
+
+    Person findByUserIdAndPassword(String userId, String password);
 }

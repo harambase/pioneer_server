@@ -25,7 +25,7 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public HaramMessage get(Integer roleId) {
         try{
-            Role role = roleRepository.findOne(roleId);
+            Role role = roleRepository.findByRoleId(roleId);
             return role != null ? ReturnMsgUtil.success(role) : ReturnMsgUtil.fail();
         }catch (Exception e){
             logger.error(e.getMessage(), e);
