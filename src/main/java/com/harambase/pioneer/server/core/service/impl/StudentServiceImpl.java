@@ -55,8 +55,9 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage update(Student student) {
+    public HaramMessage update(String studentId, Student student) {
         try {
+            student.setStudentId(studentId);
             student.setUpdateTime(DateUtil.DateToStr(new Date()));
             Student newStudent = studentRepository.save(student);
             return newStudent != null ? ReturnMsgUtil.success(newStudent) : ReturnMsgUtil.fail();

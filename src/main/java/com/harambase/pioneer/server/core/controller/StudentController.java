@@ -47,9 +47,9 @@ public class StudentController {
 
     @ApiOperation(value = "更新用户", notes = "更新一个用户", response = Map.class, tags = {ApiTags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Student student) {
-        HaramMessage haramMessage = studentService.update(student);
+    @RequestMapping(value = "/{studentId}", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable String studentId, @RequestBody Student student) {
+        HaramMessage haramMessage = studentService.update(studentId, student);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

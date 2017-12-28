@@ -36,8 +36,9 @@ public class TranscriptServiceImpl implements TranscriptService {
     }
 
     @Override
-    public HaramMessage updateGrade(Transcript transcript) {
+    public HaramMessage updateGrade(Integer id, Transcript transcript) {
         try {
+            transcript.setId(id);
             transcript.setAssignTime(DateUtil.DateToStr(new Date()));
             Transcript newTranscript = transcriptRepository.save(transcript);
             return newTranscript != null ? ReturnMsgUtil.success(newTranscript) : ReturnMsgUtil.fail();
