@@ -10,7 +10,7 @@ public interface TempUserService {
 
     HaramMessage register(JSONObject jsonObject);
 
-    HaramMessage updateTempUser(TempUser tempUser);
+    HaramMessage updateTempUser(Integer id, TempUser tempUser);
 
     HaramMessage tempUserList(String s, String s1, String search, String order, String orderCol, String status);
 }

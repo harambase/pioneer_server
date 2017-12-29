@@ -99,8 +99,9 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage updateTempUser(TempUser tempUser) {
+    public HaramMessage updateTempUser(Integer id, TempUser tempUser) {
         try {
+            tempUser.setId(id);
             tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
             TempUser newTempUser = tempUserRepository.save(tempUser);
             return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();

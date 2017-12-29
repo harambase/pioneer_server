@@ -31,9 +31,9 @@ public class RequestController {
 
     @ApiOperation(value = "更新临时用户", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/user", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity updateRequest(@RequestBody TempUser tempUser) {
-        HaramMessage message = tempUserService.updateTempUser(tempUser);
+    @RequestMapping(value = "/user/{id}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity updateRequest(@PathVariable Integer id, @RequestBody TempUser tempUser) {
+        HaramMessage message = tempUserService.updateTempUser(id, tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
