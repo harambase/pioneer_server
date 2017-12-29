@@ -116,10 +116,10 @@ public class TempUserImpl implements TempUserService {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 1:
-                orderColumn = "userid";
+                orderColumn = "user_id";
                 break;
             case 2:
-                orderColumn = "createtime";
+                orderColumn = "createTime";
                 break;
             default:
                 orderColumn = "id";

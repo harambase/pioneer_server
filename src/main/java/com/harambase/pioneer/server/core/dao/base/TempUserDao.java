@@ -34,7 +34,7 @@ public class TempUserDao {
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND userid   LIKE  '%" + search + "%' ";
+                queryString += "AND user_id   LIKE  '%" + search + "%' ";
 
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -68,7 +68,7 @@ public class TempUserDao {
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND userid   LIKE  '%" + search + "%' ";
+                queryString += "AND user_id   LIKE  '%" + search + "%' ";
 
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
