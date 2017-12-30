@@ -15,4 +15,8 @@ public class IDUtil {
     }
 
 
+    public static String genTempUserID(String info) {
+        Integer last = (int) (Math.random() * (999 - 100 + 1) + 100);
+        return "8" + info.split("-")[0] + info.split("-")[1] + last;
+    }
 }

@@ -3,7 +3,10 @@ package com.harambase.pioneer.server.core.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.server.core.pojo.base.Person;
 import com.harambase.pioneer.server.core.pojo.base.TempUser;
+import com.harambase.pioneer.server.core.service.PersonService;
 import com.harambase.pioneer.server.core.service.TempUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,16 +26,25 @@ import java.util.Map;
 public class RequestController {
 
     private final TempUserService tempUserService;
+    private final PersonService personService;
 
     @Autowired
-    public RequestController(TempUserService tempUserService) {
+    public RequestController(TempUserService tempUserService, PersonService personService) {
         this.tempUserService = tempUserService;
+        this.personService = personService;
     }
 
     @ApiOperation(value = "更新临时用户", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/{id}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateRequest(@PathVariable Integer id, @RequestBody TempUser tempUser) {
+        if(tempUser.getStatus().equals("1")){
+            HaramMessage message = personService.addUser(JSONObject.parseObject(tempUser.getUserJson(), Person.class));
+            if(message.getCode() == FlagDict.SUCCESS.getV()) {
+                message = tempUserService.updateTempUser(id, tempUser);
+                return new ResponseEntity<>(message, HttpStatus.OK);
+            }
+        }
         HaramMessage message = tempUserService.updateTempUser(id, tempUser);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }

@@ -150,25 +150,28 @@ public class PersonServiceImpl implements PersonService {
                 return ReturnMsgUtil.fail();
             }
 
-            studentRepository.delete(userId);
-            adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
-            transcriptRepository.deleteTranscriptByStudentId(person.getUserId());
-
-            List<Course> courseList = courseRepository.findCourseByFacultyId(person.getUserId());
-
-            for (Course c : courseList) {
-                String opTime = DateUtil.DateToStr(new Date());
-                c.setFacultyId(IDUtil.ROOT);
-                c.setComment(person.getLastName() + "," + person.getFirstName() + "老师被删除, 删除时间：" + opTime);
-                c.setUpdateTime(DateUtil.DateToStr(new Date()));
-                courseRepository.save(c);
+            if(person.getType().contains("s")) {
+                studentRepository.delete(userId);
+                transcriptRepository.deleteTranscriptByStudentId(person.getUserId());
             }
 
-            //会自动删除学生表
+            adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
+
+            if(person.getType().contains("f")) {
+                List<Course> courseList = courseRepository.findCourseByFacultyId(person.getUserId());
+
+                for (Course c : courseList) {
+                    String opTime = DateUtil.DateToStr(new Date());
+                    c.setFacultyId(IDUtil.ROOT);
+                    c.setComment(person.getLastName() + "," + person.getFirstName() + "老师被删除, 删除时间：" + opTime);
+                    c.setUpdateTime(DateUtil.DateToStr(new Date()));
+                    courseRepository.save(c);
+                }
+            }
             personRepository.delete(person);
             int count = personRepository.countByUserId(userId);
-
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

@@ -8,6 +8,7 @@ import com.harambase.pioneer.server.core.dao.base.TempUserDao;
 import com.harambase.pioneer.server.core.dao.repository.MessageRepository;
 import com.harambase.pioneer.server.core.dao.repository.TempUserRepository;
 import com.harambase.pioneer.server.core.pojo.base.Message;
+import com.harambase.pioneer.server.core.pojo.base.Person;
 import com.harambase.pioneer.server.core.pojo.base.TempUser;
 import com.harambase.pioneer.server.core.service.TempUserService;
 import com.harambase.pioneer.support.util.DateUtil;
@@ -61,7 +62,7 @@ public class TempUserImpl implements TempUserService {
     public HaramMessage register(JSONObject jsonObject) {
 
         try {
-            String userid = IDUtil.genUserID(jsonObject.getString("info"));
+            String userid = IDUtil.genTempUserID(jsonObject.getString("info"));
 
             TempUser tempUser = new TempUser();
             tempUser.setUserId(userid);
