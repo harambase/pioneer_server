@@ -63,9 +63,17 @@ public class RoleServiceImpl implements RoleService{
                         orderColumn = "id";
                         break;
                 }
-            List<Role> personList = roleDao.getByMapPageSearchOrdered(search, order, orderColumn);
 
-            message.setData(personList);
+
+            List<Role> roleList = roleDao.getByMapPageSearchOrdered(search, order, orderColumn);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg("1"));
+            page.setPageSize(PageUtil.getLimit("10"));
+            page.setTotalRows(roleList.size());
+
+            message.setData(roleList);
+            message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
             return message;

@@ -195,7 +195,7 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM messageview WHERE crn='" + crn + "'";
+            String queryString = "SELECT * FROM courseview WHERE crn='" + crn + "'";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
@@ -225,7 +225,7 @@ public class CourseDao {
                 return courseViews;
 
             Statement stmt = connection.createStatement();
-            String queryString = "SELECT * FROM CourseView c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.student_id = '" + studentId + "'";
+            String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.student_id = '" + studentId + "'";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

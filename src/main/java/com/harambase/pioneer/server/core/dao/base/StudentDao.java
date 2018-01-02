@@ -3,6 +3,7 @@ package com.harambase.pioneer.server.core.dao.base;
 import com.harambase.pioneer.server.core.pojo.view.StudentView;
 import com.harambase.pioneer.support.database.DataServiceConnection;
 import com.harambase.pioneer.support.database.ResultSetHelper;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Component
@@ -35,7 +37,7 @@ public class StudentDao {
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "studentid   LIKE  '%" + search + "%' OR " +
+                        "student_id   LIKE  '%" + search + "%' OR " +
                         "max_credits LIKE  '%" + search + "%' OR " +
                         "status      LIKE  '%" + search + "%' OR " +
                         "sname       LIKE  '%" + search + "%' OR " +
@@ -59,11 +61,11 @@ public class StudentDao {
         }
     }
 
-    public List<StudentView> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
+    public List<LinkedHashMap<String, Object>> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
                                                        String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        List<StudentView> studentList = new ArrayList<>();
+        List<LinkedHashMap<String, Object>> studentList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -76,7 +78,7 @@ public class StudentDao {
                 queryString += "AND status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "studentid   LIKE  '%" + search + "%' OR " +
+                        "student_id  LIKE  '%" + search + "%' OR " +
                         "max_credits LIKE  '%" + search + "%' OR " +
                         "status      LIKE  '%" + search + "%' OR " +
                         "sname       LIKE  '%" + search + "%' OR " +
@@ -89,7 +91,7 @@ public class StudentDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            studentList = ResultSetHelper.getObjectFor(rs, StudentView.class);
+            studentList = ResultSetHelper.getObjectAsLinkedHashMap(rs, StudentView.class);
             return studentList;
 
         } finally {
@@ -103,7 +105,6 @@ public class StudentDao {
     public StudentView findOne(String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        StudentView studentView;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)

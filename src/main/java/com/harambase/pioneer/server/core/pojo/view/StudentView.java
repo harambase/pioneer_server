@@ -10,8 +10,8 @@ public class StudentView implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private String studentid;
+    @Column(name = "student_id")
+    private String studentId;
 
     @Column(name = "sname")
     private String sname;
@@ -20,16 +20,16 @@ public class StudentView implements Serializable {
     private String status;
 
     @Column(name = "max_credits")
-    private int maxCredits;
+    private Integer maxCredits;
 
     @Column(name = "complete")
-    private int complete;
+    private Integer complete;
 
     @Column(name = "progress")
-    private int progress;
+    private Integer progress;
 
     @Column(name = "incomplete")
-    private int incomplete;
+    private Integer incomplete;
 
     public String getSname() {
         return sname;
@@ -47,43 +47,43 @@ public class StudentView implements Serializable {
         this.status = status;
     }
 
-    public String getStudentid() {
-        return studentid;
+    public String getStudentId() {
+        return studentId;
     }
 
-    public void setStudentid(String studentid) {
-        this.studentid = studentid;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
-    public int getComplete() {
+    public Integer getComplete() {
         return complete;
     }
 
-    public void setComplete(int complete) {
+    public void setComplete(Integer complete) {
         this.complete = complete;
     }
 
-    public int getProgress() {
+    public Integer getProgress() {
         return progress;
     }
 
-    public void setProgress(int progress) {
+    public void setProgress(Integer progress) {
         this.progress = progress;
     }
 
-    public int getIncomplete() {
+    public Integer getIncomplete() {
         return incomplete;
     }
 
-    public void setIncomplete(int incomplete) {
+    public void setIncomplete(Integer incomplete) {
         this.incomplete = incomplete;
     }
 
-    public int getMaxCredits() {
+    public Integer getMaxCredits() {
         return maxCredits;
     }
 
-    public void setMaxCredits(int maxCredits) {
+    public void setMaxCredits(Integer maxCredits) {
         this.maxCredits = maxCredits;
     }
 

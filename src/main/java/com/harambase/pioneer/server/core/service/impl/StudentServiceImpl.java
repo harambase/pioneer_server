@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -73,7 +70,7 @@ public class StudentServiceImpl implements StudentService {
 
         switch (Integer.parseInt(orderColumn)) {
             case 0:
-                orderColumn = "studentid";
+                orderColumn = "student_id";
                 break;
             case 1:
                 orderColumn = "max_credits";
@@ -103,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<StudentView> studentViews = studentDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
+            List<LinkedHashMap<String, Object>> studentViews = studentDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
 
             message.setData(studentViews);
             message.put("page", page);
