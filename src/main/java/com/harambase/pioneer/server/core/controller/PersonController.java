@@ -49,9 +49,9 @@ public class PersonController {
 
     @ApiOperation(value = "更新用户", notes = "权限：管理员，系统", response = Map.class, tags = {ApiTags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@RequestBody Person person) {
-        HaramMessage message = personService.update(person);
+    @RequestMapping(value = "/{userId}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable String userId, @RequestBody Person person) {
+        HaramMessage message = personService.update(userId, person);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

@@ -34,4 +34,12 @@ public class RoleController {
         HaramMessage message = roleService.get(roleId);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "获取ROLE列表", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity list(@RequestParam(required = false) String search, @RequestParam String order, @RequestParam String orderCol) {
+        HaramMessage message = roleService.list(search, order, orderCol);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

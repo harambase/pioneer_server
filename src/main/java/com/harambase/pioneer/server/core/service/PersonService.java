@@ -13,7 +13,7 @@ public interface PersonService {
 
     HaramMessage getUser(String userid);
 
-    HaramMessage update(Person person);
+    HaramMessage update(String userId, Person person);
 
     HaramMessage listUsers(String search, String type, String status);
 

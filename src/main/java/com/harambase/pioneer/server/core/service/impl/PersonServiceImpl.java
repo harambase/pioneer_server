@@ -179,8 +179,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage update(Person person) {
+    public HaramMessage update(String userId, Person person) {
         try {
+            person.setUserId(userId);
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
             Person newPerson = personRepository.save(person);
             return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
