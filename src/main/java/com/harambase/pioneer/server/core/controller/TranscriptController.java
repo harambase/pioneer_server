@@ -39,17 +39,18 @@ public class TranscriptController {
 
     @ApiOperation(value = "成绩单列表", notes = "权限：管理员，教务，教师，学生", response = Map.class, tags = {ApiTags.TRANSCRIPT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = {"/{studentId}/course", "/{crn}/student"}, produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
                                @RequestParam(value = "length") Integer length,
                                @RequestParam(value = "search", required = false, defaultValue = "") String search,
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
-                               @PathVariable(value = "studentId", required = false) String studentId,
-                               @PathVariable(value = "crn", required = false) String crn) {
+                               @RequestParam(value = "crn", required = false) String crn,
+                               @RequestParam(value = "studentId", required = false) String studentId) {
 
         HaramMessage message = transcriptService.transcriptList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, crn);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
 
 }
