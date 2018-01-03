@@ -66,6 +66,17 @@ public class Course implements Serializable {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "course_info")
+    private String courseInfo;
+
+    public String getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(String courseInfo) {
+        this.courseInfo = courseInfo;
+    }
+
     public Integer getId() {
         return id;
     }
