@@ -190,6 +190,17 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
+    public HaramMessage getAllInfo() {
+        try {
+            List<String> infoList = pinRepository.findInfo();
+            return ReturnMsgUtil.success(infoList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
     public HaramMessage listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
         try {
             HaramMessage message = new HaramMessage();

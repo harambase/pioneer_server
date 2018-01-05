@@ -19,4 +19,6 @@ public interface PinService {
     HaramMessage deleteSingleByPin(Integer pin);
 
     HaramMessage generateOne(String startTime, String endTime, int role, String info, String remark, String userId);
+
+    HaramMessage getAllInfo();
 }

@@ -107,4 +107,11 @@ public class PinController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "获取所有的INFO信息", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public ResponseEntity getAllInfo() {
+        HaramMessage haramMessage = pinService.getAllInfo();
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
 }

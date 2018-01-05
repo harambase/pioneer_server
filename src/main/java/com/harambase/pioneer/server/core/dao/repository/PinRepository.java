@@ -25,4 +25,7 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
     Page<Pin> findByInfo(String info, Pageable pageable);
 
     List<Pin> findByInfo(String info);
+
+    @Query("select distinct info from Pin")
+    List<String> findInfo();
 }
