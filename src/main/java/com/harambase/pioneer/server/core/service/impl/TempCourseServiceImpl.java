@@ -4,84 +4,62 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.FlagDict;
-import com.harambase.pioneer.server.core.dao.base.TempUserDao;
+import com.harambase.pioneer.server.core.dao.base.TempCourseDao;
 import com.harambase.pioneer.server.core.dao.repository.MessageRepository;
-import com.harambase.pioneer.server.core.dao.repository.TempUserRepository;
+import com.harambase.pioneer.server.core.dao.repository.TempCourseRepository;
 import com.harambase.pioneer.server.core.pojo.base.Message;
-import com.harambase.pioneer.server.core.pojo.base.Person;
-import com.harambase.pioneer.server.core.pojo.base.TempUser;
-import com.harambase.pioneer.server.core.service.TempUserService;
+import com.harambase.pioneer.server.core.pojo.base.TempCourse;
+import com.harambase.pioneer.server.core.service.TempCourseService;
 import com.harambase.pioneer.support.util.DateUtil;
 import com.harambase.pioneer.support.util.IDUtil;
 import com.harambase.pioneer.support.util.PageUtil;
 import com.harambase.pioneer.support.util.ReturnMsgUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
 @Service
-@Transactional
-public class TempUserImpl implements TempUserService {
-
+public class TempCourseServiceImpl implements TempCourseService {
+    
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final TempUserRepository tempUserRepository;
+    private final TempCourseRepository tempCourseRepository;
     private final MessageRepository messageRepository;
 
-    private final TempUserDao tempUserDao;
+    private final TempCourseDao tempCourseDao;
 
-    @Autowired
-    public TempUserImpl(TempUserRepository tempUserRepository,
-                        MessageRepository messageRepository,
-                        TempUserDao tempUserDao) {
-        this.tempUserRepository = tempUserRepository;
+    public TempCourseServiceImpl(TempCourseRepository tempCourseRepository, MessageRepository messageRepository,
+                                 TempCourseDao tempCourseDao) {
+        this.tempCourseRepository = tempCourseRepository;
         this.messageRepository = messageRepository;
-        this.tempUserDao = tempUserDao;
-    }
-
-    @Override
-    public HaramMessage deleteTempUserById(Integer id) {
-
-        try {
-            tempUserRepository.delete(id);
-            int count = tempUserRepository.countById(id);
-            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
-
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return ReturnMsgUtil.systemError();
-        }
+        this.tempCourseDao = tempCourseDao;
     }
 
     @Override
     public HaramMessage register(JSONObject jsonObject) {
-
         try {
-            String userid = IDUtil.genTempUserID(jsonObject.getString("info"));
+            String crn = IDUtil.genCRN(jsonObject.getString("info"));
 
-            TempUser tempUser = new TempUser();
-            tempUser.setUserId(userid);
-            tempUser.setUserJson(jsonObject.toJSONString());
-            tempUser.setCreateTime(DateUtil.DateToStr(new Date()));
-            tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
-            tempUser.setStatus("0");
+            TempCourse tempCourse = new TempCourse();
+            tempCourse.setCrn(crn);
+            tempCourse.setCourseJson(jsonObject.toJSONString());
+            tempCourse.setCreateTime(DateUtil.DateToStr(new Date()));
+            tempCourse.setUpdateTime(DateUtil.DateToStr(new Date()));
+            tempCourse.setStatus("0");
 
-            TempUser newTempUser = tempUserRepository.save(tempUser);
-            if (newTempUser == null)
+            TempCourse newTempCourse = tempCourseRepository.save(tempCourse);
+            if (newTempCourse == null)
                 return ReturnMsgUtil.fail();
 
+            //todo:向所有教务发送
             Message message = new Message();
             message.setDate(DateUtil.DateToStr(new Date()));
-
-            //todo:向所有系统管理员发送
             message.setReceiverId("9000000000");
             message.setSenderId("9000000000");
-            message.setBody("注意!接收到来自" + userid + "的请求注册信息");
+            message.setBody("注意!接收到来自" + crn + "的请求注册信息");
             message.setTitle("注册信息");
             message.setStatus("UNREAD");
             message.setSubject("用户注册");
@@ -92,22 +70,21 @@ public class TempUserImpl implements TempUserService {
             if (newMsg == null)
                 throw new RuntimeException("Message 插入失败!");
 
-            return ReturnMsgUtil.success(newTempUser);
+            return ReturnMsgUtil.success(newTempCourse);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
-
     }
 
     @Override
-    public HaramMessage updateTempUser(Integer id, TempUser tempUser) {
+    public HaramMessage deleteTempCourseById(Integer id) {
         try {
-            tempUser.setId(id);
-            tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
-            TempUser newTempUser = tempUserRepository.save(tempUser);
-            return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();
+            tempCourseRepository.delete(id);
+            int count = tempCourseRepository.countById(id);
+            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
@@ -115,11 +92,24 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
+    public HaramMessage updateTempCourse(Integer id, TempCourse tempCourse) {
+        try {
+            tempCourse.setId(id);
+            tempCourse.setUpdateTime(DateUtil.DateToStr(new Date()));
+            TempCourse newTempCourse = tempCourseRepository.save(tempCourse);
+            return newTempCourse != null ? ReturnMsgUtil.success(newTempCourse) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public HaramMessage tempCourseList(String currentPage, String pageSize, String search, String order, String orderColumn, String status, String facultyId) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
             case 1:
-                orderColumn = "user_id";
+                orderColumn = "crn";
                 break;
             case 2:
                 orderColumn = "createTime";
@@ -130,16 +120,16 @@ public class TempUserImpl implements TempUserService {
         }
         try {
 
-            long totalSize = tempUserDao.getCountByMapPageSearchOrdered(search, status);
+            long totalSize = tempCourseDao.getCountByMapPageSearchOrdered(search, status, facultyId);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<TempUser> tempUsers = tempUserDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
+            List<TempCourse> tempCourses = tempCourseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status, facultyId);
 
-            message.setData(tempUsers);
+            message.setData(tempCourses);
             message.put("page", page);
             message.setMsg(FlagDict.SUCCESS.getM());
             message.setCode(FlagDict.SUCCESS.getV());
@@ -150,5 +140,4 @@ public class TempUserImpl implements TempUserService {
             return ReturnMsgUtil.systemError();
         }
     }
-
 }

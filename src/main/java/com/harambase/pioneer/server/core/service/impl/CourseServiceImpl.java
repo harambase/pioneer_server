@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage create(Course course) {
+    public HaramMessage addCourse(Course course) {
 
         try {
             course.setCreateTime(DateUtil.DateToStr(new Date()));

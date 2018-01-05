@@ -214,9 +214,9 @@ CREATE TABLE `tempcourse` (
   `crn` varchar(20) NOT NULL,
   `status` varchar(20) DEFAULT NULL,
   `course_json` text NOT NULL,
-  `createtime` varchar(50) DEFAULT NULL,
-  `updatetime` varchar(50) DEFAULT NULL,
-  `operator` varchar(20) DEFAULT NULL,
+  `createTime` varchar(50) DEFAULT NULL,
+  `updateTime` varchar(50) DEFAULT NULL,
+  `operatorId` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -33,7 +33,7 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Course course) {
-        HaramMessage haramMessage = courseService.create(course);
+        HaramMessage haramMessage = courseService.addCourse(course);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 

@@ -9,7 +9,7 @@ import com.harambase.pioneer.server.core.pojo.dto.Option;
  */
 public interface CourseService {
 
-    HaramMessage create(Course course);
+    HaramMessage addCourse(Course course);
 
     HaramMessage delete(String crn);
 
