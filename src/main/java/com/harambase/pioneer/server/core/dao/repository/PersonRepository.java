@@ -21,4 +21,7 @@ public interface PersonRepository extends JpaRepository<Person, String> {
     int countByUserId(String userId);
 
     Person findByUserIdAndPassword(String userId, String password);
+
+    @Query(value = "select get_name(?1)", nativeQuery = true)
+    String getName(String userId);
 }

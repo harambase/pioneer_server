@@ -223,6 +223,21 @@ public class PinServiceImpl implements PinService {
             }
 
             List<Pin> pinList = pinRepository.findByInfo(info, pageable).getContent();
+
+            for(Pin pin: pinList){
+                int role = pin.getRole();
+                String userId = "";
+                switch (role){
+                    case 1:
+                        userId = pin.getStudentId();
+                        break;
+                    case 2:
+                        userId = pin.getFacultyId();
+                        break;
+                }
+                String owner = personRepository.getName(userId);
+                pin.setOwner(owner);
+            }
             page.setTotalRows(pinList.size());
 
             message.setData(pinList);

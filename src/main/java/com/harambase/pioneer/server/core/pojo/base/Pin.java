@@ -39,6 +39,17 @@ public class Pin implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+    @Column(name = "owner")
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public Integer getId() {
         return id;
     }
