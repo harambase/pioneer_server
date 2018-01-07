@@ -16,8 +16,6 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
 
     void deleteByInfo(String info);
 
-    int countByInfo(String info);
-
     void deleteByPin(Integer pin);
 
     int countByPin(Integer pin);
@@ -28,4 +26,12 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
 
     @Query("select distinct info from Pin")
     List<String> findInfo();
+
+    int countByInfoAndStudentId(String info, String userId);
+
+    int countByInfoAndFacultyId(String info, String userId);
+
+    int countByInfoAndRole(String info, int role);
+
+    int countByInfo(String info);
 }

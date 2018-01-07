@@ -185,6 +185,7 @@ public class PersonServiceImpl implements PersonService {
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
             Person newPerson = personRepository.save(person);
             return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+//            return ReturnMsgUtil.success(person);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

@@ -43,7 +43,7 @@ public class PersonDao {
                         "     first_name LIKE '%" + search + "%' OR" +
                         "     last_name  LIKE '%" + search + "%')";
             }
-            queryString += "limit 0,4";
+            queryString += "limit 0,6";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

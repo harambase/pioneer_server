@@ -73,7 +73,13 @@ public class PinServiceImpl implements PinService {
     public HaramMessage generateAll(String startTime, String endTime, int role, String info, String remark) {
 
         try {
-            Pin pin = new Pin();
+
+            int count = pinRepository.countByInfoAndRole(info, role);
+            if (count != 0) {
+                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
+            }
+
+
             List<Person> personList = new ArrayList<>();
 
             switch (role) {
@@ -85,13 +91,8 @@ public class PinServiceImpl implements PinService {
                     break;
             }
 
-            int count = pinRepository.countByInfo(info);
-            if (count > 0) {
-                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
-            }
-
-
             for (Person person : personList) {
+                Pin pin = new Pin();
                 int pinNum;
                 do {
                     pinNum = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
@@ -155,6 +156,16 @@ public class PinServiceImpl implements PinService {
     @Override
     public HaramMessage generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
         try {
+
+            //检查是否存在该类型的pin
+            int stuCount = pinRepository.countByInfoAndStudentId(info, userId);
+            int facCount = pinRepository.countByInfoAndFacultyId(info, userId);
+
+            if(stuCount != 0 || facCount != 0){
+                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
+            }
+
+            //生成pin
             Pin pin = new Pin();
             int pinNum, count;
 

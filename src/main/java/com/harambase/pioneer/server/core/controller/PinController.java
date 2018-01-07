@@ -29,7 +29,7 @@ public class PinController {
 
     @ApiOperation(value = "批量生成识别码", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createAll(@RequestParam(value = "startTime") String startTime,
                                     @RequestParam(value = "endTime") String endTime,
                                     @RequestParam(value = "role") int role,
@@ -41,13 +41,13 @@ public class PinController {
 
     @ApiOperation(value = "生成一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/{userId}", method = RequestMethod.POST)
     public ResponseEntity createOne(@RequestParam(value = "startTime") String startTime,
                                     @RequestParam(value = "endTime") String endTime,
                                     @RequestParam(value = "role") int role,
                                     @RequestParam(value = "info") String info,
                                     @RequestParam(value = "remark") String remark,
-                                    @RequestParam(value = "userId") String userId) {
+                                    @PathVariable(value = "userId") String userId) {
         HaramMessage haramMessage = pinService.generateOne(startTime, endTime, role, info, remark, userId);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
