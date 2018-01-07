@@ -281,17 +281,20 @@ public class PinServiceImpl implements PinService {
 
             String date = DateUtil.DateToStr(new Date());
 
-            Message message = new Message();
-            message.setDate(date);
-            message.setStatus("UNREAD");
-            message.setTitle("PIN的信息");
-            message.setSenderId(senderId);
-            message.setAttachment(null);
-            message.setLabels("inbox/important/");
-            message.setTag("work");
+
 
             for (Pin pin : pinInfoList) {
                 if (pin.getRole() == 2) {
+
+                    Message message = new Message();
+                    message.setDate(date);
+                    message.setStatus("UNREAD");
+                    message.setTitle("PIN的信息");
+                    message.setSenderId(senderId);
+                    message.setAttachment(null);
+                    message.setLabels("inbox/important/");
+                    message.setTag("work");
+
                     String facultyId = pin.getFacultyId();
                     String body = "您的账号用于管理学生的成绩的PIN号码是：" + pin.getPin() + "，有效期为："
                             + pin.getStartTime() + "至" + pin.getEndTime();
@@ -318,17 +321,20 @@ public class PinServiceImpl implements PinService {
             List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
             String date = DateUtil.DateToStr(new Date());
-            Message message = new Message();
-            message.setDate(date);
-            message.setStatus("UNREAD");
-            message.setTitle("您的辅导学生的PIN的信息");
-            message.setSenderId(senderId);
-            message.setAttachment(null);
-            message.setLabels("inbox/important/");
-            message.setTag("work");
+
 
             for (Pin pin : pinInfoList) {
                 if (pin.getRole() == 1) {
+
+                    Message message = new Message();
+                    message.setDate(date);
+                    message.setStatus("UNREAD");
+                    message.setTitle("您的辅导学生的PIN的信息");
+                    message.setSenderId(senderId);
+                    message.setAttachment(null);
+                    message.setLabels("inbox/important/");
+                    message.setTag("work");
+
                     String studentId = pin.getStudentId();
                     String facultyId = adviseRepository.findOneByStudentId(studentId).getFacultyId();
                     Person student = personRepository.findOne(studentId);
