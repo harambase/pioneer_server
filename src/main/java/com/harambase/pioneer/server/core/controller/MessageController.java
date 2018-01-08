@@ -53,6 +53,15 @@ public class MessageController {
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "更新消息状态", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/{id}/status", method = RequestMethod.PUT)
+    public ResponseEntity updateStatus(@PathVariable(value = "id") Integer id,
+                                       @RequestParam String status) {
+        HaramMessage haramMessage = messageService.updateStatus(id, status);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

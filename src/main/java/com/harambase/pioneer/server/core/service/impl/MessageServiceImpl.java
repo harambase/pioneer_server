@@ -128,6 +128,19 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public HaramMessage updateStatus(Integer id, String status) {
+        try {
+            Message message = messageRepository.findOne(id);
+            message.setStatus(status);
+            Message newMessage = messageRepository.save(message);
+            return newMessage != null ? ReturnMsgUtil.success(newMessage) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
     public HaramMessage createMessage(Message message) {
         try {
             message.setDate(DateUtil.DateToStr(new Date()));

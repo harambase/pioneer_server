@@ -17,4 +17,6 @@ public interface MessageService {
     HaramMessage delete(Integer id);
 
     HaramMessage update(Integer id, Message message);
+
+    HaramMessage updateStatus(Integer id, String status);
 }
