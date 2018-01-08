@@ -102,7 +102,7 @@ public class StudentDao {
         }
     }
 
-    public StudentView findOne(String studentId) throws Exception {
+    public LinkedHashMap<String, Object> findOne(String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         try {
@@ -116,7 +116,7 @@ public class StudentDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            List<StudentView> studentList = ResultSetHelper.getObjectFor(rs, StudentView.class);
+            List<LinkedHashMap<String, Object>> studentList = ResultSetHelper.getObjectAsLinkedHashMap(rs, StudentView.class);
 
             if (studentList.isEmpty())
                 return null;

@@ -225,7 +225,7 @@ public class CourseDao {
                 return courseViews;
 
             Statement stmt = connection.createStatement();
-            String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.student_id = '" + studentId + "'";
+            String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM Transcript t WHERE t.student_id = '" + studentId + "')";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public HaramMessage transcriptDetail(String studentId) {
         try {
-            StudentView sv = studentDao.findOne(studentId);
+            LinkedHashMap sv = studentDao.findOne(studentId);
             return ReturnMsgUtil.success(sv);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -119,10 +119,10 @@ public class StudentServiceImpl implements StudentService {
 
         try {
             List<CourseView> courseList = courseDao.findCourseViewByStudentId(studentid);
-            StudentView sv = studentDao.findOne(studentid);
+            LinkedHashMap sv = studentDao.findOne(studentid);
 
             int use_credits = 0;
-            int tol_credits = sv.getMaxCredits();
+            int tol_credits = (Integer) sv.get("maxCredits");
 
             for (CourseView course : courseList) {
                 if (course.getInfo().equals(info))
