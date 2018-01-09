@@ -350,6 +350,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public HaramMessage courseListInfo(String search) {
+        try {
+            List<String> infoList = courseRepository.getInfoList(search);
+            return ReturnMsgUtil.success(infoList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
     public HaramMessage courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                    String facultyid, String info) {
         try {
@@ -365,13 +376,13 @@ public class CourseServiceImpl implements CourseService {
                     orderColumn = "name";
                     break;
                 case 3:
-                    orderColumn = "coulev";
+                    orderColumn = "level";
                     break;
                 case 4:
-                    orderColumn = "cousec";
+                    orderColumn = "section";
                     break;
                 case 5:
-                    orderColumn = "capa";
+                    orderColumn = "capacity";
                     break;
                 case 6:
                     orderColumn = "remain";
@@ -392,7 +403,7 @@ public class CourseServiceImpl implements CourseService {
                     orderColumn = "faculty";
                     break;
                 default:
-                    orderColumn = "updatetime";
+                    orderColumn = "update_time";
                     break;
             }
 

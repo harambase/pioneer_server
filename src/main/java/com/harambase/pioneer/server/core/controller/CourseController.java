@@ -75,6 +75,14 @@ public class CourseController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "课程INFO列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public ResponseEntity listInfo(@RequestParam(value = "search", required = false, defaultValue = "") String search) {
+        HaramMessage message = courseService.courseListInfo(search);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "课程Ztree列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/zTree", method = RequestMethod.GET)

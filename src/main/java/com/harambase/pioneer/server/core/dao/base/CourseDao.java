@@ -76,7 +76,7 @@ public class CourseDao {
                         " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
                         " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
                         " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
-                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.updateTime LIKE '%" + search + "%')";
+                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
             }
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -116,7 +116,7 @@ public class CourseDao {
                         " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
                         " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
                         " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
-                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.updateTime LIKE '%" + search + "%')";
+                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
             }
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
