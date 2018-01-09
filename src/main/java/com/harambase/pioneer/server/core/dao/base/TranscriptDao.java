@@ -32,18 +32,18 @@ public class TranscriptDao {
 
             String queryString = "SELECT COUNT(*) AS count FROM transcriptview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(studentId))
-                queryString += "AND studentid LIKE '%" + studentId + "%' ";
+                queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(crn))
                 queryString += "AND crn = '" + crn + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "studentid  LIKE  '%" + search + "%' OR " +
-                        "crn        LIKE  '%" + search + "%' OR " +
-                        "grade      LIKE  '%" + search + "%' OR " +
-                        "complete   LIKE  '%" + search + "%' OR " +
-                        "assigntime LIKE  '%" + search + "%' OR " +
-                        "sname      LIKE  '%" + search + "%' OR " +
-                        "coursename LIKE  '%" + search + "%')";
+                        "student_id  LIKE  '%" + search + "%' OR " +
+                        "crn         LIKE  '%" + search + "%' OR " +
+                        "grade       LIKE  '%" + search + "%' OR " +
+                        "complete    LIKE  '%" + search + "%' OR " +
+                        "assign_time LIKE  '%" + search + "%' OR " +
+                        "sname       LIKE  '%" + search + "%' OR " +
+                        "cname       LIKE  '%" + search + "%')";
             }
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -75,18 +75,18 @@ public class TranscriptDao {
 
             String queryString = "SELECT * FROM transcriptview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(studentId))
-                queryString += "AND studentid LIKE '%" + studentId + "%' ";
+                queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(crn))
                 queryString += "AND crn = '" + crn + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        "studentid  LIKE  '%" + search + "%' OR " +
-                        "crn        LIKE  '%" + search + "%' OR " +
-                        "grade      LIKE  '%" + search + "%' OR " +
-                        "complete   LIKE  '%" + search + "%' OR " +
-                        "assigntime LIKE  '%" + search + "%' OR " +
-                        "sname      LIKE  '%" + search + "%' OR " +
-                        "coursename LIKE  '%" + search + "%')";
+                        "student_id  LIKE  '%" + search + "%' OR " +
+                        "crn         LIKE  '%" + search + "%' OR " +
+                        "grade       LIKE  '%" + search + "%' OR " +
+                        "complete    LIKE  '%" + search + "%' OR " +
+                        "assign_time LIKE  '%" + search + "%' OR " +
+                        "sname       LIKE  '%" + search + "%' OR " +
+                        "cname       LIKE  '%" + search + "%')";
             }
 
             queryString += "order by " + orderColumn + " " + order + " "
