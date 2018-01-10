@@ -209,10 +209,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage removeStuFromCou(String crn, String studentid) {
+    public HaramMessage removeStuFromCou(String crn, String studentId) {
         try {
-            transcriptRepository.deleteTranscriptByStudentIdAndCrn(studentid, crn);
-            int count = transcriptRepository.countByStudentIdAndCrn(studentid, crn);
+            transcriptRepository.deleteTranscriptByStudentIdAndCrn(studentId, crn);
+            int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

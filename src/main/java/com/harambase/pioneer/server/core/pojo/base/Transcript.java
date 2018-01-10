@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "transcript_copy")
+@Table(name = "transcript")
 public class Transcript implements Serializable {
 
     @Id
