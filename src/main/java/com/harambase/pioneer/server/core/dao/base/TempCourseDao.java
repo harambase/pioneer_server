@@ -19,7 +19,7 @@ public class TempCourseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public long getCountByMapPageSearchOrdered(String search, String status, String facultyId) throws Exception {
+    public long getCountByMapPageSearchOrdered(String search, String status, String faculty_id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Long count = 0L;
@@ -33,10 +33,10 @@ public class TempCourseDao {
             String queryString = "SELECT COUNT(*) AS count FROM tempcourse WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
-            if (StringUtils.isNotEmpty(facultyId))
-                queryString += "AND facultyId = '" + facultyId + "' ";
+            if (StringUtils.isNotEmpty(faculty_id))
+                queryString += "AND faculty_id = '" + faculty_id + "' ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND (crn LIKE  '%" + search + "%' OR facultyId LIKE '%" + search + "%')";
+                queryString += "AND (crn LIKE  '%" + search + "%' OR faculty_id LIKE '%" + search + "%')";
 
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -55,7 +55,7 @@ public class TempCourseDao {
     }
 
     public List<TempCourse> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                      String order, String orderColumn, String status, String facultyId) throws Exception {
+                                                      String order, String orderColumn, String status, String faculty_id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<TempCourse> tempCourses = new ArrayList<>();
@@ -69,10 +69,10 @@ public class TempCourseDao {
             String queryString = "SELECT * FROM tempcourse WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
-            if (StringUtils.isNotEmpty(facultyId))
-                queryString += "AND facultyId = '" + facultyId + "' ";
+            if (StringUtils.isNotEmpty(faculty_id))
+                queryString += "AND faculty_id = '" + faculty_id + "' ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND (crn LIKE  '%" + search + "%' OR facultyId LIKE '%" + search + "%')";
+                queryString += "AND (crn LIKE  '%" + search + "%' OR faculty_id LIKE '%" + search + "%')";
 
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;

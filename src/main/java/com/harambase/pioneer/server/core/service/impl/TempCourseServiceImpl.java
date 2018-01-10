@@ -39,11 +39,12 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage register(JSONObject jsonObject) {
+    public HaramMessage register(String facultyId, JSONObject jsonObject) {
         try {
             String crn = IDUtil.genCRN(jsonObject.getString("info"));
 
             TempCourse tempCourse = new TempCourse();
+            tempCourse.setFacultyId(facultyId);
             tempCourse.setCrn(crn);
             tempCourse.setCourseJson(jsonObject.toJSONString());
             tempCourse.setCreateTime(DateUtil.DateToStr(new Date()));
@@ -108,11 +109,17 @@ public class TempCourseServiceImpl implements TempCourseService {
     public HaramMessage tempCourseList(String currentPage, String pageSize, String search, String order, String orderColumn, String status, String facultyId) {
         HaramMessage message = new HaramMessage();
         switch (Integer.parseInt(orderColumn)) {
-            case 1:
+            case 2:
                 orderColumn = "crn";
                 break;
-            case 2:
-                orderColumn = "createTime";
+            case 4:
+                orderColumn = "faculty_id";
+                break;
+            case 5:
+                orderColumn = "create_time";
+                break;
+            case 6:
+                orderColumn = "status";
                 break;
             default:
                 orderColumn = "id";

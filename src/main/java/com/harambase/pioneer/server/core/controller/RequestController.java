@@ -104,9 +104,9 @@ public class RequestController {
 
     @ApiOperation(value = "新课程申请", notes = "权限：教师", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/course/register", method = RequestMethod.POST)
-    public ResponseEntity registerNewCourse(@RequestBody JSONObject jsonObject) {
-        HaramMessage haramMessage = tempCourseService.register(jsonObject);
+    @RequestMapping(value = "/course/register/{facultyId}", method = RequestMethod.POST)
+    public ResponseEntity registerNewCourse(@PathVariable String facultyId, @RequestBody JSONObject jsonObject) {
+        HaramMessage haramMessage = tempCourseService.register(facultyId, jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
