@@ -147,4 +147,15 @@ public class TempCourseServiceImpl implements TempCourseService {
             return ReturnMsgUtil.systemError();
         }
     }
+
+    @Override
+    public HaramMessage get(Integer id) {
+        try {
+            TempCourse tempCourse = tempCourseRepository.findOne(id);
+            return ReturnMsgUtil.success(tempCourse);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
 }

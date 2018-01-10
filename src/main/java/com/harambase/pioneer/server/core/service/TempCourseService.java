@@ -12,4 +12,6 @@ public interface TempCourseService {
     HaramMessage updateTempCourse(Integer id, TempCourse tempCourse);
 
     HaramMessage tempCourseList(String s, String s1, String search, String order, String orderCol, String status, String facultyId);
+
+    HaramMessage get(Integer id);
 }

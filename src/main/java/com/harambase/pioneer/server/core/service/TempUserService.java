@@ -13,4 +13,6 @@ public interface TempUserService {
     HaramMessage updateTempUser(Integer id, TempUser tempUser);
 
     HaramMessage tempUserList(String s, String s1, String search, String order, String orderCol, String status);
+
+    HaramMessage get(Integer id);
 }

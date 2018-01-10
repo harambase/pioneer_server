@@ -151,4 +151,15 @@ public class TempUserImpl implements TempUserService {
         }
     }
 
+    @Override
+    public HaramMessage get(Integer id) {
+        try {
+            TempUser tempUser = tempUserRepository.findOne(id);
+            return ReturnMsgUtil.success(tempUser);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
 }

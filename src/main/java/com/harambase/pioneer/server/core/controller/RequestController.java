@@ -43,6 +43,14 @@ public class RequestController {
         this.courseService = courseService;
     }
 
+    @ApiOperation(value = "查找一个用户申请", notes = "权限：管理员，行政", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity getUserRequest(@PathVariable Integer id) {
+        HaramMessage haramMessage = tempUserService.get(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "更新临时用户", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/user/{id}", produces = "application/json", method = RequestMethod.PUT)
@@ -85,6 +93,14 @@ public class RequestController {
                                    @RequestParam(value = "status", required = false) String status) {
         HaramMessage message = tempUserService.tempUserList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
         return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "查找一个课程申请", notes = "权限：教师， 教务", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/course/{id}", method = RequestMethod.GET)
+    public ResponseEntity getCourseRequest(@PathVariable Integer id) {
+        HaramMessage haramMessage = tempCourseService.get(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
     @ApiOperation(value = "更新临时课程", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
