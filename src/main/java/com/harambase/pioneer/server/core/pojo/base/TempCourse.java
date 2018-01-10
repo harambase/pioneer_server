@@ -27,7 +27,7 @@ public class TempCourse implements Serializable {
     @Column(name = "operator_id")
     private String operatorId;
 
-    @Column(name = "facultyId")
+    @Column(name = "faculty_id")
     private String facultyId;
 
     @Column(name = "course_json")

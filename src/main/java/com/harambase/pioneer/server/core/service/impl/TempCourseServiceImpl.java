@@ -41,7 +41,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     @Override
     public HaramMessage register(String facultyId, JSONObject jsonObject) {
         try {
-            String crn = IDUtil.genCRN(jsonObject.getString("info"));
+            String crn = IDUtil.genTempCRN(jsonObject.getString("info"));
 
             TempCourse tempCourse = new TempCourse();
             tempCourse.setFacultyId(facultyId);

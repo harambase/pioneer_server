@@ -14,6 +14,10 @@ public class IDUtil {
         return "1" + info.split("-")[0] + info.split("-")[1] + last;
     }
 
+    public static String genTempCRN(String info) {
+        Integer last = (int) (Math.random() * (99 - 10 + 1) + 10);
+        return "8" + info.split("-")[0] + info.split("-")[1] + last;
+    }
 
     public static String genTempUserID(String info) {
         Integer last = (int) (Math.random() * (999 - 100 + 1) + 100);

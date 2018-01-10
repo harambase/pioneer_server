@@ -95,8 +95,8 @@ public class CourseController {
     @ApiOperation(value = "搜索课程", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ResponseEntity search(@RequestParam("search") String search,
-                                 @RequestParam("status") String status) {
+    public ResponseEntity search(@RequestParam(required = false, defaultValue = "") String search,
+                                 @RequestParam(required = false, defaultValue = "") String status) {
         HaramMessage haramMessage = courseService.getCourseBySearch(search, status);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
