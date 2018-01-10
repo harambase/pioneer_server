@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.7.18 : Database - pioneer_2.0
+MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
 *********************************************************************
 */
 
@@ -61,16 +61,16 @@ CREATE TABLE `course` (
   `info` varchar(20) NOT NULL,
   `create_time` varchar(20) DEFAULT NULL,
   `update_time` varchar(20) DEFAULT NULL,
-  `comment` text COMMENT '备注',
-  `course_info` text,
+  `comment` text DEFAULT NULL COMMENT '备注',
+  `course_info` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 /*Data for the table `course` */
 
 LOCK TABLES `course` WRITE;
 
-insert  into `course`(`id`,`crn`,`name`,`credits`,`precrn`,`level`,`section`,`classroom`,`start_date`,`end_date`,`day`,`start_time`,`end_time`,`capacity`,`faculty_id`,`info`,`create_time`,`update_time`,`comment`,`course_info`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2018-01-03 17:21:37','qwerq2','/static/upload/document/courseInfo/9/6/9c2a20d8-b451-4794-8ce7-449d8c9125df.docx'),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701000','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL,NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL,NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701000','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe',NULL),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52','',NULL),(9,'120170289','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201701000','2017-02','2017-10-09 10:59:04','2017-12-21 12:49:07',NULL,NULL);
+insert  into `course`(`id`,`crn`,`name`,`credits`,`precrn`,`level`,`section`,`classroom`,`start_date`,`end_date`,`day`,`start_time`,`end_time`,`capacity`,`faculty_id`,`info`,`create_time`,`update_time`,`comment`,`course_info`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2018-01-03 17:21:37','qwerq2',''),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701000','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL,NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL,NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701000','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe',NULL),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52','',NULL),(9,'120170289','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201701000','2017-02','2017-10-09 10:59:04','2017-12-21 12:49:07',NULL,NULL),(10,'120180238','Math2',1,'','123','12','1','2018-01-10','2018-01-31','s/sa/f/tr/','09:00:00','15:00:00',123,'9201701000','2018-02','2018-01-10 21:05:49','2018-01-10 21:05:49','asdfasdfasd','{\"path\":\"/static/upload/document/courseInfo/1/7/276d6ff8-97da-4f3d-a8d8-2a9935357d55.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}'),(11,'120170218','Computer Science',4,'','499','01','1','2018-01-10','2018-01-10','t/w/tr/','09:00:00','06:00:00',12,'9201701100','2017-02','2018-01-10 21:15:50','2018-01-10 21:15:51','asfasfdd','{\"path\":\"/static/upload/document/courseInfo/1/7/03406b18-6863-43f5-9bf9-bfdce9edc1c6.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}');
 
 UNLOCK TABLES;
 
@@ -83,21 +83,21 @@ CREATE TABLE `message` (
   `sender_id` varchar(50) NOT NULL COMMENT '发送者ID',
   `subject` varchar(20) DEFAULT NULL COMMENT '类型',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `receiver_id` text COMMENT '接收者ID',
-  `body` text COMMENT '内容',
+  `receiver_id` text DEFAULT NULL COMMENT '接收者ID',
+  `body` text DEFAULT NULL COMMENT '内容',
   `status` varchar(10) DEFAULT NULL COMMENT '已读、未读、草稿',
   `date` varchar(50) DEFAULT NULL COMMENT '创建时间',
   `attachment` varchar(50) DEFAULT NULL,
   `tag` varchar(50) DEFAULT NULL,
   `labels` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 /*Data for the table `message` */
 
 LOCK TABLES `message` WRITE;
 
-insert  into `message`(`id`,`sender_id`,`subject`,`title`,`receiver_id`,`body`,`status`,`date`,`attachment`,`tag`,`labels`) values (49,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702937的请求注册信息','read','2017-09-20 13:37:44',NULL,'重要','important'),(50,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201703122的请求注册信息','read','2017-09-20 13:39:29',NULL,'紧急','important'),(54,'9201701000','用户注册','账户信息','9201702937/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-22 16:58:04',NULL,'紧急','important'),(55,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702574的请求注册信息','read','2017-09-25 17:05:47',NULL,'紧急','important'),(56,'9201701000','用户注册','账户信息','9201703122/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:45',NULL,'紧急','important'),(57,'9201701000','用户注册','账户信息','9201702574/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:58',NULL,'紧急','important'),(58,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702884的请求注册信息','read','2017-09-25 17:09:52',NULL,'紧急','important'),(59,'9201701000','用户注册','账户信息','9201702884/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:10:21',NULL,'紧急','important'),(60,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702887的请求注册信息','read','2017-09-30 10:19:10',NULL,'紧急','important'),(61,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:22:02',NULL,'紧急','important'),(62,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:26:52',NULL,'紧急','important'),(63,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702745的请求注册信息','saved','2017-09-30 11:40:30',NULL,'紧急',''),(64,'9201701000','用户注册','账户信息','9201702745/','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:42:36',NULL,'紧急',''),(65,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:49:34',NULL,'紧急',''),(66,'9201701000','用户注册','账户信息','9201702544/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 11:51:45',NULL,'紧急',''),(67,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702226的请求注册信息','read','2017-09-30 13:54:41',NULL,'紧急',''),(68,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702370的请求注册信息','read','2017-10-11 15:53:59',NULL,'紧急',''),(69,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702201的请求注册信息','trashed','2017-10-11 15:57:59',NULL,'紧急',''),(70,'9201701000','用户注册','注册信息','9201701000/9201702887/','注意!接收到来自9201702622的请求注册信息','saved','2017-10-11 15:59:21',NULL,'紧急',''),(77,'9201701000','Test','Test','9201701687/','TEST','unread','2017-11-22 22:21:32',NULL,'重要',NULL),(78,'9201701000','Test','Test','9201701000/','TEST','unread','2017-11-22 22:21:32',NULL,'重要',NULL),(79,'9201701000','TEST','TEST','9201701687/','TEST','unread','2017-11-22 22:22:17',NULL,'重要',NULL),(80,'9201701000','Test2','Test2','9201701261/','Test2','unread','2017-11-22 22:33:46',NULL,'重要',NULL),(81,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自9201702920的请求注册信息','UNREAD','2017-12-29 10:09:58',NULL,'work','inbox/important/'),(82,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820180117的请求注册信息','UNREAD','2018-01-10 11:40:50',NULL,'work','inbox/important/'),(83,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170211的请求注册信息','UNREAD','2018-01-10 17:10:41',NULL,'work','inbox/important/');
+insert  into `message`(`id`,`sender_id`,`subject`,`title`,`receiver_id`,`body`,`status`,`date`,`attachment`,`tag`,`labels`) values (49,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702937的请求注册信息','read','2017-09-20 13:37:44',NULL,'重要','important'),(50,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201703122的请求注册信息','read','2017-09-20 13:39:29',NULL,'紧急','important'),(54,'9201701000','用户注册','账户信息','9201702937/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-22 16:58:04',NULL,'紧急','important'),(55,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702574的请求注册信息','read','2017-09-25 17:05:47',NULL,'紧急','important'),(56,'9201701000','用户注册','账户信息','9201703122/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:45',NULL,'紧急','important'),(57,'9201701000','用户注册','账户信息','9201702574/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:07:58',NULL,'紧急','important'),(58,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702884的请求注册信息','read','2017-09-25 17:09:52',NULL,'紧急','important'),(59,'9201701000','用户注册','账户信息','9201702884/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-25 17:10:21',NULL,'紧急','important'),(60,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702887的请求注册信息','read','2017-09-30 10:19:10',NULL,'紧急','important'),(61,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:22:02',NULL,'紧急','important'),(62,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 10:26:52',NULL,'紧急','important'),(63,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702745的请求注册信息','saved','2017-09-30 11:40:30',NULL,'紧急',''),(64,'9201701000','用户注册','账户信息','9201702745/','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:42:36',NULL,'紧急',''),(65,'9201701000','用户注册','账户信息','9201702887/','您的接收到来自管理员的一条消息:你的用户已成功创建','saved','2017-09-30 11:49:34',NULL,'紧急',''),(66,'9201701000','用户注册','账户信息','9201702544/','您的接收到来自管理员的一条消息:你的用户已成功创建','unread','2017-09-30 11:51:45',NULL,'紧急',''),(67,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702226的请求注册信息','read','2017-09-30 13:54:41',NULL,'紧急',''),(68,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702370的请求注册信息','read','2017-10-11 15:53:59',NULL,'紧急',''),(69,'9201701000','用户注册','注册信息','9201701000/','注意!接收到来自9201702201的请求注册信息','trashed','2017-10-11 15:57:59',NULL,'紧急',''),(70,'9201701000','用户注册','注册信息','9201701000/9201702887/','注意!接收到来自9201702622的请求注册信息','saved','2017-10-11 15:59:21',NULL,'紧急',''),(77,'9201701000','Test','Test','9201701687/','TEST','unread','2017-11-22 22:21:32',NULL,'重要',NULL),(78,'9201701000','Test','Test','9201701000/','TEST','unread','2017-11-22 22:21:32',NULL,'重要',NULL),(79,'9201701000','TEST','TEST','9201701687/','TEST','unread','2017-11-22 22:22:17',NULL,'重要',NULL),(80,'9201701000','Test2','Test2','9201701261/','Test2','unread','2017-11-22 22:33:46',NULL,'重要',NULL),(81,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自9201702920的请求注册信息','UNREAD','2017-12-29 10:09:58',NULL,'work','inbox/important/'),(82,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820180117的请求注册信息','UNREAD','2018-01-10 11:40:50',NULL,'work','inbox/important/'),(83,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170211的请求注册信息','UNREAD','2018-01-10 17:10:41',NULL,'work','inbox/important/'),(84,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820180120的请求注册信息','UNREAD','2018-01-10 20:11:33',NULL,'work','inbox/important/'),(85,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170254的请求注册信息','UNREAD','2018-01-10 20:15:44',NULL,'work','inbox/important/'),(86,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820180230的请求注册信息','UNREAD','2018-01-10 20:19:54',NULL,'work','inbox/important/'),(87,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170339的请求注册信息','UNREAD','2018-01-10 20:22:49',NULL,'work','inbox/important/'),(88,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170359的请求注册信息','UNREAD','2018-01-10 20:25:25',NULL,'work','inbox/important/'),(89,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170349的请求注册信息','UNREAD','2018-01-10 20:27:23',NULL,'work','inbox/important/'),(90,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170396的请求注册信息','UNREAD','2018-01-10 20:28:14',NULL,'work','inbox/important/'),(91,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170258的请求注册信息','UNREAD','2018-01-10 20:33:09',NULL,'work','inbox/important/'),(92,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170352的请求注册信息','UNREAD','2018-01-10 20:35:52',NULL,'work','inbox/important/'),(93,'9000000000','用户注册','注册信息','9000000000','注意!接收到来自820170356的请求注册信息','UNREAD','2018-01-10 20:38:14',NULL,'work','inbox/important/');
 
 UNLOCK TABLES;
 
@@ -124,10 +124,10 @@ CREATE TABLE `person` (
   `gender` varchar(20) NOT NULL COMMENT '性别',
   `create_time` varchar(100) NOT NULL COMMENT '创建时间',
   `update_time` varchar(100) NOT NULL COMMENT '修改时间',
-  `base_info` text,
-  `comment` text COMMENT '备注',
-  `profile` text COMMENT '头像',
-  `user_info` text,
+  `base_info` text DEFAULT NULL,
+  `comment` text DEFAULT NULL COMMENT '备注',
+  `profile` text DEFAULT NULL COMMENT '头像',
+  `user_info` text DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -154,7 +154,7 @@ CREATE TABLE `pin` (
   `start_time` varchar(20) NOT NULL,
   `end_time` varchar(20) NOT NULL,
   `create_time` varchar(20) DEFAULT NULL,
-  `remark` text,
+  `remark` text DEFAULT NULL,
   `owner` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
@@ -220,13 +220,13 @@ CREATE TABLE `tempcourse` (
   `operator_id` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tempcourse` */
 
 LOCK TABLES `tempcourse` WRITE;
 
-insert  into `tempcourse`(`id`,`crn`,`status`,`course_json`,`create_time`,`faculty_id`,`operator_id`,`update_time`) values (1,'820180117','0','{\"level\":\"100\",\"endDate\":\"2018-01-29\",\"precrn\":\"120170125/\",\"section\":\"01\",\"classroom\":\"1\",\"capacity\":\"40\",\"credits\":\"4\",\"name\":\"English\",\"startTime\":\"06:00:00\",\"comment\":\"awerawer\",\"endTime\":\"07:00:00\",\"day\":\"t/tr/f/\",\"startDate\":\"2018-01-10\",\"info\":\"2018-01\"}','2018-01-10 11:40:50','9201701000',NULL,'2018-01-10 11:40:50'),(2,'820170211','0','{\"level\":\"111\",\"endDate\":\"2018-02-06\",\"precrn\":\"120170125/\",\"section\":\"12\",\"classroom\":\"1\",\"capacity\":\"11\",\"facultyId\":\"\",\"credits\":\"1\",\"name\":\"sadf\",\"startTime\":\"06:00:00\",\"comment\":\"sadfas\",\"endTime\":\"07:00:00\",\"courseInfo\":\"{\\\"path\\\":\\\"/static/upload/document/courseInfo/1/0/f30bf2e1-a3a4-46fc-a86d-40fbb048ea59.pdf\\\",\\\"size\\\":1561,\\\"name\\\":\\\"1.pdf\\\",\\\"type\\\":\\\"pdf\\\"}\",\"day\":\"sa/s/\",\"crn\":\"\",\"startDate\":\"2018-01-26\",\"info\":\"2017-02\"}','2018-01-10 17:10:41','9201701000','9201701000','2018-01-10 17:46:39');
+insert  into `tempcourse`(`id`,`crn`,`status`,`course_json`,`create_time`,`faculty_id`,`operator_id`,`update_time`) values (1,'820180117','0','{\"level\":\"100\",\"endDate\":\"2018-01-29\",\"precrn\":\"120170125/\",\"section\":\"01\",\"classroom\":\"1\",\"capacity\":\"40\",\"credits\":\"4\",\"name\":\"English\",\"startTime\":\"06:00:00\",\"comment\":\"awerawer\",\"endTime\":\"07:00:00\",\"day\":\"t/tr/f/\",\"startDate\":\"2018-01-10\",\"info\":\"2018-01\"}','2018-01-10 11:40:50','9201701000',NULL,'2018-01-10 11:40:50'),(2,'820170211','0','{\"level\":\"111\",\"endDate\":\"2018-02-06\",\"precrn\":\"120170125/\",\"section\":\"12\",\"classroom\":\"1\",\"capacity\":\"11\",\"facultyId\":\"\",\"credits\":\"1\",\"name\":\"sadf\",\"startTime\":\"06:00:00\",\"comment\":\"sadfas\",\"endTime\":\"07:00:00\",\"courseInfo\":\"{\\\"path\\\":\\\"/static/upload/document/courseInfo/1/0/f30bf2e1-a3a4-46fc-a86d-40fbb048ea59.pdf\\\",\\\"size\\\":1561,\\\"name\\\":\\\"1.pdf\\\",\\\"type\\\":\\\"pdf\\\"}\",\"day\":\"sa/s/\",\"crn\":\"\",\"startDate\":\"2018-01-26\",\"info\":\"2017-02\"}','2018-01-10 17:10:41','9201701000','9201701000','2018-01-10 17:46:39'),(4,'820170254','0','{\"level\":\"111\",\"endDate\":\"2018-01-31\",\"precrn\":\"\",\"section\":\"02\",\"classroom\":\"2\",\"capacity\":\"50\",\"facultyId\":\"\",\"credits\":\"4\",\"name\":\"Math\",\"startTime\":\"06:00:00\",\"comment\":\"sdfasf\",\"endTime\":\"07:00:00\",\"courseInfo\":\"\",\"day\":\"t/w/tr/\",\"crn\":\"\",\"startDate\":\"2018-01-10\",\"info\":\"2017-02\"}','2018-01-10 20:15:44','9201701000',NULL,'2018-01-10 20:15:44'),(5,'820180230','1','{\"level\":\"123\",\"endDate\":\"2018-01-31\",\"precrn\":\"\",\"section\":\"12\",\"classroom\":\"1\",\"capacity\":\"123\",\"facultyId\":\"9201701000\",\"credits\":\"1\",\"name\":\"Math2\",\"startTime\":\"09:00:00\",\"comment\":\"asdfasdfasd\",\"endTime\":\"15:00:00\",\"courseInfo\":{\"path\":\"/static/upload/document/courseInfo/1/7/276d6ff8-97da-4f3d-a8d8-2a9935357d55.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"},\"day\":\"s/sa/f/tr/\",\"crn\":\"\",\"startDate\":\"2018-01-10\",\"info\":\"2018-02\"}','2018-01-10 20:19:54','9201701000','9201701000','2018-01-10 21:05:49'),(6,'820170339','0','{\"level\":\"123\",\"endDate\":\"2018-01-05\",\"precrn\":\"\",\"section\":\"12\",\"classroom\":\"213\",\"capacity\":\"1232\",\"facultyId\":\"\",\"credits\":\"1\",\"name\":\"123\",\"startTime\":\"09:00:00\",\"comment\":\"sadfasdfasdf\",\"endTime\":\"09:00:00\",\"courseInfo\":\"\",\"day\":\"sa/s/tr/w/\",\"crn\":\"\",\"startDate\":\"2018-01-03\",\"info\":\"2017-03\"}','2018-01-10 20:22:49','9201701000',NULL,'2018-01-10 20:22:49'),(7,'820170359','0','{\"level\":\"123\",\"endDate\":\"2018-01-05\",\"precrn\":\"\",\"section\":\"12\",\"classroom\":\"213\",\"capacity\":\"1232\",\"facultyId\":\"\",\"credits\":\"1\",\"name\":\"123\",\"startTime\":\"09:00:00\",\"comment\":\"sadfasdfasdf\",\"endTime\":\"09:00:00\",\"courseInfo\":\"\",\"day\":\"sa/s/tr/w/\",\"crn\":\"\",\"startDate\":\"2018-01-03\",\"info\":\"2017-03\"}','2018-01-10 20:25:25','9201701000',NULL,'2018-01-10 20:25:25'),(8,'820170349','-1','{\"level\":\"\",\"endDate\":\"\",\"precrn\":\"\",\"section\":\"\",\"classroom\":\"\",\"capacity\":\"\",\"facultyId\":\"9201701000\",\"credits\":\"\",\"name\":\"sadfas\",\"startTime\":\"\",\"comment\":\"信息不完整\",\"endTime\":\"\",\"courseInfo\":\"\",\"day\":\"\",\"crn\":\"\",\"startDate\":\"\",\"info\":\"2017-03\"}','2018-01-10 20:27:23','9201701000','9201701000','2018-01-10 21:00:58'),(9,'820170396','0','{\"level\":\"\",\"endDate\":\"\",\"precrn\":\"\",\"section\":\"\",\"classroom\":\"\",\"capacity\":\"\",\"facultyId\":\"\",\"credits\":\"\",\"name\":\"asdf\",\"startTime\":\"\",\"comment\":\"\",\"endTime\":\"\",\"courseInfo\":\"\",\"day\":\"\",\"crn\":\"\",\"startDate\":\"\",\"info\":\"2017-03\"}','2018-01-10 20:28:14','9201701000',NULL,'2018-01-10 20:28:14'),(10,'820170258','0','{\"level\":\"\",\"endDate\":\"\",\"precrn\":\"\",\"section\":\"\",\"classroom\":\"\",\"capacity\":\"\",\"facultyId\":\"\",\"credits\":\"\",\"name\":\"asdfasdf\",\"startTime\":\"\",\"comment\":\"asdfasfd\",\"endTime\":\"\",\"courseInfo\":\"\",\"day\":\"\",\"crn\":\"\",\"startDate\":\"\",\"info\":\"2017-02\"}','2018-01-10 20:33:09','9201701000',NULL,'2018-01-10 20:33:09'),(11,'820170352','0','{\"level\":\"\",\"endDate\":\"\",\"precrn\":\"\",\"section\":\"\",\"classroom\":\"\",\"capacity\":\"\",\"facultyId\":\"\",\"credits\":\"\",\"name\":\"asfa\",\"startTime\":\"\",\"comment\":\"sdfasdfasdf\",\"endTime\":\"\",\"courseInfo\":\"{\\\"path\\\":\\\"/static/upload/document/courseInfo/1/7/42f904b7-e8a9-4ca4-9137-59e585952dd0.doc\\\",\\\"size\\\":45056,\\\"name\\\":\\\"先锋课程描述.doc\\\",\\\"type\\\":\\\"doc\\\"}\",\"day\":\"m/t/\",\"crn\":\"\",\"startDate\":\"\",\"info\":\"2017-03\"}','2018-01-10 20:35:52','9201701000',NULL,'2018-01-10 20:36:44'),(12,'820170356','0','{\"level\":\"123\",\"endDate\":\"\",\"precrn\":\"\",\"section\":\"11\",\"classroom\":\"\",\"capacity\":\"12\",\"facultyId\":\"\",\"credits\":\"1\",\"name\":\"asdfasdf\",\"startTime\":\"\",\"comment\":\"asfd\",\"endTime\":\"\",\"courseInfo\":\"{\\\"path\\\":\\\"/static/upload/document/courseInfo/1/7/bb8c52b1-4f8f-4b82-80fb-27f3264d23f3.doc\\\",\\\"size\\\":45056,\\\"name\\\":\\\"先锋课程描述.doc\\\",\\\"type\\\":\\\"doc\\\"}\",\"day\":\"\",\"crn\":\"\",\"startDate\":\"\",\"info\":\"2017-03\"}','2018-01-10 20:38:14','9201701000',NULL,'2018-01-10 20:38:20');
 
 UNLOCK TABLES;
 
@@ -304,17 +304,17 @@ UNLOCK TABLES;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_complete_credits`(sid varchar(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
-	
-	if counts > 0 then
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
-	end if;	
-	
-	RETURN credits;
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
+	
+	if counts > 0 then
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
+	end if;	
+	
+	RETURN credits;
 END */$$
 DELIMITER ;
 
@@ -324,17 +324,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_date`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE startdate VARCHAR(100);
-	DECLARE enddate VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(startdate," to ",enddate);
-	
-	
-	RETURN ctime ;
+BEGIN
+	
+	DECLARE startdate VARCHAR(100);
+	DECLARE enddate VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
+	SET ctime = CONCAT(startdate," to ",enddate);
+	
+	
+	RETURN ctime ;
     END */$$
 DELIMITER ;
 
@@ -344,22 +344,22 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_status`(crn VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE enddate VARCHAR(100);
-	DECLARE startdate VARCHAR(100);
-	DECLARE status INT(11);
-	
-	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
-	
-	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
-		SET status = -1;
-	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
-		set status = 0;
-	ELSE
-		SET status = 1;
-	END IF;
-	
-	RETURN status ;
+BEGIN
+	DECLARE enddate VARCHAR(100);
+	DECLARE startdate VARCHAR(100);
+	DECLARE status INT(11);
+	
+	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
+	
+	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
+		SET status = -1;
+	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
+		set status = 0;
+	ELSE
+		SET status = 1;
+	END IF;
+	
+	RETURN status ;
     END */$$
 DELIMITER ;
 
@@ -369,17 +369,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_time`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	DECLARE starttime VARCHAR(100);
-	DECLARE endtime VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(starttime,"-",endtime);
-	
-	
-	RETURN ctime ;
-	
+BEGIN
+	DECLARE starttime VARCHAR(100);
+	DECLARE endtime VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
+	SET ctime = CONCAT(starttime,"-",endtime);
+	
+	
+	RETURN ctime ;
+	
     END */$$
 DELIMITER ;
 
@@ -389,18 +389,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_in_progress_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	END IF;	
-	
-	RETURN credits;
-	
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+	END IF;	
+	
+	RETURN credits;
+	
     END */$$
 DELIMITER ;
 
@@ -410,17 +410,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_name`(id varchar(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE firstname varchar(100) CHARSET utf8;
-	DECLARE lastname  VARCHAR(100) CHARSET utf8;
-	declare fname varchar(100) CHARSET utf8;
-	
-	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
-	SET fname = CONCAT(lastname,",",firstname);
-	
-	
-	RETURN fname;
+BEGIN
+	
+	DECLARE firstname varchar(100) CHARSET utf8;
+	DECLARE lastname  VARCHAR(100) CHARSET utf8;
+	declare fname varchar(100) CHARSET utf8;
+	
+	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
+	SET fname = CONCAT(lastname,",",firstname);
+	
+	
+	RETURN fname;
     END */$$
 DELIMITER ;
 
@@ -430,17 +430,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_not_complete_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	END IF;	
-		
-    return credits;		
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+	END IF;	
+		
+    return credits;		
     END */$$
 DELIMITER ;
 
@@ -450,17 +450,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_remain_capa`(crn VARCHAR(20)) RETURNS int(11)
-BEGIN
-	
-	DECLARE remain INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	DECLARE capa INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
-	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
-	SET remain = capa - counts;
-	
-	RETURN remain;
+BEGIN
+	
+	DECLARE remain INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	DECLARE capa INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
+	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
+	SET remain = capa - counts;
+	
+	RETURN remain;
     END */$$
 DELIMITER ;
 
@@ -495,22 +495,23 @@ DROP TABLE IF EXISTS `courseview`;
  `crn` varchar(20) NOT NULL ,
  `name` varchar(100) NOT NULL ,
  `credits` int(11) NULL ,
+ `precrn` varchar(20) NULL ,
  `level` varchar(11) NULL ,
  `section` varchar(11) NULL ,
- `info` varchar(20) NOT NULL ,
- `capacity` int(11) NULL ,
- `precrn` varchar(20) NULL ,
  `classroom` varchar(100) NULL ,
- `day` varchar(20) NULL ,
  `start_date` varchar(20) NULL ,
  `end_date` varchar(20) NULL ,
+ `day` varchar(20) NULL ,
  `start_time` varchar(20) NULL ,
  `end_time` varchar(20) NULL ,
+ `capacity` int(11) NULL ,
+ `info` varchar(20) NOT NULL ,
  `create_time` varchar(20) NULL ,
  `update_time` varchar(20) NULL ,
  `comment` text NULL ,
- `remain` int(11) NULL ,
+ `course_info` text NULL ,
  `faculty_id` varchar(20) NOT NULL ,
+ `remain` int(11) NULL ,
  `faculty` varchar(100) NULL ,
  `date` varchar(100) NULL ,
  `time` varchar(100) NULL ,
@@ -599,28 +600,28 @@ DROP TABLE IF EXISTS `transcriptview`;
 /*!50001 DROP TABLE IF EXISTS `courseview` */;
 /*!50001 DROP VIEW IF EXISTS `courseview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`level` AS `level`,`c`.`section` AS `section`,`c`.`info` AS `info`,`c`.`capacity` AS `capacity`,`c`.`precrn` AS `precrn`,`c`.`classroom` AS `classroom`,`c`.`day` AS `day`,`c`.`start_date` AS `start_date`,`c`.`end_date` AS `end_date`,`c`.`start_time` AS `start_time`,`c`.`end_time` AS `end_time`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`get_remain_capa`(`c`.`crn`) AS `remain`,`c`.`faculty_id` AS `faculty_id`,`get_name`(`c`.`faculty_id`) AS `faculty`,`get_course_date`(`c`.`crn`) AS `date`,`get_course_time`(`c`.`crn`) AS `time`,`get_course_status`(`c`.`crn`) AS `status` from `course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`precrn` AS `precrn`,`c`.`level` AS `level`,`c`.`section` AS `section`,`c`.`classroom` AS `classroom`,`c`.`start_date` AS `start_date`,`c`.`end_date` AS `end_date`,`c`.`day` AS `day`,`c`.`start_time` AS `start_time`,`c`.`end_time` AS `end_time`,`c`.`capacity` AS `capacity`,`c`.`info` AS `info`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`course_info` AS `course_info`,`c`.`faculty_id` AS `faculty_id`,`get_remain_capa`(`c`.`crn`) AS `remain`,`get_name`(`c`.`faculty_id`) AS `faculty`,`get_course_date`(`c`.`crn`) AS `date`,`get_course_time`(`c`.`crn`) AS `time`,`get_course_status`(`c`.`crn`) AS `status` from `course` `c` */;
 
 /*View structure for view messageview */
 
 /*!50001 DROP TABLE IF EXISTS `messageview` */;
 /*!50001 DROP VIEW IF EXISTS `messageview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`m`.`receiver_id` AS `receiver` from (`message` `m` join `person` `s`) where (`s`.`user_id` = `m`.`sender_id`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`m`.`receiver_id` AS `receiver` from (`message` `m` join `person` `s`) where `s`.`user_id` = `m`.`sender_id` */;
 
 /*View structure for view studentview */
 
 /*!50001 DROP TABLE IF EXISTS `studentview` */;
 /*!50001 DROP VIEW IF EXISTS `studentview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`student_id` AS `student_id`,`s`.`max_credits` AS `max_credits`,`p`.`status` AS `status`,`get_name`(`s`.`student_id`) AS `sname`,`get_complete_credits`(`s`.`student_id`) AS `complete`,`get_in_progress_credits`(`s`.`student_id`) AS `progress`,`get_not_complete_credits`(`s`.`student_id`) AS `incomplete` from (`student` `s` join `person` `p`) where (`p`.`user_id` = `s`.`student_id`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`student_id` AS `student_id`,`s`.`max_credits` AS `max_credits`,`p`.`status` AS `status`,`get_name`(`s`.`student_id`) AS `sname`,`get_complete_credits`(`s`.`student_id`) AS `complete`,`get_in_progress_credits`(`s`.`student_id`) AS `progress`,`get_not_complete_credits`(`s`.`student_id`) AS `incomplete` from (`student` `s` join `person` `p`) where `p`.`user_id` = `s`.`student_id` */;
 
 /*View structure for view transcriptview */
 
 /*!50001 DROP TABLE IF EXISTS `transcriptview` */;
 /*!50001 DROP VIEW IF EXISTS `transcriptview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`user_id` = `t`.`student_id`) and (`p2`.`user_id` = `c`.`faculty_id`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`user_id` = `t`.`student_id` and `p2`.`user_id` = `c`.`faculty_id` */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
