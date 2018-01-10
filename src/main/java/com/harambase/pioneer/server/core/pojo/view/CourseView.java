@@ -65,6 +65,9 @@ public class CourseView {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "course_info")
+    private String courseInfo;
+
     //Extensions:
     @Column(name = "remain")
     private Integer remain;
@@ -273,4 +276,11 @@ public class CourseView {
         this.status = status;
     }
 
+    public String getCourseInfo() {
+        return courseInfo;
+    }
+
+    public void setCourseInfo(String courseInfo) {
+        this.courseInfo = courseInfo;
+    }
 }

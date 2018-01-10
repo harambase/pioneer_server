@@ -60,18 +60,16 @@ public class ResultSetHelper {
 
                 retList.add(ret);
             }
-
             return retList;
         }
     }
 
-    public static <T> List<LinkedHashMap<String, Object>> getObjectAsLinkedHashMap(ResultSet rs, Class<T> resultObject)
+    public static <T> List<LinkedHashMap> getObjectAsLinkedHashMap(ResultSet rs, Class<T> resultObject)
             throws IllegalAccessException, InstantiationException, IntrospectionException, SQLException, InvocationTargetException {
-        List<LinkedHashMap<String, Object>> retList = new ArrayList<>();
+        List<LinkedHashMap> retList = new ArrayList<>();
         if (rs == null) {
             return retList;
         } else {
-            Class<T> clz = resultObject;
             ArrayList<ClassField> cfList = new ArrayList<>();
             Class tmpClz = resultObject;
 
@@ -81,7 +79,7 @@ public class ResultSetHelper {
             } while (!tmpClz.getName().equals(Object.class.getName()));
 
             while (rs.next()) {
-                LinkedHashMap<String, Object> ret = new LinkedHashMap<>();
+                LinkedHashMap ret = new LinkedHashMap();
 
                 for (int i = cfList.size() - 1; i >= 0; --i) {
                     Field[] fields = (cfList.get(i)).fields;

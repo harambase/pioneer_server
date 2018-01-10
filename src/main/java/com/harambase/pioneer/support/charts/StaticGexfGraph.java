@@ -19,12 +19,13 @@ import it.uniroma1.dis.wsngroup.gexf4j.core.viz.Position;
 
 import java.io.*;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class StaticGexfGraph {
 
     public static String graphGenerator(List<Person> personList,
-                                        List<CourseView> courseViewList,
+                                        List<LinkedHashMap> courseViewList,
                                         List<Transcript> transcriptList,
                                         List<Advise> adviseList) {
         Gexf gexf = new GexfImpl();
@@ -78,12 +79,12 @@ public class StaticGexfGraph {
             index++;
         }
         //设置course Node
-        for (CourseView c : courseViewList) {
-            Node cNode = graph.createNode(c.getCrn());
-            int value = c.getCapacity() - c.getRemain();
-            cNode.setLabel(c.getName()).setSize(10 + value * 5);
+        for (LinkedHashMap c : courseViewList) {
+            Node cNode = graph.createNode((String)c.get("crn"));
+            int value = (int) c.get("capacity") - (int) c.get("remain");
+            cNode.setLabel((String)c.get("name")).setSize(10 + value * 5);
             cNode.getAttributeValues()
-                    .addValue(attCRN, c.getCrn())
+                    .addValue(attCRN, (String)c.get("crn"))
                     .addValue(attValue, String.valueOf(value))
                     .addValue(attType, "0");
 
@@ -107,9 +108,9 @@ public class StaticGexfGraph {
                     }
                 }
             } else if (type.contains("f")) {
-                for (CourseView c : courseViewList) {
-                    if (c.getFacultyId().equals(userid)) {
-                        Node cNode = graph.getNode(c.getCrn());
+                for (LinkedHashMap c : courseViewList) {
+                    if (((String)c.get("facultyId")).equals(userid)) {
+                        Node cNode = graph.getNode((String) c.get("crn"));
                         pNode.connectTo(String.valueOf(index), cNode);
                         index++;
                     }

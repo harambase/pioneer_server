@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Component
@@ -94,11 +95,11 @@ public class CourseDao {
         }
     }
 
-    public List<CourseView> getByMapPageSearchOrdered(String facultyid, String info, String search, int currentIndex, int pageSize,
+    public List<LinkedHashMap> getByMapPageSearchOrdered(String facultyid, String info, String search, int currentIndex, int pageSize,
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        List<CourseView> courseViews = new ArrayList<>();
+        List<LinkedHashMap> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -123,7 +124,7 @@ public class CourseDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            courseViews = ResultSetHelper.getObjectFor(rs, CourseView.class);
+            courseViews = ResultSetHelper.getObjectAsLinkedHashMap(rs, CourseView.class);
             return courseViews;
 
         } finally {

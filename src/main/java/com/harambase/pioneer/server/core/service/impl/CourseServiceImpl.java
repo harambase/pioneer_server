@@ -324,11 +324,11 @@ public class CourseServiceImpl implements CourseService {
             Set<String> infoSet = new HashSet<>();
             Map<String, String> infoMap;
 
-            List<CourseView> courseViewList =
+            List<LinkedHashMap> courseViewList =
                     courseDao.getByMapPageSearchOrdered(facultyid, info, "", 0, Integer.MAX_VALUE, "desc", "crn");
 
-            for (CourseView course : courseViewList) {
-                infoSet.add(course.getInfo());
+            for (LinkedHashMap course : courseViewList) {
+                infoSet.add((String) course.get("info"));
             }
             for (String i : infoSet) {
                 infoMap = new HashMap<>();
@@ -376,30 +376,24 @@ public class CourseServiceImpl implements CourseService {
                     orderColumn = "name";
                     break;
                 case 3:
-                    orderColumn = "level";
-                    break;
-                case 4:
-                    orderColumn = "section";
-                    break;
-                case 5:
                     orderColumn = "capacity";
                     break;
-                case 6:
+                case 4:
                     orderColumn = "remain";
                     break;
-                case 7:
+                case 5:
                     orderColumn = "status";
                     break;
-                case 8:
+                case 6:
                     orderColumn = "date";
                     break;
-                case 9:
+                case 7:
                     orderColumn = "time";
                     break;
-                case 10:
+                case 8:
                     orderColumn = "day";
                     break;
-                case 11:
+                case 9:
                     orderColumn = "faculty";
                     break;
                 default:
@@ -414,7 +408,7 @@ public class CourseServiceImpl implements CourseService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<CourseView> courseViewList = courseDao.getByMapPageSearchOrdered(facultyid, info, search,
+            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered(facultyid, info, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(courseViewList);

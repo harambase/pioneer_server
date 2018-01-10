@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -107,7 +104,7 @@ public class MonitorServiceImpl implements MonitorService {
 
         try {
             List<Person> personList = personRepository.findAll();
-            List<CourseView> courseViewList = courseDao.getByMapPageSearchOrdered("", "", "", 0, Integer.MAX_VALUE, "desc", "crn");
+            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered("", "", "", 0, Integer.MAX_VALUE, "desc", "crn");
             List<Transcript> transcriptList = transcriptRepository.findAll();
             List<Advise> adviseList = adviseRepository.findAll();
 

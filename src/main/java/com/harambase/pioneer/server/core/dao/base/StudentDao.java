@@ -61,11 +61,11 @@ public class StudentDao {
         }
     }
 
-    public List<LinkedHashMap<String, Object>> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
+    public List<LinkedHashMap> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
                                                        String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
-        List<LinkedHashMap<String, Object>> studentList = new ArrayList<>();
+        List<LinkedHashMap> studentList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -102,7 +102,7 @@ public class StudentDao {
         }
     }
 
-    public LinkedHashMap<String, Object> findOne(String studentId) throws Exception {
+    public LinkedHashMap findOne(String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         try {
@@ -116,7 +116,7 @@ public class StudentDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            List<LinkedHashMap<String, Object>> studentList = ResultSetHelper.getObjectAsLinkedHashMap(rs, StudentView.class);
+            List<LinkedHashMap> studentList = ResultSetHelper.getObjectAsLinkedHashMap(rs, StudentView.class);
 
             if (studentList.isEmpty())
                 return null;

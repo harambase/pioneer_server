@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<LinkedHashMap<String, Object>> studentViews = studentDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
+            List<LinkedHashMap> studentViews = studentDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, status);
 
             message.setData(studentViews);
             message.put("page", page);
