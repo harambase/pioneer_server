@@ -56,11 +56,11 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage validate(Integer pinNum) {
+    public HaramMessage validate(Integer pinNum, String userId) {
         try {
             Pin pin = pinRepository.findByPin(pinNum);
-            if (pin != null && TimeValidate.isPinValidate(pin)) {
-                return ReturnMsgUtil.success(pin);
+            if (pin != null && (pin.getFacultyId().equals(userId) || pin.getStudentId().equals(userId))) {
+                return TimeValidate.isPinValidate(pin) ? ReturnMsgUtil.success(pin) : ReturnMsgUtil.fail();
             }
             return ReturnMsgUtil.fail();
         } catch (Exception e) {

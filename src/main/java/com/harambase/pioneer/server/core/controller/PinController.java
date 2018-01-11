@@ -55,8 +55,8 @@ public class PinController {
     @ApiOperation(value = "识别一个识别码", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{pin}", method = RequestMethod.GET)
-    public ResponseEntity validate(@PathVariable(value = "pin") Integer pin) {
-        HaramMessage haramMessage = pinService.validate(pin);
+    public ResponseEntity validate(@PathVariable(value = "pin") Integer pin, @RequestHeader String userId) {
+        HaramMessage haramMessage = pinService.validate(pin, userId);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
     }
 
