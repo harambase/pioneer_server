@@ -5,6 +5,7 @@ import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.server.core.pojo.base.TempCourse;
 
 public interface TempCourseService {
+
     HaramMessage register(String facultyId, JSONObject jsonObject);
 
     HaramMessage deleteTempCourseById(Integer id);
@@ -14,4 +15,5 @@ public interface TempCourseService {
     HaramMessage tempCourseList(String s, String s1, String search, String order, String orderCol, String status, String facultyId);
 
     HaramMessage get(Integer id);
+
 }

@@ -28,7 +28,7 @@ public class TranscriptView implements Serializable {
     private String assignTime;
 
     @Column(name = "operator_id")
-    private String operator;
+    private String operatorId;
 
     //Extension:
     @Column(name = "cname")
@@ -66,12 +66,12 @@ public class TranscriptView implements Serializable {
         this.id = id;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getOperatorId() {
+        return operatorId;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
     }
 
     public String getStudentId() {
