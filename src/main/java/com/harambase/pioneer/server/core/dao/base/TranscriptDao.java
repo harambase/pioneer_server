@@ -19,7 +19,7 @@ public class TranscriptDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public Long getCountByMapPageSearchOrdered(String search, String studentId, String crn) throws Exception {
+    public Long getCountByMapPageSearchOrdered(String search, String studentId, String crn, String info) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Long count = 0L;
@@ -35,6 +35,8 @@ public class TranscriptDao {
                 queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(crn))
                 queryString += "AND crn = '" + crn + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         "student_id  LIKE  '%" + search + "%' OR " +
@@ -62,7 +64,7 @@ public class TranscriptDao {
     }
 
     public List<TranscriptView> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                          String order, String orderColumn, String studentId, String crn) throws Exception {
+                                                          String order, String orderColumn, String studentId, String crn, String info) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<TranscriptView> transcriptViews = new ArrayList<>();
@@ -78,6 +80,8 @@ public class TranscriptDao {
                 queryString += "AND student_id = '" + studentId + "' ";
             if (StringUtils.isNotEmpty(crn))
                 queryString += "AND crn = '" + crn + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         "student_id  LIKE  '%" + search + "%' OR " +

@@ -49,7 +49,8 @@ public class TranscriptServiceImpl implements TranscriptService {
     }
 
     @Override
-    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, String orderColumn, String studentid, String crn) {
+    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, 
+                                       String orderColumn, String studentId, String crn, String info) {
 
         HaramMessage message = new HaramMessage();
 
@@ -81,14 +82,15 @@ public class TranscriptServiceImpl implements TranscriptService {
         }
         try {
 
-            long totalSize = transcriptDao.getCountByMapPageSearchOrdered(search, studentid, crn);
+            long totalSize = transcriptDao.getCountByMapPageSearchOrdered(search, studentId, crn, info);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<TranscriptView> transcriptViews = transcriptDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, studentid, crn);
+            List<TranscriptView> transcriptViews = transcriptDao.getByMapPageSearchOrdered(page.getCurrentIndex(),
+                    page.getPageSize(), search, order, orderColumn, studentId, crn, info);
 
             message.setData(transcriptViews);
             message.put("page", page);
