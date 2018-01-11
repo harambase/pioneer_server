@@ -59,8 +59,10 @@ public class PinServiceImpl implements PinService {
     public HaramMessage validate(Integer pinNum, String userId) {
         try {
             Pin pin = pinRepository.findByPin(pinNum);
-            if (pin != null && (pin.getFacultyId().equals(userId) || pin.getStudentId().equals(userId))) {
-                return TimeValidate.isPinValidate(pin) ? ReturnMsgUtil.success(pin) : ReturnMsgUtil.fail();
+
+            if (pin != null) {
+                String ownerId = StringUtils.isNotEmpty(pin.getFacultyId()) ? pin.getFacultyId() : pin.getStudentId();
+                return (ownerId.equals(userId) && TimeValidate.isPinValidate(pin)) ? ReturnMsgUtil.success(pin) : ReturnMsgUtil.fail();
             }
             return ReturnMsgUtil.fail();
         } catch (Exception e) {
