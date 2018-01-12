@@ -47,9 +47,10 @@ public class TranscriptController {
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "crn", required = false) String crn,
                                @RequestParam(value = "studentId", required = false) String studentId,
-                               @RequestParam(value = "info", required = false) String info) {
+                               @RequestParam(value = "info", required = false) String info,
+                               @RequestParam(value = "complete", required = false) String complete) {
 
-        HaramMessage message = transcriptService.transcriptList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, crn, info);
+        HaramMessage message = transcriptService.transcriptList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, crn, info, complete);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 

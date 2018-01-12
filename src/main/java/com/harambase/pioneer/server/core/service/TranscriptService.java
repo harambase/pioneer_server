@@ -8,6 +8,6 @@ public interface TranscriptService {
     HaramMessage updateGrade(Integer id, Transcript transcript);
 
     HaramMessage transcriptList(String s, String s1, String search, String order, String orderCol,
-                                String studentId, String crn, String info);
+                                String studentId, String crn, String info, String complete);
 
 }
