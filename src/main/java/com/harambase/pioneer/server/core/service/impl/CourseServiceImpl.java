@@ -166,7 +166,7 @@ public class CourseServiceImpl implements CourseService {
             }
 
             //检查时间冲突
-            if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId(studentId), courseView)) {
+            if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
                 return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
             }
 
@@ -260,7 +260,7 @@ public class CourseServiceImpl implements CourseService {
                     continue;
                 }
                 //检查时间冲突
-                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId(studentId), courseView)) {
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
                     failList.add(failInfo + FlagDict.TIME_CONFLICT.getM());
                     continue;
                 }

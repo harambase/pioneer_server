@@ -216,7 +216,7 @@ public class CourseDao {
 
     }
 
-    public List<CourseView> findCourseViewByStudentId(String studentId) throws Exception {
+    public List<CourseView> findCourseViewByStudentId(String status, String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<CourseView> courseViews = new ArrayList<>();
@@ -227,6 +227,8 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
             String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM transcript t WHERE t.student_id = '" + studentId + "')";
+            if(StringUtils.isNotEmpty(status))
+                queryString += " AND c.status = " + status + "";
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);

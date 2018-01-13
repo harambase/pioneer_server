@@ -15,4 +15,6 @@ public interface StudentService {
     HaramMessage studentList(String s, String s1, String search, String order, String orderCol, String status);
 
     HaramMessage getAvailableCredit(String studentid, String info);
+
+    HaramMessage courseList(String status, String studentId);
 }

@@ -115,11 +115,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage getAvailableCredit(String studentid, String info) {
+    public HaramMessage getAvailableCredit(String studentId, String info) {
 
         try {
-            List<CourseView> courseList = courseDao.findCourseViewByStudentId(studentid);
-            LinkedHashMap sv = studentDao.findOne(studentid);
+            List<CourseView> courseList = courseDao.findCourseViewByStudentId("", studentId);
+            LinkedHashMap sv = studentDao.findOne(studentId);
 
             int use_credits = 0;
             int tol_credits = (Integer) sv.get("maxCredits");
@@ -138,6 +138,17 @@ public class StudentServiceImpl implements StudentService {
             creditInfo.put("use_credits", use_credits);
 
             return ReturnMsgUtil.success(creditInfo);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public HaramMessage courseList(String status, String studentId) {
+        try {
+            List<CourseView> courseList = courseDao.findCourseViewByStudentId(status, studentId);
+            return ReturnMsgUtil.success(courseList);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
