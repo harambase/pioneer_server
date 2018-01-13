@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -26,17 +26,17 @@ public class RoleServiceImpl implements RoleService{
     private final RoleDao roleDao;
 
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository, RoleDao roleDao){
+    public RoleServiceImpl(RoleRepository roleRepository, RoleDao roleDao) {
         this.roleDao = roleDao;
         this.roleRepository = roleRepository;
     }
 
     @Override
     public HaramMessage get(Integer roleId) {
-        try{
+        try {
             Role role = roleRepository.findByRoleId(roleId);
             return role != null ? ReturnMsgUtil.success(role) : ReturnMsgUtil.fail();
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
@@ -47,22 +47,22 @@ public class RoleServiceImpl implements RoleService{
         HaramMessage message = new HaramMessage();
         try {
             switch (Integer.parseInt(orderColumn)) {
-                    case 0:
-                        orderColumn = "id";
-                        break;
-                    case 1:
-                        orderColumn = "role_id";
-                        break;
-                    case 2:
-                        orderColumn = "role_name";
-                        break;
-                    case 3:
-                        orderColumn = "role_code";
-                        break;
-                    default:
-                        orderColumn = "id";
-                        break;
-                }
+                case 0:
+                    orderColumn = "id";
+                    break;
+                case 1:
+                    orderColumn = "role_id";
+                    break;
+                case 2:
+                    orderColumn = "role_name";
+                    break;
+                case 3:
+                    orderColumn = "role_code";
+                    break;
+                default:
+                    orderColumn = "id";
+                    break;
+            }
 
 
             List<Role> roleList = roleDao.getByMapPageSearchOrdered(search, order, orderColumn);

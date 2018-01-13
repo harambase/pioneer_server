@@ -19,7 +19,7 @@ public class RoleDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public List<Role> getByMapPageSearchOrdered(String search, String order, String orderColumn) throws Exception{
+    public List<Role> getByMapPageSearchOrdered(String search, String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<Role> roles = new ArrayList<>();

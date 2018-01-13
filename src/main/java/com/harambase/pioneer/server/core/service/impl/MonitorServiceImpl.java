@@ -9,7 +9,6 @@ import com.harambase.pioneer.server.core.dao.repository.TranscriptRepository;
 import com.harambase.pioneer.server.core.pojo.base.Advise;
 import com.harambase.pioneer.server.core.pojo.base.Person;
 import com.harambase.pioneer.server.core.pojo.base.Transcript;
-import com.harambase.pioneer.server.core.pojo.view.CourseView;
 import com.harambase.pioneer.server.core.service.MonitorService;
 import com.harambase.pioneer.support.charts.StaticGexfGraph;
 import com.harambase.pioneer.support.util.ReturnMsgUtil;

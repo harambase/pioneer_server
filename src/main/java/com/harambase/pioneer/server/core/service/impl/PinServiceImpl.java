@@ -163,7 +163,7 @@ public class PinServiceImpl implements PinService {
             int stuCount = pinRepository.countByInfoAndStudentId(info, userId);
             int facCount = pinRepository.countByInfoAndFacultyId(info, userId);
 
-            if(stuCount != 0 || facCount != 0){
+            if (stuCount != 0 || facCount != 0) {
                 return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
             }
 
@@ -248,10 +248,10 @@ public class PinServiceImpl implements PinService {
 
             List<Pin> pinList = pinRepository.findByInfo(info, pageable).getContent();
 
-            for(Pin pin: pinList){
+            for (Pin pin : pinList) {
                 int role = pin.getRole();
                 String userId = "";
-                switch (role){
+                switch (role) {
                     case 1:
                         userId = pin.getStudentId();
                         break;
@@ -282,7 +282,6 @@ public class PinServiceImpl implements PinService {
             List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
             String date = DateUtil.DateToStr(new Date());
-
 
 
             for (Pin pin : pinInfoList) {

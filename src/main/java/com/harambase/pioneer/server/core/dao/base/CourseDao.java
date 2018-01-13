@@ -96,7 +96,7 @@ public class CourseDao {
     }
 
     public List<LinkedHashMap> getByMapPageSearchOrdered(String facultyid, String info, String search, int currentIndex, int pageSize,
-                                                      String order, String orderColumn) throws Exception {
+                                                         String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<LinkedHashMap> courseViews = new ArrayList<>();
@@ -227,7 +227,7 @@ public class CourseDao {
 
             Statement stmt = connection.createStatement();
             String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM transcript t WHERE t.student_id = '" + studentId + "')";
-            if(StringUtils.isNotEmpty(status))
+            if (StringUtils.isNotEmpty(status))
                 queryString += " AND c.status = " + status + "";
             logger.info(queryString);
 

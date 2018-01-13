@@ -150,14 +150,14 @@ public class PersonServiceImpl implements PersonService {
                 return ReturnMsgUtil.fail();
             }
 
-            if(person.getType().contains("s")) {
+            if (person.getType().contains("s")) {
                 studentRepository.delete(userId);
                 transcriptRepository.deleteTranscriptByStudentId(person.getUserId());
             }
 
             adviseRepository.deleteByStudentIdOrFacultyId(person.getUserId(), person.getUserId());
 
-            if(person.getType().contains("f")) {
+            if (person.getType().contains("f")) {
                 List<Course> courseList = courseRepository.findCourseByFacultyId(person.getUserId());
 
                 for (Course c : courseList) {

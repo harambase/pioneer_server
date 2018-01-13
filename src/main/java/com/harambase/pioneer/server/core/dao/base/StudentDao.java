@@ -3,7 +3,6 @@ package com.harambase.pioneer.server.core.dao.base;
 import com.harambase.pioneer.server.core.pojo.view.StudentView;
 import com.harambase.pioneer.support.database.DataServiceConnection;
 import com.harambase.pioneer.support.database.ResultSetHelper;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +61,7 @@ public class StudentDao {
     }
 
     public List<LinkedHashMap> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                       String order, String orderColumn, String status) throws Exception {
+                                                         String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         List<LinkedHashMap> studentList = new ArrayList<>();

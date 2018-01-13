@@ -49,7 +49,7 @@ public class TranscriptServiceImpl implements TranscriptService {
     }
 
     @Override
-    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order, 
+    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order,
                                        String orderColumn, String studentId, String crn, String info, String complete) {
 
         HaramMessage message = new HaramMessage();

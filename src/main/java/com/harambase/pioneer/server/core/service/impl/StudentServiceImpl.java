@@ -8,7 +8,6 @@ import com.harambase.pioneer.server.core.dao.base.StudentDao;
 import com.harambase.pioneer.server.core.dao.repository.StudentRepository;
 import com.harambase.pioneer.server.core.pojo.base.Student;
 import com.harambase.pioneer.server.core.pojo.view.CourseView;
-import com.harambase.pioneer.server.core.pojo.view.StudentView;
 import com.harambase.pioneer.server.core.service.StudentService;
 import com.harambase.pioneer.support.util.DateUtil;
 import com.harambase.pioneer.support.util.PageUtil;

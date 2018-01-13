@@ -23,7 +23,7 @@ import java.util.List;
 
 @Service
 public class TempCourseServiceImpl implements TempCourseService {
-    
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final TempCourseRepository tempCourseRepository;
