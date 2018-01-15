@@ -1,9 +1,14 @@
 package com.harambase.pioneer.support.database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DataServiceConnection {
+
+    private final static Logger logger = LoggerFactory.getLogger(DataServiceConnection.class);
 
     public static Connection openDBConnection() {
         try {
@@ -12,8 +17,8 @@ public class DataServiceConnection {
             // Create a connection to the specified database
             return DriverManager.getConnection(DataServiceProperty.URL, DataServiceProperty.USERNAME, DataServiceProperty.PASSWORD);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return null;
         }
-        return null;
     }
 }

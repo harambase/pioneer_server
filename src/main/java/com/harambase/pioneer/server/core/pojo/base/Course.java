@@ -63,11 +63,14 @@ public class Course implements Serializable {
     @Column(name = "update_time")
     private String updateTime;
 
-    @Column(name = "comment")
+    @Column(name = "comment", columnDefinition = "text")
     private String comment;
 
-    @Column(name = "course_info")
+    @Column(name = "course_info", columnDefinition = "text")
     private String courseInfo;
+
+    @Column(name = "assignment", columnDefinition = "text")
+    private String assignment;
 
     public String getCourseInfo() {
         return courseInfo;
@@ -230,4 +233,11 @@ public class Course implements Serializable {
     }
 
 
+    public String getAssignment() {
+        return assignment;
+    }
+
+    public void setAssignment(String assignment) {
+        this.assignment = assignment;
+    }
 }
