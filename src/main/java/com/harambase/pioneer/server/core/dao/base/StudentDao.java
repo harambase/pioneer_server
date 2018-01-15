@@ -129,4 +129,34 @@ public class StudentDao {
                 connection.close();
         }
     }
+
+    public List<LinkedHashMap> getStudentList(String crn, String search) throws Exception{
+        ResultSet rs = null;
+        Connection connection = null;
+        List<LinkedHashMap> studentViews = new ArrayList<>();
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return studentViews;
+
+            Statement stmt = connection.createStatement();
+            String queryString = "SELECT * FROM studentview s WHERE s.student_id IN (SELECT t.student_id FROM transcript t WHERE t.crn = '" + crn + "')";
+            if (StringUtils.isNotEmpty(search))
+                queryString += "AND(" +
+                        "student_id  LIKE  '%" + search + "%' OR " +
+                        "sname       LIKE  '%" + search + "%')";
+
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+            studentViews = ResultSetHelper.getObjectAsLinkedHashMap(rs, StudentView.class);
+            return studentViews;
+
+        } finally {
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
 }

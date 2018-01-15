@@ -75,6 +75,15 @@ public class CourseController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "课程学生列表", notes = "权限：管理员，教务，学生", response = Map.class, tags = {ApiTags.COURSE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/student/{crn}", method = RequestMethod.GET)
+    public ResponseEntity studentList(@PathVariable String crn,
+                                      @RequestParam(required = false, defaultValue = "") String search) {
+        HaramMessage message = courseService.studentList(crn, search);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
     @ApiOperation(value = "课程INFO列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)

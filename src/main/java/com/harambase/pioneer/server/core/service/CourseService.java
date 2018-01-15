@@ -34,4 +34,6 @@ public interface CourseService {
     HaramMessage courseTreeList(String facultyId, String info);
 
     HaramMessage courseListInfo(String search);
+
+    HaramMessage studentList(String crn, String search);
 }

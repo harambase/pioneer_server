@@ -5,6 +5,7 @@ import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.FlagDict;
 import com.harambase.pioneer.common.helper.TimeValidate;
 import com.harambase.pioneer.server.core.dao.base.CourseDao;
+import com.harambase.pioneer.server.core.dao.base.StudentDao;
 import com.harambase.pioneer.server.core.dao.repository.CourseRepository;
 import com.harambase.pioneer.server.core.dao.repository.TranscriptRepository;
 import com.harambase.pioneer.server.core.pojo.base.Course;
@@ -34,12 +35,16 @@ public class CourseServiceImpl implements CourseService {
     private final TranscriptRepository transcriptRepository;
 
     private final CourseDao courseDao;
+    private final StudentDao studentDao;
 
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository, TranscriptRepository transcriptRepository, CourseDao courseDao) {
+    public CourseServiceImpl(CourseRepository courseRepository,
+                             TranscriptRepository transcriptRepository,
+                             CourseDao courseDao, StudentDao studentDao) {
         this.transcriptRepository = transcriptRepository;
         this.courseRepository = courseRepository;
         this.courseDao = courseDao;
+        this.studentDao = studentDao;
     }
 
     @Override
@@ -353,6 +358,17 @@ public class CourseServiceImpl implements CourseService {
     public HaramMessage courseListInfo(String search) {
         try {
             List<String> infoList = courseRepository.getInfoList(search);
+            return ReturnMsgUtil.success(infoList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public HaramMessage studentList(String crn, String search) {
+        try {
+            List<LinkedHashMap> infoList = studentDao.getStudentList(crn, search);
             return ReturnMsgUtil.success(infoList);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
