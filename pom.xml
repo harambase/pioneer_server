@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.harambase</groupId>
-    <artifactId>pioneer</artifactId>
+    <artifactId>pioneer-server</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>Pionner Server</name>
+    <name>Pioneer Server</name>
     <url>http://maven.apache.org</url>
 
     <parent>
@@ -25,7 +25,6 @@
     </properties>
 
     <dependencies>
-
 
         <!--springboot-->
         <dependency>
@@ -130,7 +129,7 @@
     </dependencies>
 
     <build>
-        <finalName>pioneer</finalName>
+        <finalName>pioneer-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
