@@ -23,13 +23,14 @@ public class StudentDao {
     public Long getCountByMapPageSearchOrdered(String search, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM studentview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -47,12 +48,14 @@ public class StudentDao {
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
 
-            if (rs.next()) {
+            if (rs.next())
                 count = rs.getLong("count");
-            }
+
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -64,13 +67,14 @@ public class StudentDao {
                                                          String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<LinkedHashMap> studentList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return studentList;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM studentview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -94,6 +98,8 @@ public class StudentDao {
             return studentList;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -104,12 +110,13 @@ public class StudentDao {
     public LinkedHashMap findOne(String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return null;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM studentview WHERE student_id='" + studentId + "'";
             logger.info(queryString);
@@ -123,6 +130,8 @@ public class StudentDao {
             return studentList.get(0);
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -133,13 +142,14 @@ public class StudentDao {
     public List<LinkedHashMap> getStudentList(String crn, String search) throws Exception{
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<LinkedHashMap> studentViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return studentViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String queryString = "SELECT * FROM studentview s WHERE s.student_id IN (SELECT t.student_id FROM transcript t WHERE t.crn = '" + crn + "')";
             if (StringUtils.isNotEmpty(search))
                 queryString += "AND(" +
@@ -153,6 +163,8 @@ public class StudentDao {
             return studentViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

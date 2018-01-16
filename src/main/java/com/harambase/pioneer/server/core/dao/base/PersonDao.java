@@ -22,13 +22,14 @@ public class PersonDao {
     public List<Person> getPersonBySearch(String search, String type, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<Person> personList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return personList;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "select * from person where 1=1 ";
             if (StringUtils.isNotEmpty(type))
@@ -50,6 +51,8 @@ public class PersonDao {
             personList = ResultSetHelper.getObjectFor(rs, Person.class);
             return personList;
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -61,12 +64,13 @@ public class PersonDao {
         ResultSet rs = null;
         Connection connection = null;
         Long count = 0L;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM person WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
@@ -92,6 +96,8 @@ public class PersonDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -103,13 +109,14 @@ public class PersonDao {
                                                   String order, String orderColumn, String type, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<Person> personList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return personList;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM person WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
@@ -136,6 +143,8 @@ public class PersonDao {
             return personList;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

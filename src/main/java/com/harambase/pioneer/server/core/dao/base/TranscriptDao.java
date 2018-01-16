@@ -22,13 +22,14 @@ public class TranscriptDao {
     public Long getCountByMapPageSearchOrdered(String search, String studentId, String crn, String info, String complete) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM transcriptview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(studentId))
@@ -58,6 +59,8 @@ public class TranscriptDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -70,13 +73,14 @@ public class TranscriptDao {
                                                           String studentId, String crn, String info, String complete) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<TranscriptView> transcriptViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return transcriptViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM transcriptview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(studentId))
@@ -107,6 +111,8 @@ public class TranscriptDao {
             return transcriptViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

@@ -22,13 +22,14 @@ public class TempCourseDao {
     public long getCountByMapPageSearchOrdered(String search, String status, String faculty_id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM tempcourse WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -47,6 +48,8 @@ public class TempCourseDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -58,13 +61,14 @@ public class TempCourseDao {
                                                       String order, String orderColumn, String status, String faculty_id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<TempCourse> tempCourses = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return tempCourses;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM tempcourse WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -83,6 +87,8 @@ public class TempCourseDao {
             return tempCourses;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

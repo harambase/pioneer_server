@@ -22,13 +22,14 @@ public class TempUserDao {
     public Long getCountByMapPageSearchOrdered(String search, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM tempuser WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -45,6 +46,8 @@ public class TempUserDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -56,13 +59,14 @@ public class TempUserDao {
                                                     String order, String orderColumn, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<TempUser> tempUsers = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return tempUsers;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM tempuser WHERE 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -79,6 +83,8 @@ public class TempUserDao {
             return tempUsers;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

@@ -22,13 +22,14 @@ public class RoleDao {
     public List<Role> getByMapPageSearchOrdered(String search, String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<Role> roles = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return roles;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM role WHERE 1=1 ";
             if (StringUtils.isNotEmpty(search)) {
@@ -45,6 +46,8 @@ public class RoleDao {
             return roles;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
