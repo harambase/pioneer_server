@@ -368,8 +368,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public HaramMessage studentList(String crn, String search) {
         try {
-            List<LinkedHashMap> infoList = studentDao.getStudentList(crn, search);
-            return ReturnMsgUtil.success(infoList);
+            List<LinkedHashMap> studentList = studentDao.getStudentList(crn, search);
+            return ReturnMsgUtil.success(studentList);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

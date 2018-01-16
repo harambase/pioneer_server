@@ -23,13 +23,14 @@ public class CourseDao {
     public List<CourseView> findTop5ByStatusAndSearch(String search, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<CourseView> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return courseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "select * from courseview where 1=1 ";
             if (StringUtils.isNotEmpty(status))
@@ -49,6 +50,8 @@ public class CourseDao {
             return courseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -59,13 +62,14 @@ public class CourseDao {
     public Long getCountByMapPageSearchOrdered(String facultyid, String info, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM courseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyid))
@@ -88,6 +92,8 @@ public class CourseDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -99,13 +105,14 @@ public class CourseDao {
                                                          String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<LinkedHashMap> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return courseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM courseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyid))
@@ -128,6 +135,8 @@ public class CourseDao {
             return courseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -138,13 +147,14 @@ public class CourseDao {
     public List<CourseView> findAllCoursesViewByInfo(String info) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<CourseView> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return courseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String queryString = "select * from courseview where info= '" + info + "'";
             logger.info(queryString);
 
@@ -153,6 +163,8 @@ public class CourseDao {
             return courseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -163,13 +175,14 @@ public class CourseDao {
     public List<CourseView> findCourseViewByFacultyId(String facultyid) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<CourseView> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return courseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String queryString = "select * from courseview where faculty_id= '" + facultyid + "'";
 
             logger.info(queryString);
@@ -179,6 +192,8 @@ public class CourseDao {
             return courseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -189,12 +204,13 @@ public class CourseDao {
     public CourseView findByCrn(String crn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return null;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM courseview WHERE crn='" + crn + "'";
             logger.info(queryString);
@@ -208,6 +224,8 @@ public class CourseDao {
             return courseViewList.get(0);
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -219,13 +237,14 @@ public class CourseDao {
     public List<CourseView> findCourseViewByStudentId(String status, String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<CourseView> courseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return courseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String queryString = "SELECT * FROM courseview c WHERE c.crn IN (SELECT t.crn FROM transcript t WHERE t.student_id = '" + studentId + "')";
             if (StringUtils.isNotEmpty(status))
                 queryString += " AND c.status = " + status + "";
@@ -236,6 +255,8 @@ public class CourseDao {
             return courseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -246,12 +267,13 @@ public class CourseDao {
     public int countAllByStatus(String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return 0;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String queryString = "SELECT count(*) AS count FROM courseview WHERE status='" + status + "'";
             logger.info(queryString);
 
@@ -263,6 +285,8 @@ public class CourseDao {
             return 0;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

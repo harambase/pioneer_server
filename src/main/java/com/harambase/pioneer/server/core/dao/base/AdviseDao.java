@@ -22,13 +22,14 @@ public class AdviseDao {
     public Long getCountByMapPageSearchOrdered(String facultyId, String studentId, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         Long count = 0L;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return count;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM adviseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyId))
@@ -51,6 +52,8 @@ public class AdviseDao {
             return count;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -62,13 +65,14 @@ public class AdviseDao {
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<AdviseView> adviseViews = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return adviseViews;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM adviseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyId))
@@ -91,6 +95,8 @@ public class AdviseDao {
             return adviseViews;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -101,12 +107,13 @@ public class AdviseDao {
     public AdviseView findOne(Integer id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return null;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM adviseview WHERE id=" + id + "";
             logger.info(queryString);
@@ -120,6 +127,8 @@ public class AdviseDao {
             return adviseViewList.get(0);
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)

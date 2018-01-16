@@ -22,12 +22,13 @@ public class MessageDao {
     public int countMessageByStatus(String receiver_id, String sender_id, String box, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return 0;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT count(*) as count FROM messageview WHERE status = '" + status + "' "
                     + whereBuilderByLabel(receiver_id, sender_id, box);
@@ -42,6 +43,8 @@ public class MessageDao {
             return ret;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -54,12 +57,13 @@ public class MessageDao {
                                                String box, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return 0;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "select count(*) as count from messageview where 1 = 1 ";
 
@@ -83,6 +87,8 @@ public class MessageDao {
             return ret;
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -94,13 +100,14 @@ public class MessageDao {
                                                        int pageSize, String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         List<MessageView> messageViewViewList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return messageViewViewList;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "select * from messageview where 1 = 1 ";
             queryString += whereBuilderByLabel(receiver_id, sender_id, box);
@@ -123,6 +130,8 @@ public class MessageDao {
 
             return messageViewViewList;
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
@@ -133,12 +142,13 @@ public class MessageDao {
     public MessageView findOne(Integer id) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
+        Statement stmt = null;
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
                 return null;
 
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM messageview WHERE id=" + id + "";
             logger.info(queryString);
@@ -152,6 +162,8 @@ public class MessageDao {
             return messageViewList.get(0);
 
         } finally {
+            if (stmt != null)
+                stmt.close();
             if (rs != null)
                 rs.close();
             if (connection != null)
