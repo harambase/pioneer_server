@@ -28,18 +28,16 @@ public class RequestController {
     private final TempCourseService tempCourseService;
     private final CourseService courseService;
     private final TempAdviseService tempAdviseService;
-    private final AdviseService adviseService;
 
     @Autowired
     public RequestController(TempUserService tempUserService, PersonService personService,
                              TempCourseService tempCourseService, CourseService courseService,
-                             TempAdviseService tempAdviseService, AdviseService adviseService) {
+                             TempAdviseService tempAdviseService) {
         this.tempUserService = tempUserService;
         this.personService = personService;
         this.tempCourseService = tempCourseService;
         this.courseService = courseService;
         this.tempAdviseService = tempAdviseService;
-        this.adviseService = adviseService;
     }
 
     @ApiOperation(value = "查找一个用户申请", notes = "权限：管理员，行政", response = Map.class, tags = {ApiTags.REQUEST})
@@ -149,7 +147,7 @@ public class RequestController {
 
     @ApiOperation(value = "新导师申请", notes = "权限：学生", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/advise/request/{studentId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/advise/{studentId}", method = RequestMethod.POST)
     public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONObject jsonObject) {
         HaramMessage haramMessage = tempAdviseService.register(studentId, jsonObject);
         return new ResponseEntity<>(haramMessage, HttpStatus.OK);
@@ -173,7 +171,7 @@ public class RequestController {
 
     @ApiOperation(value = "更新临时课程", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/course/{id}", produces = "application/json", method = RequestMethod.PUT)
+    @RequestMapping(value = "/advise/{id}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity updateAdviseRequest(@PathVariable Integer id, @RequestBody TempAdvise tempAdvise) {
         HaramMessage message = tempAdviseService.updateTempAdvise(id, tempAdvise);
         return new ResponseEntity<>(message, HttpStatus.OK);
@@ -181,7 +179,7 @@ public class RequestController {
 
     @ApiOperation(value = "临时导师列表", notes = "权限：管理员， 教务", response = Map.class, tags = {ApiTags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/course", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(value = "/advise", produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity adviseList(@RequestParam(value = "start") Integer start,
                                      @RequestParam(value = "length") Integer length,
                                      @RequestParam(value = "search", required = false, defaultValue = "") String search,
