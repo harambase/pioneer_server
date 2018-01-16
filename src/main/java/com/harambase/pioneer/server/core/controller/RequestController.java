@@ -4,14 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.common.constant.ApiTags;
 import com.harambase.pioneer.common.constant.FlagDict;
-import com.harambase.pioneer.server.core.pojo.base.Course;
-import com.harambase.pioneer.server.core.pojo.base.Person;
-import com.harambase.pioneer.server.core.pojo.base.TempCourse;
-import com.harambase.pioneer.server.core.pojo.base.TempUser;
-import com.harambase.pioneer.server.core.service.CourseService;
-import com.harambase.pioneer.server.core.service.PersonService;
-import com.harambase.pioneer.server.core.service.TempCourseService;
-import com.harambase.pioneer.server.core.service.TempUserService;
+import com.harambase.pioneer.server.core.pojo.base.*;
+import com.harambase.pioneer.server.core.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -33,14 +27,19 @@ public class RequestController {
     private final PersonService personService;
     private final TempCourseService tempCourseService;
     private final CourseService courseService;
+    private final TempAdviseService tempAdviseService;
+    private final AdviseService adviseService;
 
     @Autowired
     public RequestController(TempUserService tempUserService, PersonService personService,
-                             TempCourseService tempCourseService, CourseService courseService) {
+                             TempCourseService tempCourseService, CourseService courseService,
+                             TempAdviseService tempAdviseService, AdviseService adviseService) {
         this.tempUserService = tempUserService;
         this.personService = personService;
         this.tempCourseService = tempCourseService;
         this.courseService = courseService;
+        this.tempAdviseService = tempAdviseService;
+        this.adviseService = adviseService;
     }
 
     @ApiOperation(value = "查找一个用户申请", notes = "权限：管理员，行政", response = Map.class, tags = {ApiTags.REQUEST})
@@ -145,6 +144,50 @@ public class RequestController {
                                      @RequestParam(value = "status", required = false) String status,
                                      @RequestParam(value = "facultyId", required = false) String facultyId) {
         HaramMessage message = tempCourseService.tempCourseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status, facultyId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "新导师申请", notes = "权限：学生", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advise/request/{studentId}", method = RequestMethod.POST)
+    public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONObject jsonObject) {
+        HaramMessage haramMessage = tempAdviseService.register(studentId, jsonObject);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "删除一个导师申请", notes = "权限：学生, 系统", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advise/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity removeAdvisorRequest(@PathVariable Integer id) {
+        HaramMessage haramMessage = tempAdviseService.deleteTempAdviseById(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "查找一个导师申请", notes = "权限：教师， 教务", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advise/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAdviseRequest(@PathVariable Integer id) {
+        HaramMessage haramMessage = tempAdviseService.get(id);
+        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "更新临时课程", notes = "权限：行政", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/course/{id}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity updateAdviseRequest(@PathVariable Integer id, @RequestBody TempAdvise tempAdvise) {
+        HaramMessage message = tempAdviseService.updateTempAdvise(id, tempAdvise);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "临时导师列表", notes = "权限：管理员， 教务", response = Map.class, tags = {ApiTags.REQUEST})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/course", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity adviseList(@RequestParam(value = "start") Integer start,
+                                     @RequestParam(value = "length") Integer length,
+                                     @RequestParam(value = "search", required = false, defaultValue = "") String search,
+                                     @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                                     @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol) {
+        HaramMessage message = tempAdviseService.tempAdviseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
