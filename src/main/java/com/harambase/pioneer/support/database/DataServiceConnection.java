@@ -21,4 +21,16 @@ public class DataServiceConnection {
             return null;
         }
     }
+
+    public static Connection openDBConnectionWithUandP(String username, String password) {
+        try {
+            // Load driver and link to driver manager
+            Class.forName(DataServiceProperty.DRIVER);
+            // Create a connection to the specified database
+            return DriverManager.getConnection(DataServiceProperty.URL, username, password);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return null;
+        }
+    }
 }

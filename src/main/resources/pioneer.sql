@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
+MySQL - 5.7.18 : Database - pioneer_2.0
 *********************************************************************
 */
 
@@ -38,6 +38,32 @@ insert  into `advise`(`id`,`student_id`,`faculty_id`,`status`,`update_time`,`ope
 
 UNLOCK TABLES;
 
+/*Table structure for table `assignment` */
+
+DROP TABLE IF EXISTS `assignment`;
+
+CREATE TABLE `assignment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `assignment_id` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `due_date` varchar(50) DEFAULT NULL,
+  `create_time` varchar(50) DEFAULT NULL,
+  `update_time` varchar(50) DEFAULT NULL,
+  `info` varchar(50) DEFAULT NULL,
+  `attachment` text,
+  `submission` text,
+  `extend_column_1` varchar(255) DEFAULT NULL,
+  `extend_column_2` varchar(255) DEFAULT NULL,
+  `extend_column_3` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `assignment` */
+
+LOCK TABLES `assignment` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `course` */
 
 DROP TABLE IF EXISTS `course`;
@@ -61,8 +87,9 @@ CREATE TABLE `course` (
   `info` varchar(20) NOT NULL,
   `create_time` varchar(20) DEFAULT NULL,
   `update_time` varchar(20) DEFAULT NULL,
-  `comment` text DEFAULT NULL COMMENT '备注',
-  `course_info` text DEFAULT NULL,
+  `comment` text COMMENT '备注',
+  `course_info` text,
+  `assignment` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
@@ -70,7 +97,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 
-insert  into `course`(`id`,`crn`,`name`,`credits`,`precrn`,`level`,`section`,`classroom`,`start_date`,`end_date`,`day`,`start_time`,`end_time`,`capacity`,`faculty_id`,`info`,`create_time`,`update_time`,`comment`,`course_info`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2018-01-03 17:21:37','qwerq2',''),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701000','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL,NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL,NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701000','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe',NULL),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52','',NULL),(9,'120170289','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201701000','2017-02','2017-10-09 10:59:04','2017-12-21 12:49:07',NULL,NULL),(10,'120180238','Math2',1,'','123','12','1','2018-01-10','2018-01-31','s/sa/f/tr/','09:00:00','15:00:00',123,'9201701000','2018-02','2018-01-10 21:05:49','2018-01-10 21:05:49','asdfasdfasd','{\"path\":\"/static/upload/document/courseInfo/1/7/276d6ff8-97da-4f3d-a8d8-2a9935357d55.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}'),(11,'120170218','Computer Science',4,'','499','01','1','2018-01-10','2018-01-10','t/w/tr/','09:00:00','06:00:00',12,'9201701100','2017-02','2018-01-10 21:15:50','2018-01-10 21:15:51','asfasfdd','{\"path\":\"/static/upload/document/courseInfo/1/7/03406b18-6863-43f5-9bf9-bfdce9edc1c6.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}');
+insert  into `course`(`id`,`crn`,`name`,`credits`,`precrn`,`level`,`section`,`classroom`,`start_date`,`end_date`,`day`,`start_time`,`end_time`,`capacity`,`faculty_id`,`info`,`create_time`,`update_time`,`comment`,`course_info`,`assignment`) values (2,'120170164','Test2',4,'/','203','01','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',20,'9201701840','2017-01','2017-08-10 15:55:53','2018-01-03 17:21:37','qwerq2','',NULL),(3,'120170123','Test3',4,'120170164/','300','02','小教室','2017-09-01','2017-12-31','t/tr/','10:00:00','11:00:00',50,'9201701000','2017-01','2017-08-10 17:06:39','2017-08-10 17:06:39',NULL,NULL,NULL),(6,'120170174','upper',4,'/','499','01',NULL,'2017-06-01','2017-06-02','m/w/f/','11:00:00','12:00:00',1,'9201701102','2017-01','2017-08-18 16:51:05','2017-08-18 16:51:05',NULL,NULL,NULL),(7,'120170149','delete',4,'/','100','01','小教室','2017-09-01','2017-12-31','m/t/w/tr/f/','10:00:00','11:00:00',20,'9201701000','2017-01','2017-09-03 00:04:50','2017-09-03 00:04:50','qwe',NULL,NULL),(8,'120170125','test4',4,'120170164/','100','01','阶梯教室','2017-09-01','2017-12-31','m/w/f/','10:00:00','11:00:00',50,'9201701848','2017-01','2017-09-03 14:05:52','2017-09-03 14:05:52','',NULL,NULL),(9,'120170289','新课程',2,'120170164/120170125/','100','01','as','2018-10-01','2018-10-30','sa/s/','06:00:00','06:00:00',41,'9201701000','2017-02','2017-10-09 10:59:04','2017-12-21 12:49:07',NULL,NULL,NULL),(10,'120180238','Math2',1,'','123','12','1','2018-01-10','2018-01-31','s/sa/f/tr/','09:00:00','15:00:00',123,'9201701000','2018-02','2018-01-10 21:05:49','2018-01-10 21:05:49','asdfasdfasd','{\"path\":\"/static/upload/document/courseInfo/1/7/276d6ff8-97da-4f3d-a8d8-2a9935357d55.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}',NULL),(11,'120170218','Computer Science',4,'','499','01','1','2018-01-10','2018-01-10','t/w/tr/','09:00:00','06:00:00',12,'9201701100','2017-02','2018-01-10 21:15:50','2018-01-10 21:15:51','asfasfdd','{\"path\":\"/static/upload/document/courseInfo/1/7/03406b18-6863-43f5-9bf9-bfdce9edc1c6.doc\",\"size\":45056,\"name\":\"先锋课程描述.doc\",\"type\":\"doc\"}',NULL);
 
 UNLOCK TABLES;
 
@@ -83,8 +110,8 @@ CREATE TABLE `message` (
   `sender_id` varchar(50) NOT NULL COMMENT '发送者ID',
   `subject` varchar(20) DEFAULT NULL COMMENT '类型',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `receiver_id` text DEFAULT NULL COMMENT '接收者ID',
-  `body` text DEFAULT NULL COMMENT '内容',
+  `receiver_id` text COMMENT '接收者ID',
+  `body` text COMMENT '内容',
   `status` varchar(10) DEFAULT NULL COMMENT '已读、未读、草稿',
   `date` varchar(50) DEFAULT NULL COMMENT '创建时间',
   `attachment` varchar(50) DEFAULT NULL,
@@ -124,10 +151,10 @@ CREATE TABLE `person` (
   `gender` varchar(20) NOT NULL COMMENT '性别',
   `create_time` varchar(100) NOT NULL COMMENT '创建时间',
   `update_time` varchar(100) NOT NULL COMMENT '修改时间',
-  `base_info` text DEFAULT NULL,
-  `comment` text DEFAULT NULL COMMENT '备注',
-  `profile` text DEFAULT NULL COMMENT '头像',
-  `user_info` text DEFAULT NULL,
+  `base_info` text,
+  `comment` text COMMENT '备注',
+  `profile` text COMMENT '头像',
+  `user_info` text,
   `address` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -136,7 +163,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 
-insert  into `person`(`user_id`,`username`,`first_name`,`last_name`,`password`,`status`,`info`,`type`,`role_id`,`birthday`,`email`,`tel`,`qq`,`we_chat`,`dorm`,`gender`,`create_time`,`update_time`,`base_info`,`comment`,`profile`,`user_info`,`address`) values ('9201701000','root','admin','system','e10adc3949ba59abbe56e057f20f883e','1','2017-01','s/f/a/','0/1/','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2018-01-03 17:46:55',NULL,'请勿删除','{\"path\":\"/static/upload/image/profile/1/6/c9e00510-2be5-42ee-9373-6b5dcdb278ec.png\",\"size\":15842,\"name\":\"01.png\",\"type\":\"png\"}','/static/upload/document/userInfo/9/6/5b3defb6-cddf-425a-8a95-0c27bde42376.docx',NULL),('9201701100','teacher1','teacher','1','b126cf1ba9af2b1940df98bd17c4003b','1','2017-01','f/','0/2/6/7/','1980-01-01','testTeacher@pionner.com','12323412342','123124','9201701000',NULL,'female','2017-08-08 13:33:23','2018-01-02 11:11:50',NULL,'asdsadfsdf',NULL,NULL,NULL),('9201701101','student','student','0','39957c100f046dadeeda60c077f87add','1','2017-01','s/','0/5/','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47',NULL,NULL,NULL,NULL,NULL),('9201701102','teacher3','teacher','3','fa2c5ff0989f481f02ea54c6368382bc','1','2017-01','f/a/','0/1/','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45',NULL,NULL,NULL,NULL,NULL),('9201701261','student6','student','6','16ea29c07c4a343f1aa569d147936d81','1','2017-01','s/','0/','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21',NULL,'new Student',NULL,NULL,NULL),('9201701309','student3','student','3','804a8c28891c3211b3075baeb800c504','1','2017-01','s/','0/','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34',NULL,NULL,NULL,NULL,NULL),('9201701310','student4','student','4','d41d8cd98f00b204e9800998ecf8427e','1','2017-01','s/','0/','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31',NULL,NULL,NULL,NULL,NULL),('9201701687','admin2','admin2','system','c810ec29fed33d8e79ccee3b2589d115','1','2017-01','a/','0/1/','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28',NULL,NULL,NULL,NULL,NULL),('9201701784','student5','student','5','a8156a924c4a701ca465bc5e9cd46484','1','2017-01','s/','0/','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28',NULL,NULL,NULL,NULL,NULL),('9201701840','adminTeacher1','admin','teacher1','492d18d57e97001bd9bffa45911c55de','0','2017-01','f/a/','0/','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25',NULL,'first',NULL,NULL,NULL),('9201701848','teacher4','teacher','4','f11f5d8566cccdef4e9cfa29d80a4223','1','2017-01','f/','0/','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18',NULL,'新老师',NULL,NULL,NULL),('9201701876','student6','student','6','dff9c3e4686c4faceb0e7f9175b6defc','1','2017-01','s/','0/','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15',NULL,'',NULL,NULL,NULL),('9201701942','student2','student','2','e5485a9d0622cdf031da25286337d6dd','1','2017-01','s/','0/','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38',NULL,NULL,NULL,NULL,NULL),('9201702544','teacher4','teacher','4','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','f/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45',NULL,'',NULL,NULL,NULL),('9201702574','studentTeacher1','student','teacher1','8052d26a6da25a6e69d4bb6ac3bb1280','1','2017-02','s/f/','0/','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58',NULL,'',NULL,NULL,NULL),('9201702745','admin3','admin','3','533e37ee96dfcd0ed7639d69fc590095','1','2017-02','a/','0/','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36',NULL,'',NULL,NULL,NULL),('9201702884','student7','student','7','f5bb0c8de146c67b44babbf4e6584cc0','1','2017-02','s/','0/','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21',NULL,'',NULL,NULL,NULL),('9201702887','student8','student','8','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','s/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02',NULL,'',NULL,NULL,NULL),('9201702937','adminTeacher2','admin','teacher2','7d66eb52a44ad4dc575674396a78203d','1','2017-02','f/a/','0/','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11',NULL,'',NULL,NULL,NULL);
+insert  into `person`(`user_id`,`username`,`first_name`,`last_name`,`password`,`status`,`info`,`type`,`role_id`,`birthday`,`email`,`tel`,`qq`,`we_chat`,`dorm`,`gender`,`create_time`,`update_time`,`base_info`,`comment`,`profile`,`user_info`,`address`) values ('9201701000','root','admin','system','e10adc3949ba59abbe56e057f20f883e','1','2017-01','s/f/a/','0/1/','1980-01-01','admin@pioneer.edu','13220184951','1343214384','1343214384','','male','2017-08-08 07:00:00','2018-01-15 14:11:26',NULL,'请勿删除','{\"path\":\"/image/profile/1/6/7660d888-2539-4e56-a44d-1d2185595916.png\",\"size\":15842,\"name\":\"01.png\",\"type\":\"png\"}','{\"path\":\"/document/userInfo/5/9/c9cd23e0-44c0-403c-b214-699b79fe0ab0.xlsx\",\"size\":10498,\"name\":\"checkLis-20170112.xlsx\",\"type\":\"xlsx\"}',NULL),('9201701100','teacher1','teacher','1','b126cf1ba9af2b1940df98bd17c4003b','1','2017-01','f/','0/2/6/7/','1980-01-01','testTeacher@pionner.com','12323412342','123124','9201701000',NULL,'female','2017-08-08 13:33:23','2018-01-02 11:11:50',NULL,'asdsadfsdf',NULL,NULL,NULL),('9201701101','student','student','0','39957c100f046dadeeda60c077f87add','1','2017-01','s/','0/5/','1997-01-01','testStudent@pionner.com',NULL,NULL,NULL,NULL,'female','2017-08-08 13:33:24','2017-09-25 16:17:47',NULL,NULL,NULL,NULL,NULL),('9201701102','teacher3','teacher','3','fa2c5ff0989f481f02ea54c6368382bc','1','2017-01','f/a/','0/1/','1980-01-01','testTeacher2@pioneer.com',NULL,NULL,NULL,NULL,'male','2017-08-10 18:00:00','2017-09-25 16:18:45',NULL,NULL,NULL,NULL,NULL),('9201701261','student6','student','6','16ea29c07c4a343f1aa569d147936d81','1','2017-01','s/','0/','1992-01-01','123124',NULL,'1123',NULL,'123','female','2017-09-02 16:12:49','2017-09-25 16:18:21',NULL,'new Student',NULL,NULL,NULL),('9201701309','student3','student','3','804a8c28891c3211b3075baeb800c504','1','2017-01','s/','0/','1992-01-01','564654@qq.com',NULL,'456464',NULL,'4654','female','2017-08-14 15:51:55','2017-09-25 16:18:34',NULL,NULL,NULL,NULL,NULL),('9201701310','student4','student','4','d41d8cd98f00b204e9800998ecf8427e','1','2017-01','s/','0/','1992-01-01','54849684@qq.com','13385241458',NULL,NULL,NULL,'male','2017-08-14 15:51:55','2017-09-25 16:18:31',NULL,NULL,NULL,NULL,NULL),('9201701687','admin2','admin2','system','c810ec29fed33d8e79ccee3b2589d115','1','2017-01','a/','0/1/','1996-11-12','lin.shilei@outlook.com',NULL,'1343214384',NULL,'','male','2017-08-08 12:44:23','2017-09-25 16:16:28',NULL,NULL,NULL,NULL,NULL),('9201701784','student5','student','5','a8156a924c4a701ca465bc5e9cd46484','1','2017-01','s/','0/','1996-12-31','1111@ee.edu',NULL,'123',NULL,'123','male','2017-09-01 21:23:00','2017-09-25 16:18:28',NULL,NULL,NULL,NULL,NULL),('9201701840','adminTeacher1','admin','teacher1','492d18d57e97001bd9bffa45911c55de','0','2017-01','f/a/','0/','1998-05-23','lisi@pioneer.edu','123','1234123','weca','12','female','2017-09-02 16:10:12','2017-09-25 16:18:25',NULL,'first',NULL,NULL,NULL),('9201701848','teacher4','teacher','4','f11f5d8566cccdef4e9cfa29d80a4223','1','2017-01','f/','0/','1997-08-12','7897@qq.com',NULL,'7987','7897','7894','female','2017-09-03 13:32:21','2017-09-25 16:18:18',NULL,'新老师',NULL,NULL,NULL),('9201701876','student6','student','6','dff9c3e4686c4faceb0e7f9175b6defc','1','2017-01','s/','0/','2000-09-17','sadfasf@qq.com',NULL,'sadfasd','67897','546','female','2017-09-03 13:56:50','2017-09-25 16:18:15',NULL,'',NULL,NULL,NULL),('9201701942','student2','student','2','e5485a9d0622cdf031da25286337d6dd','1','2017-01','s/','0/','1980-07-07','4564@qq.com',NULL,'4564',NULL,'78','male','2017-08-14 14:23:13','2017-09-25 16:18:38',NULL,NULL,NULL,NULL,NULL),('9201702544','teacher4','teacher','4','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','f/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 11:51:45','2017-09-30 11:51:45',NULL,'',NULL,NULL,NULL),('9201702574','studentTeacher1','student','teacher1','8052d26a6da25a6e69d4bb6ac3bb1280','1','2017-02','s/f/','0/','2017-09-25','asdfasfasdfasdf@qq.com',NULL,'61244423',NULL,NULL,'male','2017-09-25 17:07:58','2017-09-25 17:07:58',NULL,'',NULL,NULL,NULL),('9201702745','admin3','admin','3','533e37ee96dfcd0ed7639d69fc590095','1','2017-02','a/','0/','2017-09-07','adsfa@qq.com',NULL,'456498784784',NULL,NULL,'female','2017-09-30 11:42:36','2017-09-30 11:42:36',NULL,'',NULL,NULL,NULL),('9201702884','student7','student','7','f5bb0c8de146c67b44babbf4e6584cc0','1','2017-02','s/','0/','2017-09-20','asdfasdfaf@qq.com',NULL,'659785412',NULL,NULL,'male','2017-09-25 17:10:21','2017-09-25 17:10:21',NULL,'',NULL,NULL,NULL),('9201702887','student8','student','8','79f9f338abd398d724e15a17e2c6ee62','1','2017-02','s/','0/','2017-09-07','asdfasfasdfasdf@qq.com',NULL,'123213324',NULL,NULL,'male','2017-09-30 10:22:02','2017-09-30 10:22:02',NULL,'',NULL,NULL,NULL),('9201702937','adminTeacher2','admin','teacher2','7d66eb52a44ad4dc575674396a78203d','1','2017-02','f/a/','0/','2017-09-08','1343214384@qq.com',NULL,'1343214384',NULL,NULL,'male','2017-09-22 16:57:59','2017-09-25 16:18:11',NULL,'',NULL,NULL,NULL);
 
 UNLOCK TABLES;
 
@@ -154,7 +181,7 @@ CREATE TABLE `pin` (
   `start_time` varchar(20) NOT NULL,
   `end_time` varchar(20) NOT NULL,
   `create_time` varchar(20) DEFAULT NULL,
-  `remark` text DEFAULT NULL,
+  `remark` text,
   `owner` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
@@ -163,7 +190,7 @@ CREATE TABLE `pin` (
 
 LOCK TABLES `pin` WRITE;
 
-insert  into `pin`(`id`,`pin`,`info`,`faculty_id`,`student_id`,`role`,`start_time`,`end_time`,`create_time`,`remark`,`owner`) values (1,996864,'2017-01','9201701000',NULL,2,'2017-11-07 00:00:00','2017-11-25 00:00:00','2017-11-07 12:57:11','Test','system,admin'),(2,436668,'2017-01','9201701100',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','1,teacher'),(3,123456,'2017-01',NULL,'9201701000',1,'2017-11-07 00:00:00','2017-11-25 00:00:00','2017-11-07 12:57:11','Test','system,admin'),(4,602351,'2017-01','9201701102',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','3,teacher'),(5,979142,'2017-01',NULL,'9201701101',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','0,student'),(6,609280,'2017-01','9201701848',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','4,teacher'),(7,680038,'2017-01',NULL,'9201701103',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test',NULL),(8,978866,'2017-01',NULL,'9201701942',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','2,student');
+insert  into `pin`(`id`,`pin`,`info`,`faculty_id`,`student_id`,`role`,`start_time`,`end_time`,`create_time`,`remark`,`owner`) values (1,996864,'2017-01','9201701000',NULL,2,'2017-11-07 00:00:00','2017-11-25 00:00:00','2017-11-07 12:57:11','Test','system,admin'),(2,436668,'2017-01','9201701100',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','1,teacher'),(3,123456,'2017-02',NULL,'9201701000',1,'2017-11-07 00:00:00','2018-11-25 00:00:00','2017-11-07 12:57:11','Test','system,admin'),(4,602351,'2017-01','9201701102',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','3,teacher'),(5,979142,'2017-01',NULL,'9201701101',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','0,student'),(6,609280,'2017-01','9201701848',NULL,2,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','4,teacher'),(7,680038,'2017-01',NULL,'9201701103',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test',NULL),(8,978866,'2017-01',NULL,'9201701942',1,'2017-11-07 00:00:00','2017-11-07 00:00:00','2017-11-07 12:57:11','Test','2,student');
 
 UNLOCK TABLES;
 
@@ -203,6 +230,26 @@ CREATE TABLE `student` (
 LOCK TABLES `student` WRITE;
 
 insert  into `student`(`student_id`,`max_credits`,`update_time`) values ('9201701000',12,NULL),('9201701101',12,NULL),('9201701261',18,NULL),('9201701309',18,NULL),('9201701310',18,NULL),('9201701784',18,NULL),('9201701876',12,NULL),('9201701942',18,NULL),('9201702574',12,NULL),('9201702884',12,NULL),('9201703122',12,NULL);
+
+UNLOCK TABLES;
+
+/*Table structure for table `tempadvise` */
+
+DROP TABLE IF EXISTS `tempadvise`;
+
+CREATE TABLE `tempadvise` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_time` varchar(255) DEFAULT NULL,
+  `faculty_ids` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `student_id` varchar(255) DEFAULT NULL,
+  `update_time` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `tempadvise` */
+
+LOCK TABLES `tempadvise` WRITE;
 
 UNLOCK TABLES;
 
@@ -277,44 +324,23 @@ insert  into `transcript`(`id`,`student_id`,`crn`,`grade`,`complete`,`assign_tim
 
 UNLOCK TABLES;
 
-/*Table structure for table `transcript_copy` */
-
-DROP TABLE IF EXISTS `transcript_copy`;
-
-CREATE TABLE `transcript_copy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `assign_time` varchar(255) DEFAULT NULL,
-  `complete` varchar(255) DEFAULT NULL,
-  `crn` varchar(255) DEFAULT NULL,
-  `grade` varchar(255) DEFAULT NULL,
-  `operator_id` varchar(255) DEFAULT NULL,
-  `student_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*Data for the table `transcript_copy` */
-
-LOCK TABLES `transcript_copy` WRITE;
-
-UNLOCK TABLES;
-
 /* Function  structure for function  `get_complete_credits` */
 
 /*!50003 DROP FUNCTION IF EXISTS `get_complete_credits` */;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_complete_credits`(sid varchar(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
-	
-	if counts > 0 then
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
-	end if;	
-	
-	RETURN credits;
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
+	
+	if counts > 0 then
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
+	end if;	
+	
+	RETURN credits;
 END */$$
 DELIMITER ;
 
@@ -324,17 +350,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_date`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE startdate VARCHAR(100);
-	DECLARE enddate VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(startdate," to ",enddate);
-	
-	
-	RETURN ctime ;
+BEGIN
+	
+	DECLARE startdate VARCHAR(100);
+	DECLARE enddate VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
+	SET ctime = CONCAT(startdate," to ",enddate);
+	
+	
+	RETURN ctime ;
     END */$$
 DELIMITER ;
 
@@ -344,22 +370,22 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_status`(crn VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE enddate VARCHAR(100);
-	DECLARE startdate VARCHAR(100);
-	DECLARE status INT(11);
-	
-	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
-	
-	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
-		SET status = -1;
-	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
-		set status = 0;
-	ELSE
-		SET status = 1;
-	END IF;
-	
-	RETURN status ;
+BEGIN
+	DECLARE enddate VARCHAR(100);
+	DECLARE startdate VARCHAR(100);
+	DECLARE status INT(11);
+	
+	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
+	
+	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
+		SET status = -1;
+	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
+		set status = 0;
+	ELSE
+		SET status = 1;
+	END IF;
+	
+	RETURN status ;
     END */$$
 DELIMITER ;
 
@@ -369,17 +395,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_time`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	DECLARE starttime VARCHAR(100);
-	DECLARE endtime VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(starttime,"-",endtime);
-	
-	
-	RETURN ctime ;
-	
+BEGIN
+	DECLARE starttime VARCHAR(100);
+	DECLARE endtime VARCHAR(100);
+	DECLARE ctime VARCHAR(100);
+	
+	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
+	SET ctime = CONCAT(starttime,"-",endtime);
+	
+	
+	RETURN ctime ;
+	
     END */$$
 DELIMITER ;
 
@@ -389,18 +415,18 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_in_progress_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	END IF;	
-	
-	RETURN credits;
-	
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+	END IF;	
+	
+	RETURN credits;
+	
     END */$$
 DELIMITER ;
 
@@ -410,17 +436,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_name`(id varchar(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE firstname varchar(100) CHARSET utf8;
-	DECLARE lastname  VARCHAR(100) CHARSET utf8;
-	declare fname varchar(100) CHARSET utf8;
-	
-	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
-	SET fname = CONCAT(lastname,",",firstname);
-	
-	
-	RETURN fname;
+BEGIN
+	
+	DECLARE firstname varchar(100) CHARSET utf8;
+	DECLARE lastname  VARCHAR(100) CHARSET utf8;
+	declare fname varchar(100) CHARSET utf8;
+	
+	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
+	SET fname = CONCAT(lastname,",",firstname);
+	
+	
+	RETURN fname;
     END */$$
 DELIMITER ;
 
@@ -430,17 +456,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_not_complete_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	END IF;	
-		
-    return credits;		
+BEGIN
+	DECLARE credits INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+	
+	IF counts > 0 THEN
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+	END IF;	
+		
+    return credits;		
     END */$$
 DELIMITER ;
 
@@ -450,17 +476,17 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_remain_capa`(crn VARCHAR(20)) RETURNS int(11)
-BEGIN
-	
-	DECLARE remain INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	DECLARE capa INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
-	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
-	SET remain = capa - counts;
-	
-	RETURN remain;
+BEGIN
+	
+	DECLARE remain INT DEFAULT 0;
+	DECLARE counts INT DEFAULT 0;
+	DECLARE capa INT DEFAULT 0;
+	
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
+	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
+	SET remain = capa - counts;
+	
+	RETURN remain;
     END */$$
 DELIMITER ;
 
@@ -607,21 +633,21 @@ DROP TABLE IF EXISTS `transcriptview`;
 /*!50001 DROP TABLE IF EXISTS `messageview` */;
 /*!50001 DROP VIEW IF EXISTS `messageview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`m`.`receiver_id` AS `receiver` from (`message` `m` join `person` `s`) where `s`.`user_id` = `m`.`sender_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`m`.`receiver_id` AS `receiver` from (`message` `m` join `person` `s`) where (`s`.`user_id` = `m`.`sender_id`) */;
 
 /*View structure for view studentview */
 
 /*!50001 DROP TABLE IF EXISTS `studentview` */;
 /*!50001 DROP VIEW IF EXISTS `studentview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`student_id` AS `student_id`,`s`.`max_credits` AS `max_credits`,`p`.`status` AS `status`,`get_name`(`s`.`student_id`) AS `sname`,`get_complete_credits`(`s`.`student_id`) AS `complete`,`get_in_progress_credits`(`s`.`student_id`) AS `progress`,`get_not_complete_credits`(`s`.`student_id`) AS `incomplete` from (`student` `s` join `person` `p`) where `p`.`user_id` = `s`.`student_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `studentview` AS select `s`.`student_id` AS `student_id`,`s`.`max_credits` AS `max_credits`,`p`.`status` AS `status`,`get_name`(`s`.`student_id`) AS `sname`,`get_complete_credits`(`s`.`student_id`) AS `complete`,`get_in_progress_credits`(`s`.`student_id`) AS `progress`,`get_not_complete_credits`(`s`.`student_id`) AS `incomplete` from (`student` `s` join `person` `p`) where (`p`.`user_id` = `s`.`student_id`) */;
 
 /*View structure for view transcriptview */
 
 /*!50001 DROP TABLE IF EXISTS `transcriptview` */;
 /*!50001 DROP VIEW IF EXISTS `transcriptview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`user_id` = `t`.`student_id` and `p2`.`user_id` = `c`.`faculty_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where ((`t`.`crn` = `c`.`crn`) and (`p1`.`user_id` = `t`.`student_id`) and (`p2`.`user_id` = `c`.`faculty_id`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
