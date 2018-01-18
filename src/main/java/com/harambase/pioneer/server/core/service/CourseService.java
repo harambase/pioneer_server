@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.core.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.server.core.pojo.base.Course;
 import com.harambase.pioneer.server.core.pojo.dto.Option;
@@ -27,7 +28,7 @@ public interface CourseService {
 
     HaramMessage preCourseList(String crn);
 
-    HaramMessage reg2Course(String studentId, String[] choices);
+    HaramMessage reg2Course(String studentId, JSONObject choiceList);
 
     HaramMessage getCourseByCrn(String crn);
 

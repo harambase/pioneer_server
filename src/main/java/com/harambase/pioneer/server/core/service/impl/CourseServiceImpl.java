@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.core.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.FlagDict;
@@ -17,6 +18,7 @@ import com.harambase.pioneer.support.util.DateUtil;
 import com.harambase.pioneer.support.util.IDUtil;
 import com.harambase.pioneer.support.util.PageUtil;
 import com.harambase.pioneer.support.util.ReturnMsgUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -247,14 +249,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage reg2Course(String studentId, String[] choices) {
+    public HaramMessage reg2Course(String studentId, JSONObject choiceList) {
 
         try {
             Map<String, Object> result = new HashMap<>();
             List<String> failList = new ArrayList<>();
-
+            List<String> choices = (List<String>) choiceList.get("choiceList");
             for (String crn : choices) {
-
+                if (StringUtils.isEmpty(crn))
+                    continue;
                 CourseView courseView = courseDao.findByCrn(crn);
                 String failInfo = "CRN：" + crn + ", 课程名：" + courseView.getName() + "，失败原因:";
 

@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.core.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.HaramMessage;
 import com.harambase.pioneer.common.constant.ApiTags;
 import com.harambase.pioneer.server.core.pojo.base.Course;
@@ -148,10 +149,10 @@ public class CourseController {
 
     @ApiOperation(value = "学生选课", notes = "权限：用户", response = Map.class, tags = {ApiTags.COURSE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{studentId}/choose", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{studentId}/choose", method = RequestMethod.POST)
     public ResponseEntity courseChoice(@PathVariable(value = "studentId") String studentId,
-                                       @RequestBody String[] choices) {
-        HaramMessage message = courseService.reg2Course(studentId, choices);
+                                       @RequestBody JSONObject choiceList) {
+        HaramMessage message = courseService.reg2Course(studentId, choiceList);
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
