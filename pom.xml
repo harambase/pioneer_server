@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.harambase.pioneer</groupId>
-    <artifactId>pioneer-server-core</artifactId>
+    <artifactId>pioneer-server</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Pioneer Server Core</name>
+    <name>Pioneer Server</name>
     <url>http://maven.apache.org</url>
 
     <parent>
@@ -163,8 +163,8 @@
                         </manifestEntries>
                     </archive>
                     <excludes>
-                        <exclude>com/harambase/pioneer/server/core/controller/*</exclude>
-                        <exclude>com/harambase/pioneer/server/core/swagger/*</exclude>
+                        <exclude>com/harambase/pioneer/server/controller/*</exclude>
+                        <exclude>com/harambase/pioneer/server/swagger/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

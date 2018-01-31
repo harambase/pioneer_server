@@ -1,0 +1,45 @@
+package com.harambase.pioneer.server;
+
+import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.server.service.RoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@CrossOrigin
+@RequestMapping("/role")
+@Api(value = "/role", description = "权限管理接口")
+public class RoleServer {
+
+    private final RoleService roleService;
+
+    @Autowired
+    public RoleServer(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    @ApiOperation(value = "通过ROLE_ID获取权限", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/{roleId}", method = RequestMethod.GET)
+    public ResponseEntity get(@PathVariable(value = "roleId") Integer roleId) {
+        HaramMessage message = roleService.get(roleId);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "获取ROLE列表", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity list(@RequestParam(required = false) String search, @RequestParam String order, @RequestParam String orderCol) {
+        HaramMessage message = roleService.list(search, order, orderCol);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+}
