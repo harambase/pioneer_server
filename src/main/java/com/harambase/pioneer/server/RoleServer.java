@@ -10,14 +10,12 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController
-@CrossOrigin
-@RequestMapping("/role")
-@Api(value = "/role", description = "权限管理接口")
+@Component
 public class RoleServer {
 
     private final RoleService roleService;
@@ -26,20 +24,12 @@ public class RoleServer {
     public RoleServer(RoleService roleService) {
         this.roleService = roleService;
     }
-
-    @ApiOperation(value = "通过ROLE_ID获取权限", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{roleId}", method = RequestMethod.GET)
-    public ResponseEntity get(@PathVariable(value = "roleId") Integer roleId) {
-        HaramMessage message = roleService.get(roleId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+    
+    public HaramMessage get(Integer roleId) {
+        return roleService.get(roleId);
     }
 
-    @ApiOperation(value = "获取ROLE列表", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity list(@RequestParam(required = false) String search, @RequestParam String order, @RequestParam String orderCol) {
-        HaramMessage message = roleService.list(search, order, orderCol);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+    public HaramMessage list(String search, String order, String orderCol) {
+        return roleService.list(search, order, orderCol);
     }
 }
