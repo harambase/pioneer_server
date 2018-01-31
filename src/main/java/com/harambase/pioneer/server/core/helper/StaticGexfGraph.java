@@ -1,10 +1,9 @@
-package com.harambase.pioneer.support.charts;
+package com.harambase.pioneer.server.core.helper;
 
 import com.harambase.pioneer.common.constant.UserType;
 import com.harambase.pioneer.server.core.pojo.base.Advise;
 import com.harambase.pioneer.server.core.pojo.base.Person;
 import com.harambase.pioneer.server.core.pojo.base.Transcript;
-import com.harambase.pioneer.server.core.pojo.view.CourseView;
 import it.uniroma1.dis.wsngroup.gexf4j.core.*;
 import it.uniroma1.dis.wsngroup.gexf4j.core.data.Attribute;
 import it.uniroma1.dis.wsngroup.gexf4j.core.data.AttributeClass;

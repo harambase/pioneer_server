@@ -1,8 +1,8 @@
-package com.harambase.pioneer.common.helper;
+package com.harambase.pioneer.server.core.helper;
 
 import com.harambase.pioneer.server.core.pojo.base.Pin;
 import com.harambase.pioneer.server.core.pojo.view.CourseView;
-import com.harambase.pioneer.support.util.DateUtil;
+import com.harambase.pioneer.common.support.util.DateUtil;
 
 import java.util.Date;
 import java.util.HashSet;

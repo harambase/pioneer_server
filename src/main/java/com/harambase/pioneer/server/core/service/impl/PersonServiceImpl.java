@@ -10,7 +10,7 @@ import com.harambase.pioneer.server.core.pojo.base.Message;
 import com.harambase.pioneer.server.core.pojo.base.Person;
 import com.harambase.pioneer.server.core.pojo.base.Student;
 import com.harambase.pioneer.server.core.service.PersonService;
-import com.harambase.pioneer.support.util.*;
+import com.harambase.pioneer.common.support.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

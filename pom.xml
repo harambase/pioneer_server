@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.harambase</groupId>
-    <artifactId>pioneer-server</artifactId>
-    <version>1.0</version>
+    <groupId>com.harambase.pioneer</groupId>
+    <artifactId>pioneer-server-core</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Pioneer Server</name>
+    <name>Pioneer Server Core</name>
     <url>http://maven.apache.org</url>
 
     <parent>
@@ -25,6 +25,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.harambase.pioneer</groupId>
+            <artifactId>pioneer-common-package</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!--springboot-->
         <dependency>
@@ -59,9 +65,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>5.1.45</version>
         </dependency>
-
+        <!--<dependency>-->
+            <!--<groupId>org.mariadb.jdbc</groupId>-->
+            <!--<artifactId>mariadb-java-client</artifactId>-->
+            <!--<version>2.0.3</version>-->
+        <!--</dependency>-->
         <!--swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -120,16 +130,9 @@
             <version>1.0.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.belerweb</groupId>
-            <artifactId>pinyin4j</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-
     </dependencies>
 
     <build>
-        <finalName>pioneer-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -139,6 +142,43 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <!-- 生成MANIFEST.MF的设置 -->
+                        <manifest>
+                            <!-- 为依赖包添加路径, 这些路径会写在MANIFEST文件的Class-Path下 -->
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <!-- jar启动入口类-->
+                            <mainClass></mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <!-- 在Class-Path下添加配置文件的路径 -->
+                            <Class-Path>lib/</Class-Path>
+                        </manifestEntries>
+                    </archive>
+                    <excludes>
+                        <exclude>com/harambase/pioneer/server/core/controller/*</exclude>
+                        <exclude>com/harambase/pioneer/server/core/swagger/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.3.1</version>
+                <configuration>
+                    <file>${project.build.directory}/pioneer-server-${version}.jar</file>
+                    <groupId>com.harambase.pioneer</groupId>
+                    <artifactId>pioneer-server</artifactId>
+                    <version>${version}</version>
+                    <packaging>jar</packaging>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

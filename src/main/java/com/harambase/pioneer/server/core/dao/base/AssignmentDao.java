@@ -1,6 +1,6 @@
 package com.harambase.pioneer.server.core.dao.base;
 
-import com.harambase.pioneer.support.database.DataServiceConnection;
+import com.harambase.pioneer.server.core.dao.connection.DataServiceConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

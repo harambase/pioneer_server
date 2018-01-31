@@ -17,7 +17,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 @RequestMapping("/database")
-@Api(value = "/database", description = "数据库管理接口")
+@Api(value = "/connection", description = "数据库管理接口")
 public class DatabaseController {
 
     private final DatabaseManager databaseManager;

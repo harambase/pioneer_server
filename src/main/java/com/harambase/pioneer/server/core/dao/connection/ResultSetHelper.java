@@ -1,6 +1,4 @@
-package com.harambase.pioneer.support.database;
-
-import com.harambase.pioneer.server.core.pojo.view.StudentView;
+package com.harambase.pioneer.server.core.dao.connection;
 
 import javax.persistence.Column;
 import java.beans.IntrospectionException;

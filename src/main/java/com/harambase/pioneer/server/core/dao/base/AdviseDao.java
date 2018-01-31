@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.core.dao.base;
 
 import com.harambase.pioneer.server.core.pojo.view.AdviseView;
-import com.harambase.pioneer.support.database.DataServiceConnection;
-import com.harambase.pioneer.support.database.ResultSetHelper;
+import com.harambase.pioneer.server.core.dao.connection.DataServiceConnection;
+import com.harambase.pioneer.server.core.dao.connection.ResultSetHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
