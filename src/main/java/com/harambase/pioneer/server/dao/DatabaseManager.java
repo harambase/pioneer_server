@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.OutputStream;
 
-
 @Component
 public class DatabaseManager {
 

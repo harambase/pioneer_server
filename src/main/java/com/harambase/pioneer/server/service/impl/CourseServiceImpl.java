@@ -384,42 +384,6 @@ public class CourseServiceImpl implements CourseService {
                                    String facultyid, String info) {
         try {
             HaramMessage message = new HaramMessage();
-            switch (Integer.parseInt(orderColumn)) {
-                case 0:
-                    orderColumn = "id";
-                    break;
-                case 1:
-                    orderColumn = "crn";
-                    break;
-                case 2:
-                    orderColumn = "name";
-                    break;
-                case 3:
-                    orderColumn = "capacity";
-                    break;
-                case 4:
-                    orderColumn = "remain";
-                    break;
-                case 5:
-                    orderColumn = "status";
-                    break;
-                case 6:
-                    orderColumn = "date";
-                    break;
-                case 7:
-                    orderColumn = "time";
-                    break;
-                case 8:
-                    orderColumn = "day";
-                    break;
-                case 9:
-                    orderColumn = "faculty";
-                    break;
-                default:
-                    orderColumn = "update_time";
-                    break;
-            }
-
             long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyid, info, search);
 
             Page page = new Page();

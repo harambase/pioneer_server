@@ -71,11 +71,11 @@ public class CourseDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT COUNT(*) AS count FROM courseview WHERE 1=1 ";
+            String queryString = "SELECT COUNT(*) AS count FROM courseview c WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyid))
-                queryString += "AND faculty_id = '" + facultyid + "' ";
+                queryString += "AND c.faculty_id = '" + facultyid + "' ";
             if (StringUtils.isNotEmpty(info))
-                queryString += "AND info = '" + info + "' ";
+                queryString += "AND c.info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
@@ -114,11 +114,11 @@ public class CourseDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM courseview WHERE 1=1 ";
+            String queryString = "SELECT * FROM courseview c WHERE 1=1 ";
             if (StringUtils.isNotEmpty(facultyid))
-                queryString += "AND faculty_id = '" + facultyid + "' ";
+                queryString += "AND c.faculty_id = '" + facultyid + "' ";
             if (StringUtils.isNotEmpty(info))
-                queryString += "AND info = '" + info + "' ";
+                queryString += "AND c.info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
