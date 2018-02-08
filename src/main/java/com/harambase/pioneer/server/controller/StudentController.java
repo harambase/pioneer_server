@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.controller;
 
-import com.harambase.pioneer.common.HaramMessage;
-import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.common.Tags;
 import com.harambase.pioneer.server.pojo.base.Student;
 import com.harambase.pioneer.server.service.StudentService;
 import io.swagger.annotations.Api;
@@ -28,32 +28,32 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @ApiOperation(value = "获取学生成绩单", notes = "权限：管理员，教务，学生，导师", response = Map.class, tags = {ApiTags.STUDENT})
+    @ApiOperation(value = "获取学生成绩单", notes = "权限：管理员，教务，学生，导师", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/transcript", method = RequestMethod.GET)
     public ResponseEntity getTranscriptDetail(@PathVariable(value = "studentId") String studentid) {
-        HaramMessage haramMessage = studentService.transcriptDetail(studentid);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = studentService.transcriptDetail(studentid);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取学生学分信息", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.STUDENT})
+    @ApiOperation(value = "获取学生学分信息", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/available/credit", method = RequestMethod.GET)
     public ResponseEntity getAvailableCredit(@PathVariable(value = "studentId") String studentId,
                                              @RequestParam(value = "info") String info) {
-        HaramMessage haramMessage = studentService.getAvailableCredit(studentId, info);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = studentService.getAvailableCredit(studentId, info);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新学生", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.STUDENT})
+    @ApiOperation(value = "更新学生", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable String studentId, @RequestBody Student student) {
-        HaramMessage haramMessage = studentService.update(studentId, student);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = studentService.update(studentId, student);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "学生列表", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.STUDENT})
+    @ApiOperation(value = "学生列表", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -62,17 +62,17 @@ public class StudentController {
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "status", required = false) String status) {
-        HaramMessage message = studentService.studentList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = studentService.studentList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "学生课程列表", notes = "权限：管理员，教务，学生", response = Map.class, tags = {ApiTags.STUDENT})
+    @ApiOperation(value = "学生课程列表", notes = "权限：管理员，教务，学生", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/course", method = RequestMethod.GET)
     public ResponseEntity courseList(@RequestParam(value = "status", required = false, defaultValue = "") String status,
                                      @PathVariable String studentId) {
-        HaramMessage message = studentService.courseList(status, studentId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = studentService.courseList(status, studentId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
 }

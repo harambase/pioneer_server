@@ -1,9 +1,9 @@
 package com.harambase.pioneer.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.repository.TempUserRepository;
 import com.harambase.pioneer.server.dao.base.TempUserDao;
 import com.harambase.pioneer.server.dao.repository.MessageRepository;
@@ -44,7 +44,7 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage deleteTempUserById(Integer id) {
+    public ResultMap deleteTempUserById(Integer id) {
 
         try {
             tempUserRepository.delete(id);
@@ -58,7 +58,7 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage register(JSONObject jsonObject) {
+    public ResultMap register(JSONObject jsonObject) {
 
         try {
             String userid = IDUtil.genTempUserID(jsonObject.getString("info"));
@@ -101,7 +101,7 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage updateTempUser(Integer id, TempUser tempUser) {
+    public ResultMap updateTempUser(Integer id, TempUser tempUser) {
         try {
             tempUser.setId(id);
             tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -114,8 +114,8 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
-        HaramMessage message = new HaramMessage();
+    public ResultMap tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
+        ResultMap message = new ResultMap();
         switch (Integer.parseInt(orderColumn)) {
             case 1:
                 orderColumn = "user_id";
@@ -140,8 +140,8 @@ public class TempUserImpl implements TempUserService {
 
             message.setData(tempUsers);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -151,7 +151,7 @@ public class TempUserImpl implements TempUserService {
     }
 
     @Override
-    public HaramMessage get(Integer id) {
+    public ResultMap get(Integer id) {
         try {
             TempUser tempUser = tempUserRepository.findOne(id);
             return ReturnMsgUtil.success(tempUser);

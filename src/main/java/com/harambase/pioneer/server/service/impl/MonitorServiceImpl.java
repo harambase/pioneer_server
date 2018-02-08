@@ -1,6 +1,6 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.MapParam;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.pojo.base.Transcript;
@@ -42,7 +42,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public HaramMessage userChart() {
+    public ResultMap userChart() {
 
         try {
             //统计用户种类
@@ -65,7 +65,7 @@ public class MonitorServiceImpl implements MonitorService {
             data2.add(MapParam.pieChartValue(String.valueOf(male), "Male"));
             data2.add(MapParam.pieChartValue(String.valueOf(female), "Female"));
 
-            HaramMessage message = new HaramMessage();
+            ResultMap message = new ResultMap();
             message.put("dataBeast", data1);
             message.put("xAxisData", data2);
 
@@ -77,7 +77,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public HaramMessage getSystemCount() {
+    public ResultMap getSystemCount() {
 
         try {
             Map<String, Integer> data = new HashMap<>();
@@ -99,7 +99,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public HaramMessage getRelationChart() {
+    public ResultMap getRelationChart() {
 
         try {
             List<Person> personList = personRepository.findAll();

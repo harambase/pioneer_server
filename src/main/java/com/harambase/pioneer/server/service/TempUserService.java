@@ -1,18 +1,18 @@
 package com.harambase.pioneer.server.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.TempUser;
 
 public interface TempUserService {
 
-    HaramMessage deleteTempUserById(Integer id);
+    ResultMap deleteTempUserById(Integer id);
 
-    HaramMessage register(JSONObject jsonObject);
+    ResultMap register(JSONObject jsonObject);
 
-    HaramMessage updateTempUser(Integer id, TempUser tempUser);
+    ResultMap updateTempUser(Integer id, TempUser tempUser);
 
-    HaramMessage tempUserList(String s, String s1, String search, String order, String orderCol, String status);
+    ResultMap tempUserList(String s, String s1, String search, String order, String orderCol, String status);
 
-    HaramMessage get(Integer id);
+    ResultMap get(Integer id);
 }

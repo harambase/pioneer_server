@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.controller;
 
-import com.harambase.pioneer.common.HaramMessage;
-import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.common.Tags;
 import com.harambase.pioneer.server.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,19 +27,19 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @ApiOperation(value = "通过ROLE_ID获取权限", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
+    @ApiOperation(value = "通过ROLE_ID获取权限", notes = "权限：所有人", response = Map.class, tags = {Tags.ROLE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{roleId}", method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable(value = "roleId") Integer roleId) {
-        HaramMessage message = roleService.get(roleId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = roleService.get(roleId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取ROLE列表", notes = "权限：所有人", response = Map.class, tags = {ApiTags.ROLE})
+    @ApiOperation(value = "获取ROLE列表", notes = "权限：所有人", response = Map.class, tags = {Tags.ROLE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(required = false) String search, @RequestParam String order, @RequestParam String orderCol) {
-        HaramMessage message = roleService.list(search, order, orderCol);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = roleService.list(search, order, orderCol);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

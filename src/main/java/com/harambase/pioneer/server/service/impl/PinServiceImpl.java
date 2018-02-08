@@ -1,9 +1,9 @@
 package com.harambase.pioneer.server.service.impl;
 
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.PersonDao;
 import com.harambase.pioneer.server.dao.repository.PinRepository;
 import com.harambase.pioneer.server.helper.TimeValidate;
@@ -56,7 +56,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage validate(Integer pinNum, String userId) {
+    public ResultMap validate(Integer pinNum, String userId) {
         try {
             Pin pin = pinRepository.findByPin(pinNum);
 
@@ -72,13 +72,13 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage generateAll(String startTime, String endTime, int role, String info, String remark) {
+    public ResultMap generateAll(String startTime, String endTime, int role, String info, String remark) {
 
         try {
 
             int count = pinRepository.countByInfoAndRole(info, role);
             if (count != 0) {
-                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
+                return ReturnMsgUtil.custom(SystemConst.PIN_EXISTS);
             }
 
 
@@ -132,7 +132,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage deleteAllByInfo(String info) {
+    public ResultMap deleteAllByInfo(String info) {
         try {
             pinRepository.deleteByInfo(info);
             int count = pinRepository.countByInfo(info);
@@ -144,7 +144,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage deleteSingleByPin(Integer pin) {
+    public ResultMap deleteSingleByPin(Integer pin) {
         try {
             pinRepository.deleteByPin(pin);
             int count = pinRepository.countByPin(pin);
@@ -156,7 +156,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
+    public ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
         try {
 
             //检查是否存在该类型的pin
@@ -164,7 +164,7 @@ public class PinServiceImpl implements PinService {
             int facCount = pinRepository.countByInfoAndFacultyId(info, userId);
 
             if (stuCount != 0 || facCount != 0) {
-                return ReturnMsgUtil.custom(FlagDict.PIN_EXISTS);
+                return ReturnMsgUtil.custom(SystemConst.PIN_EXISTS);
             }
 
             //生成pin
@@ -203,7 +203,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage getAllInfo() {
+    public ResultMap getAllInfo() {
         try {
             List<String> infoList = pinRepository.findInfo();
             return ReturnMsgUtil.success(infoList);
@@ -214,9 +214,9 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
+    public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
         try {
-            HaramMessage message = new HaramMessage();
+            ResultMap message = new ResultMap();
             switch (Integer.parseInt(orderColumn)) {
                 case 0:
                     orderColumn = "pin";
@@ -266,8 +266,8 @@ public class PinServiceImpl implements PinService {
 
             message.setData(pinList);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (NumberFormatException e) {
@@ -277,7 +277,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage sendFacultyPin(String info, String senderId) {
+    public ResultMap sendFacultyPin(String info, String senderId) {
         try {
             List<Pin> pinInfoList = pinRepository.findByInfo(info);
 
@@ -316,7 +316,7 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public HaramMessage sendAdvisorPin(String info, String senderId) {
+    public ResultMap sendAdvisorPin(String info, String senderId) {
 
         try {
             List<Pin> pinInfoList = pinRepository.findByInfo(info);

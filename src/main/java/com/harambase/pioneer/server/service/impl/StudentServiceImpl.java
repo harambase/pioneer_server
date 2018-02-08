@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.CourseDao;
 import com.harambase.pioneer.server.dao.base.StudentDao;
 import com.harambase.pioneer.server.dao.repository.StudentRepository;
@@ -40,7 +40,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage transcriptDetail(String studentId) {
+    public ResultMap transcriptDetail(String studentId) {
         try {
             LinkedHashMap sv = studentDao.findOne(studentId);
             return ReturnMsgUtil.success(sv);
@@ -51,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage update(String studentId, Student student) {
+    public ResultMap update(String studentId, Student student) {
         try {
             student.setStudentId(studentId);
             student.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -64,8 +64,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage studentList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
-        HaramMessage message = new HaramMessage();
+    public ResultMap studentList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
+        ResultMap message = new ResultMap();
 
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -103,8 +103,8 @@ public class StudentServiceImpl implements StudentService {
 
             message.setData(studentViews);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage getAvailableCredit(String studentId, String info) {
+    public ResultMap getAvailableCredit(String studentId, String info) {
 
         try {
             List<CourseView> courseList = courseDao.findCourseViewByStudentId("", studentId);
@@ -144,7 +144,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public HaramMessage courseList(String status, String studentId) {
+    public ResultMap courseList(String status, String studentId) {
         try {
             List<CourseView> courseList = courseDao.findCourseViewByStudentId(status, studentId);
             return ReturnMsgUtil.success(courseList);

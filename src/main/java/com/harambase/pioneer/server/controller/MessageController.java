@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.controller;
 
-import com.harambase.pioneer.common.HaramMessage;
-import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.common.Tags;
 import com.harambase.pioneer.server.pojo.base.Message;
 import com.harambase.pioneer.server.service.MessageService;
 import io.swagger.annotations.Api;
@@ -28,49 +28,49 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-    @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "新增信息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Message message) {
-        HaramMessage haramMessage = messageService.createMessage(message);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.createMessage(message);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "删除一个消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
-        HaramMessage haramMessage = messageService.delete(id);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.delete(id);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "更新消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable(value = "id") Integer id,
                                  @RequestBody Message message) {
-        HaramMessage haramMessage = messageService.update(id, message);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.update(id, message);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新消息状态", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "更新消息状态", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}/status", method = RequestMethod.PUT)
     public ResponseEntity updateStatus(@PathVariable(value = "id") Integer id,
                                        @RequestParam String status) {
-        HaramMessage haramMessage = messageService.updateStatus(id, status);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.updateStatus(id, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "获取一条消息", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@RequestParam(value = "id") Integer id) {
-        HaramMessage haramMessage = messageService.getMessageView(id);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.getMessageView(id);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "计数", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public ResponseEntity count(@RequestParam(value = "status") String status,
@@ -89,11 +89,11 @@ public class MessageController {
             senderid = userId;
         }
 
-        HaramMessage haramMessage = messageService.countMessageByStatus(receiverId, senderid, box.toLowerCase(), status.toLowerCase());
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = messageService.countMessageByStatus(receiverId, senderid, box.toLowerCase(), status.toLowerCase());
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.MESSAGE})
+    @ApiOperation(value = "消息列表", notes = "权限：用户", response = Map.class, tags = {Tags.MESSAGE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -114,8 +114,8 @@ public class MessageController {
             receiverId = userId;
             senderid = userId;
         }
-        HaramMessage message = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, receiverId, senderid, box);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = messageService.list(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, receiverId, senderid, box);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
 }

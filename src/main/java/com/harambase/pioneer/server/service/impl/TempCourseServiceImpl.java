@@ -1,9 +1,9 @@
 package com.harambase.pioneer.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.TempCourseDao;
 import com.harambase.pioneer.server.dao.repository.TempCourseRepository;
 import com.harambase.pioneer.server.pojo.base.Message;
@@ -39,7 +39,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage register(String facultyId, JSONObject jsonObject) {
+    public ResultMap register(String facultyId, JSONObject jsonObject) {
         try {
             String crn = IDUtil.genTempCRN(jsonObject.getString("info"));
 
@@ -80,7 +80,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage deleteTempCourseById(Integer id) {
+    public ResultMap deleteTempCourseById(Integer id) {
         try {
             tempCourseRepository.delete(id);
             int count = tempCourseRepository.countById(id);
@@ -93,7 +93,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage updateTempCourse(Integer id, TempCourse tempCourse) {
+    public ResultMap updateTempCourse(Integer id, TempCourse tempCourse) {
         try {
             tempCourse.setId(id);
             tempCourse.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -106,8 +106,8 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage tempCourseList(String currentPage, String pageSize, String search, String order, String orderColumn, String status, String facultyId) {
-        HaramMessage message = new HaramMessage();
+    public ResultMap tempCourseList(String currentPage, String pageSize, String search, String order, String orderColumn, String status, String facultyId) {
+        ResultMap message = new ResultMap();
         switch (Integer.parseInt(orderColumn)) {
             case 2:
                 orderColumn = "crn";
@@ -138,8 +138,8 @@ public class TempCourseServiceImpl implements TempCourseService {
 
             message.setData(tempCourses);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -149,7 +149,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     }
 
     @Override
-    public HaramMessage get(Integer id) {
+    public ResultMap get(Integer id) {
         try {
             TempCourse tempCourse = tempCourseRepository.findOne(id);
             return ReturnMsgUtil.success(tempCourse);

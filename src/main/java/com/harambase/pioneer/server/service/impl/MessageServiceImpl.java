@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.MessageDao;
 import com.harambase.pioneer.server.dao.repository.MessageRepository;
 import com.harambase.pioneer.server.dao.repository.PersonRepository;
@@ -42,10 +42,10 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage list(String currentPage, String pageSize, String search, String order, String orderColumn,
+    public ResultMap list(String currentPage, String pageSize, String search, String order, String orderColumn,
                              String receiverid, String senderid, String box) {
         try {
-            HaramMessage message = new HaramMessage();
+            ResultMap message = new ResultMap();
             switch (Integer.parseInt(orderColumn)) {
                 case 1:
                     orderColumn = "sender";
@@ -76,8 +76,8 @@ public class MessageServiceImpl implements MessageService {
 
             message.setData(msgs);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage getMessageView(Integer id) {
+    public ResultMap getMessageView(Integer id) {
         try {
             MessageView messageView = messageDao.findOne(id);
             String[] receiverIds = messageView.getReceiver().split("/");
@@ -105,7 +105,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage countMessageByStatus(String receiverid, String senderid, String box, String status) {
+    public ResultMap countMessageByStatus(String receiverid, String senderid, String box, String status) {
         try {
             int count = messageDao.countMessageByStatus(receiverid, senderid, box, status);
             return ReturnMsgUtil.success(count);
@@ -116,7 +116,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage update(Integer id, Message message) {
+    public ResultMap update(Integer id, Message message) {
         try {
             message.setId(id);
             Message newMessage = messageRepository.save(message);
@@ -128,7 +128,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage updateStatus(Integer id, String status) {
+    public ResultMap updateStatus(Integer id, String status) {
         try {
             Message message = messageRepository.findOne(id);
             message.setStatus(status);
@@ -141,7 +141,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage createMessage(Message message) {
+    public ResultMap createMessage(Message message) {
         try {
             message.setDate(DateUtil.DateToStr(new Date()));
             Message newMessage = messageRepository.save(message);
@@ -153,7 +153,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public HaramMessage delete(Integer id) {
+    public ResultMap delete(Integer id) {
         try {
             messageRepository.delete(id);
             int count = messageRepository.countById(id);

@@ -1,19 +1,19 @@
 package com.harambase.pioneer.server.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.TempCourse;
 
 public interface TempCourseService {
 
-    HaramMessage register(String facultyId, JSONObject jsonObject);
+    ResultMap register(String facultyId, JSONObject jsonObject);
 
-    HaramMessage deleteTempCourseById(Integer id);
+    ResultMap deleteTempCourseById(Integer id);
 
-    HaramMessage updateTempCourse(Integer id, TempCourse tempCourse);
+    ResultMap updateTempCourse(Integer id, TempCourse tempCourse);
 
-    HaramMessage tempCourseList(String s, String s1, String search, String order, String orderCol, String status, String facultyId);
+    ResultMap tempCourseList(String s, String s1, String search, String order, String orderCol, String status, String facultyId);
 
-    HaramMessage get(Integer id);
+    ResultMap get(Integer id);
 
 }

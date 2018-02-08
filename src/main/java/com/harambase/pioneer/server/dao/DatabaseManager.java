@@ -1,6 +1,6 @@
 package com.harambase.pioneer.server.dao;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.dao.connection.DataServiceConnection;
 import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
 import org.slf4j.Logger;
@@ -14,11 +14,11 @@ public class DatabaseManager {
 
     private final static Logger logger = LoggerFactory.getLogger(DataServiceConnection.class);
 
-    public HaramMessage restart() {
+    public ResultMap restart() {
         return null;
     }
 
-    public HaramMessage reset(String username, String password) {
+    public ResultMap reset(String username, String password) {
 
         try {
             Process process = Runtime.getRuntime().exec("mysql db_name < /home/liova/download/tpch/queries/Q1.sql");
@@ -31,7 +31,7 @@ public class DatabaseManager {
         return ReturnMsgUtil.success(null);
     }
 
-    public HaramMessage backup(String username, String password) {
+    public ResultMap backup(String username, String password) {
         return null;
     }
 

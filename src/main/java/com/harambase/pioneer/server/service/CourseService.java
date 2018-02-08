@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.Course;
 import com.harambase.pioneer.server.pojo.dto.Option;
 
@@ -10,31 +10,31 @@ import com.harambase.pioneer.server.pojo.dto.Option;
  */
 public interface CourseService {
 
-    HaramMessage addCourse(Course course);
+    ResultMap addCourse(Course course);
 
-    HaramMessage delete(String crn);
+    ResultMap delete(String crn);
 
-    HaramMessage update(String crn, Course course);
+    ResultMap update(String crn, Course course);
 
-    HaramMessage assignFac2Cou(String crn, String facultyId);
+    ResultMap assignFac2Cou(String crn, String facultyId);
 
-    HaramMessage addStu2Cou(String crn, String studentId, Option option);
+    ResultMap addStu2Cou(String crn, String studentId, Option option);
 
-    HaramMessage removeStuFromCou(String crn, String studentId);
+    ResultMap removeStuFromCou(String crn, String studentId);
 
-    HaramMessage getCourseBySearch(String search, String status);
+    ResultMap getCourseBySearch(String search, String status);
 
-    HaramMessage courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
+    ResultMap courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
 
-    HaramMessage preCourseList(String crn);
+    ResultMap preCourseList(String crn);
 
-    HaramMessage reg2Course(String studentId, JSONObject choiceList);
+    ResultMap reg2Course(String studentId, JSONObject choiceList);
 
-    HaramMessage getCourseByCrn(String crn);
+    ResultMap getCourseByCrn(String crn);
 
-    HaramMessage courseTreeList(String facultyId, String info);
+    ResultMap courseTreeList(String facultyId, String info);
 
-    HaramMessage courseListInfo(String search);
+    ResultMap courseListInfo(String search);
 
-    HaramMessage studentList(String crn, String search);
+    ResultMap studentList(String crn, String search);
 }

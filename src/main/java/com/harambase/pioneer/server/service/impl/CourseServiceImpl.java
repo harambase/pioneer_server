@@ -1,9 +1,9 @@
 package com.harambase.pioneer.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.CourseDao;
 import com.harambase.pioneer.server.dao.base.StudentDao;
 import com.harambase.pioneer.server.dao.repository.CourseRepository;
@@ -50,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage addCourse(Course course) {
+    public ResultMap addCourse(Course course) {
 
         try {
             course.setCreateTime(DateUtil.DateToStr(new Date()));
@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
             if (!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
                 if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyid), courseDao.findByCrn(crn))) {
-                    return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
+                    return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
                 }
                 course.setFacultyId(facultyid);
             }
@@ -90,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage delete(String crn) {
+    public ResultMap delete(String crn) {
         try {
             Course course = courseRepository.findByCrn(crn);
             courseRepository.delete(course);
@@ -103,7 +103,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage update(String crn, Course course) {
+    public ResultMap update(String crn, Course course) {
         try {
             course.setCrn(crn);
             course.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -116,7 +116,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage getCourseByCrn(String crn) {
+    public ResultMap getCourseByCrn(String crn) {
         try {
             CourseView courseView = courseDao.findByCrn(crn);
             return ReturnMsgUtil.success(courseView);
@@ -127,7 +127,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage getCourseBySearch(String search, String status) {
+    public ResultMap getCourseBySearch(String search, String status) {
         try {
             List<CourseView> results = courseDao.findTop5ByStatusAndSearch(search, status);
             return ReturnMsgUtil.success(results);
@@ -138,13 +138,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage assignFac2Cou(String crn, String facultyId) {
+    public ResultMap assignFac2Cou(String crn, String facultyId) {
 
         try {
             if (!facultyId.equals(IDUtil.ROOT)) {
                 //检查时间冲突
                 if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyId), courseDao.findByCrn(crn))) {
-                    return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
+                    return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
                 }
             }
 
@@ -161,7 +161,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage addStu2Cou(String crn, String studentId, Option option) {
+    public ResultMap addStu2Cou(String crn, String studentId, Option option) {
 
         try {
             CourseView courseView = courseDao.findByCrn(crn);
@@ -169,18 +169,18 @@ public class CourseServiceImpl implements CourseService {
             //检查课程状态
             Integer status = courseView.getStatus();
             if (status == -1) {
-                return ReturnMsgUtil.custom(FlagDict.COURSE_DISABLED);
+                return ReturnMsgUtil.custom(SystemConst.COURSE_DISABLED);
             }
 
             //检查时间冲突
             if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
-                return ReturnMsgUtil.custom(FlagDict.TIME_CONFLICT);
+                return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
             }
 
             //检查课程容量
             int remain = courseView.getRemain();
             if (remain <= 0 && !option.isCapacity()) {
-                return ReturnMsgUtil.custom(FlagDict.MAX_CAPACITY);
+                return ReturnMsgUtil.custom(SystemConst.MAX_CAPACITY);
             }
 
             //检查预选
@@ -188,7 +188,7 @@ public class CourseServiceImpl implements CourseService {
             for (String preCrn : preCrns) {
                 int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
                 if (count != 1 && !option.isPrereq()) {
-                    return ReturnMsgUtil.custom(FlagDict.UNMET_PREREQ);
+                    return ReturnMsgUtil.custom(SystemConst.UNMET_PREREQ);
                 }
             }
 
@@ -203,7 +203,7 @@ public class CourseServiceImpl implements CourseService {
             //检查复选
             int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
             if (count != 0) {
-                return ReturnMsgUtil.custom(FlagDict.REPEAT);
+                return ReturnMsgUtil.custom(SystemConst.REPEAT);
             }
 
             //保存
@@ -216,7 +216,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage removeStuFromCou(String crn, String studentId) {
+    public ResultMap removeStuFromCou(String crn, String studentId) {
         try {
             transcriptRepository.deleteTranscriptByStudentIdAndCrn(studentId, crn);
             int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
@@ -228,7 +228,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage preCourseList(String crn) {
+    public ResultMap preCourseList(String crn) {
 
         try {
             String[] precrns = courseDao.findByCrn(crn).getPrecrn().split("/");
@@ -249,7 +249,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage reg2Course(String studentId, JSONObject choiceList) {
+    public ResultMap reg2Course(String studentId, JSONObject choiceList) {
 
         try {
             Map<String, Object> result = new HashMap<>();
@@ -264,18 +264,18 @@ public class CourseServiceImpl implements CourseService {
                 //检查课程状态
                 Integer status = courseView.getStatus();
                 if (status == -1) {
-                    failList.add(failInfo + FlagDict.COURSE_DISABLED.getM());
+                    failList.add(failInfo + SystemConst.COURSE_DISABLED.getMsg());
                     continue;
                 }
                 //检查时间冲突
                 if (TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
-                    failList.add(failInfo + FlagDict.TIME_CONFLICT.getM());
+                    failList.add(failInfo + SystemConst.TIME_CONFLICT.getMsg());
                     continue;
                 }
                 //检查课程容量
                 int remain = courseView.getRemain();
                 if (remain <= 0) {
-                    failList.add(failInfo + FlagDict.MAX_CAPACITY.getM());
+                    failList.add(failInfo + SystemConst.MAX_CAPACITY.getMsg());
                     continue;
                 }
 
@@ -285,7 +285,7 @@ public class CourseServiceImpl implements CourseService {
                 for (String preCrn : preCrns) {
                     int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
                     if (count != 1) {
-                        failList.add(failInfo + FlagDict.UNMET_PREREQ.getM());
+                        failList.add(failInfo + SystemConst.UNMET_PREREQ.getMsg());
                         pre = false;
                         break;
                     }
@@ -296,7 +296,7 @@ public class CourseServiceImpl implements CourseService {
                 //检查复选
                 int count = transcriptRepository.countByStudentIdAndCrn(studentId, crn);
                 if (count != 0) {
-                    failList.add(failInfo + FlagDict.REPEAT.getM());
+                    failList.add(failInfo + SystemConst.REPEAT.getMsg());
                     continue;
                 }
 
@@ -311,7 +311,7 @@ public class CourseServiceImpl implements CourseService {
                 //保存
                 Transcript newTranscript = transcriptRepository.save(transcript);
                 if (newTranscript == null) {
-                    failList.add(failInfo + FlagDict.FAIL.getM());
+                    failList.add(failInfo + SystemConst.FAIL.getMsg());
                 }
 
             }
@@ -325,7 +325,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage courseTreeList(String facultyid, String info) {
+    public ResultMap courseTreeList(String facultyid, String info) {
 
         try {
             List<Map<String, String>> infoList = new ArrayList<>();
@@ -358,7 +358,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage courseListInfo(String search) {
+    public ResultMap courseListInfo(String search) {
         try {
             List<String> infoList = courseRepository.getInfoList(search);
             return ReturnMsgUtil.success(infoList);
@@ -369,7 +369,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage studentList(String crn, String search) {
+    public ResultMap studentList(String crn, String search) {
         try {
             List<LinkedHashMap> studentList = studentDao.getStudentList(crn, search);
             return ReturnMsgUtil.success(studentList);
@@ -380,10 +380,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public HaramMessage courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
+    public ResultMap courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                    String facultyid, String info) {
         try {
-            HaramMessage message = new HaramMessage();
+            ResultMap message = new ResultMap();
             long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyid, info, search);
 
             Page page = new Page();
@@ -396,8 +396,8 @@ public class CourseServiceImpl implements CourseService {
 
             message.setData(courseViewList);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {

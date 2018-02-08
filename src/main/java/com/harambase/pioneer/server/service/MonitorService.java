@@ -1,12 +1,12 @@
 package com.harambase.pioneer.server.service;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 
 public interface MonitorService {
 
-    HaramMessage getRelationChart();
+    ResultMap getRelationChart();
 
-    HaramMessage userChart();
+    ResultMap userChart();
 
-    HaramMessage getSystemCount();
+    ResultMap getSystemCount();
 }

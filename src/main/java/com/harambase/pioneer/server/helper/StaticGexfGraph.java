@@ -1,6 +1,6 @@
 package com.harambase.pioneer.server.helper;
 
-import com.harambase.pioneer.common.constant.UserType;
+import com.harambase.pioneer.common.constant.UserTypeConst;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.pojo.base.Transcript;
 import com.harambase.pioneer.server.pojo.base.Person;
@@ -55,22 +55,22 @@ public class StaticGexfGraph {
             if (p.getType().contains("s")) {
                 pNode.getAttributeValues()
                         .addValue(attID, p.getUserId())
-                        .addValue(attType, String.valueOf(UserType.STUDENT.getV()))
+                        .addValue(attType, String.valueOf(UserTypeConst.STUDENT.getId()))
                         .addValue(attValue, p.getInfo());
-                type = UserType.STUDENT.getV();
+                type = UserTypeConst.STUDENT.getId();
             } else if (p.getType().contains("f")) {
                 pNode.getAttributeValues()
                         .addValue(attID, p.getUserId())
-                        .addValue(attType, String.valueOf(UserType.FACULTY.getV()))
+                        .addValue(attType, String.valueOf(UserTypeConst.FACULTY.getId()))
                         .addValue(attValue, p.getInfo());
-                type = UserType.FACULTY.getV();
+                type = UserTypeConst.FACULTY.getId();
             } else if (p.getType().contains("a")) {
                 pNode.getAttributeValues()
                         .addValue(attID, p.getUserId())
-                        .addValue(attType, String.valueOf(UserType.ADMINISTRATOR.getV()))
+                        .addValue(attType, String.valueOf(UserTypeConst.ADMINISTRATOR.getId()))
                         .addValue(attValue, p.getInfo());
                 pNode.setSize(0);
-                type = UserType.ADMINISTRATOR.getV();
+                type = UserTypeConst.ADMINISTRATOR.getId();
             }
 
             pNode.getShapeEntity().setNodeShape(NodeShape.DIAMOND);

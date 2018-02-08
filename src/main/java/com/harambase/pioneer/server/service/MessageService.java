@@ -1,22 +1,22 @@
 package com.harambase.pioneer.server.service;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.Message;
 
 public interface MessageService {
 
-    HaramMessage list(String currentPage, String pageSize, String search, String order,
+    ResultMap list(String currentPage, String pageSize, String search, String order,
                       String orderColumn, String receiverid, String senderid, String box);
 
-    HaramMessage getMessageView(Integer id);
+    ResultMap getMessageView(Integer id);
 
-    HaramMessage countMessageByStatus(String receiverid, String senderid, String box, String status);
+    ResultMap countMessageByStatus(String receiverid, String senderid, String box, String status);
 
-    HaramMessage createMessage(Message message);
+    ResultMap createMessage(Message message);
 
-    HaramMessage delete(Integer id);
+    ResultMap delete(Integer id);
 
-    HaramMessage update(Integer id, Message message);
+    ResultMap update(Integer id, Message message);
 
-    HaramMessage updateStatus(Integer id, String status);
+    ResultMap updateStatus(Integer id, String status);
 }

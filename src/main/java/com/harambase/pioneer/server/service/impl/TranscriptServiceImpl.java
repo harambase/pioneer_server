@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.TranscriptDao;
 import com.harambase.pioneer.server.pojo.base.Transcript;
 import com.harambase.pioneer.server.service.TranscriptService;
@@ -36,7 +36,7 @@ public class TranscriptServiceImpl implements TranscriptService {
     }
 
     @Override
-    public HaramMessage updateGrade(Integer id, Transcript transcript) {
+    public ResultMap updateGrade(Integer id, Transcript transcript) {
         try {
             transcript.setId(id);
             transcript.setAssignTime(DateUtil.DateToStr(new Date()));
@@ -49,10 +49,10 @@ public class TranscriptServiceImpl implements TranscriptService {
     }
 
     @Override
-    public HaramMessage transcriptList(String currentPage, String pageSize, String search, String order,
+    public ResultMap transcriptList(String currentPage, String pageSize, String search, String order,
                                        String orderColumn, String studentId, String crn, String info, String complete) {
 
-        HaramMessage message = new HaramMessage();
+        ResultMap message = new ResultMap();
 
         switch (Integer.parseInt(orderColumn)) {
             case 0:
@@ -94,8 +94,8 @@ public class TranscriptServiceImpl implements TranscriptService {
 
             message.setData(transcriptViews);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {

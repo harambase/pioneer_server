@@ -1,17 +1,17 @@
 package com.harambase.pioneer.server.service;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.Advise;
 
 public interface AdviseService {
 
-    HaramMessage advisingList(String s, String s1, String search, String order, String orderCol, String studentid, String facultyid);
+    ResultMap advisingList(String s, String s1, String search, String order, String orderCol, String studentid, String facultyid);
 
-    HaramMessage updateAdvise(Integer id, String studentId, String facultyId);
+    ResultMap updateAdvise(Integer id, String studentId, String facultyId);
 
-    HaramMessage assignMentor(Advise advise);
+    ResultMap assignMentor(Advise advise);
 
-    HaramMessage removeMentor(Integer id);
+    ResultMap removeMentor(Integer id);
 
-    HaramMessage getMentor(Integer id);
+    ResultMap getMentor(Integer id);
 }

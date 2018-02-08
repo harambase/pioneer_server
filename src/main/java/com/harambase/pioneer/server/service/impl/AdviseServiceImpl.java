@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.dao.base.AdviseDao;
 import com.harambase.pioneer.server.dao.repository.AdviseRepository;
@@ -37,10 +37,10 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public HaramMessage advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
+    public ResultMap advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                      String studentid, String facultyid) {
         try {
-            HaramMessage message = new HaramMessage();
+            ResultMap message = new ResultMap();
 
             switch (Integer.parseInt(orderColumn)) {
                 case 0:
@@ -75,8 +75,8 @@ public class AdviseServiceImpl implements AdviseService {
 
             message.setData(courseViewList);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -88,12 +88,12 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public HaramMessage assignMentor(Advise advise) {
+    public ResultMap assignMentor(Advise advise) {
 
         try {
             int count = adviseRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
             if (count != 0)
-                return ReturnMsgUtil.custom(FlagDict.ADVISE_DUPLICATE);
+                return ReturnMsgUtil.custom(SystemConst.ADVISE_DUPLICATE);
 
             Advise a = adviseRepository.save(advise);
             return a != null ? ReturnMsgUtil.success(a) : ReturnMsgUtil.fail();
@@ -105,7 +105,7 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public HaramMessage removeMentor(Integer id) {
+    public ResultMap removeMentor(Integer id) {
         try {
             adviseRepository.delete(id);
             int count = adviseRepository.countById(id);
@@ -117,7 +117,7 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public HaramMessage updateAdvise(Integer id, String studentId, String facultyId) {
+    public ResultMap updateAdvise(Integer id, String studentId, String facultyId) {
 
         try {
             Advise advise = adviseRepository.findOne(id);
@@ -136,7 +136,7 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public HaramMessage getMentor(Integer id) {
+    public ResultMap getMentor(Integer id) {
         try {
             AdviseView advise = adviseDao.findOne(id);
             return ReturnMsgUtil.success(advise);

@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.RoleDao;
 import com.harambase.pioneer.server.dao.repository.RoleRepository;
 import com.harambase.pioneer.server.pojo.base.Role;
@@ -32,7 +32,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public HaramMessage get(Integer roleId) {
+    public ResultMap get(Integer roleId) {
         try {
             Role role = roleRepository.findByRoleId(roleId);
             return role != null ? ReturnMsgUtil.success(role) : ReturnMsgUtil.fail();
@@ -43,8 +43,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public HaramMessage list(String search, String order, String orderColumn) {
-        HaramMessage message = new HaramMessage();
+    public ResultMap list(String search, String order, String orderColumn) {
+        ResultMap message = new ResultMap();
         try {
             switch (Integer.parseInt(orderColumn)) {
                 case 0:
@@ -74,8 +74,8 @@ public class RoleServiceImpl implements RoleService {
 
             message.setData(roleList);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {

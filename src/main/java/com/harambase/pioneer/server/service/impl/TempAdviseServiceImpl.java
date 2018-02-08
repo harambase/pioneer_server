@@ -1,9 +1,9 @@
 package com.harambase.pioneer.server.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.TempAdviseDao;
 import com.harambase.pioneer.server.dao.repository.MessageRepository;
 import com.harambase.pioneer.server.dao.repository.TempAdviseRepository;
@@ -42,7 +42,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public HaramMessage register(String studentId, JSONObject jsonObject) {
+    public ResultMap register(String studentId, JSONObject jsonObject) {
         try {
 
             TempAdvise tempAdvise = new TempAdvise();
@@ -81,7 +81,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public HaramMessage deleteTempAdviseById(Integer id) {
+    public ResultMap deleteTempAdviseById(Integer id) {
         try{
             tempAdviseRepository.delete(id);
             int count = tempAdviseRepository.countById(id);
@@ -93,7 +93,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public HaramMessage get(Integer id) {
+    public ResultMap get(Integer id) {
         try{
             TempAdvise tempAdvise = tempAdviseRepository.findOne(id);
             return ReturnMsgUtil.success(tempAdvise);
@@ -104,8 +104,8 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public HaramMessage tempAdviseList(String currentPage, String pageSize, String search, String order, String orderColumn) {
-        HaramMessage message = new HaramMessage();
+    public ResultMap tempAdviseList(String currentPage, String pageSize, String search, String order, String orderColumn) {
+        ResultMap message = new ResultMap();
         switch (Integer.parseInt(orderColumn)) {
             case 2:
                 orderColumn = "student_id";
@@ -136,8 +136,8 @@ public class TempAdviseServiceImpl implements TempAdviseService {
 
             message.setData(tempCourses);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -147,7 +147,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public HaramMessage updateTempAdvise(Integer id, TempAdvise tempAdvise) {
+    public ResultMap updateTempAdvise(Integer id, TempAdvise tempAdvise) {
         try{
             tempAdvise.setId(id);
             TempAdvise newTempAdvise = tempAdviseRepository.save(tempAdvise);

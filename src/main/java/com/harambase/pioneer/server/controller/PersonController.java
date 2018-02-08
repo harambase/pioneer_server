@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.controller;
 
-import com.harambase.pioneer.common.HaramMessage;
-import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.common.Tags;
 import com.harambase.pioneer.server.service.PersonService;
 import com.harambase.pioneer.server.pojo.base.Person;
 import io.swagger.annotations.Api;
@@ -31,57 +31,57 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @ApiOperation(value = "新增用户", notes = "权限：管理员，系统", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "新增用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity create(@RequestBody Person person) {
-        HaramMessage message = personService.addUser(person);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = personService.addUser(person);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "删除一个用户", notes = "权限：管理员，系统", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "删除一个用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity delete(@PathVariable("userId") String userId) {
-        HaramMessage message = personService.removeUser(userId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = personService.removeUser(userId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新用户", notes = "权限：管理员，系统", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "更新用户", notes = "权限：管理员，系统", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{userId}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable String userId, @RequestBody Person person) {
-        HaramMessage message = personService.update(userId, person);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = personService.update(userId, person);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取用户信息", notes = "权限：用户", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "获取用户信息", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable(value = "userId") String userId) {
-        HaramMessage haramMessage = personService.getUser(userId);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = personService.getUser(userId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "登录", notes = "权限：所有人", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody Person person) {
-        HaramMessage haramMessage = personService.login(person);
-        return new ResponseEntity<>(haramMessage, HttpStatus.OK);
+        ResultMap resultMap = personService.login(person);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "搜索用户", notes = "权限：用户", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "搜索用户", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity search(@RequestParam(value = "search", required = false) String search,
                                  @RequestParam(value = "type", required = false) String type,
                                  @RequestParam(value = "status", required = false) String status) {
-        HaramMessage message = personService.listUsers(search, type, status);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = personService.listUsers(search, type, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "用户列表", notes = "权限：用户", response = Map.class, tags = {ApiTags.PERSON})
+    @ApiOperation(value = "用户列表", notes = "权限：用户", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -91,8 +91,8 @@ public class PersonController {
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "type", required = false) String type,
                                @RequestParam(value = "status", required = false) String status) {
-        HaramMessage message = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
 }

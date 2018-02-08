@@ -1,7 +1,7 @@
 package com.harambase.pioneer.server.controller;
 
-import com.harambase.pioneer.common.HaramMessage;
-import com.harambase.pioneer.common.constant.ApiTags;
+import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.common.Tags;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.service.AdviseService;
 import io.swagger.annotations.ApiOperation;
@@ -27,40 +27,40 @@ public class AdviseController {
     }
 
     @RequestMapping(produces = "application/json", method = RequestMethod.POST)
-    @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
+    @ApiOperation(value = "新增导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     public ResponseEntity create(@RequestBody Advise advise) {
-        HaramMessage message = adviseService.assignMentor(advise);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = adviseService.assignMentor(advise);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ApiOperation(value = "删除导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
+    @ApiOperation(value = "删除导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     public ResponseEntity delete(@PathVariable(value = "id") Integer id) {
-        HaramMessage message = adviseService.removeMentor(id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = adviseService.removeMentor(id);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "更新导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {ApiTags.ADVISE})
+    @ApiOperation(value = "更新导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
     public ResponseEntity update(@PathVariable Integer id,
                                  @RequestParam(value = "studentId") String studentId,
                                  @RequestParam(value = "facultyId") String facultyId) {
-        HaramMessage message = adviseService.updateAdvise(id, studentId, facultyId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = adviseService.updateAdvise(id, studentId, facultyId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取导师关系信息", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {ApiTags.ADVISE})
+    @ApiOperation(value = "获取导师关系信息", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity get(@PathVariable(value = "id") Integer id) {
-        HaramMessage message = adviseService.getMentor(id);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = adviseService.getMentor(id);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "导师关系列表", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {ApiTags.ADVISE})
+    @ApiOperation(value = "导师关系列表", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(produces = "application/json", method = RequestMethod.GET)
     public ResponseEntity list(@RequestParam(value = "start") Integer start,
@@ -70,8 +70,8 @@ public class AdviseController {
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "studentId", required = false) String studentId,
                                @RequestParam(value = "facultyId", required = false) String facultyId) {
-        HaramMessage message = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, facultyId);
-        return new ResponseEntity<>(message, HttpStatus.OK);
+        ResultMap resultMap = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, facultyId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
 }

@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.HaramMessage;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
-import com.harambase.pioneer.common.constant.FlagDict;
+import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.PersonDao;
 import com.harambase.pioneer.server.dao.repository.*;
 import com.harambase.pioneer.server.pojo.base.Course;
@@ -52,12 +52,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage login(Person person) {
+    public ResultMap login(Person person) {
         try {
             Person user = personRepository.findByUserIdAndPassword(person.getUserId(), person.getPassword());
             if (user != null) {
                 String status = user.getStatus();
-                return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(FlagDict.USER_DISABLED);
+                return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(SystemConst.USER_DISABLED);
             }
             return ReturnMsgUtil.fail();
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage addUser(Person person) {
+    public ResultMap addUser(Person person) {
 
         try {
             String userid, password;
@@ -139,11 +139,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage removeUser(String userId) {
+    public ResultMap removeUser(String userId) {
 
         try {
             if (userId.equals(IDUtil.ROOT))
-                return ReturnMsgUtil.custom(FlagDict.DELETE_BLOCK);
+                return ReturnMsgUtil.custom(SystemConst.DELETE_BLOCK);
 
             Person person = personRepository.findOne(userId);
             if (person == null) {
@@ -179,7 +179,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage update(String userId, Person person) {
+    public ResultMap update(String userId, Person person) {
         try {
             person.setUserId(userId);
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
@@ -193,7 +193,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage getUser(String userid) {
+    public ResultMap getUser(String userid) {
         try {
             Person person = personRepository.findOne(userid);
             return ReturnMsgUtil.success(person);
@@ -204,9 +204,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage userList(String currentPage, String pageSize, String search, String order, String orderColumn,
+    public ResultMap userList(String currentPage, String pageSize, String search, String order, String orderColumn,
                                  String type, String status) {
-        HaramMessage message = new HaramMessage();
+        ResultMap message = new ResultMap();
         try {
             if (StringUtils.isNotEmpty(type)) {
                 switch (Integer.parseInt(orderColumn)) {
@@ -257,8 +257,8 @@ public class PersonServiceImpl implements PersonService {
 
             message.setData(personList);
             message.put("page", page);
-            message.setMsg(FlagDict.SUCCESS.getM());
-            message.setCode(FlagDict.SUCCESS.getV());
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
         } catch (Exception e) {
@@ -269,7 +269,7 @@ public class PersonServiceImpl implements PersonService {
 
 
     @Override
-    public HaramMessage listUsers(String search, String type, String status) {
+    public ResultMap listUsers(String search, String type, String status) {
         try {
             List<Person> users = personDao.getPersonBySearch(search, type, status);
             return ReturnMsgUtil.success(users);
@@ -280,7 +280,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public HaramMessage countActivePerson(String type) {
+    public ResultMap countActivePerson(String type) {
         try {
             int count = personRepository.countByTypeAndStatus(type, "1");
             return ReturnMsgUtil.success(count);
