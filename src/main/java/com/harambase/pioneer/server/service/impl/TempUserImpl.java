@@ -116,17 +116,6 @@ public class TempUserImpl implements TempUserService {
     @Override
     public ResultMap tempUserList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
         ResultMap message = new ResultMap();
-        switch (Integer.parseInt(orderColumn)) {
-            case 1:
-                orderColumn = "user_id";
-                break;
-            case 2:
-                orderColumn = "createTime";
-                break;
-            default:
-                orderColumn = "id";
-                break;
-        }
         try {
 
             long totalSize = tempUserDao.getCountByMapPageSearchOrdered(search, status);

@@ -46,24 +46,6 @@ public class RoleServiceImpl implements RoleService {
     public ResultMap list(String search, String order, String orderColumn) {
         ResultMap message = new ResultMap();
         try {
-            switch (Integer.parseInt(orderColumn)) {
-                case 0:
-                    orderColumn = "id";
-                    break;
-                case 1:
-                    orderColumn = "role_id";
-                    break;
-                case 2:
-                    orderColumn = "role_name";
-                    break;
-                case 3:
-                    orderColumn = "role_code";
-                    break;
-                default:
-                    orderColumn = "id";
-                    break;
-            }
-
 
             List<Role> roleList = roleDao.getByMapPageSearchOrdered(search, order, orderColumn);
 

@@ -67,30 +67,6 @@ public class StudentServiceImpl implements StudentService {
     public ResultMap studentList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
         ResultMap message = new ResultMap();
 
-        switch (Integer.parseInt(orderColumn)) {
-            case 0:
-                orderColumn = "student_id";
-                break;
-            case 1:
-                orderColumn = "max_credits";
-                break;
-            case 2:
-                orderColumn = "status";
-                break;
-            case 3:
-                orderColumn = "sname";
-                break;
-            case 4:
-                orderColumn = "complete";
-                break;
-            case 5:
-                orderColumn = "progress";
-                break;
-            case 6:
-                orderColumn = "incomplete";
-                break;
-        }
-
         try {
             long totalSize = studentDao.getCountByMapPageSearchOrdered(search, status);
 

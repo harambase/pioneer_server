@@ -108,23 +108,7 @@ public class TempCourseServiceImpl implements TempCourseService {
     @Override
     public ResultMap tempCourseList(String currentPage, String pageSize, String search, String order, String orderColumn, String status, String facultyId) {
         ResultMap message = new ResultMap();
-        switch (Integer.parseInt(orderColumn)) {
-            case 2:
-                orderColumn = "crn";
-                break;
-            case 4:
-                orderColumn = "faculty_id";
-                break;
-            case 5:
-                orderColumn = "create_time";
-                break;
-            case 6:
-                orderColumn = "status";
-                break;
-            default:
-                orderColumn = "id";
-                break;
-        }
+
         try {
 
             long totalSize = tempCourseDao.getCountByMapPageSearchOrdered(search, status, facultyId);

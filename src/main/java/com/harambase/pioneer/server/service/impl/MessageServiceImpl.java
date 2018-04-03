@@ -46,23 +46,6 @@ public class MessageServiceImpl implements MessageService {
                              String receiverid, String senderid, String box) {
         try {
             ResultMap message = new ResultMap();
-            switch (Integer.parseInt(orderColumn)) {
-                case 1:
-                    orderColumn = "sender";
-                    break;
-                case 2:
-                    orderColumn = "title";
-                    break;
-                case 3:
-                    orderColumn = "body";
-                    break;
-                case 4:
-                    orderColumn = "status";
-                    break;
-                default:
-                    orderColumn = "date";
-                    break;
-            }
 
             long totalSize = messageDao.getCountByMapPageSearchOrdered(receiverid, senderid, box, search); //startTime, endTime);
 

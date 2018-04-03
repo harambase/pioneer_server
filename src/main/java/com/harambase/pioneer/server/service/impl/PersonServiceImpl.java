@@ -208,43 +208,43 @@ public class PersonServiceImpl implements PersonService {
                                  String type, String status) {
         ResultMap message = new ResultMap();
         try {
-            if (StringUtils.isNotEmpty(type)) {
-                switch (Integer.parseInt(orderColumn)) {
-                    case 0:
-                        orderColumn = "user_id";
-                        break;
-                    case 1:
-                        orderColumn = "first_name";
-                        break;
-                    case 2:
-                        orderColumn = "last_name";
-                        break;
-                }
-            } else {
-                switch (Integer.parseInt(orderColumn)) {
-                    case 0:
-                        orderColumn = "user_id";
-                        break;
-                    case 1:
-                        orderColumn = "username";
-                        break;
-                    case 2:
-                        orderColumn = "last_name";
-                        break;
-                    case 3:
-                        orderColumn = "first_name";
-                        break;
-                    case 4:
-                        orderColumn = "type";
-                        break;
-                    case 5:
-                        orderColumn = "status";
-                        break;
-                    default:
-                        orderColumn = "update_time";
-                        break;
-                }
-            }
+//            if (StringUtils.isNotEmpty(type)) {
+//                switch (Integer.parseInt(orderColumn)) {
+//                    case 0:
+//                        orderColumn = "user_id";
+//                        break;
+//                    case 1:
+//                        orderColumn = "first_name";
+//                        break;
+//                    case 2:
+//                        orderColumn = "last_name";
+//                        break;
+//                }
+//            } else {
+//                switch (Integer.parseInt(orderColumn)) {
+//                    case 0:
+//                        orderColumn = "user_id";
+//                        break;
+//                    case 1:
+//                        orderColumn = "username";
+//                        break;
+//                    case 2:
+//                        orderColumn = "last_name";
+//                        break;
+//                    case 3:
+//                        orderColumn = "first_name";
+//                        break;
+//                    case 4:
+//                        orderColumn = "type";
+//                        break;
+//                    case 5:
+//                        orderColumn = "status";
+//                        break;
+//                    default:
+//                        orderColumn = "update_time";
+//                        break;
+//                }
+//            }
 
             long totalSize = personDao.getCountByMapPageSearchOrdered(search, type, status);
 

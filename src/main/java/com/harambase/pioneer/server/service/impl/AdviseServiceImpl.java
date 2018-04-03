@@ -42,27 +42,6 @@ public class AdviseServiceImpl implements AdviseService {
         try {
             ResultMap message = new ResultMap();
 
-            switch (Integer.parseInt(orderColumn)) {
-                case 0:
-                    orderColumn = "sname";
-                    break;
-                case 1:
-                    orderColumn = "fname";
-                    break;
-                case 2:
-                    orderColumn = "status";
-                    break;
-                case 3:
-                    orderColumn = "updateTime";
-                    break;
-                case 4:
-                    orderColumn = "operator";
-                    break;
-                default:
-                    orderColumn = "updateTime";
-                    break;
-            }
-
             long totalSize = adviseDao.getCountByMapPageSearchOrdered(facultyid, studentid, search);
 
             Page page = new Page();

@@ -53,33 +53,6 @@ public class TranscriptServiceImpl implements TranscriptService {
                                        String orderColumn, String studentId, String crn, String info, String complete) {
 
         ResultMap message = new ResultMap();
-
-        switch (Integer.parseInt(orderColumn)) {
-            case 0:
-                orderColumn = "student_id";
-                break;
-            case 1:
-                orderColumn = "crn";
-                break;
-            case 2:
-                orderColumn = "grade";
-                break;
-            case 3:
-                orderColumn = "complete";
-                break;
-            case 4:
-                orderColumn = "assign_time";
-                break;
-            case 5:
-                orderColumn = "sname";
-                break;
-            case 6:
-                orderColumn = "cname";
-                break;
-            default:
-                orderColumn = "id";
-                break;
-        }
         try {
 
             long totalSize = transcriptDao.getCountByMapPageSearchOrdered(search, studentId, crn, info, complete);
