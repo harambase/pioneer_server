@@ -81,7 +81,6 @@ public class PinServiceImpl implements PinService {
                 return ReturnMsgUtil.custom(SystemConst.PIN_EXISTS);
             }
 
-
             List<Person> personList = new ArrayList<>();
 
             switch (role) {
@@ -217,24 +216,6 @@ public class PinServiceImpl implements PinService {
     public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
         try {
             ResultMap message = new ResultMap();
-//            switch (Integer.parseInt(orderColumn)) {
-//                case 0:
-//                    orderColumn = "pin";
-//                    break;
-//                case 1:
-//                    orderColumn = "faculty_id";
-//                    break;
-//                case 2:
-//                    orderColumn = "student_id";
-//                    break;
-//                case 3:
-//                    orderColumn = "role";
-//                    break;
-//                default:
-//                    orderColumn = "create_time";
-//                    break;
-//            }
-
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));

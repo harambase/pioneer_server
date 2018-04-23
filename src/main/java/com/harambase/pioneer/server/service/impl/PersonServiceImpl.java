@@ -1,17 +1,15 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.constant.SystemConst;
+import com.harambase.pioneer.common.support.util.*;
 import com.harambase.pioneer.server.dao.base.PersonDao;
 import com.harambase.pioneer.server.dao.repository.*;
 import com.harambase.pioneer.server.pojo.base.Course;
-import com.harambase.pioneer.server.pojo.base.Message;
-import com.harambase.pioneer.server.service.PersonService;
 import com.harambase.pioneer.server.pojo.base.Person;
 import com.harambase.pioneer.server.pojo.base.Student;
-import com.harambase.pioneer.common.support.util.*;
-import org.apache.commons.lang3.StringUtils;
+import com.harambase.pioneer.server.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,33 +68,33 @@ public class PersonServiceImpl implements PersonService {
     public ResultMap addUser(Person person) {
 
         try {
-            String userid, password;
+            String userId, password;
             String info = person.getInfo();
 
             List<Person> people = personRepository.findByInfo(info);
 
             if (person.getUserId() == null)
-                userid = IDUtil.genUserID(info);
+                userId = IDUtil.genUserID(info);
             else
-                userid = person.getUserId();
+                userId = person.getUserId();
 
             for (int i = 0; i < people.size(); i++) {
                 Person p = people.get(i);
-                if (userid.equals(p.getUserId())) {
-                    userid = IDUtil.genUserID(info);
+                if (userId.equals(p.getUserId())) {
+                    userId = IDUtil.genUserID(info);
                     i = 0;
                 }
             }
-            person.setUserId(userid);
+            person.setUserId(userId);
 
             if (person.getPassword() == null) {
-                password = "Pioneer" + userid;
+                password = "Pioneer" + userId;
                 person.setPassword(password);
             }
 
             String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastName());
             String lastPY = Pinyin4jUtil.converterToFirstSpell(person.getFirstName());
-            String username = lastPY + firstPY + userid.substring(7, 10);
+            String username = lastPY + firstPY + userId.substring(7, 10);
 
             person.setUsername(username);
             person.setCreateTime(DateUtil.DateToStr(new Date()));
@@ -106,30 +104,13 @@ public class PersonServiceImpl implements PersonService {
 
             if (person.getType().contains("s")) {
                 Student student = new Student();
-                student.setStudentId(userid);
+                student.setStudentId(userId);
                 student.setMaxCredits(12);
                 student.setUpdateTime(DateUtil.DateToStr(new Date()));
                 studentRepository.save(student);
             }
 
-            if (newPerson != null) {
-
-                Message message = new Message();
-                message.setDate(DateUtil.DateToStr(new Date()));
-                message.setReceiverId(userid);
-                message.setSenderId(IDUtil.ROOT);
-                message.setBody("您的接收到来自管理员的一条消息:你的用户已成功创建");
-                message.setTitle("账户信息");
-                message.setStatus("UNREAD");
-                message.setTag("work");
-                message.setLabels("['inbox','important']");
-
-                messageRepository.save(message);
-
-                return ReturnMsgUtil.success(newPerson);
-
-            }
-            return ReturnMsgUtil.fail();
+            return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -185,7 +166,7 @@ public class PersonServiceImpl implements PersonService {
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
             Person newPerson = personRepository.save(person);
             return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
-//            return ReturnMsgUtil.success(person);
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
@@ -193,9 +174,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public ResultMap getUser(String userid) {
+    public ResultMap getUser(String userId) {
         try {
-            Person person = personRepository.findOne(userid);
+            Person person = personRepository.findOne(userId);
             return ReturnMsgUtil.success(person);
         } catch (Exception e) {
             logger.error(e.toString());
@@ -205,46 +186,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public ResultMap userList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                 String type, String status) {
+                              String type, String status) {
         ResultMap message = new ResultMap();
         try {
-//            if (StringUtils.isNotEmpty(type)) {
-//                switch (Integer.parseInt(orderColumn)) {
-//                    case 0:
-//                        orderColumn = "user_id";
-//                        break;
-//                    case 1:
-//                        orderColumn = "first_name";
-//                        break;
-//                    case 2:
-//                        orderColumn = "last_name";
-//                        break;
-//                }
-//            } else {
-//                switch (Integer.parseInt(orderColumn)) {
-//                    case 0:
-//                        orderColumn = "user_id";
-//                        break;
-//                    case 1:
-//                        orderColumn = "username";
-//                        break;
-//                    case 2:
-//                        orderColumn = "last_name";
-//                        break;
-//                    case 3:
-//                        orderColumn = "first_name";
-//                        break;
-//                    case 4:
-//                        orderColumn = "type";
-//                        break;
-//                    case 5:
-//                        orderColumn = "status";
-//                        break;
-//                    default:
-//                        orderColumn = "update_time";
-//                        break;
-//                }
-//            }
 
             long totalSize = personDao.getCountByMapPageSearchOrdered(search, type, status);
 

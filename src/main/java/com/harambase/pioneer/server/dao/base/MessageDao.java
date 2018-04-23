@@ -178,7 +178,7 @@ public class MessageDao {
         if (box.equals("inbox"))
             queryString += "AND receiver_id like '%" + receiver_id + "%'";
         if (box.equals("important"))
-            queryString += "AND receiver_id like '%" + receiver_id + "%' AND labels LIKE '%important%'";
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND (labels LIKE '%重要%' OR labels LIKE '%紧急%')";
         if (box.equals("sent"))
             queryString += "AND sender_id = '" + sender_id + "'";
         if (box.equals("draft"))

@@ -43,18 +43,18 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public ResultMap list(String currentPage, String pageSize, String search, String order, String orderColumn,
-                             String receiverid, String senderid, String box) {
+                             String receiverId, String senderId, String box) {
         try {
             ResultMap message = new ResultMap();
 
-            long totalSize = messageDao.getCountByMapPageSearchOrdered(receiverid, senderid, box, search); //startTime, endTime);
+            long totalSize = messageDao.getCountByMapPageSearchOrdered(receiverId, senderId, box, search); //startTime, endTime);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<MessageView> msgs = messageDao.getByMapPageSearchOrdered(receiverid, senderid, box, search,
+            List<MessageView> msgs = messageDao.getByMapPageSearchOrdered(receiverId, senderId, box, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(msgs);
@@ -88,9 +88,9 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public ResultMap countMessageByStatus(String receiverid, String senderid, String box, String status) {
+    public ResultMap countMessageByStatus(String receiverId, String senderId, String box, String status) {
         try {
-            int count = messageDao.countMessageByStatus(receiverid, senderid, box, status);
+            int count = messageDao.countMessageByStatus(receiverId, senderId, box, status);
             return ReturnMsgUtil.success(count);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
