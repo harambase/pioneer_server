@@ -61,37 +61,18 @@ public class TempUserImpl implements TempUserService {
     public ResultMap register(JSONObject jsonObject) {
 
         try {
-            String userid = IDUtil.genTempUserID(jsonObject.getString("info"));
+            String userId = IDUtil.genTempUserID(jsonObject.getString("info"));
 
             TempUser tempUser = new TempUser();
-            tempUser.setUserId(userid);
+            tempUser.setUserId(userId);
             tempUser.setUserJson(jsonObject.toJSONString());
             tempUser.setCreateTime(DateUtil.DateToStr(new Date()));
             tempUser.setUpdateTime(DateUtil.DateToStr(new Date()));
             tempUser.setStatus("0");
 
             TempUser newTempUser = tempUserRepository.save(tempUser);
-            if (newTempUser == null)
-                return ReturnMsgUtil.fail();
-
-            Message message = new Message();
-            message.setDate(DateUtil.DateToStr(new Date()));
-
-            //todo:向所有系统管理员发送
-            message.setReceiverId("9000000000");
-            message.setSenderId("9000000000");
-            message.setBody("注意!接收到来自" + userid + "的请求注册信息");
-            message.setTitle("注册信息");
-            message.setStatus("UNREAD");
-            message.setSubject("用户注册");
-            message.setTag("work");
-            message.setLabels("inbox/important/");
-
-            Message newMsg = messageRepository.save(message);
-            if (newMsg == null)
-                throw new RuntimeException("Message 插入失败!");
-
-            return ReturnMsgUtil.success(newTempUser);
+            
+            return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

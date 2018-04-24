@@ -85,10 +85,10 @@ public class PinServiceImpl implements PinService {
 
             switch (role) {
                 case 1:
-                    personList = personDao.getPersonBySearch("", "s", "1");
+                    personList = personDao.getPersonBySearch("", "s","", "1", "");
                     break;
                 case 2:
-                    personList = personDao.getPersonBySearch("", "f", "1");
+                    personList = personDao.getPersonBySearch("", "f", "","1", "");
                     break;
             }
 

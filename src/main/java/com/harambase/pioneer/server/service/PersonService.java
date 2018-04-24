@@ -15,7 +15,7 @@ public interface PersonService {
 
     ResultMap update(String userId, Person person);
 
-    ResultMap listUsers(String search, String type, String status);
+    ResultMap listUsers(String search, String type, String role, String status, String maxLength);
 
     ResultMap countActivePerson(String type);
 

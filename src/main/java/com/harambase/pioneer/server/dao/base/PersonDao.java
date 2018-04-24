@@ -19,7 +19,7 @@ public class PersonDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public List<Person> getPersonBySearch(String search, String type, String status) throws Exception {
+    public List<Person> getPersonBySearch(String search, String type, String role, String status, String maxLength) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -34,6 +34,8 @@ public class PersonDao {
             String queryString = "select * from person where 1=1 ";
             if (StringUtils.isNotEmpty(type))
                 queryString += "AND type LIKE '%" + type + "%' ";
+            if (StringUtils.isNotEmpty(role))
+                queryString += "AND role_id LIKE '%" + role + "%' ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
 
@@ -44,7 +46,12 @@ public class PersonDao {
                         "     first_name LIKE '%" + search + "%' OR" +
                         "     last_name  LIKE '%" + search + "%')";
             }
-            queryString += "limit 0,6";
+
+            if(StringUtils.isNotEmpty(maxLength))
+                queryString += "limit 0," + Integer.parseInt(maxLength);
+            else
+                queryString += "limit 0,6";
+
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
