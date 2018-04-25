@@ -89,24 +89,6 @@ public class PinController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "向教师发送识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/send/faculty/{info}", method = RequestMethod.GET)
-    public ResponseEntity sendFacultyPin(@PathVariable(value = "info") String info,
-                                         @RequestParam(value = "senderId") String senderId) {
-        ResultMap resultMap = pinService.sendFacultyPin(info, senderId);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "向导师发送识别码", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/send/advisor/{info}", method = RequestMethod.GET)
-    public ResponseEntity sendAdvisorPin(@PathVariable(value = "info") String info,
-                                         @RequestParam(value = "senderId") String senderId) {
-        ResultMap resultMap = pinService.sendAdvisorPin(info, senderId);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-    }
-
     @ApiOperation(value = "获取所有的INFO信息", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)

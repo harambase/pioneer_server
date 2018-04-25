@@ -124,4 +124,15 @@ public class AdviseServiceImpl implements AdviseService {
             return ReturnMsgUtil.systemError();
         }
     }
+
+    @Override
+    public ResultMap getAdviseByStudentId(String studentId) {
+        try {
+            Advise advise = adviseRepository.findOneByStudentId(studentId);
+            return ReturnMsgUtil.success(advise);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
 }

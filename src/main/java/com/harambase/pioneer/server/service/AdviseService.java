@@ -14,4 +14,6 @@ public interface AdviseService {
     ResultMap removeMentor(Integer id);
 
     ResultMap getMentor(Integer id);
+
+    ResultMap getAdviseByStudentId(String studentId);
 }

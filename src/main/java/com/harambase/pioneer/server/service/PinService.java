@@ -12,10 +12,6 @@ public interface PinService {
 
     ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info);
 
-    ResultMap sendAdvisorPin(String info, String senderId);
-
-    ResultMap sendFacultyPin(String info, String senderId);
-
     ResultMap deleteSingleByPin(Integer pin);
 
     ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId);
