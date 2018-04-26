@@ -19,7 +19,7 @@ public class PersonDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public List<Person> getPersonBySearch(String search, String type, String role, String status, String maxLength) throws Exception {
+    public List<Person> getPersonBySearch(String search, String type, String status, String role, String maxLength) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;

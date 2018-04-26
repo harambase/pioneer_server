@@ -213,9 +213,9 @@ public class PersonServiceImpl implements PersonService {
 
 
     @Override
-    public ResultMap listUsers(String search, String type, String role, String status, String maxLength) {
+    public ResultMap listUsers(String search, String type, String status, String role, String maxLength) {
         try {
-            List<Person> users = personDao.getPersonBySearch(search, type, role, status, maxLength);
+            List<Person> users = personDao.getPersonBySearch(search, type, status, role, maxLength);
             return ReturnMsgUtil.success(users);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

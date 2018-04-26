@@ -15,7 +15,7 @@ public interface PinService {
 
     ResultMap deleteSingleByPin(Integer pin);
 
-    ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId);
+    ResultMap generateOne(String startTime, String endTime, String role, String info, String remark, String userId);
 
     ResultMap getAllInfo();
 

@@ -108,6 +108,8 @@ public class PinServiceImpl implements PinService {
                 pin.setInfo(info);
                 pin.setRemark(remark);
 
+
+                //todo!!!! ROLE 可能是数组
                 switch (role) {
                     case 1:
                         pin.setStudentId(person.getUserId());
@@ -155,8 +157,9 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
+    public ResultMap generateOne(String startTime, String endTime, String role, String info, String remark, String userId) {
         try {
+
 
             //检查是否存在该类型的pin
             int stuCount = pinRepository.countByInfoAndStudentId(info, userId);
@@ -179,15 +182,15 @@ public class PinServiceImpl implements PinService {
             pin.setStartTime(startTime);
             pin.setEndTime(endTime);
             pin.setCreateTime(DateUtil.DateToStr(new Date()));
-            pin.setRole(role);
             pin.setInfo(info);
             pin.setRemark(remark);
 
+            //todo!!!! ROLE 可能是数组
             switch (role) {
-                case 1:
+                case "1":
                     pin.setStudentId(userId);
                     break;
-                case 2:
+                case "2":
                     pin.setFacultyId(userId);
                     break;
             }
