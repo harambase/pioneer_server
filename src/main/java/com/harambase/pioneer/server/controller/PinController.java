@@ -2,6 +2,7 @@ package com.harambase.pioneer.server.controller;
 
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Tags;
+import com.harambase.pioneer.server.pojo.base.Pin;
 import com.harambase.pioneer.server.service.PinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -94,6 +95,14 @@ public class PinController {
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public ResponseEntity getAllInfo() {
         ResultMap resultMap = pinService.getAllInfo();
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "更新一个PIN信息", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.PIN})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/{pin}", method = RequestMethod.GET)
+    public ResponseEntity updateOne(@PathVariable Integer pinNum, @RequestBody Pin pin) {
+        ResultMap resultMap = pinService.updateOne(pinNum, pin);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 }

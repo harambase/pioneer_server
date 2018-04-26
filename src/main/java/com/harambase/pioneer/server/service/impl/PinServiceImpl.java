@@ -213,6 +213,18 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
+    public ResultMap updateOne(Integer pinNum, Pin pin) {
+        try {
+            pin.setPin(pinNum);
+            Pin newPin = pinRepository.save(pin);
+            return newPin != null ? ReturnMsgUtil.success(newPin) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
     public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
         try {
             ResultMap message = new ResultMap();

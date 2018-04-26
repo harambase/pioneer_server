@@ -1,6 +1,7 @@
 package com.harambase.pioneer.server.service;
 
 import com.harambase.pioneer.common.ResultMap;
+import com.harambase.pioneer.server.pojo.base.Pin;
 
 public interface PinService {
 
@@ -17,4 +18,6 @@ public interface PinService {
     ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId);
 
     ResultMap getAllInfo();
+
+    ResultMap updateOne(Integer pinNum, Pin pin);
 }
