@@ -18,4 +18,8 @@ public interface AdviseService {
     ResultMap getAdviseByStudentId(String studentId);
 
     ResultMap advisorList(String s, String s1, String search, String order, String orderCol, String status);
+
+    ResultMap removeAdvisor(String userId);
+
+    ResultMap addAdvisor(String userId);
 }

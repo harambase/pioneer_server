@@ -4,15 +4,18 @@ import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.AdvisorDao;
+import com.harambase.pioneer.server.dao.repository.PersonRepository;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.dao.base.AdviseDao;
 import com.harambase.pioneer.server.dao.repository.AdviseRepository;
+import com.harambase.pioneer.server.pojo.base.Person;
 import com.harambase.pioneer.server.pojo.view.AdviseView;
 import com.harambase.pioneer.server.pojo.view.AdvisorView;
 import com.harambase.pioneer.server.service.AdviseService;
 import com.harambase.pioneer.common.support.util.DateUtil;
 import com.harambase.pioneer.common.support.util.PageUtil;
 import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +32,16 @@ public class AdviseServiceImpl implements AdviseService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final AdviseRepository adviseRepository;
+    private final PersonRepository personRepository;
 
     private final AdviseDao adviseDao;
     private final AdvisorDao advisorDao;
 
     @Autowired
     public AdviseServiceImpl(AdviseRepository adviseRepository, AdviseDao adviseDao,
-                             AdvisorDao advisorDao) {
+                             AdvisorDao advisorDao, PersonRepository personRepository) {
         this.adviseRepository = adviseRepository;
+        this.personRepository = personRepository;
         this.adviseDao = adviseDao;
         this.advisorDao = advisorDao;
     }
@@ -73,14 +78,20 @@ public class AdviseServiceImpl implements AdviseService {
 
     @Override
     public ResultMap assignMentor(Advise advise) {
-
         try {
+            Advise oldAdvise = adviseRepository.findOneByStudentId(advise.getStudentId());
+            if(oldAdvise != null){
+                oldAdvise.setStatus("0");
+                adviseRepository.save(oldAdvise);
+            }
+
             int count = adviseRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
             if (count != 0)
                 return ReturnMsgUtil.custom(SystemConst.ADVISE_DUPLICATE);
 
-            Advise a = adviseRepository.save(advise);
-            return a != null ? ReturnMsgUtil.success(a) : ReturnMsgUtil.fail();
+            advise.setStatus("1");
+            Advise newAdvise = adviseRepository.save(advise);
+            return newAdvise != null ? ReturnMsgUtil.success(newAdvise) : ReturnMsgUtil.fail();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
@@ -162,7 +173,45 @@ public class AdviseServiceImpl implements AdviseService {
             return ReturnMsgUtil.systemError();
 
         }
+    }
 
+    @Override
+    public ResultMap removeAdvisor(String userId) {
+        try {
+            List<Advise> adviseList = adviseRepository.findByFacultyId(userId);
+            //先将之前的ADVIS关系变成0.
+            for(Advise a: adviseList){
+                a.setStatus("0");
+                adviseRepository.save(a);
+            }
+            //删除导师权限7.
+            Person person = personRepository.getOne(userId);
+            String[] roleId = person.getRoleId().split("/");
+            String roleIds = "";
+            for(String role: roleId){
+                if(StringUtils.isNotEmpty(role) && !role.equals("7"))
+                    roleIds += role + "/";
+            }
+            person.setRoleId(roleIds);
+            Person newPerson = personRepository.save(person);
+            return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
 
+    @Override
+    public ResultMap addAdvisor(String userId) {
+        try {
+            Person person = personRepository.getOne(userId);
+            String roleId = person.getRoleId() + "7/";
+            person.setRoleId(roleId);
+            Person newPerson = personRepository.save(person);
+            return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 }

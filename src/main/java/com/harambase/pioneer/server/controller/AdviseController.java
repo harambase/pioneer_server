@@ -85,4 +85,20 @@ public class AdviseController {
         ResultMap resultMap = adviseService.advisorList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "移除导师", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advisor/{userId}", produces = "application/json", method = RequestMethod.DELETE)
+    public ResponseEntity removeAdvisor(@PathVariable(value = "userId") String userId) {
+        ResultMap resultMap = adviseService.removeAdvisor(userId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "添加导师", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advisor/{userId}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity addAdvisor(@PathVariable(value = "userId") String userId) {
+        ResultMap resultMap = adviseService.addAdvisor(userId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }
