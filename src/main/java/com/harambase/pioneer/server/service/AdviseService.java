@@ -16,4 +16,6 @@ public interface AdviseService {
     ResultMap getMentor(Integer id);
 
     ResultMap getAdviseByStudentId(String studentId);
+
+    ResultMap advisorList(String s, String s1, String search, String order, String orderCol, String status);
 }

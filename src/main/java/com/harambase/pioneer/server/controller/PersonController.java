@@ -92,8 +92,9 @@ public class PersonController {
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "type", required = false) String type,
-                               @RequestParam(value = "status", required = false) String status) {
-        ResultMap resultMap = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status);
+                               @RequestParam(value = "status", required = false) String status,
+                               @RequestParam(value = "role", required = false) String role) {
+        ResultMap resultMap = personService.userList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, type, status,  role);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

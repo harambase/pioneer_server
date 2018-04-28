@@ -3,10 +3,12 @@ package com.harambase.pioneer.server.service.impl;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.SystemConst;
+import com.harambase.pioneer.server.dao.base.AdvisorDao;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.dao.base.AdviseDao;
 import com.harambase.pioneer.server.dao.repository.AdviseRepository;
 import com.harambase.pioneer.server.pojo.view.AdviseView;
+import com.harambase.pioneer.server.pojo.view.AdvisorView;
 import com.harambase.pioneer.server.service.AdviseService;
 import com.harambase.pioneer.common.support.util.DateUtil;
 import com.harambase.pioneer.common.support.util.PageUtil;
@@ -29,11 +31,14 @@ public class AdviseServiceImpl implements AdviseService {
     private final AdviseRepository adviseRepository;
 
     private final AdviseDao adviseDao;
+    private final AdvisorDao advisorDao;
 
     @Autowired
-    public AdviseServiceImpl(AdviseRepository adviseRepository, AdviseDao adviseDao) {
+    public AdviseServiceImpl(AdviseRepository adviseRepository, AdviseDao adviseDao,
+                             AdvisorDao advisorDao) {
         this.adviseRepository = adviseRepository;
         this.adviseDao = adviseDao;
+        this.advisorDao = advisorDao;
     }
 
     @Override
@@ -49,10 +54,10 @@ public class AdviseServiceImpl implements AdviseService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<AdviseView> courseViewList = adviseDao.getByMapPageSearchOrdered(facultyId, studentId, info, search,
+            List<AdviseView> adviseViewList = adviseDao.getByMapPageSearchOrdered(facultyId, studentId, info, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
-            message.setData(courseViewList);
+            message.setData(adviseViewList);
             message.put("page", page);
             message.setMsg(SystemConst.SUCCESS.getMsg());
             message.setCode(SystemConst.SUCCESS.getCode());
@@ -129,5 +134,35 @@ public class AdviseServiceImpl implements AdviseService {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
+    }
+
+    @Override
+    public ResultMap advisorList(String currentPage, String pageSize, String search, String order, String orderColumn, String status) {
+        try {
+            ResultMap message = new ResultMap();
+
+            long totalSize = advisorDao.getAdvisorCountByMapPageSearchOrdered(status, search);
+
+            Page page = new Page();
+            page.setCurrentPage(PageUtil.getcPg(currentPage));
+            page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
+
+            List<AdvisorView> advisorViewList = advisorDao.getAdvisorByMapPageSearchOrdered(status, search,
+                    page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
+
+            message.setData(advisorViewList);
+            message.put("page", page);
+            message.setMsg(SystemConst.SUCCESS.getMsg());
+            message.setCode(SystemConst.SUCCESS.getCode());
+            return message;
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+
+        }
+
+
     }
 }

@@ -73,4 +73,16 @@ public class AdviseController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "导师列表", notes = "权限：管理员，教务，学生，老师", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advisor", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity advisorList(@RequestParam(value = "start") Integer start,
+                                      @RequestParam(value = "length") Integer length,
+                                      @RequestParam(value = "search", required = false, defaultValue = "") String search,
+                                      @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
+                                      @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                                      @RequestParam(value = "status", required = false) String status) {
+        ResultMap resultMap = adviseService.advisorList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }

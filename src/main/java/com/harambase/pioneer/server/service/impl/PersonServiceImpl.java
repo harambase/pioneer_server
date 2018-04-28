@@ -186,18 +186,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public ResultMap userList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                              String type, String status) {
+                              String type, String status, String role) {
         ResultMap message = new ResultMap();
         try {
 
-            long totalSize = personDao.getCountByMapPageSearchOrdered(search, type, status);
+            long totalSize = personDao.getCountByMapPageSearchOrdered(search, type, status, role);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<Person> personList = personDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, type, status);
+            List<Person> personList = personDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, type, status, role);
 
             message.setData(personList);
             message.put("page", page);

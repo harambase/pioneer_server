@@ -67,7 +67,7 @@ public class PersonDao {
         }
     }
 
-    public Long getCountByMapPageSearchOrdered(String search, String type, String status) throws Exception {
+    public Long getCountByMapPageSearchOrdered(String search, String type, String status, String role) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Long count = 0L;
@@ -84,14 +84,14 @@ public class PersonDao {
                 queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
+            if (StringUtils.isNotEmpty(role))
+                queryString += "AND role_id LIKE '%" + role + "%' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         "user_id     LIKE  '%" + search + "%' OR " +
                         "username    LIKE  '%" + search + "%' OR " +
-                        "type        LIKE  '%" + search + "%' OR " +
                         "first_name  LIKE  '%" + search + "%' OR " +
                         "last_name   LIKE  '%" + search + "%' OR " +
-                        "status      LIKE  '%" + search + "%' OR " +
                         "update_time LIKE  '%" + search + "%')";
             }
             logger.info(queryString);
@@ -113,7 +113,7 @@ public class PersonDao {
     }
 
     public List<Person> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                  String order, String orderColumn, String type, String status) throws Exception {
+                                                  String order, String orderColumn, String type, String status, String role) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -130,14 +130,14 @@ public class PersonDao {
                 queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
+            if (StringUtils.isNotEmpty(role))
+                queryString += "AND role_id LIKE '%" + role + "%' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         "user_id     LIKE  '%" + search + "%' OR " +
                         "username    LIKE  '%" + search + "%' OR " +
-                        "type        LIKE  '%" + search + "%' OR " +
                         "first_name  LIKE  '%" + search + "%' OR " +
                         "last_name   LIKE  '%" + search + "%' OR " +
-                        "status      LIKE  '%" + search + "%' OR " +
                         "update_time LIKE  '%" + search + "%')";
             }
 

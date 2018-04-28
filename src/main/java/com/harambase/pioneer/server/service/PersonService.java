@@ -9,7 +9,7 @@ public interface PersonService {
 
     ResultMap addUser(Person person);
 
-    ResultMap userList(String s, String s1, String search, String order, String orderCol, String type, String status);
+    ResultMap userList(String s, String s1, String search, String order, String orderCol, String type, String status, String role);
 
     ResultMap getUser(String userid);
 
