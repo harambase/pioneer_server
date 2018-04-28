@@ -18,6 +18,9 @@ public class Advise implements Serializable {
     @Column(name = "faculty_id")
     private String facultyId;
 
+    @Column(name = "info")
+    private String info;
+
     @Column(name = "update_time")
     private String updateTime;
 
@@ -26,6 +29,14 @@ public class Advise implements Serializable {
 
     @Column(name = "operator_id")
     private String operator_id;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
 
     public Integer getId() {
         return id;

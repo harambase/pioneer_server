@@ -19,7 +19,7 @@ public class AdviseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public Long getCountByMapPageSearchOrdered(String facultyId, String studentId, String search) throws Exception {
+    public Long getCountByMapPageSearchOrdered(String facultyId, String studentId, String info, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -36,6 +36,8 @@ public class AdviseDao {
                 queryString += "AND faculty_id = '" + facultyId + "' ";
             if (StringUtils.isNotEmpty(studentId))
                 queryString += "AND student_id = '" + studentId + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(student_id LIKE '%" + search + "%' OR " +
                         "    faculty_id LIKE '%" + search + "%' OR " +
@@ -61,7 +63,7 @@ public class AdviseDao {
         }
     }
 
-    public List<AdviseView> getByMapPageSearchOrdered(String facultyId, String studentId, String search, int currentIndex, int pageSize,
+    public List<AdviseView> getByMapPageSearchOrdered(String facultyId, String studentId, String info, String search, int currentIndex, int pageSize,
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
@@ -79,6 +81,8 @@ public class AdviseDao {
                 queryString += "AND faculty_id = '" + facultyId + "' ";
             if (StringUtils.isNotEmpty(studentId))
                 queryString += "AND student_id = '" + studentId + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
                         "student_id LIKE '%" + search + "%' OR " +

@@ -5,9 +5,9 @@ import com.harambase.pioneer.server.pojo.base.Advise;
 
 public interface AdviseService {
 
-    ResultMap advisingList(String s, String s1, String search, String order, String orderCol, String studentid, String facultyid);
+    ResultMap advisingList(String s, String s1, String search, String order, String orderCol, String studentId, String facultyId, String info);
 
-    ResultMap updateAdvise(Integer id, String studentId, String facultyId);
+    ResultMap updateAdvise(Integer id, Advise advise);
 
     ResultMap assignMentor(Advise advise);
 

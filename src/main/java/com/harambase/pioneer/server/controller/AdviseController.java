@@ -45,10 +45,8 @@ public class AdviseController {
     @ApiOperation(value = "更新导师关系", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.ADVISE})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable Integer id,
-                                 @RequestParam(value = "studentId") String studentId,
-                                 @RequestParam(value = "facultyId") String facultyId) {
-        ResultMap resultMap = adviseService.updateAdvise(id, studentId, facultyId);
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody Advise advise) {
+        ResultMap resultMap = adviseService.updateAdvise(id, advise);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
@@ -69,8 +67,9 @@ public class AdviseController {
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "studentId", required = false) String studentId,
-                               @RequestParam(value = "facultyId", required = false) String facultyId) {
-        ResultMap resultMap = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, facultyId);
+                               @RequestParam(value = "facultyId", required = false) String facultyId,
+                               @RequestParam(value = "info", required = false) String info) {
+        ResultMap resultMap = adviseService.advisingList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, studentId, facultyId, info);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

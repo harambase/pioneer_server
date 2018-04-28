@@ -38,18 +38,18 @@ public class AdviseServiceImpl implements AdviseService {
 
     @Override
     public ResultMap advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                     String studentid, String facultyid) {
+                                     String studentId, String facultyId, String info) {
         try {
             ResultMap message = new ResultMap();
 
-            long totalSize = adviseDao.getCountByMapPageSearchOrdered(facultyid, studentid, search);
+            long totalSize = adviseDao.getCountByMapPageSearchOrdered(facultyId, studentId, info, search);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<AdviseView> courseViewList = adviseDao.getByMapPageSearchOrdered(facultyid, studentid, search,
+            List<AdviseView> courseViewList = adviseDao.getByMapPageSearchOrdered(facultyId, studentId, info, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(courseViewList);
@@ -96,17 +96,12 @@ public class AdviseServiceImpl implements AdviseService {
     }
 
     @Override
-    public ResultMap updateAdvise(Integer id, String studentId, String facultyId) {
+    public ResultMap updateAdvise(Integer id, Advise advise) {
 
         try {
-            Advise advise = adviseRepository.findOne(id);
-
             advise.setId(id);
-            advise.setStudentId(studentId);
-            advise.setFacultyId(facultyId);
             advise.setUpdateTime(DateUtil.DateToStr(new Date()));
             Advise newAdvise = adviseRepository.save(advise);
-
             return ReturnMsgUtil.success(newAdvise);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
