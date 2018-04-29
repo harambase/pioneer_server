@@ -178,12 +178,16 @@ public class AdviseServiceImpl implements AdviseService {
     @Override
     public ResultMap removeAdvisor(String userId) {
         try {
+            String updateTime = DateUtil.DateToStr(new Date());
             List<Advise> adviseList = adviseRepository.findByFacultyId(userId);
+
             //先将之前的ADVIS关系变成0.
             for(Advise a: adviseList){
                 a.setStatus("0");
+                a.setUpdateTime(updateTime);
                 adviseRepository.save(a);
             }
+
             //删除导师权限7.
             Person person = personRepository.getOne(userId);
             String[] roleId = person.getRoleId().split("/");
@@ -193,6 +197,8 @@ public class AdviseServiceImpl implements AdviseService {
                     roleIds += role + "/";
             }
             person.setRoleId(roleIds);
+            person.setUpdateTime(updateTime);
+
             Person newPerson = personRepository.save(person);
             return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
         } catch (Exception e) {
@@ -207,6 +213,8 @@ public class AdviseServiceImpl implements AdviseService {
             Person person = personRepository.getOne(userId);
             String roleId = person.getRoleId() + "7/";
             person.setRoleId(roleId);
+            person.setUpdateTime(DateUtil.DateToStr(new Date()));
+
             Person newPerson = personRepository.save(person);
             return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
         } catch (Exception e) {
