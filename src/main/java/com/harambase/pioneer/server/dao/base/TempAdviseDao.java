@@ -1,8 +1,8 @@
 package com.harambase.pioneer.server.dao.base;
 
-import com.harambase.pioneer.server.pojo.base.TempCourse;
 import com.harambase.pioneer.server.dao.connection.DataServiceConnection;
 import com.harambase.pioneer.server.dao.connection.ResultSetHelper;
+import com.harambase.pioneer.server.pojo.base.TempAdvise;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,16 +53,16 @@ public class TempAdviseDao {
         }
     }
 
-    public List<TempCourse> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
+    public List<TempAdvise> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
-        List<TempCourse> tempCourses = new ArrayList<>();
+        List<TempAdvise> tempAdvise = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
-                return tempCourses;
+                return tempAdvise;
 
             stmt = connection.createStatement();
 
@@ -75,8 +75,8 @@ public class TempAdviseDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            tempCourses = ResultSetHelper.getObjectFor(rs, TempCourse.class);
-            return tempCourses;
+            tempAdvise = ResultSetHelper.getObjectFor(rs, TempAdvise.class);
+            return tempAdvise;
 
         } finally {
             if (stmt != null)

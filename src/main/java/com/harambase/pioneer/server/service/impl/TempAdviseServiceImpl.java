@@ -102,9 +102,9 @@ public class TempAdviseServiceImpl implements TempAdviseService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<TempCourse> tempCourses = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn);
+            List<TempAdvise> tempAdvise = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn);
 
-            message.setData(tempCourses);
+            message.setData(tempAdvise);
             message.put("page", page);
             message.setMsg(SystemConst.SUCCESS.getMsg());
             message.setCode(SystemConst.SUCCESS.getCode());
