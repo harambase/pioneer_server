@@ -10,7 +10,7 @@ public interface TempAdviseService {
 
     ResultMap deleteTempAdviseById(Integer id);
 
-    ResultMap get(Integer id);
+    ResultMap get(String studentId);
 
     ResultMap tempAdviseList(String s, String s1, String search, String order, String orderCol);
 

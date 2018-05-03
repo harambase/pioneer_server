@@ -18,6 +18,7 @@ import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aop.Advisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -220,6 +221,18 @@ public class AdviseServiceImpl implements AdviseService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public ResultMap getAdvisor(String userId) {
+        try {
+            AdvisorView advisor = advisorDao.findOne(userId);
+            return advisor != null ? ReturnMsgUtil.success(advisor) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+
         }
     }
 }

@@ -22,4 +22,6 @@ public interface AdviseService {
     ResultMap removeAdvisor(String userId);
 
     ResultMap addAdvisor(String userId);
+
+    ResultMap getAdvisor(String userId);
 }

@@ -94,4 +94,32 @@ public class AdvisorDao {
                 connection.close();
         }
     }
+
+    public AdvisorView findOne(String userId) throws Exception{
+        ResultSet rs = null;
+        Connection connection = null;
+        Statement stmt = null;
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return null;
+
+            stmt = connection.createStatement();
+
+            String queryString = "SELECT * FROM advisorview WHERE 1=1 AND userId = '" + userId + "' ";
+
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+
+            return ResultSetHelper.getObjectFor(rs, AdvisorView.class).get(0);
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
 }

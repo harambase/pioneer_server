@@ -173,8 +173,8 @@ public class RequestController {
     @ApiOperation(value = "查找一个导师申请", notes = "权限：教师， 教务", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/advise/{id}", method = RequestMethod.GET)
-    public ResponseEntity getAdviseRequest(@PathVariable Integer id) {
-        ResultMap resultMap = tempAdviseService.get(id);
+    public ResponseEntity getAdviseRequest(@PathVariable String studentId) {
+        ResultMap resultMap = tempAdviseService.get(studentId);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

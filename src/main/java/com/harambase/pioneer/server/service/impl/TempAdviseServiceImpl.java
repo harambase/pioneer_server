@@ -42,15 +42,22 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     @Override
     public ResultMap register(String studentId, String facultyIds) {
         try {
-
-            TempAdvise tempAdvise = new TempAdvise();
-            tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
-            tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
-            tempAdvise.setStudentId(studentId);
-            tempAdvise.setFacultyIds(facultyIds);
-            tempAdvise.setStatus("1");
-
-            TempAdvise newTempAdvise = tempAdviseRepository.save(tempAdvise);
+            TempAdvise newTempAdvise;
+            TempAdvise existAdvise = tempAdviseRepository.findByStudentId(studentId);
+            if (existAdvise != null) {
+                existAdvise.setFacultyIds(facultyIds);
+                existAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
+                tempAdviseRepository.delete(existAdvise.getId());
+                newTempAdvise = tempAdviseRepository.save(existAdvise);
+            } else {
+                TempAdvise tempAdvise = new TempAdvise();
+                tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
+                tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
+                tempAdvise.setStudentId(studentId);
+                tempAdvise.setFacultyIds(facultyIds);
+                tempAdvise.setStatus("1");
+                newTempAdvise = tempAdviseRepository.save(tempAdvise);
+            }
 
             return newTempAdvise == null ? ReturnMsgUtil.fail() : ReturnMsgUtil.success(newTempAdvise);
 
@@ -73,9 +80,9 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public ResultMap get(Integer id) {
+    public ResultMap get(String studentId) {
         try {
-            TempAdvise tempAdvise = tempAdviseRepository.findOne(id);
+            TempAdvise tempAdvise = tempAdviseRepository.findByStudentId(studentId);
             return ReturnMsgUtil.success(tempAdvise);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

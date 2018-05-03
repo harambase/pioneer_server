@@ -101,4 +101,12 @@ public class AdviseController {
         ResultMap resultMap = adviseService.addAdvisor(userId);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
+    @ApiOperation(value = "获取导师", notes = "权限：管理员，教务，学生", response = Map.class, tags = {Tags.ADVISE})
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
+    @RequestMapping(value = "/advisor/{userId}", produces = "application/json", method = RequestMethod.GET)
+    public ResponseEntity getAdvisor(@PathVariable(value = "userId") String userId) {
+        ResultMap resultMap = adviseService.getAdvisor(userId);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    }
 }
