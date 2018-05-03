@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
@@ -249,15 +250,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResultMap reg2Course(String studentId, JSONObject choiceList) {
+    public ResultMap reg2Course(String studentId, JSONArray choiceList) {
 
         try {
             Map<String, Object> result = new HashMap<>();
             List<String> failList = new ArrayList<>();
-            List<String> choices = (List<String>) choiceList.get("choiceList");
-            for (String crn : choices) {
-                if (StringUtils.isEmpty(crn))
-                    continue;
+
+            for (Object crnList : choiceList) {
+
+                String crn = (String) ((LinkedHashMap) crnList).get("crn");
                 CourseView courseView = courseDao.findByCrn(crn);
                 String failInfo = "CRN：" + crn + ", 课程名：" + courseView.getName() + "，失败原因:";
 

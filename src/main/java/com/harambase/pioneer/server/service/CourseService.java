@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.server.pojo.base.Course;
@@ -28,7 +29,7 @@ public interface CourseService {
 
     ResultMap preCourseList(String crn);
 
-    ResultMap reg2Course(String studentId, JSONObject choiceList);
+    ResultMap reg2Course(String studentId, JSONArray choiceList);
 
     ResultMap getCourseByCrn(String crn);
 

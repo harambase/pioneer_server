@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Tags;
@@ -151,7 +152,7 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}/choose", method = RequestMethod.POST)
     public ResponseEntity courseChoice(@PathVariable(value = "studentId") String studentId,
-                                       @RequestBody JSONObject choiceList) {
+                                       @RequestBody JSONArray choiceList) {
         ResultMap resultMap = courseService.reg2Course(studentId, choiceList);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

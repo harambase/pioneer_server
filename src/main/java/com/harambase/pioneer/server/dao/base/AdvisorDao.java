@@ -95,7 +95,7 @@ public class AdvisorDao {
         }
     }
 
-    public AdvisorView findOne(String userId) throws Exception{
+    public AdvisorView findOne(String userId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -106,7 +106,7 @@ public class AdvisorDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM advisorview WHERE 1=1 AND userId = '" + userId + "' ";
+            String queryString = "SELECT * FROM advisorview WHERE 1=1 AND user_id = '" + userId + "' ";
 
             logger.info(queryString);
 
