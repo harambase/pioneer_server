@@ -6,7 +6,7 @@ import com.harambase.pioneer.server.pojo.base.TempAdvise;
 
 public interface TempAdviseService {
 
-    ResultMap register(String studentId, JSONObject jsonObject);
+    ResultMap register(String studentId, String facultyIds);
 
     ResultMap deleteTempAdviseById(Integer id);
 

@@ -1,19 +1,17 @@
 package com.harambase.pioneer.server.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
+import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.constant.SystemConst;
-import com.harambase.pioneer.server.dao.base.TempAdviseDao;
-import com.harambase.pioneer.server.dao.repository.MessageRepository;
-import com.harambase.pioneer.server.dao.repository.TempAdviseRepository;
-import com.harambase.pioneer.server.pojo.base.Message;
-import com.harambase.pioneer.server.pojo.base.TempAdvise;
-import com.harambase.pioneer.server.pojo.base.TempCourse;
-import com.harambase.pioneer.server.service.TempAdviseService;
 import com.harambase.pioneer.common.support.util.DateUtil;
 import com.harambase.pioneer.common.support.util.PageUtil;
 import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
+import com.harambase.pioneer.server.dao.base.TempAdviseDao;
+import com.harambase.pioneer.server.dao.repository.MessageRepository;
+import com.harambase.pioneer.server.dao.repository.TempAdviseRepository;
+import com.harambase.pioneer.server.pojo.base.TempAdvise;
+import com.harambase.pioneer.server.pojo.base.TempCourse;
+import com.harambase.pioneer.server.service.TempAdviseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,44 +33,26 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     @Autowired
     public TempAdviseServiceImpl(TempAdviseRepository tempAdviseRepository,
                                  MessageRepository messageRepository,
-                                 TempAdviseDao tempAdviseDao){
+                                 TempAdviseDao tempAdviseDao) {
         this.tempAdviseRepository = tempAdviseRepository;
         this.messageRepository = messageRepository;
         this.tempAdviseDao = tempAdviseDao;
     }
 
     @Override
-    public ResultMap register(String studentId, JSONObject jsonObject) {
+    public ResultMap register(String studentId, String facultyIds) {
         try {
 
             TempAdvise tempAdvise = new TempAdvise();
             tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
             tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
             tempAdvise.setStudentId(studentId);
-            tempAdvise.setFacultyIds(jsonObject.toJSONString());
+            tempAdvise.setFacultyIds(facultyIds);
             tempAdvise.setStatus("1");
 
             TempAdvise newTempAdvise = tempAdviseRepository.save(tempAdvise);
-            if (newTempAdvise == null)
-                return ReturnMsgUtil.fail();
 
-            //todo:向所有导师发送
-            Message message = new Message();
-            message.setDate(DateUtil.DateToStr(new Date()));
-            message.setReceiverId("9000000000");
-            message.setSenderId("9000000000");
-            message.setBody("注意!接收到来自" + studentId + "的请求注册信息");
-            message.setTitle("注册信息");
-            message.setStatus("UNREAD");
-            message.setSubject("用户注册");
-            message.setTag("work");
-            message.setLabels("inbox/important/");
-
-            Message newMsg = messageRepository.save(message);
-            if (newMsg == null)
-                throw new RuntimeException("Message 插入失败!");
-
-            return ReturnMsgUtil.success(newTempAdvise);
+            return newTempAdvise == null ? ReturnMsgUtil.fail() : ReturnMsgUtil.success(newTempAdvise);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
@@ -82,11 +62,11 @@ public class TempAdviseServiceImpl implements TempAdviseService {
 
     @Override
     public ResultMap deleteTempAdviseById(Integer id) {
-        try{
+        try {
             tempAdviseRepository.delete(id);
             int count = tempAdviseRepository.countById(id);
-            return count == 0? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
-        }catch (Exception e){
+            return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
@@ -94,10 +74,10 @@ public class TempAdviseServiceImpl implements TempAdviseService {
 
     @Override
     public ResultMap get(Integer id) {
-        try{
+        try {
             TempAdvise tempAdvise = tempAdviseRepository.findOne(id);
             return ReturnMsgUtil.success(tempAdvise);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }
@@ -106,23 +86,6 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     @Override
     public ResultMap tempAdviseList(String currentPage, String pageSize, String search, String order, String orderColumn) {
         ResultMap message = new ResultMap();
-        switch (Integer.parseInt(orderColumn)) {
-            case 2:
-                orderColumn = "student_id";
-                break;
-            case 4:
-                orderColumn = "faculty_ids";
-                break;
-            case 5:
-                orderColumn = "create_time";
-                break;
-            case 6:
-                orderColumn = "status";
-                break;
-            default:
-                orderColumn = "id";
-                break;
-        }
         try {
 
             long totalSize = tempAdviseDao.getCountByMapPageSearchOrdered(search);
@@ -148,11 +111,11 @@ public class TempAdviseServiceImpl implements TempAdviseService {
 
     @Override
     public ResultMap updateTempAdvise(Integer id, TempAdvise tempAdvise) {
-        try{
+        try {
             tempAdvise.setId(id);
             TempAdvise newTempAdvise = tempAdviseRepository.save(tempAdvise);
             return ReturnMsgUtil.success(newTempAdvise);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }

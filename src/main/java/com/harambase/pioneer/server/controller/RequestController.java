@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Tags;
@@ -10,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -148,9 +150,16 @@ public class RequestController {
     @ApiOperation(value = "新导师申请", notes = "权限：学生", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/advise/{studentId}", method = RequestMethod.POST)
-    public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONObject jsonObject) {
-        ResultMap resultMap = tempAdviseService.register(studentId, jsonObject);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
+    public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONArray jsonArray) {
+        String facultyIds = "";
+        for(Object jsonObject: jsonArray){
+            facultyIds += ((JSONObject) jsonObject).get("userId") +"/";
+        }
+        if(StringUtils.isNotEmpty(facultyIds)) {
+            ResultMap resultMap = tempAdviseService.register(studentId, facultyIds);
+            return new ResponseEntity<>(resultMap, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new ResultMap(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除一个导师申请", notes = "权限：学生, 系统", response = Map.class, tags = {Tags.REQUEST})
