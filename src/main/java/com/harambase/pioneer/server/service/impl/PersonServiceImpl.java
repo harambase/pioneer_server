@@ -10,9 +10,13 @@ import com.harambase.pioneer.server.pojo.base.Course;
 import com.harambase.pioneer.server.pojo.base.Person;
 import com.harambase.pioneer.server.pojo.base.Student;
 import com.harambase.pioneer.server.service.PersonService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +53,11 @@ public class PersonServiceImpl implements PersonService {
         this.personDao = personDao;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public ResultMap login(Person person) {
         try {
@@ -73,10 +82,7 @@ public class PersonServiceImpl implements PersonService {
 
             List<Person> people = personRepository.findByInfo(info);
 
-            if (person.getUserId() == null)
-                userId = IDUtil.genUserID(info);
-            else
-                userId = person.getUserId();
+            userId = IDUtil.genUserID(info);
 
             for (int i = 0; i < people.size(); i++) {
                 Person p = people.get(i);
@@ -87,9 +93,9 @@ public class PersonServiceImpl implements PersonService {
             }
             person.setUserId(userId);
 
-            if (person.getPassword() == null) {
+            if (StringUtils.isEmpty(person.getPassword())) {
                 password = "Pioneer" + userId;
-                person.setPassword(password);
+                person.setPassword(passwordEncoder().encode(password));
             }
 
             String firstPY = Pinyin4jUtil.converterToFirstSpell(person.getLastName());
