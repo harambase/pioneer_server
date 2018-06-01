@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -238,17 +239,28 @@ CREATE TABLE `transcript` (
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_complete_credits`(sid varchar(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
-	
-	if counts > 0 then
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
-	end if;	
-	
-	RETURN credits;
+BEGIN
+
+	DECLARE credits INT DEFAULT 0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
+
+	
+
+	if counts > 0 then
+
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
+
+	end if;	
+
+	
+
+	RETURN credits;
+
 END */$$
 DELIMITER ;
 
@@ -258,17 +270,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_date`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE startdate VARCHAR(100);
-	DECLARE enddate VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(startdate," to ",enddate);
-	
-	
-	RETURN ctime ;
+BEGIN
+
+	
+
+	DECLARE startdate VARCHAR(100);
+
+	DECLARE enddate VARCHAR(100);
+
+	DECLARE ctime VARCHAR(100);
+
+	
+
+	SELECT c.start_date, c.end_date INTO startdate,enddate FROM course c WHERE c.crn = crn;
+
+	SET ctime = CONCAT(startdate," to ",enddate);
+
+	
+
+	
+
+	RETURN ctime ;
+
     END */$$
 DELIMITER ;
 
@@ -278,22 +301,38 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_status`(crn VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE enddate VARCHAR(100);
-	DECLARE startdate VARCHAR(100);
-	DECLARE status INT(11);
-	
-	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
-	
-	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
-		SET status = -1;
-	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
-		set status = 0;
-	ELSE
-		SET status = 1;
-	END IF;
-	
-	RETURN status ;
+BEGIN
+
+	DECLARE enddate VARCHAR(100);
+
+	DECLARE startdate VARCHAR(100);
+
+	DECLARE status INT(11);
+
+	
+
+	SELECT c.end_date, c.start_date INTO enddate, startdate FROM course c WHERE c.crn = crn;
+
+	
+
+	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
+
+		SET status = -1;
+
+	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
+
+		set status = 0;
+
+	ELSE
+
+		SET status = 1;
+
+	END IF;
+
+	
+
+	RETURN status ;
+
     END */$$
 DELIMITER ;
 
@@ -303,17 +342,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_course_time`(crn VARCHAR(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	DECLARE starttime VARCHAR(100);
-	DECLARE endtime VARCHAR(100);
-	DECLARE ctime VARCHAR(100);
-	
-	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
-	SET ctime = CONCAT(starttime,"-",endtime);
-	
-	
-	RETURN ctime ;
-	
+BEGIN
+
+	DECLARE starttime VARCHAR(100);
+
+	DECLARE endtime VARCHAR(100);
+
+	DECLARE ctime VARCHAR(100);
+
+	
+
+	SELECT c.start_time, c.end_time  INTO starttime,endtime FROM course c WHERE c.crn = crn;
+
+	SET ctime = CONCAT(starttime,"-",endtime);
+
+	
+
+	
+
+	RETURN ctime ;
+
+	
+
     END */$$
 DELIMITER ;
 
@@ -323,18 +373,30 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_in_progress_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-	END IF;	
-	
-	RETURN credits;
-	
+BEGIN
+
+	DECLARE credits INT DEFAULT 0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+
+	
+
+	IF counts > 0 THEN
+
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+
+	END IF;	
+
+	
+
+	RETURN credits;
+
+	
+
     END */$$
 DELIMITER ;
 
@@ -344,17 +406,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_name`(id varchar(20)) RETURNS varchar(100) CHARSET utf8
-BEGIN
-	
-	DECLARE firstname varchar(100) CHARSET utf8;
-	DECLARE lastname  VARCHAR(100) CHARSET utf8;
-	declare fname varchar(100) CHARSET utf8;
-	
-	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
-	SET fname = CONCAT(lastname,",",firstname);
-	
-	
-	RETURN fname;
+BEGIN
+
+	
+
+	DECLARE firstname varchar(100) CHARSET utf8;
+
+	DECLARE lastname  VARCHAR(100) CHARSET utf8;
+
+	declare fname varchar(100) CHARSET utf8;
+
+	
+
+	SELECT p.first_name, p.last_name INTO firstname, lastname FROM person p WHERE p.user_id = id;
+
+	SET fname = CONCAT(lastname,",",firstname);
+
+	
+
+	
+
+	RETURN fname;
+
     END */$$
 DELIMITER ;
 
@@ -364,17 +437,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_not_complete_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-	DECLARE credits INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	
-	IF counts > 0 THEN
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-	END IF;	
-		
-    return credits;		
+BEGIN
+
+	DECLARE credits INT DEFAULT 0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+
+	
+
+	IF counts > 0 THEN
+
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+
+	END IF;	
+
+		
+
+    return credits;		
+
     END */$$
 DELIMITER ;
 
@@ -397,17 +481,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_remain_capa`(crn VARCHAR(20)) RETURNS int(11)
-BEGIN
-	
-	DECLARE remain INT DEFAULT 0;
-	DECLARE counts INT DEFAULT 0;
-	DECLARE capa INT DEFAULT 0;
-	
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
-	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
-	SET remain = capa - counts;
-	
-	RETURN remain;
+BEGIN
+
+	
+
+	DECLARE remain INT DEFAULT 0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	DECLARE capa INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.crn = crn;
+
+	SElect c.capacity INTO capa FROM course c WHERE c.crn = crn;
+
+	SET remain = capa - counts;
+
+	
+
+	RETURN remain;
+
     END */$$
 DELIMITER ;
 
@@ -563,7 +658,7 @@ DROP TABLE IF EXISTS `transcriptview`;
 /*!50001 DROP TABLE IF EXISTS `advisorview` */;
 /*!50001 DROP VIEW IF EXISTS `advisorview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `advisorview` AS select distinct `p`.`user_id` AS `user_id`,`get_name`(`p`.`user_id`) AS `name`,`get_num_student`(`p`.`user_id`) AS `num_student`,`p`.`update_time` AS `update_time`,`p`.`profile` AS `profile` from (`advise` `a` join `person` `p`) where `p`.`role_id` like '%7%' */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `advisorview` AS select distinct `p`.`user_id` AS `user_id`,`get_name`(`p`.`user_id`) AS `name`,`get_num_student`(`p`.`user_id`) AS `num_student`,`p`.`update_time` AS `update_time`,`p`.`profile` AS `profile` from `person` `p` where `p`.`role_id` like '%7%' */;
 
 /*View structure for view courseview */
 

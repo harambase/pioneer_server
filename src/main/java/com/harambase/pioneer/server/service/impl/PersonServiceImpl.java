@@ -105,7 +105,10 @@ public class PersonServiceImpl implements PersonService {
             person.setUsername(username);
             person.setCreateTime(DateUtil.DateToStr(new Date()));
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
-            person.setStatus("1");
+
+            if(StringUtils.isEmpty(person.getStatus()))
+             person.setStatus("1");
+
             Person newPerson = personRepository.save(person);
 
             if (person.getType().contains("s")) {
