@@ -129,4 +129,32 @@ public class StudentServiceImpl implements StudentService {
             return ReturnMsgUtil.systemError();
         }
     }
+
+    @Override
+    public ResultMap getContract(String studentId) {
+        try {
+            Student student = studentRepository.findOne(studentId);
+            String contractString = student.getContractInfo();
+
+            return ReturnMsgUtil.success(contractString);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public ResultMap updateContract(String studentId, String contractString) {
+        try {
+            Student student = studentRepository.findOne(studentId);
+            student.setStudentId(studentId);
+            student.setContractInfo(contractString);
+            Student newStudent = studentRepository.save(student);
+            student.setUpdateTime(DateUtil.DateToStr(new Date()));
+            return newStudent != null ? ReturnMsgUtil.success(newStudent) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
 }

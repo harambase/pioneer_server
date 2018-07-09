@@ -17,4 +17,8 @@ public interface StudentService {
     ResultMap getAvailableCredit(String studentid, String info);
 
     ResultMap courseList(String status, String studentId);
+
+    ResultMap getContract(String studentId);
+
+    ResultMap updateContract(String studentId, String contractString);
 }

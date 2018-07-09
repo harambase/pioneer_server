@@ -22,7 +22,7 @@ VALUES
   (1, 0, '用户', 'user'),
   (2, 1, '管理员', 'admin'),
   (3, 2, '教务', 'teach'),
-  (4, 3, '后勤', 'logistic'),
+  (4, 3, '行政后勤', 'administrative'),
   (5, 4, '系统', 'system'),
   (6, 5, '学生', 'student'),
   (7, 6, '教师', 'faculty'),
