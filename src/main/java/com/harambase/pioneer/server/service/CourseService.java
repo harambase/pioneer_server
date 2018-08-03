@@ -38,4 +38,6 @@ public interface CourseService {
     ResultMap courseListInfo(String search);
 
     ResultMap studentList(String crn, String search);
+
+    ResultMap getCourseBase(String crn);
 }

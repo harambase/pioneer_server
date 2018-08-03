@@ -61,6 +61,18 @@ public class TranscriptView implements Serializable {
     @Column(name = "info")
     private String info;
 
+    @Column(name = "remark")
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+
     public Double getCredit() {
         return credit;
     }

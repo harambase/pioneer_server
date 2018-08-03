@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
 
             if (!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
-                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyid), courseDao.findByCrn(crn))) {
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyid), course)) {
                     return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
                 }
                 course.setFacultyId(facultyid);
@@ -377,6 +377,17 @@ public class CourseServiceImpl implements CourseService {
         try {
             List<LinkedHashMap> studentList = studentDao.getStudentList(crn, search);
             return ReturnMsgUtil.success(studentList);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public ResultMap getCourseBase(String crn) {
+        try {
+            Course course = courseRepository.findByCrn(crn);
+            return ReturnMsgUtil.success(course);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

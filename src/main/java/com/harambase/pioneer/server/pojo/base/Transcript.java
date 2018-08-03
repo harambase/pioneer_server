@@ -34,6 +34,17 @@ public class Transcript implements Serializable {
     @Column(name = "operator_id")
     private String operatorId;
 
+    @Column(name = "remark")
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public Double getCredit() {
         return credit;
     }
