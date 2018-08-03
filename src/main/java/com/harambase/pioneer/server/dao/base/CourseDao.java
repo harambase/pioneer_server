@@ -20,7 +20,7 @@ public class CourseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public List<CourseView> findTop5ByStatusAndSearch(String search, String status) throws Exception {
+    public List<CourseView> findTop5ByStatusAndSearch(String search, String status, String info) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -33,8 +33,12 @@ public class CourseDao {
             stmt = connection.createStatement();
 
             String queryString = "select * from courseview where 1=1 ";
+
             if (StringUtils.isNotEmpty(status))
                 queryString += "AND status = '" + status + "' ";
+
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
 
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "" +

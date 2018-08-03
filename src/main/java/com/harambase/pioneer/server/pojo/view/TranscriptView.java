@@ -64,6 +64,28 @@ public class TranscriptView implements Serializable {
     @Column(name = "remark")
     private String remark;
 
+    @Column(name = "sprofile")
+    private String sprofile;
+
+    @Column(name = "fprofile")
+    private String fprofile;
+
+    public String getSprofile() {
+        return sprofile;
+    }
+
+    public void setSprofile(String sprofile) {
+        this.sprofile = sprofile;
+    }
+
+    public String getFprofile() {
+        return fprofile;
+    }
+
+    public void setFprofile(String fprofile) {
+        this.fprofile = fprofile;
+    }
+
     public String getRemark() {
         return remark;
     }

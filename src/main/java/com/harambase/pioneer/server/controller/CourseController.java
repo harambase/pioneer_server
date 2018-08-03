@@ -107,8 +107,9 @@ public class CourseController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ResponseEntity search(@RequestParam(required = false, defaultValue = "") String search,
+                                 @RequestParam(required = false, defaultValue = "") String info,
                                  @RequestParam(required = false, defaultValue = "") String status) {
-        ResultMap resultMap = courseService.getCourseBySearch(search, status);
+        ResultMap resultMap = courseService.getCourseBySearch(search, status, info);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

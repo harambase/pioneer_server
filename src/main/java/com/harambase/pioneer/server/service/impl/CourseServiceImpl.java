@@ -128,9 +128,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResultMap getCourseBySearch(String search, String status) {
+    public ResultMap getCourseBySearch(String search, String status, String info) {
         try {
-            List<CourseView> results = courseDao.findTop5ByStatusAndSearch(search, status);
+            List<CourseView> results = courseDao.findTop5ByStatusAndSearch(search, status, info);
             return ReturnMsgUtil.success(results);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

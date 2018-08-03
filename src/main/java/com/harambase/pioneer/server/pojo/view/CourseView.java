@@ -84,6 +84,17 @@ public class CourseView {
     @Column(name = "time")
     private String time;
 
+    @Column(name = "profile")
+    private String profile;
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
     public Integer getId() {
         return id;
     }

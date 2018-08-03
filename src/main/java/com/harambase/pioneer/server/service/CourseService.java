@@ -23,7 +23,7 @@ public interface CourseService {
 
     ResultMap removeStuFromCou(String crn, String studentId);
 
-    ResultMap getCourseBySearch(String search, String status);
+    ResultMap getCourseBySearch(String search, String status, String info);
 
     ResultMap courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
 
