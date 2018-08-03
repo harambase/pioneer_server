@@ -8,6 +8,8 @@ public class Option {
 
     private boolean capacity;
 
+    private boolean override;
+
     public boolean isPrereq() {
         return prereq;
     }
@@ -32,5 +34,11 @@ public class Option {
         this.capacity = capacity;
     }
 
+    public boolean isOverride() {
+        return override;
+    }
 
+    public void setOverride(boolean override) {
+        this.override = override;
+    }
 }

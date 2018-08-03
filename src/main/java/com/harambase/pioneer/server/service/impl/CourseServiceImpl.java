@@ -167,29 +167,31 @@ public class CourseServiceImpl implements CourseService {
         try {
             CourseView courseView = courseDao.findByCrn(crn);
 
-            //检查课程状态
-            Integer status = courseView.getStatus();
-            if (status == -1) {
-                return ReturnMsgUtil.custom(SystemConst.COURSE_DISABLED);
-            }
+            if (!option.isOverride()) {
+                //检查课程状态
+                Integer status = courseView.getStatus();
+                if (status == -1) {
+                    return ReturnMsgUtil.custom(SystemConst.COURSE_DISABLED);
+                }
 
-            //检查时间冲突
-            if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
-                return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
-            }
+                //检查时间冲突
+                if (!option.isTime() && TimeValidate.isTimeConflict(courseDao.findCourseViewByStudentId("", studentId), courseView)) {
+                    return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
+                }
 
-            //检查课程容量
-            int remain = courseView.getRemain();
-            if (remain <= 0 && !option.isCapacity()) {
-                return ReturnMsgUtil.custom(SystemConst.MAX_CAPACITY);
-            }
+                //检查课程容量
+                int remain = courseView.getRemain();
+                if (remain <= 0 && !option.isCapacity()) {
+                    return ReturnMsgUtil.custom(SystemConst.MAX_CAPACITY);
+                }
 
-            //检查预选
-            String[] preCrns = courseView.getPrecrn().split("/");
-            for (String preCrn : preCrns) {
-                int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
-                if (count != 1 && !option.isPrereq()) {
-                    return ReturnMsgUtil.custom(SystemConst.UNMET_PREREQ);
+                //检查预选
+                String[] preCrns = courseView.getPrecrn().split("/");
+                for (String preCrn : preCrns) {
+                    int count = transcriptRepository.countByStudentIdAndCrnAndComplete(studentId, preCrn, "1");
+                    if (count != 1 && !option.isPrereq()) {
+                        return ReturnMsgUtil.custom(SystemConst.UNMET_PREREQ);
+                    }
                 }
             }
 
@@ -382,7 +384,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public ResultMap courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                   String facultyid, String info) {
+                                String facultyid, String info) {
         try {
             ResultMap message = new ResultMap();
             long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyid, info, search);
