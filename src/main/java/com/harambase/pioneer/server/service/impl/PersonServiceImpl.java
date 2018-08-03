@@ -106,8 +106,8 @@ public class PersonServiceImpl implements PersonService {
             person.setCreateTime(DateUtil.DateToStr(new Date()));
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
 
-            if(StringUtils.isEmpty(person.getStatus()))
-             person.setStatus("1");
+            if (StringUtils.isEmpty(person.getStatus()))
+                person.setStatus("1");
 
             Person newPerson = personRepository.save(person);
 
@@ -171,6 +171,21 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public ResultMap update(String userId, Person person) {
         try {
+            String type = person.getType();
+            int count = studentRepository.countByStudentId(userId);
+
+            if (type.contains("s") && count == 0) {
+                Student student = new Student();
+                student.setStudentId(userId);
+                student.setMaxCredits(12);
+                student.setUpdateTime(DateUtil.DateToStr(new Date()));
+                studentRepository.save(student);
+            }
+
+            if (!type.contains("s") && count != 0) {
+                studentRepository.delete(userId);
+            }
+
             person.setUserId(userId);
             person.setUpdateTime(DateUtil.DateToStr(new Date()));
             Person newPerson = personRepository.save(person);

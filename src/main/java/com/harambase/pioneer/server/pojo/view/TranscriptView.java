@@ -30,8 +30,8 @@ public class TranscriptView implements Serializable {
     @Column(name = "operator_id")
     private String operatorId;
 
-    @Column(name = "earn_credits")
-    private Integer earnCredits;
+    @Column(name = "credit")
+    private Double credit;
 
     //Extension:
     @Column(name = "cname")
@@ -61,12 +61,12 @@ public class TranscriptView implements Serializable {
     @Column(name = "info")
     private String info;
 
-    public Integer getEarnCredits() {
-        return earnCredits;
+    public Double getCredit() {
+        return credit;
     }
 
-    public void setEarnCredits(Integer earnCredits) {
-        this.earnCredits = earnCredits;
+    public void setCredit(Double credit) {
+        this.credit = credit;
     }
 
     public Integer getId() {

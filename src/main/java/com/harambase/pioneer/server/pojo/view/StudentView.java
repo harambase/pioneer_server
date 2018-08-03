@@ -23,13 +23,13 @@ public class StudentView implements Serializable {
     private Integer maxCredits;
 
     @Column(name = "complete")
-    private Integer complete;
+    private Double complete;
 
     @Column(name = "progress")
-    private Integer progress;
+    private Double progress;
 
     @Column(name = "incomplete")
-    private Integer incomplete;
+    private Double incomplete;
 
     public String getSname() {
         return sname;
@@ -55,27 +55,27 @@ public class StudentView implements Serializable {
         this.studentId = studentId;
     }
 
-    public Integer getComplete() {
+    public Double getComplete() {
         return complete;
     }
 
-    public void setComplete(Integer complete) {
+    public void setComplete(Double complete) {
         this.complete = complete;
     }
 
-    public Integer getProgress() {
+    public Double getProgress() {
         return progress;
     }
 
-    public void setProgress(Integer progress) {
+    public void setProgress(Double progress) {
         this.progress = progress;
     }
 
-    public Integer getIncomplete() {
+    public Double getIncomplete() {
         return incomplete;
     }
 
-    public void setIncomplete(Integer incomplete) {
+    public void setIncomplete(Double incomplete) {
         this.incomplete = incomplete;
     }
 

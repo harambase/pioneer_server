@@ -26,7 +26,7 @@ public class Transcript implements Serializable {
     private String complete;
 
     @Column(name = "credit")
-    private Integer credit;
+    private Double credit;
 
     @Column(name = "assign_time")
     private String assignTime;
@@ -34,11 +34,11 @@ public class Transcript implements Serializable {
     @Column(name = "operator_id")
     private String operatorId;
 
-    public Integer getCredit() {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(Integer credit) {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 

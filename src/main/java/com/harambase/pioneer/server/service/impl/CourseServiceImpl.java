@@ -201,6 +201,7 @@ public class CourseServiceImpl implements CourseService {
             transcript.setCrn(crn);
             transcript.setStudentId(studentId);
             transcript.setOperatorId(IDUtil.ROOT);
+            transcript.setCredit(0.0);
             transcript.setAssignTime(DateUtil.DateToStr(new Date()));
 
             //检查复选
