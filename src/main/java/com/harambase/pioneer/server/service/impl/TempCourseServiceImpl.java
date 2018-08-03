@@ -52,26 +52,8 @@ public class TempCourseServiceImpl implements TempCourseService {
             tempCourse.setStatus("0");
 
             TempCourse newTempCourse = tempCourseRepository.save(tempCourse);
-            if (newTempCourse == null)
-                return ReturnMsgUtil.fail();
 
-            //todo:向所有教务发送
-            Message message = new Message();
-            message.setDate(DateUtil.DateToStr(new Date()));
-            message.setReceiverId("9000000000");
-            message.setSenderId("9000000000");
-            message.setBody("注意!接收到来自" + crn + "的请求注册信息");
-            message.setTitle("注册信息");
-            message.setStatus("UNREAD");
-            message.setSubject("用户注册");
-            message.setTag("work");
-            message.setLabels("inbox/important/");
-
-            Message newMsg = messageRepository.save(message);
-            if (newMsg == null)
-                throw new RuntimeException("Message 插入失败!");
-
-            return ReturnMsgUtil.success(newTempCourse);
+            return newTempCourse == null ? ReturnMsgUtil.fail() : ReturnMsgUtil.success(newTempCourse);
 
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

@@ -5,6 +5,8 @@ import com.harambase.pioneer.server.pojo.base.Person;
 
 public interface PersonService {
 
+    ResultMap updateLastLoginTime(String userId);
+
     ResultMap login(Person person);
 
     ResultMap addUser(Person person);

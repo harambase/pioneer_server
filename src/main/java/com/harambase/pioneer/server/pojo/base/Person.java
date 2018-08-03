@@ -56,6 +56,9 @@ public class Person implements Serializable {
     @Column(name = "update_time")
     private String updateTime;
 
+    @Column(name = "last_login_time")
+    private String lastLoginTime;
+
     @Column(name = "status")
     private String status;
 
@@ -76,6 +79,14 @@ public class Person implements Serializable {
 
     @Column(name = "address")
     private String address;
+
+    public String getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(String lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
 
     public String getUserInfo() {
         return userInfo;

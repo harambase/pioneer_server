@@ -59,12 +59,26 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public ResultMap updateLastLoginTime(String userId) {
+        Person person = personRepository.findOne(userId);
+        person.setLastLoginTime(DateUtil.DateToStr(new Date()));
+        Person newPerson = personRepository.save(person);
+        return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+    }
+
+    @Override
     public ResultMap login(Person person) {
         try {
             Person user = personRepository.findByUserIdAndPassword(person.getUserId(), person.getPassword());
             if (user != null) {
                 String status = user.getStatus();
-                return status.equals("1") ? ReturnMsgUtil.success(user) : ReturnMsgUtil.custom(SystemConst.USER_DISABLED);
+                if (status.equals("1")) {
+                    user.setLastLoginTime(DateUtil.DateToStr(new Date()));
+                    personRepository.save(user);
+                    return ReturnMsgUtil.success(user);
+                }
+
+                return ReturnMsgUtil.custom(SystemConst.USER_DISABLED);
             }
             return ReturnMsgUtil.fail();
         } catch (Exception e) {
