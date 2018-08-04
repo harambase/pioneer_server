@@ -207,18 +207,19 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
+    public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                String info, String ownerId) {
         try {
             ResultMap message = new ResultMap();
 
-            long totalSize = pinDao.getCountByMapPageSearchOrdered(search, info);
+            long totalSize = pinDao.getCountByMapPageSearchOrdered(search, info, ownerId);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<PinView> pinViewList = pinDao.getByMapPageSearchOrdered(search, info,
+            List<PinView> pinViewList = pinDao.getByMapPageSearchOrdered(search, info, ownerId,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(pinViewList);

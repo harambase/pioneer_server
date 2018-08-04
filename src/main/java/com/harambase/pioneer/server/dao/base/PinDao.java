@@ -20,7 +20,7 @@ public class PinDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public Long getCountByMapPageSearchOrdered(String search, String info) throws Exception {
+    public Long getCountByMapPageSearchOrdered(String search, String info, String ownerId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -36,6 +36,8 @@ public class PinDao {
 
             if (StringUtils.isNotEmpty(info))
                 queryString += "AND info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(ownerId))
+                queryString += "AND owner_id = '" + ownerId + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(owner_id LIKE '%" + search + "%' OR " +
                                "    pin      LIKE '%" + search + "%' OR " +
@@ -60,7 +62,7 @@ public class PinDao {
         }
     }
 
-    public List<PinView> getByMapPageSearchOrdered(String search, String info, int currentIndex, int pageSize,
+    public List<PinView> getByMapPageSearchOrdered(String search, String info, String ownerId, int currentIndex, int pageSize,
                                                    String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
@@ -77,6 +79,8 @@ public class PinDao {
 
             if (StringUtils.isNotEmpty(info))
                 queryString += "AND info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(ownerId))
+                queryString += "AND owner_id = '" + ownerId + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(owner_id LIKE '%" + search + "%' OR " +
                                "    pin      LIKE '%" + search + "%' OR " +

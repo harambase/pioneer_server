@@ -69,8 +69,9 @@ public class PinController {
                                @RequestParam(value = "search", required = false, defaultValue = "") String search,
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                               @RequestParam(value = "ownerId", required = false, defaultValue = "") String ownerId,
                                @RequestParam(value = "info", required = false) String info) {
-        ResultMap resultMap = pinService.listByInfo(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, info);
+        ResultMap resultMap = pinService.listByInfo(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, info, ownerId);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
