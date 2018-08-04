@@ -20,18 +20,12 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
 
     int countByPin(Integer pin);
 
-    Page<Pin> findByInfo(String info, Pageable pageable);
-
-    List<Pin> findByInfo(String info);
-
     @Query("select distinct info from Pin")
     List<String> findInfo();
-
-    int countByInfoAndStudentId(String info, String userId);
-
-    int countByInfoAndFacultyId(String info, String userId);
 
     int countByInfoAndRole(String info, int role);
 
     int countByInfo(String info);
+
+    int countByInfoAndOwnerId(String info, String userId);
 }

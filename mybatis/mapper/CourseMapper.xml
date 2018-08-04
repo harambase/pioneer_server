@@ -16,7 +16,7 @@
     <result column="startTime" property="startTime" jdbcType="VARCHAR" />
     <result column="endTime" property="endTime" jdbcType="VARCHAR" />
     <result column="capacity" property="capacity" jdbcType="INTEGER" />
-    <result column="facultyId" property="facultyId" jdbcType="VARCHAR" />
+    <result column="ownerId" property="ownerId" jdbcType="VARCHAR" />
     <result column="info" property="info" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     id, crn, name, credits, precrn, couLev, couSec, classroom, startDate, endDate, day, 
-    startTime, endTime, capacity, facultyId, info, createTime, updateTime
+    startTime, endTime, capacity, ownerId, info, createTime, updateTime
   </sql>
   <sql id="Blob_Column_List" >
     comment
@@ -52,14 +52,14 @@
       credits, precrn, couLev, 
       couSec, classroom, startDate, 
       endDate, day, startTime, 
-      endTime, capacity, facultyId,
+      endTime, capacity, ownerId,
       info, createTime, updateTime,
       comment)
     values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{credits,jdbcType=INTEGER}, #{precrn,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR},
       #{section,jdbcType=VARCHAR}, #{classroom,jdbcType=VARCHAR}, #{startDate,jdbcType=VARCHAR},
       #{endDate,jdbcType=VARCHAR}, #{day,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR},
-      #{endTime,jdbcType=VARCHAR}, #{capacity,jdbcType=INTEGER}, #{facultyId,jdbcType=VARCHAR},
+      #{endTime,jdbcType=VARCHAR}, #{capacity,jdbcType=INTEGER}, #{ownerId,jdbcType=VARCHAR},
       #{info,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR},
       #{comment,jdbcType=LONGVARCHAR})
   </insert>
@@ -108,8 +108,8 @@
       <if test="capacity != null" >
         capacity,
       </if>
-      <if test="facultyId != null" >
-        facultyId,
+      <if test="ownerId != null" >
+        ownerId,
       </if>
       <if test="info != null" >
         info,
@@ -167,8 +167,8 @@
       <if test="capacity != null" >
         #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="facultyId != null" >
-        #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="info != null" >
         #{info,jdbcType=VARCHAR},
@@ -223,8 +223,8 @@
       <if test="capacity != null" >
         capacity = #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="facultyId != null" >
-        facultyId = #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        ownerId = #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="info != null" >
         info = #{info,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
       startTime = #{startTime,jdbcType=VARCHAR},
       endTime = #{endTime,jdbcType=VARCHAR},
       capacity = #{capacity,jdbcType=INTEGER},
-      facultyId = #{facultyId,jdbcType=VARCHAR},
+      ownerId = #{ownerId,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR},
@@ -278,7 +278,7 @@
       startTime = #{startTime,jdbcType=VARCHAR},
       endTime = #{endTime,jdbcType=VARCHAR},
       capacity = #{capacity,jdbcType=INTEGER},
-      facultyId = #{facultyId,jdbcType=VARCHAR},
+      ownerId = #{ownerId,jdbcType=VARCHAR},
       info = #{info,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR}
@@ -319,8 +319,8 @@
   </select>
   <select id="getCourseCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
     select count(*) as count from CourseView <where> 1 = 1
-    <if test="facultyId!=null">
-      and facultyId = #{facultyId,jdbcType=VARCHAR}
+    <if test="ownerId!=null">
+      and ownerId = #{ownerId,jdbcType=VARCHAR}
     </if>
     <if test="info!=null">
       and info = #{info,jdbcType=VARCHAR}
@@ -344,8 +344,8 @@
   </select>
   <select id="getCourseByMapPageSearchOrdered" parameterType="java.util.Map" resultType="com.harambase.pioneer.pojo.view.CourseView">
     select * from CourseView <where> 1 = 1
-    <if test="facultyId!=null">
-      and facultyId = #{facultyId,jdbcType=VARCHAR}
+    <if test="ownerId!=null">
+      and ownerId = #{ownerId,jdbcType=VARCHAR}
     </if>
     <if test="info!=null">
       and info = #{info,jdbcType=VARCHAR}
@@ -369,7 +369,7 @@
     limit #{currentIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
   </select>
   <select id="facultyCourse" parameterType="java.lang.String" resultType="com.harambase.pioneer.pojo.base.Course">
-    select * from Course where facultyId = #{arg0,jdbcType=VARCHAR}
+    select * from Course where ownerId = #{arg0,jdbcType=VARCHAR}
   </select>
 
 </mapper>

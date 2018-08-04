@@ -4,13 +4,13 @@
   <resultMap id="BaseResultMap" type="com.harambase.pioneer.pojo.base.Advise" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="studentId" property="studentId" jdbcType="VARCHAR" />
-    <result column="facultyId" property="facultyId" jdbcType="VARCHAR" />
+    <result column="ownerId" property="ownerId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
     <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, studentId, facultyId
+    id, studentId, ownerId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,7 +21,7 @@
   <select id="selectByAdvise" resultMap="BaseResultMap" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     select
     <include refid="Base_Column_List" />
-    from Advise where studentId = #{studentId,jdbcType=VARCHAR} and facultyId = #{facultyId,jdbcType=VARCHAR}
+    from Advise where studentId = #{studentId,jdbcType=VARCHAR} and ownerId = #{ownerId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectFacultyByStudent" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -38,12 +38,12 @@
     delete from Advise where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByUserID" parameterType="java.lang.String" >
-    delete from Advise where studentId = #{studentId,jdbcType=INTEGER} or facultyId = #{studentId,jdbcType=INTEGER}
+    delete from Advise where studentId = #{studentId,jdbcType=INTEGER} or ownerId = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Advise" >
-    insert into Advise (id, studentId, facultyId, status, updateTime, operator_id
+    insert into Advise (id, studentId, ownerId, status, updateTime, operator_id
       )
-    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{facultyId,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR},
     #{status,jdbcType=VARCHAR},
     #{updateTime,jdbcType=VARCHAR},
     #{operator_id,jdbcType=VARCHAR}
@@ -58,8 +58,8 @@
       <if test="studentId != null" >
         studentId,
       </if>
-      <if test="facultyId != null" >
-        facultyId,
+      <if test="ownerId != null" >
+        ownerId,
       </if>
       <if test="status != null" >
         status,
@@ -78,8 +78,8 @@
       <if test="studentId != null" >
         #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="facultyId != null" >
-        #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
@@ -98,8 +98,8 @@
       <if test="studentId != null" >
         studentId = #{studentId,jdbcType=VARCHAR},
       </if>
-      <if test="facultyId != null" >
-        facultyId = #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        ownerId = #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
@@ -116,7 +116,7 @@
   <update id="updateByPrimaryKey" parameterType="com.harambase.pioneer.pojo.base.Advise" >
     update Advise
     set studentId = #{studentId,jdbcType=VARCHAR},
-        facultyId = #{facultyId,jdbcType=VARCHAR},
+        ownerId = #{ownerId,jdbcType=VARCHAR},
         status = #{status,jdbcType=VARCHAR},
         updateTime = #{updateTime,jdbcType=VARCHAR},
         operator_id = #{operator_id,jdbcType=VARCHAR},
@@ -128,12 +128,12 @@
     <if test="studentId != null">
       and studentId = #{studentId,jdbcType=VARCHAR}
     </if>
-    <if test="facultyId != null">
-      and facultyId = #{facultyId,jdbcType=VARCHAR}
+    <if test="ownerId != null">
+      and ownerId = #{ownerId,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
       and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyId like '%' #{search,jdbcType=VARCHAR} '%' or
+      ownerId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
       operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')
@@ -145,12 +145,12 @@
     <if test="studentId != null">
       and studentId = #{studentId,jdbcType=VARCHAR}
     </if>
-    <if test="facultyId != null">
-      and facultyId = #{facultyId,jdbcType=VARCHAR}
+    <if test="ownerId != null">
+      and ownerId = #{ownerId,jdbcType=VARCHAR}
     </if>
     <if test="search != null">
       and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
-      facultyId like '%' #{search,jdbcType=VARCHAR} '%' or
+      ownerId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
       operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')

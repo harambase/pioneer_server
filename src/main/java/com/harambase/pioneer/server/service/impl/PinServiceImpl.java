@@ -5,10 +5,11 @@ import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.SystemConst;
 import com.harambase.pioneer.server.dao.base.PersonDao;
+import com.harambase.pioneer.server.dao.base.PinDao;
 import com.harambase.pioneer.server.dao.repository.PinRepository;
 import com.harambase.pioneer.server.helper.TimeValidate;
-import com.harambase.pioneer.server.pojo.base.Message;
 import com.harambase.pioneer.server.pojo.base.Pin;
+import com.harambase.pioneer.server.pojo.view.PinView;
 import com.harambase.pioneer.server.service.PinService;
 import com.harambase.pioneer.server.dao.repository.AdviseRepository;
 import com.harambase.pioneer.server.dao.repository.MessageRepository;
@@ -39,20 +40,17 @@ public class PinServiceImpl implements PinService {
 
     private final PinRepository pinRepository;
     private final PersonRepository personRepository;
-    private final MessageRepository messageRepository;
-    private final AdviseRepository adviseRepository;
 
     private final PersonDao personDao;
+    private final PinDao pinDao;
 
     @Autowired
     public PinServiceImpl(PersonRepository personRepository, PinRepository pinRepository,
-                          MessageRepository messageRepository, AdviseRepository adviseRepository,
-                          PersonDao personDao) {
+                          PinDao pinDao, PersonDao personDao) {
         this.personRepository = personRepository;
         this.pinRepository = pinRepository;
-        this.messageRepository = messageRepository;
-        this.adviseRepository = adviseRepository;
         this.personDao = personDao;
+        this.pinDao = pinDao;
     }
 
     @Override
@@ -61,7 +59,7 @@ public class PinServiceImpl implements PinService {
             Pin pin = pinRepository.findByPin(pinNum);
 
             if (pin != null) {
-                String ownerId = StringUtils.isNotEmpty(pin.getFacultyId()) ? pin.getFacultyId() : pin.getStudentId();
+                String ownerId = pin.getOwnerId();
                 return (ownerId.equals(userId) && TimeValidate.isPinValidate(pin)) ? ReturnMsgUtil.success(pin) : ReturnMsgUtil.fail();
             }
             return ReturnMsgUtil.fail();
@@ -107,17 +105,7 @@ public class PinServiceImpl implements PinService {
                 pin.setRole(role);
                 pin.setInfo(info);
                 pin.setRemark(remark);
-
-
-                //todo!!!! ROLE 可能是数组
-                switch (role) {
-                    case 1:
-                        pin.setStudentId(person.getUserId());
-                        break;
-                    case 2:
-                        pin.setFacultyId(person.getUserId());
-                        break;
-                }
+                pin.setOwnerId(person.getUserId());
 
                 Pin newPin = pinRepository.save(pin);
                 if (newPin == null)
@@ -157,21 +145,20 @@ public class PinServiceImpl implements PinService {
     }
 
     @Override
-    public ResultMap generateOne(String startTime, String endTime, String role, String info, String remark, String userId) {
+    public ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
         try {
 
 
             //检查是否存在该类型的pin
-            int stuCount = pinRepository.countByInfoAndStudentId(info, userId);
-            int facCount = pinRepository.countByInfoAndFacultyId(info, userId);
+            int count = pinRepository.countByInfoAndOwnerId(info, userId);
 
-            if (stuCount != 0 || facCount != 0) {
+            if (count != 0) {
                 return ReturnMsgUtil.custom(SystemConst.PIN_EXISTS);
             }
 
             //生成pin
             Pin pin = new Pin();
-            int pinNum, count;
+            int pinNum;
 
             do {
                 pinNum = (int) (Math.random() * (999999 - 100000 + 1) + 100000);
@@ -184,16 +171,8 @@ public class PinServiceImpl implements PinService {
             pin.setCreateTime(DateUtil.DateToStr(new Date()));
             pin.setInfo(info);
             pin.setRemark(remark);
-
-            //todo!!!! ROLE 可能是数组
-            switch (role) {
-                case "1":
-                    pin.setStudentId(userId);
-                    break;
-                case "2":
-                    pin.setFacultyId(userId);
-                    break;
-            }
+            pin.setRole(role);
+            pin.setOwnerId(userId);
 
             Pin newPin = pinRepository.save(pin);
             return newPin != null ? ReturnMsgUtil.success(newPin) : ReturnMsgUtil.fail();
@@ -231,42 +210,24 @@ public class PinServiceImpl implements PinService {
     public ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info) {
         try {
             ResultMap message = new ResultMap();
+
+            long totalSize = pinDao.getCountByMapPageSearchOrdered(search, info);
+
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
+            page.setTotalRows(totalSize);
 
-            Pageable pageable;
-            if (StringUtils.isEmpty(order) || order.toLowerCase().equals("desc")) {
-                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.DESC, orderColumn);
-            } else {
-                pageable = new PageRequest(page.getCurrentIndex(), page.getPageSize(), Sort.Direction.ASC, orderColumn);
-            }
+            List<PinView> pinViewList = pinDao.getByMapPageSearchOrdered(search, info,
+                    page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
-            List<Pin> pinList = pinRepository.findByInfo(info, pageable).getContent();
-
-            for (Pin pin : pinList) {
-                int role = pin.getRole();
-                String userId = "";
-                switch (role) {
-                    case 1:
-                        userId = pin.getStudentId();
-                        break;
-                    case 2:
-                        userId = pin.getFacultyId();
-                        break;
-                }
-                String owner = personRepository.getName(userId);
-                pin.setOwner(owner);
-            }
-            page.setTotalRows(pinList.size());
-
-            message.setData(pinList);
+            message.setData(pinViewList);
             message.put("page", page);
             message.setMsg(SystemConst.SUCCESS.getMsg());
             message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
         }

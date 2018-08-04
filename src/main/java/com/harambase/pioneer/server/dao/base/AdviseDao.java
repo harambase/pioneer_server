@@ -2,6 +2,7 @@ package com.harambase.pioneer.server.dao.base;
 
 import com.harambase.pioneer.server.dao.connection.DataServiceConnection;
 import com.harambase.pioneer.server.dao.connection.ResultSetHelper;
+import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.pojo.view.AdviseView;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -130,6 +131,34 @@ public class AdviseDao {
 
             return adviseViewList.get(0);
 
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
+
+    public AdviseView getAdviseViewByStudentId(String studentId) throws Exception{
+        ResultSet rs = null;
+        Connection connection = null;
+        Statement stmt = null;
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return null;
+
+            stmt = connection.createStatement();
+
+            String queryString = "SELECT * FROM advise WHERE 1=1 AND student_id = '" + studentId + "' ";
+
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+
+            return ResultSetHelper.getObjectFor(rs, AdviseView.class).get(0);
         } finally {
             if (stmt != null)
                 stmt.close();

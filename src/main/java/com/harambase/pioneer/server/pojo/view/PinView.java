@@ -1,11 +1,11 @@
-package com.harambase.pioneer.server.pojo.base;
+package com.harambase.pioneer.server.pojo.view;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "pin")
-public class Pin implements Serializable {
+@Table(name = "pinview")
+public class PinView implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,6 +35,28 @@ public class Pin implements Serializable {
 
     @Column(name = "remark")
     private String remark;
+
+    @Column(name = "oname")
+    private String oname;
+
+    @Column(name = "profile")
+    private String profile;
+
+    public String getOname() {
+        return oname;
+    }
+
+    public void setOname(String oname) {
+        this.oname = oname;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
 
     public Integer getId() {
         return id;

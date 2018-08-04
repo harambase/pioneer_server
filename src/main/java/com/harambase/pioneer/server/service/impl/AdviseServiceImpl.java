@@ -235,4 +235,16 @@ public class AdviseServiceImpl implements AdviseService {
 
         }
     }
+
+    @Override
+    public ResultMap getAdviseViewByStudentId(String studentId) {
+        try {
+            AdviseView advise = adviseDao.getAdviseViewByStudentId(studentId);
+            return advise != null ? ReturnMsgUtil.success(advise) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+
+        }
+    }
 }

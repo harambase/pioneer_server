@@ -5,7 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="pin" property="pin" jdbcType="INTEGER" />
     <result column="info" property="info" jdbcType="VARCHAR" />
-    <result column="facultyId" property="facultyId" jdbcType="VARCHAR" />
+    <result column="ownerId" property="ownerId" jdbcType="VARCHAR" />
     <result column="studentId" property="studentId" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="INTEGER" />
     <result column="startTime" property="startTime" jdbcType="VARCHAR" />
@@ -16,7 +16,7 @@
     <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, pin, info, facultyId, studentId, role, startTime, endTime, createTime
+    id, pin, info, ownerId, studentId, role, startTime, endTime, createTime
   </sql>
   <sql id="Blob_Column_List" >
     remark
@@ -35,11 +35,11 @@
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Pin" >
     insert into Pin (id, pin, info, 
-      facultyId, studentId, role,
+      ownerId, studentId, role,
       startTime, endTime, createTime, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{pin,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, 
-      #{facultyId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER},
+      #{ownerId,jdbcType=VARCHAR}, #{studentId,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER},
       #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR},
       #{remark,jdbcType=LONGVARCHAR})
   </insert>
@@ -55,8 +55,8 @@
       <if test="info != null" >
         info,
       </if>
-      <if test="facultyId != null" >
-        facultyId,
+      <if test="ownerId != null" >
+        ownerId,
       </if>
       <if test="studentId != null" >
         studentId,
@@ -87,8 +87,8 @@
       <if test="info != null" >
         #{info,jdbcType=VARCHAR},
       </if>
-      <if test="facultyId != null" >
-        #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="studentId != null" >
         #{studentId,jdbcType=VARCHAR},
@@ -119,8 +119,8 @@
       <if test="info != null" >
         info = #{info,jdbcType=VARCHAR},
       </if>
-      <if test="facultyId != null" >
-        facultyId = #{facultyId,jdbcType=VARCHAR},
+      <if test="ownerId != null" >
+        ownerId = #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="studentId != null" >
         studentId = #{studentId,jdbcType=VARCHAR},
@@ -147,7 +147,7 @@
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
-      facultyId = #{facultyId,jdbcType=VARCHAR},
+      ownerId = #{ownerId,jdbcType=VARCHAR},
       studentId = #{studentId,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
       startTime = #{startTime,jdbcType=VARCHAR},
@@ -160,7 +160,7 @@
     update Pin
     set pin = #{pin,jdbcType=INTEGER},
       info = #{info,jdbcType=VARCHAR},
-      facultyId = #{facultyId,jdbcType=VARCHAR},
+      ownerId = #{ownerId,jdbcType=VARCHAR},
       studentId = #{studentId,jdbcType=VARCHAR},
       role = #{role,jdbcType=INTEGER},
       startTime = #{startTime,jdbcType=VARCHAR},

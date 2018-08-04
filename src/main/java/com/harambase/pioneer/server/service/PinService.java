@@ -9,13 +9,13 @@ public interface PinService {
 
     ResultMap generateAll(String startTime, String endTime, int role, String info, String remark);
 
+    ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId);
+
     ResultMap deleteAllByInfo(String info);
 
     ResultMap listByInfo(String currentPage, String pageSize, String search, String order, String orderColumn, String info);
 
     ResultMap deleteSingleByPin(Integer pin);
-
-    ResultMap generateOne(String startTime, String endTime, String role, String info, String remark, String userId);
 
     ResultMap getAllInfo();
 
