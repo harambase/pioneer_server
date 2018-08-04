@@ -176,11 +176,11 @@ public class MessageDao {
         String queryString = "";
 
         if (box.equals("inbox"))
-            queryString += "AND receiver_id like '%" + receiver_id + "%'";
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND (status = 'read' OR status = 'unread') ";
         if (box.equals("important"))
-            queryString += "AND receiver_id like '%" + receiver_id + "%' AND (labels LIKE '%重要%' OR labels LIKE '%紧急%')";
-        if (box.equals("sent"))
-            queryString += "AND sender_id = '" + sender_id + "'";
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND (labels LIKE '%重要%' OR labels LIKE '%紧急%') AND (status = 'read' OR status = 'unread') ";
+        if (box.equals("urgent"))
+            queryString += "AND receiver_id like '%" + receiver_id + "%' AND labels LIKE '%紧急%' AND (status = 'read' OR status = 'unread') ";
         if (box.equals("draft"))
             queryString += "AND sender_id = '" + sender_id + "'";
         if (box.equals("trash"))
