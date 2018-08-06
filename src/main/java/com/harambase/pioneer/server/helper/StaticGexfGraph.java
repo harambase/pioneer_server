@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.helper;
 
+import com.harambase.pioneer.common.Config;
 import com.harambase.pioneer.common.constant.UserTypeConst;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.pojo.base.Transcript;
@@ -126,8 +127,7 @@ public class StaticGexfGraph {
         }
 
         StaxGraphWriter graphWriter = new StaxGraphWriter();
-        String path = StaticGexfGraph.class.getResource("").getPath();
-
+        String path = Config.serverPath +"/static/";
 
         try {
             File f = new File(path + "/static_graph_sample.gexf");

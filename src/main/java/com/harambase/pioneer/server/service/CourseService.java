@@ -25,7 +25,7 @@ public interface CourseService {
 
     ResultMap getCourseBySearch(String search, String status, String info);
 
-    ResultMap courseList(String s, String s1, String search, String order, String orderCol, String facultyid, String info);
+    ResultMap courseList(String s, String s1, String search, String order, String orderCol, String facultyId, String info, String status);
 
     ResultMap preCourseList(String crn);
 

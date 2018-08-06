@@ -63,7 +63,7 @@ public class CourseDao {
         }
     }
 
-    public Long getCountByMapPageSearchOrdered(String facultyid, String info, String search) throws Exception {
+    public Long getCountByMapPageSearchOrdered(String facultyId, String info, String status, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -76,16 +76,18 @@ public class CourseDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM courseview c WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(facultyid))
-                queryString += "AND c.faculty_id = '" + facultyid + "' ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND c.faculty_id = '" + facultyId + "' ";
             if (StringUtils.isNotEmpty(info))
                 queryString += "AND c.info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(status))
+                queryString += "AND c.status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
-                        " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
-                        " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
-                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
+                        " c.crn     LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
+                        " c.level   LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
+                        " c.time    LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
+                        " c.faculty LIKE '%" + search + "%' or c.date     LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
             }
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -105,7 +107,7 @@ public class CourseDao {
         }
     }
 
-    public List<LinkedHashMap> getByMapPageSearchOrdered(String facultyid, String info, String search, int currentIndex, int pageSize,
+    public List<LinkedHashMap> getByMapPageSearchOrdered(String facultyId, String info, String status, String search, int currentIndex, int pageSize,
                                                          String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
@@ -119,16 +121,18 @@ public class CourseDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM courseview c WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(facultyid))
-                queryString += "AND c.faculty_id = '" + facultyid + "' ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND c.faculty_id = '" + facultyId + "' ";
             if (StringUtils.isNotEmpty(info))
                 queryString += "AND c.info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(status))
+                queryString += "AND c.status = '" + status + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(" +
-                        " c.crn    LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
-                        " c.level  LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
-                        " c.time   LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
-                        " c.status LIKE '%" + search + "%' or c.faculty  LIKE '%" + search + "%' or c.date    LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
+                        " c.crn     LIKE '%" + search + "%' or c.name     LIKE '%" + search + "%' or c.credits LIKE '%" + search + "%' or" +
+                        " c.level   LIKE '%" + search + "%' or c.section  LIKE '%" + search + "%' or c.day     LIKE '%" + search + "%' or" +
+                        " c.time    LIKE '%" + search + "%' or c.capacity LIKE '%" + search + "%' or c.remain  LIKE '%" + search + "%' or" +
+                        " c.faculty LIKE '%" + search + "%' or c.date     LIKE '%" + search + "%' or c.update_time LIKE '%" + search + "%')";
             }
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
@@ -176,7 +180,7 @@ public class CourseDao {
         }
     }
 
-    public List<CourseView> findCourseViewByFacultyId(String facultyid) throws Exception {
+    public List<CourseView> findCourseViewByFacultyId(String facultyId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -187,7 +191,7 @@ public class CourseDao {
                 return courseViews;
 
             stmt = connection.createStatement();
-            String queryString = "select * from courseview where faculty_id= '" + facultyid + "'";
+            String queryString = "select * from courseview where faculty_id= '" + facultyId + "'";
 
             logger.info(queryString);
 

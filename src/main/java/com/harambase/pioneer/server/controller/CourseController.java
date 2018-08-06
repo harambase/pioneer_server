@@ -72,8 +72,10 @@ public class CourseController {
                                @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
                                @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
                                @RequestParam(value = "facultyId", required = false) String facultyId,
-                               @RequestParam(value = "info", required = false) String info) {
-        ResultMap resultMap = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyId, info);
+                               @RequestParam(value = "info", required = false) String info,
+                               @RequestParam(value = "status", required = false) String status
+    ) {
+        ResultMap resultMap = courseService.courseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol, facultyId, info, status);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 

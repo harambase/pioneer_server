@@ -56,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
         try {
             course.setCreateTime(DateUtil.DateToStr(new Date()));
             course.setUpdateTime(DateUtil.DateToStr(new Date()));
-            String facultyid = course.getFacultyId();
+            String facultyId = course.getFacultyId();
 
             //生成CRN
             String info = course.getInfo();
@@ -74,10 +74,10 @@ public class CourseServiceImpl implements CourseService {
 
             if (!course.getFacultyId().equals(IDUtil.ROOT)) {
                 //检查教师时间冲突
-                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyid), course)) {
+                if (TimeValidate.isTimeConflict(courseDao.findCourseViewByFacultyId(facultyId), course)) {
                     return ReturnMsgUtil.custom(SystemConst.TIME_CONFLICT);
                 }
-                course.setFacultyId(facultyid);
+                course.setFacultyId(facultyId);
             }
 
             //插入课程
@@ -329,7 +329,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public ResultMap courseTreeList(String facultyid, String info) {
+    public ResultMap courseTreeList(String facultyId, String info) {
 
         try {
             List<Map<String, String>> infoList = new ArrayList<>();
@@ -337,7 +337,7 @@ public class CourseServiceImpl implements CourseService {
             Map<String, String> infoMap;
 
             List<LinkedHashMap> courseViewList =
-                    courseDao.getByMapPageSearchOrdered(facultyid, info, "", 0, Integer.MAX_VALUE, "desc", "crn");
+                    courseDao.getByMapPageSearchOrdered(facultyId, info, "","", 0, Integer.MAX_VALUE, "desc", "crn");
 
             for (LinkedHashMap course : courseViewList) {
                 infoSet.add((String) course.get("info"));
@@ -396,17 +396,17 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public ResultMap courseList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                String facultyid, String info) {
+                                String facultyId, String info, String status) {
         try {
             ResultMap message = new ResultMap();
-            long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyid, info, search);
+            long totalSize = courseDao.getCountByMapPageSearchOrdered(facultyId, info, status, search);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered(facultyid, info, search,
+            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered(facultyId, info, status, search,
                     page.getCurrentIndex(), page.getPageSize(), order, orderColumn);
 
             message.setData(courseViewList);

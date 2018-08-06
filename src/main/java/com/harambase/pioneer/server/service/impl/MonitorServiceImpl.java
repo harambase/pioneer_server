@@ -103,7 +103,7 @@ public class MonitorServiceImpl implements MonitorService {
 
         try {
             List<Person> personList = personRepository.findAll();
-            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered("", "", "", 0, Integer.MAX_VALUE, "desc", "crn");
+            List<LinkedHashMap> courseViewList = courseDao.getByMapPageSearchOrdered("", "", "","", 0, Integer.MAX_VALUE, "desc", "crn");
             List<Transcript> transcriptList = transcriptRepository.findAll();
             List<Advise> adviseList = adviseRepository.findAll();
 
