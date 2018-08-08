@@ -62,7 +62,6 @@ public class StudentController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-
     @ApiOperation(value = "更新学生", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}", method = RequestMethod.PUT)

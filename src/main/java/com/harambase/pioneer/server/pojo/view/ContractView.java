@@ -1,11 +1,11 @@
-package com.harambase.pioneer.server.pojo.base;
+package com.harambase.pioneer.server.pojo.view;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "contract")
-public class Contract implements Serializable {
+@Table(name = "contractview")
+public class ContractView implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,12 +42,22 @@ public class Contract implements Serializable {
     @Column(name = "contract_info")
     private String contractInfo;
 
-    public Integer getId() {
-        return id;
+    @Column(name = "oname")
+    private String oname;
+
+    @Column(name = "profile")
+    private String profile;
+
+    @Column(name = "status")
+    private String status;
+
+
+    public String getOname() {
+        return oname;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOname(String oname) {
+        this.oname = oname;
     }
 
     public String getType() {
@@ -56,6 +66,22 @@ public class Contract implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getContractId() {
@@ -112,6 +138,14 @@ public class Contract implements Serializable {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getOperatorId() {

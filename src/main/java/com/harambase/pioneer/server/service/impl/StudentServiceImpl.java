@@ -1,5 +1,6 @@
 package com.harambase.pioneer.server.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.Page;
 import com.harambase.pioneer.common.constant.SystemConst;
@@ -12,6 +13,7 @@ import com.harambase.pioneer.server.service.StudentService;
 import com.harambase.pioneer.common.support.util.DateUtil;
 import com.harambase.pioneer.common.support.util.PageUtil;
 import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,10 +135,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public ResultMap getContract(String studentId) {
         try {
-            Student student = studentRepository.findOne(studentId);
-            String contractString = student.getContractInfo();
+            JSONArray contractArray = new JSONArray();
+            Map<String, JSONArray> studentMap = new HashMap<>();
 
-            return ReturnMsgUtil.success(contractString);
+            if (StringUtils.isNotEmpty(studentId)) {
+                Student student = studentRepository.findOne(studentId);
+                studentMap.put(student.getStudentId(), JSONArray.parseArray(student.getContractInfo()));
+                contractArray.add(studentMap);
+            } else {
+                List<Student> studentList = studentRepository.findAll();
+                for (Student s : studentList) {
+                    studentMap.put(s.getStudentId(), JSONArray.parseArray(s.getContractInfo()));
+                    contractArray.add(studentMap);
+                }
+            }
+            return ReturnMsgUtil.success(contractArray.toJSONString());
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();
