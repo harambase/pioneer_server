@@ -17,4 +17,6 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
     int countByType(String type);
 
     int countByContractId(String contractId);
+
+    List<Contract> findByInitDate(String initDate);
 }

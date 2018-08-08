@@ -46,19 +46,20 @@ public class ContractServiceImpl implements ContractService {
 
         try {
             String contractId;
-            String info = contract.getInfo();
+            String initDate = contract.getInitDate();
 
-            List<Contract> contractList = contractRepository.findByInfo(info);
+            List<Contract> contractList = contractRepository.findByInitDate(initDate);
 
             contractId = IDUtil.genContractID(contract.getInitDate());
 
             for (int i = 0; i < contractList.size(); i++) {
                 Contract c = contractList.get(i);
                 if (contractId.equals(c.getContractId())) {
-                    contractId = IDUtil.genContractID(contract.getInitDate());
+                    contractId = IDUtil.genUserID(initDate);
                     i = 0;
                 }
             }
+
             contract.setContractId(contractId);
             contract.setCreateTime(DateUtil.DateToStr(new Date()));
             contract.setUpdateTime(DateUtil.DateToStr(new Date()));
