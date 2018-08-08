@@ -45,23 +45,6 @@ public class StudentController {
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "获取学生合同信息", notes = "权限：管理员，教务，行政后勤", response = Map.class, tags = {Tags.STUDENT})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{studentId}/contract", method = RequestMethod.GET)
-    public ResponseEntity getContract(@PathVariable(value = "studentId") String studentId) {
-        ResultMap resultMap = studentService.getContract(studentId);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-    }
-
-    @ApiOperation(value = "提交，修改学生合同信息", notes = "权限：管理员，教务，行政后勤", response = Map.class, tags = {Tags.STUDENT})
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{studentId}/contract", method = RequestMethod.POST)
-    public ResponseEntity updateContract(@PathVariable(value = "studentId") String studentId,
-                                         @RequestBody String contractString) {
-        ResultMap resultMap = studentService.updateContract(studentId, contractString);
-        return new ResponseEntity<>(resultMap, HttpStatus.OK);
-    }
-
     @ApiOperation(value = "更新学生", notes = "权限：管理员，教务", response = Map.class, tags = {Tags.STUDENT})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/{studentId}", method = RequestMethod.PUT)

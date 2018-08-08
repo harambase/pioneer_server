@@ -18,7 +18,4 @@ public interface StudentService {
 
     ResultMap courseList(String status, String studentId);
 
-    ResultMap getContract(String studentId);
-
-    ResultMap updateContract(String studentId, String contractString);
 }

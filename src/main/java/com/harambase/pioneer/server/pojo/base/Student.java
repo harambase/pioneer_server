@@ -17,16 +17,6 @@ public class Student implements Serializable {
     @Column(name = "update_time")
     private String updateTime;
 
-    @Column(name = "contract_info")
-    private String contractInfo;
-
-    public String getContractInfo() {
-        return contractInfo;
-    }
-
-    public void setContractInfo(String contractInfo) {
-        this.contractInfo = contractInfo;
-    }
 
     public String getStudentId() {
         return studentId;
