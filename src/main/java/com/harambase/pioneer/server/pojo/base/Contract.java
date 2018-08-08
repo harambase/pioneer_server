@@ -18,6 +18,9 @@ public class Contract implements Serializable {
     @Column(name = "owner_id")
     private String ownerId;
 
+    @Column(name = "oname")
+    private String oname;
+
     @Column(name = "info")
     private String info;
 
@@ -41,6 +44,14 @@ public class Contract implements Serializable {
 
     @Column(name = "contract_info")
     private String contractInfo;
+
+    public String getOname() {
+        return oname;
+    }
+
+    public void setOname(String oname) {
+        this.oname = oname;
+    }
 
     public Integer getId() {
         return id;

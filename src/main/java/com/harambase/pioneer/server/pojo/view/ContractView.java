@@ -45,12 +45,22 @@ public class ContractView implements Serializable {
     @Column(name = "oname")
     private String oname;
 
+    @Column(name = "opname")
+    private String opname;
+
     @Column(name = "profile")
     private String profile;
 
     @Column(name = "status")
     private String status;
 
+    public String getOpname() {
+        return opname;
+    }
+
+    public void setOpname(String opname) {
+        this.opname = opname;
+    }
 
     public String getOname() {
         return oname;
