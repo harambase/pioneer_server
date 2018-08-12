@@ -2,7 +2,7 @@ package com.harambase.pioneer.server.dao.base;
 
 import com.harambase.pioneer.server.dao.connection.DataServiceConnection;
 import com.harambase.pioneer.server.dao.connection.ResultSetHelper;
-import com.harambase.pioneer.server.pojo.base.Contract;
+import com.harambase.pioneer.server.pojo.view.ContractView;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +13,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedHashMap;
 
 @Component
 public class ContractDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public List<Contract> getContractBySearch(String search, String type, String status, String maxLength) throws Exception {
+    public List<LinkedHashMap> getContractBySearch(String search, String type, String status, String maxLength) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
-        List<Contract> contractList = new ArrayList<>();
+        List<LinkedHashMap> contractList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -52,7 +53,7 @@ public class ContractDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            contractList = ResultSetHelper.getObjectFor(rs, Contract.class);
+            contractList = ResultSetHelper.getObjectAsLinkedHashMap(rs, ContractView.class);
             return contractList;
         } finally {
             if (stmt != null)
@@ -106,12 +107,12 @@ public class ContractDao {
         }
     }
 
-    public List<Contract> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                    String order, String orderColumn, String type, String status) throws Exception {
+    public List<LinkedHashMap> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
+                                                        String order, String orderColumn, String type, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
-        List<Contract> contractList = new ArrayList<>();
+        List<LinkedHashMap> contractList = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -138,7 +139,7 @@ public class ContractDao {
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            contractList = ResultSetHelper.getObjectFor(rs, Contract.class);
+            contractList = ResultSetHelper.getObjectAsLinkedHashMap(rs, ContractView.class);
             return contractList;
 
         } finally {

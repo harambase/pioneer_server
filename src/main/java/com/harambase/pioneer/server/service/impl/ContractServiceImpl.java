@@ -9,6 +9,7 @@ import com.harambase.pioneer.server.dao.repository.*;
 import com.harambase.pioneer.server.pojo.base.Course;
 import com.harambase.pioneer.server.pojo.base.Contract;
 import com.harambase.pioneer.server.pojo.base.Student;
+import com.harambase.pioneer.server.pojo.view.ContractView;
 import com.harambase.pioneer.server.service.ContractService;
 import com.harambase.pioneer.server.service.ContractService;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
@@ -126,7 +128,7 @@ public class ContractServiceImpl implements ContractService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<Contract> contractList = contractDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, type, status);
+            List<LinkedHashMap> contractList = contractDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn, type, status);
 
             message.setData(contractList);
             message.put("page", page);
@@ -144,7 +146,7 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ResultMap listContracts(String search, String type, String status, String maxLength) {
         try {
-            List<Contract> contracts = contractDao.getContractBySearch(search, type, status, maxLength);
+            List<LinkedHashMap> contracts = contractDao.getContractBySearch(search, type, status, maxLength);
             return ReturnMsgUtil.success(contracts);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
