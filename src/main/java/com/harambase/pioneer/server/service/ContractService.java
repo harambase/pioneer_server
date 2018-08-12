@@ -9,14 +9,14 @@ public interface ContractService {
 
     ResultMap contractList(String s, String s1, String search, String order, String orderCol, String type, String status);
 
-    ResultMap getContract(String contractId);
+    ResultMap getContract(Integer id);
 
-    ResultMap update(String contractId, Contract contract);
+    ResultMap update(Integer id, Contract contract);
 
     ResultMap listContracts(String search, String type, String status, String maxLength);
 
     ResultMap count(String type);
 
-    ResultMap removeContract(String contractid);
+    ResultMap removeContract(Integer id);
 
 }

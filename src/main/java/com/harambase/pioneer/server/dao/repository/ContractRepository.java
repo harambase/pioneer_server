@@ -9,14 +9,14 @@ import java.util.List;
 
 
 @Repository
-public interface ContractRepository extends JpaRepository<Contract, String> {
-
-    List<Contract> findByInfo(String info);
+public interface ContractRepository extends JpaRepository<Contract, Integer> {
 
     @Query("select count(person.userId) as count from Person person where person.type like concat('%',?1,'%') and person.status=?2")
     int countByType(String type);
 
-    int countByContractId(String contractId);
-
     List<Contract> findByInitDate(String initDate);
+
+    int countById(Integer id);
+
+    Contract findByContractId(String contractId);
 }

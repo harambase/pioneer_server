@@ -31,7 +31,7 @@ public class ContractDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "select * from contract where 1=1 ";
+            String queryString = "select * from contractview where 1=1 ";
             if (StringUtils.isNotEmpty(type))
                 queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
@@ -76,7 +76,7 @@ public class ContractDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT COUNT(*) AS count FROM contract WHERE 1=1 ";
+            String queryString = "SELECT COUNT(*) AS count FROM contractview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
                 queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))
@@ -119,7 +119,7 @@ public class ContractDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM contract WHERE 1=1 ";
+            String queryString = "SELECT * FROM contractview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(type))
                 queryString += "AND type LIKE '%" + type + "%' ";
             if (StringUtils.isNotEmpty(status))

@@ -48,9 +48,6 @@ public class ContractView implements Serializable {
     @Column(name = "opname")
     private String opname;
 
-    @Column(name = "profile")
-    private String profile;
-
     @Column(name = "status")
     private String status;
 
@@ -87,14 +84,6 @@ public class ContractView implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
     }
 
     public Integer getId() {

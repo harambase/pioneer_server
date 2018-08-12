@@ -41,24 +41,24 @@ public class ContractController {
 
     @ApiOperation(value = "删除一个合同", notes = "权限：管理员，后勤，行政", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{contractId}", method = RequestMethod.DELETE)
-    public ResponseEntity delete(@PathVariable("contractId") String contractId) {
-        ResultMap resultMap = contractService.removeContract(contractId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        ResultMap resultMap = contractService.removeContract(id);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "更新合同", notes = "权限：管理员，后勤，行政", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{contractId}", produces = "application/json", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable String contractId, @RequestBody Contract contract) {
+    @RequestMapping(value = "/{id}", produces = "application/json", method = RequestMethod.PUT)
+    public ResponseEntity update(@PathVariable Integer contractId, @RequestBody Contract contract) {
         ResultMap resultMap = contractService.update(contractId, contract);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "获取合同信息", notes = "权限：合同", response = Map.class, tags = {Tags.PERSON})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/{contractId}", method = RequestMethod.GET)
-    public ResponseEntity get(@PathVariable(value = "contractId") String contractId) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity get(@PathVariable(value = "id") Integer contractId) {
         ResultMap resultMap = contractService.getContract(contractId);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }

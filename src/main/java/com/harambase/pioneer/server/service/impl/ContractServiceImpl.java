@@ -75,11 +75,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ResultMap removeContract(String contractId) {
+    public ResultMap removeContract(Integer id) {
         try {
-            Contract contract = contractRepository.findOne(contractId);
+            Contract contract = contractRepository.findOne(id);
             contractRepository.delete(contract);
-            int count = contractRepository.countByContractId(contractId);
+            int count = contractRepository.countById(id);
             return count == 0 ? ReturnMsgUtil.success(null) : ReturnMsgUtil.fail();
 
         } catch (Exception e) {
@@ -89,9 +89,9 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ResultMap update(String contractId, Contract contract) {
+    public ResultMap update(Integer id, Contract contract) {
         try {
-            contract.setContractId(contractId);
+            contract.setId(id);
             contract.setUpdateTime(DateUtil.DateToStr(new Date()));
             Contract newContract = contractRepository.save(contract);
             return newContract != null ? ReturnMsgUtil.success(newContract) : ReturnMsgUtil.fail();
@@ -103,9 +103,9 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ResultMap getContract(String contractId) {
+    public ResultMap getContract(Integer id) {
         try {
-            Contract contract = contractRepository.findOne(contractId);
+            Contract contract = contractRepository.findOne(id);
             return ReturnMsgUtil.success(contract);
         } catch (Exception e) {
             logger.error(e.toString());
