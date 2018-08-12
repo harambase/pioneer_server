@@ -2,8 +2,7 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.5.5-10.2.6-MariaDB : Database - pioneer_2.0
 *********************************************************************
-*/
-
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -30,7 +29,7 @@ CREATE TABLE `advise` (
   `update_time` varchar(20) DEFAULT NULL,
   `operator_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `assignment` */
 
@@ -51,6 +50,27 @@ CREATE TABLE `assignment` (
   `extend_column_3` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Table structure for table `contract` */
+
+DROP TABLE IF EXISTS `contract`;
+
+CREATE TABLE `contract` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contract_id` varchar(20) NOT NULL COMMENT '主编号',
+  `owner_id` varchar(20) DEFAULT NULL COMMENT '用户名',
+  `oname` varchar(100) DEFAULT NULL COMMENT '名',
+  `info` varchar(100) DEFAULT NULL COMMENT '姓',
+  `type` varchar(100) DEFAULT NULL COMMENT '密码',
+  `init_date` varchar(100) DEFAULT NULL COMMENT '状态',
+  `expire_date` varchar(100) DEFAULT NULL COMMENT '信息',
+  `operator_id` varchar(100) DEFAULT NULL COMMENT '生日',
+  `create_time` varchar(100) NOT NULL COMMENT '创建时间',
+  `update_time` varchar(100) NOT NULL COMMENT '修改时间',
+  `comment` text DEFAULT NULL COMMENT '备注',
+  `contract_info` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `course` */
 
@@ -79,7 +99,7 @@ CREATE TABLE `course` (
   `course_info` text DEFAULT NULL,
   `assignment` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `message` */
 
@@ -98,7 +118,7 @@ CREATE TABLE `message` (
   `tag` varchar(50) DEFAULT NULL COMMENT '标签组1（教务、系统、教学、普通）',
   `labels` varchar(50) DEFAULT NULL COMMENT '标签组2（重要、一般、紧急）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `person` */
 
@@ -123,6 +143,7 @@ CREATE TABLE `person` (
   `gender` varchar(20) NOT NULL COMMENT '性别',
   `create_time` varchar(100) NOT NULL COMMENT '创建时间',
   `update_time` varchar(100) NOT NULL COMMENT '修改时间',
+  `last_login_time` varchar(100) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `comment` text DEFAULT NULL COMMENT '备注',
   `profile` text DEFAULT NULL COMMENT '头像',
@@ -138,16 +159,14 @@ CREATE TABLE `pin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pin` int(11) NOT NULL,
   `info` varchar(20) NOT NULL,
-  `faculty_id` varchar(11) DEFAULT NULL,
-  `student_id` varchar(20) DEFAULT NULL,
+  `owner_id` varchar(20) NOT NULL,
   `role` int(11) NOT NULL COMMENT '1：选课，2：成绩',
   `start_time` varchar(20) NOT NULL,
   `end_time` varchar(20) NOT NULL,
   `create_time` varchar(20) DEFAULT NULL,
   `remark` text DEFAULT NULL,
-  `owner` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `role` */
 
@@ -159,7 +178,7 @@ CREATE TABLE `role` (
   `role_name` varchar(255) DEFAULT NULL COMMENT '管理名称',
   `role_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 /*Table structure for table `student` */
 
@@ -169,6 +188,7 @@ CREATE TABLE `student` (
   `student_id` varchar(20) NOT NULL,
   `max_credits` int(11) NOT NULL,
   `update_time` varchar(255) DEFAULT NULL,
+  `contract_info` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -184,7 +204,7 @@ CREATE TABLE `tempadvise` (
   `student_id` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tempcourse` */
 
@@ -200,7 +220,7 @@ CREATE TABLE `tempcourse` (
   `operator_id` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tempuser` */
 
@@ -215,7 +235,7 @@ CREATE TABLE `tempuser` (
   `update_time` varchar(50) DEFAULT NULL,
   `operator_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `transcript` */
 
@@ -226,13 +246,14 @@ CREATE TABLE `transcript` (
   `student_id` varchar(20) NOT NULL COMMENT '学生ID',
   `crn` varchar(20) NOT NULL COMMENT '课程ID',
   `grade` varchar(20) NOT NULL COMMENT '成绩',
-  `credit` int(20) NOT NULL COMMENT '成绩',
+  `credit` double DEFAULT NULL,
   `complete` varchar(20) NOT NULL COMMENT '完成状态',
   `assign_time` varchar(20) NOT NULL COMMENT '时间',
   `operator_id` varchar(50) NOT NULL COMMENT '修改人',
+  `remark` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKnvmw209jvvfrlikqijuqa3xxi` (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 /* Function  structure for function  `get_complete_credits` */
 
@@ -240,29 +261,54 @@ CREATE TABLE `transcript` (
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_complete_credits`(sid varchar(100)) RETURNS int(11)
-BEGIN
-
-	DECLARE credits INT DEFAULT 0;
-
-	DECLARE counts INT DEFAULT 0;
-
-	
-
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '1';
-
-	
-
-	if counts > 0 then
-
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid and t.complete = '1';
-
-	end if;	
-
-	
-
-	RETURN credits;
-
+BEGIN
+
+	DECLARE credits DOUBLE DEFAULT 0.0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid;
+
+	
+
+	if counts > 0 then
+
+		SELECT SUM(t.credit) INTO credits FROM transcriptview t WHERE t.student_id = sid;
+
+	end if;	
+
+	
+
+	RETURN credits;
+
 END */$$
+DELIMITER ;
+
+/* Function  structure for function  `get_contract_status` */
+
+/*!50003 DROP FUNCTION IF EXISTS `get_contract_status` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_contract_status`(contract_id VARCHAR(100)) RETURNS int(11)
+BEGIN
+	DECLARE enddate VARCHAR(100);
+	DECLARE startdate VARCHAR(100);
+	DECLARE status INT(11);
+	
+	SELECT c.expire_date, c.init_date INTO enddate, startdate FROM contract c WHERE c.contract_id = contract_id;
+	
+	IF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(enddate) THEN
+		SET status = -1;
+	elseIF UNIX_TIMESTAMP(NOW())>= UNIX_TIMESTAMP(startdate) THEN
+		set status = 0;
+	ELSE
+		SET status = 1;
+	END IF;
+	
+	RETURN status ;
+    END */$$
 DELIMITER ;
 
 /* Function  structure for function  `get_course_date` */
@@ -374,30 +420,30 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_in_progress_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-
-	DECLARE credits INT DEFAULT 0;
-
-	DECLARE counts INT DEFAULT 0;
-
-	
-
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-
-	
-
-	IF counts > 0 THEN
-
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
-
-	END IF;	
-
-	
-
-	RETURN credits;
-
-	
-
+BEGIN
+
+	DECLARE credits DOUBLE DEFAULT 0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+
+	
+
+	IF counts > 0 THEN
+
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '0';
+
+	END IF;	
+
+	
+
+	RETURN credits;
+
+	
+
     END */$$
 DELIMITER ;
 
@@ -438,28 +484,28 @@ DELIMITER ;
 DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`%` FUNCTION `get_not_complete_credits`(sid VARCHAR(100)) RETURNS int(11)
-BEGIN
-
-	DECLARE credits INT DEFAULT 0;
-
-	DECLARE counts INT DEFAULT 0;
-
-	
-
-	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-
-	
-
-	IF counts > 0 THEN
-
-		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
-
-	END IF;	
-
-		
-
-    return credits;		
-
+BEGIN
+
+	DECLARE credits DOUBLE DEFAULT 0.0;
+
+	DECLARE counts INT DEFAULT 0;
+
+	
+
+	SELECT COUNT(*) INTO counts FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+
+	
+
+	IF counts > 0 THEN
+
+		SELECT SUM(t.credits) INTO credits FROM transcriptview t WHERE t.student_id = sid AND t.complete = '-1';
+
+	END IF;	
+
+		
+
+    return credits;		
+
     END */$$
 DELIMITER ;
 
@@ -542,6 +588,31 @@ DROP TABLE IF EXISTS `advisorview`;
  `profile` text NULL 
 )*/;
 
+/*Table structure for table `contractview` */
+
+DROP TABLE IF EXISTS `contractview`;
+
+/*!50001 DROP VIEW IF EXISTS `contractview` */;
+/*!50001 DROP TABLE IF EXISTS `contractview` */;
+
+/*!50001 CREATE TABLE  `contractview`(
+ `id` int(11) NOT NULL  default '0' ,
+ `contract_id` varchar(20) NOT NULL ,
+ `owner_id` varchar(20) NULL ,
+ `oname` varchar(100) NULL ,
+ `info` varchar(100) NULL ,
+ `type` varchar(100) NULL ,
+ `init_date` varchar(100) NULL ,
+ `expire_date` varchar(100) NULL ,
+ `operator_id` varchar(100) NULL ,
+ `create_time` varchar(100) NOT NULL ,
+ `update_time` varchar(100) NOT NULL ,
+ `comment` text NULL ,
+ `contract_info` text NULL ,
+ `status` int(11) NULL ,
+ `opname` varchar(100) NULL 
+)*/;
+
 /*Table structure for table `courseview` */
 
 DROP TABLE IF EXISTS `courseview`;
@@ -574,7 +645,8 @@ DROP TABLE IF EXISTS `courseview`;
  `faculty` varchar(100) NULL ,
  `date` varchar(100) NULL ,
  `time` varchar(100) NULL ,
- `status` int(11) NULL 
+ `status` int(11) NULL ,
+ `profile` text NULL 
 )*/;
 
 /*Table structure for table `messageview` */
@@ -600,7 +672,29 @@ DROP TABLE IF EXISTS `messageview`;
  `labels` varchar(50) NULL ,
  `tag` varchar(50) NULL ,
  `sender` varchar(100) NULL ,
- `receiver` text NULL 
+ `receiver` varchar(100) NULL 
+)*/;
+
+/*Table structure for table `pinview` */
+
+DROP TABLE IF EXISTS `pinview`;
+
+/*!50001 DROP VIEW IF EXISTS `pinview` */;
+/*!50001 DROP TABLE IF EXISTS `pinview` */;
+
+/*!50001 CREATE TABLE  `pinview`(
+ `user_id` varchar(20) NOT NULL ,
+ `id` int(11) NOT NULL  default '0' ,
+ `pin` int(11) NOT NULL ,
+ `info` varchar(20) NOT NULL ,
+ `owner_id` varchar(20) NOT NULL ,
+ `role` int(11) NOT NULL ,
+ `start_time` varchar(20) NOT NULL ,
+ `end_time` varchar(20) NOT NULL ,
+ `create_time` varchar(20) NULL ,
+ `remark` text NULL ,
+ `profile` text NULL ,
+ `oname` varchar(100) NULL 
 )*/;
 
 /*Table structure for table `studentview` */
@@ -634,8 +728,8 @@ DROP TABLE IF EXISTS `transcriptview`;
  `cname` varchar(100) NOT NULL ,
  `credits` int(11) NULL ,
  `grade` varchar(20) NOT NULL ,
- `credit` int(20) NOT NULL ,
  `complete` varchar(20) NOT NULL ,
+ `credit` double NULL ,
  `faculty_id` varchar(20) NOT NULL ,
  `info` varchar(20) NOT NULL ,
  `sname` varchar(100) NULL ,
@@ -645,7 +739,10 @@ DROP TABLE IF EXISTS `transcriptview`;
  `day` varchar(20) NULL ,
  `assign_time` varchar(20) NOT NULL ,
  `operator_id` varchar(50) NOT NULL ,
- `oname` varchar(100) NULL 
+ `oname` varchar(100) NULL ,
+ `remark` text NULL ,
+ `sprofile` text NULL ,
+ `fprofile` text NULL 
 )*/;
 
 /*View structure for view adviseview */
@@ -662,19 +759,33 @@ DROP TABLE IF EXISTS `transcriptview`;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `advisorview` AS select distinct `p`.`user_id` AS `user_id`,`get_name`(`p`.`user_id`) AS `name`,`get_num_student`(`p`.`user_id`) AS `num_student`,`p`.`update_time` AS `update_time`,`p`.`profile` AS `profile` from `person` `p` where `p`.`role_id` like '%7%' */;
 
+/*View structure for view contractview */
+
+/*!50001 DROP TABLE IF EXISTS `contractview` */;
+/*!50001 DROP VIEW IF EXISTS `contractview` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `contractview` AS select `c`.`id` AS `id`,`c`.`contract_id` AS `contract_id`,`c`.`owner_id` AS `owner_id`,`c`.`oname` AS `oname`,`c`.`info` AS `info`,`c`.`type` AS `type`,`c`.`init_date` AS `init_date`,`c`.`expire_date` AS `expire_date`,`c`.`operator_id` AS `operator_id`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`contract_info` AS `contract_info`,`get_contract_status`(`c`.`contract_id`) AS `status`,`get_name`(`p1`.`user_id`) AS `opname` from (`contract` `c` join `person` `p1`) where `p1`.`user_id` = `c`.`operator_id` */;
+
 /*View structure for view courseview */
 
 /*!50001 DROP TABLE IF EXISTS `courseview` */;
 /*!50001 DROP VIEW IF EXISTS `courseview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`precrn` AS `precrn`,`c`.`level` AS `level`,`c`.`section` AS `section`,`c`.`classroom` AS `classroom`,`c`.`start_date` AS `start_date`,`c`.`end_date` AS `end_date`,`c`.`day` AS `day`,`c`.`start_time` AS `start_time`,`c`.`end_time` AS `end_time`,`c`.`capacity` AS `capacity`,`c`.`info` AS `info`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`course_info` AS `course_info`,`c`.`faculty_id` AS `faculty_id`,`get_remain_capa`(`c`.`crn`) AS `remain`,`get_name`(`c`.`faculty_id`) AS `faculty`,`get_course_date`(`c`.`crn`) AS `date`,`get_course_time`(`c`.`crn`) AS `time`,`get_course_status`(`c`.`crn`) AS `status` from `course` `c` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `courseview` AS select `c`.`id` AS `id`,`c`.`crn` AS `crn`,`c`.`name` AS `name`,`c`.`credits` AS `credits`,`c`.`precrn` AS `precrn`,`c`.`level` AS `level`,`c`.`section` AS `section`,`c`.`classroom` AS `classroom`,`c`.`start_date` AS `start_date`,`c`.`end_date` AS `end_date`,`c`.`day` AS `day`,`c`.`start_time` AS `start_time`,`c`.`end_time` AS `end_time`,`c`.`capacity` AS `capacity`,`c`.`info` AS `info`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`course_info` AS `course_info`,`c`.`faculty_id` AS `faculty_id`,`get_remain_capa`(`c`.`crn`) AS `remain`,`get_name`(`c`.`faculty_id`) AS `faculty`,`get_course_date`(`c`.`crn`) AS `date`,`get_course_time`(`c`.`crn`) AS `time`,`get_course_status`(`c`.`crn`) AS `status`,`person`.`profile` AS `profile` from (`course` `c` join `person` on(`c`.`faculty_id` = `person`.`user_id`)) */;
 
 /*View structure for view messageview */
 
 /*!50001 DROP TABLE IF EXISTS `messageview` */;
 /*!50001 DROP VIEW IF EXISTS `messageview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`m`.`receiver_id` AS `receiver` from (`message` `m` join `person` `s`) where `s`.`user_id` = `m`.`sender_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `messageview` AS select `m`.`id` AS `id`,`m`.`sender_id` AS `sender_id`,`m`.`receiver_id` AS `receiver_id`,`m`.`subject` AS `subject`,`m`.`title` AS `title`,`m`.`body` AS `body`,`m`.`status` AS `status`,`m`.`date` AS `date`,`s`.`profile` AS `pic`,`s`.`tel` AS `tel`,`s`.`email` AS `email`,`m`.`attachment` AS `attachment`,`m`.`labels` AS `labels`,`m`.`tag` AS `tag`,`get_name`(`m`.`sender_id`) AS `sender`,`get_name`(`m`.`receiver_id`) AS `receiver` from (`message` `m` join `person` `s`) where `s`.`user_id` = `m`.`sender_id` */;
+
+/*View structure for view pinview */
+
+/*!50001 DROP TABLE IF EXISTS `pinview` */;
+/*!50001 DROP VIEW IF EXISTS `pinview` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `pinview` AS select `person`.`user_id` AS `user_id`,`p`.`id` AS `id`,`p`.`pin` AS `pin`,`p`.`info` AS `info`,`p`.`owner_id` AS `owner_id`,`p`.`role` AS `role`,`p`.`start_time` AS `start_time`,`p`.`end_time` AS `end_time`,`p`.`create_time` AS `create_time`,`p`.`remark` AS `remark`,`person`.`profile` AS `profile`,`get_name`(`p`.`owner_id`) AS `oname` from (`pin` `p` join `person` on(convert(`p`.`owner_id` using utf8) = `person`.`user_id`)) */;
 
 /*View structure for view studentview */
 
@@ -688,7 +799,7 @@ DROP TABLE IF EXISTS `transcriptview`;
 /*!50001 DROP TABLE IF EXISTS `transcriptview` */;
 /*!50001 DROP VIEW IF EXISTS `transcriptview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`user_id` = `t`.`student_id` and `p2`.`user_id` = `c`.`faculty_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `transcriptview` AS select `t`.`id` AS `id`,`t`.`student_id` AS `student_id`,`t`.`crn` AS `crn`,`c`.`name` AS `cname`,`c`.`credits` AS `credits`,`t`.`grade` AS `grade`,`t`.`complete` AS `complete`,`t`.`credit` AS `credit`,`c`.`faculty_id` AS `faculty_id`,`c`.`info` AS `info`,`get_name`(`p1`.`user_id`) AS `sname`,`get_name`(`p2`.`user_id`) AS `fname`,`get_course_date`(`t`.`crn`) AS `date`,`get_course_time`(`t`.`crn`) AS `time`,`c`.`day` AS `day`,`t`.`assign_time` AS `assign_time`,`t`.`operator_id` AS `operator_id`,`get_name`(`t`.`operator_id`) AS `oname`,`t`.`remark` AS `remark`,`p1`.`profile` AS `sprofile`,`p2`.`profile` AS `fprofile` from (((`transcript` `t` join `course` `c`) join `person` `p1`) join `person` `p2`) where `t`.`crn` = `c`.`crn` and `p1`.`user_id` = `t`.`student_id` and `p2`.`user_id` = `c`.`faculty_id` */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
