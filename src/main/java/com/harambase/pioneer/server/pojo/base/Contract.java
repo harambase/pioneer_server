@@ -45,6 +45,17 @@ public class Contract implements Serializable {
     @Column(name = "contract_info")
     private String contractInfo;
 
+    @Column(name = "comment")
+    private String comment;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     public String getOname() {
         return oname;
     }
