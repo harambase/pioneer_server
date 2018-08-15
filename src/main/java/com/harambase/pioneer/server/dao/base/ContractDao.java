@@ -108,7 +108,7 @@ public class ContractDao {
     }
 
     public List<LinkedHashMap> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                        String order, String orderColumn, String type, String status) throws Exception {
+                                                         String order, String orderColumn, String type, String status) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
