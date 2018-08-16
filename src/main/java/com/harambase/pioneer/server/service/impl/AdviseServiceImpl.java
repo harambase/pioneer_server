@@ -49,7 +49,7 @@ public class AdviseServiceImpl implements AdviseService {
 
     @Override
     public ResultMap advisingList(String currentPage, String pageSize, String search, String order, String orderColumn,
-                                     String studentId, String facultyId, String info) {
+                                  String studentId, String facultyId, String info) {
         try {
             ResultMap message = new ResultMap();
 
@@ -80,17 +80,20 @@ public class AdviseServiceImpl implements AdviseService {
     @Override
     public ResultMap assignMentor(Advise advise) {
         try {
-            Advise oldAdvise = adviseRepository.findOneByStudentId(advise.getStudentId());
-            if(oldAdvise != null){
-                oldAdvise.setStatus("0");
-                adviseRepository.save(oldAdvise);
-            }
 
             int count = adviseRepository.countByFacultyIdAndStudentId(advise.getFacultyId(), advise.getStudentId());
             if (count != 0)
                 return ReturnMsgUtil.custom(SystemConst.ADVISE_DUPLICATE);
 
+            Advise oldAdvise = adviseRepository.findOneByStudentId(advise.getStudentId());
+            if (oldAdvise != null) {
+                oldAdvise.setStatus("0");
+                adviseRepository.save(oldAdvise);
+            }
+
             advise.setStatus("1");
+            advise.setUpdateTime(DateUtil.DateToStr(new Date()));
+
             Advise newAdvise = adviseRepository.save(advise);
             return newAdvise != null ? ReturnMsgUtil.success(newAdvise) : ReturnMsgUtil.fail();
         } catch (Exception e) {
@@ -183,7 +186,7 @@ public class AdviseServiceImpl implements AdviseService {
             List<Advise> adviseList = adviseRepository.findByFacultyId(userId);
 
             //先将之前的ADVIS关系变成0.
-            for(Advise a: adviseList){
+            for (Advise a : adviseList) {
                 a.setStatus("0");
                 a.setUpdateTime(updateTime);
                 adviseRepository.save(a);
@@ -193,8 +196,8 @@ public class AdviseServiceImpl implements AdviseService {
             Person person = personRepository.getOne(userId);
             String[] roleId = person.getRoleId().split("/");
             String roleIds = "";
-            for(String role: roleId){
-                if(StringUtils.isNotEmpty(role) && !role.equals("7"))
+            for (String role : roleId) {
+                if (StringUtils.isNotEmpty(role) && !role.equals("7"))
                     roleIds += role + "/";
             }
             person.setRoleId(roleIds);

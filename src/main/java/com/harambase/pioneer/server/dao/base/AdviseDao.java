@@ -141,7 +141,7 @@ public class AdviseDao {
         }
     }
 
-    public AdviseView getAdviseViewByStudentId(String studentId) throws Exception{
+    public AdviseView getAdviseViewByStudentId(String studentId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;

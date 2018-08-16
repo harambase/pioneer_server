@@ -47,7 +47,7 @@ public class PersonDao {
                         "     last_name  LIKE '%" + search + "%')";
             }
 
-            if(StringUtils.isNotEmpty(maxLength))
+            if (StringUtils.isNotEmpty(maxLength))
                 queryString += "limit 0," + Integer.parseInt(maxLength);
             else
                 queryString += "limit 0,6";

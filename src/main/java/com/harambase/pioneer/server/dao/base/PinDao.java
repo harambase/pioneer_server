@@ -40,8 +40,8 @@ public class PinDao {
                 queryString += "AND owner_id = '" + ownerId + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(owner_id LIKE '%" + search + "%' OR " +
-                               "    pin      LIKE '%" + search + "%' OR " +
-                               "    oname    LIKE '%" + search + "%')";
+                        "    pin      LIKE '%" + search + "%' OR " +
+                        "    oname    LIKE '%" + search + "%')";
             }
             logger.info(queryString);
 
@@ -83,8 +83,8 @@ public class PinDao {
                 queryString += "AND owner_id = '" + ownerId + "' ";
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(owner_id LIKE '%" + search + "%' OR " +
-                               "    pin      LIKE '%" + search + "%' OR " +
-                               "    oname    LIKE '%" + search + "%')";
+                        "    pin      LIKE '%" + search + "%' OR " +
+                        "    oname    LIKE '%" + search + "%')";
             }
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;

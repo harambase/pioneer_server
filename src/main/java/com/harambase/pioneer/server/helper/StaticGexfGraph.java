@@ -80,11 +80,11 @@ public class StaticGexfGraph {
         }
         //设置course Node
         for (LinkedHashMap c : courseViewList) {
-            Node cNode = graph.createNode((String)c.get("crn"));
+            Node cNode = graph.createNode((String) c.get("crn"));
             int value = (int) c.get("capacity") - (int) c.get("remain");
-            cNode.setLabel((String)c.get("name")).setSize(10 + value * 5);
+            cNode.setLabel((String) c.get("name")).setSize(10 + value * 5);
             cNode.getAttributeValues()
-                    .addValue(attCRN, (String)c.get("crn"))
+                    .addValue(attCRN, (String) c.get("crn"))
                     .addValue(attValue, String.valueOf(value))
                     .addValue(attType, "0");
 
@@ -109,7 +109,7 @@ public class StaticGexfGraph {
                 }
             } else if (type.contains("f")) {
                 for (LinkedHashMap c : courseViewList) {
-                    if (((String)c.get("facultyId")).equals(userid)) {
+                    if (((String) c.get("facultyId")).equals(userid)) {
                         Node cNode = graph.getNode((String) c.get("crn"));
                         pNode.connectTo(String.valueOf(index), cNode);
                         index++;
@@ -127,7 +127,7 @@ public class StaticGexfGraph {
         }
 
         StaxGraphWriter graphWriter = new StaxGraphWriter();
-        String path = Config.serverPath +"/static/";
+        String path = Config.serverPath + "/static/";
 
         try {
             File f = new File(path + "/static_graph_sample.gexf");

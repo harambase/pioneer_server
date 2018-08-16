@@ -43,7 +43,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public ResultMap list(String currentPage, String pageSize, String search, String order, String orderColumn,
-                             String receiverId, String senderId, String box) {
+                          String receiverId, String senderId, String box) {
         try {
             ResultMap message = new ResultMap();
 

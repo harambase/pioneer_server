@@ -71,7 +71,7 @@ public class TempUserImpl implements TempUserService {
             tempUser.setStatus("0");
 
             TempUser newTempUser = tempUserRepository.save(tempUser);
-            
+
             return newTempUser != null ? ReturnMsgUtil.success(newTempUser) : ReturnMsgUtil.fail();
 
         } catch (Exception e) {

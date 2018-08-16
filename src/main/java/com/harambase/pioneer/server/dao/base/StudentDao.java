@@ -139,7 +139,7 @@ public class StudentDao {
         }
     }
 
-    public List<LinkedHashMap> getStudentList(String crn, String search) throws Exception{
+    public List<LinkedHashMap> getStudentList(String crn, String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;

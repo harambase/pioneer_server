@@ -19,6 +19,38 @@ public class TranscriptDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    public List<String> getDistinctColumnByInfo(String column, String info) throws Exception {
+        ResultSet rs = null;
+        Connection connection = null;
+        Statement stmt = null;
+        List<String> studentNames = new ArrayList<>();
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return studentNames;
+
+            stmt = connection.createStatement();
+
+            String queryString = "SELECT DISTINCT " + column + " as " + column + " FROM transcriptview WHERE info='" + info + "'";
+
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+            while (rs.next()) {
+                studentNames.add(rs.getString(column));
+            }
+            return studentNames;
+
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
+
     public Long getCountByMapPageSearchOrdered(String search, String studentId, String crn, String info, String complete) throws Exception {
         ResultSet rs = null;
         Connection connection = null;

@@ -50,7 +50,7 @@ public class TranscriptServiceImpl implements TranscriptService {
 
     @Override
     public ResultMap transcriptList(String currentPage, String pageSize, String search, String order,
-                                       String orderColumn, String studentId, String crn, String info, String complete) {
+                                    String orderColumn, String studentId, String crn, String info, String complete) {
 
         ResultMap message = new ResultMap();
         try {
@@ -71,6 +71,17 @@ public class TranscriptServiceImpl implements TranscriptService {
             message.setCode(SystemConst.SUCCESS.getCode());
             return message;
 
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
+    }
+
+    @Override
+    public ResultMap getDistinctColumnByInfo(String column, String info) {
+        try {
+            List<String> columnValues = transcriptDao.getDistinctColumnByInfo(column, info);
+            return ReturnMsgUtil.success(columnValues);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return ReturnMsgUtil.systemError();

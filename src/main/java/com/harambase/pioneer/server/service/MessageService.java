@@ -6,7 +6,7 @@ import com.harambase.pioneer.server.pojo.base.Message;
 public interface MessageService {
 
     ResultMap list(String currentPage, String pageSize, String search, String order,
-                      String orderColumn, String receiverid, String senderid, String box);
+                   String orderColumn, String receiverid, String senderid, String box);
 
     ResultMap getMessageView(Integer id);
 

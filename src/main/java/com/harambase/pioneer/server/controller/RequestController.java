@@ -152,10 +152,10 @@ public class RequestController {
     @RequestMapping(value = "/advise/{studentId}", method = RequestMethod.POST)
     public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONArray jsonArray) {
         String facultyIds = "";
-        for(Object jsonObject: jsonArray){
-            facultyIds += ((JSONObject) jsonObject).get("userId") +"/";
+        for (Object jsonObject : jsonArray) {
+            facultyIds += ((JSONObject) jsonObject).get("userId") + "/";
         }
-        if(StringUtils.isNotEmpty(facultyIds)) {
+        if (StringUtils.isNotEmpty(facultyIds)) {
             ResultMap resultMap = tempAdviseService.register(studentId, facultyIds);
             return new ResponseEntity<>(resultMap, HttpStatus.OK);
         }

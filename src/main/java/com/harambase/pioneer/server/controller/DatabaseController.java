@@ -23,7 +23,7 @@ public class DatabaseController {
     private final DatabaseManager databaseManager;
 
     @Autowired
-    public DatabaseController(DatabaseManager databaseManager){
+    public DatabaseController(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;
     }
 
