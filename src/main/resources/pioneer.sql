@@ -29,7 +29,7 @@ CREATE TABLE `advise` (
   `update_time` varchar(20) DEFAULT NULL,
   `operator_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `assignment` */
 
@@ -70,7 +70,7 @@ CREATE TABLE `contract` (
   `comment` text DEFAULT NULL COMMENT '备注',
   `contract_info` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `course` */
 
@@ -99,7 +99,7 @@ CREATE TABLE `course` (
   `course_info` text DEFAULT NULL,
   `assignment` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `message` */
 
@@ -118,7 +118,7 @@ CREATE TABLE `message` (
   `tag` varchar(50) DEFAULT NULL COMMENT '标签组1（教务、系统、教学、普通）',
   `labels` varchar(50) DEFAULT NULL COMMENT '标签组2（重要、一般、紧急）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `person` */
 
@@ -166,7 +166,7 @@ CREATE TABLE `pin` (
   `create_time` varchar(20) DEFAULT NULL,
   `remark` text DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `role` */
 
@@ -188,7 +188,6 @@ CREATE TABLE `student` (
   `student_id` varchar(20) NOT NULL,
   `max_credits` int(11) NOT NULL,
   `update_time` varchar(255) DEFAULT NULL,
-  `contract_info` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -220,7 +219,7 @@ CREATE TABLE `tempcourse` (
   `operator_id` varchar(255) DEFAULT NULL,
   `update_time` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `tempuser` */
 
@@ -235,7 +234,7 @@ CREATE TABLE `tempuser` (
   `update_time` varchar(50) DEFAULT NULL,
   `operator_id` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `transcript` */
 
@@ -253,7 +252,7 @@ CREATE TABLE `transcript` (
   `remark` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKnvmw209jvvfrlikqijuqa3xxi` (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;
 
 /* Function  structure for function  `get_complete_credits` */
 
@@ -764,7 +763,7 @@ DROP TABLE IF EXISTS `transcriptview`;
 /*!50001 DROP TABLE IF EXISTS `contractview` */;
 /*!50001 DROP VIEW IF EXISTS `contractview` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `contractview` AS select `c`.`id` AS `id`,`c`.`contract_id` AS `contract_id`,`c`.`owner_id` AS `owner_id`,`c`.`oname` AS `oname`,`c`.`info` AS `info`,`c`.`type` AS `type`,`c`.`init_date` AS `init_date`,`c`.`expire_date` AS `expire_date`,`c`.`operator_id` AS `operator_id`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`contract_info` AS `contract_info`,`get_contract_status`(`c`.`contract_id`) AS `status`,`get_name`(`p1`.`user_id`) AS `opname` from (`contract` `c` join `person` `p1`) where `p1`.`user_id` = `c`.`operator_id` */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `contractview` AS select `c`.`id` AS `id`,`c`.`contract_id` AS `contract_id`,`c`.`owner_id` AS `owner_id`,`c`.`oname` AS `oname`,`c`.`info` AS `info`,`c`.`type` AS `type`,`c`.`init_date` AS `init_date`,`c`.`expire_date` AS `expire_date`,`c`.`operator_id` AS `operator_id`,`c`.`create_time` AS `create_time`,`c`.`update_time` AS `update_time`,`c`.`comment` AS `comment`,`c`.`contract_info` AS `contract_info`,`get_contract_status`(`c`.`contract_id`) AS `status`,`get_name`(`p1`.`user_id`) AS `opname` from (`contract` `c` join `person` `p1`) where `p1`.`user_id` = `c`.`operator_id` */;
 
 /*View structure for view courseview */
 
