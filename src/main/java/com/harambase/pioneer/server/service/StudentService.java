@@ -8,13 +8,13 @@ import com.harambase.pioneer.server.pojo.base.Student;
  */
 public interface StudentService {
 
-    ResultMap transcriptDetail(String studentid);
+    ResultMap transcriptDetail(String studentId);
 
     ResultMap update(String studentId, Student student);
 
     ResultMap studentList(String s, String s1, String search, String order, String orderCol, String status);
 
-    ResultMap getAvailableCredit(String studentid, String info);
+    ResultMap getAvailableCredit(String studentId, String info);
 
     ResultMap courseList(String status, String studentId);
 

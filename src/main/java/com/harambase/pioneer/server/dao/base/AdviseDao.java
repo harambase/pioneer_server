@@ -152,7 +152,7 @@ public class AdviseDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM advise WHERE 1=1 AND student_id = '" + studentId + "' ";
+            String queryString = "SELECT * FROM adviseview WHERE 1=1 AND student_id = '" + studentId + "' ";
 
             logger.info(queryString);
 

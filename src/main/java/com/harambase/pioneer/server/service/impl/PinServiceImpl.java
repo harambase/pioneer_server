@@ -148,9 +148,8 @@ public class PinServiceImpl implements PinService {
     public ResultMap generateOne(String startTime, String endTime, int role, String info, String remark, String userId) {
         try {
 
-
             //检查是否存在该类型的pin
-            int count = pinRepository.countByInfoAndOwnerId(info, userId);
+            int count = pinRepository.countByInfoAndOwnerIdAndRole(info, userId, role);
 
             if (count != 0) {
                 return ReturnMsgUtil.custom(SystemConst.PIN_EXISTS);

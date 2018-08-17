@@ -27,5 +27,5 @@ public interface PinRepository extends JpaRepository<Pin, Integer> {
 
     int countByInfo(String info);
 
-    int countByInfoAndOwnerId(String info, String userId);
+    int countByInfoAndOwnerIdAndRole(String info, String userId, int role);
 }
