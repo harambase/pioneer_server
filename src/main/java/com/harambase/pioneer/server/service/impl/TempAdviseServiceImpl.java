@@ -47,7 +47,6 @@ public class TempAdviseServiceImpl implements TempAdviseService {
             if (existAdvise != null) {
                 existAdvise.setFacultyIds(facultyIds);
                 existAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
-                tempAdviseRepository.delete(existAdvise.getId());
                 newTempAdvise = tempAdviseRepository.save(existAdvise);
             } else {
                 TempAdvise tempAdvise = new TempAdvise();
