@@ -9,4 +9,6 @@ public interface TempAdviseRepository extends JpaRepository<TempAdvise, Integer>
     int countById(Integer id);
 
     TempAdvise findByStudentId(String studentId);
+
+    int countByStudentIdAndInfo(String studentId, String info);
 }

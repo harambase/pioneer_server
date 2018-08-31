@@ -149,17 +149,10 @@ public class RequestController {
 
     @ApiOperation(value = "新导师申请", notes = "权限：学生", response = Map.class, tags = {Tags.REQUEST})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/advise/{studentId}", method = RequestMethod.POST)
-    public ResponseEntity newAdvisorRequest(@PathVariable String studentId, @RequestBody JSONArray jsonArray) {
-        String facultyIds = "";
-        for (Object jsonObject : jsonArray) {
-            facultyIds += ((JSONObject) jsonObject).get("userId") + "/";
-        }
-        if (StringUtils.isNotEmpty(facultyIds)) {
-            ResultMap resultMap = tempAdviseService.register(studentId, facultyIds);
-            return new ResponseEntity<>(resultMap, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(new ResultMap(), HttpStatus.OK);
+    @RequestMapping(value = "/advise", method = RequestMethod.POST)
+    public ResponseEntity newAdvisorRequest(@RequestBody TempAdvise tempAdvise) {
+        ResultMap resultMap = tempAdviseService.register(tempAdvise);
+        return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "删除一个导师申请", notes = "权限：学生, 系统", response = Map.class, tags = {Tags.REQUEST})

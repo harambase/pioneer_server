@@ -2,7 +2,7 @@ package com.harambase.pioneer.server.dao.base;
 
 import com.harambase.pioneer.server.dao.connection.DataServiceConnection;
 import com.harambase.pioneer.server.dao.connection.ResultSetHelper;
-import com.harambase.pioneer.server.pojo.base.TempAdvise;
+import com.harambase.pioneer.server.pojo.view.TempAdviseView;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +31,13 @@ public class TempAdviseDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT COUNT(*) AS count FROM tempadvise WHERE 1=1 ";
+            String queryString = "SELECT COUNT(*) AS count FROM tempadviseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND (student_id LIKE  '%" + search + "%' OR faculty_ids LIKE '%" + search + "%')";
+                queryString += "AND (student_id LIKE  '%" + search
+                        + "%' OR first_id  LIKE '%" + search + "%'"
+                        + "%' OR second_id LIKE '%" + search + "%'"
+                        + "%' OR third_id  LIKE '%" + search + "%'"
+                        + ")";
 
             logger.info(queryString);
             rs = stmt.executeQuery(queryString);
@@ -53,12 +57,12 @@ public class TempAdviseDao {
         }
     }
 
-    public List<TempAdvise> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
+    public List<TempAdviseView> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
                                                       String order, String orderColumn) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
-        List<TempAdvise> tempAdvise = new ArrayList<>();
+        List<TempAdviseView> tempAdvise = new ArrayList<>();
         try {
             connection = DataServiceConnection.openDBConnection();
             if (connection == null)
@@ -66,16 +70,21 @@ public class TempAdviseDao {
 
             stmt = connection.createStatement();
 
-            String queryString = "SELECT * FROM tempadvise WHERE 1=1 ";
+            String queryString = "SELECT * FROM tempadviseview WHERE 1=1 ";
             if (StringUtils.isNotEmpty(search))
-                queryString += "AND (student_id LIKE  '%" + search + "%' OR faculty_ids LIKE '%" + search + "%')";
+                queryString += "AND (student_id LIKE  '%" + search
+                        + "%' OR first_id  LIKE '%" + search + "%'"
+                        + "%' OR second_id LIKE '%" + search + "%'"
+                        + "%' OR third_id  LIKE '%" + search + "%'"
+                        + ")";
+
 
             queryString += "order by " + orderColumn + " " + order + " "
                     + "limit " + currentIndex + "," + pageSize;
             logger.info(queryString);
 
             rs = stmt.executeQuery(queryString);
-            tempAdvise = ResultSetHelper.getObjectFor(rs, TempAdvise.class);
+            tempAdvise = ResultSetHelper.getObjectFor(rs, TempAdviseView.class);
             return tempAdvise;
 
         } finally {

@@ -9,6 +9,8 @@ public interface PersonService {
 
     ResultMap login(Person person);
 
+    ResultMap getByKeyword(String keyword);
+
     ResultMap addUser(Person person);
 
     ResultMap userList(String s, String s1, String search, String order, String orderCol, String type, String status, String role);

@@ -22,6 +22,9 @@ public interface PersonRepository extends JpaRepository<Person, String> {
 
     Person findByUserIdAndPassword(String userId, String password);
 
+    @Query("select person from Person person where (person.userId = ?1 or person.qq = ?1 or person.username = ?1) and person.status = '1'")
+    List<Person> findByQqOrUserIdOrUsername(String keyword);
+
     @Query(value = "select get_name(?1)", nativeQuery = true)
     String getName(String userId);
 }

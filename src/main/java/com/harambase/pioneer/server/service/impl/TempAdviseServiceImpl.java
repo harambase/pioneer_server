@@ -7,10 +7,9 @@ import com.harambase.pioneer.common.support.util.DateUtil;
 import com.harambase.pioneer.common.support.util.PageUtil;
 import com.harambase.pioneer.common.support.util.ReturnMsgUtil;
 import com.harambase.pioneer.server.dao.base.TempAdviseDao;
-import com.harambase.pioneer.server.dao.repository.MessageRepository;
 import com.harambase.pioneer.server.dao.repository.TempAdviseRepository;
 import com.harambase.pioneer.server.pojo.base.TempAdvise;
-import com.harambase.pioneer.server.pojo.base.TempCourse;
+import com.harambase.pioneer.server.pojo.view.TempAdviseView;
 import com.harambase.pioneer.server.service.TempAdviseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,36 +25,29 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final TempAdviseRepository tempAdviseRepository;
-    private final MessageRepository messageRepository;
 
     private final TempAdviseDao tempAdviseDao;
 
     @Autowired
     public TempAdviseServiceImpl(TempAdviseRepository tempAdviseRepository,
-                                 MessageRepository messageRepository,
                                  TempAdviseDao tempAdviseDao) {
         this.tempAdviseRepository = tempAdviseRepository;
-        this.messageRepository = messageRepository;
         this.tempAdviseDao = tempAdviseDao;
     }
 
     @Override
-    public ResultMap register(String studentId, String facultyIds) {
+    public ResultMap register(TempAdvise tempAdvise) {
         try {
             TempAdvise newTempAdvise;
-            TempAdvise existAdvise = tempAdviseRepository.findByStudentId(studentId);
-            if (existAdvise != null) {
-                existAdvise.setFacultyIds(facultyIds);
-                existAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
-                newTempAdvise = tempAdviseRepository.save(existAdvise);
+            int count = tempAdviseRepository.countByStudentIdAndInfo(tempAdvise.getStudentId(), tempAdvise.getInfo());
+            if (count > 0) {
+                tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
+                newTempAdvise = tempAdviseRepository.save(tempAdvise);
             } else {
-                TempAdvise tempAdvise = new TempAdvise();
                 tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
                 tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
-                tempAdvise.setStudentId(studentId);
-                tempAdvise.setFacultyIds(facultyIds);
                 tempAdvise.setStatus("1");
-                newTempAdvise = tempAdviseRepository.save(tempAdvise);
+                newTempAdvise  = tempAdviseRepository.save(tempAdvise);
             }
 
             return newTempAdvise == null ? ReturnMsgUtil.fail() : ReturnMsgUtil.success(newTempAdvise);
@@ -101,7 +93,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<TempAdvise> tempAdvise = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn);
+            List<TempAdviseView> tempAdvise = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn);
 
             message.setData(tempAdvise);
             message.put("page", page);
@@ -119,6 +111,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     public ResultMap updateTempAdvise(Integer id, TempAdvise tempAdvise) {
         try {
             tempAdvise.setId(id);
+            tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
             TempAdvise newTempAdvise = tempAdviseRepository.save(tempAdvise);
             return ReturnMsgUtil.success(newTempAdvise);
         } catch (Exception e) {

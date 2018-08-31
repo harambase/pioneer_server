@@ -31,7 +31,6 @@ public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
     private final AdviseRepository adviseRepository;
-    private final MessageRepository messageRepository;
     private final StudentRepository studentRepository;
     private final TranscriptRepository transcriptRepository;
     private final CourseRepository courseRepository;
@@ -41,13 +40,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     public PersonServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
-                             TranscriptRepository transcriptRepository, MessageRepository messageRepository,
                              StudentRepository studentRepository, CourseRepository courseRepository,
-                             PersonDao personDao) {
+                             TranscriptRepository transcriptRepository, PersonDao personDao) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;
         this.transcriptRepository = transcriptRepository;
-        this.messageRepository = messageRepository;
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
         this.personDao = personDao;
@@ -64,6 +61,17 @@ public class PersonServiceImpl implements PersonService {
         person.setLastLoginTime(DateUtil.DateToStr(new Date()));
         Person newPerson = personRepository.save(person);
         return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
+    }
+
+    @Override
+    public ResultMap getByKeyword(String keyword) {
+        try {
+            Person user = personRepository.findByQqOrUserIdOrUsername(keyword).get(0);
+            return user != null ? ReturnMsgUtil.success(user) : ReturnMsgUtil.fail();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return ReturnMsgUtil.systemError();
+        }
     }
 
     @Override
