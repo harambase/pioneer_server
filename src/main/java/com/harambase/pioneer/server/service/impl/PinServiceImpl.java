@@ -39,15 +39,12 @@ public class PinServiceImpl implements PinService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final PinRepository pinRepository;
-    private final PersonRepository personRepository;
 
     private final PersonDao personDao;
     private final PinDao pinDao;
 
     @Autowired
-    public PinServiceImpl(PersonRepository personRepository, PinRepository pinRepository,
-                          PinDao pinDao, PersonDao personDao) {
-        this.personRepository = personRepository;
+    public PinServiceImpl(PinRepository pinRepository, PinDao pinDao, PersonDao personDao) {
         this.pinRepository = pinRepository;
         this.personDao = personDao;
         this.pinDao = pinDao;
@@ -87,6 +84,9 @@ public class PinServiceImpl implements PinService {
                     break;
                 case 2:
                     personList = personDao.getPersonBySearch("", "f", "", "1", "");
+                    break;
+                case 3:
+                    personList = personDao.getPersonBySearch("", "s", "", "1", "");
                     break;
             }
 

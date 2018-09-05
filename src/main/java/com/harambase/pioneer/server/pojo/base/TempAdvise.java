@@ -10,6 +10,9 @@ public class TempAdvise {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "comment")
+    private String comment;
+
     @Column(name = "student_id")
     private String studentId;
 
@@ -36,6 +39,14 @@ public class TempAdvise {
 
     @Column(name = "update_time")
     private String updateTime;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public String getOperatorId() {
         return operatorId;

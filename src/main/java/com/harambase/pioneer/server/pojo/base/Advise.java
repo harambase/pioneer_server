@@ -27,8 +27,8 @@ public class Advise implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "operator_id")
-    private String operator_id;
+    @Column(name = "operatorId")
+    private String operatorId;
 
     public String getInfo() {
         return info;
@@ -62,12 +62,12 @@ public class Advise implements Serializable {
         this.facultyId = facultyId == null ? null : facultyId.trim();
     }
 
-    public String getOperator_id() {
-        return operator_id;
+    public String getOperatorId() {
+        return operatorId;
     }
 
-    public void setOperator_id(String operator_id) {
-        this.operator_id = operator_id;
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
     }
 
     public String getUpdateTime() {

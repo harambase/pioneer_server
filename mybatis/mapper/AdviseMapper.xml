@@ -7,13 +7,13 @@
     <result column="ownerId" property="ownerId" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
-    <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
+    <result column="operatorId" property="operatorId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, studentId, ownerId
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from Advise where id = #{arg0, jdbcType=INTEGER}
   </select>
@@ -31,7 +31,7 @@
   </select>
 
   <select id="getAllAdvise" resultMap="BaseResultMap">
-    select * from Advise 
+    select * from Advise
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -41,12 +41,12 @@
     delete from Advise where studentId = #{studentId,jdbcType=INTEGER} or ownerId = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Advise" >
-    insert into Advise (id, studentId, ownerId, status, updateTime, operator_id
+    insert into Advise (id, studentId, ownerId, status, updateTime, operatorId
       )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR},
     #{status,jdbcType=VARCHAR},
     #{updateTime,jdbcType=VARCHAR},
-    #{operator_id,jdbcType=VARCHAR}
+    #{operatorId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Advise" >
@@ -67,8 +67,8 @@
       <if test="updateTime != null" >
         updateTime,
       </if>
-      <if test="operator_id != null" >
-        operator_id,
+      <if test="operatorId != null" >
+        operatorId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -87,8 +87,8 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        #{operator_id,jdbcType=VARCHAR},
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -107,8 +107,8 @@
       <if test="updateTime != null" >
         updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        operator_id = #{operator_id,jdbcType=VARCHAR},
+      <if test="operatorId != null" >
+        operatorId = #{operatorId,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -119,7 +119,7 @@
         ownerId = #{ownerId,jdbcType=VARCHAR},
         status = #{status,jdbcType=VARCHAR},
         updateTime = #{updateTime,jdbcType=VARCHAR},
-        operator_id = #{operator_id,jdbcType=VARCHAR},
+        operatorId = #{operatorId,jdbcType=VARCHAR},
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -135,7 +135,7 @@
       and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
       ownerId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
+      operatorId like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
@@ -152,7 +152,7 @@
       and (studentId like '%' #{search,jdbcType=VARCHAR} '%' or
       ownerId like '%' #{search,jdbcType=VARCHAR} '%' or
       sname like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator_id like  '%' #{search,jdbcType=VARCHAR} '%' or
+      operatorId like  '%' #{search,jdbcType=VARCHAR} '%' or
       fname like  '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     order by ${orderColumn} ${order}

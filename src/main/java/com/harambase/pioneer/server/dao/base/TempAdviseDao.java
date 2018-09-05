@@ -19,7 +19,7 @@ public class TempAdviseDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public long getCountByMapPageSearchOrdered(String search) throws Exception {
+    public long getCountByMapPageSearchOrdered(String search, String viewStatus, String info, String studentId, String facultyId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -32,6 +32,14 @@ public class TempAdviseDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM tempadviseview WHERE 1=1 ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND (first_id = '" + facultyId + "' OR second_id = '" + facultyId + "' OR third_id = '" + facultyId + "') ";
+            if (StringUtils.isNotEmpty(studentId))
+                queryString += "AND student_id = '" + studentId + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(viewStatus))
+                queryString += "AND status = '" + viewStatus + "' ";
             if (StringUtils.isNotEmpty(search))
                 queryString += "AND (student_id LIKE  '%" + search
                         + "%' OR first_id  LIKE '%" + search + "%'"
@@ -58,7 +66,7 @@ public class TempAdviseDao {
     }
 
     public List<TempAdviseView> getByMapPageSearchOrdered(int currentIndex, int pageSize, String search,
-                                                      String order, String orderColumn) throws Exception {
+                                                          String order, String orderColumn, String viewStatus, String info, String studentId, String facultyId) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -71,6 +79,21 @@ public class TempAdviseDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM tempadviseview WHERE 1=1 ";
+            if (StringUtils.isNotEmpty(facultyId))
+                queryString += "AND (first_id = '" + facultyId + "' OR second_id = '" + facultyId + "' OR third_id = '" + facultyId + "') ";
+            if (StringUtils.isNotEmpty(studentId))
+                queryString += "AND student_id = '" + studentId + "' ";
+            if (StringUtils.isNotEmpty(info))
+                queryString += "AND info = '" + info + "' ";
+            if (StringUtils.isNotEmpty(viewStatus))
+                queryString += "AND status = '" + viewStatus + "' ";
+            if (StringUtils.isNotEmpty(search))
+                queryString += "AND (student_id LIKE  '%" + search
+                        + "%' OR first_id  LIKE '%" + search + "%'"
+                        + "%' OR second_id LIKE '%" + search + "%'"
+                        + "%' OR third_id  LIKE '%" + search + "%'"
+                        + ")";
+
             if (StringUtils.isNotEmpty(search))
                 queryString += "AND (student_id LIKE  '%" + search
                         + "%' OR first_id  LIKE '%" + search + "%'"

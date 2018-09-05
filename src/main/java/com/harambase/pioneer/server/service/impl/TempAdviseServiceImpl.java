@@ -47,7 +47,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
                 tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
                 tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
                 tempAdvise.setStatus("1");
-                newTempAdvise  = tempAdviseRepository.save(tempAdvise);
+                newTempAdvise = tempAdviseRepository.save(tempAdvise);
             }
 
             return newTempAdvise == null ? ReturnMsgUtil.fail() : ReturnMsgUtil.success(newTempAdvise);
@@ -82,18 +82,20 @@ public class TempAdviseServiceImpl implements TempAdviseService {
     }
 
     @Override
-    public ResultMap tempAdviseList(String currentPage, String pageSize, String search, String order, String orderColumn) {
+    public ResultMap tempAdviseList(String currentPage, String pageSize, String search, String order, String orderColumn,
+                                    String viewStatus, String info, String studentId, String facultyId) {
         ResultMap message = new ResultMap();
         try {
 
-            long totalSize = tempAdviseDao.getCountByMapPageSearchOrdered(search);
+            long totalSize = tempAdviseDao.getCountByMapPageSearchOrdered(search, viewStatus, info, studentId, facultyId);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));
             page.setPageSize(PageUtil.getLimit(pageSize));
             page.setTotalRows(totalSize);
 
-            List<TempAdviseView> tempAdvise = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn);
+            List<TempAdviseView> tempAdvise = tempAdviseDao.getByMapPageSearchOrdered(page.getCurrentIndex(), page.getPageSize(), search, order, orderColumn,
+                   viewStatus, info, studentId, facultyId);
 
             message.setData(tempAdvise);
             message.put("page", page);

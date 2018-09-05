@@ -8,13 +8,13 @@
     <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="complete" property="complete" jdbcType="VARCHAR" />
     <result column="assignTime" property="assignTime" jdbcType="VARCHAR" />
-    <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
+    <result column="operatorId" property="operatorId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, studentId, crn, grade, complete, assignTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from Transcript
     where id = #{id,jdbcType=INTEGER}
@@ -33,10 +33,10 @@
 
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
     insert into Transcript (id, studentId, crn,
-      grade, complete, assignTime, operator_id
+      grade, complete, assignTime, operatorId
       )
     values (#{id,jdbcType=INTEGER}, #{studentId,jdbcType=VARCHAR}, #{crn,jdbcType=VARCHAR},
-      #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assignTime,jdbcType=VARCHAR},#{operator_id,jdbcType=VARCHAR}
+      #{grade,jdbcType=VARCHAR}, #{complete,jdbcType=VARCHAR}, #{assignTime,jdbcType=VARCHAR},#{operatorId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.Transcript" >
@@ -60,8 +60,8 @@
       <if test="assignTime != null" >
         assignTime,
       </if>
-      <if test="operator_id != null" >
-        operator_id,
+      <if test="operatorId != null" >
+        operatorId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -83,8 +83,8 @@
       <if test="assignTime != null" >
         #{assignTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        #{operator_id,jdbcType=VARCHAR}
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
@@ -106,8 +106,8 @@
       <if test="assignTime != null" >
         assignTime = #{assignTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        operator_id = #{operator_id,jdbcType=VARCHAR}
+      <if test="operatorId != null" >
+        operatorId = #{operatorId,jdbcType=VARCHAR}
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -117,7 +117,7 @@
     set grade = #{grade,jdbcType=VARCHAR},
       complete = #{complete,jdbcType=VARCHAR},
       assignTime = #{assignTime,jdbcType=VARCHAR},
-      operator_id = #{operator_id,jdbcType=VARCHAR}
+      operatorId = #{operatorId,jdbcType=VARCHAR}
     where studentId = #{studentId,jdbcType=VARCHAR} and crn = #{crn,jdbcType=VARCHAR}
   </update>
   <select id="getTranscriptCountByMapPageSearchOrdered" parameterType="java.util.Map" resultType="java.lang.Long">
@@ -136,7 +136,7 @@
            assignTime like  '%' #{search,jdbcType=VARCHAR} '%' or
            slast like  '%' #{search,jdbcType=VARCHAR} '%' or
            sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
-           operator_id like  '%' #{operator_id,jdbcType=VARCHAR} '%' or
+           operatorId like  '%' #{operatorId,jdbcType=VARCHAR} '%' or
            ownerId like  '%' #{search,jdbcType=VARCHAR} '%')
     </if>
   </where>
@@ -157,7 +157,7 @@
       assignTime like  '%' #{search,jdbcType=VARCHAR} '%' or
       slast like  '%' #{search,jdbcType=VARCHAR} '%' or
       sfirst like  '%' #{search,jdbcType=VARCHAR} '%' or
-      operator_id like  '%' #{operator_id,jdbcType=VARCHAR} '%' or
+      operatorId like  '%' #{operatorId,jdbcType=VARCHAR} '%' or
       ownerId like  '%' #{search,jdbcType=VARCHAR} '%')
     </if></where>
     order by ${orderColumn} ${order}

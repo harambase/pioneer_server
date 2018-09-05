@@ -7,19 +7,19 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="createTime" property="createTime" jdbcType="VARCHAR" />
     <result column="updateTime" property="updateTime" jdbcType="VARCHAR" />
-    <result column="operator_id" property="operator_id" jdbcType="VARCHAR" />
+    <result column="operatorId" property="operatorId" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.harambase.pioneer.pojo.base.TempCourse" extends="BaseResultMap" >
     <result column="course_json" property="courseJson" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, crn, status, createTime, updateTime, operator_id
+    id, crn, status, createTime, updateTime, operatorId
   </sql>
   <sql id="Blob_Column_List" >
     course_json
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -31,11 +31,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
-    insert into TempCourse (id, crn, status, 
-      createTime, updateTime, operator_id,
+    insert into TempCourse (id, crn, status,
+      createTime, updateTime, operatorId,
       course_json)
-    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{operator_id,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{crn,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{operatorId,jdbcType=VARCHAR},
       #{courseJson,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.harambase.pioneer.pojo.base.TempCourse" >
@@ -56,8 +56,8 @@
       <if test="updateTime != null" >
         updateTime,
       </if>
-      <if test="operator_id != null" >
-        operator_id,
+      <if test="operatorId != null" >
+        operatorId,
       </if>
       <if test="courseJson != null" >
         course_json,
@@ -79,8 +79,8 @@
       <if test="updateTime != null" >
         #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        #{operator_id,jdbcType=VARCHAR},
+      <if test="operatorId != null" >
+        #{operatorId,jdbcType=VARCHAR},
       </if>
       <if test="courseJson != null" >
         #{courseJson,jdbcType=LONGVARCHAR},
@@ -102,8 +102,8 @@
       <if test="updateTime != null" >
         updateTime = #{updateTime,jdbcType=VARCHAR},
       </if>
-      <if test="operator_id != null" >
-        operator_id = #{operator_id,jdbcType=VARCHAR},
+      <if test="operatorId != null" >
+        operatorId = #{operatorId,jdbcType=VARCHAR},
       </if>
       <if test="courseJson != null" >
         course_json = #{courseJson,jdbcType=LONGVARCHAR},
@@ -117,7 +117,7 @@
       status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR},
-      operator_id = #{operator_id,jdbcType=VARCHAR},
+      operatorId = #{operatorId,jdbcType=VARCHAR},
       course_json = #{courseJson,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -127,7 +127,7 @@
       status = #{status,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=VARCHAR},
       updateTime = #{updateTime,jdbcType=VARCHAR},
-      operator_id = #{operator_id,jdbcType=VARCHAR}
+      operatorId = #{operatorId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

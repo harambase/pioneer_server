@@ -11,7 +11,7 @@ public interface TempAdviseService {
 
     ResultMap get(String studentId);
 
-    ResultMap tempAdviseList(String s, String s1, String search, String order, String orderCol);
+    ResultMap tempAdviseList(String s, String s1, String search, String order, String orderCol, String viewStatus, String info, String studentId, String facultyId);
 
     ResultMap updateTempAdvise(Integer id, TempAdvise tempAdvise);
 }

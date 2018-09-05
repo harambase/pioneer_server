@@ -186,8 +186,12 @@ public class RequestController {
                                      @RequestParam(value = "length") Integer length,
                                      @RequestParam(value = "search", required = false, defaultValue = "") String search,
                                      @RequestParam(value = "order", required = false, defaultValue = "desc") String order,
-                                     @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol) {
-        ResultMap resultMap = tempAdviseService.tempAdviseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol);
+                                     @RequestParam(value = "orderCol", required = false, defaultValue = "0") String orderCol,
+                                     @RequestParam(value = "viewStatus", required = false, defaultValue = "") String viewStatus,
+                                     @RequestParam(value = "info", required = false, defaultValue = "") String info,
+                                     @RequestParam(value = "studentId", required = false, defaultValue = "") String studentId,
+                                     @RequestParam(value = "facultyId", required = false, defaultValue = "") String facultyId) {
+        ResultMap resultMap = tempAdviseService.tempAdviseList(String.valueOf(start / length + 1), String.valueOf(length), search, order, orderCol,viewStatus, info, studentId, facultyId);
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
