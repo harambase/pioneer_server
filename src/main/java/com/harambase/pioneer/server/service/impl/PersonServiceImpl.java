@@ -56,8 +56,8 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public ResultMap updateLastLoginTime(String userId) {
-        Person person = personRepository.findOne(userId);
+    public ResultMap updateLastLoginTime(String keyword) {
+        Person person = personRepository.findByQqOrUserIdOrUsername(keyword).get(0);
         person.setLastLoginTime(DateUtil.DateToStr(new Date()));
         Person newPerson = personRepository.save(person);
         return newPerson != null ? ReturnMsgUtil.success(newPerson) : ReturnMsgUtil.fail();
