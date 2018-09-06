@@ -34,7 +34,7 @@ public class MonitorController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public ResponseEntity systemInfo() {
-        ResultMap resultMap = monitorService.getSystemCount();
+        ResultMap resultMap = monitorService.systemCount();
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
@@ -42,16 +42,17 @@ public class MonitorController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
     @RequestMapping(value = "/relation", method = RequestMethod.GET)
     public ResponseEntity relationChart() {
-        ResultMap resultMap = monitorService.getRelationChart();
+        ResultMap resultMap = monitorService.relationChart();
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
 
     @ApiOperation(value = "系统用户计数", notes = "权限：用户", response = Map.class, tags = {Tags.SYSTEM})
     @ApiResponses(value = {@ApiResponse(code = 200, message = "操作成功", response = Map.class)})
-    @RequestMapping(value = "/user/count", method = RequestMethod.GET)
-    public ResponseEntity userCount() {
+    @RequestMapping(value = "/user/chart", method = RequestMethod.GET)
+    public ResponseEntity userChart() {
         ResultMap resultMap = monitorService.userChart();
         return new ResponseEntity<>(resultMap, HttpStatus.OK);
     }
+
 
 }

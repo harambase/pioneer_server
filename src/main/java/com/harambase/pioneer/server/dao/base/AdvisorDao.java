@@ -19,7 +19,7 @@ public class AdvisorDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public Long getAdvisorCountByMapPageSearchOrdered(String status, String search) throws Exception {
+    public Long getAdvisorCountByMapPageSearchOrdered(String search) throws Exception {
         ResultSet rs = null;
         Connection connection = null;
         Statement stmt = null;
@@ -32,8 +32,7 @@ public class AdvisorDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT COUNT(*) AS count FROM advisorview WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(status))
-                queryString += "AND status = '" + status + "' ";
+
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(user_id LIKE '%" + search + "%' OR " +
                         "   name    LIKE '%" + search + "%')";
@@ -71,8 +70,7 @@ public class AdvisorDao {
             stmt = connection.createStatement();
 
             String queryString = "SELECT * FROM advisorview WHERE 1=1 ";
-            if (StringUtils.isNotEmpty(status))
-                queryString += "AND status = '" + status + "' ";
+
             if (StringUtils.isNotEmpty(search)) {
                 queryString += "AND(user_id LIKE '%" + search + "%' OR " +
                         "   name    LIKE '%" + search + "%')";
@@ -113,6 +111,39 @@ public class AdvisorDao {
             rs = stmt.executeQuery(queryString);
 
             return ResultSetHelper.getObjectFor(rs, AdvisorView.class).get(0);
+        } finally {
+            if (stmt != null)
+                stmt.close();
+            if (rs != null)
+                rs.close();
+            if (connection != null)
+                connection.close();
+        }
+    }
+
+    public long count() throws Exception {
+        ResultSet rs = null;
+        Connection connection = null;
+        Statement stmt = null;
+        Long count = 0L;
+        try {
+            connection = DataServiceConnection.openDBConnection();
+            if (connection == null)
+                return count;
+
+            stmt = connection.createStatement();
+
+            String queryString = "SELECT COUNT(*) AS count FROM advisorview";
+
+            logger.info(queryString);
+
+            rs = stmt.executeQuery(queryString);
+
+            if (rs.next()) {
+                count = rs.getLong("count");
+            }
+            return count;
+
         } finally {
             if (stmt != null)
                 stmt.close();

@@ -4,9 +4,10 @@ import com.harambase.pioneer.common.ResultMap;
 
 public interface MonitorService {
 
-    ResultMap getRelationChart();
+    ResultMap relationChart();
 
     ResultMap userChart();
 
-    ResultMap getSystemCount();
+    ResultMap systemCount();
+
 }

@@ -156,7 +156,7 @@ public class AdviseServiceImpl implements AdviseService {
         try {
             ResultMap message = new ResultMap();
 
-            long totalSize = advisorDao.getAdvisorCountByMapPageSearchOrdered(status, search);
+            long totalSize = advisorDao.getAdvisorCountByMapPageSearchOrdered(search);
 
             Page page = new Page();
             page.setCurrentPage(PageUtil.getcPg(currentPage));

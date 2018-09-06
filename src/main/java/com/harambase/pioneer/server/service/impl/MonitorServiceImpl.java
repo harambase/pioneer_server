@@ -2,6 +2,7 @@ package com.harambase.pioneer.server.service.impl;
 
 import com.harambase.pioneer.common.ResultMap;
 import com.harambase.pioneer.common.MapParam;
+import com.harambase.pioneer.server.dao.base.AdvisorDao;
 import com.harambase.pioneer.server.pojo.base.Advise;
 import com.harambase.pioneer.server.pojo.base.Transcript;
 import com.harambase.pioneer.server.dao.base.CourseDao;
@@ -29,16 +30,19 @@ public class MonitorServiceImpl implements MonitorService {
     private final PersonRepository personRepository;
     private final AdviseRepository adviseRepository;
     private final TranscriptRepository transcriptRepository;
+    private final AdvisorDao advisorDao;
 
     private final CourseDao courseDao;
 
     @Autowired
     public MonitorServiceImpl(PersonRepository personRepository, AdviseRepository adviseRepository,
-                              CourseDao courseDao, TranscriptRepository transcriptRepository) {
+                              CourseDao courseDao, TranscriptRepository transcriptRepository,
+                              AdvisorDao advisorDao) {
         this.personRepository = personRepository;
         this.adviseRepository = adviseRepository;
         this.transcriptRepository = transcriptRepository;
         this.courseDao = courseDao;
+        this.advisorDao = advisorDao;
     }
 
     @Override
@@ -77,18 +81,20 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public ResultMap getSystemCount() {
+    public ResultMap systemCount() {
 
         try {
             Map<String, Integer> data = new HashMap<>();
 
             int student = personRepository.countByTypeAndStatus("s", "1");
             int faculty = personRepository.countByTypeAndStatus("f", "1");
+            int advisor = (int) advisorDao.count();
             int course = courseDao.countAllByStatus("1");
 
             data.put("student", student);
             data.put("faculty", faculty);
             data.put("course", course);
+            data.put("advisor", advisor);
 
             return ReturnMsgUtil.success(data);
 
@@ -99,7 +105,7 @@ public class MonitorServiceImpl implements MonitorService {
     }
 
     @Override
-    public ResultMap getRelationChart() {
+    public ResultMap relationChart() {
 
         try {
             List<Person> personList = personRepository.findAll();
