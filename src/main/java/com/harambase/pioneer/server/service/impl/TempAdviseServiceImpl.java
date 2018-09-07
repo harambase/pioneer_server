@@ -46,7 +46,7 @@ public class TempAdviseServiceImpl implements TempAdviseService {
             } else {
                 tempAdvise.setUpdateTime(DateUtil.DateToStr(new Date()));
                 tempAdvise.setCreateTime(DateUtil.DateToStr(new Date()));
-                tempAdvise.setStatus("1");
+                tempAdvise.setStatus("0");
                 newTempAdvise = tempAdviseRepository.save(tempAdvise);
             }
 
